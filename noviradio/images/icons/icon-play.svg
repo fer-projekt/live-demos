@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63" height="63" viewBox="0 0 63 63">
+  <g id="play" transform="translate(-769 -388)">
+    <g id="Ellipse_18" data-name="Ellipse 18" transform="translate(769 388)" fill="rgba(255,255,255,0.35)" stroke="#ed683b" stroke-width="1">
+      <circle cx="31.5" cy="31.5" r="31.5" stroke="none"/>
+      <circle cx="31.5" cy="31.5" r="31" fill="none"/>
+    </g>
+    <path id="Polygon_4" data-name="Polygon 4" d="M9,0l9,17H0Z" transform="translate(812 411) rotate(90)" fill="#fff"/>
+  </g>
+</svg>
