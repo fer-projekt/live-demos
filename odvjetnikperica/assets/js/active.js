@@ -11,9 +11,10 @@
 
    1. Core Features
       1.1 Sticky Header (sticky-header)
-      1.2 Mobile Dropdown Menu (mobile-menu)
-      1.3 Anchor Prevent Default (anchor-prevent)
-      1.4 Search Form (search-form)
+   1.2 Mobile Dropdown Menu (mobile-menu)
+   1.3 Anchor Prevent Default (anchor-prevent)
+   1.4 Search Form (search-form)
+   1.5 Service Card Tab Sync (service-card-tab-sync)
    2. Sliders & Carousels
       2.1 Service Slide (service-slide)
       2.2 Service Slide Two (service-slide-two)
@@ -90,6 +91,43 @@ anchors.forEach((anchor) => {
   anchor.addEventListener("click", (e) => e.preventDefault());
 });
 
+// 1.5 Service Card Tab Sync
+
+const processTabLinks = document.querySelectorAll("[data-process-tab-trigger]");
+
+if (processTabLinks.length > 0) {
+  document.addEventListener("click", (event) => {
+    const processTabLink = event.target.closest("[data-process-tab-trigger]");
+
+    if (!processTabLink) {
+      return;
+    }
+
+    const tabSelector = processTabLink.getAttribute("data-process-tab-trigger");
+    const processTabTrigger = tabSelector ? document.querySelector(tabSelector) : null;
+    const processSectionSelector = processTabLink.getAttribute("href");
+    const processSection = processSectionSelector ? document.querySelector(processSectionSelector) : null;
+    const bootstrapTab = window.bootstrap && window.bootstrap.Tab;
+
+    if (!processTabTrigger || !bootstrapTab) {
+      return;
+    }
+
+    event.preventDefault();
+    bootstrapTab.getOrCreateInstance(processTabTrigger).show();
+
+    if (processSection) {
+      const headerOffset = header ? header.offsetHeight + 16 : 16;
+      const sectionTop = processSection.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: sectionTop,
+        behavior: "smooth",
+      });
+    }
+  });
+}
+
 // 1.4 Search Form
 
 const searchButton = document.getElementById("searchButton");
@@ -115,6 +153,7 @@ const serviceSwiper = document.querySelector(".service-swiper-slider");
 if (serviceSwiper) {
   new Swiper(".service-swiper-slider", {
     loop: true,
+    watchOverflow: false,
     slidesPerView: 3,
     spaceBetween: 30,
     autoplay: {
@@ -131,7 +170,7 @@ if (serviceSwiper) {
         spaceBetween: 10,
       },
       480: {
-        slidesPerView: 1,
+        slidesPerView: 2,
         spaceBetween: 20,
       },
       576: {
@@ -139,6 +178,10 @@ if (serviceSwiper) {
         spaceBetween: 20,
       },
       1200: {
+        slidesPerView: 2,
+        spaceBetween: 30,
+      },
+      1700: {
         slidesPerView: 3,
         spaceBetween: 30,
       },
