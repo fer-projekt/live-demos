@@ -101,7 +101,6 @@
 		</div>
 	</div>
 </nav>
-
 <section class="home-news-top lg:my-[50px]">
 	<div class="container">
 		<div class="flex flex-wrap xl:-mx-[10px]">
@@ -110,15 +109,17 @@
 					<h2 class="heading-2 mb-[30px] text-center">Najnovije vijesti</h2>
 					<div class="home-news-box">
 						<a href="#">
-							<div class="home-news-box__category">
-								Zadarska županija
-							</div>
-							<div class="home-news-box__meta">
-								<ul>
-									<li>NOVI RADIO</li>
-									<li>11.10.2025.</li>
-									<li>08:52</li>
-								</ul>
+							<div class="home-news-box__header">
+								<div class="home-news-box__category">
+									Zadarska županija
+								</div>
+								<div class="home-news-box__meta">
+									<ul>
+										<li>NOVI RADIO</li>
+										<li>11.10.2025.</li>
+										<li>08:52</li>
+									</ul>
+								</div>
 							</div>
 							<h3 class="home-news-box__title">
 								SVI U MOCIRE!<br>
@@ -128,15 +129,17 @@
 					</div>
 					<div class="home-news-box">
 						<a href="#">
-							<div class="home-news-box__category">
-								Sport
-							</div>
-							<div class="home-news-box__meta">
-								<ul>
-									<li>NOVI RADIO</li>
-									<li>11.10.2025.</li>
-									<li>08:52</li>
-								</ul>
+							<div class="home-news-box__header">
+								<div class="home-news-box__category">
+									Sport
+								</div>
+								<div class="home-news-box__meta">
+									<ul>
+										<li>NOVI RADIO</li>
+										<li>11.10.2025.</li>
+										<li>08:52</li>
+									</ul>
+								</div>
 							</div>
 							<h3 class="home-news-box__title">
 								ZADAR S DUBRAVOM<br>
@@ -146,15 +149,17 @@
 					</div>
 					<div class="home-news-box">
 						<a href="#">
-							<div class="home-news-box__category">
-								Zabava
-							</div>
-							<div class="home-news-box__meta">
-								<ul>
-									<li>NOVI RADIO</li>
-									<li>11.10.2025.</li>
-									<li>08:52</li>
-								</ul>
+							<div class="home-news-box__header">
+								<div class="home-news-box__category">
+									Zabava
+								</div>
+								<div class="home-news-box__meta">
+									<ul>
+										<li>NOVI RADIO</li>
+										<li>11.10.2025.</li>
+										<li>08:52</li>
+									</ul>
+								</div>
 							</div>
 							<h3 class="home-news-box__title">
 								Kino Zona donosi legendarni Haustor kroz „Treći svijet“
@@ -170,15 +175,17 @@
 					</div> <!-- samo mobitel -->
 					<div class="home-news-box">
 						<a href="#">
-							<div class="home-news-box__category">
-								Sport
-							</div>
-							<div class="home-news-box__meta">
-								<ul>
-									<li>NOVI RADIO</li>
-									<li>11.10.2025.</li>
-									<li>08:52</li>
-								</ul>
+							<div class="home-news-box__header">
+								<div class="home-news-box__category">
+									Sport
+								</div>
+								<div class="home-news-box__meta">
+									<ul>
+										<li>NOVI RADIO</li>
+										<li>11.10.2025.</li>
+										<li>08:52</li>
+									</ul>
+								</div>
 							</div>
 							<h3 class="home-news-box__title">
 								SVI U MOCIRE!<br>
@@ -188,15 +195,17 @@
 					</div>
 					<div class="home-news-box">
 						<a href="#">
-							<div class="home-news-box__category">
-								Sport
-							</div>
-							<div class="home-news-box__meta">
-								<ul>
-									<li>NOVI RADIO</li>
-									<li>11.10.2025.</li>
-									<li>08:52</li>
-								</ul>
+							<div class="home-news-box__header">
+								<div class="home-news-box__category">
+									Sport
+								</div>
+								<div class="home-news-box__meta">
+									<ul>
+										<li>NOVI RADIO</li>
+										<li>11.10.2025.</li>
+										<li>08:52</li>
+									</ul>
+								</div>
 							</div>
 							<h3 class="home-news-box__title">
 								ZADAR S DUBRAVOM<br>
@@ -399,33 +408,23 @@
 				<div class="grid lg:grid-cols-3 gap-[20px]">
 					<div class="home-news-box-img-black">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-black__category">
-									ZADARSKA ŽUPANIJA
-								</div>
-								<div class="home-news-box-img-black__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3 lg:grid-cols-1">
 								<picture class="home-news-box-img-black__img max-lg:col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Veliki investicijski ciklus" loading="lazy">
 								</picture>
 								<div class="px-[10px] sm:pt-[10px] xl:p-[20px] max-lg:col-span-2">
-									<div class="home-news-box-img-black__category max-sm:hidden">
-										ZADARSKA ŽUPANIJA
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-black__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+									<div class="home-news-box-img-black__header">
+										<div class="home-news-box-img-black__category">
+											Sport
+										</div>
+										<div class="home-news-box-img-black__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-black__title">
 										VELIKI INVESTICIJSKI CIKLUS<br>
 										Nova ulaganja u sportsku infrastrukturu diljem Zadarske županije
@@ -436,33 +435,23 @@
 					</div>
 					<div class="home-news-box-img-black">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-black__category">
-									ZADARSKA ŽUPANIJA
-								</div>
-								<div class="home-news-box-img-black__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3 lg:grid-cols-1">
 								<picture class="home-news-box-img-black__img max-lg:col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Veliki investicijski ciklus" loading="lazy">
 								</picture>
 								<div class="px-[10px] sm:pt-[10px] xl:p-[20px] max-lg:col-span-2">
-									<div class="home-news-box-img-black__category max-sm:hidden">
-										ZADARSKA ŽUPANIJA
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-black__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+									<div class="home-news-box-img-black__header">
+										<div class="home-news-box-img-black__category">
+											ZADARSKA ŽUPANIJA
+										</div>
+										<div class="home-news-box-img-black__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-black__title">
 										VELIKI INVESTICIJSKI CIKLUS<br>
 										Nova ulaganja u sportsku infrastrukturu diljem Zadarske županije
@@ -473,33 +462,23 @@
 					</div>
 					<div class="home-news-box-img-black">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-black__category">
-									ZADARSKA ŽUPANIJA
-								</div>
-								<div class="home-news-box-img-black__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3 lg:grid-cols-1">
 								<picture class="home-news-box-img-black__img max-lg:col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Veliki investicijski ciklus" loading="lazy">
 								</picture>
 								<div class="px-[10px] sm:pt-[10px] xl:p-[20px] max-lg:col-span-2">
-									<div class="home-news-box-img-black__category max-sm:hidden">
-										ZADARSKA ŽUPANIJA
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-black__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+									<div class="home-news-box-img-black__header">
+										<div class="home-news-box-img-black__category">
+											ZADARSKA ŽUPANIJA
+										</div>
+										<div class="home-news-box-img-black__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-black__title">
 										VELIKI INVESTICIJSKI CIKLUS<br>
 										Nova ulaganja u sportsku infrastrukturu diljem Zadarske županije
@@ -531,15 +510,17 @@
 									<img src="./images/news-dummy-01.webp" alt="Veliki investicijski ciklus" loading="lazy">
 								</picture>
 								<div class="p-[20px] max-lg:col-span-2 bg-white">
-									<div class="home-news-box-img-white__category">
-										ZADARSKA ŽUPANIJA
-									</div>
-									<div class="home-news-box-img-white__meta">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
+									<div class="home-news-box-img-white__header">
+										<div class="home-news-box-img-white__category">
+											ZADARSKA ŽUPANIJA
+										</div>
+										<div class="home-news-box-img-white__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
 									</div>
 									<h3 class="home-news-box-img-white__title">
 										Nova ulaganja u sportsku infrastrukturu diljem Zadarske županije
@@ -555,15 +536,17 @@
 									<img src="./images/news-dummy-01.webp" alt="Veliki investicijski ciklus" loading="lazy">
 								</picture>
 								<div class="p-[20px] max-lg:col-span-2 bg-white">
-									<div class="home-news-box-img-white__category">
-										ZADARSKA ŽUPANIJA
-									</div>
-									<div class="home-news-box-img-white__meta">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
+									<div class="home-news-box-img-white__header">
+										<div class="home-news-box-img-white__category">
+											sport
+										</div>
+										<div class="home-news-box-img-white__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
 									</div>
 									<h3 class="home-news-box-img-white__title">
 										Nova ulaganja u sportsku infrastrukturu diljem Zadarske županije
@@ -601,33 +584,23 @@
 				<div class="grid lg:grid-cols-2 gap-[20px]">
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									ZADARSKA ŽUPANIJA
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Veliki investicijski ciklus" loading="lazy">
 								</picture>
 								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										ZADARSKA ŽUPANIJA
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											ZADARSKA ŽUPANIJA
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										VELIKI INVESTICIJSKI CIKLUS<br>
 										Nova ulaganja u sportsku infrastrukturu diljem Zadarske županije
@@ -638,33 +611,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									VIJESTI
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Rekordan prosinac u Zadru" loading="lazy">
 								</picture>
 								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
+									<div class="home-news-box-img-small__header">
+									<div class="home-news-box-img-small__category">
 										VIJESTI
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
+									</div>
+									<div class="home-news-box-img-small__meta">
 										<ul>
 											<li>NOVI RADIO</li>
 											<li>11. 10. 2025.</li>
 											<li>08:24</li>
 										</ul>
-									</div> <!-- samo desktop -->
+									</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										REKORDAN PROSINAC U ZADRU<br>
 										Advent potaknuo rast dolazaka, noćenja i potrošnje
@@ -723,33 +686,23 @@
 				<div class="grid lg:grid-cols-2 gap-[20px]">
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									ZADARSKA ŽUPANIJA
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Veliki investicijski ciklus" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										ZADARSKA ŽUPANIJA
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											ZADARSKA ŽUPANIJA
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										VELIKI INVESTICIJSKI CIKLUS<br>
 										Nova ulaganja u sportsku infrastrukturu diljem Zadarske županije
@@ -760,33 +713,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									VIJESTI
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Rekordan prosinac u Zadru" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										VIJESTI
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											VIJESTI
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										REKORDAN PROSINAC U ZADRU<br>
 										Advent potaknuo rast dolazaka, noćenja i potrošnje
@@ -797,33 +740,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									SPORT
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Zadarski list i ove godine nagradio najbolje sportaše i sportske kolektive" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										SPORT
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											SPORT
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										Zadarski list i ove godine nagradio najbolje sportaše i sportske kolektive
 									</h3>
@@ -833,33 +766,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									SPORT
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="U Jazinama pao Zabok" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										SPORT
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											SPORT
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										U JAZINAMA PAO ZABOK<br>
 										Torbarina povukao Zadar do prvog slavlja u novoj godini
@@ -877,33 +800,23 @@
 					</div> <!-- samo mobitel -->
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									ZABAVA
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Advent u Zadru" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										ZABAVA
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											ZABAVA
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										ADVENT U ZADRU<br>
 										Puntamika predstavlja novi božićni hit i dio pjesama s albuma koji je u pripremi
@@ -914,33 +827,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									VIJESTI
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="ZadarEvents: nova aplikacija koja spaja građane i događaje u Zadru i Zadarskoj županiji" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										VIJESTI
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											VIJESTI
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										ZadarEvents: nova aplikacija<br>
 										koja spaja građane i događaje u Zadru i Zadarskoj županiji
@@ -951,33 +854,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									VIJESTI
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="U čast VRO „Maslenica”" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										VIJESTI
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											VIJESTI
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										U ČAST VRO „MASLENICA”<br>
 										Molitvena hodnja Koracima nade u istinu
@@ -988,33 +881,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									ZADAR
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Nove investicije" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										ZADAR
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											ZADAR
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										NOVE INVESTICIJE<br>
 										Uređenje sportskih terena u gradu i okolici
@@ -1032,33 +915,23 @@
 					</div> <!-- samo mobitel -->
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									ZADARSKA ŽUPANIJA
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Veliki investicijski ciklus" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										ZADARSKA ŽUPANIJA
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											ZADARSKA ŽUPANIJA
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										VELIKI INVESTICIJSKI CIKLUS<br>
 										Nova ulaganja u sportsku infrastrukturu diljem Zadarske županije
@@ -1069,33 +942,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									VIJESTI
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Rekordan prosinac u Zadru" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										VIJESTI
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											VIJESTI
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										REKORDAN PROSINAC U ZADRU<br>
 										Advent potaknuo rast dolazaka, noćenja i potrošnje
@@ -1106,33 +969,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									SPORT
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="Zadarski list i ove godine nagradio najbolje sportaše i sportske kolektive" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										SPORT
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											SPORT
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										Zadarski list i ove godine<br>
 										nagradio najbolje sportaše i sportske kolektive
@@ -1143,33 +996,23 @@
 					</div>
 					<div class="home-news-box-img-small">
 						<a href="#">
-							<div class="sm:hidden">
-								<div class="home-news-box-img-small__category">
-									SPORT
-								</div>
-								<div class="home-news-box-img-small__meta">
-									<ul>
-										<li>NOVI RADIO</li>
-										<li>11. 10. 2025.</li>
-										<li>08:24</li>
-									</ul>
-								</div>
-							</div> <!-- samo mobitel -->
 							<div class="grid grid-cols-[80px_1fr_1fr] sm:grid-cols-3">
 								<picture class="home-news-box-img-small__img col-span-1">
 									<img src="./images/news-dummy-01.webp" alt="U Jazinama pao Zabok" loading="lazy">
 								</picture>
-								<div class="col-span-2 px-[10px] sm:p-[20px]">
-									<div class="home-news-box-img-small__category max-sm:hidden">
-										SPORT
-									</div> <!-- samo desktop -->
-									<div class="home-news-box-img-small__meta max-sm:hidden">
-										<ul>
-											<li>NOVI RADIO</li>
-											<li>11. 10. 2025.</li>
-											<li>08:24</li>
-										</ul>
-									</div> <!-- samo desktop -->
+								<div class="col-span-2 px-[10px] sm:p-[20px]">									
+									<div class="home-news-box-img-small__header">
+										<div class="home-news-box-img-small__category">
+											SPORT
+										</div>
+										<div class="home-news-box-img-small__meta">
+											<ul>
+												<li>NOVI RADIO</li>
+												<li>11. 10. 2025.</li>
+												<li>08:24</li>
+											</ul>
+										</div>
+									</div>
 									<h3 class="home-news-box-img-small__title">
 										U JAZINAMA PAO ZABOK<br>
 										Torbarina povukao Zadar do prvog slavlja u novoj godini
@@ -1326,6 +1169,8 @@
 	</div>
 </footer>
 
+<div class="max-xl:h-[50px]"></div>
+
 <div class="mobile-down-menu" x-data>
 	<ul>
 		<li>
@@ -1449,76 +1294,191 @@ document.addEventListener('alpine:init', () => {
 	});
 });
 </script>
+
 <script>
-	function newsSlider() {
-		return {
-			current: 0,
-			slidesCount: 3,
-			startX: 0,
-			endX: 0,
+function newsSlider() {
+	return {
+		current: 0,
+		slidesCount: 3,
+		startX: 0,
+		endX: 0,
 
-			init() {
-				// ovdje kasnije možeš dodati autoplay ako bude trebalo
-			},
+		init() {
+			// ovdje kasnije možeš dodati autoplay ako bude trebalo
+		},
 
-			next() {
-				this.current = (this.current + 1) % this.slidesCount;
-			},
+		next() {
+			this.current = (this.current + 1) % this.slidesCount;
+		},
 
-			prev() {
-				this.current = (this.current - 1 + this.slidesCount) % this.slidesCount;
-			},
+		prev() {
+			this.current = (this.current - 1 + this.slidesCount) % this.slidesCount;
+		},
 
-			goTo(index) {
-				this.current = index;
-			},
+		goTo(index) {
+			this.current = index;
+		},
 
-			touchStart(event) {
-				this.startX = event.changedTouches[0].clientX;
-			},
+		touchStart(event) {
+			this.startX = event.changedTouches[0].clientX;
+		},
 
-			touchEnd(event) {
-				this.endX = event.changedTouches[0].clientX;
-				const diff = this.startX - this.endX;
+		touchEnd(event) {
+			this.endX = event.changedTouches[0].clientX;
+			const diff = this.startX - this.endX;
 
-				if (Math.abs(diff) < 50) return;
+			if (Math.abs(diff) < 50) return;
 
-				if (diff > 0) {
-					this.next();
-				} else {
-					this.prev();
-				}
+			if (diff > 0) {
+				this.next();
+			} else {
+				this.prev();
 			}
 		}
 	}
+}
 </script>
 
 <script>
-	// rotate text in hero
-	document.addEventListener('DOMContentLoaded', function () {
-		const wrapper = document.getElementById('heroTitleRotator');
-		const items = wrapper.querySelectorAll('.hero-title-item');
+// rotate text in hero
+document.addEventListener('DOMContentLoaded', function () {
+	const wrapper = document.getElementById('heroTitleRotator');
+	const items = wrapper.querySelectorAll('.hero-title-item');
 
-		let activeIndex = 0;
+	let activeIndex = 0;
 
-		setInterval(() => {
-			items[activeIndex].classList.remove('is-active');
-			activeIndex = (activeIndex + 1) % items.length;
-			items[activeIndex].classList.add('is-active');
-		}, 2000);
+	setInterval(() => {
+		items[activeIndex].classList.remove('is-active');
+		activeIndex = (activeIndex + 1) % items.length;
+		items[activeIndex].classList.add('is-active');
+	}, 2000);
+});
+</script>
+
+<script>
+// open mobile menu
+document.addEventListener("DOMContentLoaded", () => {
+	const ham = document.getElementById("ham");
+	if (!ham) return;
+	ham.addEventListener("click", () => {
+		document.body.classList.toggle("nav-is-toggled");
+		ham.classList.toggle("hm-active");
 	});
+});
 </script>
 
-<script>
-	// open mobile menu
-	document.addEventListener("DOMContentLoaded", () => {
-		const ham = document.getElementById("ham");
-		if (!ham) return;
-		ham.addEventListener("click", () => {
-			document.body.classList.toggle("nav-is-toggled");
-			ham.classList.toggle("hm-active");
+<script type="text/javascript">
+function resetWrappedHeaders() {
+	document.querySelectorAll(
+		'.home-news-box__category, .home-news-box__meta, .home-news-box-img-black__category, .home-news-box-img-black__meta, .home-news-box-img-white__category, .home-news-box-img-white__meta, .home-news-box-img-small__category, .home-news-box-img-small__meta'
+	).forEach(el => {
+		el.classList.remove('is-wrapped');
+	});
+}
+
+function updateWrappedHeaders(headerSelector, categorySelector, metaSelector) {
+	document.querySelectorAll(headerSelector).forEach(header => {
+		const category = header.querySelector(categorySelector);
+		const meta = header.querySelector(metaSelector);
+
+		if (!category || !meta) return;
+
+		const categoryRect = category.getBoundingClientRect();
+		const metaRect = meta.getBoundingClientRect();
+		const isWrapped = metaRect.top > categoryRect.top + 5;
+
+		category.classList.toggle('is-wrapped', isWrapped);
+		meta.classList.toggle('is-wrapped', isWrapped);
+	});
+}
+
+function moveHomeNewsBoxImgBlack() {
+	document.querySelectorAll('.home-news-box-img-black').forEach((box) => {
+		const link = box.querySelector('a');
+		const grid = box.querySelector('.grid');
+		const title = box.querySelector('.home-news-box-img-black__title');
+		const header = box.querySelector('.home-news-box-img-black__header');
+
+		if (!link || !grid || !title || !header) return;
+
+		const content = title.parentElement;
+		const isMobile = window.matchMedia('(max-width: 639px)').matches;
+
+		if (isMobile) {
+			link.insertBefore(header, grid);
+		} else {
+			content.insertBefore(header, title);
+		}
+	});
+}
+
+function moveHomeNewsBoxImgSmall() {
+	document.querySelectorAll('.home-news-box-img-small').forEach((box) => {
+		const link = box.querySelector('a');
+		const grid = box.querySelector('.grid');
+		const title = box.querySelector('.home-news-box-img-small__title');
+		const header = box.querySelector('.home-news-box-img-small__header');
+
+		if (!link || !grid || !title || !header) return;
+
+		const content = title.parentElement;
+		const isMobile = window.matchMedia('(max-width: 639px)').matches;
+
+		if (isMobile) {
+			link.insertBefore(header, grid);
+		} else {
+			content.insertBefore(header, title);
+		}
+	});
+}
+
+function updateNewsHeaders() {
+	updateWrappedHeaders(
+		'.home-news-box__header',
+		'.home-news-box__category',
+		'.home-news-box__meta'
+	);
+
+	updateWrappedHeaders(
+		'.home-news-box-img-black__header',
+		'.home-news-box-img-black__category',
+		'.home-news-box-img-black__meta'
+	);
+
+	updateWrappedHeaders(
+		'.home-news-box-img-white__header',
+		'.home-news-box-img-white__category',
+		'.home-news-box-img-white__meta'
+	);
+
+	updateWrappedHeaders(
+		'.home-news-box-img-small__header',
+		'.home-news-box-img-small__category',
+		'.home-news-box-img-small__meta'
+	);
+}
+
+function handleNewsLayout() {
+	resetWrappedHeaders();
+
+	moveHomeNewsBoxImgBlack();
+	moveHomeNewsBoxImgSmall();
+
+	requestAnimationFrame(() => {
+		requestAnimationFrame(() => {
+			updateNewsHeaders();
 		});
 	});
+}
+
+let resizeTimeout;
+
+document.addEventListener('DOMContentLoaded', handleNewsLayout);
+window.addEventListener('load', handleNewsLayout);
+window.addEventListener('resize', () => {
+	clearTimeout(resizeTimeout);
+	resizeTimeout = setTimeout(handleNewsLayout, 120);
+});
 </script>
 
 </body>
