@@ -281,6 +281,9 @@ nav{
 	@apply mx-[15px];
 	font-weight: 500;
 
+	a{
+		display: block;
+	}
 	.home-news-box__category{
 		@apply mb-[10px] text-primary text-xs;
 		text-transform: uppercase;
@@ -645,14 +648,35 @@ nav{
 	text-transform: uppercase;
 	cursor: pointer;
 
+	span{
+		z-index: 1;
+	}
 	.eq-icon{
 		@apply absolute top-1/2 left-[20px] -translate-y-1/2;
+		z-index: 1;
 	}
 	.vinyl-player{
 		@apply absolute top-1/2 right-[20px] -translate-y-1/2;
+		z-index: 1;
 	}
 	&.play-live__popup{
 		box-shadow: none;
+	}
+	&::after,
+	&::before{
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		z-index: 0;
+	}
+	&::before{
+		background: linear-gradient(268deg, #F17B40 0%, #ED683B 100%);
+	}
+	&::after{
+		background: linear-gradient(268deg, #E83E39 0%, #ED683B 100%) 0% 0%;
+		opacity: 0;
+		transition: opacity 0.3s ease-in-out;
 	}
 }
 .vinyl-player{
@@ -1242,7 +1266,6 @@ footer{
     }
 }
 .news-categories{
-	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
 
@@ -1269,6 +1292,49 @@ footer{
 			background: transparent linear-gradient(256deg, #F17B40 0%, #ED683B 100%) 0% 0% no-repeat padding-box;
 			box-shadow: 0px 3px 6px #00000029;
 			color: #ffffff;
+		}
+	}
+}
+.news-categories-mob {
+	@apply relative;
+	z-index: 10007;
+
+	.news-categories-mob__toggle {
+		@apply flex items-center justify-between min-h-[40px] px-[20px] text-white uppercase;
+		width: auto;
+		background: transparent linear-gradient(256deg, #F17B40 0%, #ED683B 100%) 0% 0% no-repeat padding-box;
+		border-radius: 999px;
+		box-shadow: 0px 3px 6px #00000029;
+		font-weight: 500;
+	}
+	.news-categories-mob__chevron {
+		@apply ml-[12px] transition-transform duration-300;
+	}
+	.news-categories-mob__list {
+		@apply absolute right-0 top-[calc(100%+10px)] flex flex-col gap-[8px] p-[12px] bg-white;
+		width: max-content;
+		min-width: max-content;
+		z-index: 30;
+		border-radius: 20px;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+	}
+	.news-categories-mob__item {
+		@apply flex items-center min-h-[40px] px-[15px] text-sm no-underline;
+		border-radius: 12px;
+		color: #5b5b5b;
+		background: #f3f3f3;
+		font-weight: 500;
+		text-transform: uppercase;
+		transition: all 0.3s ease;
+
+		&:hover {
+			background: #ebebeb;
+			color: #3f3f3f;
+		}
+		&.is-active {
+			@apply text-white;
+			background: transparent linear-gradient(256deg, #F17B40 0%, #ED683B 100%) 0% 0% no-repeat padding-box;
+			box-shadow: 0px 3px 6px #00000029;
 		}
 	}
 }
@@ -1406,6 +1472,16 @@ footer{
 
 		&::before{
 			width: calc(100% - 25px);
+		}
+	}
+	.play-live{
+
+		&:hover{
+			box-shadow: 0px 8px 18px #00000030;
+			
+			&:after {
+				opacity: 1;
+			}
 		}
 	}
 	.home-marketing:hover{ 
