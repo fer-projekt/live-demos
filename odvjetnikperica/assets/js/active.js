@@ -80,6 +80,24 @@ function mobileDropdownMenu() {
         slideToggle(ddNext, 300);
       });
     });
+
+    const dropdownLinks = document.querySelectorAll(".navbar-nav li.lawgis-dd > a");
+    dropdownLinks.forEach((dropdownLink) => {
+      const submenu = dropdownLink.parentElement ? dropdownLink.parentElement.querySelector(":scope > ul") : null;
+
+      if (!submenu) {
+        return;
+      }
+
+      dropdownLink.addEventListener("click", (event) => {
+        if (!window.matchMedia("(max-width: 991.98px)").matches) {
+          return;
+        }
+
+        event.preventDefault();
+        slideToggle(submenu, 300);
+      });
+    });
   }
 }
 window.addEventListener("load", mobileDropdownMenu);

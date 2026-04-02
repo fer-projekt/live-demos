@@ -786,7 +786,7 @@ picture.jarallax-img img {
     margin-left: -20px;
     padding-top: 0;
     padding-bottom: 0;
-    height: 50px;
+    height: 60px;
     width: 72px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -820,6 +820,23 @@ picture.jarallax-img img {
 }
 .header-area .header-nav-cta {
   margin-top: 1rem;
+  width: 100%;
+}
+.header-area .header-nav-cta .btn {
+  width: 100%;
+  text-align: center;
+}
+@media only screen and (max-width: 991.98px) {
+  .header-area .header-nav-cta .btn-primary {
+    background-color: #ffffff;
+    color: #1c1d20;
+    border: 3px solid rgba(28, 29, 32, 0.14) !important;
+  }
+  .header-area .header-nav-cta .btn-primary:hover {
+    background-color: #ffffff;
+    color: #e8bf96;
+    border: 3px solid rgba(28, 29, 32, 0.14) !important;
+  }
 }
 @media only screen and (min-width: 992px) {
   .header-area .navbar-collapse {
@@ -834,7 +851,11 @@ picture.jarallax-img img {
   .header-area .header-nav-cta {
     margin-top: 0;
     margin-left: 0;
+    width: auto;
     flex-shrink: 0;
+  }
+  .header-area .header-nav-cta .btn {
+    width: auto;
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -875,8 +896,51 @@ picture.jarallax-img img {
   align-items: center;
   gap: 6px;
 }
+@media only screen and (max-width: 991.98px) {
+  .header-area .navbar-nav li > a {
+    font-size: 20px;
+  }
+}
 .header-area .navbar-nav li > a i {
+  display: none;
   margin-top: 3px;
+  flex-shrink: 0;
+}
+.header-area .navbar-nav li > a .ti-chevron-down {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+@media only screen and (max-width: 991.98px) {
+  .header-area .navbar-nav li > a {
+    width: 100%;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .header-area .navbar-nav li > a i {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-left: auto;
+  }
+  .header-area .navbar-nav li .lawgis-dd-menu li > a i {
+    font-size: 0.6rem;
+  }
 }
 @media only screen and (min-width: 1200px) {
   .header-area .navbar-nav li > a {
@@ -2269,7 +2333,11 @@ picture.jarallax-img img {
 .about-us-section img {
   border-radius: 12px;
 }
-
+@media only screen and (max-width: 995.98px) {
+  .about-section > .divider:last-child {
+    display: none;
+  }
+}
 /* Happy Counts */
 .happy-counts {
   display: -webkit-box;
