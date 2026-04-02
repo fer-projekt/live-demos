@@ -148,18 +148,55 @@ if (searchButton) {
 
 // 2.1.0 Service Slide
 
-const serviceSwiper = document.querySelector(".service-swiper-slider");
+// const serviceSwiper = document.querySelector(".service-swiper-slider");
 
-if (serviceSwiper) {
-  new Swiper(".service-swiper-slider", {
+// if (serviceSwiper) {
+//   new Swiper(".service-swiper-slider", {
+//     loop: true,
+//     watchOverflow: false,
+//     slidesPerView: 3,
+//     spaceBetween: 30,
+//     autoplay: {
+//       delay: 4000,
+//       disableOnInteraction: false,
+//     },
+//     navigation: {
+//       nextEl: ".service-button-next",
+//       prevEl: ".service-button-prev",
+//     },
+//     breakpoints: {
+//       320: {
+//         slidesPerView: 1,
+//         spaceBetween: 10,
+//       },
+//       480: {
+//         slidesPerView: 2,
+//         spaceBetween: 20,
+//       },
+//       576: {
+//         slidesPerView: 2,
+//         spaceBetween: 20,
+//       },
+//       1200: {
+//         slidesPerView: 2,
+//         spaceBetween: 30,
+//       },
+//       1700: {
+//         slidesPerView: 3,
+//         spaceBetween: 30,
+//       },
+//     },
+//   });
+// }
+const serviceSwiperElement = document.querySelector(".service-swiper-slider");
+
+if (serviceSwiperElement) {
+  const serviceSwiperInstance = new Swiper(".service-swiper-slider", {
     loop: true,
-    watchOverflow: false,
-    slidesPerView: 3,
-    spaceBetween: 30,
-    autoplay: {
-      delay: 4000,
-      disableOnInteraction: false,
-    },
+    watchOverflow: true,
+    slidesPerView: 1,
+    spaceBetween: 16,
+    autoplay: false,
     navigation: {
       nextEl: ".service-button-next",
       prevEl: ".service-button-prev",
@@ -170,23 +207,50 @@ if (serviceSwiper) {
         spaceBetween: 10,
       },
       480: {
-        slidesPerView: 2,
-        spaceBetween: 20,
+        slidesPerView: 1,
+        spaceBetween: 12,
       },
       576: {
+        slidesPerView: 1,
+        spaceBetween: 16,
+      },
+      768: {
         slidesPerView: 2,
         spaceBetween: 20,
       },
       1200: {
         slidesPerView: 2,
-        spaceBetween: 30,
+        spaceBetween: 24,
       },
-      1700: {
+      1400: {
         slidesPerView: 3,
         spaceBetween: 30,
       },
     },
+    on: {
+      init: function () {
+        toggleServiceNavigation(this);
+      },
+      resize: function () {
+        toggleServiceNavigation(this);
+      },
+      breakpoint: function () {
+        toggleServiceNavigation(this);
+      },
+    },
   });
+
+  function toggleServiceNavigation(swiper) {
+    const navigationContainer = document.querySelector(".service-swiper-slider-navigation");
+    const originalSlides = serviceSwiperElement.querySelectorAll(".swiper-wrapper > .swiper-slide:not(.swiper-slide-duplicate)").length;
+    const slidesPerView = Number(swiper.params.slidesPerView) || 1;
+
+    if (!navigationContainer) {
+      return;
+    }
+
+    navigationContainer.style.display = originalSlides <= slidesPerView ? "none" : "flex";
+  }
 }
 
 // 2.2.0 Service Slide Two
