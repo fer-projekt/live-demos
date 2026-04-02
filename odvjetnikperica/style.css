@@ -534,7 +534,7 @@ ol li {
 .section-heading h2 {
   font-size: clamp(45px, 3vw, 52px);
   line-height: 1.15;
-  letter-spacing: -1.04px;
+  letter-spacing: -1.4px;
   margin-bottom: 22px;
 }
 @media only screen and (min-width: 1400px) {
