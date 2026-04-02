@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upitnik — AI Asistent za Vašu Organizaciju</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a5c3a;
+    --primary-light: #e8f5ee;
+    --primary-mid: #2d8a5e;
+    --accent: #d4a843;
+    --accent-light: #fdf6e3;
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --text-muted: #6b7280;
+    --text-light: #9ca3af;
+    --border: #e5e7eb;
+    --border-focus: #1a5c3a;
+    --error: #dc2626;
+    --error-light: #fef2f2;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--primary) 0%, #0f3d26 100%);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212,168,67,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 400;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .header p {
+    font-size: 1rem;
+    opacity: 0.85;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-container {
+    max-width: 680px;
+    margin: 12px auto 0;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .progress-bar-wrapper {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .progress-bar-track {
+    background: var(--border);
+    border-radius: 100px;
+    height: 10px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-mid));
+    border-radius: 100px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 2px 0;
+  }
+
+  .progress-step {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .progress-percent {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* ── MAIN FORM ── */
+  .form-container {
+    max-width: 680px;
+    margin: 32px auto 60px;
+    padding: 0 24px;
+  }
+
+  .step {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .step.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .step-badge .icon { font-size: 0.85rem; }
+
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .step-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  /* ── FORM ELEMENTS ── */
+  .field {
+    margin-bottom: 22px;
+  }
+
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 7px;
+  }
+
+  label .optional {
+    font-weight: 400;
+    color: var(--text-light);
+    font-size: 0.8rem;
+  }
+
+  .field-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text);
+    background: var(--surface);
+    transition: var(--transition);
+    outline: none;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(26, 92, 58, 0.1);
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: var(--text-light);
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 42px;
+  }
+
+  /* ── CHECKBOX / RADIO GRID ── */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .option-card {
+    position: relative;
+    cursor: pointer;
+    display: block;
+  }
+
+  .option-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    transition: var(--transition);
+    background: var(--surface);
+  }
+
+  .option-label:hover {
+    border-color: var(--primary-mid);
+    background: var(--primary-light);
+  }
+
+  .option-card input:checked + .option-label {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: 0 0 0 2px rgba(26, 92, 58, 0.15);
+  }
+
+  .option-check {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    margin-top: 1px;
+    font-size: 0.7rem;
+    color: transparent;
+  }
+
+  .option-card input[type="radio"] + .option-label .option-check {
+    border-radius: 50%;
+  }
+
+  .option-card input:checked + .option-label .option-check {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .option-text strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .option-text span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── RANGE SLIDER ── */
+  .range-wrapper {
+    padding: 8px 0;
+  }
+
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 100px;
+    outline: none;
+    border: none;
+    padding: 0;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(26, 92, 58, 0.3);
+    border: 3px solid white;
+  }
+
+  .range-value {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.9rem;
+  }
+
+  /* ── TWO COLUMNS ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 540px) {
+    .two-col { grid-template-columns: 1fr; }
+    .step-card { padding: 28px 22px; }
+  }
+
+  /* ── NAVIGATION ── */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+  }
+
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(26, 92, 58, 0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-muted);
+    padding: 13px 20px;
+  }
+
+  .btn-secondary:hover {
+    color: var(--text);
+    background: rgba(0,0,0,0.04);
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, var(--accent) 0%, #c09530 100%);
+    color: white;
+    padding: 15px 36px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 16px rgba(212, 168, 67, 0.3);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(212, 168, 67, 0.4);
+  }
+
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* ── TOOLTIP ── */
+  .info-tip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: var(--border);
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: help;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .info-tip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding: 8px 14px;
+    border-radius: 8px;
+    white-space: normal;
+    width: 220px;
+    line-height: 1.5;
+    z-index: 10;
+    box-shadow: var(--shadow-lg);
+    pointer-events: none;
+  }
+
+  /* ── SUCCESS SCREEN ── */
+  .success-screen {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 2rem;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+  }
+
+  .success-screen h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+
+  .success-screen p {
+    color: var(--text-muted);
+    max-width: 420px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── ERROR ── */
+  .field.has-error input,
+  .field.has-error select,
+  .field.has-error textarea {
+    border-color: var(--error);
+    background: var(--error-light);
+  }
+
+  .field-error {
+    font-size: 0.78rem;
+    color: var(--error);
+    margin-top: 5px;
+    display: none;
+  }
+
+  .field.has-error .field-error { display: block; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.78rem;
+    color: var(--text-light);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>AI Asistent — Upitnik</h1>
+  <p>Ispunite ovaj kratki upitnik kako bismo razumjeli potrebe Vaše organizacije i pripremili prijedlog rješenja.</p>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar-wrapper">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-info">
+      <span class="progress-step" id="progressStep">Korak 1 od 7</span>
+      <span class="progress-percent" id="progressPercent">0%</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+  <form id="aiForm" novalidate>
+
+    <!-- ═══════ STEP 1: O ORGANIZACIJI ═══════ -->
+    <div class="step active" data-step="1">
+      <div class="step-card">
+        <div class="step-badge"><span class="icon">🏛</span> Korak 1</div>
+        <h2 class="step-title">O Vašoj organizaciji</h2>
+        <p class="step-subtitle">Osnovne informacije kako bismo bolje razumjeli tko ste i čime se bavite.</p>
+
+        <div class="field">
+          <label for="orgName">Naziv organizacije</label>
+          <input type="text" id="orgName" name="org_name" placeholder="npr. Grad Zadar, Opća bolnica Šibenik..." required>
+          <div class="field-error">Molimo unesite naziv organizacije.</div>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="orgType">Vrsta organizacije</label>
+            <select id="orgType" name="org_type" required>
+              <option value="">Odaberite...</option>
+              <option value="grad">Grad</option>
+              <option value="opcina">Općina</option>
+              <option value="zupanija">Županija</option>
+              <option value="bolnica">Bolnica / Klinika</option>
+              <option value="dom_zdravlja">Dom zdravlja</option>
+              <option value="muzej">Muzej / Galerija</option>
+              <option value="knjiznica">Knjižnica</option>
+              <option value="skola">Škola / Fakultet</option>
+              <option value="turisticka_zajednica">Turistička zajednica</option>
+              <option value="javna_ustanova">Javna ustanova — ostalo</option>
+              <option value="ostalo">Ostalo</option>
+            </select>
+            <div class="field-error">Molimo odaberite vrstu organizacije.</div>
+          </div>
+          <div class="field">
+            <label for="orgCity">Grad / Mjesto</label>
+            <input type="text" id="orgCity" name="org_city" placeholder="npr. Split" required>
+            <div class="field-error">Molimo unesite grad ili mjesto.</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="contactName">Ime i prezime kontakt osobe</label>
+          <input type="text" id="contactName" name="contact_name" placeholder="Ime i prezime" required>
+          <div class="field-error">Molimo unesite kontakt osobu.</div>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="contactEmail">E-mail adresa</label>
+            <input type="email" id="contactEmail" name="contact_email" placeholder="ime@organizacija.hr" required>
+            <div class="field-error">Molimo unesite ispravnu e-mail adresu.</div>
+          </div>
+          <div class="field">
+            <label for="contactPhone">Telefon <span class="optional">(neobavezno)</span></label>
+            <input type="tel" id="contactPhone" name="contact_phone" placeholder="+385 ...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 2: PROBLEM I POTREBE ═══════ -->
+    <div class="step" data-step="2">
+      <div class="step-card">
+        <div class="step-badge"><span class="icon">🎯</span> Korak 2</div>
+        <h2 class="step-title">Što želite poboljšati?</h2>
+        <p class="step-subtitle">Opišite nam s čime se trenutno susrećete — ne morate koristiti tehničke pojmove, samo opišite situaciju.</p>
+
+        <div class="field">
+          <label>Koji su Vaši najveći izazovi? <span class="optional">(odaberite sve što se odnosi na Vas)</span></label>
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="checkbox" name="challenges[]" value="puno_upita">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Previše upita građana / korisnika</strong>
+                  <span>Stalno odgovaramo na ista pitanja, troši nam puno vremena</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="challenges[]" value="radno_vrijeme">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Ograničeno radno vrijeme</strong>
+                  <span>Građani nas ne mogu dobiti izvan radnog vremena</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="challenges[]" value="spori_odgovori">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Spori odgovori na upite</strong>
+                  <span>Dugo traje dok netko dobije tražene informacije</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="challenges[]" value="jezicna_barijera">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Jezična barijera</strong>
+                  <span>Turisti ili korisnici koji ne govore hrvatski</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="challenges[]" value="informacije_razbacane">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Informacije su razbacane</strong>
+                  <span>Korisnici ne znaju gdje naći što im treba na webu ili u dokumentima</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="challenges[]" value="ostalo_izazov">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Nešto drugo</strong>
+                  <span>Opišite ispod u slobodnom tekstu</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="challengeDetails">Dodatno pojašnjenje <span class="optional">(neobavezno)</span></label>
+          <textarea id="challengeDetails" name="challenge_details" placeholder="Opišite slobodno bilo koji problem ili situaciju s kojom se susrećete..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 3: TKO KORISTI ═══════ -->
+    <div class="step" data-step="3">
+      <div class="step-card">
+        <div class="step-badge"><span class="icon">👥</span> Korak 3</div>
+        <h2 class="step-title">Tko bi koristio AI asistenta?</h2>
+        <p class="step-subtitle">Pomozite nam razumjeti tko su krajnji korisnici — to utječe na način na koji će asistent komunicirati.</p>
+
+        <div class="field">
+          <label>Tko su primarni korisnici?</label>
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="checkbox" name="users[]" value="gradjani">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Građani / Javnost</strong>
+                  <span>Ljudi koji traže informacije ili usluge od Vaše organizacije</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="users[]" value="turisti">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Turisti / Posjetitelji</strong>
+                  <span>Strani ili domaći posjetitelji koji trebaju informacije</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="users[]" value="pacijenti">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Pacijenti / Korisnici usluga</strong>
+                  <span>Osobe koje koriste zdravstvene ili socijalne usluge</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="users[]" value="zaposlenici">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Vaši zaposlenici (interno)</strong>
+                  <span>Asistent koji pomaže zaposlenicima da brže nađu interne informacije</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="userVolume">Koliko otprilike upita dobivate mjesečno?</label>
+          <p class="field-hint">Računajte pozive, e-mailove, poruke na društvenim mrežama, upite na šalteru — sve zajedno.</p>
+          <select id="userVolume" name="user_volume">
+            <option value="">Odaberite...</option>
+            <option value="do_100">Do 100 upita mjesečno</option>
+            <option value="100_500">100 — 500 upita mjesečno</option>
+            <option value="500_2000">500 — 2.000 upita mjesečno</option>
+            <option value="2000_plus">Više od 2.000 upita mjesečno</option>
+            <option value="ne_znam">Ne znamo točno</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 4: ŽELJENE FUNKCIONALNOSTI ═══════ -->
+    <div class="step" data-step="4">
+      <div class="step-card">
+        <div class="step-badge"><span class="icon">⚡</span> Korak 4</div>
+        <h2 class="step-title">Što bi asistent trebao raditi?</h2>
+        <p class="step-subtitle">Odaberite mogućnosti koje su Vam zanimljive. Sve ovo je moguće — samo nam pomozite odrediti prioritete.</p>
+
+        <div class="field">
+          <label>Željene mogućnosti <span class="optional">(odaberite sve što Vas zanima)</span></label>
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="checkbox" name="features[]" value="odgovaranje_pitanja">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Odgovaranje na česta pitanja</strong>
+                  <span>Radno vrijeme, lokacija, postupci, cijene, dokumenti...</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="features[]" value="navigacija_web">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Pomoć pri navigaciji po web stranici</strong>
+                  <span>Usmjeravanje korisnika na pravu stranicu ili dokument</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="features[]" value="rezervacije">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Zakazivanje termina / Rezervacije</strong>
+                  <span>Naručivanje, booking, prijave na događanja</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="features[]" value="dokumenti">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Pomoć s dokumentima i obrascima</strong>
+                  <span>Upute kako ispuniti obrasce, koji dokumenti trebaju za postupak</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="features[]" value="viseJezicno">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Višejezična podrška</strong>
+                  <span>Komunikacija na engleskom, njemačkom, talijanskom ili drugim jezicima</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="features[]" value="eskalacija">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Preusmjeravanje na živu osobu</strong>
+                  <span>Kad asistent ne zna odgovor, da poveže korisnika s djelatnikom</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="featureOther">Nešto drugo? <span class="optional">(neobavezno)</span></label>
+          <textarea id="featureOther" name="feature_other" rows="3" placeholder="Ako imate neku specifičnu ideju ili želju, opišite je ovdje..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 5: KOMUNIKACIJSKI KANALI I TON ═══════ -->
+    <div class="step" data-step="5">
+      <div class="step-card">
+        <div class="step-badge"><span class="icon">💬</span> Korak 5</div>
+        <h2 class="step-title">Komunikacija i kanali</h2>
+        <p class="step-subtitle">Gdje i kako bi asistent trebao komunicirati s korisnicima?</p>
+
+        <div class="field">
+          <label>Gdje bi asistent bio dostupan?</label>
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="checkbox" name="channels[]" value="web_stranica">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Na našoj web stranici</strong>
+                  <span>Prozorčić za razgovor (chat) koji se pojavi na stranici</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="channels[]" value="facebook">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Facebook Messenger</strong>
+                  <span>Odgovaranje na poruke koje stižu preko Facebook stranice</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="channels[]" value="whatsapp">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>WhatsApp</strong>
+                  <span>Komunikacija putem WhatsApp poslovnog profila</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="channels[]" value="email_auto">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>E-mail (automatski odgovori)</strong>
+                  <span>Asistent odgovara na e-mail upite</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="tone">Kakav ton komunikacije preferirate?</label>
+          <p class="field-hint">Kako bi asistent trebao "zvučati" kad razgovara s korisnicima?</p>
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="radio" name="tone" value="formalan">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Formalan i službeni</strong>
+                  <span>Persiranje, službeni jezik, primjeren za upravu i institucije</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="tone" value="poluformalan">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Pristuačan ali profesionalan</strong>
+                  <span>Ljubazan, topao ton ali i dalje profesionalan</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="tone" value="neformalan">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Opušten i prijateljski</strong>
+                  <span>Ležeran ton, tikanje — primjerno za muzeje i turizam</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="website">Adresa Vaše web stranice <span class="optional">(neobavezno)</span></label>
+          <input type="url" id="website" name="website" placeholder="https://www.primjer.hr">
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 6: BAZA ZNANJA ═══════ -->
+    <div class="step" data-step="6">
+      <div class="step-card">
+        <div class="step-badge"><span class="icon">📚</span> Korak 6</div>
+        <h2 class="step-title">Postojeći materijali</h2>
+        <p class="step-subtitle">AI asistent uči iz Vaših postojećih materijala. Što više sadržaja ima, to bolje odgovara. Ne brinite ako nemate sve — možemo i naknadno dodati.</p>
+
+        <div class="field">
+          <label>Koje materijale imate na raspolaganju?</label>
+          <p class="field-hint">Ovo su stvari koje asistent može "pročitati" i koristiti za odgovore. Odaberite sve što imate.</p>
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="checkbox" name="materials[]" value="web_sadrzaj">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Web stranica s informacijama</strong>
+                  <span>Imate web stranicu s opisima usluga, kontakt podacima, FAQ-om...</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="materials[]" value="dokumenti_pdf">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>PDF dokumenti / Pravilnici</strong>
+                  <span>Pravilnici, upute, obrasci, brošure u PDF formatu</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="materials[]" value="word_excel">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Word / Excel dokumenti</strong>
+                  <span>Interni dokumenti, tablice, popisi usluga</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="materials[]" value="faq_lista">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Lista čestih pitanja i odgovora</strong>
+                  <span>Već imate pripremljene odgovore na najčešća pitanja</span>
+                </div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" name="materials[]" value="nemamo">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text">
+                  <strong>Nemamo organizirane materijale</strong>
+                  <span>Trebat ćemo pomoć u pripremi sadržaja — to je potpuno u redu!</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Imate li osjetljive podatke?
+            <span class="info-tip" data-tip="Npr. osobni podaci pacijenata, financijski podaci građana, povjerljivi dokumenti. Ovo utječe na sigurnosne mjere koje moramo ugraditi.">?</span>
+          </label>
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="radio" name="sensitive_data" value="da">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text"><strong>Da, radimo s osjetljivim podacima</strong></div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="sensitive_data" value="ne">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text"><strong>Ne, sve su javno dostupne informacije</strong></div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="sensitive_data" value="ne_znam">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text"><strong>Nisam siguran/na</strong></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ STEP 7: BUDŽET I ROKOVI ═══════ -->
+    <div class="step" data-step="7">
+      <div class="step-card">
+        <div class="step-badge"><span class="icon">📋</span> Korak 7</div>
+        <h2 class="step-title">Očekivanja i rokovi</h2>
+        <p class="step-subtitle">Na kraju, recite nam nešto o Vašim očekivanjima. Ove informacije su okvirne i pomažu nam da pripremimo odgovarajući prijedlog.</p>
+
+        <div class="field">
+          <label for="timeline">Kada biste željeli da asistent bude spreman?</label>
+          <select id="timeline" name="timeline">
+            <option value="">Odaberite...</option>
+            <option value="hitno">Što prije — hitno nam treba</option>
+            <option value="1-3_mjeseca">U sljedeća 1-3 mjeseca</option>
+            <option value="3-6_mjeseci">U sljedećih 3-6 mjeseci</option>
+            <option value="istrazujemo">Tek istražujemo mogućnosti, bez žurbe</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Okvirni mjesečni budžet <span class="optional">(neobavezno)</span></label>
+          <p class="field-hint">Ovo nam pomaže predložiti rješenje koje odgovara Vašim mogućnostima. Svi iznosi su okvirni.</p>
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="radio" name="budget" value="do_100" onchange="toggleBudgetCustom()">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text"><strong>Do 100 € mjesečno</strong></div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="budget" value="do_500" onchange="toggleBudgetCustom()">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text"><strong>Do 500 € mjesečno</strong></div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="budget" value="custom" onchange="toggleBudgetCustom()">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text"><strong>Drugi iznos — upisat ću sam/a</strong></div>
+              </div>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="budget" value="ne_znam_budzet" onchange="toggleBudgetCustom()">
+              <div class="option-label">
+                <div class="option-check">✓</div>
+                <div class="option-text"><strong>Još ne znamo</strong></div>
+              </div>
+            </label>
+          </div>
+          <div id="budgetCustomField" style="display:none; margin-top: 12px;">
+            <input type="text" id="budgetCustom" name="budget_custom" placeholder="Unesite željeni iznos, npr. 250 € mjesečno">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="additionalNotes">Dodatne napomene <span class="optional">(neobavezno)</span></label>
+          <textarea id="additionalNotes" name="additional_notes" rows="4" placeholder="Bilo što drugo što smatrate važnim — posebni zahtjevi, prethodna iskustva s chatbotovima, pitanja koja imate..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Kako ste čuli za nas? <span class="optional">(neobavezno)</span></label>
+          <select name="referral">
+            <option value="">Odaberite...</option>
+            <option value="preporuka">Preporuka kolege</option>
+            <option value="google">Google pretraga</option>
+            <option value="drustvene_mreze">Društvene mreže</option>
+            <option value="konferencija">Konferencija / Događanje</option>
+            <option value="ostalo">Ostalo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ SUCCESS ═══════ -->
+    <div class="step" data-step="success">
+      <div class="step-card">
+        <div class="success-screen">
+          <div class="success-icon">✅</div>
+          <h2>Hvala Vam na izdvojenom vremenu!</h2>
+          <p>Zaprimili smo Vaše odgovore. Naš tim će ih pregledati i javiti Vam se u roku od <strong>2 radna dana</strong> s prijedlogom rješenja prilagođenim Vašoj organizaciji.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ NAVIGATION ═══════ -->
+    <div class="nav-buttons" id="navButtons">
+      <button type="button" class="btn btn-secondary" id="btnPrev" onclick="changeStep(-1)" style="visibility:hidden">
+        ← Natrag
+      </button>
+      <button type="button" class="btn btn-primary" id="btnNext" onclick="changeStep(1)">
+        Dalje →
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<div class="footer">
+  Vaši podaci su sigurni i koristit će se isključivo za pripremu prijedloga.
+</div>
+
+<script>
+  const TOTAL_STEPS = 7;
+  let currentStep = 1;
+
+  function updateUI() {
+    // Show/hide steps
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    const target = currentStep > TOTAL_STEPS ? 'success' : currentStep;
+    document.querySelector(`.step[data-step="${target}"]`).classList.add('active');
+
+    // Progress
+    const pct = Math.round(((currentStep - 1) / TOTAL_STEPS) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressStep').textContent = `Korak ${Math.min(currentStep, TOTAL_STEPS)} od ${TOTAL_STEPS}`;
+    document.getElementById('progressPercent').textContent = pct + '%';
+
+    // Buttons
+    const nav = document.getElementById('navButtons');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+
+    if (currentStep > TOTAL_STEPS) {
+      nav.style.display = 'none';
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('progressPercent').textContent = '100%';
+      document.getElementById('progressStep').textContent = 'Gotovo!';
+      return;
+    }
+
+    nav.style.display = 'flex';
+    btnPrev.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+
+    if (currentStep === TOTAL_STEPS) {
+      btnNext.className = 'btn btn-submit';
+      btnNext.innerHTML = 'Pošalji upitnik ✉';
+    } else {
+      btnNext.className = 'btn btn-primary';
+      btnNext.innerHTML = 'Dalje →';
+    }
+  }
+
+  function validateStep(step) {
+    const stepEl = document.querySelector(`.step[data-step="${step}"]`);
+    let valid = true;
+
+    // Text/email/select required fields
+    stepEl.querySelectorAll('[required]').forEach(input => {
+      const field = input.closest('.field');
+      if (!input.value.trim()) {
+        field.classList.add('has-error');
+        valid = false;
+      } else {
+        field.classList.remove('has-error');
+      }
+      // Email validation
+      if (input.type === 'email' && input.value.trim()) {
+        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRe.test(input.value.trim())) {
+          field.classList.add('has-error');
+          valid = false;
+        }
+      }
+    });
+
+    return valid;
+  }
+
+  function changeStep(direction) {
+    if (direction === 1) {
+      if (!validateStep(currentStep)) {
+        // Scroll to first error
+        const firstErr = document.querySelector(`.step[data-step="${currentStep}"] .has-error`);
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      if (currentStep === TOTAL_STEPS) {
+        // Submit
+        collectAndSubmit();
+        currentStep++;
+        updateUI();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+    }
+
+    currentStep += direction;
+    currentStep = Math.max(1, currentStep);
+    updateUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function collectAndSubmit() {
+    const form = document.getElementById('aiForm');
+    const formData = new FormData(form);
+    const data = {};
+
+    for (const [key, value] of formData.entries()) {
+      if (key.endsWith('[]')) {
+        const cleanKey = key.replace('[]', '');
+        if (!data[cleanKey]) data[cleanKey] = [];
+        data[cleanKey].push(value);
+      } else {
+        data[key] = value;
+      }
+    }
+
+    console.log('Form Data:', JSON.stringify(data, null, 2));
+
+    // ─── LARAVEL INTEGRATION ───
+    // Replace the console.log above with a fetch call:
+    //
+    // fetch('/api/ai-upitnik', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    //   },
+    //   body: JSON.stringify(data)
+    // })
+    // .then(res => res.json())
+    // .then(result => console.log('Saved:', result))
+    // .catch(err => console.error('Error:', err));
+  }
+
+  function toggleBudgetCustom() {
+    const customRadio = document.querySelector('input[name="budget"][value="custom"]');
+    const customField = document.getElementById('budgetCustomField');
+    customField.style.display = customRadio.checked ? 'block' : 'none';
+    if (!customRadio.checked) document.getElementById('budgetCustom').value = '';
+  }
+
+  // Remove error on input
+  document.addEventListener('input', e => {
+    const field = e.target.closest('.field');
+    if (field) field.classList.remove('has-error');
+  });
+
+  document.addEventListener('change', e => {
+    const field = e.target.closest('.field');
+    if (field) field.classList.remove('has-error');
+  });
+
+  // Init
+  updateUI();
+</script>
+</body>
+</html>
