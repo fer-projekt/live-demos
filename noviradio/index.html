@@ -498,7 +498,7 @@
     	<source media="(max-width: 640px)" srcset="./images/bg-home-home-promo-mob.webp">
 		<img src="./images/bg-home-home-promo.webp" alt="Novi radio youtube" loading="lazy">
 	</picture>
-	<div class="home-promo___overlay"></div>
+	<div class="home-promo__overlay"></div>
 	<div class="container">
 		<div class="flex flex-wrap sm:mx-[10px] xl:-mx-[10px]">
 			<div class="w-full sm:w-9/12 sm:px-[10px]">
@@ -1288,6 +1288,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <script>
+// popup
 document.addEventListener('alpine:init', () => {
 	Alpine.store('popup', {
 		active: null
@@ -1296,6 +1297,7 @@ document.addEventListener('alpine:init', () => {
 </script>
 
 <script>
+// slider
 function newsSlider() {
 	return {
 		current: 0,
@@ -1304,7 +1306,6 @@ function newsSlider() {
 		endX: 0,
 
 		init() {
-			// ovdje kasnije možeš dodati autoplay ako bude trebalo
 		},
 
 		next() {
@@ -1368,6 +1369,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script type="text/javascript">
+// align category and meta divs
 function resetWrappedHeaders() {
 	document.querySelectorAll(
 		'.home-news-box__category, .home-news-box__meta, .home-news-box-img-black__category, .home-news-box-img-black__meta, .home-news-box-img-white__category, .home-news-box-img-white__meta, .home-news-box-img-small__category, .home-news-box-img-small__meta'
