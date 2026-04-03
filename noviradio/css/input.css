@@ -261,6 +261,7 @@ nav{
 	@apply py-[20px];
 	background-color: #fff;
 	box-shadow: 0px 10px 12px #0000000F;
+	z-index: 10;
 
 	ul{
 		@apply text-xl;
