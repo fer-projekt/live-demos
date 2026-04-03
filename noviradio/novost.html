@@ -305,7 +305,9 @@
 					                aria-label="Prethodna slika">
 					                ‹
 					            </button>
-					            <div class="gallery-lightbox__image-wrap">
+					            <div class="gallery-lightbox__image-wrap"
+								    @touchstart="onTouchStart"
+								    @touchend="onTouchEnd">
 					                <img
 					                    class="gallery-lightbox__image"
 					                    :src="currentImage.full"
