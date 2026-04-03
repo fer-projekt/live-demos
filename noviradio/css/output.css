@@ -1004,6 +1004,10 @@ a {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
+  @media (width >= 80rem) {
+    --tw-leading: 45px;
+    line-height: 45px;
+  }
   font-weight: 600;
 }
 .heading-2 {

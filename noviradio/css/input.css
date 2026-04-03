@@ -85,7 +85,7 @@ a {
 }
 
 .heading-1{
-	@apply text-2xl xl:text-3xl;
+	@apply xl:leading-[45px] text-2xl xl:text-3xl;
 	font-weight: 600;
 }
 .heading-2{
