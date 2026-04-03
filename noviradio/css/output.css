@@ -190,8 +190,17 @@
   .\!sticky {
     position: sticky !important;
   }
+  .absolute {
+    position: absolute;
+  }
   .relative {
     position: relative;
+  }
+  .static {
+    position: static;
+  }
+  .sticky {
+    position: sticky;
   }
   .-top-2 {
     top: calc(var(--spacing) * -2);
@@ -199,8 +208,17 @@
   .-top-\[30px\] {
     top: calc(30px * -1);
   }
+  .top-0 {
+    top: calc(var(--spacing) * 0);
+  }
   .top-\[20px\] {
     top: 20px;
+  }
+  .top-\[50px\] {
+    top: 50px;
+  }
+  .top-\[80px\] {
+    top: 80px;
   }
   .order-1 {
     order: 1;
@@ -331,8 +349,14 @@
   .w-full {
     width: 100%;
   }
+  .flex-shrink {
+    flex-shrink: 1;
+  }
   .shrink-0 {
     flex-shrink: 0;
+  }
+  .border-collapse {
+    border-collapse: collapse;
   }
   .scale-110 {
     --tw-scale-x: 110%;
@@ -399,6 +423,10 @@
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
   .border-primary {
     border-color: var(--color-primary);
   }
@@ -444,6 +472,9 @@
   }
   .text-primary {
     color: var(--color-primary);
+  }
+  .underline {
+    text-decoration-line: underline;
   }
   .opacity-0 {
     opacity: 0%;
@@ -683,6 +714,16 @@
       grid-template-columns: repeat(12, minmax(0, 1fr));
     }
   }
+  .lg\:\!sticky {
+    @media (width >= 64rem) {
+      position: sticky !important;
+    }
+  }
+  .lg\:\!top-0 {
+    @media (width >= 64rem) {
+      top: calc(var(--spacing) * 0) !important;
+    }
+  }
   .lg\:my-\[50px\] {
     @media (width >= 64rem) {
       margin-block: 50px;
@@ -802,6 +843,16 @@
   .xl\:\!static {
     @media (width >= 80rem) {
       position: static !important;
+    }
+  }
+  .xl\:\!sticky {
+    @media (width >= 80rem) {
+      position: sticky !important;
+    }
+  }
+  .xl\:\!top-0 {
+    @media (width >= 80rem) {
+      top: calc(var(--spacing) * 0) !important;
     }
   }
   .xl\:order-1 {
@@ -1278,6 +1329,7 @@ nav {
   padding-block: 20px;
   background-color: #fff;
   box-shadow: 0px 10px 12px #0000000F;
+  z-index: 10;
   ul {
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
@@ -3782,6 +3834,11 @@ footer {
   syntax: "*";
   inherits: false;
 }
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @property --tw-outline-style {
   syntax: "*";
   inherits: false;
@@ -3794,11 +3851,6 @@ footer {
 @property --tw-ease {
   syntax: "*";
   inherits: false;
-}
-@property --tw-border-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
 }
 @property --tw-leading {
   syntax: "*";
@@ -3830,10 +3882,10 @@ footer {
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
+      --tw-border-style: solid;
       --tw-outline-style: solid;
       --tw-duration: initial;
       --tw-ease: initial;
-      --tw-border-style: solid;
       --tw-leading: initial;
       --tw-translate-x: 0;
       --tw-translate-y: 0;
