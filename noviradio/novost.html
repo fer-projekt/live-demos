@@ -83,39 +83,7 @@
 		</div>
 	</div>
 </section>
-<script>
-const hero = document.querySelector('.home-hero');
-const heroTitle = document.getElementById('heroTitleRotator');
 
-window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY || window.pageYOffset;
-
-    // Provjera je li ekran manji od Tailwind lg (1024px)
-    if (window.innerWidth < 1024) {
-        // Nestajanje naslova
-        heroTitle.style.opacity = Math.max(0, 1 - scrollY / 100);
-
-        // Smanjivanje visine hero sekcije
-        const minHeight = 80; // minimalna visina za male ekrane
-        const maxHeight = 150; // početna visina za male ekrane
-        const newHeight = Math.max(minHeight, maxHeight - scrollY);
-
-        hero.style.height = newHeight + 'px';
-    } else {
-        // Na većim ekranima resetiraj stilove
-        heroTitle.style.opacity = 1;
-        hero.style.height = '';
-    }
-});
-
-// Opcionalno: dodati resize listener da se prilagodi prilikom promjene veličine prozora
-window.addEventListener('resize', () => {
-    if (window.innerWidth >= 1024) {
-        heroTitle.style.opacity = 1;
-        hero.style.height = '';
-    }
-});
-</script>
 <nav class="lg:!sticky lg:!top-0">
 	<div class="container">
 		<div class="flex flex-wrap mx-[10px] xl:-mx-[20px]">
@@ -133,7 +101,7 @@ window.addEventListener('resize', () => {
 	</div>
 </nav>
 
-<div class="max-lg:h-[80px]"></div>
+<div class="max-lg:h-[150px]"></div>
 
 <div class="breadcrumbs py-[20px] xl:py-[30px]">
 	<div class="container">
@@ -851,6 +819,35 @@ window.addEventListener('resize', () => {
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <script>
+// hero helpers
+const hero = document.querySelector('.home-hero');
+const heroTitle = document.getElementById('heroTitleRotator');
+
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    if (window.innerWidth < 1024) {
+        heroTitle.style.opacity = Math.max(0, 1 - scrollY / 100);
+
+        const minHeight = 80;
+        const maxHeight = 150;
+        const newHeight = Math.max(minHeight, maxHeight - scrollY);
+
+        hero.style.height = newHeight + 'px';
+    } else {
+        heroTitle.style.opacity = 1;
+        hero.style.height = '';
+    }
+});
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+        heroTitle.style.opacity = 1;
+        hero.style.height = '';
+    }
+});
+</script>
+
+<script>
 // news helpers
 document.querySelectorAll('.article__content table').forEach(table => {
 	if (table.parentElement.classList.contains('table-scroll')) return;
@@ -946,6 +943,7 @@ function galleryComponent({ images = [] }) {
     }
 }
 </script>
+
 <script>
 // popup
 document.addEventListener('alpine:init', () => {

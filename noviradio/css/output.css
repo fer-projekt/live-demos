@@ -582,6 +582,11 @@
       height: 80px;
     }
   }
+  .max-lg\:h-\[150px\] {
+    @media (width < 64rem) {
+      height: 150px;
+    }
+  }
   .max-lg\:max-w-\[280px\] {
     @media (width < 64rem) {
       max-width: 280px;
