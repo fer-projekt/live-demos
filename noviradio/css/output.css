@@ -1005,8 +1005,8 @@ a {
     line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
   @media (width >= 80rem) {
-    --tw-leading: 45px;
-    line-height: 45px;
+    --tw-leading: 50px;
+    line-height: 50px;
   }
   font-weight: 600;
 }
