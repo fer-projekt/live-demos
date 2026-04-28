@@ -684,8 +684,11 @@ body.nav-is-toggled{
 	}
 }
 .brand-box{
-	@apply flex w-24 xl:w-36 items-center justify-center aspect-square p-2 lg:p-6 bg-white border border-[#9FB1BD];
+	@apply flex w-24 xl:w-36 bg-white aspect-square border border-[#9FB1BD] transition-all duration-300 hover:xl:shadow-lg;
 
+	a{
+		@apply flex absolute inset-0 items-center justify-center aspect-square p-2 lg:p-6;
+	}
 	img{
 		@apply max-w-full max-h-full object-contain;
 	}
