@@ -1,0 +1,788 @@
+﻿<!doctype html>
+<html lang="hr">
+<head>
+
+  	<meta charset="UTF-8">
+
+  	<title>Vaša narudžba je zaprimljena - s.o.s.derma</title>
+
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ 	<link rel="preload" href="./fonts/jost-v20-latin_latin-ext-300.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/jost-v20-latin_latin-ext-regular.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/jost-v20-latin_latin-ext-italic.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/jost-v20-latin_latin-ext-500.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/jost-v20-latin_latin-ext-600.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/jost-v20-latin_latin-ext-700.woff2" as="font" type="font/woff2" crossorigin>
+
+  	<link href="./css/output.css" rel="stylesheet">
+  	<link rel="icon" href="./images/favicon.jpg">
+
+</head>
+
+<body class="font-sans">
+
+<header
+    x-data="{ scrolled: false }"
+    @scroll.window="scrolled = window.scrollY > 50"
+    :class="{ 'is-scrolled': scrolled }">
+    <div class="header__top max-xl:hidden py-2">
+        <div class="container">
+            <div class="grid grid-cols-12">
+                <div class="col-span-2"></div>
+                <div class="col-span-8 text-center">
+                    Uštedi 20 % i iskoristi svoje Beauty bodove! Svi artikli na akciji već su sniženi. Ponuda vrijedi još samo do sutra!
+                </div>
+                <div class="col-span-2 text-right">
+                    <svg class="inline-block mr-1" xmlns="http://www.w3.org/2000/svg" width="19.434" height="15.319" viewBox="0 0 19.434 15.319">
+                      <g id="Icon_feather-mail" data-name="Icon feather-mail" transform="translate(-1.607 -5)">
+                        <path id="Path_8" data-name="Path 8" d="M4.665,6H17.984a1.67,1.67,0,0,1,1.665,1.665v9.989a1.67,1.67,0,0,1-1.665,1.665H4.665A1.67,1.67,0,0,1,3,17.654V7.665A1.67,1.67,0,0,1,4.665,6Z" fill="none" stroke="#934a31" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                        <path id="Path_9" data-name="Path 9" d="M19.649,9l-8.325,5.827L3,9" transform="translate(0 -1.335)" fill="none" stroke="#934a31" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                      </g>
+                    </svg>
+                    <a href="mailto:info@sos-derma.hr">info@sos-derma.hr</a>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="container">
+        <div class="grid grid-cols-12">
+            <div class="col-span-5 xl:col-span-2">
+                <div id="ham" class="header__hamburger-menu">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <a class="header__logo" href="index.html">
+                    <img src="./images/logo-sos-derma.svg" alt="SOS derma logo" loading="lazy">
+                </a>
+            </div>
+            <div class="col-span-1 xl:col-span-8 text-right">
+                <ul class="header-menu">
+                    <li class="open-menu-categories nav-catalog">
+                        <span class="cursor-default">Pronađi svoj SOS</span>
+                        <ul class="menu-categories">
+                            <div class="inner">
+                                <div class="categories-open">
+                                    <ul>
+                                        <li class="co-active"><a href="#" data-category="njega-lica">Njega lica</a></li>
+                                        <li><a href="#" data-category="njega-tijela">Njega tijela</a></li>
+                                        <li><a href="#" data-category="stanje-koze">Stanje kože</a></li>
+                                        <li><a href="shop.html">Zaštita kože od sunca</a></li>
+                                        <li><a href="#" data-category="make-up">Make Up</a></li>
+                                        <li><a href="shop.html">Bebe i djeca</a></li>
+                                        <li><a href="shop.html">Accessories</a></li>
+                                    </ul>
+                                </div>
+                                <div class="categories-list">
+                                    <li class="has-submenu" data-category="njega-lica">
+                                        <a class="submenu-title" href="shop.html">Njega lica</a>
+                                        <ul class="has-submenu-ul">
+                                            <li><a href="shop.html">Čišćenje lica</a></li>
+                                            <li>
+                                                <a href="shop.html">Kreme za lice</a>
+                                                <ul class="has-submenu-2">
+                                                    <li><a href="shop.html">Dnevne kreme</a></li>
+                                                    <li><a href="shop.html">Noćne kreme</a></li>
+                                                    <li><a href="shop.html">Hidratantne kreme</a></li>
+                                                    <li><a href="shop.html">Anti age kreme</a></li>
+                                                    <li><a href="shop.html">Kreme za hiperpigmentaciju</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="shop.html">Ulja i serumi za lice</a></li>
+                                            <li><a href="shop.html">Maske za lice</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu" data-category="njega-tijela">
+                                        <a class="submenu-title" href="shop.html">Njega tijela</a>
+                                        <ul class="has-submenu-ul">
+                                            <li><a href="shop.html">Mlijeka i gelovi za tuširanje</a></li>
+                                            <li><a href="shop.html">Kreme i losioni za tijelo</a></li>
+                                            <li><a href="shop.html">Kreme i njega za ruke i stopala</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu" data-category="stanje-koze">
+                                        <a class="submenu-title" href="shop.html">Stanje kože</a>
+                                        <ul class="has-submenu-ul">
+                                            <li><a href="shop.html">Masna koža</a></li>
+                                            <li><a href="shop.html">Mješovita koža</a></li>
+                                            <li><a href="shop.html">Suha koža</a></li>
+                                            <li><a href="shop.html">Osjetljiva koža</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu" data-category="make-up">
+                                        <a class="submenu-title" href="shop.html">Make Up</a>
+                                        <ul class="has-submenu-ul">
+                                            <li><a href="shop.html">Puderi i BB kreme</a></li>
+                                            <li><a href="shop.html">Šminka za usne</a></li>
+                                        </ul>
+                                    </li>
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blog.html">Skin Academy</a>
+                    </li>
+                    <li class="open-dropdown">
+                        <span class="cursor-default">Brendovi</span>
+                        <ul class="dropdown">
+                            <li><a href="shop.html">Novexpert</a></li>
+                            <li><a href="shop.html">Skinbetter Science</a></li>
+                            <li><a href="shop.html">Mesoestetic</a></li>
+                            <li><a href="shop.html">Institut Esthederm Paris</a></li>
+                            <li><a href="shop.html">Biretix</a></li>
+                            <li><a href="shop.html">Heliocare</a></li>
+                            <li><a href="shop.html">Neostrata</a></li>
+                            <li><a href="brands.html">Svi brendovi</a></li>
+                        </ul>
+                    </li>
+                    <li class="open-dropdown">
+                        <span class="cursor-default">Info</span>
+                        <ul class="dropdown">
+                            <li><a href="about-us.html">O nama</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="reviews.html">Recenzije korisnika</a></li>
+                            <li><a href="contact.html">Kontakt</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="header__icons col-span-6 xl:col-span-2"
+                 x-data="{ openPopup: null }"
+                 @click.outside="openPopup = null">
+                <div>
+                    <a href="#" @click.prevent="openPopup = openPopup === 'login' ? null : 'login'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22.348" height="25.288" viewBox="0 0 22.348 25.288">
+                            <g transform="translate(1.004 1)">
+                                <path d="M11.644,5.822A5.822,5.822,0,1,1,5.822,0a5.822,5.822,0,0,1,5.822,5.822Z" transform="translate(4.348 0)" fill="none" stroke="#000" stroke-width="2"/>
+                                <path d="M15.993,0h.41a3.493,3.493,0,0,1,3.465,3.06L20.323,6.7a2.329,2.329,0,0,1-2.311,2.618H2.329A2.329,2.329,0,0,1,.018,6.7L.472,3.06A3.493,3.493,0,0,1,3.94,0h.409" transform="translate(0 13.973)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                            </g>
+                        </svg>
+                    </a>
+                    <div class="header-login-box" :class="{ '!block': openPopup === 'login' }">
+                        <div class="triangle-up"></div>
+                        <a href="login.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+                                <path d="M141.66,133.66l-40,40a8,8,0,0,1-11.32-11.32L116.69,136H24a8,8,0,0,1,0-16h92.69L90.34,93.66a8,8,0,0,1,11.32-11.32l40,40A8,8,0,0,1,141.66,133.66ZM200,32H136a8,8,0,0,0,0,16h56V208H136a8,8,0,0,0,0,16h64a8,8,0,0,0,8-8V40A8,8,0,0,0,200,32Z"></path>
+                            </svg>
+                            Prijava
+                        </a>
+                        <a href="register.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+                                <path d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136Zm-57.87,58.85a8,8,0,0,1-12.26,10.3C165.75,181.19,138.09,168,108,168s-57.75,13.19-77.87,37.15a8,8,0,0,1-12.25-10.3c14.94-17.78,33.52-30.41,54.17-37.17a68,68,0,1,1,71.9,0C164.6,164.44,183.18,177.07,198.13,194.85ZM108,152a52,52,0,1,0-52-52A52.06,52.06,0,0,0,108,152Z"></path>
+                            </svg>
+                            Registracija
+                        </a>
+                    </div>
+                </div>    
+                <div>
+                    <a href="#" @click.prevent="openPopup = openPopup === 'cart' ? null : 'cart'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22.959" height="25.288" viewBox="0 0 22.959 25.288">
+                            <g transform="translate(1 1)">
+                                <path d="M7.993,3,4.5,7.658v16.3a2.329,2.329,0,0,0,2.329,2.329h16.3A2.329,2.329,0,0,0,25.46,23.96V7.658L21.966,3ZM4.5,7.658H25.46" transform="translate(-4.5 -3)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                <path d="M21.315,15A4.658,4.658,0,1,1,12,15" transform="translate(-6.178 -5.685)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                            </g>
+                        </svg>
+                    </a>
+                    <div class="header__badge">
+                        2
+                    </div>
+                    <div class="header-cart-box" :class="{ '!block': openPopup === 'cart' }">
+                        <div class="triangle-up"></div>
+                        <div class="header-cart-box__title">Košarica</div>
+                        <div class="header-cart-box__products">
+                            <div class="header-cart-box__product header-cart-box__product--discount clearfix">
+                                <a href="#">
+                                    <figure>
+                                        <picture>
+                                            <source type="image/webp" srcset="./images/product-dummy.webp">
+                                            <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                                        </picture>
+                                    </figure>
+                                </a>
+                                <div class="header-cart-box__product-desc">
+                                    <a class="header-cart-box__product-title" href="#">Booster Serum s Vitaminom C</a>
+                                    <div class="header-cart-box__product-price">
+                                        13.19 €
+                                        <span>1,15 €</span>
+                                    </div>
+                                    <div class="flex flex-1 items-end justify-between text-sm">
+                                        <span class="text-gray-500">Količina 1</span>
+                                        <div class="flex">
+                                            <button type="button" class="font-medium text-primary-6000">Ukloni</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header-cart-box__product clearfix">
+                                <a href="#">
+                                    <figure>
+                                        <picture>
+                                            <source type="image/webp" srcset="./images/product-dummy.webp">
+                                            <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                                        </picture>
+                                    </figure>
+                                </a>
+                                <div class="header-cart-box__product-desc">
+                                    <a class="header-cart-box__product-title" href="#">Booster Serum s Vitaminom C</a>
+                                    <div class="header-cart-box__product-price">13.19 €</div>
+                                    <div class="flex flex-1 items-end justify-between text-sm">
+                                        <span class="text-gray-500">Količina 1</span>
+                                        <div class="flex">
+                                            <button type="button" class="font-medium text-primary-6000">Ukloni</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header-cart-box__product clearfix">
+                                <a href="#">
+                                    <figure>
+                                        <picture>
+                                            <source type="image/webp" srcset="./images/product-dummy.webp">
+                                            <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                                        </picture>
+                                    </figure>
+                                </a>
+                                <div class="header-cart-box__product-desc">
+                                    <a class="header-cart-box__product-title" href="#">Booster Serum s Vitaminom C</a>
+                                    <div class="header-cart-box__product-price">13.19 €</div>
+                                    <div class="flex flex-1 items-end justify-between text-sm">
+                                        <span class="text-gray-500">Količina 1</span>
+                                        <div class="flex">
+                                            <button type="button" class="font-medium text-primary-6000">Ukloni</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-cart-box__total">
+                            <div class="flex mb-3 justify-between">
+                                <span>Ukupno</span>
+                                <div class="flex gap-2">
+                                    <span>13.19 €</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <a class="button-style-1" href="cart.html">Košarica</a>
+                                <a class="button-style-2" href="checkout.html">Naplata</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26.376" height="23.763" viewBox="0 0 26.376 23.763">
+                      <path id="Icon_akar-heart" data-name="Icon akar-heart" d="M9.094,4.5A6.064,6.064,0,0,0,3,10.533c0,2.69,1.066,9.074,11.564,15.528a1.2,1.2,0,0,0,1.248,0c10.5-6.454,11.564-12.838,11.564-15.528A6.064,6.064,0,0,0,21.282,4.5c-3.365,0-6.094,3.656-6.094,3.656S12.459,4.5,9.094,4.5Z" transform="translate(-2 -3.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="h-16 xl:h-32"></div>
+
+<div class="breadcrumbs pt-6" x-data="breadcrumbScroll()" x-init="init()">
+    <div class="container max-xl:px-3">
+        <div class="breadcrumbs__track" x-ref="track" @scroll.passive="updateProgress()">
+            <ol class="breadcrumbs__list">
+                <li class="breadcrumbs__item">
+                    <a href="index.html" class="breadcrumbs__link">Naslovna</a>
+                </li>
+                <li class="breadcrumbs__item breadcrumbs__item--active">
+                    <span class="breadcrumbs__current">Vaša narudžba je zaprimljena.</span>
+                </li>
+            </ol>
+        </div>
+        <div class="breadcrumbs__progress-track" x-show="hasOverflow">
+            <div
+                class="breadcrumbs__progress-bar"
+                :style="`width: ${progressWidth}%; left: ${progressLeft}%`">
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="py-12 xl:pt-18 xl:pb-24">
+    <div class="container">
+        <div class="flex flex-wrap xl:-mx-5">
+            <div class="w-full px-3 xl:px-5">
+                <h1 class="heading-2 mb-8 xl:mb-12">Vaša narudžba je zaprimljena.</h1>
+            </div>
+        </div>
+        <div class="flex flex-wrap xl:-mx-5">     
+            <div class="w-full lg:w-4/12 px-3 lg:pl-3 lg:pr-5 xl:pl-5 xl:pr-8 lg:border-r">
+                <div class="tetx-lg xl:text-xl">
+                    <p>Hvala Vam na povjerenju! Vaša kupnja je uspješno zabilježena. Uskoro ćete na e-mail adresu dobiti potvrdu narudžbe i dodatne informacije o isporuci.</p>
+                </div>
+            </div>
+            <div class="w-full lg:w-8/12 px-3 lg:pl-5 lg:pr-3 xl:pl-8 xl:pr-5 lg:self-start lg:!sticky lg:top-32">
+                <div class="aside-title mb-6 mt-8 lg:mt-2">Sažetak narudžbe</div>
+                <div class="cart-products cp-aside mb-6">
+                    <div class="cart-products__item cart-products__item--discount clearfix">
+                        <a href="#">
+                            <figure>
+                                <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                            </figure>
+                        </a>
+                        <div class="cart-products__item-desc">
+                            <a class="cart-products__item-title" href="#">Booster Serum s Vitaminom C</a>
+                            <div class="cart-products__item-price">
+                                13.19 €
+                                <span>1,15 €</span>
+                            </div>
+                            <span class="text-sm text-gray-500">Količina 1</span>
+                        </div>
+                    </div>
+                    <div class="cart-products__item clearfix">
+                        <a href="#">
+                            <figure>
+                                <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                            </figure>
+                        </a>
+                        <div class="cart-products__item-desc">
+                            <a class="cart-products__item-title" href="#">Booster Serum s Vitaminom C</a>
+                            <div class="cart-products__item-price">13.19 €</div>
+                            <span class="text-sm text-gray-500">Količina 1</span>
+                        </div>
+                    </div>
+                    <div class="cart-products__item clearfix">
+                        <a href="#">
+                            <figure>
+                                <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                            </figure>
+                        </a>
+                        <div class="cart-products__item-desc">
+                            <a class="cart-products__item-title" href="#">Booster Serum s Vitaminom C</a>
+                            <div class="cart-products__item-price">13.19 €</div>
+                            <span class="text-sm text-gray-500">Količina 1</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <span>Ukupni iznos bez PDV</span>
+                    <span class="font-semibold">45.58 €</span>
+                </div>
+                <hr class="my-3 lg:my-5 border-[#e2e8f0]">
+                <div class="flex justify-between">
+                    <span>PDV</span>
+                    <span class="font-semibold">11.39 €</span>
+                </div>
+                <hr class="my-3 lg:my-5 border-[#e2e8f0]">
+                <div class="flex justify-between font-semibold">
+                    <span>Ukupno</span>
+                    <div class="flex gap-2">                             
+                        <span class="aside-discount mr-3">83.97 €</span>
+                        <span class="text-purple">56.97 €</span>
+                    </div>
+                </div>
+                <hr class="my-3 lg:my-5 border-[#e2e8f0]">
+                <div class="flex justify-between mb-8">
+                    <span>Dostava</span>
+                    <span class="font-semibold">+ 5.00 €</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="footer-contact bg-primary text-white">
+    <div class="container">
+        <div class="flex flex-wrap sm:mx-1.5 xl:-mx-5">
+            <div class="w-full lg:w-2/12 sm:px-1.5 xl:px-5">
+                <img class="w-28 sm:w-36" src="./images/logo-sos-derma.svg" alt="SOS derma logo" loading="lazy">
+            </div>
+            <div class="w-full lg:w-10/12 py-6 xl:py-8 px-3 sm:px-1.5 xl:px-5">
+                <div class="xl:pt-10 font-medium text-xl xl:text-2xl">
+                    Web shop
+                </div>
+                <div class="xl:w-100 mb-8 xl:mb-12 font-light text-lg xl:text-2xl">
+                    Online prodaja profi i poluprofi kozmetike s dermatološkim potpisom.
+                </div>
+                <div class="grid lg:grid-cols-12">
+                    <div class="max-lg:mb-8 lg:col-span-10 text-base xl:text-xl">
+                        <div class="sm:inline-block max-sm:mb-4 sm:mr-12">
+                            <span class="font-medium">Kontakt</span><br>
+                            <a class="border-b border-white !text-white" href="mailto:info@sos-derma.hr">info@sos-derma.hr</a>                      
+                        </div>
+                        <div class="sm:inline-block max-sm:mb-4 sm:mr-12">
+                            <span class="font-medium">Adresa</span><br>
+                            Manterovčak, 10090 Zagreb
+                        </div>
+                        <div class="sm:inline-block">
+                            <span class="font-medium">Radno vrijeme</span><br>
+                            Podrška: radnim danima 8h-16h
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 lg:text-right self-end">
+                        <a class="inline-block" href="#" target="_blank">
+                            <img class="sm:h-8 mr-5" src="./images/icons/icon-instagram.svg" alt="SOS derma instagram" loading="lazy">
+                        </a>
+                        <a class="inline-block" href="#" target="_blank">
+                            <img class="sm:h-8" src="./images/icons/icon-facebook.svg" alt="SOS derma facebook" loading="lazy">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="py-4 xl:py-8">
+    <div class="container">
+        <div class="flex flex-wrap mx-1.5 xl:-mx-5">
+            <div class="w-full lg:w-8/12 max-lg:pb-2.5 px-1.5 xl:px-5">
+                © Copyright 2026 s.o.s. derma | Sva prava zadržana. <a href="#">Pravila o kolačićima</a> | <a href="#">Pravila o privatnosti</a>
+            </div>
+            <div class="w-full lg:w-4/12 px-1.5 xl:px-5 lg:text-right">
+                Izrada web stranica - <a href="#" target="_blank">Fer Projekt</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const allItems = document.querySelectorAll('.categories-open li');
+    const submenus = document.querySelectorAll('.categories-list .has-submenu');
+    const categoriesList = document.querySelector('.categories-list');
+    const inner = document.querySelector('.menu-categories .inner');
+
+    function hideAllSubmenus() {
+        allItems.forEach(li => li.classList.remove('co-active'));
+        submenus.forEach(s => s.style.setProperty('display', 'none', 'important'));
+        if (categoriesList) categoriesList.style.setProperty('display', 'none', 'important');
+        if (inner) {
+            inner.style.setProperty('background', 'transparent', 'important');
+            inner.style.setProperty('box-shadow', 'none', 'important');
+            inner.style.setProperty('border', 'none', 'important');
+        }
+    }
+
+    function showSubmenu(target, li) {
+        allItems.forEach(l => l.classList.remove('co-active'));
+        if (li) li.classList.add('co-active');
+        if (categoriesList) categoriesList.style.removeProperty('display');
+        if (inner) {
+            inner.style.removeProperty('background');
+            inner.style.removeProperty('box-shadow');
+            inner.style.removeProperty('border');
+        }
+        submenus.forEach(s => {
+            s.style.setProperty('display',
+                s.getAttribute('data-category') === target ? 'block' : 'none',
+                'important');
+        });
+    }
+
+    const firstWithCat = document.querySelector('.categories-open [data-category]');
+    if (firstWithCat) {
+        showSubmenu(firstWithCat.getAttribute('data-category'), firstWithCat.parentElement);
+    }
+
+    allItems.forEach(li => {
+        const link = li.querySelector('a');
+        const cat = link?.getAttribute('data-category');
+        const handler = () => cat ? showSubmenu(cat, li) : hideAllSubmenus();
+        li.addEventListener('mouseenter', handler);
+        if (cat) link.addEventListener('click', handler);
+    });
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    function cleanAndPrepareMenu() {
+        const menu = document.querySelector(".header-menu");
+        if (!menu) return;
+
+        const missingCats = [];
+        const list = document.querySelector(".categories-list");
+        const opens = document.querySelectorAll(".categories-open ul > li > a");
+
+        if (list) {
+            opens.forEach(openLink => {
+                const cat = openLink.getAttribute("data-category");
+                const text = openLink.textContent.trim();
+
+                let exists;
+                if (cat) {
+                    exists = list.querySelector(`[data-category="${cat}"]`);
+                } else {
+                    exists = [...list.querySelectorAll(".submenu-title, a")].some(
+                        a => a.textContent.trim() === text
+                    );
+                }
+
+                if (!exists) {
+                    missingCats.push({
+                        href: openLink.getAttribute("href"),
+                        text: text
+                    });
+                }
+            });
+        }
+
+        const order = [...opens].map(a => a.textContent.trim());
+
+        document.querySelectorAll(".categories-open").forEach(el => el.remove());
+
+        menu.querySelectorAll(":scope *").forEach(el => {
+            const keepNavCatalog = el.classList.contains("nav-catalog");
+            el.className = keepNavCatalog ? "nav-catalog" : "";
+
+            [...el.attributes].forEach(attr => {
+                if (
+                    attr.name !== "class" &&
+                    attr.name !== "href" &&
+                    attr.name !== "data-nav-catalog"
+                ) el.removeAttribute(attr.name);
+            });
+        });
+
+        menu.querySelectorAll("div").forEach(div => {
+            while (div.firstChild) div.parentNode.insertBefore(div.firstChild, div);
+            div.remove();
+        });
+
+        menu.querySelectorAll("span").forEach(span => {
+            const a = document.createElement("a");
+            a.href = "#";
+            a.textContent = span.textContent.trim();
+            span.replaceWith(a);
+        });
+
+        menu.querySelectorAll("li").forEach(li => {
+            if (!li.textContent.trim() && !li.children.length) li.remove();
+        });
+
+        menu.classList.add("nav-items", "nav-level-1");
+        menu.querySelectorAll("li").forEach(li => li.classList.add("nav-item"));
+        menu.querySelectorAll("a").forEach(a => a.classList.add("nav-link"));
+
+        menu.querySelectorAll("li").forEach(li => {
+            const submenu = li.querySelector(":scope > ul");
+            if (submenu) {
+                li.classList.add("nav-expand");
+                const link = li.querySelector(":scope > a");
+                if (link) link.classList.add("nav-expand-link");
+                submenu.classList.add("nav-items", "nav-expand-content");
+            }
+        });
+
+        const catalogUl = menu.querySelector(".nav-catalog .nav-expand-content")
+                       || menu.querySelector(".nav-catalog ul");
+
+        if (catalogUl && missingCats.length > 0) {
+            missingCats.forEach(({ href, text }) => {
+                const li = document.createElement("li");
+                li.classList.add("nav-item");
+                const a = document.createElement("a");
+                a.href = (href && href !== "#") ? href : "shop.html";
+                a.classList.add("nav-link");
+                a.textContent = text;
+                li.appendChild(a);
+                catalogUl.appendChild(li);
+            });
+        }
+
+        if (catalogUl && order.length > 0) {
+            const items = [...catalogUl.children];
+            items.sort((a, b) => {
+                const aText = a.querySelector("a")?.textContent.trim() || "";
+                const bText = b.querySelector("a")?.textContent.trim() || "";
+                const ai = order.indexOf(aText);
+                const bi = order.indexOf(bText);
+                return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+            });
+            items.forEach(li => catalogUl.appendChild(li));
+        }
+    }
+
+    function adjustSubmenuHeights() {
+        const headerHeight = 64;
+        const vh = window.innerHeight - headerHeight;
+        document.querySelectorAll(".nav-expand-content").forEach(el => {
+            el.style.position = "absolute";
+            el.style.inset = "0";
+            el.style.height = `${vh}px`;
+            el.style.maxHeight = `${vh}px`;
+            el.style.overflowY = "auto";
+            el.style.overflowX = "hidden";
+            el.style.webkitOverflowScrolling = "touch";
+        });
+    }
+
+    function initMobileMenu() {
+        const backHTML = `<li class="nav-item"><a class="nav-link nav-back-link" href="javascript:;">Povratak</a></li>`;
+        const allExpands = document.querySelectorAll(".nav-expand");
+
+        allExpands.forEach(item => {
+            const submenu = item.querySelector(":scope > .nav-expand-content");
+            if (submenu && !submenu.querySelector(".nav-back-link")) {
+                submenu.insertAdjacentHTML("afterbegin", backHTML);
+            }
+
+            const expandLink = item.querySelector(":scope > .nav-expand-link");
+            if (expandLink) {
+                expandLink.addEventListener("click", e => {
+                    e.preventDefault();
+                    item.classList.add("active");
+
+                    document.querySelectorAll(".nav-expand-content").forEach(el => {
+                        el.style.visibility = "hidden";
+                        el.style.zIndex = "1";
+                    });
+
+                    const current = item.querySelector(":scope > .nav-expand-content");
+                    if (current) {
+                        current.style.visibility = "visible";
+                        current.style.zIndex = "999";
+                        current.style.pointerEvents = "auto";
+                        current.scrollTop = 0;
+                    }
+
+                    adjustSubmenuHeights();
+                });
+            }
+
+            submenu?.querySelector(".nav-back-link")?.addEventListener("click", e => {
+                e.preventDefault();
+                item.classList.remove("active");
+
+                document.querySelectorAll(".nav-expand-content").forEach(el => {
+                    el.style.visibility = "hidden";
+                    el.style.zIndex = "1";
+                });
+
+                const parentExpand = item.closest(".nav-expand")?.parentElement?.closest(".nav-expand");
+                const parentMenu = parentExpand ? parentExpand.querySelector(":scope > .nav-expand-content") : null;
+
+                if (parentMenu) {
+                    parentMenu.style.visibility = "visible";
+                    parentMenu.style.zIndex = "999";
+                    parentMenu.scrollTop = 0;
+                } else {
+                    document.querySelector(".nav-items.nav-level-1").style.visibility = "visible";
+                }
+
+                adjustSubmenuHeights();
+            });
+        });
+
+        const ham = document.getElementById("ham");
+
+        if (ham) {
+            ham.addEventListener("click", () => {
+                document.body.classList.toggle("nav-is-toggled");
+                ham.classList.toggle("hm-active");
+            });
+        }
+
+        adjustSubmenuHeights();
+        window.addEventListener("resize", adjustSubmenuHeights);
+    }
+
+    if (window.innerWidth < 1280) {
+        cleanAndPrepareMenu();
+
+        document.querySelectorAll("li.nav-catalog").forEach(catalogLi => {
+            const submenuItems = catalogLi.querySelectorAll(":scope ul");
+            submenuItems.forEach(submenu => {
+                const parentLink = submenu.parentElement.querySelector(":scope > a.nav-expand-link");
+                if (!parentLink) return;
+
+                const href = parentLink.getAttribute("href");
+                if (!href || href === "#") return;
+
+                if (submenu.querySelector(".nav-link-styled-back")) return;
+
+                const clone = parentLink.cloneNode(true);
+                clone.classList.remove("nav-expand-link");
+                clone.classList.add("nav-link-styled-back");
+                const span = document.createElement("span");
+                span.textContent = "Prikaži sve iz kategorije";
+                clone.insertBefore(span, clone.firstChild);
+
+                const wrapper = document.createElement("li");
+                wrapper.classList.add("nav-item");
+                wrapper.appendChild(clone);
+
+                submenu.appendChild(wrapper);
+            });
+        });
+
+        document.querySelectorAll("li.nav-expand").forEach(li => {
+            if (li.closest(".nav-catalog")) return;
+
+            const submenu = li.querySelector(":scope > ul");
+            const mainLink = li.querySelector(":scope > a.nav-expand-link");
+            if (!submenu || !mainLink) return;
+
+            const href = mainLink.getAttribute("href");
+            if (!href || href === "#") return;
+
+            if (submenu.querySelector(".nav-link-show-all")) return;
+
+            const link = document.createElement("a");
+            link.href = href;
+            link.classList.add("nav-link", "nav-link-show-all");
+            link.textContent = "Prikaži sve iz kategorije";
+
+            const wrapper = document.createElement("li");
+            wrapper.classList.add("nav-item");
+            wrapper.appendChild(link);
+
+            submenu.appendChild(wrapper);
+        });
+
+        initMobileMenu();
+    }
+});
+</script>
+
+<script>
+// breadcrumbs
+function breadcrumbScroll() {
+    return {
+        progressWidth: 100,
+        progressLeft: 0,
+        hasOverflow: false,
+
+        init() {
+            this.$nextTick(() => this.updateProgress());
+            window.addEventListener('resize', () => this.updateProgress());
+        },
+
+        updateProgress() {
+            const track = this.$refs.track;
+            if (!track) return;
+
+            const { scrollLeft, scrollWidth, clientWidth } = track;
+
+            this.hasOverflow = scrollWidth > clientWidth;
+
+            if (!this.hasOverflow) {
+                this.progressWidth = 100;
+                this.progressLeft = 0;
+                return;
+            }
+
+            // Koliko % trackera je vidljivo
+            const ratio = clientWidth / scrollWidth;
+            this.progressWidth = ratio * 100;
+
+            // Koliko je odscrollano unutar preostalog prostora
+            const maxScroll = scrollWidth - clientWidth;
+            const scrollRatio = scrollLeft / maxScroll;
+            this.progressLeft = scrollRatio * (100 - this.progressWidth);
+        }
+    }
+}
+</script>
+
+</body>
+
+</html>
