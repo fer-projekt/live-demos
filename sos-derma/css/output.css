@@ -2754,18 +2754,37 @@ body.nav-is-toggled {
   display: flex;
   aspect-ratio: 1 / 1;
   width: calc(var(--spacing) * 24);
-  align-items: center;
-  justify-content: center;
   border-style: var(--tw-border-style);
   border-width: 1px;
   border-color: #9FB1BD;
   background-color: var(--color-white);
-  padding: calc(var(--spacing) * 2);
-  @media (width >= 64rem) {
-    padding: calc(var(--spacing) * 6);
-  }
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+  --tw-duration: 300ms;
+  transition-duration: 300ms;
   @media (width >= 80rem) {
     width: calc(var(--spacing) * 36);
+  }
+  &:hover {
+    @media (hover: hover) {
+      @media (width >= 80rem) {
+        --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      }
+    }
+  }
+  a {
+    position: absolute;
+    inset: calc(var(--spacing) * 0);
+    display: flex;
+    aspect-ratio: 1 / 1;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--spacing) * 2);
+    @media (width >= 64rem) {
+      padding: calc(var(--spacing) * 6);
+    }
   }
   img {
     max-height: 100%;
