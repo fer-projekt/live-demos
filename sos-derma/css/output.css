@@ -3133,6 +3133,9 @@ body.nav-is-toggled {
 }
 .academy-box {
   background-color: var(--color-primary);
+  a {
+    display: block;
+  }
   .academy-box__category {
     position: absolute;
     top: calc(var(--spacing) * 2);
@@ -3143,6 +3146,7 @@ body.nav-is-toggled {
     padding-block: calc(var(--spacing) * 1);
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
+    white-space: nowrap;
     color: var(--color-white);
     text-transform: uppercase;
     @media (width < 40rem) {

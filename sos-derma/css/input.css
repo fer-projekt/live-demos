@@ -814,8 +814,11 @@ body.nav-is-toggled{
 .academy-box{
 	@apply bg-primary;
 
+	a{
+		@apply block;
+	}
 	.academy-box__category{
-		@apply absolute top-2 xl:top-5 right-2 xl:right-5 py-1 px-5 rounded-full bg-primary font-medium text-white max-sm:text-sm uppercase;
+		@apply absolute top-2 xl:top-5 right-2 xl:right-5 py-1 px-5 rounded-full bg-primary font-medium text-white max-sm:text-sm uppercase whitespace-nowrap;
 
 		svg{
 			@apply inline-block w-3.5 xl:w-4 h-3.5 xl:h-4;
