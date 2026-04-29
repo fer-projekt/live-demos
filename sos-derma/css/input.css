@@ -996,7 +996,7 @@ body.nav-is-toggled{
 	        @apply text-black;
 	        &::after { @apply scale-x-100; }
 	    }
-	    &:hover { @apply text-black; }
+	    &:hover { @apply text-primary; }
 	}
     .product-tabs__item {
         @apply border-b border-[#D0D0D0] first:border-t xl:border-none xl:first:border-t-0;
@@ -1049,7 +1049,7 @@ body.nav-is-toggled{
         @apply flex-shrink-0 flex flex-col px-4 xl:px-5 py-2 xl:py-3 rounded-3xl border border-transparent bg-[#FAFAFA] no-underline transition-all duration-300;
         @apply max-lg:snap-start;
 
-        &:hover { @apply border-primary/50; }
+        &:hover { @apply border-[#D0D0D0]; }
         &.is-active { @apply border-primary bg-[#FAFAFA]; }
     }
     .product-variants__row {
