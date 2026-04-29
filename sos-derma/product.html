@@ -548,6 +548,359 @@
     </div>
 </section>
 
+<section class="home-featured-products mb-6 xl:mb-12 mb-12 xl:mb-24 max-xl:px-3 bg-white">
+    <div class="container text-center">
+        <h2 class="heading-2 mb-8 xl:mb-12 text-black">SLIČNI PROIZVODI</h2>
+    </div>
+    <div class="container overflow-hidden">
+        <div
+            x-data="productSlider()"
+            x-init="init()"
+            class="relative">
+            <button
+                type="button"
+                @click="prev()"
+                class="!absolute hidden xl:block w-10 h-10 left-0 xl:left-2 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full text-black text-center cursor-pointer"
+                aria-label="Prethodni">
+                <svg class="!inline-block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"/>
+                    <path d="M11 6L5 12l6 6"/>
+                </svg>
+            </button>
+            <button
+                type="button"
+                @click="next()"
+                class="!absolute hidden xl:block w-10 h-10 right-0 xl:right-2 top-1/2 -translate-y-1/2 z-10 bg-black rounded-full text-white text-center cursor-pointer"
+                aria-label="Sljedeći">
+                <svg class="!inline-block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/>
+                    <path d="M13 6l6 6-6 6"/>
+                </svg>
+            </button>
+            <div
+                x-ref="track"
+                @scroll.passive="updateState()"
+                class="scrollbar-hide flex gap-4 overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] select-none">
+                <div class="snap-start shrink-0 w-[calc(50%-8px)] sm:w-[calc(33.333%-11px)] xl:w-[calc(25%-12px)] 2xl:w-[calc(20%-13px)]">
+                    <div class="product-box">
+                        <a href="product.html" @click="preventIfDragged($event)">
+                            <figure class="product-box__img">
+                                <picture>
+                                    <source type="image/webp" srcset="./images/product-dummy.webp">
+                                    <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                                </picture>
+                                <div class="product-box__note">novo</div>
+                                <svg class="product-box__favorite is-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                                </svg>
+                            </figure>
+                            <div class="grid gap-1 px-2">
+                                <div class="uppercase text-sm font-medium tracking-[0.08em]">THE ORDINARY</div>
+                                <h3 class="text-base leading-snug">Booster Serum s Vitaminom C 1</h3>
+                                <div class="text-sm text-[#5C5C5C]">Facial toner</div>
+                                <div class="product-box__price">
+                                    <span class="product-box__price__old">15,00 €</span>
+                                    <span class="product-box__price__new">11,90 €</span>
+                                </div>
+                                <div class="text-sm text-[#5C5C5C]">240 ml</div>
+                                <div class="product-box__rating">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24">
+                                        <path fill="#D0D0D0" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77V2z"/>
+                                        <path fill="currentColor" d="M12 2v15.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    <span>4,9</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="snap-start shrink-0 w-[calc(50%-8px)] sm:w-[calc(33.333%-11px)] xl:w-[calc(25%-12px)] 2xl:w-[calc(20%-13px)]">
+                    <div class="product-box">
+                        <a href="product.html" @click="preventIfDragged($event)">
+                            <figure class="product-box__img">
+                                <picture>
+                                    <source type="image/webp" srcset="./images/product-dummy.webp">
+                                    <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                                </picture>
+                                <svg class="product-box__favorite" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                                </svg>
+                            </figure>
+                            <div class="grid gap-1 px-2">
+                                <div class="uppercase text-sm font-medium tracking-[0.08em]">THE ORDINARY</div>
+                                <h3 class="text-base leading-snug">Booster Serum s Vitaminom C 2</h3>
+                                <div class="text-sm text-[#5C5C5C]">Facial toner</div>
+                                <div class="product-box__price">
+                                    <span>15,00 €</span>
+                                </div>
+                                <div class="text-sm text-[#5C5C5C]">240 ml</div>
+                                <div class="product-box__rating">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24">
+                                        <path fill="#D0D0D0" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77V2z"/>
+                                        <path fill="currentColor" d="M12 2v15.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    <span>4,9</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="snap-start shrink-0 w-[calc(50%-8px)] sm:w-[calc(33.333%-11px)] xl:w-[calc(25%-12px)] 2xl:w-[calc(20%-13px)]">
+                    <div class="product-box">
+                        <a href="product.html" @click="preventIfDragged($event)">
+                            <figure class="product-box__img">
+                                <picture>
+                                    <source type="image/webp" srcset="./images/product-dummy.webp">
+                                    <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                                </picture>
+                                <div class="product-box__note">SALE</div>
+                                <svg class="product-box__favorite is-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                                </svg>
+                            </figure>
+                            <div class="grid gap-1 px-2">
+                                <div class="uppercase text-sm font-medium tracking-[0.08em]">THE ORDINARY</div>
+                                <h3 class="text-base leading-snug">Booster Serum s Vitaminom C 3</h3>
+                                <div class="text-sm text-[#5C5C5C]">Facial toner</div>
+                                <div class="product-box__price">
+                                    <span class="product-box__price__old">15,00 €</span>
+                                    <span class="product-box__price__new">11,90 €</span>
+                                </div>
+                                <div class="text-sm text-[#5C5C5C]">240 ml</div>
+                                <div class="product-box__rating">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24">
+                                        <path fill="#D0D0D0" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77V2z"/>
+                                        <path fill="currentColor" d="M12 2v15.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    <span>4,9</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="snap-start shrink-0 w-[calc(50%-8px)] sm:w-[calc(33.333%-11px)] xl:w-[calc(25%-12px)] 2xl:w-[calc(20%-13px)]">
+                    <div class="product-box">
+                        <a href="product.html" @click="preventIfDragged($event)">
+                            <figure class="product-box__img">
+                                <picture>
+                                    <source type="image/webp" srcset="./images/product-dummy.webp">
+                                    <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
+                                </picture>
+                                <svg class="product-box__favorite" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                                </svg>
+                            </figure>
+                            <div class="grid gap-1 px-2">
+                                <div class="uppercase text-sm font-medium tracking-[0.08em]">THE ORDINARY</div>
+                                <h3 class="text-base leading-snug">Booster Serum s Vitaminom C 4</h3>
+                                <div class="text-sm text-[#5C5C5C]">Facial toner</div>
+                                <div class="product-box__price">
+                                    <span>11,90 €</span>
+                                </div>
+                                <div class="text-sm text-[#5C5C5C]">240 ml</div>
+                                <div class="product-box__rating">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg viewBox="0 0 24 24">
+                                        <path fill="#D0D0D0" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77V2z"/>
+                                        <path fill="currentColor" d="M12 2v15.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    <span>4,9</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex xl:hidden items-center justify-center gap-2 mt-8">
+                <template x-for="dot in visibleDots" :key="dot.index">
+                    <button
+                        type="button"
+                        @click="goTo(dot.index)"
+                        :class="{
+                            'w-8 h-2.5 bg-primary':          dot.type === 'active',
+                            'w-2.5 h-2.5 bg-[#D0D0D0]':      dot.type === 'normal',
+                            'w-1.5 h-1.5 bg-[#D0D0D0]/60':   dot.type === 'small'
+                        }"
+                        class="rounded-full transition-all duration-300 hover:bg-primary/50"
+                        :aria-label="`Slide ${dot.index + 1}`">
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-academy pt-12 xl:pt-24 bg-primary text-white">
+    <div class="container max-xl:px-3 mb-8 xl:mb-12">
+        <h2 class="heading-2 mb-2 xl:mb-4 text-white">SKIN ACADEMY <span>SAVJETI I TRENDOVI U SVIJETU KOZMETIKE</span></h2>
+        <div class="desc-text">
+            Otkrijte savjete stručnjaka, beauty trendove i edukativne sadržaje kroz <a href="#">blog</a>, <a href="#">video edukacije</a> i <a href="#">rječnik</a>.
+        </div>
+    </div>
+    <div class="grid sm:grid-cols-3">
+        <div class="col-span-1">
+            <div class="academy-box">
+                <a href="#">
+                    <figure>
+                        <picture>
+                            <source type="image/webp" media="(min-width: 420px)" srcset="./images/bg-category-03.webp">
+                            <source type="image/webp" srcset="./images/bg-category-mob-03.webp">
+                            <img src="./images/bg-category-03.jpg" alt="Make UP Proizvodi" loading="lazy">
+                        </picture>
+                    </figure>
+                    <div class="academy-box__category">Blog</div>
+                    <div class="academy-box__text">
+                        <div class="academy-box__date">
+                            25.8.2025.
+                        </div>
+                        <h2 class="academy-box__title">POSEBNA PONUDA OVOG MJESECA</h2>
+                        <div class="academy-box__desc">
+                            <p>Iskoristite ekskluzivne pogodnosti i otkrijte proizvode koji njeguju vašu kožu bez kompromisa. Ponuda vrijedi ograničeno vrijeme.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-span-1">
+            <div class="academy-box">
+                <a href="#">
+                    <figure>
+                        <picture>
+                            <source type="image/webp" media="(min-width: 420px)" srcset="./images/bg-category-03.webp">
+                            <source type="image/webp" srcset="./images/bg-category-mob-03.webp">
+                            <img src="./images/bg-category-03.jpg" alt="Make UP Proizvodi" loading="lazy">
+                        </picture>
+                        <svg class="academy-box__play" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="40" r="40" fill="currentColor" fill-opacity="0.6"/>
+                            <path d="M33 27 L33 53 L55 40 Z" fill="#ffffff" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+                        </svg>
+                    </figure>
+                    <div class="academy-box__category">
+                        Video edukacija 
+                        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="40" r="40" fill="currentColor" fill-opacity="0.5"/>
+                            <path d="M33 27 L33 53 L55 40 Z" fill="#ffffff" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="academy-box__text">
+                        <div class="academy-box__date">
+                            25.8.2025.
+                        </div>
+                        <h2 class="academy-box__title">POSEBNA PONUDA OVOG MJESECA</h2>
+                        <div class="academy-box__desc">
+                            <p>Iskoristite ekskluzivne pogodnosti i otkrijte proizvode koji njeguju vašu kožu bez kompromisa. Ponuda vrijedi ograničeno vrijeme.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-span-1">
+            <div class="academy-box">
+                <a href="#">
+                    <figure>
+                        <picture>
+                            <source type="image/webp" media="(min-width: 420px)" srcset="./images/bg-category-03.webp">
+                            <source type="image/webp" srcset="./images/bg-category-mob-03.webp">
+                            <img src="./images/bg-category-03.jpg" alt="Make UP Proizvodi" loading="lazy">
+                        </picture>
+                    </figure>
+                    <div class="academy-box__category">Blog</div>
+                    <div class="academy-box__text">
+                        <div class="academy-box__date">
+                            25.8.2025.
+                        </div>
+                        <h2 class="academy-box__title">POSEBNA PONUDA OVOG MJESECA</h2>
+                        <div class="academy-box__desc">
+                            <p>Iskoristite ekskluzivne pogodnosti i otkrijte proizvode koji njeguju vašu kožu bez kompromisa. Ponuda vrijedi ograničeno vrijeme.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer-form py-12 xl:py-24">
+    <picture class="picture-bg top-0">      
+        <source type="image/webp" media="(min-width: 420px)" srcset="./images/bg-contact-form.webp">
+        <source type="image/webp" srcset="./images/bg-contact-form-mob.webp">
+        <img src="./images/bg-contact-form.jpg" alt="SOS derma kontakt" loading="lazy">
+    </picture>
+    <div class="container">
+        <form class="flex flex-wrap mx-1.5 xl:-mx-10">
+            <div class="w-full lg:w-4/12 px-1.5 xl:px-10">
+                <h2 class="heading-2 mb-8 xl:mb-12 text-primary">JAVITE NAM SE <span class="text-black">S POVJERENJEM!</span></h2>
+                <fieldset>
+                    <input type="text" class="form-text" placeholder="Ime *">
+                </fieldset>
+                <fieldset>
+                    <input type="text" class="form-text" placeholder="Prezime *">
+                </fieldset>
+                <fieldset>
+                    <input type="text" class="form-text" placeholder="Br. Mobitela">
+                </fieldset>
+                <fieldset class="mb-8">
+                    <input type="text" class="form-text" placeholder="Email *">
+                </fieldset>
+                <fieldset>
+                    <label class="form-upload">
+                        <img src="./images/icons/icon-dowload.svg" alt="Proiloži datoteku">
+                        <span class="form-upload__span">Odaberite datoteku</span>
+                        <input type="file" class="sr-only">
+                    </label>
+                </fieldset>
+            </div>
+            <div class="w-full lg:w-8/12 px-1.5 xl:px-10">
+                <fieldset class="mt-8 xl:mt-12 mb-8">
+                    <textarea class="form-text-area" placeholder="Poruka *"></textarea>
+                </fieldset>
+                <fieldset class="mb-4">
+                    <label class="group form-checkbox">
+                        <input type="checkbox" class="sr-only">
+                        <span class="form-checkbox__span">
+                            <svg class="form-checkbox__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l5 5L20 7"/>
+                            </svg>
+                        </span>
+                        <span>Želim primati obavijesti o novostima i popustima od s.o.s. derma.</span>
+                    </label>
+                </fieldset>
+                <fieldset class="mb-8">
+                    <label class="group form-checkbox">
+                        <input type="checkbox" class="sr-only">
+                        <span class="form-checkbox__span">
+                            <svg class="form-checkbox__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12l5 5L20 7"/>
+                            </svg>
+                        </span>
+                        <span>
+                            Korištenjem ovog obrasca prihvaćate da ste upoznati s <a href="#" class="underline hover:text-primary">politikom privatnosti</a> i da prihvaćate prikupljanje i obradu osobnih podataka danih u obrascu bez kojih vaš zahtjev u obrascu ne može biti ispunjen.
+                        </span>
+                    </label>
+                </fieldset>
+                <fieldset class="xl:text-right">
+                    <button type="submit">Pošalji upit</button>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</section>
+
 <div class="footer-contact bg-primary text-white">
     <div class="container">
         <div class="flex flex-wrap sm:mx-1.5 xl:-mx-5">
@@ -1016,6 +1369,137 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+</script>
+
+<script>
+// slider proizvodi
+function productSlider() {
+    return {
+        activeIndex: 0,
+        dotsCount: 0,
+
+        init() {
+            this.dotsCount = this.$refs.track.children.length;
+            this.cloneSlides();
+            [...this.$refs.track.children].forEach(s => s.style.scrollSnapStop = 'always');
+            this.$nextTick(() => this.jumpToReal());
+            window.addEventListener('resize', () => this.jumpToReal());
+
+            // scrollend čeka da smooth scroll/snap potpuno završi — nema mid-animation jumpa
+            const track = this.$refs.track;
+            this._hasScrollEnd = 'onscrollend' in track;
+            if (this._hasScrollEnd) {
+                track.addEventListener('scrollend', () => this.handleLoop());
+            }
+        },
+
+        get visibleDots() {
+            const total = this.dotsCount;
+            const max = 5;
+            if (total <= max) {
+                return Array.from({ length: total }, (_, i) => ({
+                    index: i,
+                    type: i === this.activeIndex ? 'active' : 'normal'
+                }));
+            }
+            let start = Math.max(0, this.activeIndex - 2);
+            let end = Math.min(total - 1, start + max - 1);
+            if (end - start < max - 1) start = Math.max(0, end - max + 1);
+            return Array.from({ length: end - start + 1 }, (_, i) => {
+                const idx = start + i;
+                const dist = Math.abs(idx - this.activeIndex);
+                return { index: idx, type: dist === 0 ? 'active' : dist === 1 ? 'normal' : 'small' };
+            });
+        },
+
+        cloneSlides() {
+            const track = this.$refs.track;
+            const slides = [...track.children];
+            slides.forEach(slide => {
+                const clone = slide.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                track.appendChild(clone);
+            });
+            [...slides].reverse().forEach(slide => {
+                const clone = slide.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                track.prepend(clone);
+            });
+        },
+
+        jumpToReal() {
+            const track = this.$refs.track;
+            const count = this.dotsCount;
+            const slide = track.firstElementChild;
+            if (!slide) return;
+            const gap = parseFloat(getComputedStyle(track).columnGap || 16);
+            const slideW = slide.getBoundingClientRect().width + gap;
+            track.scrollLeft = slideW * count;
+            this.activeIndex = 0;
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    track.style.visibility = '';
+                });
+            });
+        },
+
+        slideWidth() {
+            const track = this.$refs.track;
+            const slide = track?.firstElementChild;
+            if (!slide) return 0;
+            const gap = parseFloat(getComputedStyle(track).columnGap || 16);
+            return slide.getBoundingClientRect().width + gap;
+        },
+
+        next() { this.$refs.track.scrollBy({ left: this.slideWidth(), behavior: 'smooth' }); },
+        prev() { this.$refs.track.scrollBy({ left: -this.slideWidth(), behavior: 'smooth' }); },
+
+        goTo(index) {
+            this.$refs.track.scrollTo({
+                left: this.slideWidth() * (this.dotsCount + index),
+                behavior: 'smooth'
+            });
+        },
+
+        // Poziva se NAKON što scroll potpuno stane (scrollend ili timeout fallback)
+        handleLoop() {
+            const track = this.$refs.track;
+            if (!track) return;
+            const slideW = this.slideWidth();
+            const count = this.dotsCount;
+            const pos = track.scrollLeft;
+
+            if (pos < slideW * count - 1) {
+                track.scrollLeft = pos + slideW * count;
+            } else if (pos >= slideW * count * 2) {
+                track.scrollLeft = pos - slideW * count;
+            }
+
+            const realScroll = track.scrollLeft - slideW * count;
+            this.activeIndex = ((Math.round(realScroll / slideW)) % count + count) % count;
+        },
+
+        updateState() {
+            const track = this.$refs.track;
+            if (!track) return;
+            const slideW = this.slideWidth();
+            const count = this.dotsCount;
+            const pos = track.scrollLeft;
+
+            // Dots ažuriramo real-time dok korisnik scrolla
+            if (pos >= slideW * count && pos < slideW * count * 2) {
+                const realScroll = pos - slideW * count;
+                this.activeIndex = ((Math.round(realScroll / slideW)) % count + count) % count;
+            }
+
+            // Fallback za Safari koji nema scrollend — 200ms je dovoljno za snap animaciju
+            if (!this._hasScrollEnd) {
+                clearTimeout(this._loopTimer);
+                this._loopTimer = setTimeout(() => this.handleLoop(), 200);
+            }
+        },
+    }
+}
 </script>
 
 </body>
