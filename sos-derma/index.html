@@ -1601,6 +1601,7 @@ function productSlider() {
         init() {
             this.dotsCount = this.$refs.track.children.length;
             this.cloneSlides();
+            [...this.$refs.track.children].forEach(s => s.style.scrollSnapStop = 'always');
             this.$nextTick(() => this.jumpToReal());
             window.addEventListener('resize', () => this.jumpToReal());
 
@@ -1731,6 +1732,7 @@ function sunProductSlider() {
         init() {
             this.dotsCount = this.$refs.sunTrack.children.length;
             this.cloneSlides();
+            [...this.$refs.sunTrack.children].forEach(s => s.style.scrollSnapStop = 'always');
             this.$nextTick(() => this.jumpToReal());
             window.addEventListener('resize', () => this.jumpToReal());
 
