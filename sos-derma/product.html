@@ -4,7 +4,7 @@
 
   	<meta charset="UTF-8">
 
-  	<title>Proizvodi za zaštitu kože od sunca - s.o.s.derma</title>
+  	<title>Booster serum s vitaminom C - s.o.s.derma</title>
 
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -289,8 +289,11 @@
                 <li class="breadcrumbs__item">
                     <a href="index.html" class="breadcrumbs__link">Naslovna</a>
                 </li>
+                <li class="breadcrumbs__item">
+                    <a href="shop.html" class="breadcrumbs__link">Njega lica</a>
+                </li>
                 <li class="breadcrumbs__item breadcrumbs__item--active">
-                    <span class="breadcrumbs__current">Proizvodi za zaštitu kože od sunca</span>
+                    <span class="breadcrumbs__current">Booster serum s vitaminom C</span>
                 </li>
             </ol>
         </div>
@@ -304,111 +307,246 @@
 </div>
 
 <section class="py-12 xl:pt-18 xl:pb-24">
-    <div class="container">
-        <div class="flex flex-wrap xl:-mx-5">
-            <div class="w-full mb-8 xl:mb-12 px-3 xl:px-5">
-                <h1 class="heading-2 text-primary"><span class="text-black">PROIZVODI</span> za zaštitu kože od sunca</h1>
-                <div class="desc-text mt-2">
-                    <p>Dermatološki odabrana zaštita od sunca za svaki tip i stanje kože.</p>
+    <div class="container max-xl:px-3">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+            <div class="col-span-full lg:col-span-7">  
+                <div class="product-gallery mb-6 xl:mb-12" x-data="{
+                    active: 0,
+                    init() {
+                        const main = this.$el.querySelector('.product-gallery__main');
+                        const aside = this.$el.querySelector('.product-gallery__aside');
+                        const sync = () => {
+                            if (window.innerWidth >= 1024) {
+                                aside.style.height = main.offsetHeight + 'px';
+                            } else {
+                                aside.style.height = '';
+                            }
+                        };
+                        sync();
+                        new ResizeObserver(sync).observe(main);
+                        window.addEventListener('resize', sync);
+                    }
+                }">
+                    <div class="product-gallery__main">
+                        <span class="product-gallery__badge">Sale</span>
+                        <button type="button" class="product-gallery__wishlist is-active" aria-label="Dodaj u listu želja">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"/>
+                            </svg>
+                        </button>
+                        <img class="product-gallery__main-image" x-show="active === 0" src="./images/bg-category-01.webp" alt="Booster Vitamine C - prikaz 1">
+                        <img class="product-gallery__main-image" x-show="active === 1" src="./images/bg-category-02.webp" alt="Booster Vitamine C - prikaz 2">
+                        <img class="product-gallery__main-image" x-show="active === 2" src="./images/bg-category-03.webp" alt="Booster Vitamine C - prikaz 3">
+                        <img class="product-gallery__main-image" x-show="active === 3" src="./images/bg-category-04.webp" alt="Booster Vitamine C - prikaz 4">
+                        <img class="product-gallery__main-image" x-show="active === 4" src="./images/bg-category-05.webp" alt="Booster Vitamine C - prikaz 5">
+                    </div>
+                    <div class="product-gallery__aside">
+                        <button type="button" class="product-gallery__nav product-gallery__nav--prev"
+                                @click="$refs.thumbs.scrollBy({ top: -120, left: -120, behavior: 'smooth' })"
+                                aria-label="Prethodno">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <ul class="product-gallery__thumbs" x-ref="thumbs">
+                            <li><button type="button" class="product-gallery__thumb" :class="{ 'is-active': active === 0 }" @click="active = 0"><img src="./images/bg-category-01.webp" alt=""></button></li>
+                            <li><button type="button" class="product-gallery__thumb" :class="{ 'is-active': active === 1 }" @click="active = 1"><img src="./images/bg-category-02.webp" alt=""></button></li>
+                            <li><button type="button" class="product-gallery__thumb" :class="{ 'is-active': active === 2 }" @click="active = 2"><img src="./images/bg-category-03.webp" alt=""></button></li>
+                            <li><button type="button" class="product-gallery__thumb" :class="{ 'is-active': active === 3 }" @click="active = 3"><img src="./images/bg-category-04.webp" alt=""></button></li>
+                            <li><button type="button" class="product-gallery__thumb" :class="{ 'is-active': active === 4 }" @click="active = 4"><img src="./images/bg-category-05.webp" alt=""></button></li>
+                        </ul>
+                        <button type="button" class="product-gallery__nav product-gallery__nav--next"
+                                @click="$refs.thumbs.scrollBy({ top: 120, left: 120, behavior: 'smooth' })"
+                                aria-label="Sljedeće">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="product-tabs" x-data="{
+                    active: 0,
+                    mobileOpen: [true, false, false, false],
+                    get mob() { return window.innerWidth < 1024 },
+                    toggle(i) {
+                        if (this.mob) this.mobileOpen[i] = !this.mobileOpen[i];
+                        else this.active = i;
+                    },
+                    isOpen(i) { return this.mob ? this.mobileOpen[i] : this.active === i; }
+                }">
+                    <nav class="product-tabs__nav" role="tablist">
+                        <button class="product-tabs__tab" :class="{ 'is-active': active === 0 }" @click="active = 0" role="tab">Opis</button>
+                        <button class="product-tabs__tab" :class="{ 'is-active': active === 1 }" @click="active = 1" role="tab">Sastav</button>
+                        <button class="product-tabs__tab" :class="{ 'is-active': active === 2 }" @click="active = 2" role="tab">Kako koristiti</button>
+                        <button class="product-tabs__tab" :class="{ 'is-active': active === 3 }" @click="active = 3" role="tab">Recenzije</button>
+                    </nav>
+                    <div class="product-tabs__item">
+                        <button class="product-tabs__trigger" @click="toggle(0)" :aria-expanded="isOpen(0)">
+                            <span>Opis</span>
+                            <span class="product-tabs__icon" aria-hidden="true" x-text="isOpen(0) ? '—' : '+'"></span>
+                        </button>
+                        <div class="product-tabs__body" x-show="isOpen(0)">
+                            <div class="html-content">          
+                                <p>Expect an unforgettable night of beats, glamour, and Doors open at 9 PM, so don't miss out exclusive vibes as Luminara sets a new standard for nightlife in Budapest.
+                                    Doors open at 9 PM, so don't miss outDoors open at 9 PM, so don't miss out—secure your spot and join</p>
+                                <ul>
+                                    <li>Luminara Nightclub</li>
+                                    <li>Officially opened its doors this Saturday</li>
+                                    <li>With a high-energy DJ party</li>
+                                    <li>Featuring world-renowned DJs and a lineup</li>
+                                </ul>
+                                <p>Luminara Nightclub officially opened its doors this Saturday, March 28, 2026, with a high-energy DJ party featuring world-renowned DJs and a lineup of celebrity guests from the music and entertainment scene.</p>
+                            </div>   
+                        </div>
+                    </div>
+                    <div class="product-tabs__item">
+                        <button class="product-tabs__trigger" @click="toggle(1)" :aria-expanded="isOpen(1)">
+                            <span>Sastav</span>
+                            <span class="product-tabs__icon" aria-hidden="true" x-text="isOpen(1) ? '—' : '+'"></span>
+                        </button>
+                        <div class="product-tabs__body" x-show="isOpen(1)">
+                            <div class="html-content">          
+                                <ul>
+                                    <li>Luminara Nightclub</li>
+                                    <li>Officially opened its doors this Saturday</li>
+                                    <li>With a high-energy DJ party</li>
+                                    <li>Featuring world-renowned DJs and a lineup</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-tabs__item">
+                        <button class="product-tabs__trigger" @click="toggle(2)" :aria-expanded="isOpen(2)">
+                            <span>Kako koristiti</span>
+                            <span class="product-tabs__icon" aria-hidden="true" x-text="isOpen(2) ? '—' : '+'"></span>
+                        </button>
+                        <div class="product-tabs__body" x-show="isOpen(2)">
+                            <div class="html-content">     
+                                <p>Expect an unforgettable night of beats, glamour, and Doors open at 9 PM, so don't miss out exclusive vibes as Luminara sets a new standard for <a href="#">nightlife in Budapest</a>. Doors open at 9 PM, so don't miss out. Doors open at 9 PM, so don't miss out—secure your spot and join the celebration! Expect an unforgettable night of beats, glamour, and Doors open at 9 PM, so don't miss out exclusive vibes as Luminara sets a new standard for nightlife in Budapest. Doors open at 9 PM, so don't miss out.</p>
+                            </div>   
+                        </div>
+                    </div>
+                    <div class="product-tabs__item">
+                        <button class="product-tabs__trigger" @click="toggle(3)" :aria-expanded="isOpen(3)">
+                            <span>Recenzije</span>
+                            <span class="product-tabs__icon" aria-hidden="true" x-text="isOpen(3) ? '—' : '+'"></span>
+                        </button>
+                        <div class="product-tabs__body" x-show="isOpen(3)">
+                            <div class="grid gap-4"> 
+                                <article class="review-card">
+                                    <div class="review-card__stars">
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </div>
+                                    <p class="review-card__text">Napokon krema koja ne izaziva reakcije na mojoj preosjetljivoj koži! Koristim je svako jutro već dva mjeseca i koža mi je mirnija nego ikad. Bez crvenila, bez svrbeža — samo lijepa, hydratizirana koža.</p>
+                                    <div class="review-card__footer">
+                                        <div class="review-card__name">Petra H.</div>
+                                    </div>
+                                </article>
+                                <article class="review-card">
+                                    <div class="review-card__stars">
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24"><path fill="#D0D0D0" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77V2z"/><path fill="currentColor" d="M12 2v15.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </div>
+                                    <p class="review-card__text">Odlična usluga i brza dostava — paket je stigao već sljedeći dan. Serum koji sam naručila radi točno ono što piše na opisu. Jedino što bih napomenula je da je bočica manja nego što sam očekivala, ali kvaliteta je tu.</p>
+                                    <div class="review-card__footer">
+                                        <div class="review-card__name">Monika D.</div>
+                                    </div>
+                                </article>
+                                <article class="review-card">
+                                    <div class="review-card__stars">
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </div>
+                                    <p class="review-card__text">Tražila sam godinama nešto što će pomoći s tamnim mrljama nakon sunca. Ova krema je pravi pogodak — rezultati su vidljivi već nakon tri tjedna. Koža mi je ujednačenija i svježija. Hvala s.o.s. derma na preporuci!</p>
+                                    <div class="review-card__footer">
+                                        <div class="review-card__name">Željka T.</div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-full lg:col-span-5">  
+                <div class="product__info-1 grid gap-1 xl:gap-2 mb-6">                    
+                    <button type="button" class="product-wishlist is-active" aria-label="Dodaj u listu želja">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"/>
+                        </svg>
+                    </button>
+                    <h1 class="xl:w-11/12 text-xl xl:text-3xl font-light uppercase">HELIOCARE</h1>
+                    <div class="text-lg xl:text-xl">Booster serum s vitaminom C</div>
+                    <div class="xl:text-lg text-[#5C5C5C]">Serum za lice</div>
+                    <div class="product-rating">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path fill="#D0D0D0" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77V2z"/>
+                            <path fill="currentColor" d="M12 2v15.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <span>4,9</span>
+                    </div>
+                    <div>
+                        <div class="product-note">novo</div>
+                    </div>
+                </div>
+                <div class="product__info-2 grid gap-5 xl:!sticky xl:top-[80px]">
+                    <div class="product-variants" role="group" aria-label="Veličina pakiranja">
+                        <div class="product-variants__list">
+                            <a href="product.html" class="product-variants__item is-active">
+                                <div class="product-variants__row">
+                                    <span class="product-variants__price">61,34 €</span>
+                                    <span class="product-variants__old">96,81 €</span>
+                                </div>
+                                <span class="product-variants__size">30 ml</span>
+                            </a>
+                            <a href="product.html" class="product-variants__item">
+                                <div class="product-variants__row">
+                                    <span class="product-variants__price">110,05 €</span>
+                                </div>
+                                <span class="product-variants__size">60 ml</span>
+                            </a>
+                            <a href="product.html" class="product-variants__item">
+                                <div class="product-variants__row">
+                                    <span class="product-variants__price">100,00 €</span>
+                                </div>
+                                <span class="product-variants__size">50 ml</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product-amount xl:float-left mr-3 max-lg:mb-5">
+                            <button class="products-amount__decrease">−</button>
+                            <input type="number" class="products-amount__quantity" value="1" min="1" max="99">
+                            <button class="products-amount__increase">+</button>
+                        </div>
+                        <a class="button-style-1 mr-1" href="cart.html">DODAJ U KOŠARICU</a> 
+                        <div class="block sm:inline-block max-sm:ml-30">ili <a class="border-black border-b font-semibold" href="#">kupi odmah</a>.</div>                      
+                    </div>
+                    <div>
+                        Proizvod je <span class="font-medium text-[#27a640]">dostupan</span>.
+                    </div>
+                    <div>
+                        Dostava: od 5 €<br>
+                        Plaćanje: kartično ili pouzećem
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="products grid grid-cols-2 md:grid-cols-4 gap-3 xl:gap-6 max-xl:px-3">  
-            <div class="product-box">
-                <a href="product.html">
-                    <figure class="product-box__img">
-                        <picture>
-                            <source type="image/webp" srcset="./images/product-dummy.webp">
-                            <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
-                        </picture>
-                        <div class="product-box__note">novo</div>
-                        <svg class="product-box__favorite is-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
-                        </svg>
-                    </figure>
-                    <div class="grid gap-1 px-2">
-                        <div class="uppercase text-sm font-medium tracking-[0.08em]">THE ORDINARY</div>
-                        <h3 class="text-base leading-snug">Booster Serum s Vitaminom C</h3>
-                        <div class="text-sm text-[#5C5C5C]">Facial toner</div>
-                        <div class="product-box__price">
-                            <span class="product-box__price__old">15,00 €</span>
-                            <span class="product-box__price__new">11,90 €</span>
-                        </div>
-                        <div class="text-sm text-[#5C5C5C]">240 ml</div>
-                        <div class="product-box__rating">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <svg viewBox="0 0 24 24">
-                                <path fill="#D0D0D0" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77V2z"/>
-                                <path fill="currentColor" d="M12 2v15.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                            <span>4,9</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="product-box">
-                <a href="product.html">
-                    <figure class="product-box__img">
-                        <picture>
-                            <source type="image/webp" srcset="./images/product-dummy.webp">
-                            <img src="./images/product-dummy.jpg" alt="Booster Serum s Vitaminom C" loading="lazy">
-                        </picture>
-                        <svg class="product-box__favorite" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
-                        </svg>
-                    </figure>
-                    <div class="grid gap-1 px-2">
-                        <div class="uppercase text-sm font-medium tracking-[0.08em]">THE ORDINARY</div>
-                        <h3 class="text-base leading-snug">Booster Serum s Vitaminom C</h3>
-                        <div class="text-sm text-[#5C5C5C]">Facial toner</div>
-                        <div class="product-box__price">
-                            <span>15,00 €</span>
-                        </div>
-                        <div class="text-sm text-[#5C5C5C]">240 ml</div>
-                        <div class="product-box__rating">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            <svg viewBox="0 0 24 24">
-                                <path fill="#D0D0D0" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77V2z"/>
-                                <path fill="currentColor" d="M12 2v15.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                            <span>4,9</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-8">
-        <div class="px-3 text-center">     
-            <ul class="pagination">
-                <li class="disabled"></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li>...</li>
-                <li><a href="#">43</a></li>
-                <li><a href="#"></a></li>
-            </ul>
-        </div>
     </div>
 </section>
-
-<script type="text/javascript">
-// ovo samo kopira .product-box da je lipše vidi kod/ maknuti kad se puni iz baze
-const container = document.querySelector('.products');
-const items = [...container.querySelectorAll('.product-box')];
-const repeat = 7;
-for (let i = 0; i < repeat; i++) {
-    items.forEach(item => {
-        container.appendChild(item.cloneNode(true));
-    });
-}
-</script>
 
 <div class="footer-contact bg-primary text-white">
     <div class="container">
@@ -805,6 +943,79 @@ function breadcrumbScroll() {
         }
     }
 }
+</script>
+
+<script>
+// product poredak elemanata
+(function() {
+    function init() {
+        const info1   = document.querySelector('.product__info-1');
+        const info2   = document.querySelector('.product__info-2');
+        const gallery = document.querySelector('.product-gallery');
+        const tabs    = document.querySelector('.product-tabs');
+
+        if (!info1 || !info2 || !gallery || !tabs) return;
+
+        const rightCol = info1.parentElement;
+        let state = null;
+
+        function apply() {
+            const target = window.innerWidth < 1024 ? 'mobile' : 'desktop';
+            if (state === target) return;
+
+            if (target === 'mobile') {
+                gallery.before(info1);   // info1 iznad galerije
+                gallery.after(info2);    // info2 ispod galerije (iznad tabova)
+            } else {
+                rightCol.appendChild(info1);
+                rightCol.appendChild(info2);
+            }
+
+            state = target;
+        }
+
+        apply();
+
+        let timer;
+        window.addEventListener('resize', () => {
+            clearTimeout(timer);
+            timer = setTimeout(apply, 100);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
+
+<script>
+// količina za košaricu
+document.addEventListener("DOMContentLoaded", function () {
+    // funkcija za povećanje
+    document.querySelectorAll('.product-amount .products-amount__increase').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.products-amount__quantity');
+            if (input) {
+                input.value = parseInt(input.value) + 1;
+            }
+        });
+    });
+    // funkcija za smanjenje
+    document.querySelectorAll('.product-amount .products-amount__decrease').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.products-amount__quantity');
+            if (input) {
+                let val = parseInt(input.value);
+                if (val > 1) {
+                    input.value = val - 1;
+                }
+            }
+        });
+    });
+});
 </script>
 
 </body>
