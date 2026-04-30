@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<title>Profil Klett — AI Newsletter / Tehnička specifikacija izvora</title>
+<style>
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel2:#1f232c; --line:#2a2f3a;
+  --ink:#e8ecf2; --mute:#9aa3b2; --accent:#7cc4ff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1400px;margin:0 auto;padding:32px 28px 80px}
+h1{font-size:28px;margin:0 0 4px;letter-spacing:-.01em}
+h2{font-size:20px;margin:36px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px;letter-spacing:-.01em}
+h3{font-size:15px;margin:20px 0 8px;color:var(--accent)}
+p{color:#cfd6e1}
+small,.muted{color:var(--mute)}
+.subtitle{color:var(--mute);margin:0 0 20px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:18px 0 8px}
+.kpi .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.kpi .num{font-size:22px;font-weight:600;letter-spacing:-.02em}
+.kpi .lbl{color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin:14px 0}
+.panel.warn{border-color:#5a4520;background:#241d10}
+.panel.bad{border-color:#5e2424;background:#251313}
+.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid transparent;white-space:nowrap}
+.tag.S{background:rgba(46,125,50,.18);color:#9be3a4;border-color:#2e7d32}
+.tag.M{background:rgba(176,137,0,.18);color:#f0c95c;border-color:#b08900}
+.tag.L{background:rgba(204,102,0,.18);color:#ffa86b;border-color:#cc6600}
+.tag.XL{background:rgba(160,37,37,.2);color:#ff8b8b;border-color:#a02525}
+.tag.rss{background:rgba(47,111,235,.16);color:#9bbcff;border-color:#2f6feb}
+.tag.html{background:rgba(132,141,160,.16);color:#cfd6e1;border-color:#5a6273}
+.tag.sitemap{background:rgba(150,100,200,.16);color:#cfa6e8;border-color:#7c45ad}
+.tag.mixed{background:rgba(0,150,150,.16);color:#7ddcdc;border-color:#1f7d7d}
+.tag.api{background:rgba(0,180,80,.16);color:#7be0a3;border-color:#179f4d}
+.tag.manual{background:rgba(160,37,37,.2);color:#ff8b8b;border-color:#a02525}
+.tag.all{background:rgba(46,125,50,.16);color:#9be3a4;border-color:#2e7d32}
+.tag.category-rubric{background:rgba(47,111,235,.16);color:#9bbcff;border-color:#2f6feb}
+.tag.keyword{background:rgba(176,137,0,.16);color:#f0c95c;border-color:#b08900}
+.tag.yes{background:rgba(160,37,37,.18);color:#ff8b8b;border-color:#a02525}
+.tag.partial{background:rgba(176,137,0,.18);color:#f0c95c;border-color:#b08900}
+.tag.no{background:rgba(46,125,50,.18);color:#9be3a4;border-color:#2e7d32}
+.tag.unknown{background:rgba(132,141,160,.16);color:#cfd6e1;border-color:#5a6273}
+.tag.high{background:rgba(204,102,0,.18);color:#ffa86b;border-color:#cc6600}
+.tag.medium{background:rgba(176,137,0,.18);color:#f0c95c;border-color:#b08900}
+.tag.low{background:rgba(46,125,50,.16);color:#9be3a4;border-color:#2e7d32}
+.tag.p1{background:rgba(220,90,30,.2);color:#ffa86b;border-color:#cc6600;font-weight:700}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px;align-items:center}
+.controls input,.controls select{background:var(--panel2);border:1px solid var(--line);color:var(--ink);padding:6px 10px;border-radius:6px;font:inherit}
+.controls input{flex:1;min-width:200px}
+.controls .btn{background:var(--panel2);border:1px solid var(--line);color:var(--mute);padding:6px 10px;border-radius:6px;cursor:pointer;font:inherit}
+.controls .btn:hover{color:var(--ink);border-color:#3a4254}
+.tcount{color:var(--mute);font-size:12px;margin-left:auto}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
+th{background:var(--panel2);color:var(--mute);text-transform:uppercase;font-size:11px;letter-spacing:.05em;font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none;position:sticky;top:0}
+th:hover{color:var(--ink)}
+th.sorted-asc::after{content:" \25B2";color:var(--accent)}
+th.sorted-desc::after{content:" \25BC";color:var(--accent)}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.cat-header td{background:#11141b;color:var(--accent);font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.06em;padding:8px 10px}
+tr:hover td{background:#1a1e26}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.notes{color:var(--mute);font-size:12px;max-width:340px}
+td.scrape{max-width:300px;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:#bcd}
+ul.q{margin:8px 0 8px 18px;padding:0}
+ul.q li{margin:4px 0}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 6px;color:var(--mute);font-size:12px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.cat-summary td:first-child{font-weight:600}
+code{background:#0a0c10;border:1px solid var(--line);padding:1px 5px;border-radius:3px;font-size:12px;color:#bcd}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.toc a{display:inline-block;padding:4px 9px;border:1px solid var(--line);border-radius:14px;font-size:12px;color:var(--mute)}
+.toc a:hover{color:var(--ink);border-color:#3a4254;text-decoration:none}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:900px){.dual{grid-template-columns:1fr}}
+.arch-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:900px){.arch-grid{grid-template-columns:1fr}}
+@media print{
+  html,body{background:#fff;color:#000}
+  .wrap{max-width:none;padding:0 12px}
+  table{font-size:10px}
+  th,td{padding:4px 5px}
+  .panel{background:#f5f5f5;color:#000;border-color:#ccc}
+  .controls{display:none}
+  a{color:#000;text-decoration:underline}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Profil Klett &mdash; AI Newsletter</h1>
+<p class="subtitle">Tehnička specifikacija izvora &middot; 101 izvor &middot; interni brief za pripremu ponude &middot; 30.04.2026.</p>
+
+<div class="toc">
+  <a href="#tldr">TL;DR</a>
+  <a href="#metodologija">Metodologija</a>
+  <a href="#sazetak">Sažetak</a>
+  <a href="#tablica">Detaljna tablica</a>
+  <a href="#arhitektura">Arhitektura</a>
+  <a href="#faze">Faze i cijena</a>
+  <a href="#pitanja">Pitanja za klijenta</a>
+  <a href="#rizici">Rizici</a>
+  <a href="#spotcheck">Spot-check</a>
+</div>
+
+<h2 id="tldr">TL;DR</h2>
+<div class="kpi">
+  <div class="card"><div class="num">101</div><div class="lbl">Ukupno izvora</div></div>
+  <div class="card"><div class="num">17</div><div class="lbl">Prioritet 1</div></div>
+  <div class="card"><div class="num" id="totalH">~338 h</div><div class="lbl">Total scraperi</div></div>
+  <div class="card"><div class="num" id="rssPct">~34 %</div><div class="lbl">Izvora s RSS-om</div></div>
+  <div class="card"><div class="num">Det. filter</div><div class="lbl">Ne AI klasifikacija</div></div>
+  <div class="card"><div class="num">2</div><div class="lbl">Paywall (Jutarnji, Večernji)</div></div>
+</div>
+<p>Projekt je tehnički izvediv ali znatno opsežniji nego što zvuči na sastanku. <strong>~338 h scraper developmenta</strong> samo za 101 izvor (raspon ~280–420 h) — bez admin-panela, AI pipelinea, slanja, hostinga, testiranja. Glavna arhitekturna odluka: <strong>filtriranje relevantnosti = deterministički (keyword/URL-rubrika), AI samo za sažetak</strong> — eliminira rizik da AI propusti tender. <strong>17 prioritet-1 izvora</strong> (ministarstva i agencije) može isporučiti pouzdani MVP u 4–5 tjedana; lokalna samouprava (36 izvora) i ostatak idu u kasnije faze.</p>
+
+<h2 id="metodologija">Metodologija i ključna arhitekturna odluka</h2>
+<div class="dual">
+  <div class="panel">
+    <h3>Što je provjereno po svakom izvoru</h3>
+    <ul style="margin:0 0 0 18px;padding:0">
+      <li><strong>RSS/Atom probe</strong> &mdash; <code>/rss</code>, <code>/feed/</code>, <code>/atom.xml</code>, <code>&lt;link rel="alternate"&gt;</code> u HEAD-u</li>
+      <li><strong>News listing</strong> &mdash; <code>/vijesti</code>, <code>/novosti</code>, <code>/aktualnosti</code>, <code>/press</code>, <code>/objave</code></li>
+      <li><strong>Education rubrika</strong> &mdash; postoji li već kategorija "obrazovanje" / "školstvo" (filter besplatan)</li>
+      <li><strong>JS-render</strong> &mdash; treba li headless browser (Playwright)</li>
+      <li><strong>Paywall / anti-bot</strong> &mdash; robots.txt, 403, Cloudflare</li>
+      <li><strong>Volumen</strong> &mdash; okvirno objava/dan ili tjedan</li>
+      <li><strong>CMS</strong> &mdash; Joomla / WordPress / DNN / custom (utječe na ponovnu uporabu strategije)</li>
+    </ul>
+  </div>
+  <div class="panel warn">
+    <h3>Ključno: deterministički filter, NE AI klasifikacija</h3>
+    <p style="margin:6px 0">Klijent traži pouzdanost ("ne smije propustiti tender"). AI klasifikacija "je li ovo o obrazovanju" ima false-negative rate ≥ 1–3% i nepredvidljiva je. Stoga:</p>
+    <ul style="margin:0 0 0 18px;padding:0">
+      <li><strong>Filter relevantnosti</strong> = RSS-rubrika ILI URL-segment (<code>/obrazovanje</code>) ILI keyword-match nad naslovom/leadom (<em>obrazovanje, škola, učitelj, kurikulum, natječaj, tender, udžbenik, vrtić, fakultet, znanost</em> + isključujuće riječi).</li>
+      <li><strong>AI</strong> = samo sažetak već filtriranog članka (Haiku za šum, Sonnet za vrh).</li>
+      <li>Posljedica: deterministicki testovi (regresija na keyword-match), red veličine niži LLM trošak, bez "tender koji je AI bacio".</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="sazetak">Sažetak po kategorijama</h2>
+<table class="cat-summary">
+<thead><tr><th>Kategorija</th><th>Izvora</th><th>RSS</th><th>HTML</th><th>Manual</th><th>Total sati</th><th>Glavni rizik</th></tr></thead>
+<tbody id="cat-summary-body"></tbody>
+</table>
+
+<h2 id="tablica">Detaljna tablica izvora <small class="muted">(101 redak, sortiraj klikom na zaglavlje, filtriraj kroz polja gore)</small></h2>
+<div class="legend">
+  <span><span class="tag S">S</span> 1–2 h, RSS+kategorija</span>
+  <span><span class="tag M">M</span> 3–5 h, RSS bez kategorije ili stabilan HTML</span>
+  <span><span class="tag L">L</span> 6–10 h, custom scraper</span>
+  <span><span class="tag XL">XL</span> 12 h+, JS/anti-bot/paywall</span>
+  <span><span class="tag p1">P1</span> Prioritet 1 izvor</span>
+</div>
+<div class="controls">
+  <input id="q" type="text" placeholder="Pretraži ime, URL, napomenu…">
+  <select id="fcat"><option value="">Sve kategorije</option></select>
+  <select id="fmethod">
+    <option value="">Sve metode</option>
+    <option value="rss">rss</option><option value="html">html</option><option value="sitemap">sitemap</option><option value="mixed">mixed</option><option value="manual">manual</option>
+  </select>
+  <select id="fweight">
+    <option value="">Sve težine</option>
+    <option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option>
+  </select>
+  <select id="ffilter">
+    <option value="">Svi filteri</option>
+    <option value="all">all</option>
+    <option value="category-rubric">category-rubric</option>
+    <option value="keyword">keyword</option>
+  </select>
+  <button class="btn" id="reset">Reset</button>
+  <span class="tcount" id="tcount"></span>
+</div>
+<table id="srctable">
+<thead>
+<tr>
+  <th data-k="id">#</th>
+  <th data-k="prio">P</th>
+  <th data-k="name">Izvor</th>
+  <th data-k="cat">Kategorija</th>
+  <th data-k="method">Metoda</th>
+  <th data-k="scrape_url">URL/RSS za scrape</th>
+  <th data-k="edu_filter">Filter</th>
+  <th data-k="js_render">JS</th>
+  <th data-k="paywall">Paywall</th>
+  <th data-k="volume">Vol.</th>
+  <th data-k="weight">Težina</th>
+  <th data-k="hours" class="num">h</th>
+  <th data-k="notes">Napomena</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+
+<h2 id="arhitektura">Arhitektura sustava (Laravel)</h2>
+<div class="arch-grid">
+  <div class="panel">
+    <h3>Stack</h3>
+    <ul style="margin:0 0 0 18px;padding:0">
+      <li><strong>Laravel 11</strong> + Horizon (queue) + scheduler za dnevne jobove</li>
+      <li><strong>PostgreSQL</strong> (full-text search za keyword filter) ili MySQL + Meilisearch</li>
+      <li><strong>Redis</strong> za queue, cache, dedup-fingerprint</li>
+      <li><strong>Filament</strong> admin (review-queue, ručno isključivanje članka, dodaj/makni izvor, keyword-lista)</li>
+      <li><strong>Browsershot/Playwright</strong> samo za JS-render i anti-bot izvore (Varaždin, Samobor, HGK, paywall mediji)</li>
+      <li><strong>Resend / Postmark / Mailcoach</strong> za isporuku (~10 primatelja interno → jeftino)</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3>Pipeline</h3>
+    <ol style="margin:0 0 0 18px;padding:0">
+      <li><strong>Fetch</strong> (per-source job, paralelno kroz Horizon) → raw HTML/XML</li>
+      <li><strong>Extract</strong> (Strategy: RSSStrategy, JoomlaK2Strategy, WordPressStrategy, DnnStrategy, CustomXStrategy)</li>
+      <li><strong>Dedup</strong> po hash(title+url) i URL-canonical</li>
+      <li><strong>Filter relevantnosti</strong> &mdash; deterministički: rubric pass-through ILI keyword-regex po prioritetu (high-confidence kw → pass; low-confidence → flagged-for-review)</li>
+      <li><strong>Summarize</strong> &mdash; Haiku/Sonnet, batch, samo za već filtrirane</li>
+      <li><strong>Compose</strong> &mdash; dnevni snapshot, ručna review-queue u Filamentu</li>
+      <li><strong>Send</strong> &mdash; HTML email u zadano vrijeme</li>
+    </ol>
+  </div>
+</div>
+<div class="panel">
+<h3>Schema baze (skraćeno)</h3>
+<pre style="margin:0;color:#cfd6e1;font-size:12px;overflow-x:auto;white-space:pre-wrap">sources(id, name, category, url, method, scrape_url, edu_filter, edu_filter_detail, strategy_class, frequency_minutes, is_active, priority, last_run_at, last_success_at, fail_count)
+articles(id, source_id, external_url, hash, title, lead, body, published_at, fetched_at, passed_filter, filter_reason, summary_ai, status [new|filtered|approved|rejected|sent])
+keyword_lists(id, list_type [include|exclude], terms[], scope [all|category])
+dispatches(id, sent_at, recipients[], article_ids[], html_snapshot, status)
+scraper_runs(id, source_id, started_at, finished_at, articles_found, articles_new, error)</pre>
+</div>
+
+<h2 id="faze">Faze projekta i indikativna cijena</h2>
+<div class="panel">
+<h3>Faza 0 — Discovery &amp; spec</h3>
+<p>Već dijelom obavljen ovim dokumentom. Ostaje: validacija s klijentom (vidi pitanja niže), definicija keyword-liste, izbor ESP-a, finalna fiksna ponuda. <strong>~10 h, fixed.</strong></p>
+</div>
+<div class="panel">
+<h3>Faza 1 — MVP (17 prioritet-1 izvora)</h3>
+<p>Ministarstva, agencije, Sabor, Vlada — sve P1 izvore. Cilj: pouzdano dnevno slanje za "core" tender/natječaj signal koji <em>ne smije promaknuti</em>.</p>
+<ul style="margin:6px 0 6px 18px;padding:0">
+  <li>17 scrapera (~54 h)</li>
+  <li>Laravel skeleton, baza, Horizon, deduplikacija (~25 h)</li>
+  <li>Keyword filter sustav + admin za uređivanje liste (~20 h)</li>
+  <li>AI summary pipeline + cost-control (~15 h)</li>
+  <li>Filament admin (review queue, isključi/uključi članak, force-send) (~25 h)</li>
+  <li>Email template + ESP integracija (~12 h)</li>
+  <li>Hosting setup, monitoring, deploy, testiranje (~20 h)</li>
+</ul>
+<p><strong>Total Faza 1: ~170 h.</strong> Pri satnici 60 €/h → <strong>~10 200 € fiksno</strong>. Trajanje: 4–5 tjedana.</p>
+</div>
+<div class="panel">
+<h3>Faza 2 — Lokalna samouprava (36 izvora)</h3>
+<p>20 županija + 16 gradova. ~137 h scrapera (75 + 62). WP-rich kategorije idu po-batch kroz dijeljene strategije; DNN i custom CMS (Šibenik, Split, Varaždin, Samobor) traže više rada.</p>
+<p><strong>Total Faza 2: ~150 h</strong> (uključujući QA + integraciju). <strong>~9 000 € fiksno</strong> ili po-batch (10 izvora ≈ 2 500 €). Trajanje: 3–4 tjedna.</p>
+</div>
+<div class="panel">
+<h3>Faza 3 — Ostatak (udruge, izdavači, mediji)</h3>
+<ul style="margin:6px 0 6px 18px;padding:0">
+  <li>16 udruga/instituta/sindikata (~26 h, većinom WP)</li>
+  <li>18 izdavača/poslovnih udruga (~73 h, mix WordPress/WooCommerce/BigCommerce/Magento/anti-bot)</li>
+  <li>14 medija (~51 h, paywall/JS/anti-bot za Jutarnji, Večernji, 24sata)</li>
+</ul>
+<p><strong>Total Faza 3: ~170 h.</strong> <strong>~10 200 € fiksno</strong> ili po-batch. Mediji se preporučuju uvesti tek nakon dogovora oko paywall pretplata.</p>
+</div>
+<div class="panel warn">
+<h3>Mjesečni maintenance retainer (OBAVEZAN)</h3>
+<p>Scraperi pucaju. Ovo nije opcija nego strukturni trošak.</p>
+<ul style="margin:6px 0 6px 18px;padding:0">
+  <li>Monitoring (alarm ako 48h nema vijesti s izvora) — postavlja se u Fazi 1</li>
+  <li>Popravak pukih scrapera — prosjek 1–2 mjesečno na 100 izvora</li>
+  <li>LLM API trošak (passthrough + 30% marža) — procjena 30–80 €/mj. (deterministički filter drži ovo nisko)</li>
+  <li>Hosting (VPS) — 30–60 €/mj.</li>
+  <li>Email isporuka — 10–30 €/mj.</li>
+</ul>
+<p><strong>Predloženo: 600–900 €/mj.</strong> (uključuje 6–10 sati popravaka mj. + LLM + hosting + email). Sve preko 10 sati popravaka mj. = T&amp;M na satnicu.</p>
+</div>
+<div class="panel">
+<h3>Total raspon</h3>
+<p><strong>Jednokratno (Faze 0+1+2+3):</strong> ~500 h ≈ <strong>30 000 €</strong> (raspon: 27 000 – 36 000 € ovisno o broju anti-bot/paywall izvora).</p>
+<p><strong>Mjesečni paušal:</strong> 600–900 €.</p>
+<p><strong>NAPOMENA:</strong> ovo NIJE fiksna ponuda dok se ne odgovore pitanja niže. Tri stavke koje mogu pomaknuti raspon ±20%: paywall odluka (Jutarnji/Večernji), Facebook grupa odluka, koliko od 36 lokalnih samouprava se zaista treba (možda samo 12 gdje su škole-partneri).</p>
+</div>
+
+<h2 id="pitanja">Pitanja za klijenta (predloženo Antonija → Saša)</h2>
+<div class="panel">
+<ol style="margin:0 0 0 18px;padding:0">
+  <li><strong>Paywall mediji</strong> — imate li pretplatu na Jutarnji/Večernji s API-em ili pristupom punog teksta? Ako ne, je li dovoljan public lead (naslov + uvod)?</li>
+  <li><strong>Definicija "relevantno za obrazovanje"</strong> — možete li dati listu uključujućih i isključujućih ključnih riječi (uključi: <em>tender, natječaj, kurikulum, udžbenik, škola, učitelj, vrtić, fakultet</em>; isključi: <em>sport, prometna nesreća, vremenska prognoza</em>…)? Bez ove liste filter ne može biti deterministički.</li>
+  <li><strong>Primatelji NL-a</strong> — interno koliko ljudi? Trebate li segmentaciju (npr. "samo natječaji" za nabavu, "sve" za marketing)?</li>
+  <li><strong>Vrijeme slanja</strong> — fiksno ujutro? Koje vrijeme (08:00, 09:00)?</li>
+  <li><strong>Format isporuke</strong> — HTML email? Koji ESP imate (Mailchimp/SendGrid/SMTP)? Ili da preporučimo?</li>
+  <li><strong>Ručni review prije slanja</strong> — želite li da netko od vas potvrdi NL prije slanja (10 min ujutro), ili automatsko slanje?</li>
+  <li><strong>SLA</strong> — što ako scraper pukne? Tolerancija 24 h zakašnjenja po izvoru?</li>
+  <li><strong>Hosting</strong> — vaš VPS ili naš? Tko ima kontrolu nad infrastrukturom?</li>
+  <li><strong>Facebook grupa "Školska zbornica"</strong> — obavezno ili izbacujemo? FB ToS ne dopušta automatizirano povlačenje.</li>
+  <li><strong>Konkurenti (Školska knjiga, Mozaik, Ljevak…)</strong> — što vas točno zanima — novi udžbenici, akcije, press? (drugačiji workflow od ministarskih natječaja)</li>
+  <li><strong>Veleposlanstva</strong> — okay li je niža frekvencija (1×/tjedno)?</li>
+  <li><strong>Lokalne samouprave</strong> — interesira vas svih 36, ili samo gradovi/županije gdje imate škole-partnere? (može uštedjeti 4 000+ €)</li>
+  <li><strong>Profil Klett vlastiti site</strong> — uključiti u monitoring (kao "naše vijesti" sekcija) ili izbaciti?</li>
+  <li><strong>Duplikat HGK reda</strong> — #72 i #85 imaju isti URL. Je li #85 trebao biti drugi URL?</li>
+</ol>
+</div>
+
+<h2 id="rizici">Rizici i ograničenja</h2>
+<div class="panel bad">
+<h3>Tehnički/pravni</h3>
+<ul style="margin:0 0 0 18px;padding:0">
+  <li><strong>Paywall (Jutarnji, Večernji)</strong> — bez pretplate s API-em, smije se povlačiti samo public lead. Ugovorno se mora ograničiti odgovornost.</li>
+  <li><strong>Anti-bot (Varaždin, Samobor, Superknjižara, Fraktura, 24sata)</strong> — vraća 403 na default UA. Treba realan UA ili Playwright. Rizik blokiranja IP-a — koristiti rotirajuće rezidencijalne proxyje za rizične izvore.</li>
+  <li><strong>Facebook grupa</strong> — Meta ToS zabranjuje scraping. Preporuka: ručni unos jednom tjedno ili izbaciti.</li>
+  <li><strong>kzz.hr (Krapinsko-zagorska)</strong> — bio u održavanju za vrijeme probe. Treba ponoviti.</li>
+  <li><strong>hmdcd.hr</strong> — ECONNREFUSED. Provjeriti je li gotov ili koristi non-www host.</li>
+  <li><strong>ccifc.hr</strong> — ECONNREFUSED. Re-probe iz produkcijske mreže.</li>
+  <li><strong>Duplikat HGK</strong> — #72 i #85 imaju isti URL. Treba potvrditi.</li>
+</ul>
+</div>
+<div class="panel warn">
+<h3>Operativni</h3>
+<ul style="margin:0 0 0 18px;padding:0">
+  <li><strong>Scraper drift</strong> — ~10–15% scrapera puca godišnje uslijed redizajna sajta. Bez maintenance retainera ovo postaje frikcija s klijentom.</li>
+  <li><strong>"Pouzdanost"</strong> — klijentova rečenica "ne smije propustiti tender" je opasna. Sustav je pomoć, ne zamjena za ljudsku provjeru kritičnih izvora. Ugovorno regulirati: SLA na <em>dohvat</em> (svi članci s ministarstava se prikazuju), ne na <em>klasifikaciju</em>.</li>
+  <li><strong>Definicija relevantnosti</strong> — bez liste keyworda od klijenta, mi ćemo improvizirati i klijent će reći "fali mi vijest X". Mora doći od njih.</li>
+  <li><strong>Konflikt interesa</strong> — Profil Klett u listi izvora monitorira sebe i konkurente. To je legitimno, ali znači da ovo nije samo "newsletter" nego i kompetitivna inteligencija — ima smisla naplatiti prema vrijednosti, ne samo prema satima.</li>
+</ul>
+</div>
+
+<h2 id="spotcheck">Spot-check verifikacija (curl, 30.04.2026.)</h2>
+<div class="panel">
+<p>13 kritičnih scrape-URL-ova provjereno realnim curl GET-om (Mozilla UA, max-time 8s):</p>
+<ul style="margin:0 0 0 18px;padding:0;font-size:13px">
+  <li><span class="tag no">200</span> Vlada RSS, CARNET feed, NCVVO feed, MINT RSS, SRCE RSS, MZOM /vijesti/8 — svi rade.</li>
+  <li><span class="tag no">200</span> Vukovarsko-srijemska <code>/category/obrazovanje/feed/</code> — potvrđen edu-rubric feed (~109KB).</li>
+  <li><span class="tag no">200</span> Grad Zagreb <code>/odgoj-i-obrazovanje/11</code> i Grad Rijeka <code>/teme-za-gradane/odgoj-i-obrazovanje/</code> — edu-rubrike potvrđene.</li>
+  <li><span class="tag no">200</span> Srednja.hr RSS (~125KB), dnevnik.hr feed — confirmed.</li>
+  <li><span class="tag partial">301</span> Međimurska RSS — radi bez <code>www.</code>, s www. redirectira. <strong>Popravljeno u tablici.</strong></li>
+  <li><span class="tag yes">404</span> <strong>Jutarnji <code>/vijesti/obrazovanje</code> ne postoji</strong> — pravi rubric je <code>/tag/obrazovanje</code> (potvrđeno 200, ~232KB). <strong>Popravljeno u tablici.</strong></li>
+</ul>
+<p>Preporuka: prije fiksne ponude jednako provjeriti i Večernji rubric (paywall + slug), 24sata <code>/tema/skolstvo</code>, HRT feed-list page, te Joomla <code>?format=feed&amp;type=rss</code> na svih 8 Joomla županija (može pretvoriti par redaka iz <code>html</code> u <code>rss</code> i smanjiti satnicu).</p>
+</div>
+
+<p class="muted" style="margin-top:36px;font-size:11px">Generirano automatiziranom probom (101 izvor × ~1.7 fetcheva po izvoru) + curl spot-check 13 P1/kritičnih scrape-URL-ova. RSS URL-ovi u "scrape_url" stupcu su predloženi — neki traže potvrdu u implementaciji (osobito gov.hr <code>rss.aspx</code> patterni i Joomla <code>?format=feed&amp;type=rss</code>).</p>
+
+</div>
+
+<script>
+const CATEGORIES = {
+  "drz_tijela":"Državna tijela i diplomacija",
+  "drz_agencije":"Državne agencije",
+  "lok_zup":"Lokalna samouprava — županije",
+  "lok_grad":"Lokalna samouprava — gradovi",
+  "obr_udruge":"Obrazovne udruge, instituti, sindikati",
+  "obr_inst":"Obrazovne institucije",
+  "posl_udruge":"Poslovne udruge i izdavači",
+  "mediji":"Mediji",
+  "intl":"Internacionalne udruge"
+};
+
+const RISKS = {
+  "drz_tijela":"Neki gov.hr RSS-ovi su lažni (404); fallback na HTML scraping",
+  "drz_agencije":"Većinom WordPress — najlakše. Niska volumena, ali kritično",
+  "lok_zup":"Heterogeni CMS-ovi (Joomla/WP/DNN/custom). kzz.hr u održavanju u probu",
+  "lok_grad":"Anti-bot na Varaždin/Samobor; DNN/custom na Split/Šibenik",
+  "obr_udruge":"Većinom WP /feed/ — najlakše. HMDCD nedostupan u probu",
+  "obr_inst":"Custom CMS-ovi (CONTENIDO na ALU). Niska volumena",
+  "posl_udruge":"Anti-bot (Superknjižara, Fraktura), JS-render (HGK), duplikat reda (#72=#85)",
+  "mediji":"Paywall (Jutarnji, Večernji), anti-bot (24sata), FB grupa nelegalna za scraping",
+  "intl":"Niska volumena, ccifc.hr nedostupan u probu"
+};
+
+const DATA = [
+{"id":1,"prio":1,"cat":"drz_tijela","name":"Sabor — Odbor za obrazovanje, znanost i kulturu","url":"https://www.sabor.hr/hr/radna-tijela/odbor-za-obrazovanje-znanost-i-kulturu-11-s","method":"rss","scrape_url":"https://www.sabor.hr/sabor-rss-feed/press/priopcenja","edu_filter":"keyword","edu_filter_detail":"RSS pokriva sve press; filter title/lead po obrazovanje|škola|učitelj|kurikulum|znanost|odbor.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Više RSS feedova (priopcenja/najave/multimedija). Točan URL pattern za potvrdu u implementaciji."},
+{"id":2,"prio":1,"cat":"drz_tijela","name":"Vlada — Ured glavne tajnice","url":"https://vlada.gov.hr/ured-glavne-tajnice-vlade-republike-hrvatske/11352","method":"rss","scrape_url":"https://vlada.gov.hr/RSS?id=8","edu_filter":"keyword","edu_filter_detail":"Government-wide RSS; filter po obrazovanje|škola|učitelj|MZOM|stipendij|natječaj.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":3,"notes":"Confirmed RSS 2.0; ~3-5 items/wk, bursty. Hint /rss/18210 bio help-page; pravi feed je /RSS?id=8."},
+{"id":3,"prio":1,"cat":"drz_tijela","name":"MZOM — Ministarstvo znanosti, obrazovanja i mladih","url":"https://mzom.gov.hr/","method":"html","scrape_url":"https://mzom.gov.hr/vijesti/8","edu_filter":"all","edu_filter_detail":"Ministarstvo obrazovanja — sve relevantno. Posebno /istaknute-teme/natjecaji-196/196 za tendere.","js_render":"no","paywall":"no","volume":"high","weight":"M","hours":4,"notes":"Advertised /rss/1529 vraća 404. Scrape /vijesti/8 (3184 items, ~10/page). HTML."},
+{"id":4,"prio":1,"cat":"drz_tijela","name":"Ministarstvo kulture i medija","url":"https://min-kulture.gov.hr/","method":"html","scrape_url":"https://min-kulture.gov.hr/vijesti-8/8","edu_filter":"category-rubric","edu_filter_detail":"Tema-filter 'Odgoj i obrazovanje' na listing; fallback keyword filter.","js_render":"no","paywall":"no","volume":"high","weight":"M","hours":5,"notes":"Nema RSS-a. ~20-25 posts/wk. HTML, paginated. Tema taxonomy uključuje obrazovanje."},
+{"id":5,"prio":1,"cat":"drz_tijela","name":"Ministarstvo turizma i sporta","url":"https://mint.gov.hr/","method":"rss","scrape_url":"https://mint.gov.hr/rss.aspx/?lng=&ID=8","edu_filter":"keyword","edu_filter_detail":"Filter po obrazovanje|škola|učenik|sportska dvorana|natječaj.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":2,"notes":"Valid RSS, ~3/wk, headline+date+short summary."},
+{"id":6,"prio":1,"cat":"drz_tijela","name":"Ministarstvo rada, mirovinskoga sustava, obitelji i socijalne politike","url":"https://mrosp.gov.hr/","method":"html","scrape_url":"https://mrosp.gov.hr/vijesti/8","edu_filter":"keyword","edu_filter_detail":"Filter po obrazovanje|škola|stručno usavršavanje|cjeloživotno učenje|mladi.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Nema vidljivog RSS-a (sličan CMS kao MZOM/MINT — pokušati /rss/8 u implementaciji)."},
+{"id":7,"prio":1,"cat":"drz_tijela","name":"Veleposlanstvo Njemačke u Zagrebu","url":"https://zagreb.diplo.de/hr-hr","method":"html","scrape_url":"https://zagreb.diplo.de/hr-hr","edu_filter":"keyword","edu_filter_detail":"Filter po obrazovanje|stipendija|škola|DAAD|kultura. Sekcija 'Kultura i obrazovanje'.","js_render":"partial","paywall":"no","volume":"low","weight":"L","hours":6,"notes":"Nema RSS-a, nema clear listing page-a. Diplo CMS, lazy-loaded slike. Diff scraper."},
+{"id":8,"prio":1,"cat":"drz_tijela","name":"Veleposlanstvo Austrije u Zagrebu (BMEIA)","url":"https://www.bmeia.gv.at/hr/oeb-agram","method":"html","scrape_url":"https://www.bmeia.gv.at/hr/oeb-agram/aktuelles","edu_filter":"keyword","edu_filter_detail":"Filter po obrazovanje|stipendija|studij|kultura.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Nema RSS-a. /aktuelles listing exists. ~1-2/wk. HTML."},
+{"id":9,"prio":1,"cat":"drz_tijela","name":"Veleposlanstvo Francuske u Zagrebu","url":"https://hr.diplomatie.gouv.fr/fr/ambassade-de-france-zagreb","method":"html","scrape_url":"https://hr.diplomatie.gouv.fr/fr/actualites-evenements","edu_filter":"keyword","edu_filter_detail":"Filter po éducation|école|coopération éducative|bourse|francuski jezik.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Nema RSS-a. France Diplomatie shared CMS. Rare posts."},
+{"id":10,"prio":1,"cat":"drz_agencije","name":"AZOO — Agencija za odgoj i obrazovanje","url":"https://www.azoo.hr/","method":"html","scrape_url":"https://www.azoo.hr/novosti/","edu_filter":"all","edu_filter_detail":"Agencija za obrazovanje — sve relevantno.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Pokušati /feed/ ili /novosti/feed/ (WP-ish). ~2-3 posts/wk."},
+{"id":11,"prio":1,"cat":"drz_agencije","name":"AZOO — Odsjek za predškolski odgoj","url":"https://www.azoo.hr/o-nama/ustroj/sredisnji-ured-zagreb/odjel-za-predskolski-odgoj-i-razrednu-nastavu","method":"html","scrape_url":"https://www.azoo.hr/novosti/","edu_filter":"keyword","edu_filter_detail":"Subpath AZOO. Filter glavnog feeda po predškolski|vrtić|razredna nastava|rani odgoj.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"Pokriveno glavnim AZOO scrape-om (#10). Statična org-page."},
+{"id":12,"prio":1,"cat":"drz_agencije","name":"ASOO — Agencija za strukovno obrazovanje","url":"https://www.asoo.hr/","method":"html","scrape_url":"https://www.asoo.hr/o-agenciji/novosti/","edu_filter":"all","edu_filter_detail":"VET agencija — sve relevantno. Tri novosti subsekcije (o-agenciji, profesionalni-razvoj, defco) — agregirati.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":4,"notes":"Nema vidljivog RSS-a. 3 odvojena news lista za merge. ~2-4/wk."},
+{"id":13,"prio":1,"cat":"drz_agencije","name":"AZVO — Agencija za znanost i visoko obrazovanje","url":"https://www.azvo.hr/","method":"html","scrape_url":"https://www.azvo.hr/aktualnosti/vijesti/","edu_filter":"all","edu_filter_detail":"Higher-ed/science agencija — sve relevantno.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Nema RSS-a. ~2-3/wk. HTML."},
+{"id":14,"prio":1,"cat":"drz_agencije","name":"AMPEU — Agencija za mobilnost i programe EU","url":"https://www.ampeu.hr/","method":"html","scrape_url":"https://www.ampeu.hr/novosti","edu_filter":"all","edu_filter_detail":"Erasmus+/eTwinning — sve relevantno.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":3,"notes":"Nema RSS-a. ~5/wk. SVG placeholderi + lazy slike, ali tekst u HTML-u."},
+{"id":15,"prio":1,"cat":"drz_agencije","name":"CARNET","url":"https://www.carnet.hr/","method":"rss","scrape_url":"https://www.carnet.hr/feed/","edu_filter":"all","edu_filter_detail":"Education-focused; sve relevantno. Opcijska kategorija /category/<slug>/feed/.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":2,"notes":"WordPress RSS confirmed valid, full content u feed-u. ~1-2/wk."},
+{"id":16,"prio":1,"cat":"drz_agencije","name":"NCVVO","url":"https://www.ncvvo.hr/","method":"rss","scrape_url":"https://www.ncvvo.hr/feed/","edu_filter":"all","edu_filter_detail":"Edu exam agencija — sve relevantno.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":2,"notes":"WordPress RSS confirmed. Posting irregular, ~1-2/wk."},
+{"id":17,"prio":1,"cat":"drz_agencije","name":"SRCE — Sveučilišni računski centar","url":"https://www.srce.unizg.hr/","method":"rss","scrape_url":"https://www.srce.unizg.hr/rss","edu_filter":"all","edu_filter_detail":"University computing centre — sve relevantno za higher-ed audience.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"Valid RSS confirmed. ~4-5/wk."},
+
+{"id":20,"prio":0,"cat":"lok_zup","name":"Bjelovarsko-bilogorska","url":"https://bbz.hr/","method":"html","scrape_url":"https://bbz.hr/vijesti","edu_filter":"keyword","edu_filter_detail":"Nema dedicated edu-news kategorije; filter po obrazovanje/škola/učitelj/kurikulum/natječaj.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Custom/WP. HTML. Nema RSS-a u HEAD; pokušati /feed."},
+{"id":21,"prio":0,"cat":"lok_zup","name":"Brodsko-posavska","url":"https://www.bpz.hr/","method":"html","scrape_url":"https://www.bpz.hr/novosti","edu_filter":"category-rubric","edu_filter_detail":"Department: /upravna-tijela/upravni-odjel-za-obrazovanje. News mora ipak keyword-filter.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Joomla + K2. Pokušati ?format=feed&type=rss."},
+{"id":22,"prio":0,"cat":"lok_zup","name":"Dubrovačko-neretvanska","url":"https://www.dnz.hr/","method":"rss","scrape_url":"https://www.dnz.hr/category/novosti/feed/","edu_filter":"keyword","edu_filter_detail":"WP /category/novosti/. Filter po keywordima.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"WordPress. Standardni WP feedovi. Lakša integracija."},
+{"id":23,"prio":0,"cat":"lok_zup","name":"Grad Zagreb","url":"https://www.zagreb.hr/","method":"html","scrape_url":"https://www.zagreb.hr/odgoj-i-obrazovanje/11","edu_filter":"category-rubric","edu_filter_detail":"Posebna sekcija /odgoj-i-obrazovanje/11 (najbolji edu-rubric u batchu).","js_render":"no","paywall":"no","volume":"high","weight":"L","hours":8,"notes":"Custom CMS. Visoka volumena, kompleksna IA, više subdomena (vrtici.zagreb.hr)."},
+{"id":24,"prio":0,"cat":"lok_zup","name":"Istarska","url":"https://www.istra-istria.hr/","method":"html","scrape_url":"https://www.istra-istria.hr/hr/novosti/","edu_filter":"keyword","edu_filter_detail":"Nema edu-news sekcije; filter po keywordima. Bilingual hr/it/en URL prefiksi.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Custom Django CMS. Nema RSS-a."},
+{"id":25,"prio":0,"cat":"lok_zup","name":"Karlovačka","url":"https://www.kazup.hr/","method":"html","scrape_url":"https://www.kazup.hr/index.php/sve-vijesti01","edu_filter":"keyword","edu_filter_detail":"Odsjek za školstvo /onama-uoskolstvo. Nema edu-rubric — keyword.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Joomla. Pokušati ?format=feed&type=rss."},
+{"id":26,"prio":0,"cat":"lok_zup","name":"Koprivničko-križevačka","url":"https://www.kckzz.hr/","method":"rss","scrape_url":"https://www.kckzz.hr/feed","edu_filter":"category-rubric","edu_filter_detail":"Sekcija 'Obrazovanje, kultura, znanost...'. Keyword filter dodatno.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"Joomla s RSS feedom u HEAD-u. Najlakši izvor batcha."},
+{"id":27,"prio":0,"cat":"lok_zup","name":"Krapinsko-zagorska","url":"https://kzz.hr/","method":"html","scrape_url":"https://kzz.hr/vijesti","edu_filter":"keyword","edu_filter_detail":"Site bio u održavanju u probu — re-investigate.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":5,"notes":"Pokazivao 'Održavanje u tijeku'. Re-probe potreban; weight padded."},
+{"id":28,"prio":0,"cat":"lok_zup","name":"Ličko-senjska","url":"https://licko-senjska.hr/","method":"html","scrape_url":"https://licko-senjska.hr/novosti","edu_filter":"keyword","edu_filter_detail":"Edu-page /o-zupaniji/zupanija/obrazovanje. Keyword filter na news.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Custom CMS by VIT. Nema RSS-a. ~2-4/mj."},
+{"id":29,"prio":0,"cat":"lok_zup","name":"Osječko-baranjska","url":"https://www.obz.hr/","method":"rss","scrape_url":"https://www.obz.hr/index.php/sve-vijesti?format=feed&type=rss","edu_filter":"keyword","edu_filter_detail":"News rubrika unified — keyword filter na RSS items.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"Joomla + K2. Native RSS u HEAD-u. Najčistija postava batcha."},
+{"id":30,"prio":0,"cat":"lok_zup","name":"Požeško-slavonska","url":"https://www.pszupanija.hr/","method":"html","scrape_url":"https://www.pszupanija.hr/vijesti","edu_filter":"keyword","edu_filter_detail":"Department: /upravni-odjeli/upravni-odjel-za-obrazovanje-kulturu-i-sport.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Joomla. Pokušati ?format=feed."},
+{"id":31,"prio":0,"cat":"lok_zup","name":"Primorsko-goranska","url":"https://www.pgz.hr/","method":"rss","scrape_url":"https://www.pgz.hr/feed/","edu_filter":"category-rubric","edu_filter_detail":"Department /upravni-odjel-za-odgoj-i-obrazovanje/. WP category feed za edu ako tagged.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"WordPress. Standardni /feed/ likely radi. Active publishing."},
+{"id":32,"prio":0,"cat":"lok_zup","name":"Sisačko-moslavačka","url":"https://www.smz.hr/","method":"html","scrape_url":"https://www.smz.hr/aktualno","edu_filter":"keyword","edu_filter_detail":"Department /ustroj/upravni-odjeli-i-sluzbe/obrazovanje. Keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Joomla. Nema RSS-a u HEAD; pokušati ?format=feed."},
+{"id":33,"prio":0,"cat":"lok_zup","name":"Splitsko-dalmatinska","url":"https://www.dalmacija.hr/","method":"html","scrape_url":"https://www.dalmacija.hr/novosti","edu_filter":"keyword","edu_filter_detail":"Department /upravni-odjel-za-prosvjetu. EasyDNNNews možda izlaže RSS na /DesktopModules/EasyDNNNews/RSS.aspx.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":5,"notes":"DNN/DotNetNuke + EasyDNNNews. ASP.NET postbacks za paging."},
+{"id":34,"prio":0,"cat":"lok_zup","name":"Šibensko-kninska","url":"https://www.sibensko-kninska-zupanija.hr/","method":"html","scrape_url":"https://www.sibensko-kninska-zupanija.hr/novosti","edu_filter":"keyword","edu_filter_detail":"Samo školske ustanove pod Ustanove (nema edu dept). Keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":5,"notes":"DNN/DotNetNuke + EasyDNNNews. Probe /DesktopModules/EasyDNNNews/RSS.aspx."},
+{"id":35,"prio":0,"cat":"lok_zup","name":"Varaždinska","url":"https://www.varazdinska-zupanija.hr/","method":"html","scrape_url":"https://www.varazdinska-zupanija.hr/vijesti.html","edu_filter":"keyword","edu_filter_detail":"Nema edu menua. Keyword filter (škola/obrazovanje/učenik).","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Joomla + K2 (.html SEF URLs)."},
+{"id":36,"prio":0,"cat":"lok_zup","name":"Vukovarsko-srijemska","url":"https://vusz.hr/","method":"rss","scrape_url":"https://vusz.hr/category/obrazovanje/feed/","edu_filter":"category-rubric","edu_filter_detail":"WP /category/obrazovanje/ — najbolji edu-source. Department /obrazovanje/.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"WordPress. Edu category feed direktno radi. Best-case izvor."},
+{"id":37,"prio":0,"cat":"lok_zup","name":"Zadarska","url":"https://www.zadarska-zupanija.hr/","method":"html","scrape_url":"https://www.zadarska-zupanija.hr/novosti-arhiva","edu_filter":"keyword","edu_filter_detail":"Department /upravni-odjeli/upravni-odjel-za-obrazovanje,-kulturu-i-sport. Keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Joomla + K2. ?format=feed pokušati."},
+{"id":38,"prio":0,"cat":"lok_zup","name":"Zagrebačka","url":"https://www.zagrebacka-zupanija.hr/","method":"html","scrape_url":"https://www.zagrebacka-zupanija.hr/vijesti","edu_filter":"keyword","edu_filter_detail":"Department /ustrojstvo/upravni-odjel-za-odgoj-i-obrazovanje/. Keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Custom CMS. Nema RSS-a."},
+{"id":39,"prio":0,"cat":"lok_zup","name":"Međimurska","url":"https://medjimurska-zupanija.hr/","method":"rss","scrape_url":"https://medjimurska-zupanija.hr/kat/vijesti/feed/","edu_filter":"keyword","edu_filter_detail":"Department /upravni-odjel-za-obrazovanje-i-kulturu/. WP /kat/vijesti/. Pokušati /kat/obrazovanje/feed/.","js_render":"no","paywall":"no","volume":"high","weight":"S","hours":2,"notes":"WordPress. Spot-check 200 (~165KB). VAŽNO: koristiti bez www. (s www vraća 301)."},
+
+{"id":40,"prio":0,"cat":"lok_grad","name":"Grad Split","url":"https://www.split.hr/","method":"html","scrape_url":"https://split.hr/vijesti","edu_filter":"keyword","edu_filter_detail":"Dept page /gradska-uprava/upravna-tijela/upravni-odjel-za-odgoj-i-obrazovanje. Keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"DotNetNuke + EasyDNNNews. Pokušati /DesktopModules EasyDNNNews RSS endpoint."},
+{"id":41,"prio":0,"cat":"lok_grad","name":"Grad Varaždin","url":"https://varazdin.hr/","method":"html","scrape_url":"https://varazdin.hr/vijesti/","edu_filter":"keyword","edu_filter_detail":"Site blokira automatizirane fetcheve (403); treba browser headers.","js_render":"no","paywall":"no","volume":"medium","weight":"L","hours":7,"notes":"HTTP 403 na default UA; treba realan UA ili headless."},
+{"id":42,"prio":0,"cat":"lok_grad","name":"Grad Čakovec","url":"https://www.cakovec.hr/","method":"rss","scrape_url":"https://www.cakovec.hr/feed/","edu_filter":"keyword","edu_filter_detail":"WP feed. Nema edu kategorije u feedu. Filter po keywordima.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"WordPress, /feed/ radi. Edu sadržaj povremeno (school anniversaries)."},
+{"id":43,"prio":0,"cat":"lok_grad","name":"Grad Bjelovar","url":"https://www.bjelovar.hr/","method":"rss","scrape_url":"https://www.bjelovar.hr/kategorija/vijesti/feed/","edu_filter":"keyword","edu_filter_detail":"WP. Edu info-sekcija postoji ali nije news kategorija. Keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"WordPress; /feed/ na svakoj kategoriji."},
+{"id":44,"prio":0,"cat":"lok_grad","name":"Grad Požega","url":"https://pozega.hr/","method":"html","scrape_url":"https://pozega.hr/novosti","edu_filter":"keyword","edu_filter_detail":"Joomla. Edu landing /odgoj-i-obrazovanje statična. Scrape /novosti + keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Joomla. Pokušati /index.php?format=feed&type=rss."},
+{"id":45,"prio":0,"cat":"lok_grad","name":"Grad Samobor","url":"https://www.samobor.hr/","method":"html","scrape_url":"https://www.samobor.hr/","edu_filter":"keyword","edu_filter_detail":"Site blokira automatizirane fetcheve; struktura ne potvrđena.","js_render":"no","paywall":"no","volume":"medium","weight":"L","hours":7,"notes":"WebFetch vratio samo nav-header. Headless preporučuje se."},
+{"id":46,"prio":0,"cat":"lok_grad","name":"Grad Sveta Nedjelja","url":"https://www.grad-svetanedelja.hr/","method":"rss","scrape_url":"https://grad-svetanedelja.hr/novosti/feed/","edu_filter":"keyword","edu_filter_detail":"WP. Obrazovanje je info-page, ne news. Keyword filter.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":2,"notes":"WordPress. /feed/ assumed."},
+{"id":47,"prio":0,"cat":"lok_grad","name":"Grad Karlovac","url":"https://www.karlovac.hr/","method":"rss","scrape_url":"https://www.karlovac.hr/novosti/feed/","edu_filter":"keyword","edu_filter_detail":"WP. Dva listinga (/novosti/ i /obavijesti-iz-upravnih-odjela/) — merge.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":3,"notes":"WP, dva odvojena news streama."},
+{"id":48,"prio":0,"cat":"lok_grad","name":"Grad Šibenik","url":"https://www.sibenik.hr/","method":"html","scrape_url":"https://www.sibenik.hr/stranice/aktualnosti/1.html","edu_filter":"keyword","edu_filter_detail":"Custom CMS s .html numeričkim URL-ovima. Keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"L","hours":6,"notes":"Custom proprietary CMS. Nema RSS-a. Custom HTML scraper + paginacija."},
+{"id":49,"prio":0,"cat":"lok_grad","name":"Grad Makarska","url":"https://www.makarska.hr/","method":"html","scrape_url":"https://www.makarska.hr/novosti","edu_filter":"keyword","edu_filter_detail":"Custom 'Nove vibracije' CMS. /obrazovanje statična. Keyword filter na /novosti.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":4,"notes":"Custom agency-built CMS; nema RSS-a."},
+{"id":50,"prio":0,"cat":"lok_grad","name":"Grad Pula","url":"https://www.pula.hr/","method":"html","scrape_url":"https://www.pula.hr/hr/novosti/","edu_filter":"keyword","edu_filter_detail":"Django/Aldryn CMS. Nema top-level obrazovanja u meniju.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Django (filer_public). Paginacija /hr/novosti/?page=N."},
+{"id":51,"prio":0,"cat":"lok_grad","name":"Grad Dubrovnik","url":"https://www.dubrovnik.hr/","method":"html","scrape_url":"https://www.dubrovnik.hr/vijesti/","edu_filter":"keyword","edu_filter_detail":"Custom Mint Media CMS. /grad-za-ucenike-i-studente statična. Keyword filter.","js_render":"no","paywall":"no","volume":"high","weight":"M","hours":5,"notes":"Custom Mint Media CMS; nema RSS-a. Visoka volumena."},
+{"id":52,"prio":0,"cat":"lok_grad","name":"Grad Zadar","url":"https://www.zadar.hr/","method":"rss","scrape_url":"https://www.grad-zadar.hr/rss/vijesti-s-pocetne-stranice-0.xml","edu_filter":"keyword","edu_filter_detail":"www.zadar.hr je tourist board. Pravi grad-zadar.hr. RSS exposes homepage news.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"VAŽNO: www.zadar.hr je TZ; pravi city site grad-zadar.hr s RSS feedom."},
+{"id":53,"prio":0,"cat":"lok_grad","name":"Grad Osijek","url":"https://www.osijek.hr/","method":"html","scrape_url":"https://www.osijek.hr/arhiva","edu_filter":"keyword","edu_filter_detail":"WP-based ali bez vidljive edu kategorije. Keyword filter.","js_render":"no","paywall":"no","volume":"high","weight":"M","hours":4,"notes":"WP koristi /arhiva mjesto /category/. Pokušati /feed/."},
+{"id":54,"prio":0,"cat":"lok_grad","name":"Grad Velika Gorica","url":"https://www.gorica.hr/","method":"rss","scrape_url":"https://gorica.hr/category/vijesti/feed/","edu_filter":"keyword","edu_filter_detail":"WP s kategorijama. Dept 'Upravni odjel za predškolski odgoj...'. Keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"WP /wp-content/themes/pg/. Per-category feedovi. Merge više feedova."},
+{"id":55,"prio":0,"cat":"lok_grad","name":"Grad Rijeka","url":"https://www.rijeka.hr/","method":"mixed","scrape_url":"https://www.rijeka.hr/teme-za-gradane/odgoj-i-obrazovanje/","edu_filter":"category-rubric","edu_filter_detail":"Posebna /teme-za-gradane/odgoj-i-obrazovanje/. Pokušati /feed/.","js_render":"no","paywall":"no","volume":"high","weight":"M","hours":4,"notes":"WordPress. Posebna edu-rubrika — best edu signal batcha."},
+
+{"id":56,"prio":0,"cat":"obr_udruge","name":"HUROŠ — Hrvatska udruga ravnatelja osnovnih škola","url":"https://huros.hr/","method":"rss","scrape_url":"https://huros.hr/feed/","edu_filter":"all","edu_filter_detail":"Cijeli site obrazovanje (OŠ ravnatelji); /dogadanja/.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"WordPress. Default /feed/ likely. Few posts/month."},
+{"id":57,"prio":0,"cat":"obr_udruge","name":"HSR — Udruga hrvatskih srednjoškolskih ravnatelja","url":"https://uhsr.hr/","method":"rss","scrape_url":"https://uhsr.hr/feed/","edu_filter":"all","edu_filter_detail":"Cijeli site obrazovanje (SŠ ravnatelji); /obavijesti/.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"WordPress; standardni feed."},
+{"id":58,"prio":0,"cat":"obr_udruge","name":"HZOŠ — Hrvatska zajednica osnovnih škola","url":"https://hzos.hr/","method":"rss","scrape_url":"https://hzos.hr/category/najave-i-novosti/feed/","edu_filter":"all","edu_filter_detail":"Edu-only; primary news category najave-i-novosti.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"WordPress sa kategorijom feedom."},
+{"id":59,"prio":0,"cat":"obr_udruge","name":"HPKZ — Hrvatski pedagoško-književni zbor","url":"https://www.hpkz.hr/","method":"rss","scrape_url":"https://www.hpkz.hr/feed/","edu_filter":"all","edu_filter_detail":"Edu society; site-wide WP feed.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"WordPress. Mostly Uncategorized."},
+{"id":60,"prio":0,"cat":"obr_udruge","name":"HUPE — Croatian Association of Teachers of English","url":"https://hupe.hr/","method":"html","scrape_url":"https://hupe.hr/index.php/about-us/hupe-news","edu_filter":"all","edu_filter_detail":"Edu-only; HUPE news + branch + conference + competitions.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":2,"notes":"Joomla. Više news streama za merge. Pokušati ?format=feed&type=rss."},
+{"id":61,"prio":0,"cat":"obr_udruge","name":"UTIRUS — Udruga tajnika i računovođa u školstvu","url":"https://www.utirus.hr/","method":"html","scrape_url":"https://www.utirus.hr/","edu_filter":"all","edu_filter_detail":"Edu sektor (school admin/accounting); homepage Aktualnosti.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":2,"notes":"Joomla. Pokušati ?format=feed&type=rss."},
+{"id":62,"prio":0,"cat":"obr_udruge","name":"URPUH — Udruga ravnatelja predškolskih ustanova","url":"https://urpuh.hr/","method":"html","scrape_url":"https://urpuh.hr/","edu_filter":"all","edu_filter_detail":"Edu-only (preschool directors); statički site, malo news flow.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"WordPress ali statičan; pokušati /feed/. Skip ako prazan."},
+{"id":63,"prio":0,"cat":"obr_udruge","name":"Udruga roditelj — Korak po korak","url":"https://urkpk.org/","method":"rss","scrape_url":"https://urkpk.org/kategorija/novosti/feed/","edu_filter":"all","edu_filter_detail":"Edu NGO; Novosti category.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"WordPress sa WPML; /kategorija/novosti/."},
+{"id":64,"prio":0,"cat":"obr_udruge","name":"SHU — Sindikat hrvatskih učitelja","url":"https://shu.hr/","method":"rss","scrape_url":"https://shu.hr/category/vijesti/feed/","edu_filter":"all","edu_filter_detail":"Sindikat učitelja; /category/vijesti/.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":2,"notes":"WordPress; aktivna Vijesti kategorija. High-priority union signal."},
+{"id":65,"prio":0,"cat":"obr_udruge","name":"Sindikat Preporod","url":"https://sindikat-preporod.hr/","method":"rss","scrape_url":"https://sindikat-preporod.hr/category/novosti/feed/","edu_filter":"all","edu_filter_detail":"Edu sindikat; Novosti.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":2,"notes":"WordPress; čest publishing."},
+{"id":66,"prio":0,"cat":"obr_udruge","name":"NSZSŠH — Nezavisni sindikat srednjih škola","url":"https://www.nszssh.hr/","method":"rss","scrape_url":"https://nszssh.hr/category/vijesti/feed/","edu_filter":"all","edu_filter_detail":"SŠ sindikat; Vijesti + Aktualno subkategorija.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":2,"notes":"WordPress. Aktivan u pregovorima."},
+{"id":67,"prio":0,"cat":"obr_udruge","name":"Institut za razvoj obrazovanja (IRO)","url":"https://www.iro.hr/","method":"rss","scrape_url":"https://iro.hr/feed/","edu_filter":"all","edu_filter_detail":"Edu research institute; /ostale-vijesti/. Uključuje Fulbright/EU calls.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":2,"notes":"WordPress; pokušati /ostale-vijesti/feed/."},
+{"id":68,"prio":0,"cat":"obr_udruge","name":"Institut za društvena istraživanja (IDIZ)","url":"https://www.idi.hr/","method":"html","scrape_url":"https://www.idi.hr/hr/obavijesti/lista-obavijesti","edu_filter":"category-rubric","edu_filter_detail":"Šira tematika ali heavy edu fokus; keyword filter.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Custom CMS. Nema RSS-a. javascript:; menu ali sadržaj statičan."},
+{"id":69,"prio":0,"cat":"obr_udruge","name":"Hrvatski memorijalno-dokumentacijski centar","url":"https://www.hmdcd.hr/","method":"html","scrape_url":"https://www.hmdcd.hr/","edu_filter":"keyword","edu_filter_detail":"Memorial-doc centar; samo tangencijalni edu sadržaj. Keyword filter.","js_render":"unknown","paywall":"no","volume":"low","weight":"L","hours":3,"notes":"Site ECONNREFUSED u probu — likely intermittent ili non-www only. Verify."},
+
+{"id":70,"prio":0,"cat":"obr_inst","name":"Akademija likovnih umjetnosti Zagreb (ALU)","url":"https://www.alu.unizg.hr/","method":"html","scrape_url":"https://www.alu.unizg.hr/front_content.php?idcat=52","edu_filter":"all","edu_filter_detail":"Faculty cijeli site edu/arts; news idcat=52, exhibitions idcat=113, natječaji odvojeno.","js_render":"no","paywall":"no","volume":"low","weight":"L","hours":3,"notes":"Custom PHP CMS (CONTENIDO-style: idcat/idart). Querystring URLs."},
+{"id":71,"prio":0,"cat":"obr_inst","name":"Učiteljski fakultet u Zagrebu (UFZG)","url":"https://www.ufzg.unizg.hr/","method":"rss","scrape_url":"https://www.ufzg.unizg.hr/novosti/feed/","edu_filter":"all","edu_filter_detail":"Teacher-training fakultet; /novosti/ + /natjecaji/.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":2,"notes":"WordPress; /novosti/feed/ + /natjecaji/feed/. Vrlo relevantan izvor."},
+
+{"id":72,"prio":0,"cat":"posl_udruge","name":"HGK — Zajednica nakladnika i knjižara","url":"https://www.hgk.hr/odjel-za-obrazovanje/zajednica-nakladnika-i-knjizara","method":"html","scrape_url":"https://www.hgk.hr/odjel-za-obrazovanje/zajednica-nakladnika-i-knjizara","edu_filter":"category-rubric","edu_filter_detail":"Subsekcija HGK Odjela za obrazovanje; cijela subsekcija edu-relevantna.","js_render":"yes","paywall":"no","volume":"low","weight":"S","hours":3,"notes":"Statična org/contact page; little dynamic news. HGK appears JS-rendered."},
+{"id":73,"prio":0,"cat":"posl_udruge","name":"HGK (root)","url":"https://www.hgk.hr/","method":"html","scrape_url":"https://www.hgk.hr/sektorska-udruzenja/odjel-za-obrazovanje","edu_filter":"category-rubric","edu_filter_detail":"Filter na Odjel za obrazovanje subsekciju.","js_render":"yes","paywall":"no","volume":"medium","weight":"M","hours":5,"notes":"JS-heavy/SSR s hidracijom; raw fetch vraća samo header. Likely treba Playwright."},
+{"id":74,"prio":0,"cat":"posl_udruge","name":"Znanje d.o.o.","url":"https://znanje.hr/","method":"mixed","scrape_url":"https://znanje.hr/blog","edu_filter":"all","edu_filter_detail":"Sva nova izdanja relevantna; combine /blog + /akcija + /pretprodaja.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Server-rendered HTML; custom/Magento-like URL structure."},
+{"id":75,"prio":0,"cat":"posl_udruge","name":"Fokus komunikacije / fokusnahit","url":"https://fokusnahit.com/","method":"mixed","scrape_url":"https://fokusnahit.com/kategorija/novi-naslovi/","edu_filter":"all","edu_filter_detail":"Sva nova izdanja; reviews give editorial signal.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":3,"notes":"WordPress. Pokušati /feed/. Mostly fiction bookstore — lower priority."},
+{"id":76,"prio":0,"cat":"posl_udruge","name":"Školska knjiga d.d.","url":"https://www.skolskaknjiga.hr/","method":"sitemap","scrape_url":"https://shop.skolskaknjiga.hr/sitemap.xml","edu_filter":"all","edu_filter_detail":"Top konkurent — sva nova izdanja + promocije relevantne. Nema dedicated press/news.","js_render":"no","paywall":"no","volume":"high","weight":"XL","hours":6,"notes":"BigCommerce. Server-rendered. Watch BigCommerce anti-bot/rate limits. Najviši priority konkurent."},
+{"id":77,"prio":0,"cat":"posl_udruge","name":"Hrvatska sveučilišna naklada","url":"https://www.hsn.hr/","method":"rss","scrape_url":"https://www.hsn.hr/feed/","edu_filter":"all","edu_filter_detail":"University publisher — sva nova izdanja relevantna.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"WordPress; /feed/ likely radi. Tag 'Nova izdanja'."},
+{"id":78,"prio":0,"cat":"posl_udruge","name":"Naklada Ljevak d.o.o.","url":"https://www.ljevak.hr/","method":"html","scrape_url":"https://www.ljevak.hr/novosti","edu_filter":"all","edu_filter_detail":"General publisher — noviteti + akcije + novosti blog.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Custom shop by ShipShape. Nema RSS-a. Tri clean endpointa."},
+{"id":79,"prio":0,"cat":"posl_udruge","name":"Superknjižara d.o.o.","url":"https://www.superknjizara.hr/","method":"html","scrape_url":"https://www.superknjizara.hr/","edu_filter":"all","edu_filter_detail":"Bookstore aggregator — sva nova izdanja relevantna.","js_render":"no","paywall":"no","volume":"high","weight":"M","hours":6,"notes":"ANTI-BOT: 403 i na /sitemap.xml — treba UA spoofing/Playwright. Cloudflare."},
+{"id":80,"prio":0,"cat":"posl_udruge","name":"Mozaik knjiga d.o.o.","url":"https://www.mozaik-knjiga.hr/","method":"rss","scrape_url":"https://mozaik-knjiga.hr/feed/","edu_filter":"all","edu_filter_detail":"Top konkurent — sva nova izdanja + promocije.","js_render":"no","paywall":"no","volume":"medium","weight":"L","hours":4,"notes":"WooCommerce. /feed/ likely. /blog + /novo + /novosti."},
+{"id":81,"prio":0,"cat":"posl_udruge","name":"Verbum d.o.o.","url":"https://verbum.hr/","method":"html","scrape_url":"https://verbum.hr/blog/","edu_filter":"all","edu_filter_detail":"Catholic publisher — sva izdanja relevantna; lower priority.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Magento. /sitemap.xml predvidiv. Server-rendered."},
+{"id":82,"prio":0,"cat":"posl_udruge","name":"Fraktura d.o.o.","url":"https://fraktura.hr/","method":"html","scrape_url":"https://fraktura.hr/","edu_filter":"all","edu_filter_detail":"Literary publisher — sva izdanja relevantna.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":5,"notes":"ANTI-BOT: 403 — treba proper headers/Playwright. Likely WordPress underneath."},
+{"id":83,"prio":0,"cat":"posl_udruge","name":"Profil Klett d.o.o. (KLIJENT)","url":"https://www.profil-klett.hr/","method":"html","scrape_url":"https://www.profil-klett.hr/portal","edu_filter":"all","edu_filter_detail":"KLIJENTOV WEB — flag u newsletteru kao 'naše vijesti' sekcija, ne kao konkurent.","js_render":"no","paywall":"no","volume":"medium","weight":"L","hours":3,"notes":"KLIJENTOV SITE. Drupal (/sites/default/files/, /node/). /portal articles, /webshop products."},
+{"id":84,"prio":0,"cat":"posl_udruge","name":"Planetopija d.o.o.","url":"https://planetopija.hr/","method":"html","scrape_url":"https://planetopija.hr/vijesti","edu_filter":"all","edu_filter_detail":"Self-help/popular publisher — sva nova izdanja relevantna.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Custom (Rails) e-commerce. Nema RSS-a. Clean /vijesti hub."},
+{"id":85,"prio":0,"cat":"posl_udruge","name":"HGK — Grupacija izdavača udžbenika","url":"https://www.hgk.hr/odjel-za-obrazovanje/zajednica-nakladnika-i-knjizara","method":"html","scrape_url":"isto kao #72","edu_filter":"category-rubric","edu_filter_detail":"DUPLIKAT #72 — isti URL u tablici. Dedupe na ingest.","js_render":"yes","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"DUPLIKAT URL-a sa #72. Grupacija izdavača udžbenika je sub-grupa unutar Zajednice nakladnika i knjižara."},
+{"id":86,"prio":0,"cat":"posl_udruge","name":"HUP — Udruga grafičara i nakladnika","url":"https://www.hup.hr/","method":"html","scrape_url":"https://www.hup.hr/hup-udruga-graficara-i-nakladnika","edu_filter":"keyword","edu_filter_detail":"Filter HUP /vijesti po: udzbenik, nakladnik, izdavac, knjige, obrazovanje + sub-association page.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"EasyEdit CMS. Nema RSS-a."},
+{"id":87,"prio":0,"cat":"posl_udruge","name":"HUP — Udruga poslodavaca u obrazovanju","url":"https://www.hup.hr/","method":"html","scrape_url":"https://www.hup.hr/hup-udruga-poslodavaca-u-obrazovanju","edu_filter":"category-rubric","edu_filter_detail":"Sub-association sama je edu-employer rubrika — sve relevantno.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Isti HUP EasyEdit CMS kao #86. Lower volume. Share infrastructure."},
+{"id":88,"prio":0,"cat":"posl_udruge","name":"AHK — Njemačko-hrvatska komora","url":"https://kroatien.ahk.de/","method":"html","scrape_url":"https://kroatien.ahk.de/hr/news","edu_filter":"keyword","edu_filter_detail":"Filter: Bildung, Ausbildung, obrazovanje, udzbenik, skola; /aus-und-weiterbildung subsekcija.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":3,"notes":"eZ Publish/Platform. DE+HR sadržaj. Pokušati /news.rss."},
+{"id":89,"prio":0,"cat":"posl_udruge","name":"Francusko-hrvatska komora","url":"https://www.ccifc.hr/","method":"html","scrape_url":"https://www.ccifc.hr/hr/aktualnosti","edu_filter":"keyword","edu_filter_detail":"Filter: obrazovanje, formation, ecole, udzbenik. (UNVERIFIED — host nedostupan u probu)","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":4,"notes":"ECONNREFUSED u probu. Re-probe iz produkcijske mreže."},
+
+{"id":91,"prio":0,"cat":"mediji","name":"Jutarnji list","url":"https://www.jutarnji.hr/","method":"html","scrape_url":"https://www.jutarnji.hr/tag/obrazovanje","edu_filter":"category-rubric","edu_filter_detail":"Spot-check potvrđen: /tag/obrazovanje vraća 200 (~232KB). Slug 'obrazovanje', ne 'skolstvo'.","js_render":"partial","paywall":"partial","volume":"high","weight":"L","hours":8,"notes":"Bot protection na probu, ali rubrika dostupna preko realnog UA. Premium paywall na pojedinačni članak — public lead OK."},
+{"id":92,"prio":0,"cat":"mediji","name":"Večernji list","url":"https://www.vecernji.hr/","method":"html","scrape_url":"https://www.vecernji.hr/vijesti/obrazovanje-skolstvo-i-znanost","edu_filter":"category-rubric","edu_filter_detail":"Scrape education-skolstvo-znanost rubric listing.","js_render":"partial","paywall":"partial","volume":"high","weight":"L","hours":8,"notes":"Probe blokiran (bot protection); Premium paywall. Confirm rubric slug."},
+{"id":93,"prio":0,"cat":"mediji","name":"24sata","url":"https://www.24sata.hr/","method":"html","scrape_url":"https://www.24sata.hr/tema/skolstvo","edu_filter":"category-rubric","edu_filter_detail":"Scrape /tema/skolstvo i/ili /tema/obrazovanje tag pages.","js_render":"partial","paywall":"no","volume":"high","weight":"M","hours":5,"notes":"Probe blokiran (bot protection); tag-based; confirm slug."},
+{"id":94,"prio":0,"cat":"mediji","name":"Index.hr","url":"https://www.index.hr/","method":"html","scrape_url":"https://www.index.hr/vijesti/rubrika/obrazovanje","edu_filter":"category-rubric","edu_filter_detail":"Nema edu-specific RSS-a; scrape education rubric page.","js_render":"no","paywall":"no","volume":"high","weight":"M","hours":4,"notes":"Glavni RSS nema obrazovanje sub-feed; rubric scrape required."},
+{"id":95,"prio":0,"cat":"mediji","name":"Tportal.hr","url":"https://www.tportal.hr/","method":"html","scrape_url":"https://www.tportal.hr/vijesti","edu_filter":"keyword","edu_filter_detail":"Glavni RSS bez edu kategorije; site search ili keyword filter.","js_render":"no","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Confirmed RSS bez edu sub-feeda; HTML scrape s keyword filter."},
+{"id":96,"prio":0,"cat":"mediji","name":"HRT","url":"https://www.hrt.hr/","method":"html","scrape_url":"https://vijesti.hrt.hr/hrvatska","edu_filter":"keyword","edu_filter_detail":"/rss vraća 404; HTML scrape s keyword filter na hrvatska/drustvo.","js_render":"no","paywall":"no","volume":"high","weight":"L","hours":7,"notes":"Probe failed za /rss endpoint; investigate hrt.hr feed list page."},
+{"id":97,"prio":0,"cat":"mediji","name":"RTL","url":"https://www.rtl.hr/","method":"html","scrape_url":"https://www.rtl.hr/tag/obrazovanje","edu_filter":"category-rubric","edu_filter_detail":"Tag page exists s 60+ articles ali bez RSS feeda; HTML scrape.","js_render":"partial","paywall":"no","volume":"medium","weight":"M","hours":4,"notes":"Tag page radi; mixed content (entertainment + edu) — post-filter."},
+{"id":98,"prio":0,"cat":"mediji","name":"NovaTV / dnevnik.hr","url":"https://novatv.dnevnik.hr/","method":"rss","scrape_url":"https://dnevnik.hr/assets/feed/articles","edu_filter":"keyword","edu_filter_detail":"Single combined RSS feed; filter items po obrazovanje/skolstvo.","js_render":"no","paywall":"no","volume":"high","weight":"S","hours":2,"notes":"RSS confirmed working; nema edu sub-feeda — keyword filter."},
+{"id":99,"prio":0,"cat":"mediji","name":"srednja.hr","url":"https://www.srednja.hr/","method":"rss","scrape_url":"https://www.srednja.hr/rss","edu_filter":"all","edu_filter_detail":"Cijeli site obrazovanje; ingest sve RSS items.","js_render":"no","paywall":"partial","volume":"medium","weight":"S","hours":2,"notes":"RSS confirmed; ~8-12 articles/day. Premium tier exists ali većina javno."},
+{"id":100,"prio":0,"cat":"mediji","name":"telegram.hr","url":"https://www.telegram.hr/","method":"rss","scrape_url":"https://www.telegram.hr/feed/","edu_filter":"keyword","edu_filter_detail":"WP /feed/ confirmed; pokušati /tema/obrazovanje/feed/ za narrower set.","js_render":"no","paywall":"no","volume":"medium","weight":"S","hours":2,"notes":"Valid WP RSS, 10 items."},
+{"id":103,"prio":0,"cat":"mediji","name":"Školska zbornica (Facebook grupa)","url":"https://www.facebook.com/groups/735307216526228/","method":"manual","scrape_url":"https://www.facebook.com/groups/735307216526228/","edu_filter":"all","edu_filter_detail":"Manual reviewer access only; nema automated scraping.","js_render":"yes","paywall":"yes","volume":"medium","weight":"XL","hours":0,"notes":"Facebook Groups ToS zabranjuje automated scraping; preporuka exclude ili manual reviewer 1×/tj."},
+{"id":104,"prio":0,"cat":"mediji","name":"Nastavnici.org","url":"https://nastavnici.org/","method":"rss","scrape_url":"https://nastavnici.org/feed/","edu_filter":"all","edu_filter_detail":"Cijeli site teacher/edu commentary; ingest sve.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"Valid WP RSS, 12 items, low publishing freq (last post Sep 2025). Stale-content risk."},
+
+{"id":105,"prio":0,"cat":"intl","name":"EEPG","url":"https://www.eepg.org/","method":"html","scrape_url":"https://www.eepg.org/news","edu_filter":"all","edu_filter_detail":"Custom CMS; cijeli org-scope edu publishing.","js_render":"no","paywall":"no","volume":"low","weight":"M","hours":3,"notes":"Nema RSS-a; quarterly newsletter cadence."},
+{"id":106,"prio":0,"cat":"intl","name":"IPO","url":"https://ipo.hr/","method":"manual","scrape_url":"https://ipo.hr/","edu_filter":"all","edu_filter_detail":"Statične stranice, nema news sekcije.","js_render":"no","paywall":"no","volume":"low","weight":"S","hours":1,"notes":"Civil-society org. Nema /feed/. Preporuka manual review ili exclude."}
+];
+
+const tbody = document.getElementById('tbody');
+const tcount = document.getElementById('tcount');
+const fcat = document.getElementById('fcat');
+Object.entries(CATEGORIES).forEach(([k,v])=>{
+  const o=document.createElement('option'); o.value=k; o.textContent=v; fcat.appendChild(o);
+});
+
+let sortKey='id', sortAsc=true;
+
+function escapeHtml(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);}
+function shortUrl(u){return String(u||'').replace(/^https?:\/\//,'').replace(/\/$/,'');}
+function fmtTag(cls,val){if(!val)return ''; return `<span class="tag ${cls}">${val}</span>`;}
+
+function render(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  const cat=document.getElementById('fcat').value;
+  const method=document.getElementById('fmethod').value;
+  const weight=document.getElementById('fweight').value;
+  const filter=document.getElementById('ffilter').value;
+  let rows=DATA.filter(d=>{
+    if(cat&&d.cat!==cat)return false;
+    if(method&&d.method!==method)return false;
+    if(weight&&d.weight!==weight)return false;
+    if(filter&&d.edu_filter!==filter)return false;
+    if(q){const hay=(d.name+' '+d.url+' '+(d.scrape_url||'')+' '+(d.notes||'')+' '+(d.edu_filter_detail||'')).toLowerCase(); if(!hay.includes(q))return false;}
+    return true;
+  });
+  rows.sort((a,b)=>{
+    const av=a[sortKey], bv=b[sortKey];
+    if(typeof av==='number'&&typeof bv==='number')return sortAsc?av-bv:bv-av;
+    return sortAsc?String(av).localeCompare(String(bv)):String(bv).localeCompare(String(av));
+  });
+  const showHeaders=!cat&&sortKey==='id'&&sortAsc;
+  let html='', lastCat=null, visible=0, totalH=0;
+  rows.forEach(d=>{
+    if(showHeaders&&d.cat!==lastCat){lastCat=d.cat; html+=`<tr class="cat-header"><td colspan="13">${CATEGORIES[d.cat]||d.cat}</td></tr>`;}
+    visible++; totalH+=d.hours||0;
+    const prio=d.prio===1?'<span class="tag p1">P1</span>':'';
+    const pwTag=d.paywall==='no'?'':fmtTag(d.paywall,d.paywall);
+    const jsTag=d.js_render==='no'?'':fmtTag(d.js_render,d.js_render);
+    const surl=d.scrape_url||'';
+    const surlLink=/^https?:\/\//.test(surl)?`<a href="${escapeHtml(surl)}" target="_blank">${escapeHtml(surl)}</a>`:escapeHtml(surl);
+    html+=`<tr>
+      <td>${d.id}</td>
+      <td>${prio}</td>
+      <td><strong>${escapeHtml(d.name)}</strong><br><small class="muted"><a href="${escapeHtml(d.url)}" target="_blank">${escapeHtml(shortUrl(d.url))}</a></small></td>
+      <td><small class="muted">${CATEGORIES[d.cat]||d.cat}</small></td>
+      <td>${fmtTag(d.method,d.method)}</td>
+      <td class="scrape">${surlLink}</td>
+      <td>${fmtTag(d.edu_filter,d.edu_filter)}<br><small class="muted">${escapeHtml(d.edu_filter_detail||'')}</small></td>
+      <td>${jsTag}</td>
+      <td>${pwTag}</td>
+      <td>${fmtTag(d.volume,d.volume)}</td>
+      <td>${fmtTag(d.weight,d.weight)}</td>
+      <td class="num">${d.hours||0}</td>
+      <td class="notes">${escapeHtml(d.notes||'')}</td>
+    </tr>`;
+  });
+  tbody.innerHTML=html;
+  tcount.textContent=`${visible} / ${DATA.length} izvora · ${Math.round(totalH)} h`;
+  document.querySelectorAll('th').forEach(th=>{th.classList.remove('sorted-asc','sorted-desc'); if(th.dataset.k===sortKey)th.classList.add(sortAsc?'sorted-asc':'sorted-desc');});
+}
+
+document.querySelectorAll('th[data-k]').forEach(th=>{
+  th.addEventListener('click',()=>{const k=th.dataset.k; if(sortKey===k)sortAsc=!sortAsc; else{sortKey=k; sortAsc=true;} render();});
+});
+['q','fcat','fmethod','fweight','ffilter'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',render);
+  document.getElementById(id).addEventListener('change',render);
+});
+document.getElementById('reset').addEventListener('click',()=>{
+  ['q','fcat','fmethod','fweight','ffilter'].forEach(id=>document.getElementById(id).value='');
+  sortKey='id'; sortAsc=true; render();
+});
+
+// Category summary
+const catBody=document.getElementById('cat-summary-body');
+const cats={};
+DATA.forEach(d=>{
+  if(!cats[d.cat])cats[d.cat]={n:0,rss:0,html:0,manual:0,h:0};
+  cats[d.cat].n++; cats[d.cat].h+=d.hours||0;
+  if(d.method==='rss')cats[d.cat].rss++;
+  else if(d.method==='manual')cats[d.cat].manual++;
+  else cats[d.cat].html++;
+});
+let chtml='', totN=0, totRss=0, totHtml=0, totMan=0, totH=0;
+Object.entries(CATEGORIES).forEach(([k,name])=>{
+  const c=cats[k]||{n:0,rss:0,html:0,manual:0,h:0};
+  totN+=c.n; totRss+=c.rss; totHtml+=c.html; totMan+=c.manual; totH+=c.h;
+  chtml+=`<tr><td>${name}</td><td>${c.n}</td><td>${c.rss}</td><td>${c.html}</td><td>${c.manual||''}</td><td>${Math.round(c.h)} h</td><td><small class="muted">${RISKS[k]||''}</small></td></tr>`;
+});
+chtml+=`<tr style="background:#11141b;font-weight:600"><td>UKUPNO</td><td>${totN}</td><td>${totRss}</td><td>${totHtml}</td><td>${totMan||''}</td><td>${Math.round(totH)} h</td><td></td></tr>`;
+catBody.innerHTML=chtml;
+
+// Compute RSS pct
+const rssCount=DATA.filter(d=>d.method==='rss').length;
+document.getElementById('rssPct').textContent=Math.round(100*rssCount/DATA.length)+' %';
+
+render();
+</script>
+
+</body>
+</html>
