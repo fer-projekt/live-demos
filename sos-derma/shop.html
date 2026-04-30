@@ -148,10 +148,14 @@
                     </li>
                 </ul>
             </div>
-            <div class="header__icons col-span-6 xl:col-span-2"
-                 x-data="{ openPopup: null }"
-                 @click.outside="openPopup = null">
-                <div>
+			<div class="header__icons col-span-6 xl:col-span-2"
+				x-data="{ openPopup: null }"
+				@click.outside="openPopup = null">
+			    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="32" height="32">
+					<circle cx="112" cy="112" r="72" fill="none" stroke="currentColor" stroke-width="20" />
+					<line x1="165" y1="165" x2="224" y2="224" stroke="currentColor" stroke-width="20" stroke-linecap="round" />
+				</svg>
+			    <div>
                     <a href="#" @click.prevent="openPopup = openPopup === 'login' ? null : 'login'">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22.348" height="25.288" viewBox="0 0 22.348 25.288">
                             <g transform="translate(1.004 1)">

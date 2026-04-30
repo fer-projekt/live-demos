@@ -531,15 +531,8 @@
                         </div>
                     </div>
                     <div x-data="{ step: 0 }">
-                        <div class="product-amount xl:float-left mr-3 max-lg:mb-5">
-                            <button class="products-amount__decrease">−</button>
-                            <input type="number" class="products-amount__quantity" value="1" min="1" max="99">
-                            <button class="products-amount__increase">+</button>
-                        </div>
-                        <a class="button-style-1 mr-1" href="#" @click.prevent="if(step === 0) step = 1">DODAJ U KOŠARICU</a>
-
-                        <!-- code-hidden-1: pitanje — ostaje vidljivo -->
-                        <div x-show="step >= 1" x-cloak class="mt-4 pb-4 text-base">
+                        <a class="button-style-1 mb-4 mr-1" href="#" @click.prevent="if(step === 0) step = 1">DODAJ U KOŠARICU</a>
+                        <div x-show="step >= 1" x-cloak class=" pb-4 text-base">
                             Molimo odgovorite na pitanje u nastavku kako biste dobili kôd za otključavanje košarice.<br>
                             Koristite li proizvode ovog branda?
                             <div class="mt-4">
@@ -551,9 +544,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- code-hidden-2: da -->
-                        <div x-show="step === 2" x-cloak class="p-6 bg-grey-bg rounded-lg text-base">
+                        <div x-show="step === 2" x-cloak class="p-4 xl:p-6 bg-grey-bg rounded-lg text-base">
                             <div>
                                 Molimo vas u predviđeno polje unesite kod kojeg ste dobili od strane osoblja s.o.s. derma.
                             </div>
@@ -562,30 +553,14 @@
                                 <button class="contact-form__submit !h-10 !text-base" type="submit">Unesite kôd</button>
                             </form>
                             <div>
-                                Ukoliko imate poteškoća molimo kontaktirajte osoblje s.o.s. derma za dobivanje kôda za otključavanje košarice na <a href="mailto:info@sos-derma.hr">info@sos-derma.hr</a>.
+                                Ukoliko imate poteškoća molimo kontaktirajte osoblje s.o.s. derma za dobivanje kôda za otključavanje košarice na <a class="border-b border-black" href="mailto:info@sos-derma.hr">info@sos-derma.hr</a>.
                             </div>
                         </div>
-
-                        <!-- code-hidden-3: ne -->
-                        <div x-show="step === 3" x-cloak class="p-6 bg-grey-bg rounded-lg text-base">
+                        <div x-show="step === 3" x-cloak class="p-4 xl:p-6 bg-grey-bg rounded-lg text-base">
                             <div>
-                                Molimo vas u predviđeno polje unesite kod kojeg ste dobili od strane osoblja s.o.s. derma.
-                            </div>
-                            <form class="contact-form grid sm:grid-cols-2 gap-2 my-4">
-                                <input class="contact-form__input !h-10" type="text" name="" placeholder="KÔD">
-                                <button class="contact-form__submit !h-10 !text-base" type="submit">Unesite kôd</button>
-                            </form>
-                            <div>
-                                Molimo kontaktirajte s.o.s. derma za dobivanje kôda za otključavanje košarice te za konzultiranje oko odabira željene dermokozmetike na broj <a href="mailto:info@sos-derma.hr">info@sos-derma.hr</a>.
+                                Molimo kontaktirajte s.o.s. derma za dobivanje kôda za otključavanje košarice te za konzultiranje oko odabira željene dermokozmetike na broj <a class="border-b border-black" href="mailto:info@sos-derma.hr">info@sos-derma.hr</a>.
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        Proizvod je <span class="font-medium text-[#27a640]">dostupan</span>.
-                    </div>
-                    <div>
-                        Dostava: od 5 €<br>
-                        Plaćanje: kartično ili pouzećem
                     </div>
                 </div>
             </div>
