@@ -232,6 +232,9 @@
   .relative {
     position: relative;
   }
+  .static {
+    position: static;
+  }
   .start {
     inset-inline-start: var(--spacing);
   }
@@ -378,6 +381,9 @@
   }
   .hidden {
     display: none;
+  }
+  .inline {
+    display: inline;
   }
   .inline-block {
     display: inline-block;
