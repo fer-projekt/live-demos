@@ -1,0 +1,40 @@
+.header-sidebar-btn span{
+    background: #fff;
+}
+.header-sidebar-btn,
+.tp-offcanvas-menu ul li.active button,
+.tpfeature__num-2,
+.tp-header-menu ul li a::before,
+.tpservshow.tpservshow-blue,
+.tp-btn.tp-btn-blue{
+    background-color: #0d316f;
+}
+.tp-offcanvas-menu ul li{
+    border-bottom: 1px solid #0d316f;
+}
+.tp-offcanvas-menu ul li.active > a {
+    color: #0d316f;
+}
+.tpservshow__title,
+.tpservshow__content p,
+.tpfeature__num-2,
+.tpservshow__icon,
+.tp-btn.tp-btn-blue,
+.tp-btn.tp-btn-black:hover{
+    color: #fff;
+}
+.tp-section-title-larg {
+    font-size: 60px;
+}
+.tpservshow.tpservshow-black{
+    background-color: #000;
+}
+@media only screen and (max-width: 966px) {
+    .tp-hero-spacing-4{
+        padding-top: 130px;
+        padding-bottom: 70px;
+    }
+    .tp-section-title-larg {
+        font-size: 36px;
+    }
+}
