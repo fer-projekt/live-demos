@@ -29,7 +29,31 @@
 .tpservshow.tpservshow-black{
     background-color: #000;
 }
+.home-spacing{
+    margin: 100px 0;
+    padding: 0;
+}
+.home-spacing-top{
+    margin: 100px 0 0 0;
+    padding: 0;
+}
+.home-spacing-bottom{
+    margin: 0 0 100px 0;
+    padding: 0 0 50px 0;
+}
 @media only screen and (max-width: 966px) {
+    .home-spacing{
+        margin: 50px 0;
+        padding: 0;
+    }
+    .home-spacing-top{
+        margin: 50px 0 50px 0;
+        padding: 0;
+    }
+    .home-spacing-bottom{
+        margin: 0 0 50px 0;
+        padding: 0 0 10px 0;
+    }
     .tp-hero-spacing-4{
         padding-top: 130px;
         padding-bottom: 70px;
