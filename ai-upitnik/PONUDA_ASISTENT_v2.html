@@ -354,15 +354,11 @@ class="toc-section-number">1.10</span> 10. Otvorena pitanja za sastanak
 id="toc-prilog-a-glossary-za-prodavača-one-liner-odgovori"><span
 class="toc-section-number">1.11</span> 11. Prilog A — Glossary za
 prodavača (one-liner odgovori)</a></li>
-<li><a href="#prilog-b-tehničke-reference-ne-za-klijenta"
-id="toc-prilog-b-tehničke-reference-ne-za-klijenta"><span
-class="toc-section-number">1.12</span> 12. Prilog B — Tehničke reference
-(NE za klijenta)</a></li>
 <li><a href="#sljedeći-koraci" id="toc-sljedeći-koraci"><span
-class="toc-section-number">1.13</span> Sljedeći koraci</a></li>
+class="toc-section-number">1.12</span> Sljedeći koraci</a></li>
 <li><a href="#izvori-online-istraživanje-cijena-svibanj-2026"
 id="toc-izvori-online-istraživanje-cijena-svibanj-2026"><span
-class="toc-section-number">1.14</span> Izvori (online istraživanje
+class="toc-section-number">1.13</span> Izvori (online istraživanje
 cijena, svibanj 2026)</a></li>
 </ul></li>
 </ul>
@@ -417,9 +413,8 @@ modela.</strong></p>
 </tr>
 </tbody>
 </table>
-<p><strong>Tehnička osnova</strong>
-(<code>app/Ai/Agents/ChatBot.php:22</code>): maksimalno <strong>4
-reasoning koraka</strong> po odgovoru + embedding i tool pozivi.</p>
+<p><strong>Tehnička osnova:</strong> maksimalno <strong>4 reasoning
+koraka</strong> po odgovoru + embedding i tool pozivi.</p>
 <p><strong>Zašto <em>ne</em> prodajemo “razgovore”:</strong></p>
 <ol type="1">
 <li><strong>Pravna zaštita</strong> — “razgovor = jedna jedinica” nas
@@ -440,12 +435,10 @@ upita mjesečno. Jedan razgovor prosječno troši 2–6 AI upita. Mi snosimo
 rizik složenosti — vi plaćate <em>kapacitet AI procesiranja</em>. Za
 prosječan slučaj, <em>X</em> AI upita pokriva otprilike <em>X/4</em>
 razgovora.”</p>
-<p><strong>Tehnička kontrola limita</strong>
-(<code>app/Models/Channel.php:260–271</code>): -
-<code>daily_message_limit</code>, <code>monthly_message_limit</code>,
-<code>per_user_daily_limit</code> - <strong>Sustav blokira na
-dostignutom limitu</strong> — <code>WidgetChatController.php:229</code>
-vraća HTTP 429 (<code>channel_limit</code>).</p>
+<p><strong>Tehnička kontrola limita:</strong> - Dnevni limit, mjesečni
+limit, dnevni limit po korisniku/IP-u - <strong>Sustav blokira na
+dostignutom limitu</strong> — vraća odgovor “kanal-limit” i ne procesira
+daljnje upite do sljedećeg perioda.</p>
 <h3 data-number="1.1.2" id="izvor-znanja"><span
 class="header-section-number">1.1.2</span> 1.2 Izvor znanja</h3>
 <blockquote>
@@ -497,15 +490,12 @@ degradacija pretrage)</p>
 ima razuman gornji limit veličine. Vrlo veliki materijali (npr.
 1.000-stranični priručnik) trebaju se podijeliti u manje cjeline za
 bolju pretragu.”</p>
-<p><strong>Tehnička osnova</strong>
-(<code>app/Models/User.php:46–54</code>,
-<code>config/documents.php</code>): - Per-klijent:
-<code>doc_max_count</code>, <code>doc_max_file_size_mb</code>,
-<code>doc_max_content_chars</code>, <code>doc_allowed_types</code> -
-Default: konfigurabilan u <code>config/documents.php</code></p>
+<p><strong>Tehnička osnova:</strong> - Per-klijent se postavljaju:
+maksimalan broj izvora, maksimalna veličina datoteke, maksimalan broj
+karaktera po izvoru, popis dopuštenih formata - Default vrijednosti su
+konfigurabilne na razini sustava</p>
 </blockquote>
-<p><strong>Podržani formati</strong>
-(<code>config/documents.php</code>): - PDF (s tekstom — <em>ne</em>
+<p><strong>Podržani formati:</strong> - PDF (s tekstom — <em>ne</em>
 skenirani sken-PDF-ovi bez OCR-a) - DOCX - TXT, MD - JSON, CSV
 (strukturirani podaci)</p>
 <p><strong>Što <em>ne</em> podržavamo (out-of-the-box):</strong> - Slike
@@ -789,10 +779,9 @@ upita ≈ <strong>3.000–6.000 razgovora</strong> (ovisno o složenosti) -
 80.000 AI upita ≈ <strong>15.000–25.000 razgovora</strong> - 250.000 AI
 upita ≈ <strong>50.000–80.000 razgovora</strong></p>
 <p><strong>Prekoračenje AI upita:</strong> - <strong>Sustav blokira na
-dostignutom mjesečnom/dnevnom limitu</strong> (anti-abuse zaštita —
-<code>WidgetChatController.php:229</code>). - Klijent dobiva
-notifikaciju na <strong>80%</strong> kapaciteta s ponudom za
-<strong>paket dodatnih upita</strong> (npr. paket od 5.000, 10.000,
+dostignutom mjesečnom/dnevnom limitu</strong> (anti-abuse zaštita). -
+Klijent dobiva notifikaciju na <strong>80%</strong> kapaciteta s ponudom
+za <strong>paket dodatnih upita</strong> (npr. paket od 5.000, 10.000,
 25.000 dodatnih upita). - <strong>Cijena dodatnog paketa: 5 € za svakih
 1.000 dodatnih AI upita</strong> (jednokratno, do kraja mjeseca). - Ako
 klijent ne prihvati nadogradnju, blokada ostaje do prvog dana sljedećeg
@@ -1158,10 +1147,8 @@ klasičnom WA)</li>
 <li>Meta App s WhatsApp Business produktom</li>
 <li>Phone Number ID + Access Token</li>
 </ul>
-<p>Naš sustav već podržava
-(<code>app/Services/WhatsAppService.php</code>): slanje poruka i
-template-a, webhook za primanje, template management, marketing
-kampanje.</p>
+<p>Naš sustav već podržava: slanje poruka i template-a, webhook za
+primanje, template management, marketing kampanje.</p>
 <hr />
 <h2 data-number="1.7" id="klauzula-o-cijenama-tokena"><span
 class="header-section-number">1.7</span> 7. Klauzula o cijenama
@@ -1478,8 +1465,8 @@ dokument?</li>
 UI feature?</li>
 <li><strong>Provider selection per-klijent</strong> — admin može
 odabrati Google/OpenAI/Anthropic per-klijenta?</li>
-<li><strong>Update seedera cijena</strong> — tehnički task
-(<code>AiModelSeeder.php</code> je u potpunosti zastario)</li>
+<li><strong>Update seedera cijena AI modela</strong> — tehnički task
+(trenutne vrijednosti u sustavu su zastarjele)</li>
 <li><strong>OCR add-on</strong> — uvodimo li paket “OCR za sken-PDF-ove”
 kao add-on s vlastitom cijenom?</li>
 </ol>
@@ -1541,122 +1528,21 @@ svaki dan?”</strong> &gt; “Da — dnevni re-crawl je add-on od 80 €/mj. Za
 promjene u realnom vremenu radimo API integraciju s vašim sustavom — to
 je posebna ponuda.”</p>
 <hr />
-<h2 data-number="1.12"
-id="prilog-b-tehničke-reference-ne-za-klijenta"><span
-class="header-section-number">1.12</span> 12. Prilog B — Tehničke
-reference (NE za klijenta)</h2>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr>
-<th>Pojam</th>
-<th>Gdje u kodu</th>
-<th>Što ograničava</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AI upit</td>
-<td><code>channel_messages</code>,
-<code>Channel::incrementMessageUsage()</code>,
-<code>ChatBot.php:22</code> (<code>MaxSteps(4)</code>)</td>
-<td><code>daily_message_limit</code>,
-<code>monthly_message_limit</code>,
-<code>per_user_daily_limit</code></td>
-</tr>
-<tr>
-<td>Blokiranje na limitu</td>
-<td><code>WidgetChatController.php:229</code> → HTTP 429
-<code>channel_limit</code></td>
-<td>Sustav vraća error response, ne procesira upit</td>
-</tr>
-<tr>
-<td>Izvor znanja</td>
-<td><code>documents</code> tablica,
-<code>Document.source_type</code></td>
-<td><code>User.doc_max_count</code>, <code>doc_max_file_size_mb</code>,
-<code>doc_max_content_chars</code></td>
-</tr>
-<tr>
-<td>Chunk (interno)</td>
-<td>800 char + 100 overlap
-(<code>IndexCrawlResultsJob.php:21–23</code>)</td>
-<td>Pretraga top-K = 10 (<code>SearchKnowledgeBase.php:47</code>)</td>
-</tr>
-<tr>
-<td>Formati</td>
-<td><code>config/documents.php:8</code> — pdf, docx, txt, md, json,
-csv</td>
-<td>Override per-user u <code>users.doc_allowed_types</code></td>
-</tr>
-<tr>
-<td>Crawler</td>
-<td><code>WebCrawlerService.php</code>, <code>CrawlJob</code> model</td>
-<td><code>max_depth</code>, <code>max_pages</code>, <code>delay</code>,
-<code>excluded_paths</code></td>
-</tr>
-<tr>
-<td>AI cijene</td>
-<td><code>AiModelSeeder.php</code> — <strong>ZASTARJELO, treba
-update</strong></td>
-<td><code>input_per_million</code>, <code>output_per_million</code></td>
-</tr>
-<tr>
-<td>AI tier</td>
-<td><code>app/Ai/Tier.php</code>, <code>ai_tier_settings</code></td>
-<td>Admin bira aktivan model po tieru</td>
-</tr>
-<tr>
-<td>Budget cap</td>
-<td><code>User.ai_budget_cap</code> (default 5 €),
-<code>User.isOverAiBudget()</code></td>
-<td>Hard limit ako klijent prekorači mjesečno</td>
-</tr>
-<tr>
-<td>Widget config</td>
-<td><code>channel_widgets.config</code> JSON</td>
-<td>Flow: max 5 razina dubine, max 3 grane</td>
-</tr>
-<tr>
-<td>Mentoring</td>
-<td><code>channel_messages.feedback</code>, <code>unanswered</code>,
-<code>escalated</code></td>
-<td>Admin panel, mjesečni izvještaj</td>
-</tr>
-<tr>
-<td>Intent / lead</td>
-<td><code>channel_conversations.intent_*</code>,
-<code>Channel.notify_on_lead_*</code></td>
-<td>Email alert</td>
-</tr>
-<tr>
-<td>WhatsApp</td>
-<td><code>WhatsAppService.php</code>, Meta Graph API v21.0</td>
-<td>Business Account verifikacija</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 data-number="1.13" id="sljedeći-koraci"><span
-class="header-section-number">1.13</span> Sljedeći koraci</h2>
+<h2 data-number="1.12" id="sljedeći-koraci"><span
+class="header-section-number">1.12</span> Sljedeći koraci</h2>
 <ol type="1">
 <li>Interni pregled do ponedjeljka</li>
 <li>Sastanak ponedjeljak — proći točku po točku, posebno otvorena
 pitanja (poglavlje 10)</li>
-<li>Update <code>AiModelSeeder.php</code> s aktualnim cijenama svibanj
-2026</li>
+<li>Update seedera s aktualnim cijenama AI modela (svibanj 2026)</li>
 <li>Provjeriti Meta WhatsApp HR region cjenik na <a
 href="https://developers.facebook.com/docs/whatsapp/pricing">developers.facebook.com</a></li>
 <li>Prva primjena: Biograd “Event QR + Smart Info”</li>
 </ol>
 <hr />
-<h2 data-number="1.14"
+<h2 data-number="1.13"
 id="izvori-online-istraživanje-cijena-svibanj-2026"><span
-class="header-section-number">1.14</span> Izvori (online istraživanje
+class="header-section-number">1.13</span> Izvori (online istraživanje
 cijena, svibanj 2026)</h2>
 <ul>
 <li><a
