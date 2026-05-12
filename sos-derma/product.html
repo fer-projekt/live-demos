@@ -148,10 +148,14 @@
                     </li>
                 </ul>
             </div>
-            <div class="header__icons col-span-6 xl:col-span-2"
-                 x-data="{ openPopup: null }"
-                 @click.outside="openPopup = null">
-                <div>
+			<div class="header__icons col-span-6 xl:col-span-2"
+				x-data="{ openPopup: null }"
+				@click.outside="openPopup = null">
+			    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="32" height="32">
+					<circle cx="112" cy="112" r="72" fill="none" stroke="currentColor" stroke-width="20" />
+					<line x1="165" y1="165" x2="224" y2="224" stroke="currentColor" stroke-width="20" stroke-linecap="round" />
+				</svg>
+			    <div>
                     <a href="#" @click.prevent="openPopup = openPopup === 'login' ? null : 'login'">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22.348" height="25.288" viewBox="0 0 22.348 25.288">
                             <g transform="translate(1.004 1)">
@@ -526,14 +530,55 @@
                             </a>
                         </div>
                     </div>
-                    <div>
+                    <div x-data="{ step: 0 }">
                         <div class="product-amount xl:float-left mr-3 max-lg:mb-5">
                             <button class="products-amount__decrease">−</button>
                             <input type="number" class="products-amount__quantity" value="1" min="1" max="99">
                             <button class="products-amount__increase">+</button>
                         </div>
-                        <a class="button-style-1 mr-1" href="cart.html">DODAJ U KOŠARICU</a> 
-                        <div class="block sm:inline-block max-sm:ml-30">ili <a class="border-black border-b font-semibold" href="#">kupi odmah</a>.</div>                      
+                        <a class="button-style-1 mr-1" href="#" @click.prevent="if(step === 0) step = 1">DODAJ U KOŠARICU</a>
+
+                        <!-- code-hidden-1: pitanje — ostaje vidljivo -->
+                        <div x-show="step >= 1" x-cloak class="mt-4 pb-4 text-base">
+                            Molimo odgovorite na pitanje u nastavku kako biste dobili kôd za otključavanje košarice.<br>
+                            Koristite li proizvode ovog branda?
+                            <div class="mt-4">
+                                <div class="inline-flex items-center justify-center w-15 h-9 bg-primary rounded-sm text-white xl:text-lg uppercase cursor-pointer" @click="step = (step === 2) ? 1 : 2">
+                                    da
+                                </div>
+                                <div class="inline-flex items-center justify-center w-15 h-9 bg-purple rounded-sm text-white xl:text-lg uppercase cursor-pointer" @click="step = (step === 3) ? 1 : 3">
+                                    ne
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- code-hidden-2: da -->
+                        <div x-show="step === 2" x-cloak class="p-6 bg-grey-bg rounded-lg text-base">
+                            <div>
+                                Molimo vas u predviđeno polje unesite kod kojeg ste dobili od strane osoblja s.o.s. derma.
+                            </div>
+                            <form class="contact-form grid sm:grid-cols-2 gap-2 my-4">
+                                <input class="contact-form__input !h-10" type="text" name="" placeholder="KÔD">
+                                <button class="contact-form__submit !h-10 !text-base" type="submit">Unesite kôd</button>
+                            </form>
+                            <div>
+                                Ukoliko imate poteškoća molimo kontaktirajte osoblje s.o.s. derma za dobivanje kôda za otključavanje košarice na <a href="mailto:info@sos-derma.hr">info@sos-derma.hr</a>.
+                            </div>
+                        </div>
+
+                        <!-- code-hidden-3: ne -->
+                        <div x-show="step === 3" x-cloak class="p-6 bg-grey-bg rounded-lg text-base">
+                            <div>
+                                Molimo vas u predviđeno polje unesite kod kojeg ste dobili od strane osoblja s.o.s. derma.
+                            </div>
+                            <form class="contact-form grid sm:grid-cols-2 gap-2 my-4">
+                                <input class="contact-form__input !h-10" type="text" name="" placeholder="KÔD">
+                                <button class="contact-form__submit !h-10 !text-base" type="submit">Unesite kôd</button>
+                            </form>
+                            <div>
+                                Molimo kontaktirajte s.o.s. derma za dobivanje kôda za otključavanje košarice te za konzultiranje oko odabira željene dermokozmetike na broj <a href="mailto:info@sos-derma.hr">info@sos-derma.hr</a>.
+                            </div>
+                        </div>
                     </div>
                     <div>
                         Proizvod je <span class="font-medium text-[#27a640]">dostupan</span>.

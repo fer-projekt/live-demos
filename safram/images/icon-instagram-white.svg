@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="5.7314072mm"
+   height="5.7314601mm"
+   viewBox="0 0 5.7314072 5.7314601"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="icon-instagram-white.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0128998"
+     inkscape:cx="204.36374"
+     inkscape:cy="157.46868"
+     inkscape:window-width="2560"
+     inkscape:window-height="1351"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-51.064573,-106.89163)">
+    <path
+       id="Icon_awesome-instagram"
+       data-name="Icon awesome-instagram"
+       d="m 53.930806,108.28787 a 1.4692312,1.4692312 0 1 0 1.469231,1.46923 1.46685,1.46685 0 0 0 -1.469231,-1.46923 z m 0,2.42438 a 0.95514582,0.95514582 0 1 1 0.955146,-0.95515 0.9569979,0.9569979 0 0 1 -0.955146,0.95515 z m 1.870869,-2.48444 a 0.34395833,0.34395833 0 1 1 -0.343959,-0.34396 0.34184166,0.34184166 0 0 1 0.343959,0.34396 z m 0.97446,0.3474 a 1.6959791,1.6959791 0 0 0 -0.463021,-1.20068 1.7070916,1.7070916 0 0 0 -1.200679,-0.46302 c -0.473075,-0.0265 -1.891242,-0.0265 -2.364317,0 a 1.7047104,1.7047104 0 0 0 -1.200943,0.46222 1.7015354,1.7015354 0 0 0 -0.462757,1.20148 c -0.02646,0.47307 -0.02646,1.89124 0,2.36431 a 1.6959791,1.6959791 0 0 0 0.463021,1.20068 1.7092083,1.7092083 0 0 0 1.200679,0.46302 c 0.473075,0.0265 1.891242,0.0265 2.364317,0 a 1.6959791,1.6959791 0 0 0 1.200679,-0.46302 1.7070916,1.7070916 0 0 0 0.463021,-1.20068 c 0.02646,-0.47307 0.02646,-1.88992 0,-2.36326 z m -0.611187,2.87073 a 0.96705207,0.96705207 0 0 1 -0.544778,0.54477 c -0.377295,0.14949 -1.272381,0.1151 -1.6891,0.1151 -0.416718,0 -1.313391,0.0333 -1.6891,-0.1151 a 0.96705207,0.96705207 0 0 1 -0.544777,-0.54477 c -0.149489,-0.3773 -0.115093,-1.27239 -0.115093,-1.6891 0,-0.41672 -0.0336,-1.31393 0.114829,-1.68884 a 0.96705207,0.96705207 0 0 1 0.544777,-0.54478 c 0.377296,-0.14949 1.272381,-0.11509 1.6891,-0.11509 0.416719,0 1.313392,-0.0333 1.6891,0.11509 a 0.96705207,0.96705207 0 0 1 0.544777,0.54478 c 0.14949,0.3773 0.115094,1.27238 0.115094,1.6891 0,0.41672 0.03466,1.31339 -0.114829,1.68936 z"
+       fill="#ffffff"
+       style="stroke-width:0.264583" />
+  </g>
+</svg>
