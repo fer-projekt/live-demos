@@ -1,6 +1,9 @@
 :root {
   --primary-color: #75caf3;
 }
+header{
+    background-color: #fff;
+}
 .logo img, .footer-logo img{
     height: 100px;
 }
