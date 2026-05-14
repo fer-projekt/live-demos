@@ -10259,10 +10259,10 @@ input[type=checkbox]:checked {
   }
 }
 @media (max-width: 767px) {
-  .header .header-ct-left a img {
+  /*.header .header-ct-left a img {
     max-width: 176px;
     height: auto;
-  }
+  }*/
   .tf-vacation-hero .flat-img-with-text.style-05 .content-left {
     padding: 40px 0;
   }
