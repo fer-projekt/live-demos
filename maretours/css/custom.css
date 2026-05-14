@@ -1,11 +1,11 @@
 :root {
   --primary-color: #75caf3;
 }
-.logo img{
+.logo img, .footer-logo img{
     height: 100px;
 }
 @media (max-width: 767px) {
-    .logo img{
+    .logo img, .footer-logo img{
         height: 60px;
     }
 }
