@@ -1,0 +1,89 @@
+.hover-img {
+    .img-style {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        display: block;
+        height: 100%;
+
+        img:not(.icon) {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s cubic-bezier(0, 0, 0.44, 1.18),
+                filter 1.5s cubic-bezier(0, 0, 0.44, 1.18);
+        }
+    }
+
+    &:hover {
+        img:not(.icon) {
+            transform: scale(1.05);
+            filter: brightness(60%);
+        }
+    }
+
+    &.not-overlay {
+        .img-style {
+            &::after {
+                content: none;
+            }
+        }
+
+        &::after {
+            content: none;
+        }
+    }
+
+    .img-style-2 {
+        overflow: hidden;
+        border-radius: 10px;
+
+        .img-hv {
+            width: 100%;
+            object-fit: cover;
+            transition: all 1s cubic-bezier(0.3, 1, 0.35, 1) 0s;
+            transition: transform 500ms ease;
+        }
+    }
+}
+
+.hover-img-wrap {
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background: rgb(0 0 0);
+        transition: 0.25s;
+        z-index: 3;
+        opacity: 0.1;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -100%;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        background: rgb(0 0 0);
+        transition: 0.25s;
+        z-index: 3;
+        opacity: 0.1;
+    }
+
+    &:hover {
+        &::after {
+            bottom: 0;
+            transition-delay: 0.25s;
+        }
+
+        &::before {
+            top: 0;
+        }
+    }
+}

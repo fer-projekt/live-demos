@@ -1,0 +1,53 @@
+@use "../abstracts/index.scss" as *;
+
+// Back to Top Button Styles
+.backtotop {
+    position: fixed;
+    padding: 0;
+    bottom: 40px;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .border-progress {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        width: calc(100% + 2px);
+        height: calc(100% + 2px);
+        border-radius: 50%;
+        border: 3px solid #DCA546;
+        mask-image: conic-gradient(#DCA546 var(--progress-angle, 0deg), transparent 0);
+        -webkit-mask-image: conic-gradient(#DCA546 var(--progress-angle, 0deg), transparent 0);
+        z-index: 1;
+        @include transition3;
+
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .icon {
+        font-size: 16px;
+        @include transition3;
+    }
+
+}
