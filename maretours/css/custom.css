@@ -2,7 +2,7 @@
   --primary-color: #75caf3;
 }
 header{
-    background-color: #fff;
+    background-color: #fff !important;
 }
 .logo img, .footer-logo img{
     height: 100px;
