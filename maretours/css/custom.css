@@ -4,6 +4,9 @@
 header{
     background-color: #fff !important;
 }
+.tf-btn{
+    text-transform: none;
+}
 .logo img, .footer-logo img{
     height: 100px;
 }
