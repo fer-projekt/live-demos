@@ -1,0 +1,69 @@
+/*=================================================================================
+
+   Template Name: The Mist - Luxury Hotel HTML Template
+   Author: Harnish Design
+   Template URL: http://demo.harnishdesign.net/html/themist
+   Author URL: https://themeforest.net/user/harnishdesign
+   File Description : Main css file of the template
+	
+===================================================================================
+  Table of Contents
+===================================================================================
+
+	1. Basic
+	2. Header
+		2.1 Navigation
+			  2.1.1 Hamburger Menu Button
+			  2.1.2 Responsive Navbar
+			  2.1.3 Overlay Menu
+			  2.1.4 Sidebar Menu
+		2.2 Page Header
+	3. Layouts
+	4. Elements
+		4.1 Featured Box
+		4.2 Accordion
+		4.3 Nav
+		4.4 Hero Background
+		4.5 Swiper Carousel/Slider
+		4.6 Brands Grid
+		4.7 Room Items
+		4.8 Gallery
+		4.9 Jarallax
+		4.10 Video Play button
+		4.11 Team
+		4.12 Portfolio
+		4.13 List Style
+	5. Helpers Classes
+	6. Blog
+		6.1 List Item
+		6.2 Tags
+		6.3 Side Post
+		6.4 Post
+		6.5 Post Comment
+	7. Footer
+		7.1 Social Icons
+		7.2 Back to Top
+	8. Extra
+
+==================================================================================*/
+
+// Initialize
+@import "variables";
+@import "mixins";
+
+// Bootstrap
+//@import "bootstrap/bootstrap";
+
+// Core CSS
+@import "root";
+@import "lenis";
+@import "reset";
+
+// Content Blocks
+@import "header";
+@import "layouts";
+@import "elements";
+@import "helpers";
+@import "blog";
+@import "footer";
+@import "extras";

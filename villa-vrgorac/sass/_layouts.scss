@@ -1,0 +1,183 @@
+/* =================================== */
+/*  3. Layouts
+/* =================================== */
+
+#main-wrapper {
+    background:$main-wrapper-bg;
+}
+[data-bs-theme="dark"] {
+	#main-wrapper {
+		background:$main-wrapper-bg-dark;
+	}
+}
+
+.section {
+  position: relative;
+  padding: 110px 0;
+  padding: 6.85rem 0;
+  overflow:hidden;
+}
+@include media-breakpoint-down(sm) {
+	.section {
+		padding: 3.5rem 0;
+	}
+}
+
+/* Circle Text */
+.circle-text {
+	position: relative;
+	display: block;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	padding:10px;
+	.circle-icon {
+		position: absolute;
+		display: block;
+		left: 50%;
+		top: 50%;
+		font-size: 28px;
+		width:58px;
+		height:58px;
+		line-height:58px;
+		text-align:center;
+		border-radius:50%;
+		
+	}
+	svg {
+		width: 100%; 
+		animation: text-rotation 8s infinite linear;
+		will-change: animation;
+	}
+	text:not(.circle-icon) {
+		font-size: 72px;
+		fill: var(--#{$prefix}themecolor);
+		transition: fill .2s;
+	}
+}
+
+/* Circle Text Animation */
+@keyframes text-rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(-360deg);
+	}
+}
+
+
+/*== Scroll Down Arrow ==*/
+.scroll-down-arrow {
+	position: absolute;
+	z-index: 3;
+	bottom: 20px;
+	width:35px;
+	height: 46px;
+	color: rgba(0,0,0,0.5);
+	text-align: center;
+	.animated {
+		position: relative;
+		animation: fadeInDown 1.5s infinite;
+		-webkit-animation: fadeInDown 1.5s infinite;
+		-moz-animation: fadeInDown 1.5s infinite;
+		-o-animation: fadeInDown 1.5s infinite;
+		i{
+			height: 46px;
+		}
+		&:after {
+			position: absolute;
+			content: " ";
+			bottom:-5px;
+			left: calc(50% + 0.05px);
+			width: 10px;
+			height: 10px;
+			border-top: 1px solid rgba(0,0,0,1);
+			border-right: 1px solid rgba(0,0,0,1);
+			-webkit-transform: translate(-50%, -50%) rotate(135deg);
+			transform: translate(-50%, -50%) rotate(135deg);
+			@include transition(all 0.2s ease);
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			background-image: none;
+		}
+	}
+}
+[data-bs-theme="dark"] {
+	.scroll-down-arrow {
+		color: rgba(250,250,250,0.5);
+		.animated {
+			&:after {
+				border-color: rgba(250,250,250,0.5);
+			}
+		}
+	}
+}
+
+@keyframes fadeInDown {
+  0% {
+    top: -25px;
+    opacity: 0;
+  }
+  100% {
+    top: 10px;
+    opacity: 1;
+  }
+}
+
+.rotate-animation{
+	animation:infiniterotate 10s infinite linear !important;
+}
+
+@keyframes infiniterotate{
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Thumb */
+.img-thumb {
+  width: 75px !important;
+  height: auto;
+}
+
+.img-thumb-sm {
+  width: 50px !important;
+  height: auto;
+}
+
+.img-thumb-lg {
+  width: 100px !important;
+  height: auto;
+}
+
+
+/* Call to Action */
+.call-to-action {
+	background:
+    url("../images/call-to-action-bg.png") top left no-repeat,
+    url("../images/call-to-action-bg-2.png") bottom right no-repeat;
+}
+@include media-breakpoint-down(md) {
+  .call-to-action {
+    background-size: contain;
+  }
+}
+
+/* Map */
+.map-wrap{
+	filter:grayscale(100%);
+	-webkit-filter: grayscale(100%);
+}
+
+/* Restaurant Menu */
+.line hr{
+	border-style: dashed;
+	opacity: 0.3;
+	border-width: 1px;
+	height: 0px;
+}

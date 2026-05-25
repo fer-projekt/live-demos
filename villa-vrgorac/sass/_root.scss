@@ -1,0 +1,62 @@
+/* == Web Fonts == */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+:root,
+[data-bs-theme="light"] {
+	// Themecolor
+	--#{$prefix}themecolor: #{$theme-color};
+	--#{$prefix}themecolor-rgb: #{to-rgb($theme-color)};
+	
+	--#{$prefix}themehovercolor: #{$theme-hover-color};
+	--#{$prefix}themehovercolor-rgb: #{to-rgb($theme-hover-color)};
+	
+	--#{$prefix}link-color: var(--#{$prefix}themecolor);
+  	--#{$prefix}link-color-rgb: var(--#{$prefix}themecolor-rgb);
+	
+	--#{$prefix}link-hover-color: var(--#{$prefix}themehovercolor);
+	--#{$prefix}link-hover-color-rgb: var(--#{$prefix}themehovercolor-rgb);
+	
+	--#{$prefix}success: #{$green};
+	--#{$prefix}success-rgb: #{to-rgb($green)};
+	
+	--#{$prefix}primary: var(--#{$prefix}themecolor);
+	--#{$prefix}primary-rgb: var(--#{$prefix}themecolor-rgb);
+	
+	--#{$prefix}primary-text-emphasis: #{shade-color($theme-color, 60%)};
+	--#{$prefix}primary-bg-subtle: #{tint-color($theme-color, 80%)};
+	--#{$prefix}primary-border-subtle: #{tint-color($theme-color, 60%)};
+	
+	--#{$prefix}body-color: #{$body-color};
+	--#{$prefix}body-color-rgb: #{to-rgb($body-color)};
+	
+	--#{$prefix}secondary: #{$secondary};
+	--#{$prefix}secondary-rgb: #{to-rgb($secondary)};
+	
+	--#{$prefix}heading-color: var(--bs-emphasis-color);
+	
+	// Font Families
+	--#{$prefix}body-font-family: #{$body-font-family};
+	--#{$prefix}heading-font-family: #{$heading-font-family};
+	
+	--#{$prefix}body-font-size: #{$body-font-size};
+	
+}
+
+@if $enable-dark-mode {
+  @include color-mode(dark, true) {
+    color-scheme: dark;
+	
+	--#{$prefix}link-color: var(--#{$prefix}themecolor);
+  	--#{$prefix}link-color-rgb: var(--#{$prefix}themecolor-rgb);
+	
+	--#{$prefix}link-hover-color: var(--#{$prefix}themehovercolor);
+	--#{$prefix}link-hover-color-rgb: var(--#{$prefix}themehovercolor-rgb);
+	
+	--#{$prefix}heading-color: var(--bs-emphasis-color);
+	
+	--#{$prefix}body-color: #{$body-color-dark};
+	--#{$prefix}body-color-rgb: #{to-rgb($body-color-dark)};
+
+	}
+}
