@@ -1,0 +1,215 @@
+@use "../abstracts/index.scss" as *;
+
+.tf-btn {
+    font-size: 16px;
+    font-weight: 600;
+    display: inline-flex;
+    border-radius: 14px;
+    line-height: 22.6px;
+    padding: 16px 46px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    min-height: 54px;
+    min-width: 130px;
+    background-color: var(--white);
+    text-decoration: none;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    text-transform: capitalize;
+    @include transition3;
+    flex-shrink: 0;
+
+
+    svg path,
+    img {
+        @include transition3;
+    }
+
+
+    svg {
+        width: 20px;
+        flex-shrink: 0;
+    }
+
+    .icon {
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    &.hover-1:hover {
+        color: var(--white);
+        background-color: var(--primary-color);
+
+        img {
+            filter: brightness(0) invert(1);
+        }
+    }
+
+    &.hover-2:hover {
+        color: var(--white);
+        background-color: transparent;
+
+        img {
+            filter: brightness(0) invert(1);
+        }
+    }
+
+    &.primary {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border-color: var(--primary-color);
+
+        &.hover-1:hover {
+            color: var(--primary-color);
+            background-color: var(--white);
+
+            .icon {
+                color: var(--primary-color);
+            }
+
+            img {
+                filter: brightness(0) invert(1);
+            }
+        }
+
+        &.hover-2:hover {
+            color: var(--primary-color);
+            background-color: transparent;
+
+            .icon {
+                color: var(--primary-color);
+            }
+
+            img {
+                filter: brightness(0) invert(1);
+            }
+        }
+
+        .icon {
+            color: var(--white);
+        }
+    }
+
+    &.transparent {
+        background-color: transparent;
+        border: 1px solid #FFFFFF26;
+        color: var(--white);
+
+        img {
+            filter: brightness(0) invert(1);
+        }
+
+        &:hover {
+            background-color: var(--white);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+
+            img {
+                filter: brightness(0) saturate(100%) invert(95%) sepia(9%) saturate(5115%) hue-rotate(321deg) brightness(90%) contrast(90%);
+            }
+        }
+    }
+
+    &.size-1 {
+        min-width: 200px;
+        padding: 16px 56px;
+    }
+
+}
+
+.hover-btn-view:hover {
+    .btn-view.style-1 {
+        .icon {
+            animation: 0.3s link-icon linear;
+        }
+
+        .text {
+            color: var(--black);
+
+            &::before {
+                width: 100%;
+                left: 0;
+                right: auto;
+            }
+        }
+    }
+}
+
+.btn-view {
+    .text {
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 600;
+        color: var(--black);
+        position: relative;
+
+        &::before {
+            position: absolute;
+            content: "";
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--primary-color);
+        }
+    }
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    .icon {
+        color: var(--primary-color);
+        font-size: 16px;
+    }
+
+    &:hover {
+        .icon {
+            color: var(--primary-color);
+            animation: 0.3s link-icon linear;
+        }
+    }
+
+    &.style-1 {
+        .text {
+            &::before {
+                width: 0;
+                left: auto;
+                right: 0;
+                -webkit-transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+                -o-transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+                transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+                background-color: var(--black);
+            }
+        }
+    }
+}
+
+.btn-line {
+
+    gap: 8px;
+    border: 1px solid var(--primary-color);
+    background-color: var(--white);
+
+    &:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+
+
+        svg {
+            path {
+                stroke: var(--white);
+            }
+        }
+
+        .icon {
+            color: var(--white);
+        }
+    }
+
+    .icon {
+        color: var(--black);
+        font-size: 20px;
+    }
+}

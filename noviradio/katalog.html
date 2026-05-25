@@ -102,6 +102,8 @@
 	</div>
 </nav>
 
+<div class="max-lg:h-[150px]"></div>
+
 <div class="breadcrumbs py-[20px] xl:py-[30px]">
 	<div class="container">
 		<div class="flex flex-wrap mx-[10px] xl:-mx-[20px]">
@@ -748,6 +750,35 @@
 </div>
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<script>
+// hero helpers
+const hero = document.querySelector('.home-hero');
+const heroTitle = document.getElementById('heroTitleRotator');
+
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    if (window.innerWidth < 1024) {
+        heroTitle.style.opacity = Math.max(0, 1 - scrollY / 100);
+
+        const minHeight = 80;
+        const maxHeight = 150;
+        const newHeight = Math.max(minHeight, maxHeight - scrollY);
+
+        hero.style.height = newHeight + 'px';
+    } else {
+        heroTitle.style.opacity = 1;
+        hero.style.height = '';
+    }
+});
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+        heroTitle.style.opacity = 1;
+        hero.style.height = '';
+    }
+});
+</script>
 
 <script>
 // popup

@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FER AI Asistent — Prijedlog ponude</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eff6ff', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' }
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer base {
+      body { @apply max-w-4xl mx-auto px-6 md:px-10 py-10 text-slate-800 bg-slate-50 leading-relaxed; }
+      h1 { @apply text-3xl md:text-4xl font-bold text-brand-900 border-b-4 border-brand-600 pb-3 mb-6 mt-2; }
+      h2 { @apply text-2xl font-bold text-brand-900 border-b border-slate-300 pb-2 mt-10 mb-4; }
+      h3 { @apply text-xl font-semibold text-brand-700 mt-8 mb-3; }
+      h4 { @apply text-lg font-semibold text-slate-700 mt-6 mb-2; }
+      p { @apply my-3; }
+      a { @apply text-brand-600 hover:underline; }
+      strong { @apply font-semibold text-slate-900; }
+      em { @apply italic; }
+      ul, ol { @apply my-3 pl-6; }
+      ul { @apply list-disc; }
+      ol { @apply list-decimal; }
+      li { @apply my-1; }
+      blockquote { @apply border-l-4 border-brand-600 bg-brand-50 px-5 py-3 my-4 rounded-r text-slate-700; }
+      blockquote p { @apply my-1; }
+      code { @apply bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded text-sm font-mono; }
+      pre { @apply bg-slate-900 text-slate-100 p-4 rounded-lg overflow-x-auto my-4; }
+      pre code { @apply bg-transparent text-inherit p-0; }
+      table { @apply w-full my-5 border-collapse text-sm; }
+      th { @apply bg-brand-50 text-left font-semibold px-3 py-2 border border-slate-300 text-slate-900; }
+      td { @apply px-3 py-2 border border-slate-300 align-top; }
+      tr:nth-child(even) td { @apply bg-white; }
+      tr:nth-child(odd) td { @apply bg-slate-50; }
+      hr { @apply my-10 border-slate-300; }
+    }
+    @layer components {
+      #TOC {
+        @apply bg-white border border-slate-200 rounded-lg p-6 my-6 shadow-sm;
+      }
+      #TOC::before {
+        content: 'Sadržaj';
+        @apply block text-xl font-bold text-brand-900 mb-3;
+      }
+      #TOC ul { @apply list-none pl-0; }
+      #TOC ul ul { @apply pl-5 mt-1; }
+      #TOC li { @apply my-1; }
+      #TOC a { @apply text-slate-700 hover:text-brand-600 no-underline; }
+      .header-section-number { @apply text-brand-600 mr-2; }
+    }
+    @media print {
+      body { @apply max-w-none bg-white; }
+      h2 { page-break-after: avoid; }
+      table, blockquote { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">FER AI Asistent — Prijedlog ponude</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#fer-ai-asistent-prijedlog-ponude"
+id="toc-fer-ai-asistent-prijedlog-ponude"><span
+class="toc-section-number">1</span> FER AI Asistent — Prijedlog
+ponude</a>
+<ul>
+<li><a href="#terminologija" id="toc-terminologija"><span
+class="toc-section-number">1.1</span> 1. Terminologija</a>
+<ul>
+<li><a href="#ai-upit" id="toc-ai-upit"><span
+class="toc-section-number">1.1.1</span> 1.1 AI upit</a></li>
+<li><a href="#izvor-znanja" id="toc-izvor-znanja"><span
+class="toc-section-number">1.1.2</span> 1.2 Izvor znanja</a></li>
+<li><a href="#napredno-postavljanje-one-time-setup"
+id="toc-napredno-postavljanje-one-time-setup"><span
+class="toc-section-number">1.1.3</span> 1.3 Napredno postavljanje
+(one-time setup)</a></li>
+<li><a href="#mentoriranje" id="toc-mentoriranje"><span
+class="toc-section-number">1.1.4</span> 1.4 Mentoriranje</a></li>
+</ul></li>
+<li><a href="#što-utječe-na-cijenu" id="toc-što-utječe-na-cijenu"><span
+class="toc-section-number">1.2</span> 2. Što utječe na cijenu</a>
+<ul>
+<li><a href="#faktori-koji-povećavaju-cijenu-objasniti-klijentu"
+id="toc-faktori-koji-povećavaju-cijenu-objasniti-klijentu"><span
+class="toc-section-number">1.2.1</span> 2.1 Faktori koji povećavaju
+cijenu (objasniti klijentu)</a></li>
+<li><a href="#tehničke-prepreke-i-ograde-zaštita-za-nas"
+id="toc-tehničke-prepreke-i-ograde-zaštita-za-nas"><span
+class="toc-section-number">1.2.2</span> 2.2 Tehničke prepreke i ograde
+(zaštita za nas)</a></li>
+</ul></li>
+<li><a href="#cjenik-tvrtke-privatni-sektor"
+id="toc-cjenik-tvrtke-privatni-sektor"><span
+class="toc-section-number">1.3</span> 3. Cjenik — TVRTKE (privatni
+sektor)</a>
+<ul>
+<li><a href="#premium-ai-tier-posebna-ponuda"
+id="toc-premium-ai-tier-posebna-ponuda"><span
+class="toc-section-number">1.3.1</span> 3.1 Premium AI tier — posebna
+ponuda</a></li>
+</ul></li>
+<li><a href="#cjenik-javna-uprava-općine-gradovi-ustanove"
+id="toc-cjenik-javna-uprava-općine-gradovi-ustanove"><span
+class="toc-section-number">1.4</span> 4. Cjenik — JAVNA UPRAVA (općine,
+gradovi, ustanove)</a>
+<ul>
+<li><a href="#posebna-napomena-za-biograd"
+id="toc-posebna-napomena-za-biograd"><span
+class="toc-section-number">1.4.1</span> 4.1 Posebna napomena za
+Biograd</a></li>
+</ul></li>
+<li><a href="#landing-asistent-qr" id="toc-landing-asistent-qr"><span
+class="toc-section-number">1.5</span> 5. Landing asistent (QR)</a></li>
+<li><a href="#whatsapp-remarketing-posebna-ponuda"
+id="toc-whatsapp-remarketing-posebna-ponuda"><span
+class="toc-section-number">1.6</span> 6. WhatsApp + remarketing (posebna
+ponuda)</a>
+<ul>
+<li><a href="#meta-cjenovni-model-od-srpnja-2025"
+id="toc-meta-cjenovni-model-od-srpnja-2025"><span
+class="toc-section-number">1.6.1</span> 6.1 Meta cjenovni model (od
+srpnja 2025)</a></li>
+<li><a
+href="#naš-cjenik-prijedlog-finalizirati-nakon-tehničkih-smjernica"
+id="toc-naš-cjenik-prijedlog-finalizirati-nakon-tehničkih-smjernica"><span
+class="toc-section-number">1.6.2</span> 6.2 Naš cjenik (prijedlog —
+finalizirati nakon tehničkih smjernica)</a></li>
+<li><a href="#tehnički-prereqs-što-klijent-mora-osigurati"
+id="toc-tehnički-prereqs-što-klijent-mora-osigurati"><span
+class="toc-section-number">1.6.3</span> 6.3 Tehnički prereqs (što
+klijent mora osigurati)</a></li>
+</ul></li>
+<li><a href="#klauzula-o-cijenama-tokena"
+id="toc-klauzula-o-cijenama-tokena"><span
+class="toc-section-number">1.7</span> 7. Klauzula o cijenama tokena</a>
+<ul>
+<li><a href="#pravni-tekst-za-ponudu"
+id="toc-pravni-tekst-za-ponudu"><span
+class="toc-section-number">1.7.1</span> 7.1 Pravni tekst za
+ponudu</a></li>
+<li><a href="#kontekst-za-internu-raspravu-ne-u-ponudi"
+id="toc-kontekst-za-internu-raspravu-ne-u-ponudi"><span
+class="toc-section-number">1.7.2</span> 7.2 Kontekst za internu raspravu
+(NE u ponudi)</a></li>
+<li><a href="#gdpr-i-izbor-providera-kritično-za-javnu-upravu"
+id="toc-gdpr-i-izbor-providera-kritično-za-javnu-upravu"><span
+class="toc-section-number">1.7.3</span> 7.3 GDPR i izbor providera
+(kritično za javnu upravu)</a></li>
+<li><a href="#strategija-u-klauzuli"
+id="toc-strategija-u-klauzuli"><span
+class="toc-section-number">1.7.4</span> 7.4 Strategija u
+klauzuli</a></li>
+</ul></li>
+<li><a href="#interna-kalkulacija-ne-u-ponudi"
+id="toc-interna-kalkulacija-ne-u-ponudi"><span
+class="toc-section-number">1.8</span> 8. Interna kalkulacija (NE u
+ponudi)</a>
+<ul>
+<li><a href="#stvarni-trošak-po-ai-upitu"
+id="toc-stvarni-trošak-po-ai-upitu"><span
+class="toc-section-number">1.8.1</span> 8.1 Stvarni trošak po AI
+upitu</a></li>
+<li><a href="#marže-po-paketima-ai-procjena"
+id="toc-marže-po-paketima-ai-procjena"><span
+class="toc-section-number">1.8.2</span> 8.2 Marže po paketima (AI
+procjena)</a></li>
+<li><a href="#što-treba-paziti" id="toc-što-treba-paziti"><span
+class="toc-section-number">1.8.3</span> 8.3 Što treba paziti</a></li>
+</ul></li>
+<li><a href="#re-crawl-dodatna-stavka-u-cjeniku"
+id="toc-re-crawl-dodatna-stavka-u-cjeniku"><span
+class="toc-section-number">1.9</span> 9. Re-crawl — dodatna stavka u
+cjeniku</a></li>
+<li><a href="#otvorena-pitanja-za-sastanak-ponedjeljak"
+id="toc-otvorena-pitanja-za-sastanak-ponedjeljak"><span
+class="toc-section-number">1.10</span> 10. Otvorena pitanja za sastanak
+(ponedjeljak)</a></li>
+<li><a href="#prilog-a-glossary-za-prodavača-one-liner-odgovori"
+id="toc-prilog-a-glossary-za-prodavača-one-liner-odgovori"><span
+class="toc-section-number">1.11</span> 11. Prilog A — Glossary za
+prodavača (one-liner odgovori)</a></li>
+<li><a href="#sljedeći-koraci" id="toc-sljedeći-koraci"><span
+class="toc-section-number">1.12</span> Sljedeći koraci</a></li>
+<li><a href="#izvori-online-istraživanje-cijena-svibanj-2026"
+id="toc-izvori-online-istraživanje-cijena-svibanj-2026"><span
+class="toc-section-number">1.13</span> Izvori (online istraživanje
+cijena, svibanj 2026)</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 data-number="1" id="fer-ai-asistent-prijedlog-ponude"><span
+class="header-section-number">1</span> FER AI Asistent — Prijedlog
+ponude</h1>
+<blockquote>
+<p><strong>⚠️ Sve cijene i brojke u ovom dokumentu su prijedlog koji je
+generirao AI.</strong> Trebaju provjeru i potvrdu prije slanja bilo
+kojem klijentu. Za internu reviziju. Datum: 2026-05-12.</p>
+</blockquote>
+<hr />
+<h2 data-number="1.1" id="terminologija"><span
+class="header-section-number">1.1</span> 1. Terminologija</h2>
+<h3 data-number="1.1.1" id="ai-upit"><span
+class="header-section-number">1.1.1</span> 1.1 AI upit</h3>
+<blockquote>
+<p><strong>AI upit = jedan obrađen zahtjev unutar AI
+modela.</strong></p>
+</blockquote>
+<p>Jedan razgovor između korisnika i asistenta (1 pitanje + 1 odgovor)
+<strong>tipično troši 2–6 AI upita</strong>, ovisno o složenosti.</p>
+<p><strong>Što sve troši AI upite tijekom jednog razgovora:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Korak</th>
+<th>Trošak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pretraga znanja (embedding)</td>
+<td>1 AI upit</td>
+</tr>
+<tr>
+<td>Klasifikacija namjere (intent)</td>
+<td>1 AI upit</td>
+</tr>
+<tr>
+<td>Čitanje pronađenih izvora (read tool)</td>
+<td>1–3 AI upita</td>
+</tr>
+<tr>
+<td>Reasoning korak (kod složenih pitanja)</td>
+<td>1–4 AI upita</td>
+</tr>
+<tr>
+<td>Generiranje finalnog odgovora</td>
+<td>1 AI upit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tehnička osnova:</strong> maksimalno <strong>4 reasoning
+koraka</strong> po odgovoru + embedding i tool pozivi.</p>
+<p><strong>Zašto <em>ne</em> prodajemo “razgovore”:</strong></p>
+<ol type="1">
+<li><strong>Pravna zaštita</strong> — “razgovor = jedna jedinica” nas
+obvezuje neovisno o tome koliko AI radi iznutra. Klijent s kompleksnim
+flow-om može tjerati 10× više AI procesiranja po razgovoru.</li>
+<li><strong>Fleksibilnost s cijenama tokena</strong> — cijene providera
+se mijenjaju kvartalno; AI upit kao jedinica direktno prati naš stvarni
+trošak.</li>
+<li><strong>Realni mjerni okvir</strong> — sustav stvarno <em>broji</em>
+AI pozive, ne “razgovore”.</li>
+</ol>
+<p><strong>Cijena pojedinog AI upita varira</strong> (~0.001 € do ~0.05
+€) ovisno o: - Veličini konteksta (više dokumenata u pretrazi = veći
+input) - Tier modelu (Standardni AI vs. Premium AI — vidi 3.1) -
+Složenosti pitanja (više reasoning koraka)</p>
+<p><strong>Što klijentu reći:</strong> &gt; “Vaš paket ima <em>X</em> AI
+upita mjesečno. Jedan razgovor prosječno troši 2–6 AI upita. Mi snosimo
+rizik složenosti — vi plaćate <em>kapacitet AI procesiranja</em>. Za
+prosječan slučaj, <em>X</em> AI upita pokriva otprilike <em>X/4</em>
+razgovora.”</p>
+<p><strong>Tehnička kontrola limita:</strong> - Dnevni limit, mjesečni
+limit, dnevni limit po korisniku/IP-u - <strong>Sustav blokira na
+dostignutom limitu</strong> — vraća odgovor “kanal-limit” i ne procesira
+daljnje upite do sljedećeg perioda.</p>
+<h3 data-number="1.1.2" id="izvor-znanja"><span
+class="header-section-number">1.1.2</span> 1.2 Izvor znanja</h3>
+<blockquote>
+<p><strong>Izvor znanja = jedna jedinica koju je klijent dodao u bazu
+znanja:</strong> - jedan <strong>upload</strong> (jedna datoteka —
+neovisno o broju stranica) <strong>ILI</strong> - jedna <strong>crawlana
+URL stranica</strong></p>
+</blockquote>
+<p><strong>Primjeri brojanja:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Što klijent doda</th>
+<th>Broj izvora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 datoteka od 200 stranica</td>
+<td>1 izvor</td>
+</tr>
+<tr>
+<td>1 web stranica</td>
+<td>1 izvor</td>
+</tr>
+<tr>
+<td>1 sitemap s 50 URL-ova</td>
+<td>do 50 izvora</td>
+</tr>
+<tr>
+<td>1 ZIP s 30 datoteka</td>
+<td>30 izvora</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tehnički u pozadini (NE ide u klijentsku ponudu —
+interno):</strong></p>
+<blockquote>
+<p>Svaki izvor se interno razlaže na manje fragmente za potrebe
+semantičke pretrage (chunking). Postoje <strong>limiti veličine
+pojedinačnog izvora</strong> (veličina datoteke, broj karaktera, broj
+stranica) koje <strong>definira admin per-klijent</strong> ovisno o
+paketu — <em>ne objavljujemo ih fiksno u ponudi</em> jer: - razlikuju se
+po paketu (premium klijenti = veći limiti) - imamo prostor za prilagodbu
+prema realnim potrebama - još nismo testirali što je realna gornja
+granica (npr. 500 stranica u jednom izvoru = previše chunkova =
+degradacija pretrage)</p>
+<p><strong>Što <em>treba</em> reći klijentu:</strong> “Pojedinačni izvor
+ima razuman gornji limit veličine. Vrlo veliki materijali (npr.
+1.000-stranični priručnik) trebaju se podijeliti u manje cjeline za
+bolju pretragu.”</p>
+<p><strong>Tehnička osnova:</strong> - Per-klijent se postavljaju:
+maksimalan broj izvora, maksimalna veličina datoteke, maksimalan broj
+karaktera po izvoru, popis dopuštenih formata - Default vrijednosti su
+konfigurabilne na razini sustava</p>
+</blockquote>
+<p><strong>Podržani formati:</strong> - PDF (s tekstom — <em>ne</em>
+skenirani sken-PDF-ovi bez OCR-a) - DOCX - TXT, MD - JSON, CSV
+(strukturirani podaci)</p>
+<p><strong>Što <em>ne</em> podržavamo (out-of-the-box):</strong> - Slike
+(JPG, PNG) — potreban OCR (dodatni paket) - XLSX (Excel) — može preko
+konverzije - HTML kao upload — može preko crawla - Video / audio</p>
+<p><strong>Zašto je važno objasniti klijentu:</strong> &gt; “Cijena
+ovisi o tome koliko različitog znanja asistent mora pokriti. 50 izvora o
+uslugama i 2.000 stranica općinskog službenog glasnika nisu isti posao —
+i za nas (postavljanje, indexiranje, održavanje), i za AI tijekom
+razgovora.”</p>
+<h3 data-number="1.1.3" id="napredno-postavljanje-one-time-setup"><span
+class="header-section-number">1.1.3</span> 1.3 Napredno postavljanje
+(one-time setup)</h3>
+<blockquote>
+<p><strong>Što ulazi u “napredno postavljanje”:</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Komponenta</th>
+<th>Što je</th>
+<th>Što se konfigurira</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Context model</strong></td>
+<td>“Mozak” asistenta</td>
+<td>System prompt, tone of voice, ime asistenta, kontakt info, radno
+vrijeme, sales CTA</td>
+</tr>
+<tr>
+<td><strong>Crawl job</strong></td>
+<td>Indexiranje weba</td>
+<td>URL, dubina, max stranica, isključeni paths, raspored re-crawla</td>
+</tr>
+<tr>
+<td><strong>Document upload &amp; grupiranje</strong></td>
+<td>Uvoz ručnih materijala</td>
+<td>Upload, grupiranje u tematske skupine</td>
+</tr>
+<tr>
+<td><strong>Widget izgled</strong></td>
+<td>Kako izgleda na webu</td>
+<td>Boje, pozicija, pozdrav, placeholder</td>
+</tr>
+<tr>
+<td><strong>Widget okidači</strong></td>
+<td>Kad se otvara</td>
+<td>Exit-intent, scroll %, URL pattern</td>
+</tr>
+<tr>
+<td><strong>Widget flow</strong></td>
+<td>Vođeni razgovor</td>
+<td>Quick-reply nodes do <strong>5 razina dubine, 3 grane
+široko</strong>, scripted prompti</td>
+</tr>
+<tr>
+<td><strong>Forme u widgetu</strong></td>
+<td>Capture lead</td>
+<td>Lead capture nakon razgovora, intent analiza, email
+notifikacija</td>
+</tr>
+<tr>
+<td><strong>Sigurnost widgeta</strong></td>
+<td>Anti-spam / rate limiting</td>
+<td>Turnstile, honeypot, rate limit per IP</td>
+</tr>
+<tr>
+<td><strong>Email kanal</strong> (opcionalno)</td>
+<td>Asistent na e-mailu</td>
+<td>IMAP/SMTP, thread tracking, auto-odgovor</td>
+</tr>
+<tr>
+<td><strong>Intent / lead notifikacije</strong></td>
+<td>Obavijesti o leadovima</td>
+<td>Email na lead-detection, urgency filter, hot-lead alert</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Zašto je važno objasniti:</strong> &gt; “Postavljanje nije
+‘kliknemo i pokrene se’. Mi prvo analiziramo vaše materijale, dogovorimo
+tone i ciljeve, crawlamo web, indexiramo izvore znanja, dizajniramo flow
+razgovora, spojimo lead-capture, testiramo i pre-treniramo asistent na
+vašim stvarnim pitanjima prije puštanja u produkciju.”</p>
+<h3 data-number="1.1.4" id="mentoriranje"><span
+class="header-section-number">1.1.4</span> 1.4 Mentoriranje</h3>
+<blockquote>
+<p><strong>Mentoriranje asistenta = kontinuirano poboljšavanje asistenta
+na temelju stvarnih razgovora.</strong></p>
+</blockquote>
+<p><strong>Alternativni nazivi (otvoreno za odluku):</strong> 1.
+<strong>“Mentoriranje asistenta”</strong> ← preporuka 2. “AI Care” 3.
+“Doradba i optimizacija asistenta” 4. “Kontinuirano učenje
+asistenta”</p>
+<p><strong>Što stvarno radimo:</strong> 1. Sustav bilježi razgovore u
+kojima AI <strong>nije znao odgovoriti</strong> ili je dao slab odgovor.
+2. Klijent dobija <strong>tjedni/mjesečni izvještaj</strong> u admin
+panelu i na email (intent analiza, lead summary, gaps in knowledge). 3.
+Naš tim: - Doradi <strong>system prompt</strong> - Doda <strong>nove
+izvore znanja / FAQ</strong> - Refaktorira <strong>flow
+razgovora</strong> ako korisnici zapinju - Testira i deploya promjene 4.
+Po dogovoru — sastanak s klijentom 1×/mjesec na pregled.</p>
+<p><strong>Strukura mentoriranja</strong> (referentno, Biograd model): -
+<strong>Prvih 6 mj:</strong> 8 h/mjesec - <strong>Sljedećih 6
+mj:</strong> 4 h/mjesec - <strong>Nakon godine:</strong> po dogovoru ili
+na zahtjev (paket sati)</p>
+<hr />
+<h2 data-number="1.2" id="što-utječe-na-cijenu"><span
+class="header-section-number">1.2</span> 2. Što utječe na cijenu</h2>
+<h3 data-number="1.2.1"
+id="faktori-koji-povećavaju-cijenu-objasniti-klijentu"><span
+class="header-section-number">1.2.1</span> 2.1 Faktori koji povećavaju
+cijenu (objasniti klijentu)</h3>
+<p><strong>Šest faktora:</strong></p>
+<ol type="1">
+<li><strong>Veličina baze znanja</strong> — broj izvora, kvaliteta
+strukture</li>
+<li><strong>Logičko grananje razgovora</strong> — jednostavan FAQ
+vs. proceduralni flow s više uvjeta</li>
+<li><strong>Crawler scope i frekvencija</strong> — jednokratni crawl
+vs. dnevni re-crawl (vidi poglavlje 9)</li>
+<li><strong>Integracije</strong> — widget vs. widget + email + WhatsApp
++ CRM webhooks</li>
+<li><strong>Volumen AI upita</strong> — direktan utjecaj na
+token-troškove</li>
+<li><strong>AI razina (tier)</strong> — Standardni uključen, Premium kao
+posebna ponuda (vidi 3.1)</li>
+</ol>
+<h3 data-number="1.2.2"
+id="tehničke-prepreke-i-ograde-zaštita-za-nas"><span
+class="header-section-number">1.2.2</span> 2.2 Tehničke prepreke i
+ograde (zaštita za nas)</h3>
+<blockquote>
+<p><strong>U ponudi obavezno spomenuti:</strong> sljedeće tehničke
+prepreke mogu utjecati na implementaciju, kvalitetu ili konačnu cijenu —
+analiziraju se prije ugovora.</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Prepreka</th>
+<th>Što znači</th>
+<th>Posljedica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JavaScript-heavy stranice</strong> (SPA,
+React/Vue/Angular)</td>
+<td>Sadržaj se generira u browseru, ne u HTML-u</td>
+<td>Crawler može propustiti sadržaj — potreban headless browser
+(skuplje)</td>
+</tr>
+<tr>
+<td><strong>Login-protected sadržaj</strong></td>
+<td>Sadržaj iza autentikacije</td>
+<td>Asistent ne može pristupiti — klijent priprema javni izvoz ili
+API</td>
+</tr>
+<tr>
+<td><strong>CAPTCHA / anti-bot zaštita</strong></td>
+<td>Cloudflare, ReCAPTCHA</td>
+<td>Crawl ne prolazi — klijent dodaje izuzeće za naš user agent</td>
+</tr>
+<tr>
+<td><strong>Sken-PDF-ovi / sadržaj u slikama</strong></td>
+<td>Skenirani dokumenti, foto-PDF-ovi</td>
+<td>Potreban OCR — dodatni trošak; kvaliteta ovisi o čitljivosti</td>
+</tr>
+<tr>
+<td><strong>Sadržaj iza paywalla</strong></td>
+<td>Plaćene stranice, premium portali</td>
+<td>Ne može se crawlati legalno</td>
+</tr>
+<tr>
+<td><strong>Realtime sadržaj</strong></td>
+<td>Burza, slot dostupnost, live stanje</td>
+<td>Crawl-baza ne stiže pratiti — potrebna API integracija</td>
+</tr>
+<tr>
+<td><strong>Neispravan robots.txt</strong></td>
+<td>Stranica eksplicitno zabranjuje crawl</td>
+<td>Klijent odobrava pristup</td>
+</tr>
+<tr>
+<td><strong>Slabo strukturirani sadržaj</strong></td>
+<td>Nema jasne hijerarhije</td>
+<td>Veća potreba za ručnim čišćenjem</td>
+</tr>
+<tr>
+<td><strong>Vrlo veliki materijali</strong></td>
+<td>1.000+ stranični priručnici, baze &gt;100k zapisa</td>
+<td>Treba podijeliti u manje izvore</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Što <em>ne</em> utječe na cijenu</strong> (iskrenost prema
+klijentu): - Broj <em>korisnika</em> koji koriste asistent -
+Lokacija/jezik — asistent radi višejezično u jednom paketu</p>
+<p><strong>Klauzula za ponudu:</strong> &gt; <em>Implementacija
+pretpostavlja da je sadržaj klijenta dostupan u standardnom obliku i
+nije zaštićen autentikacijom. U slučaju utvrđenih tehničkih prepreka
+tijekom analitičke faze dogovaramo dodatne korake ili prilagođenu
+cijenu.</em></p>
+<hr />
+<h2 data-number="1.3" id="cjenik-tvrtke-privatni-sektor"><span
+class="header-section-number">1.3</span> 3. Cjenik — TVRTKE (privatni
+sektor)</h2>
+<blockquote>
+<p><strong>AI prijedlog cjenika — TRAŽI POTVRDU.</strong> Web asistent +
+e-mail kanal. WhatsApp je posebno (poglavlje 6). <strong>Sve cijene bez
+PDV-a.</strong></p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>Paket</th>
+<th>Mj. naknada</th>
+<th>AI upita/mj</th>
+<th>Izvora znanja</th>
+<th>Postavljanje</th>
+<th>Mentoriranje</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OSNOVNI</strong></td>
+<td>od <strong>145 €</strong></td>
+<td>20.000</td>
+<td>do 100</td>
+<td>od 290 €</td>
+<td>opcija +60 €/mj</td>
+</tr>
+<tr>
+<td><strong>POSLOVNI</strong></td>
+<td>od <strong>295 €</strong></td>
+<td>80.000</td>
+<td>do 500</td>
+<td>od 480 €</td>
+<td>od 80 €/mj (2 h)</td>
+</tr>
+<tr>
+<td><strong>PREMIUM</strong></td>
+<td>od <strong>495 €</strong></td>
+<td>250.000</td>
+<td>do 2.000</td>
+<td>od 880 €</td>
+<td>od 160 €/mj (4 h)</td>
+</tr>
+<tr>
+<td><strong>ENTERPRISE</strong></td>
+<td>po dogovoru</td>
+<td>po dogovoru</td>
+<td>po dogovoru</td>
+<td>po dogovoru</td>
+<td>po dogovoru</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Što znače brojevi AI upita za klijenta:</strong> - 20.000 AI
+upita ≈ <strong>3.000–6.000 razgovora</strong> (ovisno o složenosti) -
+80.000 AI upita ≈ <strong>15.000–25.000 razgovora</strong> - 250.000 AI
+upita ≈ <strong>50.000–80.000 razgovora</strong></p>
+<p><strong>Prekoračenje AI upita:</strong> - <strong>Sustav blokira na
+dostignutom mjesečnom/dnevnom limitu</strong> (anti-abuse zaštita). -
+Klijent dobiva notifikaciju na <strong>80%</strong> kapaciteta s ponudom
+za <strong>paket dodatnih upita</strong> (npr. paket od 5.000, 10.000,
+25.000 dodatnih upita). - <strong>Cijena dodatnog paketa: 5 € za svakih
+1.000 dodatnih AI upita</strong> (jednokratno, do kraja mjeseca). - Ako
+klijent ne prihvati nadogradnju, blokada ostaje do prvog dana sljedećeg
+mjeseca kad se brojač resetira.</p>
+<blockquote>
+<p><strong>AI procjena — 5 €/1.000 upita treba potvrditi</strong>: pri
+trenutnim cijenama tokena (vidi poglavlje 7) stvarni trošak je ~1
+€/1.000 upita za Standardni tier, što ostavlja maržu ~80%. Realno.</p>
+</blockquote>
+<p><strong>Prekoračenje izvora znanja:</strong> - <strong>Fiksna
+granica.</strong> Sustav ne prihvaća više od dogovorenog limita. -
+Klijent koji treba više <strong>prelazi u viši paket</strong>
+(renegocijacija ugovora) ili kupuje <strong>Enterprise paket</strong>. -
+Razlog: limiti utječu na storage, vector index size, pretragu — ne mogu
+se otključati ad-hoc.</p>
+<p><strong>Što uključuje mjesečna naknada (svaki paket):</strong> -
+Hosting i održavanje infrastrukture - AI procesiranje do limita AI upita
+(uključuje sve tipove: pretrage, reasoning, generiranje) - Sigurnost
+(Turnstile, rate limiting, IP-filter, anti-spam) - Backup baze i izvora
+znanja - Tehnička podrška za prijavljene smetnje - Pristup admin panelu
+(analitika, izvještaji, intent analiza) - Lead notifikacije (e-mail) -
+<strong>Standardni AI tier</strong> (jezični model po našem izboru —
+možemo mijenjati providera)</p>
+<p><strong>Što <em>ne</em> uključuje:</strong> - Mentoriranje (zasebna
+stavka — sati) - Nove integracije nakon postavljanja - Promjene flow-a
+koje traže novo razvojno vrijeme - <strong>Premium AI tier</strong> —
+posebna ponuda (3.1) - <strong>Re-crawl češći od mjesečnog</strong> —
+add-on (poglavlje 9)</p>
+<h3 data-number="1.3.1" id="premium-ai-tier-posebna-ponuda"><span
+class="header-section-number">1.3.1</span> 3.1 Premium AI tier — posebna
+ponuda</h3>
+<p>Standardni paket koristi naš odabrani Standardni AI tier — daje
+izvrsne rezultate za 95% slučajeva.</p>
+<p>Klijenti iz <strong>osjetljivih domena</strong> (medicinske, pravne,
+financijske usluge, kritični prodajni flow) mogu zatražiti
+<strong>Premium AI tier</strong> — model koji ima dokazano bolje
+reasoning sposobnosti i preciznije odgovore.</p>
+<blockquote>
+<p><strong>Premium AI tier nije linearna doplata</strong> — modeli iz
+najviše klase imaju <strong>6×–60× veću cijenu tokena</strong> od
+standardnih. Premium se zato uvijek <strong>fakturira po
+dogovoru</strong>, ovisno o: - Procijenjenom volumenu AI upita - Točnoj
+klasi modela (postoje različite Premium razine) - Trajanju ugovora</p>
+<p><strong>U ponudi pišemo:</strong> <em>“Premium AI tier je dostupan
+kao posebna ponuda po dogovoru. Kontaktirajte nas za izračun.”</em></p>
+</blockquote>
+<hr />
+<h2 data-number="1.4"
+id="cjenik-javna-uprava-općine-gradovi-ustanove"><span
+class="header-section-number">1.4</span> 4. Cjenik — JAVNA UPRAVA
+(općine, gradovi, ustanove)</h2>
+<blockquote>
+<p><strong>AI prijedlog cjenika — TRAŽI POTVRDU.</strong> Različita
+struktura od tvrtki — viši nivo postavljanja, redovan mentoring.
+<strong>Sve cijene bez PDV-a.</strong></p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>Razina</th>
+<th>Mj. licenca</th>
+<th>AI upita/mj</th>
+<th>Izvora znanja</th>
+<th>Postavljanje</th>
+<th>Mentoriranje</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OPĆINA — osnovni</strong></td>
+<td>od <strong>295 €</strong></td>
+<td>80.000</td>
+<td>do 500</td>
+<td>od 580 €</td>
+<td>6 mj × 8 h, zatim 6 mj × 4 h</td>
+</tr>
+<tr>
+<td><strong>OPĆINA — prošireni</strong></td>
+<td>od <strong>395 €</strong></td>
+<td>150.000</td>
+<td>do 1.000</td>
+<td>od 880 €</td>
+<td>6 mj × 8 h, zatim 6 mj × 4 h</td>
+</tr>
+<tr>
+<td><strong>GRAD</strong> (npr. Biograd)</td>
+<td>od <strong>495 €</strong></td>
+<td>300.000</td>
+<td>do 2.000</td>
+<td>od 1.000 €</td>
+<td>6 mj × 8 h, zatim 6 mj × 4 h</td>
+</tr>
+<tr>
+<td><strong>VEĆI GRAD / ŽUPANIJA</strong></td>
+<td>po dogovoru</td>
+<td>po dogovoru</td>
+<td>po dogovoru</td>
+<td>po dogovoru</td>
+<td>po dogovoru</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mentoriranje (cijena sati):</strong> <strong>80 €/h</strong>,
+fakturira se prema dogovorenom mjesečnom paketu sati.</p>
+<p><strong>Što javna uprava <em>dobiva uz licencu</em>:</strong> - Web
+asistent (chat na web stranici) - Email asistent (auto-odgovori
+građanima) - Admin panel sa pregledom upita, leadova, gapova u znanju -
+Mjesečni izvještaj (intent analiza — što građani najviše pitaju) -
+GDPR-compliant logiranje, lokalna pohrana, <strong>EU-based AI
+providers</strong> (vidi 7.3) - Sigurnosni sloj (rate limit, anti-spam)
+- Standardni AI tier</p>
+<p><strong>Što <em>utječe</em> na pomak u višu razinu cijene:</strong> -
+Broj proceduralnih flow-ova (npr. “kako predati zahtjev za X”) - Broj
+jezika (HR + EN je standard, dodatni jezici dižu setup) - Integracije s
+gradskim sustavima (e-Građani, eUprava, CRM) - Re-crawl frekvencija
+(vidi poglavlje 9) - Tehničke prepreke iz 2.2</p>
+<h3 data-number="1.4.1" id="posebna-napomena-za-biograd"><span
+class="header-section-number">1.4.1</span> 4.1 Posebna napomena za
+Biograd</h3>
+<p><strong>Originalna ideja</strong> (QR na staru zgradu u centru s
+navigacijom prema novoj općini) <strong>nije najbolji prodajni argument
+za Grad</strong> — kratak vijek, jednokratan slučaj.</p>
+<p><strong>Bolje pozicioniranje za Grad/TZ Biograd:</strong> -
+<strong>Event QR</strong> — sezonski događaji, koncerti, manifestacije -
+<strong>Smart Info QR</strong> — parking, polazak brodova/trajekata,
+plaže, radno vrijeme - <strong>Turist info</strong> — više jezika,
+preporuke, kontakti - <strong>Trajna QR mreža</strong> — više točaka po
+gradu, jedan backend</p>
+<p><strong>Ovo se prodaje TZ + Gradu zajedno</strong> — širi proračun,
+ponavljajući troškovi (sezonski refresh sadržaja).</p>
+<hr />
+<h2 data-number="1.5" id="landing-asistent-qr"><span
+class="header-section-number">1.5</span> 5. Landing asistent (QR)</h2>
+<blockquote>
+<p><strong>AI prijedlog cjenika — TRAŽI POTVRDU.</strong> Tehnička
+osnova ista (isti AI, isti admin panel) — drugačiji kanal isporuke.
+<strong>Sve cijene bez PDV-a.</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Razina</th>
+<th>Mj. cijena</th>
+<th>AI upita/mj</th>
+<th>Izvora znanja</th>
+<th>Setup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Landing osnovni</strong></td>
+<td>od <strong>100 €</strong></td>
+<td>10.000</td>
+<td>do 50</td>
+<td>od 250 €</td>
+</tr>
+<tr>
+<td><strong>Landing+</strong></td>
+<td>od <strong>180 €</strong></td>
+<td>30.000</td>
+<td>do 150</td>
+<td>od 450 €</td>
+</tr>
+<tr>
+<td><strong>Landing mreža</strong> (više QR točaka, 1 backend)</td>
+<td>od <strong>290 €</strong></td>
+<td>80.000</td>
+<td>do 300</td>
+<td>od 700 €</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Što uključuje setup:</strong> - Generiranje QR kodova (PDF za
+tisak) - Prilagođena landing stranica (boje, logo) - Inicijalno
+postavljanje konteksta i FAQ - Mobilna optimizacija - Lokacijski
+kontekst (asistent zna gdje je korisnik skenirao kod)</p>
+<p><strong>Idealna primjena:</strong> hoteli, restorani, turistička
+mjesta, eventi, općine/gradovi.</p>
+<hr />
+<h2 data-number="1.6" id="whatsapp-remarketing-posebna-ponuda"><span
+class="header-section-number">1.6</span> 6. WhatsApp + remarketing
+(posebna ponuda)</h2>
+<blockquote>
+<p><strong>VAŽNO:</strong> Cijene niže su istražene online (svibanj
+2026) — <em>Meta cjenik se mijenja, treba potvrditi Hrvatska region rate
+prije ponude</em>.</p>
+</blockquote>
+<h3 data-number="1.6.1" id="meta-cjenovni-model-od-srpnja-2025"><span
+class="header-section-number">1.6.1</span> 6.1 Meta cjenovni model (od
+srpnja 2025)</h3>
+<p>Meta naplaćuje <strong>per-message</strong> (per isporučena poruka),
+ne per-conversation kao prije. Postoje <strong>4 kategorije
+poruka</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Kategorija</th>
+<th>Što je</th>
+<th>Cijena (HR — <em>Rest of Western Europe</em>,
+<em>procjena</em>)</th>
+<th>Bilješka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Service</strong></td>
+<td>Klijent prvi piše, mi odgovaramo u 24h prozoru</td>
+<td><strong>0 €</strong> (besplatno)</td>
+<td>Najjeftinije — uvijek koristiti ako moguće</td>
+</tr>
+<tr>
+<td><strong>Utility</strong></td>
+<td>Notifikacije (potvrda narudžbe, podsjetnik) izvan service
+prozora</td>
+<td>~<strong>0.04–0.05 €</strong>/poruka</td>
+<td>Često besplatno ako je unutar 24h service prozora</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>OTP, 2FA, prijava</td>
+<td>~<strong>0.04–0.05 €</strong>/poruka</td>
+<td>Per-message</td>
+</tr>
+<tr>
+<td><strong>Marketing</strong></td>
+<td>Promocije, kampanje, broadcast</td>
+<td>~<strong>0.08–0.13 €</strong>/poruka</td>
+<td>Najskuplje; HR vjerojatno bliže 0.10–0.12 €</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>Točan rate za Hrvatsku — Meta stavlja HR u “Rest of Western
+Europe” tier. Provjeriti aktualni cjenik prije svake ponude na Meta
+Business Pricing stranici.</em></p>
+</blockquote>
+<p><strong>Zaključak za prodaju:</strong> - Reaktivni asistent (klijent
+piše → mi odgovaramo) = <strong>uglavnom besplatno</strong> prema Meti -
+Marketing kampanje = <strong>stvarni trošak</strong> koji ide
+klijentu</p>
+<h3 data-number="1.6.2"
+id="naš-cjenik-prijedlog-finalizirati-nakon-tehničkih-smjernica"><span
+class="header-section-number">1.6.2</span> 6.2 Naš cjenik (prijedlog —
+finalizirati nakon tehničkih smjernica)</h3>
+<blockquote>
+<p><strong>AI prijedlog — TRAŽI POTVRDU.</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Paket</th>
+<th>Mj. naknada</th>
+<th>AI upita/mj</th>
+<th>Uključeno Meta credit</th>
+<th>Setup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WA Start</strong> (reaktivni)</td>
+<td>od <strong>145 €</strong></td>
+<td>20.000</td>
+<td>— (sve service, besplatno)</td>
+<td>od 350 €</td>
+</tr>
+<tr>
+<td><strong>WA Utility</strong></td>
+<td>od <strong>245 €</strong></td>
+<td>50.000</td>
+<td>do 1.000 utility poruka uključeno</td>
+<td>od 450 €</td>
+</tr>
+<tr>
+<td><strong>WA Marketing</strong></td>
+<td>od <strong>395 €</strong></td>
+<td>80.000</td>
+<td>do 500 marketing poruka uključeno</td>
+<td>od 600 €</td>
+</tr>
+<tr>
+<td><strong>WA Pro</strong></td>
+<td>od <strong>595 €</strong></td>
+<td>200.000</td>
+<td>do 2.500 marketing + 5.000 utility</td>
+<td>od 900 €</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Model za Meta troškove (otvoreno — odluka tima):</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Pristup</th>
+<th>Prednost</th>
+<th>Mana</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pass-through</strong> — klijent plaća Meti direktno</td>
+<td>Transparentno, mi smo izvan rizika cjenika</td>
+<td>Klijent ima dvije fakture, kompliciranije</td>
+</tr>
+<tr>
+<td><strong>Mark-up</strong> — mi naplaćujemo Metu klijentu +
+20–30%</td>
+<td>Jedna faktura, profit i na Meta troškovima</td>
+<td>Mi snosimo rizik fluktuacija cijena</td>
+</tr>
+<tr>
+<td><strong>Paket</strong> — uključimo X poruka u mjesečnu cijenu</td>
+<td>Najjasnije za klijenta</td>
+<td>Mi snosimo cijeli rizik prekoračenja</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Preporuka (otvoreno):</strong> kombinacija — <em>paket</em>
+uključen u mjesečnu naknadu (jasno), <em>prekoračenje</em> kao
+pass-through s 20% markupom (transparentno).</p>
+<h3 data-number="1.6.3"
+id="tehnički-prereqs-što-klijent-mora-osigurati"><span
+class="header-section-number">1.6.3</span> 6.3 Tehnički prereqs (što
+klijent mora osigurati)</h3>
+<ul>
+<li>Meta Business Account</li>
+<li>Verificirani business profil (Meta provjerava do 5 dana)</li>
+<li>Pristup Facebook Business Manageru (admin role)</li>
+<li>Telefonski broj za WhatsApp Business (ne smije biti registriran na
+klasičnom WA)</li>
+<li>Meta App s WhatsApp Business produktom</li>
+<li>Phone Number ID + Access Token</li>
+</ul>
+<p>Naš sustav već podržava: slanje poruka i template-a, webhook za
+primanje, template management, marketing kampanje.</p>
+<hr />
+<h2 data-number="1.7" id="klauzula-o-cijenama-tokena"><span
+class="header-section-number">1.7</span> 7. Klauzula o cijenama
+tokena</h2>
+<h3 data-number="1.7.1" id="pravni-tekst-za-ponudu"><span
+class="header-section-number">1.7.1</span> 7.1 Pravni tekst za
+ponudu</h3>
+<blockquote>
+<p><em>Cijene su izračunate na temelju trenutnih cijena AI modela kod
+naših providera (stanje <strong>svibanj 2026</strong>) i važe za
+razdoblje od <strong>12 mjeseci</strong> od potpisa ugovora. Ukoliko
+provideri AI modela značajno povećaju cijene tokena (definirano kao
+<strong>&gt;30% rasta input ili output cijene</strong> na razini
+odabranog tiera), zadržavamo pravo prilagoditi mjesečnu naknadu, uz
+minimalno <strong>30 dana najave</strong> i obrazloženja. U slučaju
+neprihvaćanja, klijent može raskinuti ugovor bez penala u roku od 30
+dana od obavijesti. Mi zadržavamo pravo izbora i mijenjanja AI providera
+bez prethodne najave, dok god je razina kvalitete usluge
+zadržana.</em></p>
+</blockquote>
+<h3 data-number="1.7.2"
+id="kontekst-za-internu-raspravu-ne-u-ponudi"><span
+class="header-section-number">1.7.2</span> 7.2 Kontekst za internu
+raspravu (NE u ponudi)</h3>
+<p><strong>Stvarne cijene AI modela — istraženo online, svibanj 2026 (u
+USD per 1M tokena; EUR ≈ USD × 0.92):</strong></p>
+<p><strong>Najjeftiniji (“Standardni AI” kandidati):</strong> | Model |
+Provider | Input | Output | Napomena | |—|—|—|—|—| | Gemini 2.5
+Flash-Lite | Google | $0.10 | $0.40 | Najjeftiniji EU-friendly | | Grok
+4.1 Fast | xAI | $0.20 | $0.50 | <strong>Ide u retire
+15.05.2026</strong> | | GPT-5.4 Nano | OpenAI | $0.20 | $1.25 | Vrlo
+isplativ | | Gemini 3.1 Flash-Lite | Google | $0.25 | $1.50 | GA od
+07.05.2026 | | Grok 4.3 | xAI | $1.25 | $2.50 | Nasljednik Grok 4 Fast
+|</p>
+<p><strong>Srednja klasa:</strong> | Model | Provider | Input | Output |
+|—|—|—|—| | GPT-5.4 Mini | OpenAI | $0.75 | $4.50 | | Claude Haiku 4.5 |
+Anthropic | $1.00 | $5.00 | | GPT-5 | OpenAI | $1.25 | $10.00 |</p>
+<p><strong>Premium klasa:</strong> | Model | Provider | Input | Output |
+|—|—|—|—| | Claude Sonnet 4.6 | Anthropic | $3.00 | $15.00 | | GPT-5.4 |
+OpenAI | $2.50 | $15.00 | | Claude Opus 4.7 | Anthropic | $5.00 | $25.00
+| | GPT-5.4 Pro | OpenAI | $30.00 | $180.00 |</p>
+<h3 data-number="1.7.3"
+id="gdpr-i-izbor-providera-kritično-za-javnu-upravu"><span
+class="header-section-number">1.7.3</span> 7.3 GDPR i izbor providera
+(kritično za javnu upravu)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Provider</th>
+<th>EU-friendly</th>
+<th>Bilješka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Google (Gemini)</strong></td>
+<td>✅ EU region</td>
+<td>Imamo EU data residency opciju</td>
+</tr>
+<tr>
+<td><strong>OpenAI (GPT)</strong></td>
+<td>✅ EU region</td>
+<td>EU data residency dostupna</td>
+</tr>
+<tr>
+<td><strong>Anthropic (Claude)</strong></td>
+<td>✅ EU region</td>
+<td>Dostupno preko Vertex AI ili AWS Bedrock EU</td>
+</tr>
+<tr>
+<td><strong>xAI (Grok)</strong></td>
+<td>⚠️ Nejasno</td>
+<td>Provjeriti — ne navoditi u ponudi za javnu upravu</td>
+</tr>
+<tr>
+<td><strong>DeepSeek</strong></td>
+<td>❌ Kina</td>
+<td><strong>NE koristiti za EU klijente, posebno javnu upravu</strong> —
+GDPR rizik</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategija:</strong> - Za <strong>javnu upravu</strong>:
+navesti samo EU providere (Google/OpenAI/Anthropic), s mogućnošću EU
+region hosting - Za <strong>tvrtke</strong>: fleksibilnije — možemo
+koristiti i Grok ako je cijena bolja - DeepSeek
+<strong>isključujemo</strong> iz ponude usprkos niskoj cijeni — pravni
+rizik</p>
+<h3 data-number="1.7.4" id="strategija-u-klauzuli"><span
+class="header-section-number">1.7.4</span> 7.4 Strategija u
+klauzuli</h3>
+<ul>
+<li>Mi <em>ne</em> navodimo konkretan model u ponudi — ostavljamo
+prostor za prebacivanje</li>
+<li>Klijent vidi samo “Standardni AI tier” (uključen) + “Premium AI
+tier” (posebna ponuda)</li>
+<li>Ako provider poskupi, prebacujemo (uvijek možemo ići na jeftinijeg
+ako kvaliteta zadovolji)</li>
+</ul>
+<hr />
+<h2 data-number="1.8" id="interna-kalkulacija-ne-u-ponudi"><span
+class="header-section-number">1.8</span> 8. Interna kalkulacija (NE u
+ponudi)</h2>
+<blockquote>
+<p><strong>⚠️ MARŽE I IZRAČUNI U OVOM POGLAVLJU SU AI PROCJENA — TRAŽI
+POTVRDU MATEJA.</strong> Stvarne marže ovisne su o stvarnom volumenu
+tokena po AI upitu i odabranom modelu.</p>
+</blockquote>
+<h3 data-number="1.8.1" id="stvarni-trošak-po-ai-upitu"><span
+class="header-section-number">1.8.1</span> 8.1 Stvarni trošak po AI
+upitu</h3>
+<p>Pretpostavke (prosjek za POSLOVNI paket, 300 izvora): - Input tokeni
+po AI upitu: ~500 (system prompt + povijest + chunk konteksti) - Output
+tokeni po AI upitu: ~150 - Embedding tokeni: ~50 (per pretraga)</p>
+<p><strong>S Gemini 2.5 Flash-Lite ($0.10/$0.40, naš najjeftiniji EU
+kandidat):</strong> - Input: 500 × $0.10/M = $0.00005 - Output: 150 ×
+$0.40/M = $0.00006 - Embedding: 50 × $0.10/M = $0.000005 -
+<strong>Ukupno: ~$0.0001 = ~0.0001 € po AI upitu</strong></p>
+<p><strong>S Grok 4.3 ($1.25/$2.50, ako ostanemo na xAI):</strong> -
+Input: 500 × $1.25/M = $0.000625 - Output: 150 × $2.50/M = $0.000375 -
+<strong>Ukupno: ~$0.001 = ~0.001 € po AI upitu</strong></p>
+<p><strong>Po razgovoru (3–4 AI upita prosjek):</strong> - Gemini:
+~0.0004 € - Grok 4.3: ~0.004 €</p>
+<h3 data-number="1.8.2" id="marže-po-paketima-ai-procjena"><span
+class="header-section-number">1.8.2</span> 8.2 Marže po paketima (AI
+procjena)</h3>
+<blockquote>
+<p><strong>Predznak: ne ovisi samo o tokenima — hosting, support,
+vrijeme tima su veći trošak na manjim paketima.</strong></p>
+</blockquote>
+<p>S Gemini 2.5 Flash-Lite kao standardnim modelom:</p>
+<table>
+<thead>
+<tr>
+<th>Paket</th>
+<th>Mj. naknada</th>
+<th>AI upita</th>
+<th>Token cost</th>
+<th>Token margina</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSNOVNI</td>
+<td>145 €</td>
+<td>20.000</td>
+<td>~2 €</td>
+<td>~99%</td>
+</tr>
+<tr>
+<td>POSLOVNI</td>
+<td>295 €</td>
+<td>80.000</td>
+<td>~8 €</td>
+<td>~97%</td>
+</tr>
+<tr>
+<td>PREMIUM</td>
+<td>495 €</td>
+<td>250.000</td>
+<td>~25 €</td>
+<td>~95%</td>
+</tr>
+</tbody>
+</table>
+<p>Sa Grok 4.3:</p>
+<table>
+<thead>
+<tr>
+<th>Paket</th>
+<th>Mj. naknada</th>
+<th>AI upita</th>
+<th>Token cost</th>
+<th>Token margina</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSNOVNI</td>
+<td>145 €</td>
+<td>20.000</td>
+<td>~20 €</td>
+<td>~86%</td>
+</tr>
+<tr>
+<td>POSLOVNI</td>
+<td>295 €</td>
+<td>80.000</td>
+<td>~80 €</td>
+<td>~73%</td>
+</tr>
+<tr>
+<td>PREMIUM</td>
+<td>495 €</td>
+<td>250.000</td>
+<td>~250 €</td>
+<td>~50%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ostali troškovi (treba odbiti, AI procjena):</strong> -
+Hosting: ~15–30 €/mj per projekt - Email/SMS: ~5–10 € - Backup +
+monitoring: ~10 € - Vrijeme tima (support, intent setup): <strong>glavni
+trošak</strong> — varijabilan</p>
+<p><strong>Neto margina</strong> (gruba AI procjena, treba potvrda): -
+OSNOVNI: ~50–70% (uzima u obzir vrijeme tima — često negativna na
+low-volume klijentima u prvom mjesecu) - POSLOVNI: ~50–65% - PREMIUM:
+~30–45%</p>
+<h3 data-number="1.8.3" id="što-treba-paziti"><span
+class="header-section-number">1.8.3</span> 8.3 Što treba paziti</h3>
+<ol type="1">
+<li><strong>Premium AI tier</strong> — Claude Opus je 60× skuplji output
+od Gemini Flash-Lite. <strong>Bez paketne doplate na premium = negativan
+margin.</strong> Zato je 3.1 strukturiran kao “posebna ponuda po
+dogovoru”.</li>
+<li><strong>Dugi razgovori</strong> — 8–10 AI upita po razgovoru
+(kompleksni flow s puno tool poziva). Može utrostručiti cost.</li>
+<li><strong>Velika baza znanja</strong> — više chunkova u kontekstu =
+veći input tokens. PREMIUM paket s 2.000 izvora prosječno troši 2× više
+input tokena po upitu od OSNOVNI paketa.</li>
+<li><strong>Re-crawl</strong> — embedding pozivi pri re-crawlu
+<strong>ne broje se u AI upite</strong> klijenta, ali idu na naš trošak
+(vidi poglavlje 9).</li>
+</ol>
+<hr />
+<h2 data-number="1.9" id="re-crawl-dodatna-stavka-u-cjeniku"><span
+class="header-section-number">1.9</span> 9. Re-crawl — dodatna stavka u
+cjeniku</h2>
+<blockquote>
+<p><strong>AI prijedlog — TRAŽI POTVRDU.</strong> Cijene ovise o
+stvarnom volumenu stranica i tehničkoj složenosti site-a.</p>
+</blockquote>
+<p><strong>Standardno uključeno u sve pakete:</strong> <strong>1×
+mjesečni re-crawl</strong> do dogovorene veličine izvora.</p>
+<p><strong>Češći re-crawl — add-on:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Frekvencija</th>
+<th>Doplata na mj. naknadu</th>
+<th>Bilješka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mjesečno</strong></td>
+<td>uključeno</td>
+<td>Default</td>
+</tr>
+<tr>
+<td><strong>Tjedno</strong></td>
+<td><strong>+30 €/mj</strong></td>
+<td>4× više stranica, više embedding poziva</td>
+</tr>
+<tr>
+<td><strong>Dnevno</strong></td>
+<td><strong>+80 €/mj</strong></td>
+<td>30× više; preporuka za kataloge, vijesti, događaje</td>
+</tr>
+<tr>
+<td><strong>Više puta dnevno</strong></td>
+<td>po dogovoru (od 150 €/mj)</td>
+<td>Trgovine s čestim promjenama cijena/inventara</td>
+</tr>
+<tr>
+<td><strong>Real-time / on-demand</strong></td>
+<td>API integracija — posebna ponuda</td>
+<td>Ne crawl, već push notifikacije iz klijentskog sustava</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Što utječe na cijenu re-crawla:</strong> - Broj stranica (50
+vs. 2.000+) - Veličina stranica (text-heavy = više embedding tokena) -
+Tehničke prepreke (JS-heavy = headless browser = sporije = skuplje)</p>
+<p><strong>Stvarni trošak nama (interna kalkulacija):</strong> -
+Embedding (Gemini Flash-Lite): ~50 tokena po chunku × ~5 chunkova po
+stranici = 250 tokena/stranica - Cijena: 250 × $0.10/M = $0.000025 po
+stranici - 2.000 stranica × 30 dana = 60.000 crawla/mj × $0.000025 =
+<strong>$1.50/mj</strong> - + bandwidth i compute: ~5–10 €/mj -
+<strong>Dnevni re-crawl od 80 €/mj ima maržu ~85%</strong> — solidno</p>
+<hr />
+<h2 data-number="1.10"
+id="otvorena-pitanja-za-sastanak-ponedjeljak"><span
+class="header-section-number">1.10</span> 10. Otvorena pitanja za
+sastanak (ponedjeljak)</h2>
+<ol type="1">
+<li><strong>Naziv “mentoriranje”</strong> — držimo?</li>
+<li><strong>Cijene paketa (145 / 295 / 495 €)</strong> — držimo ili
+tuning? Provjeriti realnost s konkurencijom.</li>
+<li><strong>Brojevi AI upita po paketu (20k / 80k / 250k)</strong> —
+provjeriti realan throughput sustava.</li>
+<li><strong>Premium AI tier</strong> — držimo “po dogovoru” ili dajemo
+orijentacijski raspon?</li>
+<li><strong>WhatsApp model fakturiranja Meta troškova</strong> —
+pass-through, mark-up, paket, ili hibrid?</li>
+<li><strong>Točan cjenik WhatsApp HR region</strong> — netko treba
+provjeriti na Meta Business pricing stranici</li>
+<li><strong>Re-crawl cijene</strong> — 30/80/150 €/mj — držimo?</li>
+<li><strong>Biograd ponuda</strong> — premjestiti fokus s “stara zgrada
+općine” na “Event QR + Smart Info”</li>
+<li><strong>Ugovor / T&amp;C</strong> — imamo li standardni
+dokument?</li>
+<li><strong>Admin panel — counter “preostalo AI upita”</strong> — treba
+UI feature?</li>
+<li><strong>Provider selection per-klijent</strong> — admin može
+odabrati Google/OpenAI/Anthropic per-klijenta?</li>
+<li><strong>Update seedera cijena AI modela</strong> — tehnički task
+(trenutne vrijednosti u sustavu su zastarjele)</li>
+<li><strong>OCR add-on</strong> — uvodimo li paket “OCR za sken-PDF-ove”
+kao add-on s vlastitom cijenom?</li>
+</ol>
+<hr />
+<h2 data-number="1.11"
+id="prilog-a-glossary-za-prodavača-one-liner-odgovori"><span
+class="header-section-number">1.11</span> 11. Prilog A — Glossary za
+prodavača (one-liner odgovori)</h2>
+<p><strong>“Što je AI upit?”</strong> &gt; “Jedan obrađen zahtjev prema
+AI modelu. Jedan razgovor (pitanje + odgovor) troši 2–6 AI upita ovisno
+o složenosti — pretraga vaše baze, čitanje pronađenih izvora,
+generiranje odgovora. Mi smo vam to sve pokrili u paketu kao
+kapacitet.”</p>
+<p><strong>“Što ako probijemo limit AI upita?”</strong> &gt; “Sustav
+blokira asistent na limitu — to je anti-abuse zaštita. Ali vi to vidite
+na 80% kapaciteta i možete kupiti dodatne pakete upita — 5 € za svakih
+1.000 dodatnih. Ako trend pokaže redovito prekoračenje, prelazimo u viši
+paket.”</p>
+<p><strong>“Što je izvor znanja?”</strong> &gt; “Jedna jedinica koju ste
+dodali u bazu — jedna datoteka (neovisno o broju stranica) ili jedna
+crawlana web stranica. 200-stranični priručnik je 1 izvor. Sitemap s 50
+URL-ova je do 50 izvora. Postoje razumni limiti veličine pojedinačnog
+izvora — vrlo velike materijale dijelimo u manje cjeline za bolju
+pretragu.”</p>
+<p><strong>“Koje formate podržavate?”</strong> &gt; “Standardne
+tekstualne dokumente: PDF s tekstom, DOCX, TXT, MD, JSON, CSV. Skenirani
+PDF-ovi i slike trebaju OCR — dogovaramo to posebno. Web stranice idu
+preko crawla.”</p>
+<p><strong>“Što ako AI ne zna odgovoriti?”</strong> &gt; “Sustav to
+bilježi automatski, vi to vidite u admin panelu i u mjesečnom
+izvještaju. Mi to onda preko mentoriranja dodajemo u bazu znanja ili
+prilagodimo upute asistentu.”</p>
+<p><strong>“Koji AI model koristite?”</strong> &gt; “Koristimo
+standardni AI tier — moderan jezični model europskog/američkog providera
+koji daje kvalitetne odgovore za vaš slučaj. Provider biramo i možemo
+mijenjati kako bismo vam osigurali najbolji omjer kvalitete i cijene. Za
+vrlo osjetljive domene (medicina, pravo, financije) postoji Premium AI
+tier kao posebna ponuda.”</p>
+<p><strong>“Što ako Grok / OpenAI poskupe?”</strong> &gt; “Trenutne
+cijene važe 12 mjeseci. Ako provideri značajno poskupe (više od 30%),
+imamo pravo prilagoditi naknadu uz 30 dana najave i jasno obrazloženje.
+Vi imate pravo raskinuti ugovor bez penala ako se ne slažete. U većini
+slučajeva jednostavno prebacimo na drugog providera — mi smo neovisni o
+jednom dobavljaču.”</p>
+<p><strong>“Što ako moja web stranica nije lijepo strukturirana / ima
+zaštitu / je u React-u?”</strong> &gt; “To je u redu — analiziramo prije
+ponude. Postoje tehničke prepreke (JS-heavy stranice, login-protected
+sadržaj, skenirani PDF-ovi) koje mogu utjecati na implementaciju. Onda
+dogovaramo dodatne korake ili prilagođenu cijenu transparentno, ne
+skriveno.”</p>
+<p><strong>“Po čemu cijena raste — npr. zašto 295 € a ne 195
+€?”</strong> &gt; “Šest faktora: koliko izvora znanja trebate u bazi,
+koliko komplicirani su tijekovi razgovora, je li potreban česti re-crawl
+weba, koliko integracija (samo widget vs. widget + email + WhatsApp),
+ciljni volumen AI upita, i koju razinu AI tiera trebate. Ova ponuda je
+295 € jer ima A, B, C.”</p>
+<p><strong>“Imamo dnevne promjene cijena/proizvoda — možete li crawlati
+svaki dan?”</strong> &gt; “Da — dnevni re-crawl je add-on od 80 €/mj. Za
+promjene u realnom vremenu radimo API integraciju s vašim sustavom — to
+je posebna ponuda.”</p>
+<hr />
+<h2 data-number="1.12" id="sljedeći-koraci"><span
+class="header-section-number">1.12</span> Sljedeći koraci</h2>
+<ol type="1">
+<li>Interni pregled do ponedjeljka</li>
+<li>Sastanak ponedjeljak — proći točku po točku, posebno otvorena
+pitanja (poglavlje 10)</li>
+<li>Update seedera s aktualnim cijenama AI modela (svibanj 2026)</li>
+<li>Provjeriti Meta WhatsApp HR region cjenik na <a
+href="https://developers.facebook.com/docs/whatsapp/pricing">developers.facebook.com</a></li>
+<li>Prva primjena: Biograd “Event QR + Smart Info”</li>
+</ol>
+<hr />
+<h2 data-number="1.13"
+id="izvori-online-istraživanje-cijena-svibanj-2026"><span
+class="header-section-number">1.13</span> Izvori (online istraživanje
+cijena, svibanj 2026)</h2>
+<ul>
+<li><a
+href="https://aicostcheck.com/blog/xai-grok-pricing-guide-2026">xAI Grok
+API Pricing 2026 — AI Cost Check</a></li>
+<li><a
+href="https://devtk.ai/en/blog/openai-api-pricing-guide-2026/">OpenAI
+Pricing 2026 — DevTk.AI</a></li>
+<li><a
+href="https://byteiota.com/google-gemini-3-1-flash-lite-ga-0-25-m-token-pricing/">Gemini
+3.1 Flash-Lite Pricing — byteiota</a></li>
+<li><a href="https://benchlm.ai/blog/posts/claude-api-pricing">Claude
+API Pricing 2026 — BenchLM</a></li>
+<li><a
+href="https://www.spurnow.com/en/blogs/whatsapp-business-api-pricing-explained">WhatsApp
+Business API Pricing 2026 — Spur</a></li>
+<li><a
+href="https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing">WhatsApp
+Business Pricing — Meta Developers</a></li>
+</ul>
+</body>
+</html>
