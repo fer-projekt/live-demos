@@ -159,8 +159,9 @@ a {
 }
 
 .home-hero{
-	@apply h-[150px] lg:h-[325px];
+	@apply max-lg:!fixed w-full h-[150px] lg:h-[325px] transition-all duration-300 ease-in-out;
 	color: #fff;
+	z-index: 105;
 
 	.home-hero__bg{
 		@apply absolute inset-0;
@@ -174,7 +175,7 @@ a {
 		background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
 	}
 	.home-hero__title{
-		@apply absolute w-full lg:top-1/2 max-lg:bottom-[30px] lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 text-lg lg:text-3xl;
+		@apply absolute w-full lg:top-1/2 max-lg:bottom-[30px] lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 text-lg lg:text-3xl transition-opacity duration-300 ease-in-out;
 		font-weight: 500;
 		font-style: italic;
 		text-align: center;

@@ -1,0 +1,81 @@
+.header-sidebar-btn span{
+    background: #fff;
+}
+.header-sidebar-btn,
+.tp-offcanvas-menu ul li.active button,
+.tpfeature__num-2,
+.tp-header-menu ul li a::before,
+.tpservshow.tpservshow-blue,
+.tp-btn.tp-btn-blue,
+.tpservices2:hover,
+.tp-about-border-text::before,
+.tp-contect-box-input button,
+.tpportfolio__button a,
+.tp-footer-social ul li a:hover{
+    background-color: #0d316f;
+}
+.back-to-top-btn{
+    background: #0d316f;
+}
+.tp-offcanvas-menu ul li{
+    border-bottom: 1px solid #0d316f;
+}
+.tp-offcanvas-menu ul li.active > a {
+    color: #0d316f;
+}
+.tpservshow__title,
+.tpservshow__content p,
+.tpfeature__num-2,
+.tpservshow__icon,
+.tp-btn.tp-btn-blue,
+.tp-btn.tp-btn-black:hover,
+.back-to-top-btn,
+.tpservices2:hover .tpservices2__title,
+.tpservices2:hover .tp-text-black,
+.tp-contect-box-input button,
+.tpportfolio__button a,
+.tp-footer-info-deg a:hover{
+    color: #fff;
+}
+.tp-section-title-larg {
+    font-size: 60px;
+}
+.tpservshow.tpservshow-black{
+    background-color: #000;
+}
+.tp-about-border-text::before{
+    bottom: -2px;
+}
+.home-spacing{
+    margin: 100px 0;
+    padding: 0;
+}
+.home-spacing-top{
+    margin: 100px 0 0 0;
+    padding: 0;
+}
+.home-spacing-bottom{
+    margin: 0 0 100px 0;
+    padding: 0 0 50px 0;
+}
+@media only screen and (max-width: 966px) {
+    .home-spacing{
+        margin: 50px 0;
+        padding: 0;
+    }
+    .home-spacing-top{
+        margin: 50px 0 50px 0;
+        padding: 0;
+    }
+    .home-spacing-bottom{
+        margin: 0 0 50px 0;
+        padding: 0 0 10px 0;
+    }
+    .tp-hero-spacing-4{
+        padding-top: 130px;
+        padding-bottom: 70px;
+    }
+    .tp-section-title-larg {
+        font-size: 36px;
+    }
+}

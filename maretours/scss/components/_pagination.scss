@@ -1,0 +1,48 @@
+@use "../abstracts/index.scss" as *;
+
+.wd-navigation {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+
+    .nav-item {
+        width: 44px;
+        height: 44px;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 21.86px;
+        border-radius: 10px;
+        border: 1px solid var(--stoke-color);
+
+        &:hover,
+        &.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+
+            border-color: var(--primary-color);
+
+            .icon {
+                color: var(--white);
+            }
+        }
+    }
+
+    .icon {
+        font-size: 14px;
+        color: var(--black);
+    }
+}
+
+.listing-pagination {
+    @include flex(center, space-between);
+    gap: 12px;
+}
