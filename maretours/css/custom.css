@@ -3,7 +3,7 @@
 }
 header{
     background-color: #fff !important;
-    z-index: 10000;
+    z-index: 10000 !important;
 }
 .tf-btn{
     text-transform: none;
