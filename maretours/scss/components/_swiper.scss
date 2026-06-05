@@ -1,0 +1,207 @@
+@use "../abstracts/index.scss" as *;
+
+.sw-pagination {
+    .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        background-color: var(--stoke-color);
+        opacity: 1;
+        position: relative;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+
+
+        &::before {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            content: "";
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--primary-color);
+            overflow: visible;
+            opacity: 0;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: var(--primary-color) !important;
+
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    &.style-white {
+        .swiper-pagination-bullet {
+            background-color: var(--white) !important;
+
+            &::before {
+                border: 1px solid var(--white) !important;
+            }
+        }
+
+
+
+        .swiper-pagination-bullet-active {
+            background-color: var(--white) !important;
+        }
+    }
+
+}
+
+.sw-pagination-2 {
+    .swiper-pagination-bullet {
+        width: 18px;
+        height: 8px;
+        background-color: #D9D9D9;
+        opacity: 1;
+        position: relative;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        border-radius: 999px;
+
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: var(--primary-color) !important;
+        width: 32px !important;
+
+        &::before {
+            opacity: 1;
+        }
+    }
+}
+
+.slider-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    margin: auto;
+    margin-top: 47px;
+
+    &.style-01 {
+        margin: 0;
+        gap: 12px;
+    }
+
+    &.style-02 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .sw-pagination {
+        width: auto !important;
+        position: static !important;
+    }
+
+    a {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        @include flex(center, center);
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.3s ease;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+        &.nav-style-2 {
+            color: var(--primary-color);
+
+            img {
+                filter: brightness(0) saturate(100%) invert(75%) sepia(35%) saturate(822%) hue-rotate(347deg) brightness(91%) contrast(89%);
+            }
+
+            &:hover {
+                background-color: var(--primary-color);
+                color: var(--white);
+
+                img {
+                    filter: brightness(0) invert(1);
+                }
+            }
+        }
+
+        img {
+            width: 24px;
+            height: 24px;
+            object-fit: cover;
+        }
+
+        &:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+
+            img {
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
+}
+
+.avatar-navigation {
+    display: flex;
+    justify-content: start;
+    margin-top: 32px;
+    gap: 12px;
+
+    .swiper-pagination-bullet {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .swiper-pagination-bullet-active {
+        opacity: 1;
+        border: 2px solid var(--primary-color);
+    }
+}
+
+.swiper-wrapper {
+    align-items: stretch !important;
+}
+
+
+@media (min-width: 1440px) {
+    .swiper-shadow .swiper-wrapper {
+        margin: 0 -15px;
+        padding: 0 15px;
+    }
+}
+
+.swiper-slide {
+    height: auto !important;
+}
+
+.sw-pagination {
+    margin-top: 10px;
+}

@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+.full-screen {
+  @apply min-h-screen 
+  flex items-center 
+  justify-center 
+  bg-linear-to-br from-sky-50  to-sky-100;
+}
+
+.center-container {
+  @apply flex flex-col items-center justify-center
+  max-w-3xl
+  p-4
+  gap-4;
+}
+
+.cards-row {
+  @apply grid grid-cols-3 gap-4;
+}
+
+/* slaže sadržaj vertikalno s razmakom | bijela kartica s mekim rubovima i sjenom */
+.card {
+  @apply flex flex-col
+  gap-2 
+  bg-white 
+  rounded-2xl 
+  shadow-sm 
+  p-6;
+}
