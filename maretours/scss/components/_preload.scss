@@ -1,0 +1,52 @@
+// =========LoadingPage=====================
+
+.preload-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 99999999999;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.preload-logo {
+    img {
+        width: 44px;
+        height: 44px;
+
+    }
+}
+
+
+
+.spinner {
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

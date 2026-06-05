@@ -1,0 +1,60 @@
+:root {
+  --primary-color: #75caf3;
+}
+header{
+    background-color: #fff !important;
+    z-index: 10000 !important;
+}
+.tf-btn{
+    text-transform: none;
+}
+.hero .box-title {
+    position: relative;
+    padding: 250px 0 150px 0;
+    color: #fff;
+    text-align: center;
+    z-index: 2;
+}
+.hero .box-title h1{
+    line-height: 100%;
+    color: #fff;
+    font-size: 70px;
+    font-weight: 600;
+}
+.hero .box-title p{
+    font-size: 18px;
+}
+.hero .tab-content.pos-1 {
+    bottom: 20px;
+    z-index: 1000;
+}
+.hero .hero-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+}
+.hero .hero-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.logo img, .footer-logo img{
+    height: 100px;
+}
+@media (max-width: 966px) {
+    .logo img, .footer-logo img{
+        height: 60px;
+    }
+    .hero .box-title {
+        position: relative;
+        padding: 150px 0 250px 0;
+        color: #fff;
+        text-align: center;
+        z-index: 2;
+    }
+    .hero .box-title h1{
+        font-size: 40px;
+    }
+}
