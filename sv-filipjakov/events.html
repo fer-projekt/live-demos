@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="hr">
+<head>
+
+  	<meta charset="UTF-8">
+
+  	<title>Events &amp; Calendar | Sveti Filip i Jakov</title>
+
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<link href="./css/output.css" rel="stylesheet">
+  	<link rel="icon" href="./images/logo-green.png">
+
+</head>
+
+<body class="font-sans">
+
+<div class="boot" x-data="{ gone: false, removed: false }" x-init="
+    const dismiss = () => {
+        setTimeout(() => { gone = true; }, 250);
+        setTimeout(() => { removed = true; }, 1400);
+    };
+    if (document.readyState === 'complete') { dismiss(); }
+    else { window.addEventListener('load', dismiss); setTimeout(dismiss, 3000); }
+" :class="{ gone: gone }" x-show="!removed">
+    <div class="boot-mark"></div>
+</div>
+
+<div class="scroll-progress" x-data="{ pct: 0 }" x-init="
+    const update = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+" :style="{ width: pct + '%' }"></div>
+
+<header class="nav" id="nav" :class="{ scrolled: scrolled }" x-data="{
+    open: false,
+    scrolled: false,
+    activeCol: null,
+    init(){
+        const updateNav = () => { this.scrolled = window.scrollY > 30; };
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
+        document.addEventListener('click', (e) => {
+            if (this.open && !this.$refs.menu.contains(e.target) && e.target !== this.$refs.menuBtn && !this.$refs.menuBtn.contains(e.target)) {
+                this.open = false;
+            }
+        });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') this.open = false; });
+    }
+}">
+    <a class="nav__logo" href="index.html">
+        <img class="nav__logo-color" src="images/webp/logo.webp" alt="Sveti Filip i Jakov" />
+        <img class="nav__logo-white" src="images/webp/logo-white.webp" alt="Sveti Filip i Jakov" />
+    </a>
+    <ul class="nav__links">
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="places.html">Places</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="#">Plan your trip</a></li>
+        <li><a href="stay.html">Stay</a></li>
+        <li><a href="things-to-do.html">Things to do</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__right">
+        <div class="nav__search-wrap" x-data="{ searchOpen: false }" @keydown.escape.window="searchOpen = false">
+            <button type="button" class="nav__search-btn" aria-label="Search" :aria-expanded="searchOpen" @click.stop="searchOpen = true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            </button>
+
+            <div class="nav__search-overlay" :class="{ open: searchOpen }">
+                <div class="nav__search-header" :class="{ scrolled: scrolled }">
+                    <button type="button" class="nav__search-close" aria-label="Close search" @click="searchOpen = false">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                    </button>
+                </div>
+                <div class="nav__search-body">
+                    <form class="nav__search-form" @submit.prevent="searchOpen = false">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                        <input type="text" placeholder="Search places, events, stays…" x-ref="searchInput" x-init="$watch('searchOpen', v => { if (v) $nextTick(() => $refs.searchInput.focus()) })" />
+                    </form>
+                    <div class="search-results">
+                        <div class="search-result">
+                            <h3 class="search-result__title">Prirodne ljepote i krajolik</h3>
+                            <p class="search-result__desc">Šumovita zaleđa, maslinici i vidici na Pašmanski kanal koji oduzimaju dah u svako doba dana.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                        <div class="search-result">
+                            <h3 class="search-result__title">Kulturno-povijesna baština</h3>
+                            <p class="search-result__desc">Od liburnijskih humaka do baroknih crkava — tisućljeće povijesti u jednom mjestu.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                        <div class="search-result">
+                            <h3 class="search-result__title">Sveti Filip i Jakov</h3>
+                            <p class="search-result__desc">Središte općine i riva s koje sve počinje.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                        <div class="search-result">
+                            <h3 class="search-result__title">Turanj</h3>
+                            <p class="search-result__desc">Mirno mjesto uz kanal, idealno za dulji obiteljski odmor.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                        <div class="search-result">
+                            <h3 class="search-result__title">Sveti Petar na Moru</h3>
+                            <p class="search-result__desc">Ribarsko naselje s dugom pješčano-šljunčanom plažom.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span class="nav__sep nav__sep--full"></span>
+        <div class="nav__lang-wrap" x-data="{ langOpen: false, lang: 'EN' }" @click.outside="langOpen = false" @keydown.escape.window="langOpen = false">
+            <button type="button" class="nav__lang" :aria-expanded="langOpen" @click.stop="langOpen = !langOpen">
+                <span x-text="lang"></span>
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg>
+            </button>
+            <div class="nav__lang-menu" :class="{ open: langOpen }">
+                <button type="button" :class="{ active: lang === 'EN' }" @click="lang = 'EN'; langOpen = false">EN</button>
+                <button type="button" :class="{ active: lang === 'DE' }" @click="lang = 'DE'; langOpen = false">DE</button>
+                <button type="button" :class="{ active: lang === 'HR' }" @click="lang = 'HR'; langOpen = false">HR</button>
+            </div>
+        </div>
+        <span class="nav__sep nav__sep--full"></span>
+        <button class="nav__menu-btn" type="button" aria-label="Open menu" :aria-expanded="open" aria-controls="navMenu" x-ref="menuBtn" @click.stop="open = !open; activeCol = null">
+            <span class="nav__menu-bars"><span></span><span></span><span></span></span>
+        </button>
+    </div>
+    <nav class="nav-menu" id="navMenu" :class="{ open: open }" :aria-hidden="!open" x-ref="menu" @click="if ($event.target.closest('a')) { open = false; activeCol = null }">
+        <div class="nav-menu__header" :class="{ scrolled: scrolled }">
+            <div class="nav-menu__social">
+                <a href="https://www.facebook.com/pages/Turisti%C4%8Dka-zajednica-SvFilip-i-Jakov/106688182694943?ref=hl" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z"/></svg>
+                    Facebook
+                </a>
+                <a href="https://www.instagram.com/riviera_sv._filipijakov/" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    Instagram
+                </a>
+                <a href="https://www.youtube.com/channel/UCC2_iddu3ClPJhh9Q-1PBWA" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+                    YouTube
+                </a>
+                <a href="https://www.tiktok.com/@sv.filipijakov" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+                    TikTok
+                </a>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="nav__sep"></span>
+                <button type="button" class="nav-menu__close" aria-label="Close menu" @click.stop="open = false; activeCol = null">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
+            </div>
+        </div>
+        <div class="nav-menu__body">
+            <div class="nav-menu__cols">
+                <div class="nav-menu__col">
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'istrazi' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="#">Prirodne ljepote i krajolik</a></li>
+                            <li><a href="#">Kulturno-povijesna baština</a></li>
+                            <li><a href="#">Klima i geografija</a></li>
+                            <li><a href="#">Galerija fotografija i videa</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'mjesta' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="#">Sveti Filip i Jakov</a></li>
+                            <li><a href="#">Turanj</a></li>
+                            <li><a href="#">Sveti Petar na Moru</a></li>
+                            <li><a href="#">Donje Raštane</a></li>
+                            <li><a href="#">Gornje Raštane</a></li>
+                            <li><a href="#">Otok Babac</a></li>
+                            <li><a href="#">Sikovo</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'dozivi' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="#">Autentična iskustva</a></li>
+                            <li><a href="#">Za obitelji</a></li>
+                            <li><a href="#">Za parove</a></li>
+                            <li><a href="#">Za avanturiste</a></li>
+                            <li><a href="#">Za digitalne nomade</a></li>
+                            <li><a href="#">Camino</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'plan' }">Planiraj putovanje</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'plan' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="#">Kako doći</a></li>
+                            <li><a href="#">Karta destinacije</a></li>
+                            <li><a href="#">Važni kontakti</a></li>
+                            <li><a href="#">Česta pitanja (FAQ)</a></li>
+                            <li><a href="#">Brošure za preuzimanje</a></li>
+                            <li><a href="#">Parkirališta, marine i punionice za e-vozila</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'smjestaj' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="#">Privatni smještaj</a></li>
+                            <li><a href="#">Kuće za odmor</a></li>
+                            <li><a href="#">Kampovi</a></li>
+                            <li><a href="#">Hoteli</a></li>
+                            <li><a href="#">Nautika</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'raditi' }">Što raditi?</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'raditi' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="#">Aktivnosti na moru</a></li>
+                            <li><a href="#">Aktivnosti u prirodi</a></li>
+                            <li><a href="#">Plaže i kupanje</a></li>
+                            <li><a href="#">Gastronomija i lokalni specijaliteti</a></li>
+                            <li><a href="#">Izleti i obližnje atrakcije</a></li>
+                            <li><a href="#">Tematske staze</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dogadjanja' }">Događanja</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'dogadjanja' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="#">Kalendar događanja</a></li>
+                            <li><a href="#">Kulturne i vjerske manifestacije</a></li>
+                            <li><a href="#">Sportska događanja</a></li>
+                            <li><a href="#">Lokalni festivali i sajmovi</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div x-data="eventsCalendar()" x-init="init()">
+
+<header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
+    <div class="bg overflow-hidden">
+        <video autoplay muted loop playsinline poster="images/webp/festival-flowers.webp" class="absolute inset-0 w-full h-full object-cover">
+            <source src="videos/events-promo.mp4" type="video/mp4" />
+        </video>
+    </div>
+    <div class="page-head-inner">
+        <nav class="crumb">
+            <a href="index.html">Home</a>
+            <span class="sep"></span>
+            <span>Events &amp; Calendar</span>
+        </nav>
+        <h1>A year that <em>moves</em><br />with the season.</h1>
+        <p class="ph-lede">
+            From the Festival of Flowers in June to a single brave swim on New Year's Day —
+            the calendar swells through spring and summer, then quietens to almost nothing
+            in the depths of winter. Pick a month and we'll line up your evenings.
+        </p>
+    </div>
+</header>
+
+<section class="page-sect events-page">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="sect-head reveal mb-12" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+            <div>
+                <span class="eyebrow">The year at a glance</span>
+                <h2 class="heading-2 mt-4">Some months overflow.<br /><em class="script-accent">Others rest.</em></h2>
+            </div>
+            <p class="lede [text-wrap:pretty]">
+                Each bar is a month; its height is how much is on. Spring wakes the coast up,
+                summer runs hot every night, autumn winds down to the harvest, and winter
+                keeps the town to itself. Tap any month to see what's on.
+            </p>
+        </div>
+
+        <div class="season-chart" :class="{ 'is-in': chartVisible }" x-intersect.once.threshold.30="chartVisible = true">
+            <div class="season-chart-head">
+                <div>
+                    <h3>Events by month</h3>
+                    <p>The seasonal heartbeat of Sv. Filip i Jakov, 2026.</p>
+                </div>
+                <div class="season-legend">
+                    <span><i class="lg-spring"></i>Spring</span>
+                    <span><i class="lg-summer"></i>Summer</span>
+                    <span><i class="lg-autumn"></i>Autumn</span>
+                    <span><i class="lg-winter"></i>Winter</span>
+                </div>
+            </div>
+
+            <div class="month-select-wrap">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+                <select class="month-select" aria-label="Choose a month" x-model="currentMonth">
+                    <template x-for="m in months" :key="m">
+                        <option :value="m" x-text="full[m] + ' 2026 — ' + countFor(m) + ' event' + (countFor(m) === 1 ? '' : 's')"></option>
+                    </template>
+                </select>
+            </div>
+
+            <div class="bars">
+                <template x-for="m in months" :key="m">
+                    <div class="bar-col" :data-season="season[m]" :class="{ active: m === currentMonth }" role="button" tabindex="0" @click="select(m)" @keydown.enter="select(m)" @keydown.space.prevent="select(m)" :aria-label="full[m] + ' — ' + countFor(m) + ' events'">
+                        <div class="bar-track"><div class="bar" :style="{ height: barHeight(m) + '%' }"></div></div>
+                        <span class="bar-val" x-text="countFor(m)"></span>
+                        <span class="bar-m" x-text="m"></span>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <div class="month-panel">
+            <div class="month-bar">
+                <h2><span x-text="full[currentMonth]"></span> <span class="yr">2026</span></h2>
+                <div class="month-nav">
+                    <span class="mcount" x-text="currentList.length + ' event' + (currentList.length === 1 ? '' : 's')"></span>
+                    <button type="button" class="month-arrow" @click="step(-1)" aria-label="Previous month">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+                    </button>
+                    <button type="button" class="month-arrow" @click="step(1)" aria-label="Next month">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <template x-if="currentList.length === 0">
+                <div class="month-quiet">
+                    <span class="q-mark">A quiet month</span>
+                    <h3>Nothing on the calendar — and that's the point.</h3>
+                    <p x-text="full[currentMonth] + ' is the town at its most local: shutters half-closed, the riva to yourself, and a coffee that lasts an hour. Come back from spring onward, when the calendar fills up.'"></p>
+                </div>
+            </template>
+
+            <template x-if="currentList.length > 0">
+                <div class="evp-list reveal is-in">
+                    <template x-for="(ev, i) in currentList" :key="currentMonth + '-' + i">
+                        <div class="evp-row" role="button" tabindex="0" @click="openDetail(ev, currentMonth)" @keydown.enter="openDetail(ev, currentMonth)" @keydown.space.prevent="openDetail(ev, currentMonth)" :aria-label="ev.name + ' — view details'">
+                            <div class="date"><span class="d" x-text="String(ev.d).padStart(2,'0')"></span><span class="m" x-text="currentMonth"></span></div>
+                            <div class="name">
+                                <span x-text="ev.name"></span>
+                                <small x-text="ev.sub"></small>
+                            </div>
+                            <span class="cat" :class="ev.cat" x-text="ev.cat"></span>
+                            <div class="more">→</div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </div>
+</section>
+
+<section class="page-sect ev-cats">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="sect-head reveal mb-14" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+            <div>
+                <span class="eyebrow">Browse by kind</span>
+                <h2 class="heading-2 mt-4">Three threads run<br /><em class="script-accent">all year long</em>.</h2>
+            </div>
+            <p class="lede [text-wrap:pretty]">
+                Heritage, sport and celebration — the three currents the calendar is woven from.
+                Open a gallery to see each one in full colour.
+            </p>
+        </div>
+
+        <div class="ev-cat reveal is-in">
+            <div class="ev-cat-head">
+                <h3>Cultural &amp; religious events<small>Folklore ensembles (KUD-ovi), processions &amp; klapa nights</small></h3>
+                <a href="#" class="gal-link" @click.prevent="openGallery('culture')">View gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+            <div class="ev-gallery">
+                <a href="#" class="ev-shot big" @click.prevent="openGallery('culture')"><div class="img" style="background-image:url('images/webp/heritage-folklore.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('culture')"><div class="img" style="background-image:url('images/webp/heritage-concert.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('culture')"><div class="img" style="background-image:url('images/webp/old-town-walks.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('culture')"><div class="img" style="background-image:url('images/webp/heritage.webp')"></div></a>
+                <a href="#" class="ev-shot more-shot" data-more="+24" @click.prevent="openGallery('culture')"><div class="img" style="background-image:url('images/webp/town.webp')"></div></a>
+            </div>
+        </div>
+
+        <div class="ev-cat reveal is-in">
+            <div class="ev-cat-head">
+                <h3>Sports events<small>Bike rides, open-water races, the summer swimming school &amp; regattas</small></h3>
+                <a href="#" class="gal-link" @click.prevent="openGallery('sport')">View gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+            <div class="ev-gallery">
+                <a href="#" class="ev-shot big" @click.prevent="openGallery('sport')"><div class="img" style="background-image:url('images/webp/yoga-sea.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('sport')"><div class="img" style="background-image:url('images/webp/marina.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('sport')"><div class="img" style="background-image:url('images/webp/snorkelling-opt.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('sport')"><div class="img" style="background-image:url('images/webp/beaches.webp')"></div></a>
+                <a href="#" class="ev-shot more-shot" data-more="+18" @click.prevent="openGallery('sport')"><div class="img" style="background-image:url('images/webp/pasman-island.webp')"></div></a>
+            </div>
+        </div>
+
+        <div class="ev-cat reveal is-in">
+            <div class="ev-cat-head">
+                <h3>Local festivals &amp; fairs<small>Maraška Fest, the Festival of Flowers &amp; the summer night markets</small></h3>
+                <a href="#" class="gal-link" @click.prevent="openGallery('festivals')">View gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+            <div class="ev-gallery">
+                <a href="#" class="ev-shot big" @click.prevent="openGallery('festivals')"><div class="img" style="background-image:url('images/webp/festival-flowers.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('festivals')"><div class="img" style="background-image:url('images/webp/event.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('festivals')"><div class="img" style="background-image:url('images/webp/town.webp')"></div></a>
+                <a href="#" class="ev-shot" @click.prevent="openGallery('festivals')"><div class="img" style="background-image:url('images/webp/sv-petar.webp')"></div></a>
+                <a href="#" class="ev-shot more-shot" data-more="+31" @click.prevent="openGallery('festivals')"><div class="img" style="background-image:url('images/webp/biograd.webp')"></div></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page-sect ev-feature">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="ev-feature-inner reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+            <div class="ev-feature-media">
+                <span class="tag">The big one</span>
+                <div class="img" style="background-image:url('images/webp/festival-flowers.webp')"></div>
+            </div>
+            <div class="ev-feature-text">
+                <span class="eyebrow">14 June · since 2001</span>
+                <h2>Festival of <em>Flowers</em>.</h2>
+                <p>For one weekend in June the whole town turns into a sea of colour — flower
+                carpets down the riva, a petal-strewn parade, and konobas spilling into the
+                streets. It is the single busiest day of our year, and the one most worth
+                planning a trip around.</p>
+                <a href="#" class="btn primary">Read more <span class="arr"></span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer id="plan" class="bg-cream text-black pt-18 md:pt-25 pb-18 lg:pb-24">
+    <div class="max-w-[1600px] mx-auto px-4">
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-15 pb-12 lg:pb-[70px] border-b border-black/16">
+            <h2 class="heading-2">
+                A postcard arrives<br />in your inbox<br />each <span class="heading-2__accent">season</span>.
+            </h2>
+
+            <form x-data="{ subscribed: false }" @submit.prevent="subscribed = true" class="grid content-end gap-3.5">
+                <input type="email" placeholder="your@email.com" required class="bg-transparent border-0 border-b border-black/35 py-3.5 px-0 text-lg text-black outline-none placeholder:text-black/45" />
+                <div class="flex flex-col items-stretch gap-3.5 md:flex-row md:justify-between md:items-center">
+                    <small class="opacity-55 text-xs">Four sends a year. Off-season tips. Unsubscribe in one click.</small>
+                    <button type="submit" class="w-full md:w-auto bg-black text-cream py-4 md:py-3.5 px-[22px] rounded-full font-bold text-[13px] tracking-[0.08em]" x-text="subscribed ? 'Welcome aboard ✓' : 'Subscribe →'">Subscribe →</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-x-6 gap-y-7 md:gap-10 pt-12 md:pt-[70px] pb-9 md:pb-[50px]">
+            <div class="col-span-2 lg:col-span-1">
+                <img src="images/webp/logo-green.webp" alt="Sveti Filip i Jakov" class="h-16 md:h-20" />
+                <p class="text-sm opacity-65 max-w-[30ch] mt-3">The official visitor site of Sveti Filip i Jakov — a coastal town and municipality in the Zadar County of Dalmatia, Croatia.</p>
+            </div>
+            <div class="col-span-2 lg:col-span-1">
+                <div class="footer-heading">Contact</div>
+                <a href="tel:+38523389071" class="footer-link">+385 23 389 071</a>
+                <a href="mailto:info@svfilipjakov.hr" class="footer-link">info@svfilipjakov.hr</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Obala+kralja+Tomislava+16%2C+23207+Sveti+Filip+i+Jakov" target="_blank" rel="noopener" class="footer-link">Obala kralja Tomislava 16</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Obala+kralja+Tomislava+16%2C+23207+Sveti+Filip+i+Jakov" target="_blank" rel="noopener" class="footer-link">23207 Sv. Filip i Jakov</a>
+            </div>
+            <div class="col-span-2 lg:col-span-1">
+                <div class="footer-heading">Follow us</div>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/pages/Turisti%C4%8Dka-zajednica-SvFilip-i-Jakov/106688182694943?ref=hl" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/riviera_sv._filipijakov/" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCC2_iddu3ClPJhh9Q-1PBWA" target="_blank" rel="noopener" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@sv.filipijakov" target="_blank" rel="noopener" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="col-span-2 lg:col-span-1">
+                <div class="footer-heading">Info</div>
+                <a href="#" class="footer-link">Kutak za iznajmljivače</a>
+                <a href="documents.html" class="footer-link">Dokumenti</a>
+                <a href="https://www.evisitor.hr/" target="_blank" rel="noopener" class="footer-link">E-visitor</a>
+                <a href="https://mvisitor.hr/" target="_blank" rel="noopener" class="footer-link">M-visitor</a>
+            </div>
+            <div class="col-span-2 lg:col-span-1">
+                <div class="footer-heading">Partneri</div>
+                <a href="http://www.croatia.hr" target="_blank" rel="noopener" class="footer-link">Hrvatska turistička zajednica</a>
+                <a href="http://www.mint.hr/" target="_blank" rel="noopener" class="footer-link">Ministarstvo turizma i sporta</a>
+                <a href="http://www.zadar.hr/" target="_blank" rel="noopener" class="footer-link">Grad Zadar</a>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center text-center gap-2 lg:flex-row lg:justify-between lg:items-center lg:text-left text-xs opacity-55 border-t border-black/16 pt-6 tracking-[0.04em]">
+            <span>© 2026 Tourist Board of Sveti Filip i Jakov · All rights reserved</span>
+            <div class="flex flex-wrap items-center gap-2 max-lg:flex-col!">
+                <a href="page.html" class="hover:text-sea max-lg:block!">Izjava o kolačićima</a>
+                <span class="max-lg:hidden!">|</span>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Pravila o privatnosti</a>
+                <span class="max-lg:hidden!">|</span>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Izjava o digitalnoj pristupačnosti</a>
+                <span class="max-lg:hidden!">|</span>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Uvjeti korištenja</a>
+            </div>
+            <span>Izrada web stranica <a href="https://www.fer-projekt.com/" target="_blank" rel="noopener" class="hover:text-sea">Fer Projekt</a></span>
+        </div>
+
+    </div>
+</footer>
+
+<!-- ───────────────── GALLERY OVERLAY ───────────────── -->
+<div class="gallery-overlay" :class="{ open: galleryOpen }" :aria-hidden="!galleryOpen" role="dialog" aria-modal="true" aria-label="Photo gallery">
+    <div class="gallery-bar">
+        <div class="gallery-bar-title">
+            <span class="eyebrow" x-text="activeGallery.eyebrow"></span>
+            <h3 x-text="activeGallery.title"></h3>
+        </div>
+        <span class="gallery-count" x-text="activeGallery.shots.length + ' photos'"></span>
+        <button type="button" class="gallery-close" @click="closeGallery()" aria-label="Close gallery">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+    </div>
+    <div class="gallery-grid">
+        <template x-for="(shot, i) in activeGallery.shots" :key="activeGalleryKey + '-' + i">
+            <button type="button" class="g-item" @click="openLightbox(i)" aria-label="Open photo">
+                <img :src="shot[0]" :alt="shot[1]" />
+                <span class="g-cap" x-text="shot[1]"></span>
+            </button>
+        </template>
+    </div>
+</div>
+
+<!-- single-photo lightbox -->
+<div class="lightbox" :class="{ open: lightboxOpen }" :aria-hidden="!lightboxOpen" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) closeLightbox()" @keydown.escape.window="if (lightboxOpen) closeLightbox()" @keydown.arrow-left.window="if (lightboxOpen) lbPrev()" @keydown.arrow-right.window="if (lightboxOpen) lbNext()">
+    <button type="button" class="lb-close" @click="closeLightbox()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button type="button" class="lb-nav prev" @click="lbPrev()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <figure class="lb-stage">
+        <img :src="lbShot[0]" :alt="lbShot[1]" />
+        <figcaption x-text="lbShot[1]"></figcaption>
+    </figure>
+    <button type="button" class="lb-nav next" @click="lbNext()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+
+<!-- ───────────────── EVENT DETAIL MODAL ───────────────── -->
+<div class="ev-detail" :class="{ open: detailOpen }" :aria-hidden="!detailOpen" role="dialog" aria-modal="true" aria-label="Event details" @keydown.escape.window="if (detailOpen) closeDetail()">
+    <div class="ev-detail-scrim" @click="closeDetail()"></div>
+    <div class="ev-detail-card" :class="{ 'no-photo': !detailImg }">
+        <template x-if="detailImg">
+            <div class="evd-media">
+                <span class="evd-cat" :class="detailEv && detailEv.cat" x-text="detailEv && detailEv.cat"></span>
+                <div class="img" :style="{ backgroundImage: 'url(' + detailImg + ')' }"></div>
+            </div>
+        </template>
+        <button type="button" class="evd-close" @click="closeDetail()" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div class="evd-body" :class="{ 'no-img': !detailImg }" x-show="detailEv">
+            <div class="evd-date">
+                <span class="d" x-text="detailEv && String(detailEv.d).padStart(2,'0')"></span>
+                <div>
+                    <span class="m" x-text="full[detailMonth] + ' 2026'"></span>
+                    <span class="evd-cat" :class="detailEv && detailEv.cat" x-text="detailType"></span>
+                </div>
+            </div>
+            <h2 class="evd-title" x-text="detailName"></h2>
+            <p class="evd-lede" x-text="detailSub"></p>
+            <p class="evd-desc" x-text="detailDesc"></p>
+            <div class="evd-meta">
+                <div class="evd-row">
+                    <span class="k">Where</span>
+                    <span class="v">
+                        <span x-text="detailWhere"></span>
+                        <a class="evd-map" :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(detailAddress)" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span x-text="detailAddress"></span>
+                        </a>
+                    </span>
+                </div>
+                <div class="evd-row">
+                    <span class="k">When</span>
+                    <span class="v" x-text="full[detailMonth] + ' ' + (detailEv ? detailEv.d : '') + ', 2026' + (detailTime ? ' · ' + detailTime : '')"></span>
+                </div>
+                <div class="evd-row">
+                    <span class="k">Entry</span>
+                    <span class="v" x-text="detailEntry"></span>
+                </div>
+            </div>
+            <div class="evd-actions">
+                <a class="btn" :href="'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(detailAddress)" target="_blank" rel="noopener">Directions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 12l10 10 10-10L12 2z"/><path d="M9 12.5V11a1.5 1.5 0 0 1 1.5-1.5H15"/><path d="M12.5 7 15 9.5 12.5 12"/></svg></a>
+                <button class="btn" type="button" @click="downloadIcs()" x-text="icsAdded ? 'Added to calendar ✓' : 'Add to calendar'" :disabled="icsAdded"></button>
+                <button class="evd-share" :class="{ copied: shareCopied }" type="button" @click="shareEvent()" :aria-label="shareCopied ? 'Link copied' : 'Share this event'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div x-data="{ moodOpen: false, moodRated: false, feedbackOpen: false }">
+    <div class="utility-bar" x-data="{ show: false }" x-init="window.addEventListener('scroll', () => { show = window.scrollY > 300 }, { passive: true })" :class="{ 'is-in': show }">
+        <div class="utility-bar__mood">
+            <button type="button" class="utility-bar__mood-btn" aria-label="Rate your visit" @click="moodOpen = true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 15c1 1.1 2.2 1.6 3.5 1.6s2.5-.5 3.5-1.6"/><circle cx="9" cy="9.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="15" cy="9.5" r="0.9" fill="currentColor" stroke="none"/></svg>
+            </button>
+            <span class="utility-bar__sep max-lg:hidden!"></span>
+            <button type="button" class="utility-bar__feedback-btn" aria-label="Suggestions and complaints" @click="feedbackOpen = true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4H5.5A2.5 2.5 0 0 1 3 14.5v-8Z"/><path d="M12 8v4.2"/><circle cx="12" cy="15" r="0.9" fill="currentColor" stroke="none"/></svg>
+            </button>
+        </div>
+        <div class="utility-bar__right">
+            <div class="utility-bar__social max-lg:hidden!">
+                <a href="https://www.facebook.com/pages/Turisti%C4%8Dka-zajednica-SvFilip-i-Jakov/106688182694943?ref=hl" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z"/></svg>
+                </a>
+                <span class="utility-bar__sep"></span>
+                <a href="https://www.instagram.com/riviera_sv._filipijakov/" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                </a>
+                <span class="utility-bar__sep"></span>
+                <a href="https://www.youtube.com/channel/UCC2_iddu3ClPJhh9Q-1PBWA" target="_blank" rel="noopener" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+                </a>
+                <span class="utility-bar__sep"></span>
+                <a href="https://www.tiktok.com/@sv.filipijakov" target="_blank" rel="noopener" aria-label="TikTok">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+                </a>
+            </div>
+            <span class="utility-bar__sep max-lg:hidden!"></span>
+            <a href="https://www.whatsupcams.com/en/webcams/croatia/zadar/sveti-filip-i-jakov/webcam-sveti-filip-i-jakov/" target="_blank" rel="noopener" class="utility-bar__link" aria-label="Web cam">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="15" height="12" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg>
+                <span class="max-lg:hidden!">Web cam</span>
+            </a>
+            <span class="utility-bar__sep max-lg:hidden!"></span>
+            <button type="button" class="utility-bar__a11y" aria-label="Accessibility options">A+</button>
+        </div>
+    </div>
+
+    <div class="rate-overlay" :class="{ open: moodOpen }" :aria-hidden="!moodOpen" role="dialog" aria-modal="true" aria-label="Rate your visit" @keydown.escape.window="moodOpen = false">
+        <div class="rate-scrim" @click="moodOpen = false"></div>
+        <div class="rate-card">
+            <button type="button" class="rate-close" aria-label="Close" @click="moodOpen = false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
+            <template x-if="!moodRated">
+                <div class="rate-ask">
+                    <span class="rate-eyebrow">Happiness Rating</span>
+                    <div class="rate-faces">
+                        <button type="button" class="rate-face" aria-label="Not great" @click="moodRated = true">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><circle cx="32" cy="32" r="27"/><circle cx="23" cy="26" r="2.4" fill="currentColor" stroke="none"/><circle cx="41" cy="26" r="2.4" fill="currentColor" stroke="none"/><path d="M21 43c3-4.5 7-7 11-7s8 2.5 11 7"/></svg>
+                        </button>
+                        <button type="button" class="rate-face" aria-label="It was okay" @click="moodRated = true">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><circle cx="32" cy="32" r="27"/><circle cx="23" cy="26" r="2.4" fill="currentColor" stroke="none"/><circle cx="41" cy="26" r="2.4" fill="currentColor" stroke="none"/><path d="M22 39h20"/></svg>
+                        </button>
+                        <button type="button" class="rate-face" aria-label="It was great" @click="moodRated = true">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><circle cx="32" cy="32" r="27"/><circle cx="23" cy="26" r="2.4" fill="currentColor" stroke="none"/><circle cx="41" cy="26" r="2.4" fill="currentColor" stroke="none"/><path d="M21 35c3 4.5 7 7 11 7s8-2.5 11-7"/></svg>
+                        </button>
+                    </div>
+                    <div class="rate-question">Rate your visit to Sveti Filip i Jakov</div>
+                </div>
+            </template>
+
+            <template x-if="moodRated">
+                <div class="rate-thanks">
+                    <h3>Thank you for helping us make your visit even better.</h3>
+                    <p>Find out more on <strong>sv-filipjakov.hr</strong></p>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <div class="feedback-overlay" :class="{ open: feedbackOpen }" :aria-hidden="!feedbackOpen" role="dialog" aria-modal="true" aria-label="Suggestions and complaints" @keydown.escape.window="feedbackOpen = false" x-data="{ fileName: '' }">
+        <div class="feedback-scrim" @click="feedbackOpen = false"></div>
+        <div class="feedback-card">
+            <button type="button" class="feedback-close" aria-label="Close" @click="feedbackOpen = false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
+            <span class="feedback-eyebrow">Get in touch</span>
+            <h3 class="feedback-title">Suggestions and complaints</h3>
+
+            <form class="feedback-form" @submit.prevent="feedbackOpen = false; fileName = ''; $el.reset()">
+                <textarea class="feedback-textarea" placeholder="Write your message…" required></textarea>
+                <label class="feedback-upload">
+                    <input type="file" accept="image/*,video/*" class="sr-only" @change="fileName = $event.target.files[0]?.name || ''">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                    <span x-text="fileName || 'Attach a photo or video (optional)'"></span>
+                </label>
+                <button type="submit" class="feedback-submit">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('eventsCalendar', () => ({
+        months: ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],
+        full: { JAN:'January', FEB:'February', MAR:'March', APR:'April', MAY:'May', JUN:'June', JUL:'July', AUG:'August', SEP:'September', OCT:'October', NOV:'November', DEC:'December' },
+        season: { JAN:'winter', FEB:'winter', MAR:'spring', APR:'spring', MAY:'spring', JUN:'summer', JUL:'summer', AUG:'summer', SEP:'autumn', OCT:'autumn', NOV:'autumn', DEC:'winter' },
+        current: 5,
+        chartVisible: false,
+
+        events: {
+            JAN: [
+                { d: 1, name: "New Year's Day swim", sub: 'Town beach · noon · for the brave', cat: 'sport' },
+            ],
+            FEB: [
+                { d: 13, name: "Valentine's klapa serenade", sub: 'Old market square · 19:00', cat: 'music' },
+                { d: 28, name: 'Maškare — carnival parade', sub: 'Riva · masks, fritule & a bonfire', cat: 'culture' },
+            ],
+            MAR: [
+                { d: 8, name: 'Spring clean-up & tree planting', sub: 'Along the riva · 09:00 · all welcome', cat: 'culture' },
+                { d: 22, name: 'First asparagus foraging walk', sub: 'Hinterland trails · guided · 08:00', cat: 'food' },
+            ],
+            APR: [
+                { d: 5, name: 'Easter procession', sub: 'Parish church · Holy Week', cat: 'culture' },
+                { d: 12, name: 'Olive grove open day', sub: 'Pruning & first-press tasting', cat: 'food' },
+                { d: 20, name: 'Spring regatta warm-up', sub: 'Nautika marina · 10:00', cat: 'sport' },
+                { d: 27, name: 'Wildflower photo walk', sub: 'Sv. Petar saltpans · golden hour', cat: 'culture' },
+            ],
+            MAY: [
+                { d: 1, name: 'Labour Day fish picnic', sub: 'Town beach · grills from 11:00', cat: 'food' },
+                { d: 10, name: 'Riviera cycling day', sub: 'Coast loop to Biograd · all levels', cat: 'sport' },
+                { d: 18, name: 'Opening of the bathing season', sub: 'Riva · 11:00 · free', cat: 'culture' },
+                { d: 24, name: 'Klapa under the stars', sub: 'Borelli garden · 21:00', cat: 'music' },
+                { d: 29, name: 'Asparagus & spring feast', sub: 'Old market square · all day', cat: 'food' },
+            ],
+            JUN: [
+                { d: 7, name: 'Sunrise yoga season begins', sub: 'Riva · every Sat · 07:00 · free', cat: 'sport' },
+                { d: 14, name: 'Festival of Flowers', sub: 'Town centre · 10:00–22:00 · since 2001', cat: 'culture' },
+                { d: 19, name: 'Open-air cinema opens', sub: 'Town beach · 21:30 · EN subtitles', cat: 'culture' },
+                { d: 21, name: 'Solstice klapa night', sub: 'Borelli garden · 21:00', cat: 'music' },
+                { d: 24, name: "Sv. Ivan's bonfire night", sub: 'Beach · from sundown · feast 21:30', cat: 'culture' },
+                { d: 28, name: 'Konoba Open Doors', sub: 'Six family tables, one ticket', cat: 'food' },
+            ],
+            JUL: [
+                { d: 3, name: 'Summer craft & night market opens', sub: 'Riva · every eve · 19:00–24:00', cat: 'culture' },
+                { d: 5, name: 'Sailing regatta · Pašman cup', sub: 'Mainland to island and back', cat: 'sport' },
+                { d: 11, name: 'Olive oil dinner under the bell', sub: 'Hilltop konoba · 6 courses', cat: 'food' },
+                { d: 12, name: 'Klapa nights · every Friday', sub: 'Borelli garden · 21:00 · free', cat: 'music' },
+                { d: 18, name: 'Beach volleyball cup', sub: 'Town beach · teams of 4', cat: 'sport' },
+                { d: 22, name: "Fishermen's evening", sub: 'Riva · grilled sardines & folk music', cat: 'food' },
+                { d: 26, name: 'Stars over the channel · astronomy night', sub: 'Babac point · 22:00 · telescopes', cat: 'culture' },
+                { d: 30, name: 'Dalmatian a-cappella festival', sub: 'Parish square · three nights', cat: 'music' },
+            ],
+            AUG: [
+                { d: 2, name: 'Vela Gospa procession', sub: 'Parish church · 17:00 · 400 years running', cat: 'culture' },
+                { d: 5, name: 'Night swim & lantern flotilla', sub: 'Marina · 21:00', cat: 'sport' },
+                { d: 9, name: 'Babac island swim race', sub: '2.4 km open water · medals & brudet', cat: 'sport' },
+                { d: 12, name: 'Klapa nights · every Friday', sub: 'Borelli garden · 21:00 · free', cat: 'music' },
+                { d: 15, name: 'Assumption feast & fair', sub: 'All day · live music until 02:00', cat: 'culture' },
+                { d: 19, name: "Fishermen's evening", sub: 'Riva · sardines, wine & song', cat: 'food' },
+                { d: 22, name: 'Wine night · Pašman whites', sub: 'Seven cellars · one walking tour', cat: 'food' },
+                { d: 28, name: 'End-of-summer beach concert', sub: 'Town beach · 21:00', cat: 'music' },
+            ],
+            SEP: [
+                { d: 6, name: 'End-of-season klapa marathon', sub: 'Four choirs · one harbour', cat: 'music' },
+                { d: 13, name: 'Late-summer regatta', sub: 'Channel course · all classes', cat: 'sport' },
+                { d: 14, name: 'Olive harvest weekend', sub: 'Pick & press your own bottle', cat: 'food' },
+                { d: 21, name: 'Riviera half-marathon', sub: 'Flat seaside loop · medals', cat: 'sport' },
+                { d: 27, name: 'Grape & fig harvest lunch', sub: 'Hinterland konoba · long table', cat: 'food' },
+            ],
+            OCT: [
+                { d: 4, name: 'St. Francis blessing of the boats', sub: 'Harbour · 10:00', cat: 'culture' },
+                { d: 12, name: 'Truffle & wild herbs Sunday', sub: 'Hinterland konoba lunch', cat: 'food' },
+                { d: 25, name: 'Lantern walk through the old town', sub: 'After dark · 75 lanterns · all welcome', cat: 'culture' },
+            ],
+            NOV: [
+                { d: 11, name: 'St. Martin — blessing of the new wine', sub: 'Town cellars · 18:00 · taste the young wine', cat: 'food' },
+            ],
+            DEC: [
+                { d: 6, name: 'Advent on the riva begins', sub: 'Lights, mulled wine & fritule · weekends', cat: 'culture' },
+                { d: 24, name: 'Christmas Eve klapa & midnight mass', sub: 'Parish church · 21:00', cat: 'music' },
+                { d: 31, name: "New Year's Eve on the square", sub: 'Live band & midnight fireworks', cat: 'culture' },
+            ],
+        },
+
+        get currentMonth(){ return this.months[this.current]; },
+        set currentMonth(m){ this.select(m); },
+        get currentList(){ return this.events[this.currentMonth] || []; },
+        countFor(m){ return (this.events[m] || []).length; },
+        get maxCount(){ return Math.max(...this.months.map(m => this.countFor(m))); },
+        barHeight(m){ return Math.max(6, Math.round((this.countFor(m) / this.maxCount) * 100)); },
+        select(m){ this.current = this.months.indexOf(m); },
+        step(n){ this.current = (this.current + n + 12) % 12; },
+
+        clean(s){ return (s || '').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' '); },
+
+        /* ---------- event detail modal ---------- */
+        detailOpen: false,
+        detailEv: null,
+        detailMonth: '',
+        icsAdded: false,
+        shareCopied: false,
+        evType: { sport: 'Sport event', culture: 'Cultural event', music: 'Music event', food: 'Food & drink' },
+        evImages: {
+            'Festival of Flowers': 'images/webp/festival-flowers.webp',
+            'Sunrise yoga season begins': 'images/webp/yoga-sea.webp',
+            'Vela Gospa procession': 'images/webp/heritage.webp',
+            'Assumption feast & fair': 'images/webp/town.webp',
+            'Open-air cinema opens': 'images/webp/couples.webp',
+            'Babac island swim race': 'images/webp/pasman-island.webp',
+            'Advent on the riva begins': 'images/webp/old-town-walks.webp',
+            'Maškare — carnival parade': 'images/webp/heritage-folklore.webp',
+            'Dalmatian a-cappella festival': 'images/webp/heritage-concert.webp',
+            'Riviera half-marathon': 'images/webp/turanj.webp',
+            "Sv. Ivan's bonfire night": 'images/webp/beaches.webp',
+            'Sailing regatta · Pašman cup': 'images/webp/marina.webp',
+        },
+        evDesc: {
+            'Festival of Flowers': 'For one weekend the whole town turns into a sea of colour — flower carpets down the riva, a petal-strewn parade, and konobas spilling into the streets. It is the busiest, most joyful day of our year.',
+            'Vela Gospa procession': 'The feast of the Assumption is the town’s oldest tradition — a candle-lit procession from the parish church to the sea, followed by music and a fair that runs late into the warm night.',
+            'Sunrise yoga season begins': 'Every Saturday through summer, roll out a mat on the promenade as the sun comes up over the channel. All levels welcome, mats provided, and it is completely free.',
+        },
+
+        get detailName(){ return this.detailEv ? this.clean(this.detailEv.name) : ''; },
+        get detailSub(){ return this.detailEv ? this.clean(this.detailEv.sub) : ''; },
+        get detailParts(){ return this.detailSub.split('·').map(s => s.trim()).filter(Boolean); },
+        get detailWhere(){ return this.detailParts[0] || 'Sveti Filip i Jakov'; },
+        get detailTime(){ return this.detailParts.find(p => /\d{1,2}:\d{2}/.test(p) || /\d\s*[–-]\s*\d/.test(p)) || ''; },
+        get detailImg(){ return this.detailEv ? (this.evImages[this.detailEv.name] || '') : ''; },
+        get detailDesc(){ return this.detailEv ? (this.evDesc[this.detailEv.name] || 'Part of the Sveti Filip i Jakov events calendar. Free to attend unless noted — turn up on the day, or ask at the harbour info point for the finer details.') : ''; },
+        get detailType(){ return this.detailEv ? (this.evType[this.detailEv.cat] || this.detailEv.cat) : ''; },
+
+        venueAddress(where){
+            const w = (where || '').toLowerCase();
+            if (w.includes('borelli')) return 'Park Borelli, 23207 Sveti Filip i Jakov';
+            if (w.includes('church') || w.includes('parish')) return 'Crkva sv. Filipa i Jakova, Trg hrvatskih velikana 1, 23207 Sveti Filip i Jakov';
+            if (w.includes('marina') || w.includes('nautika') || w.includes('harbour') || w.includes('mainland')) return 'Marina Nautica, Put Primorja 1, 23207 Sveti Filip i Jakov';
+            if (w.includes('beach') || w.includes('plaž')) return 'Gradska plaža, Obala kralja Tomislava, 23207 Sveti Filip i Jakov';
+            if (w.includes('petar')) return 'Sveti Petar na Moru, 23250 Sveti Filip i Jakov';
+            if (w.includes('babac')) return 'Otok Babac, Pašmanski kanal, 23207';
+            if (w.includes('cellar') || w.includes('konoba') || w.includes('hinterland') || w.includes('hilltop')) return this.clean(where) + ', 23207 Sveti Filip i Jakov';
+            return 'Obala kralja Tomislava 16, 23207 Sveti Filip i Jakov';
+        },
+        get detailAddress(){ return this.venueAddress(this.detailWhere); },
+        entryInfo(ev){
+            const s = (ev.sub || '').toLowerCase();
+            if (s.includes('free') || s.includes('€0')) return 'Free';
+            if (/ticket|course|dinner|tasting|cellar|\btour\b|press your own|pick & press|family tables/.test(s)) return 'Ticketed';
+            return 'Free';
+        },
+        get detailEntry(){ return this.detailEv ? this.entryInfo(this.detailEv) : ''; },
+
+        openDetail(ev, month){
+            this.detailEv = ev;
+            this.detailMonth = month;
+            this.detailOpen = true;
+            this.icsAdded = false;
+            document.body.style.overflow = 'hidden';
+        },
+        closeDetail(){
+            this.detailOpen = false;
+            if (!this.galleryOpen && !this.lightboxOpen) document.body.style.overflow = '';
+        },
+        downloadIcs(){
+            if (!this.detailEv || this.icsAdded) return;
+            const ev = this.detailEv, month = this.detailMonth;
+            const mi = this.months.indexOf(month);
+            const pad = n => String(n).padStart(2, '0');
+            const start = '2026' + pad(mi + 1) + pad(ev.d);
+            const end = new Date(2026, mi, ev.d + 1);
+            const endStr = end.getFullYear() + pad(end.getMonth() + 1) + pad(end.getDate());
+            const name = this.clean(ev.name);
+            const loc = this.clean(this.detailWhere);
+            const ics = [
+                'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Sv. Filip i Jakov//Events//EN', 'CALSCALE:GREGORIAN',
+                'BEGIN:VEVENT',
+                'UID:svfj-' + month + '-' + ev.d + '@svfilipjakov.hr',
+                'DTSTART;VALUE=DATE:' + start,
+                'DTEND;VALUE=DATE:' + endStr,
+                'SUMMARY:' + name,
+                'LOCATION:' + (loc ? loc + '\\, ' : '') + 'Sveti Filip i Jakov',
+                'DESCRIPTION:' + this.clean(ev.sub).replace(/·/g, '-'),
+                'END:VEVENT', 'END:VCALENDAR'
+            ].join('\r\n');
+            const blob = new Blob([ics], { type: 'text/calendar' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name.replace(/[^\w]+/g, '-').toLowerCase().replace(/^-|-$/g, '') + '.ics';
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1500);
+            this.icsAdded = true;
+        },
+        shareEvent(){
+            if (!this.detailEv) return;
+            const ev = this.detailEv, month = this.detailMonth;
+            const name = this.clean(ev.name), sub = this.clean(ev.sub);
+            const data = { title: name, text: name + ' — ' + this.full[month] + ' ' + ev.d + ', 2026 in Sveti Filip i Jakov. ' + sub, url: location.href };
+            if (navigator.share) {
+                navigator.share(data).catch(() => {});
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(data.text + ' — ' + data.url).then(() => {
+                    this.shareCopied = true;
+                    setTimeout(() => { this.shareCopied = false; }, 1800);
+                }).catch(() => {});
+            }
+        },
+
+        /* ---------- gallery ---------- */
+        galleryOpen: false,
+        activeGalleryKey: '',
+        galleries: {
+            culture: {
+                title: 'Cultural & religious events',
+                eyebrow: 'Folklore · processions · klapa',
+                shots: [
+                    ['images/webp/heritage-folklore.webp', 'KUD folklore ensemble on the riva'],
+                    ['images/webp/heritage-concert.webp', 'Klapa night in the Borelli garden'],
+                    ['images/webp/old-town-walks.webp', 'Lantern walk through the old town'],
+                    ['images/webp/heritage.webp', 'Parish church · feast of Vela Gospa'],
+                    ['images/webp/town.webp', 'Maškare carnival parade'],
+                    ['images/webp/couples.webp', 'Easter procession at dusk'],
+                ],
+            },
+            sport: {
+                title: 'Sports events',
+                eyebrow: 'Bike · races · swimming school',
+                shots: [
+                    ['images/webp/yoga-sea.webp', 'Sunrise yoga on the promenade'],
+                    ['images/webp/marina.webp', 'Regatta morning at the marina'],
+                    ['images/webp/snorkelling-opt.webp', 'Summer swimming school'],
+                    ['images/webp/beaches.webp', 'Beach volleyball cup'],
+                    ['images/webp/pasman-island.webp', 'Babac island open-water swim'],
+                    ['images/webp/babac-islet.webp', 'Kayak crossing to the islet'],
+                    ['images/webp/turanj.webp', 'Riviera cycling day'],
+                    ['images/webp/nautika-marina.webp', 'Pašman cup · sailing regatta'],
+                ],
+            },
+            festivals: {
+                title: 'Local festivals & fairs',
+                eyebrow: 'Maraška Fest · Festival of Flowers',
+                shots: [
+                    ['images/webp/festival-flowers.webp', 'Festival of Flowers parade'],
+                    ['images/webp/event.webp', 'Maraška Fest on the riva'],
+                    ['images/webp/biograd.webp', 'Craft stalls along the harbour'],
+                    ['images/webp/zadar.webp', 'Wine night · Pašman whites'],
+                    ['images/webp/family.webp', 'Summer night market'],
+                    ['images/webp/sv-petar.webp', 'Lavender & saltpan fair'],
+                    ['images/webp/hero.webp', 'New Year on the square'],
+                ],
+            },
+        },
+        get activeGallery(){ return this.galleries[this.activeGalleryKey] || { title: '', eyebrow: '', shots: [] }; },
+        openGallery(key){
+            this.activeGalleryKey = key;
+            this.galleryOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        closeGallery(){
+            this.galleryOpen = false;
+            if (!this.lightboxOpen) document.body.style.overflow = '';
+        },
+
+        /* ---------- lightbox ---------- */
+        lightboxOpen: false,
+        lbIndex: 0,
+        get lbShot(){ return this.activeGallery.shots[this.lbIndex] || ['', '']; },
+        openLightbox(i){
+            const len = this.activeGallery.shots.length;
+            if (!len) return;
+            this.lbIndex = (i + len) % len;
+            this.lightboxOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        closeLightbox(){
+            this.lightboxOpen = false;
+            if (!this.galleryOpen) document.body.style.overflow = '';
+        },
+        lbNext(){ this.openLightbox(this.lbIndex + 1); },
+        lbPrev(){ this.openLightbox(this.lbIndex - 1); },
+
+        init(){
+            this.current = new Date().getMonth();
+        }
+    }));
+});
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</body>
+
+</html>
