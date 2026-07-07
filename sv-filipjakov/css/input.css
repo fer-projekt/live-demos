@@ -286,7 +286,7 @@
     .g-strip{
         @apply contents max-md:flex max-md:flex-row max-md:items-end max-md:gap-4 max-md:overflow-x-auto max-md:overflow-y-hidden max-md:-mx-5 max-md:px-5 max-md:pb-10 max-md:[scrollbar-width:none] max-md:[scroll-snap-type:x_proximity];
     }
-    .g-item{
+    .pc-item{
         @apply relative flex-none self-end aspect-[3/4] mb-[8vh] will-change-transform h-[var(--ch,clamp(380px,66vh,760px))];
         @apply max-md:h-auto max-md:w-[72vw] max-md:basis-[72vw] max-md:mb-0! max-md:transform-none! max-md:[scroll-snap-align:center];
         @apply motion-reduce:transform-none!;

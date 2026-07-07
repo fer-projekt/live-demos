@@ -349,7 +349,7 @@
 
 <section class="sect mood" id="discover" x-data="{}">
     <div class="max-w-[1600px] mx-auto px-4">
-        <div class="sect-head reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+        <div class="sect-head">
             <div>
                 <span class="eyebrow">Welcome</span>
                 <h2 class="heading-2">How will you<br /><span class="heading-2__accent_black">travel</span> this time?</h2>
@@ -360,8 +360,8 @@
             </p>
         </div>
 
-        <div class="mood-grid reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
-            <a class="rate-card" data-tags="family" data-color="green" href="#">
+        <div class="mood-grid is-in">
+            <a class="mood-card" data-tags="family" data-color="green" href="#">
                 <div class="img" style="background-image:url('images/webp/family.webp')"></div>
                 <span class="tag">FAMILIES</span>
                 <div class="meta">
@@ -372,7 +372,7 @@
                     <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></div>
                 </div>
             </a>
-            <a class="rate-card" data-tags="couples" data-color="orange" href="#">
+            <a class="mood-card" data-tags="couples" data-color="orange" href="#">
                 <div class="img" style="background-image:url('images/webp/couples.webp')"></div>
                 <span class="tag">COUPLES</span>
                 <div class="meta">
@@ -383,7 +383,7 @@
                     <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></div>
                 </div>
             </a>
-            <a class="rate-card" data-tags="nomads" data-color="pink" href="#">
+            <a class="mood-card" data-tags="nomads" data-color="pink" href="#">
                 <div class="img" style="background-image:url('images/webp/marina.webp')"></div>
                 <span class="tag">NOMADS</span>
                 <div class="meta">
@@ -394,7 +394,7 @@
                     <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></div>
                 </div>
             </a>
-            <a class="rate-card" data-tags="adventure" data-color="green" href="#">
+            <a class="mood-card" data-tags="adventure" data-color="green" href="#">
                 <div class="img" style="background-image:url('images/webp/town.webp')"></div>
                 <span class="tag">ADVENTURE</span>
                 <div class="meta">
@@ -1096,7 +1096,7 @@
         track.style.transform = 'translate3d(' + this.curX.toFixed(2) + 'px,0,0)';
         const vw = window.innerWidth;
         const cx = vw / 2;
-        track.querySelectorAll('.g-item').forEach((it) => {
+        track.querySelectorAll('.pc-item').forEach((it) => {
             const r = it.getBoundingClientRect();
             const center = r.left + r.width / 2;
             const speed = parseFloat(it.dataset.speed) || 0.15;
@@ -1154,7 +1154,7 @@
 
             <div class="g-strip">
 
-                <figure class="g-item [--ch:74vh]" data-speed="0.05">
+                <figure class="pc-item [--ch:74vh]" data-speed="0.05">
                     <span class="g-media has-video is-playing">
                         <video class="g-video" autoplay muted loop playsinline preload="auto" poster="images/webp/hero.webp">
                             <source src="videos/riva-golden-new.mp4" type="video/mp4" />
@@ -1166,7 +1166,7 @@
                     </button>
                 </figure>
 
-                <figure class="g-item [--ch:74vh]" data-speed="0.04">
+                <figure class="pc-item [--ch:74vh]" data-speed="0.04">
                     <span class="g-media has-video is-playing">
                         <video class="g-video" autoplay muted loop playsinline preload="auto" poster="images/webp/marina.webp">
                             <source src="videos/nautika-marina.mp4" type="video/mp4" />
@@ -1178,7 +1178,7 @@
                     </button>
                 </figure>
 
-                <figure class="g-item [--ch:74vh]" data-speed="0.04">
+                <figure class="pc-item [--ch:74vh]" data-speed="0.04">
                     <span class="g-media has-video is-playing">
                         <video class="g-video" autoplay muted loop playsinline preload="auto" poster="images/webp/pasman-island.webp">
                             <source src="videos/postcard-pasman.mp4" type="video/mp4" />
@@ -1190,7 +1190,7 @@
                     </button>
                 </figure>
 
-                <figure class="g-item [--ch:74vh]" data-speed="0.09">
+                <figure class="pc-item [--ch:74vh]" data-speed="0.09">
                     <span class="g-media has-video is-playing">
                         <video class="g-video" autoplay muted loop playsinline preload="auto" poster="images/webp/beaches.webp">
                             <source src="videos/postcard-beaches.mp4" type="video/mp4" />
@@ -1202,7 +1202,7 @@
                     </button>
                 </figure>
 
-                <figure class="g-item [--ch:74vh]" data-speed="0.06">
+                <figure class="pc-item [--ch:74vh]" data-speed="0.06">
                     <span class="g-media has-video is-playing">
                         <video class="g-video" autoplay muted loop playsinline preload="auto" poster="images/webp/town.webp">
                             <source src="videos/postcard-town.mp4" type="video/mp4" />
@@ -1214,7 +1214,7 @@
                     </button>
                 </figure>
 
-                <figure class="g-item [--ch:74vh]" data-speed="0.085">
+                <figure class="pc-item [--ch:74vh]" data-speed="0.085">
                     <span class="g-media has-video is-playing">
                         <video class="g-video" autoplay muted loop playsinline preload="auto" poster="images/webp/family.webp">
                             <source src="videos/postcard-kids.mp4" type="video/mp4" />
