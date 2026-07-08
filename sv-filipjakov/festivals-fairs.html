@@ -4,7 +4,7 @@
 
   	<meta charset="UTF-8">
 
-  	<title>Explore | Sveti Filip i Jakov</title>
+  	<title>Lokalni festivali i sajmovi | Sveti Filip i Jakov</title>
 
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -285,257 +285,263 @@
 </header>
 
 <header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
-    <div class="bg overflow-hidden">
-        <video autoplay muted loop playsinline poster="images/webp/hero/hero.webp" class="absolute inset-0 w-full h-full object-cover">
-            <source src="videos/riva-golden-new.mp4" type="video/mp4" />
-        </video>
-    </div>
+    <picture class="bg bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture>
     <div class="page-head-inner">
         <nav class="crumb">
             <a href="index.html">Home</a>
             <span class="sep"></span>
-            <span>Explore</span>
+            <span>Lokalni festivali i sajmovi</span>
         </nav>
-        <h1>A channel, an island,<br />and <em>endless</em> light.</h1>
+        <h1>Lokalni festivali <em>i sajmovi</em>.</h1>
         <p class="ph-lede">
-            Four ways into one small town on the Pašman Channel — its landscape, its living
-            heritage, its even-tempered climate, and a gallery of it all. Scroll, swipe the rails,
-            and open the lens.
+            Kroz godinu rivijera oživljava u festivalima, sajmovima i tematskim feštama koje
+            slave prirodu, tradiciju, kulturu, lokalne proizvode i zajedništvo.
         </p>
     </div>
 </header>
 
-<section class="page-sect explore-page">
+<div x-data="festivalsFairsPage()">
+
+<section class="page-sect place-page">
     <div class="max-w-[1600px] mx-auto px-4">
-        <div class="exp-blocks">
+        <div class="lead-grid">
+            <div>
+                <span class="eyebrow">Priroda, okus &amp; zajednica</span>
+                <h2>Sezona puna fešti.</h2>
+            </div>
+            <div class="lead-body">
+                <p><span class="drop">R</span>iviera Sveti Filip i Jakov tijekom godine oživljava kroz brojne festivale, sajmove i tematske manifestacije koje slave prirodu, tradiciju, kulturu, lokalne proizvode i zajedništvo.</p>
+                <p>Ova događanja nude posjetiteljima <b>jedinstvene doživljaje</b>, okupljanja i prilike za upoznavanje lokalnih običaja i proizvoda — od cvijeća i maraške do domaćih delicija i filma.</p>
+            </div>
+        </div>
 
-            <!-- 01 · Natural beauty & landscape — scroll rail -->
-            <section class="exp-block">
-                <div class="sect-head">
-                    <div>
-                        <h2 class="heading-2">Natural beauty<br />&amp; <em class="script-accent">landscape</em></h2>
-                    </div>
-                    <p class="lede">
-                        Sveti Filip i Jakov sits on a gentle arc of the Pašman Channel, where the mainland
-                        breaks into a scatter of green islets. Pebble coves give way to pine woods, the
-                        saltpans of Sv. Petar and lavender fields inland — a landscape built for slow
-                        mornings and long, gold evenings.
-                    </p>
-                </div>
-                <div class="exp-rail-wrap" x-data="{
-                    atStart: true, atEnd: false,
-                    update(){ const r = $refs.rail; const max = r.scrollWidth - r.clientWidth - 2; this.atStart = r.scrollLeft <= 2; this.atEnd = r.scrollLeft >= max; },
-                    step(){ const c = $refs.rail.querySelector('.exp-card'); const gap = parseFloat(getComputedStyle($refs.rail).gap) || 22; return c ? c.getBoundingClientRect().width + gap : $refs.rail.clientWidth * 0.8; }
-                }" x-init="$nextTick(() => update())">
-                    <div class="exp-rail" x-ref="rail" @scroll="update()" tabindex="0">
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture><div class="meta"><span class="lbl">14 min by road</span><span class="nm">Nautika marina</span></div></article>
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><div class="meta"><span class="lbl">5 min on foot</span><span class="nm">Town beaches</span></div></article>
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><div class="meta"><span class="lbl">Ferry · 35 min</span><span class="nm">Pašman island</span></div></article>
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="" /></picture><div class="meta"><span class="lbl">By boat · 20 min</span><span class="nm">Babac islet</span></div></article>
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><div class="meta"><span class="lbl">22 min by bike</span><span class="nm">Sv. Petar saltpans</span></div></article>
-                    </div>
-                    <div class="exp-rail-nav">
-                        <button type="button" class="rail-prev" :disabled="atStart" @click="$refs.rail.scrollBy({ left: -step(), behavior: 'smooth' })" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-                        <button type="button" class="rail-next" :disabled="atEnd" @click="$refs.rail.scrollBy({ left: step(), behavior: 'smooth' })" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 02 · Cultural & historical heritage — editorial mosaic -->
-            <section class="exp-block">
-                <div class="sect-head">
-                    <div>
-                        <h2 class="heading-2">Cultural &amp; historical <em class="script-accent">heritage</em></h2>
-                    </div>
-                    <p class="lede">
-                        First mentioned almost a thousand years ago, the town wears its history in stone —
-                        and keeps it alive. Local cultural-arts societies, the KUD-ovi, hold Dalmatian song,
-                        dance and costume at the centre of every feast, from klapa nights to the Vela Gospa
-                        procession.
-                    </p>
-                </div>
-                <div class="pl-cards">
-                    <a class="pl-card col8 tall" href="authentic-experiences.html">
-                        <picture class="img bg-cover"><img src="images/webp/heritage.webp" alt="" /></picture>
-                        <div class="body">
-                            <span class="dist">Baroque · first church 1059</span>
-                            <div class="nm">The parish church &amp; old town</div>
-                            <div class="ds">A thousand years of stone, worn smooth underfoot — lanes that end where the riva meets the sea.</div>
-                        </div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                    <a class="pl-card col4" href="events.html">
-                        <picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture>
-                        <div class="body"><span class="dist">KUD ensemble</span><div class="nm">Folklore on the riva</div></div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                    <a class="pl-card col4" href="events.html">
-                        <picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture>
-                        <div class="body"><span class="dist">A-cappella</span><div class="nm">Klapa nights</div></div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                    <a class="pl-card col4" href="places.html">
-                        <picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture>
-                        <div class="body"><span class="dist">16th century</span><div class="nm">Turanj watchtower</div></div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                    <a class="pl-card col4" href="authentic-experiences.html">
-                        <picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture>
-                        <div class="body"><span class="dist">Heritage walk</span><div class="nm">Old-town lanes</div></div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                </div>
-            </section>
-
-            <!-- 03 · Climate & geography — light panel + facts -->
-            <section class="exp-block">
-                <div class="exp-panel">
-                    <div class="sect-head">
-                        <div>
-                            <h2 class="heading-2">Climate &amp;<br /><em class="script-accent">geography</em></h2>
-                        </div>
-                        <p class="lede">
-                            The Mediterranean at its most even-tempered: hot, dry summers cooled by the
-                            afternoon <em>maestral</em>, mild green winters, and a channel that stays calm
-                            and shallow. Set midway between Zadar and Biograd and sheltered by the island of
-                            Pašman — which is exactly why the sailing, swimming and sunsets are so kind.
-                        </p>
-                    </div>
-                    <div class="exp-facts">
-                        <div><span class="v">~2,600</span><span class="l">hours of sun a year</span></div>
-                        <div><span class="v">30°C</span><span class="l">average July high</span></div>
-                        <div><span class="v">26°C</span><span class="l">sea warmth in August</span></div>
-                        <div><span class="v">6</span><span class="l">month bathing season · May–Oct</span></div>
-                    </div>
-                    <div class="exp-rail-wrap" x-data="{
-                        atStart: true, atEnd: false,
-                        update(){ const r = $refs.rail; const max = r.scrollWidth - r.clientWidth - 2; this.atStart = r.scrollLeft <= 2; this.atEnd = r.scrollLeft >= max; },
-                        step(){ const c = $refs.rail.querySelector('.exp-card'); const gap = parseFloat(getComputedStyle($refs.rail).gap) || 22; return c ? c.getBoundingClientRect().width + gap : $refs.rail.clientWidth * 0.8; }
-                    }" x-init="$nextTick(() => update())">
-                        <div class="exp-rail" x-ref="rail" @scroll="update()" tabindex="0">
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture><div class="meta"><span class="lbl">2,600 h of sun</span><span class="nm">Mornings at the marina</span></div></article>
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture><div class="meta"><span class="lbl">Maestral breeze</span><span class="nm">The riva at midday</span></div></article>
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><div class="meta"><span class="lbl">Calm &amp; shallow</span><span class="nm">The sheltered channel</span></div></article>
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><div class="meta"><span class="lbl">Mediterranean</span><span class="nm">Saltpans of Sv. Petar</span></div></article>
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><div class="meta"><span class="lbl">Warm into autumn</span><span class="nm">Blue-flag bays</span></div></article>
-                        </div>
-                        <div class="exp-rail-nav">
-                            <button type="button" class="rail-prev" :disabled="atStart" @click="$refs.rail.scrollBy({ left: -step(), behavior: 'smooth' })" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-                            <button type="button" class="rail-next" :disabled="atEnd" @click="$refs.rail.scrollBy({ left: step(), behavior: 'smooth' })" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 04 · Photo & video gallery — marquee into lightbox -->
-            <section class="exp-block" x-data="{
-                galleryOpen: false,
-                lightboxOpen: false,
-                lbIndex: 0,
-                shots: [
-                    ['images/webp/festival-flowers.webp', 'Festival of Flowers, June'],
-                    ['images/webp/beaches.webp', 'Blue-flag bay at midday'],
-                    ['images/webp/old-town-walks.webp', 'Stone lanes of the old town'],
-                    ['images/webp/pasman-island.webp', 'Across the Pašman Channel'],
-                    ['images/webp/marina.webp', 'Morning at the marina'],
-                    ['images/webp/heritage-folklore.webp', 'KUD folklore on the riva'],
-                    ['images/webp/yoga-sea.webp', 'Sunrise on the promenade'],
-                    ['images/webp/turanj.webp', 'The watchtower at Turanj'],
-                    ['images/webp/babac-islet.webp', 'Babac islet'],
-                    ['images/webp/sv-petar.webp', 'Saltpans at Sv. Petar'],
-                    ['images/webp/heritage-concert.webp', 'Klapa night, Borelli garden'],
-                    ['images/webp/biograd.webp', 'Harbour at Biograd'],
-                ],
-                openGallery(){ this.galleryOpen = true; document.body.style.overflow = 'hidden'; },
-                closeGallery(){ this.galleryOpen = false; if (!this.lightboxOpen) document.body.style.overflow = ''; },
-                get lbShot(){ return this.shots[this.lbIndex] || ['', '']; },
-                openLightbox(i){ const len = this.shots.length; if (!len) return; this.lbIndex = (i + len) % len; this.lightboxOpen = true; document.body.style.overflow = 'hidden'; },
-                closeLightbox(){ this.lightboxOpen = false; if (!this.galleryOpen) document.body.style.overflow = ''; },
-                lbNext(){ this.openLightbox(this.lbIndex + 1); },
-                lbPrev(){ this.openLightbox(this.lbIndex - 1); }
-            }">
-                <div class="sect-head">
-                    <div>
-                        <h2 class="heading-2">Photo &amp; video<br /><em class="script-accent">gallery</em></h2>
-                    </div>
-                    <p class="lede">
-                        Sometimes a place is best understood through a lens. Tap any frame to open the
-                        full collection — the festivals, the quiet coves, and the light at either end of
-                        the day.
-                    </p>
-                </div>
-                <div class="exp-marquee">
-                    <div class="exp-mq-row">
-                        <div class="exp-mq-track">
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture><span class="cap"><span class="lbl">June</span><span class="nm">Festival of Flowers</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="cap"><span class="lbl">Short film</span><span class="nm">Blue-flag bays</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture><span class="cap"><span class="lbl">Heritage</span><span class="nm">Stone lanes</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture><span class="cap"><span class="lbl">Sunrise</span><span class="nm">On the promenade</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture><span class="cap"><span class="lbl">Morning</span><span class="nm">At the marina</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture><span class="cap"><span class="lbl">KUD ensemble</span><span class="nm">Folklore on the riva</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture><span class="cap"><span class="lbl">June</span><span class="nm">Festival of Flowers</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="cap"><span class="lbl">Short film</span><span class="nm">Blue-flag bays</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture><span class="cap"><span class="lbl">Heritage</span><span class="nm">Stone lanes</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture><span class="cap"><span class="lbl">Sunrise</span><span class="nm">On the promenade</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture><span class="cap"><span class="lbl">Morning</span><span class="nm">At the marina</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture><span class="cap"><span class="lbl">KUD ensemble</span><span class="nm">Folklore on the riva</span></span></button>
-                        </div>
-                    </div>
-                    <div class="exp-mq-row">
-                        <div class="exp-mq-track r2">
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><span class="cap"><span class="lbl">The channel</span><span class="nm">Across to Pašman</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture><span class="cap"><span class="lbl">Hinterland</span><span class="nm">The watchtower</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="" /></picture><span class="cap"><span class="lbl">Uninhabited</span><span class="nm">Babac islet</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><span class="cap"><span class="lbl">Mediterranean</span><span class="nm">Saltpans of Sv. Petar</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture><span class="cap"><span class="lbl">Borelli garden</span><span class="nm">Klapa night</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/biograd.webp" alt="" /></picture><span class="cap"><span class="lbl">Day trip</span><span class="nm">Harbour at Biograd</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><span class="cap"><span class="lbl">The channel</span><span class="nm">Across to Pašman</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture><span class="cap"><span class="lbl">Hinterland</span><span class="nm">The watchtower</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="" /></picture><span class="cap"><span class="lbl">Uninhabited</span><span class="nm">Babac islet</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><span class="cap"><span class="lbl">Mediterranean</span><span class="nm">Saltpans of Sv. Petar</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture><span class="cap"><span class="lbl">Borelli garden</span><span class="nm">Klapa night</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/biograd.webp" alt="" /></picture><span class="cap"><span class="lbl">Day trip</span><span class="nm">Harbour at Biograd</span></span></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- gallery overlay -->
-                <div class="gallery-overlay" :class="{ open: galleryOpen }" :aria-hidden="!galleryOpen" role="dialog" aria-modal="true" aria-label="Photo gallery">
-                    <div class="gallery-bar">
-                        <div class="gallery-bar-title">
-                            <span class="eyebrow">Explore</span>
-                            <h3>Photo &amp; video</h3>
-                        </div>
-                        <span class="gallery-count" x-text="shots.length + ' photos'"></span>
-                        <button type="button" class="gallery-close" @click="closeGallery()" aria-label="Close gallery">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-                        </button>
-                    </div>
-                    <div class="gallery-grid">
-                        <template x-for="(shot, i) in shots" :key="i">
-                            <button type="button" class="g-item" @click="openLightbox(i)" aria-label="Open photo">
-                                <picture class="bg-cover"><img :src="shot[0]" :alt="shot[1]" /></picture>
-                                <span class="g-cap" x-text="shot[1]"></span>
-                            </button>
-                        </template>
-                    </div>
-                </div>
-
-                <!-- single-photo lightbox -->
-                <div class="lightbox" :class="{ open: lightboxOpen }" :aria-hidden="!lightboxOpen" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) closeLightbox()" @keydown.escape.window="if (lightboxOpen) closeLightbox()" @keydown.arrow-left.window="if (lightboxOpen) lbPrev()" @keydown.arrow-right.window="if (lightboxOpen) lbNext()">
-                    <button type="button" class="lb-close" @click="closeLightbox()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-                    <button type="button" class="lb-nav prev" @click="lbPrev()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-                    <figure class="lb-stage">
-                        <img :src="lbShot[0]" :alt="lbShot[1]" />
-                        <figcaption x-text="lbShot[1]"></figcaption>
-                    </figure>
-                    <button type="button" class="lb-nav next" @click="lbNext()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-                </div>
-            </section>
-
+        <div class="place-facts">
+            <div class="f"><div class="fv">Festival cvijeća</div><div class="fl">Posljednji vikend travnja</div></div>
+            <div class="f"><div class="fv">Sajam OPG-ova</div><div class="fl">Ljeto na rivi</div></div>
+            <div class="f"><div class="fv">FJAKA Film Fest</div><div class="fl">Horor &amp; dark fantasy</div></div>
+            <div class="f"><div class="fv">Maraška Fest</div><div class="fl">Fešta od maraške</div></div>
         </div>
     </div>
 </section>
+
+<section class="page-sect story">
+    <div class="max-w-[1600px] mx-auto px-4">
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">01</span><span class="eyebrow">Travanj · Dani županije</span></div>
+                <h2>Festival cvijeća Zadarske županije</h2>
+                <p>Jedna od najprepoznatljivijih manifestacija u destinaciji. Održava se tradicionalno <b>posljednjeg vikenda u travnju</b> u centru Svetog Filipa i Jakova, u sklopu šire manifestacije „Dani županije”.</p>
+                <p>Okuplja velik broj izlagača i proizvođača cvijeća iz Hrvatske i inozemstva: izložbe cvijeća i sadnica, natjecanja aranžera, modne revije, prezentacije starih običaja i eko-radionice. Suradnja s projektom <b>„Spiza od cvića”</b> donosi spoj cvijeća i gastronomije.</p>
+                <a class="go" href="events-calendar.html">Pogledaj kalendar festivala <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture>
+                <div class="cap">Festival cvijeća u centru mjesta</div>
+            </div>
+        </div>
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">02</span><span class="eyebrow">Ljeto na rivi</span></div>
+                <h2>Sajam domaćih hrvatskih proizvoda</h2>
+                <p>U srcu ljetne sezone, na rivi Svetog Filipa i Jakova tijekom nekoliko tjedana održava se sajam domaćih hrvatskih proizvoda. Na štandovima lokalnih <b>OPG-ova</b>, proizvođača i obrtnika iz Zadarske županije i šire regije prezentiraju se prehrambeni proizvodi, rukotvorine i suveniri.</p>
+                <p>Od <b>meda, maslinovog ulja i sireva</b> do rakija, suvenira i autentičnih ambijentalnih proizvoda — sajam je mjesto susreta lokalnih proizvođača s posjetiteljima i promocije autohtonih proizvoda i tradicije.</p>
+                <div class="story-tags"><span>OPG-ovi</span><span>Med · ulje · sir</span><span>Rukotvorine</span></div>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/olive-harvest.webp" alt="" /></picture>
+                <div class="cap">Domaći proizvodi na štandovima uz more</div>
+            </div>
+        </div>
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">03</span><span class="eyebrow">Film</span></div>
+                <h2>FJAKA Film Festival</h2>
+                <p>Poseban filmski događaj koji se održava u Svetom Filipu i Jakovu, fokusiran na <b>horor i dark fantasy</b> žanr.</p>
+                <p>Festival prikazuje domaće i međunarodne horor filmove, uključuje retrospektive kultnih naslova, radionice i popratne sadržaje, te okuplja ljubitelje žanra iz čitave regije.</p>
+                <div class="story-tags"><span>Horor</span><span>Dark fantasy</span><span>Retrospektive</span></div>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/fjaka.webp" alt="" /></picture>
+                <div class="cap">FJAKA Film Festival — žanrovsko filmsko okupljanje</div>
+            </div>
+        </div>
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">04</span><span class="eyebrow">Gastro tradicija</span></div>
+                <h2>Maraška Fest — Fešta od maraške</h2>
+                <p>Manifestacija koja slavi autohtoni plod dalmatinskog kraja — <b>marašku</b>. Održava se tijekom ljeta na rivijeri.</p>
+                <p>Kroz degustacije, prezentacije tradicionalnih recepata, glazbene nastupe i tematske večeri približava povijest i kulturu uzgoja ove karakteristične voćke te tradiciju <b>Ravnih kotara</b>.</p>
+                <div class="story-tags"><span>Maraška</span><span>Degustacije</span><span>Ravni kotari</span></div>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/couples.webp" alt="" /></picture>
+                <div class="cap">Fešta od maraške — okusi i tradicija kraja</div>
+            </div>
+        </div>
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">05</span><span class="eyebrow">Cijelu sezonu</span></div>
+                <h2>Manje fešte i etno događanja</h2>
+                <p>Osim istaknutih festivala, rivijera nudi i niz manjih lokalnih sajmova, fešti i etno događanja tijekom cijele sezone — od <b>ribarskih večeri</b> i <b>klapskih susreta</b> do dječjih radionica i prezentacija lokalnih proizvoda.</p>
+                <p>Uz cvijeće, film, marašku i domaće proizvode, ovi događaji čine kulturnu i društvenu ponudu destinacije raznolikom i dostupnom svim posjetiteljima.</p>
+                <div class="story-tags"><span>Ribarske večeri</span><span>Klapski susreti</span><span>Dječje radionice</span></div>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture>
+                <div class="cap">Ljetne fešte i etno večeri uz obalu</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="page-sect bg-cream-2">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="group-head">
+            <div>
+                <span class="eyebrow">Kroz godinu</span>
+                <h2>Festivali koji slave kraj.</h2>
+            </div>
+            <p class="lede [text-wrap:pretty]">Od proljetnog cvijeća do ljetnih sajmova, filma i maraške — kalendar fešti koji spajaju prirodu, okus i zajednicu.</p>
+        </div>
+        <div class="mani-grid">
+            <div class="mani-card"><span class="mk">Travanj</span><h3>Festival cvijeća Zadarske županije</h3><p>Izlagači, aranžeri, modne revije i „Spiza od cvića” u sklopu Dana županije.</p><span class="where">Centar · Sv. Filip i Jakov</span></div>
+            <div class="mani-card"><span class="mk">Ljeto</span><h3>Sajam domaćih proizvoda</h3><p>OPG-ovi i obrtnici — med, ulje, sir, rakije, suveniri i rukotvorine.</p><span class="where">Riva · Sv. Filip i Jakov</span></div>
+            <div class="mani-card"><span class="mk">Film</span><h3>FJAKA Film Festival</h3><p>Horor i dark fantasy, retrospektive kultnih naslova i radionice.</p><span class="where">Sv. Filip i Jakov</span></div>
+            <div class="mani-card"><span class="mk">Ljeto</span><h3>Maraška Fest — Fešta od maraške</h3><p>Degustacije, tradicionalni recepti i tematske večeri o maraški.</p><span class="where">Rivijera · Ravni kotari</span></div>
+            <div class="mani-card"><span class="mk">Sezona</span><h3>Ribarske večeri &amp; klapski susreti</h3><p>Manje fešte uz more s domaćom hranom i glazbom.</p><span class="where">Rivijera</span></div>
+            <div class="mani-card"><span class="mk">Za obitelji</span><h3>Etno večeri i dječje radionice</h3><p>Prezentacije lokalnih proizvoda i običaja za sve generacije.</p><span class="where">Rivijera</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="page-sect galleries">
+    <div class="max-w-[1600px] mx-auto px-4">
+
+        <div class="gal-sect">
+            <div class="gal-head">
+                <div>
+                    <span class="eyebrow">Kroz protekle sezone</span>
+                    <h2>Festival cvijeća</h2>
+                </div>
+                <button class="gal-open" type="button" @click="openGallery('cvijece')">Otvori galeriju
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+            <div class="gal-grid">
+                <button class="gal-shot big" type="button" @click="openGallery('cvijece')"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('cvijece')"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('cvijece')"><picture class="img bg-cover"><img src="images/webp/event.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('cvijece')"><picture class="img bg-cover"><img src="images/webp/couples.webp" alt="" /></picture></button>
+                <button class="gal-shot more-shot" type="button" data-more="+24" @click="openGallery('cvijece')"><picture class="img bg-cover"><img src="images/webp/family.webp" alt="" /></picture></button>
+            </div>
+        </div>
+
+        <div class="gal-sect">
+            <div class="gal-head">
+                <div>
+                    <span class="eyebrow">OPG-ovi i rukotvorine</span>
+                    <h2>Sajmovi i domaći proizvodi</h2>
+                </div>
+                <button class="gal-open" type="button" @click="openGallery('sajam')">Otvori galeriju
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+            <div class="gal-grid">
+                <button class="gal-shot big" type="button" @click="openGallery('sajam')"><picture class="img bg-cover"><img src="images/webp/olive-harvest.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('sajam')"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('sajam')"><picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('sajam')"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture></button>
+                <button class="gal-shot more-shot" type="button" data-more="+14" @click="openGallery('sajam')"><picture class="img bg-cover"><img src="images/webp/couples.webp" alt="" /></picture></button>
+            </div>
+        </div>
+
+        <div class="gal-sect">
+            <div class="gal-head">
+                <div>
+                    <span class="eyebrow">FJAKA · maraška · etno</span>
+                    <h2>Film i ljetne večeri</h2>
+                </div>
+                <button class="gal-open" type="button" @click="openGallery('film')">Otvori galeriju
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+            <div class="gal-grid">
+                <button class="gal-shot big" type="button" @click="openGallery('film')"><picture class="img bg-cover"><img src="images/webp/fjaka.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('film')"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('film')"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture></button>
+                <button class="gal-shot" type="button" @click="openGallery('film')"><picture class="img bg-cover"><img src="images/webp/couples.webp" alt="" /></picture></button>
+                <button class="gal-shot more-shot" type="button" data-more="+11" @click="openGallery('film')"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="page-sect stay-help">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="stay-help-inner">
+            <div>
+                <span class="eyebrow">Isplaniraj posjet</span>
+                <h2>Uhvati pravu<br />feštu sezone.</h2>
+                <p>Od proljetnog Festivala cvijeća do ljetnih sajmova, maraške i filma — provjeri kad se što događa i uklopi feštu u svoj boravak na rivijeri.</p>
+                <a href="events-calendar.html" class="btn">Pogledaj kalendar <span class="arr"></span></a>
+            </div>
+            <div class="help-points">
+                <div class="help-point">
+                    <span class="n">~</span>
+                    <div><h4>Proljeće u cvijeću</h4><p>Festival cvijeća posljednjeg vikenda u travnju, u sklopu Dana županije.</p></div>
+                </div>
+                <div class="help-point">
+                    <span class="n">~</span>
+                    <div><h4>Okusi kraja</h4><p>Sajmovi OPG-ova i Maraška Fest slave domaće proizvode i tradiciju.</p></div>
+                </div>
+                <div class="help-point">
+                    <span class="n">~</span>
+                    <div><h4>Za sve generacije</h4><p>Film, glazba, etno večeri i dječje radionice tijekom cijele sezone.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="gallery-overlay" :class="{ open: galleryOpen }" :aria-hidden="!galleryOpen" role="dialog" aria-modal="true" aria-label="Photo gallery">
+    <div class="gallery-bar">
+        <div class="gallery-bar-title">
+            <span class="eyebrow" x-text="activeGallery.eyebrow"></span>
+            <h3 x-text="activeGallery.title"></h3>
+        </div>
+        <span class="gallery-count" x-text="activeGallery.shots.length + ' fotografija'"></span>
+        <button type="button" class="gallery-close" @click="closeGallery()" aria-label="Close gallery">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+    </div>
+    <div class="gallery-grid">
+        <template x-for="(shot, i) in activeGallery.shots" :key="activeGalleryKey + '-' + i">
+            <button type="button" class="g-item" @click="openLightbox(i)" aria-label="Open photo">
+                <img :src="shot[0]" :alt="shot[1]" />
+                <span class="g-cap" x-text="shot[1]"></span>
+            </button>
+        </template>
+    </div>
+</div>
+
+<div class="lightbox" :class="{ open: lightboxOpen }" :aria-hidden="!lightboxOpen" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) closeLightbox()" @keydown.escape.window="if (lightboxOpen) closeLightbox()" @keydown.arrow-left.window="if (lightboxOpen) lbPrev()" @keydown.arrow-right.window="if (lightboxOpen) lbNext()">
+    <button type="button" class="lb-close" @click="closeLightbox()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button type="button" class="lb-nav prev" @click="lbPrev()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <figure class="lb-stage">
+        <img :src="lbShot[0]" :alt="lbShot[1]" />
+        <figcaption x-text="lbShot[1]"></figcaption>
+    </figure>
+    <button type="button" class="lb-nav next" @click="lbNext()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+
+</div>
 
 <footer id="plan" class="bg-cream text-black pt-18 md:pt-25 pb-18 lg:pb-24">
     <div class="max-w-[1600px] mx-auto px-4">
@@ -702,7 +708,7 @@
                 <textarea class="feedback-textarea" placeholder="Write your message…" required></textarea>
                 <label class="feedback-upload">
                     <input type="file" accept="image/*,video/*" class="sr-only" @change="fileName = $event.target.files[0]?.name || ''">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/></svg>
                     <span x-text="fileName || 'Attach a photo or video (optional)'"></span>
                 </label>
                 <button type="submit" class="feedback-submit">Send</button>
@@ -710,6 +716,77 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('festivalsFairsPage', () => ({
+        galleryOpen: false,
+        activeGalleryKey: '',
+        galleries: {
+            cvijece: {
+                title: 'Festival cvijeća',
+                eyebrow: 'Kroz protekle sezone',
+                shots: [
+                    ['images/webp/festival-flowers.webp', 'Cvijeće u centru mjesta'],
+                    ['images/webp/town.webp',              'Štandovi i posjetitelji na rivi'],
+                    ['images/webp/event.webp',             'Program na glavnom trgu'],
+                    ['images/webp/couples.webp',           'Proljetna večer festivala'],
+                    ['images/webp/family.webp',            'Program za sve generacije'],
+                ],
+            },
+            sajam: {
+                title: 'Sajmovi i domaći proizvodi',
+                eyebrow: 'OPG-ovi i rukotvorine',
+                shots: [
+                    ['images/webp/olive-harvest.webp', 'Maslinovo ulje i domaći proizvodi'],
+                    ['images/webp/town.webp',           'Štandovi uz more'],
+                    ['images/webp/turanj.webp',         'Rukotvorine i suveniri'],
+                    ['images/webp/sv-petar.webp',       'Delicije lokalnih proizvođača'],
+                    ['images/webp/couples.webp',        'Susret proizvođača i gostiju'],
+                ],
+            },
+            film: {
+                title: 'Film i ljetne večeri',
+                eyebrow: 'FJAKA · maraška · etno',
+                shots: [
+                    ['images/webp/fjaka.webp',             'FJAKA Film Festival'],
+                    ['images/webp/heritage-folklore.webp', 'Etno večer uz obalu'],
+                    ['images/webp/heritage-concert.webp',  'Glazbeni program festivala'],
+                    ['images/webp/couples.webp',           'Ljetna večer na rivijeri'],
+                    ['images/webp/town.webp',              'Fešta u srcu mjesta'],
+                ],
+            },
+        },
+        get activeGallery(){ return this.galleries[this.activeGalleryKey] || { title: '', eyebrow: '', shots: [] }; },
+        openGallery(key){
+            this.activeGalleryKey = key;
+            this.galleryOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        closeGallery(){
+            this.galleryOpen = false;
+            if (!this.lightboxOpen) document.body.style.overflow = '';
+        },
+
+        lightboxOpen: false,
+        lbIndex: 0,
+        get lbShot(){ return this.activeGallery.shots[this.lbIndex] || ['', '']; },
+        openLightbox(i){
+            const len = this.activeGallery.shots.length;
+            if (!len) return;
+            this.lbIndex = (i + len) % len;
+            this.lightboxOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        closeLightbox(){
+            this.lightboxOpen = false;
+            if (!this.galleryOpen) document.body.style.overflow = '';
+        },
+        lbNext(){ this.openLightbox(this.lbIndex + 1); },
+        lbPrev(){ this.openLightbox(this.lbIndex - 1); },
+    }));
+});
+</script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

@@ -4,7 +4,7 @@
 
   	<meta charset="UTF-8">
 
-  	<title>Explore | Sveti Filip i Jakov</title>
+  	<title>Parking, marina i punionice za e-vozila | Sveti Filip i Jakov</title>
 
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -285,255 +285,303 @@
 </header>
 
 <header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
-    <div class="bg overflow-hidden">
-        <video autoplay muted loop playsinline poster="images/webp/hero/hero.webp" class="absolute inset-0 w-full h-full object-cover">
-            <source src="videos/riva-golden-new.mp4" type="video/mp4" />
-        </video>
-    </div>
+    <picture class="bg bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture>
     <div class="page-head-inner">
         <nav class="crumb">
             <a href="index.html">Home</a>
             <span class="sep"></span>
-            <span>Explore</span>
+            <span>Parking, marina i punionice</span>
         </nav>
-        <h1>A channel, an island,<br />and <em>endless</em> light.</h1>
+        <h1>Parking, marina <em>&amp;</em> e-punionice.</h1>
         <p class="ph-lede">
-            Four ways into one small town on the Pašman Channel — its landscape, its living
-            heritage, its even-tempered climate, and a gallery of it all. Scroll, swipe the rails,
-            and open the lens.
+            Sve što vam treba za bezbrižan dolazak i boravak — siguran vez u marini,
+            jasno označene parkirališne zone i mreža punionica za električna vozila,
+            na jednom mjestu i na karti.
         </p>
     </div>
 </header>
 
-<section class="page-sect explore-page">
+<nav class="pm-nav">
+    <div class="max-w-[1600px] mx-auto px-4 pm-nav-inner">
+        <a class="pm-chip marina" href="#marina"><span class="dot"></span>Marina</a>
+        <a class="pm-chip parking" href="#parking"><span class="dot"></span>Parkirališta</a>
+        <a class="pm-chip ev" href="#ev"><span class="dot"></span>E-punionice</a>
+        <a class="pm-chip map" href="#karta"><span class="dot"></span>Karta lokacija</a>
+    </div>
+</nav>
+
+<section class="page-sect rubric c-marina pmv-page" id="marina" x-data="{}">
     <div class="max-w-[1600px] mx-auto px-4">
-        <div class="exp-blocks">
+            <div class="rubric-head reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <span class="rubric-num">01</span>
+                <div>
+                    <span class="eyebrow">Nautika · vez</span>
+                    <h2>Molum Marine Club</h2>
+                    <p class="lede">Smješten u samom srcu mjesta, uz Obalu kralja Tomislava, Molum Marine Club moderna je i sigurna luka za nautičare koji traže visoku razinu usluge, sigurnosti i osobnog pristupa.</p>
+                </div>
+            </div>
 
-            <!-- 01 · Natural beauty & landscape — scroll rail -->
-            <section class="exp-block">
-                <div class="sect-head">
-                    <div>
-                        <h2 class="heading-2">Natural beauty<br />&amp; <em class="script-accent">landscape</em></h2>
-                    </div>
-                    <p class="lede">
-                        Sveti Filip i Jakov sits on a gentle arc of the Pašman Channel, where the mainland
-                        breaks into a scatter of green islets. Pebble coves give way to pine woods, the
-                        saltpans of Sv. Petar and lavender fields inland — a landscape built for slow
-                        mornings and long, gold evenings.
-                    </p>
+            <div class="marina-grid reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="marina-photo">
+                    <picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
+                    <div class="cap">Molum Marine Club — vez u srcu Svetog Filipa i Jakova</div>
                 </div>
-                <div class="exp-rail-wrap" x-data="{
-                    atStart: true, atEnd: false,
-                    update(){ const r = $refs.rail; const max = r.scrollWidth - r.clientWidth - 2; this.atStart = r.scrollLeft <= 2; this.atEnd = r.scrollLeft >= max; },
-                    step(){ const c = $refs.rail.querySelector('.exp-card'); const gap = parseFloat(getComputedStyle($refs.rail).gap) || 22; return c ? c.getBoundingClientRect().width + gap : $refs.rail.clientWidth * 0.8; }
-                }" x-init="$nextTick(() => update())">
-                    <div class="exp-rail" x-ref="rail" @scroll="update()" tabindex="0">
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture><div class="meta"><span class="lbl">14 min by road</span><span class="nm">Nautika marina</span></div></article>
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><div class="meta"><span class="lbl">5 min on foot</span><span class="nm">Town beaches</span></div></article>
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><div class="meta"><span class="lbl">Ferry · 35 min</span><span class="nm">Pašman island</span></div></article>
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="" /></picture><div class="meta"><span class="lbl">By boat · 20 min</span><span class="nm">Babac islet</span></div></article>
-                        <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><div class="meta"><span class="lbl">22 min by bike</span><span class="nm">Sv. Petar saltpans</span></div></article>
-                    </div>
-                    <div class="exp-rail-nav">
-                        <button type="button" class="rail-prev" :disabled="atStart" @click="$refs.rail.scrollBy({ left: -step(), behavior: 'smooth' })" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-                        <button type="button" class="rail-next" :disabled="atEnd" @click="$refs.rail.scrollBy({ left: step(), behavior: 'smooth' })" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-                    </div>
+                <div class="info-card">
+                    <h3>Kontakt i osnovne informacije</h3>
+                    <p class="sub">Recepcija: pon–sub 08:00–16:00 · nedjelja zatvoreno</p>
+                    <div class="info-row"><div class="k">Adresa</div><div class="v">Obala kralja Tomislava bb,<br />23207 Sveti Filip i Jakov</div></div>
+                    <div class="info-row"><div class="k">GPS</div><div class="v">43°57′34.8″N / 15°25′19.8″E</div></div>
+                    <div class="info-row"><div class="k">VHF kanal</div><div class="v">17</div></div>
+                    <div class="info-row"><div class="k">Telefon</div><div class="v"><a href="tel:+385916116733">+385 91 611 67 33</a></div></div>
+                    <div class="info-row"><div class="k">Recepcija</div><div class="v"><a href="tel:+385916133332">+385 91 613 33 32</a></div></div>
+                    <div class="info-row"><div class="k">E-mail</div><div class="v"><a href="mailto:info-marina@molum.hr">info-marina@molum.hr</a></div></div>
                 </div>
-            </section>
+            </div>
 
-            <!-- 02 · Cultural & historical heritage — editorial mosaic -->
-            <section class="exp-block">
-                <div class="sect-head">
-                    <div>
-                        <h2 class="heading-2">Cultural &amp; historical <em class="script-accent">heritage</em></h2>
-                    </div>
-                    <p class="lede">
-                        First mentioned almost a thousand years ago, the town wears its history in stone —
-                        and keeps it alive. Local cultural-arts societies, the KUD-ovi, hold Dalmatian song,
-                        dance and costume at the centre of every feast, from klapa nights to the Vela Gospa
-                        procession.
-                    </p>
-                </div>
-                <div class="pl-cards">
-                    <a class="pl-card col8 tall" href="authentic-experiences.html">
-                        <picture class="img bg-cover"><img src="images/webp/heritage.webp" alt="" /></picture>
-                        <div class="body">
-                            <span class="dist">Baroque · first church 1059</span>
-                            <div class="nm">The parish church &amp; old town</div>
-                            <div class="ds">A thousand years of stone, worn smooth underfoot — lanes that end where the riva meets the sea.</div>
-                        </div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                    <a class="pl-card col4" href="events.html">
-                        <picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture>
-                        <div class="body"><span class="dist">KUD ensemble</span><div class="nm">Folklore on the riva</div></div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                    <a class="pl-card col4" href="events.html">
-                        <picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture>
-                        <div class="body"><span class="dist">A-cappella</span><div class="nm">Klapa nights</div></div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                    <a class="pl-card col4" href="places.html">
-                        <picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture>
-                        <div class="body"><span class="dist">16th century</span><div class="nm">Turanj watchtower</div></div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                    <a class="pl-card col4" href="authentic-experiences.html">
-                        <picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture>
-                        <div class="body"><span class="dist">Heritage walk</span><div class="nm">Old-town lanes</div></div>
-                        <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
-                    </a>
-                </div>
-            </section>
+            <div class="spec-strip reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="spec"><div class="sv">127</div><div class="sl">Sigurnih vezova u moru</div></div>
+                <div class="spec"><div class="sv">10–35 m</div><div class="sl">Duljina plovila</div></div>
+                <div class="spec"><div class="sv">2,5–8 m</div><div class="sl">Dubina mora u marini</div></div>
+                <div class="spec"><div class="sv">16–250 A</div><div class="sl">Priključci struje na gatu</div></div>
+            </div>
 
-            <!-- 03 · Climate & geography — light panel + facts -->
-            <section class="exp-block">
-                <div class="exp-panel">
-                    <div class="sect-head">
-                        <div>
-                            <h2 class="heading-2">Climate &amp;<br /><em class="script-accent">geography</em></h2>
-                        </div>
-                        <p class="lede">
-                            The Mediterranean at its most even-tempered: hot, dry summers cooled by the
-                            afternoon <em>maestral</em>, mild green winters, and a channel that stays calm
-                            and shallow. Set midway between Zadar and Biograd and sheltered by the island of
-                            Pašman — which is exactly why the sailing, swimming and sunsets are so kind.
-                        </p>
+            <div class="feat-list reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="feat">
+                    <div class="fh">
+                        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+                        <h4>24/7 nadzor</h4>
                     </div>
-                    <div class="exp-facts">
-                        <div><span class="v">~2,600</span><span class="l">hours of sun a year</span></div>
-                        <div><span class="v">30°C</span><span class="l">average July high</span></div>
-                        <div><span class="v">26°C</span><span class="l">sea warmth in August</span></div>
-                        <div><span class="v">6</span><span class="l">month bathing season · May–Oct</span></div>
-                    </div>
-                    <div class="exp-rail-wrap" x-data="{
-                        atStart: true, atEnd: false,
-                        update(){ const r = $refs.rail; const max = r.scrollWidth - r.clientWidth - 2; this.atStart = r.scrollLeft <= 2; this.atEnd = r.scrollLeft >= max; },
-                        step(){ const c = $refs.rail.querySelector('.exp-card'); const gap = parseFloat(getComputedStyle($refs.rail).gap) || 22; return c ? c.getBoundingClientRect().width + gap : $refs.rail.clientWidth * 0.8; }
-                    }" x-init="$nextTick(() => update())">
-                        <div class="exp-rail" x-ref="rail" @scroll="update()" tabindex="0">
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture><div class="meta"><span class="lbl">2,600 h of sun</span><span class="nm">Mornings at the marina</span></div></article>
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture><div class="meta"><span class="lbl">Maestral breeze</span><span class="nm">The riva at midday</span></div></article>
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><div class="meta"><span class="lbl">Calm &amp; shallow</span><span class="nm">The sheltered channel</span></div></article>
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><div class="meta"><span class="lbl">Mediterranean</span><span class="nm">Saltpans of Sv. Petar</span></div></article>
-                            <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><div class="meta"><span class="lbl">Warm into autumn</span><span class="nm">Blue-flag bays</span></div></article>
-                        </div>
-                        <div class="exp-rail-nav">
-                            <button type="button" class="rail-prev" :disabled="atStart" @click="$refs.rail.scrollBy({ left: -step(), behavior: 'smooth' })" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-                            <button type="button" class="rail-next" :disabled="atEnd" @click="$refs.rail.scrollBy({ left: step(), behavior: 'smooth' })" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-                        </div>
-                    </div>
+                    <p>Stalna mornarska služba, video nadzor i <b>Protective Boat Care</b> sustav brinu o plovilu dok ste odsutni.</p>
                 </div>
-            </section>
+                <div class="feat">
+                    <div class="fh">
+                        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></span>
+                        <h4>Struja i voda</h4>
+                    </div>
+                    <p>Priključci struje 16 A, 32 A, 64 A, 124 A i 250 A te priključak vode na svakom gatu.</p>
+                </div>
+                <div class="feat">
+                    <div class="fh">
+                        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+                        <h4>Osobni pristup</h4>
+                    </div>
+                    <p>Stručan i predan tim osigurava vrhunsku uslugu i individualan pristup svakom nautičaru.</p>
+                </div>
+            </div>
+    </div>
+</section>
 
-            <!-- 04 · Photo & video gallery — marquee into lightbox -->
-            <section class="exp-block" x-data="{
-                galleryOpen: false,
-                lightboxOpen: false,
-                lbIndex: 0,
-                shots: [
-                    ['images/webp/festival-flowers.webp', 'Festival of Flowers, June'],
-                    ['images/webp/beaches.webp', 'Blue-flag bay at midday'],
-                    ['images/webp/old-town-walks.webp', 'Stone lanes of the old town'],
-                    ['images/webp/pasman-island.webp', 'Across the Pašman Channel'],
-                    ['images/webp/marina.webp', 'Morning at the marina'],
-                    ['images/webp/heritage-folklore.webp', 'KUD folklore on the riva'],
-                    ['images/webp/yoga-sea.webp', 'Sunrise on the promenade'],
-                    ['images/webp/turanj.webp', 'The watchtower at Turanj'],
-                    ['images/webp/babac-islet.webp', 'Babac islet'],
-                    ['images/webp/sv-petar.webp', 'Saltpans at Sv. Petar'],
-                    ['images/webp/heritage-concert.webp', 'Klapa night, Borelli garden'],
-                    ['images/webp/biograd.webp', 'Harbour at Biograd'],
-                ],
-                openGallery(){ this.galleryOpen = true; document.body.style.overflow = 'hidden'; },
-                closeGallery(){ this.galleryOpen = false; if (!this.lightboxOpen) document.body.style.overflow = ''; },
-                get lbShot(){ return this.shots[this.lbIndex] || ['', '']; },
-                openLightbox(i){ const len = this.shots.length; if (!len) return; this.lbIndex = (i + len) % len; this.lightboxOpen = true; document.body.style.overflow = 'hidden'; },
-                closeLightbox(){ this.lightboxOpen = false; if (!this.galleryOpen) document.body.style.overflow = ''; },
-                lbNext(){ this.openLightbox(this.lbIndex + 1); },
-                lbPrev(){ this.openLightbox(this.lbIndex - 1); }
-            }">
-                <div class="sect-head">
-                    <div>
-                        <h2 class="heading-2">Photo &amp; video<br /><em class="script-accent">gallery</em></h2>
-                    </div>
-                    <p class="lede">
-                        Sometimes a place is best understood through a lens. Tap any frame to open the
-                        full collection — the festivals, the quiet coves, and the light at either end of
-                        the day.
-                    </p>
+<section class="page-sect rubric c-parking bg-cream-2 pmv-page" id="parking" x-data="{}">
+    <div class="max-w-[1600px] mx-auto px-4">
+            <div class="rubric-head reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <span class="rubric-num">02</span>
+                <div>
+                    <span class="eyebrow">Javna parkirališta</span>
+                    <h2>Parkiranje po zonama</h2>
+                    <p class="lede">Na području općine organiziran je sustav javnog parkiranja s označenim zonama. Naplata započinje <b>1. svibnja</b> i provodi se svakodnevno prema zonama.</p>
                 </div>
-                <div class="exp-marquee">
-                    <div class="exp-mq-row">
-                        <div class="exp-mq-track">
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture><span class="cap"><span class="lbl">June</span><span class="nm">Festival of Flowers</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="cap"><span class="lbl">Short film</span><span class="nm">Blue-flag bays</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture><span class="cap"><span class="lbl">Heritage</span><span class="nm">Stone lanes</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture><span class="cap"><span class="lbl">Sunrise</span><span class="nm">On the promenade</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture><span class="cap"><span class="lbl">Morning</span><span class="nm">At the marina</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture><span class="cap"><span class="lbl">KUD ensemble</span><span class="nm">Folklore on the riva</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture><span class="cap"><span class="lbl">June</span><span class="nm">Festival of Flowers</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="cap"><span class="lbl">Short film</span><span class="nm">Blue-flag bays</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture><span class="cap"><span class="lbl">Heritage</span><span class="nm">Stone lanes</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture><span class="cap"><span class="lbl">Sunrise</span><span class="nm">On the promenade</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture><span class="cap"><span class="lbl">Morning</span><span class="nm">At the marina</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture><span class="cap"><span class="lbl">KUD ensemble</span><span class="nm">Folklore on the riva</span></span></button>
-                        </div>
-                    </div>
-                    <div class="exp-mq-row">
-                        <div class="exp-mq-track r2">
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><span class="cap"><span class="lbl">The channel</span><span class="nm">Across to Pašman</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture><span class="cap"><span class="lbl">Hinterland</span><span class="nm">The watchtower</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="" /></picture><span class="cap"><span class="lbl">Uninhabited</span><span class="nm">Babac islet</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><span class="cap"><span class="lbl">Mediterranean</span><span class="nm">Saltpans of Sv. Petar</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture><span class="cap"><span class="lbl">Borelli garden</span><span class="nm">Klapa night</span></span></button>
-                            <button class="exp-tile" type="button" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/biograd.webp" alt="" /></picture><span class="cap"><span class="lbl">Day trip</span><span class="nm">Harbour at Biograd</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><span class="cap"><span class="lbl">The channel</span><span class="nm">Across to Pašman</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture><span class="cap"><span class="lbl">Hinterland</span><span class="nm">The watchtower</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="" /></picture><span class="cap"><span class="lbl">Uninhabited</span><span class="nm">Babac islet</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><span class="cap"><span class="lbl">Mediterranean</span><span class="nm">Saltpans of Sv. Petar</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture><span class="cap"><span class="lbl">Borelli garden</span><span class="nm">Klapa night</span></span></button>
-                            <button class="exp-tile" type="button" tabindex="-1" aria-hidden="true" @click="openGallery()"><picture class="img bg-cover"><img src="images/webp/biograd.webp" alt="" /></picture><span class="cap"><span class="lbl">Day trip</span><span class="nm">Harbour at Biograd</span></span></button>
-                        </div>
-                    </div>
-                </div>
+            </div>
 
-                <!-- gallery overlay -->
-                <div class="gallery-overlay" :class="{ open: galleryOpen }" :aria-hidden="!galleryOpen" role="dialog" aria-modal="true" aria-label="Photo gallery">
-                    <div class="gallery-bar">
-                        <div class="gallery-bar-title">
-                            <span class="eyebrow">Explore</span>
-                            <h3>Photo &amp; video</h3>
+            <div class="zone-grid reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="zone z0">
+                    <div class="zone-top">
+                        <span class="zn">0. zona</span>
+                        <span class="zh">07:00 – 18:00</span>
+                    </div>
+                    <div class="zone-body">
+                        <div class="price-row"><span class="pl">Satna karta</span><span class="pv"><em>2,00 €</em></span></div>
+                        <div class="zone-note">Parkiranje s povlaštenim kartama moguće je najviše 2 sata. Plaćanje SMS-om na <b>702304</b> ili na parkirnom aparatu u zoni.</div>
+                    </div>
+                </div>
+                <div class="zone z1">
+                    <div class="zone-top">
+                        <span class="zn">1. zona</span>
+                        <span class="zh">07:00 – 23:00</span>
+                    </div>
+                    <div class="zone-body">
+                        <div class="price-row"><span class="pl">Satna karta</span><span class="pv"><em>1,20 €</em></span></div>
+                        <div class="price-row"><span class="pl">Dnevna karta</span><span class="pv">10,00 €</span></div>
+                        <div class="price-row"><span class="pl">Tjedna karta</span><span class="pv">35,00 €</span></div>
+                        <div class="price-row"><span class="pl">Mjesečna karta</span><span class="pv">60,00 €</span></div>
+                        <div class="price-row"><span class="pl">Sezonska karta</span><span class="pv">80,00 €</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pay-block reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div>
+                    <span class="eyebrow">Načini plaćanja</span>
+                    <div class="pay-list">
+                        <div class="pay-item"><span class="n">a</span><div><h4>Satna karta — 0. zona</h4><p>SMS na broj <b>702304</b> ili na parkirnom aparatu u 0. zoni.</p></div></div>
+                        <div class="pay-item"><span class="n">b</span><div><h4>Satna karta — 1. zona</h4><p>SMS na broj <b>702303</b>, na aparatima u 1. zoni ili putem <b>BMOVE</b> aplikacije i web platforme.</p></div></div>
+                        <div class="pay-item"><span class="n">c</span><div><h4>Dnevna karta</h4><p>Putem BMOVE aplikacije, na aparatima u 1. zoni ili kod organizatora parkiranja.</p></div></div>
+                        <div class="pay-item"><span class="n">d</span><div><h4>Tjedna, mjesečna i sezonska</h4><p>Putem BMOVE aplikacije, kod organizatora parkiranja ili u turističkom uredu.</p></div></div>
+                    </div>
+                </div>
+                <div class="callout">
+                    <span class="eyebrow">Dobro je znati</span>
+                    <h4>Popust <b>50 %</b> unutar 48 sati</h4>
+                    <p>Ako korisnik ili vlasnik vozila plati parkirališnu kartu u roku od 48 sati od izdavanja — kod organizatora parkiranja ili putem BMOVE aplikacije — ostvaruje se popust od 50 %.</p>
+                    <p class="mt-3">Povlaštene parkirališne karte dostupne su kod organizatora parkiranja i u turističkom uredu.</p>
+                    <div class="hours">
+                        <div><div class="hz">0. zona</div><div class="ht">07 – 18 h</div></div>
+                        <div><div class="hz">1. zona</div><div class="ht">07 – 23 h</div></div>
+                        <div><div class="hz">Sezona</div><div class="ht">od 1. svibnja</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-13">
+                <span class="eyebrow reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">Lokacije javnih parkirališta</span>
+                <div class="loc-grid reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                    <div class="loc">
+                        <div class="lh">
+                            <svg class="pin" viewBox="0 0 24 24" fill="var(--color-sun)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                            <h4>Sveti Filip i Jakov</h4>
                         </div>
-                        <span class="gallery-count" x-text="shots.length + ' photos'"></span>
-                        <button type="button" class="gallery-close" @click="closeGallery()" aria-label="Close gallery">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-                        </button>
+                        <ul>
+                            <li><b>Put Primorja</b><small>uz plažu iza Banja</small></li>
+                            <li><b>Centar mjesta</b><small>uz crkvu, Ul. kralja Petra Krešimira IV</small></li>
+                            <li>Označena mjesta uz rivu i u okolnim ulicama</li>
+                        </ul>
                     </div>
-                    <div class="gallery-grid">
-                        <template x-for="(shot, i) in shots" :key="i">
-                            <button type="button" class="g-item" @click="openLightbox(i)" aria-label="Open photo">
-                                <picture class="bg-cover"><img :src="shot[0]" :alt="shot[1]" /></picture>
-                                <span class="g-cap" x-text="shot[1]"></span>
-                            </button>
-                        </template>
+                    <div class="loc">
+                        <div class="lh">
+                            <svg class="pin" viewBox="0 0 24 24" fill="var(--color-sun)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                            <h4>Turanj</h4>
+                        </div>
+                        <ul>
+                            <li><b>Centar — riva</b><small>Obala Franje Tuđmana</small></li>
+                            <li>Dodatna označena mjesta unutar naselja</li>
+                        </ul>
+                    </div>
+                    <div class="loc">
+                        <div class="lh">
+                            <svg class="pin" viewBox="0 0 24 24" fill="var(--color-sun)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                            <h4>Sveti Petar na Moru</h4>
+                        </div>
+                        <ul>
+                            <li>Označena javna mjesta u blizini plaža i centra mjesta</li>
+                        </ul>
                     </div>
                 </div>
+                <p class="mt-5.5 text-[13.5px] text-muted max-w-[70ch] reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">Preporučuje se poštivanje prometne signalizacije i uputa organizatora parkiranja, osobito tijekom ljetne turističke sezone.</p>
+            </div>
+    </div>
+</section>
 
-                <!-- single-photo lightbox -->
-                <div class="lightbox" :class="{ open: lightboxOpen }" :aria-hidden="!lightboxOpen" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) closeLightbox()" @keydown.escape.window="if (lightboxOpen) closeLightbox()" @keydown.arrow-left.window="if (lightboxOpen) lbPrev()" @keydown.arrow-right.window="if (lightboxOpen) lbNext()">
-                    <button type="button" class="lb-close" @click="closeLightbox()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-                    <button type="button" class="lb-nav prev" @click="lbPrev()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-                    <figure class="lb-stage">
-                        <img :src="lbShot[0]" :alt="lbShot[1]" />
-                        <figcaption x-text="lbShot[1]"></figcaption>
-                    </figure>
-                    <button type="button" class="lb-nav next" @click="lbNext()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+<section class="page-sect rubric c-ev pmv-page" id="ev" x-data="{}">
+    <div class="max-w-[1600px] mx-auto px-4">
+            <div class="rubric-head reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <span class="rubric-num">03</span>
+                <div>
+                    <span class="eyebrow">Električna vozila</span>
+                    <h2>Punionice u okolici</h2>
+                    <p class="lede">Za posjetitelje i stanovnike koji putuju električnim vozilima, u krugu od oko 20 km od Svetog Filipa i Jakova postoji nekoliko javnih punionica koje omogućuju sigurnu i praktičnu dopunu baterije.</p>
                 </div>
-            </section>
+            </div>
 
+            <div class="ev-lead reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div>
+                    <p>U <b>Biogradu na Moru</b>, tek nekoliko kilometara od mjesta, dostupno je više javnih punionica raspoređenih po gradu i uz trgovačke centre.</p>
+                    <p>U <b>Zadru</b>, također u krugu od oko 20 km i lako dostupnom cestom, nalazi se velika mreža s desecima javnih punionica te kombinacijom <b>AC i DC</b> punjača za brže punjenje različitih modela.</p>
+                </div>
+                <div class="apps-card">
+                    <span class="eyebrow">Provjeri prije polaska</span>
+                    <h3>Aplikacije i karte punionica</h3>
+                    <div class="apps">
+                        <span class="app-chip">PlugShare</span>
+                        <span class="app-chip">Electromaps</span>
+                        <span class="app-chip">ELEN HEP karta</span>
+                        <span class="app-chip">GreenWay EV</span>
+                    </div>
+                    <p class="apps-tip">Alati prikazuju stvarne pozicije, tip priključaka, status i moguće cijene. Budući da se infrastruktura često nadograđuje, provjerite radno stanje punionice prije polaska.</p>
+                </div>
+            </div>
+
+            <span class="eyebrow reveal mt-13" x-intersect.once.threshold.10="$el.classList.add('is-in')">Lokacije punionica</span>
+            <div class="loc-grid cols-2 reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="loc">
+                    <div class="lh">
+                        <svg class="pin" viewBox="0 0 24 24" fill="var(--color-olive)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                        <h4>Biograd na Moru</h4>
+                    </div>
+                    <ul>
+                        <li><b>Elen punionica</b><small>Kralja Petra Svačića 30 — više priključaka</small></li>
+                        <li><b>EV stanica</b><small>Šetalište kneza Branimira — turistička zona</small></li>
+                        <li><b>Kaufland</b><small>Jadranska magistrala 1 — uz trgovački centar</small></li>
+                        <li><b>Lidl</b><small>Ulica Slave Raškaj</small></li>
+                    </ul>
+                </div>
+                <div class="loc">
+                    <div class="lh">
+                        <svg class="pin" viewBox="0 0 24 24" fill="var(--color-olive)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                        <h4>Zadar i šira okolica</h4>
+                    </div>
+                    <ul>
+                        <li><b>Auto Hrvatska Zadar</b><small>Uskočka ulica</small></li>
+                        <li>Punionice duž Jadranske magistrale</li>
+                        <li>Trgovački centri i benzinske postaje</li>
+                        <li>Desetci javnih punjača — AC i DC</li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+</section>
+
+<!-- ───────────────── MAP ───────────────── -->
+<section class="page-sect pm-map-sect" id="karta">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="pm-map-head reveal" x-data="{}" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+            <div>
+                <span class="eyebrow">Sve na jednom mjestu</span>
+                <h2>Karta lokacija</h2>
+            </div>
+            <div class="pm-map-legend">
+                <span class="lg"><span class="d" style="background:#00A2C1"></span>Marina</span>
+                <span class="lg"><span class="d" style="background:#F7921E"></span>Parkirališta</span>
+                <span class="lg"><span class="d" style="background:#94B348"></span>E-punionice</span>
+            </div>
         </div>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <div id="pmMap" x-data x-init="
+            const map = L.map($el, { scrollWheelZoom: false }).setView([43.97, 15.44], 12);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OpenStreetMap</a> contributors &copy; <a href=\'https://carto.com/attributions\'>CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(map);
+            const dotIcon = (color) => L.divIcon({
+                className: '',
+                html: '<div class=\'pm-marker\' style=\'width:18px;height:18px;background:' + color + '\'></div>',
+                iconSize: [18, 18], iconAnchor: [9, 9], popupAnchor: [0, -10]
+            });
+            const cMarina = '#00A2C1', cParking = '#F7921E', cEv = '#94B348';
+            const points = [
+                { c: cMarina, ll: [43.9597, 15.4222], name: 'Molum Marine Club', sub: 'Obala kralja Tomislava bb · 127 vezova' },
+                { c: cParking, ll: [43.9585, 15.4327], name: 'Parking · plaža Banja', sub: 'Put Primorja, Sv. Filip i Jakov' },
+                { c: cParking, ll: [43.9609, 15.4256], name: 'Parking · centar', sub: 'uz crkvu · Kralja Petra Krešimira IV' },
+                { c: cParking, ll: [43.9663, 15.4089], name: 'Parking · riva Turanj', sub: 'Obala Franje Tuđmana' },
+                { c: cParking, ll: [43.9332, 15.4525], name: 'Parking · Sveti Petar na Moru', sub: 'uz plaže i centar mjesta' },
+                { c: cEv, ll: [43.9376, 15.4460], name: 'Elen punionica', sub: 'Biograd · Kralja Petra Svačića 30' },
+                { c: cEv, ll: [43.9331, 15.4402], name: 'EV stanica', sub: 'Biograd · Šetalište kneza Branimira' },
+                { c: cEv, ll: [43.9421, 15.4520], name: 'Kaufland punionica', sub: 'Biograd · Jadranska magistrala 1' },
+                { c: cEv, ll: [43.9402, 15.4482], name: 'Lidl punionica', sub: 'Biograd · Ulica Slave Raškaj' },
+                { c: cEv, ll: [44.1185, 15.2310], name: 'Auto Hrvatska Zadar', sub: 'Zadar · Uskočka ulica' },
+            ];
+            const bounds = [];
+            points.forEach(p => {
+                L.marker(p.ll, { icon: dotIcon(p.c) }).addTo(map)
+                    .bindPopup('<div class=\'pm-pop\'><b>' + p.name + '</b><span>' + p.sub + '</span></div>');
+                bounds.push(p.ll);
+            });
+            map.fitBounds(bounds, { padding: [50, 50] });
+            map.on('click', () => map.scrollWheelZoom.enable());
+            setTimeout(() => map.invalidateSize(), 300);
+        "></div>
+        <p class="pm-map-foot">Pozicije parkirališta i punionica su okvirne i služe za orijentaciju. Za točan status e-punionica koristite PlugShare ili ELEN HEP kartu.</p>
     </div>
 </section>
 
