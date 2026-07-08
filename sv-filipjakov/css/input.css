@@ -1688,7 +1688,7 @@
         }
     }
     .place-facts{
-        @apply grid grid-cols-4 gap-x-[clamp(16px,5vw,70px)] gap-y-5 mt-11 pt-8 border-t border-line;
+        @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-[clamp(16px,5vw,70px)] gap-y-5 mt-11 pt-8 border-t border-line;
 
         .f{ @apply py-1.5; }
         .fv{ @apply text-[clamp(28px,2.6vw,40px)] font-extralight tracking-[-0.02em] leading-none; }
@@ -1700,7 +1700,7 @@
     .story-row{
         @apply grid grid-cols-1 lg:grid-cols-2 gap-9 lg:gap-[90px] items-center py-13 lg:py-24 border-t border-line;
 
-        &:first-child{ @apply border-t-0!; }
+        &:first-child{ @apply border-t-0! pt-0!; }
         &:nth-child(even) .story-media{ @apply lg:order-first; }
     }
     .story-text{ @apply max-w-[46ch]; }
