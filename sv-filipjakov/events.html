@@ -59,7 +59,7 @@
         <li><a href="explore.html">Explore</a></li>
         <li><a href="places.html">Places</a></li>
         <li><a href="experience.html">Experience</a></li>
-        <li><a href="#">Plan your trip</a></li>
+        <li><a href="plan-your-trip.html">Plan your trip</a></li>
         <li><a href="stay.html">Stay</a></li>
         <li><a href="things-to-do.html">Things to do</a></li>
         <li><a href="events.html">Events</a></li>
@@ -159,23 +159,23 @@
         <div class="nav-menu__body">
             <div class="nav-menu__cols">
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
+                    <a href="explore.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'istrazi' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
-                            <li><a href="explore.html">Prirodne ljepote i krajolik</a></li>
-                            <li><a href="explore.html">Kulturno-povijesna baština</a></li>
-                            <li><a href="explore.html">Klima i geografija</a></li>
-                            <li><a href="explore.html">Galerija fotografija i videa</a></li>
+                            <li><a href="natural-beauty-and-landscapes.html">Prirodne ljepote i krajolik</a></li>
+                            <li><a href="cultural-and-historical-heritage.html">Kulturno-povijesna baština</a></li>
+                            <li><a href="climate-and-geography.html">Klima i geografija</a></li>
+                            <li><a href="galleries.html">Galerija fotografija i videa</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
+                    <a href="places.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'mjesta' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -202,22 +202,22 @@
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="authentic-experiences.html">Autentična iskustva</a></li>
-                            <li><a href="experience.html">Za obitelji</a></li>
-                            <li><a href="experience.html">Za parove</a></li>
-                            <li><a href="experience.html">Za avanturiste</a></li>
-                            <li><a href="experience.html">Za digitalne nomade</a></li>
-                            <li><a href="experience.html">Camino</a></li>
+                            <li><a href="for-families.html">Za obitelji</a></li>
+                            <li><a href="for-couples.html">Za parove</a></li>
+                            <li><a href="for-adventurers.html">Za avanturiste</a></li>
+                            <li><a href="for-digital-nomads.html">Za digitalne nomade</a></li>
+                            <li><a href="camino.html">Camino</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'plan' }">Planiraj putovanje</a>
+                    <a href="plan-your-trip.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'plan' }">Planiraj putovanje</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'plan' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <a href="plan-your-trip.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="getting-here.html">Kako doći</a></li>
                             <li><a href="destination-map.html">Karta destinacije</a></li>
@@ -230,7 +230,7 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
+                    <a href="stay.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'smjestaj' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -321,7 +321,7 @@
             </p>
         </div>
 
-        <div class="season-chart" :class="{ 'is-in': chartVisible }" x-intersect.once.threshold.30="chartVisible = true">
+        <div class="season-chart max-md:hidden!" :class="{ 'is-in': chartVisible }" x-intersect.once.threshold.30="chartVisible = true">
             <div class="season-chart-head">
                 <div>
                     <h3>Events by month</h3>
@@ -355,43 +355,61 @@
             </div>
         </div>
 
-        <div class="month-panel">
-            <div class="month-bar">
-                <h2><span x-text="full[currentMonth]"></span> <span class="yr">2026</span></h2>
-                <div class="month-nav">
-                    <span class="mcount" x-text="currentList.length + ' event' + (currentList.length === 1 ? '' : 's')"></span>
-                    <button type="button" class="month-arrow" @click="step(-1)" aria-label="Previous month">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-                    </button>
-                    <button type="button" class="month-arrow" @click="step(1)" aria-label="Next month">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
-                    </button>
+        <div class="events-grid">
+            <a href="festival-of-flowers.html" class="events-side reveal" aria-label="See details: Festival of Flowers" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture>
+                <span class="tag">HIGHLIGHT</span>
+                <div class="meta">
+                    <div class="meta-text">
+                        <h3>Festival of Flowers</h3>
+                        <p>Since 2001 — Sv. Filip i Jakov turns into a sea of colour for one weekend. 80,000 visitors, 12 tonnes of petals, one unforgettable parade.</p>
+                    </div>
+                    <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></span>
+                </div>
+            </a>
+
+            <div class="event-list reveal stagger" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="event-row">
+                    <div class="date">
+                        <span class="d">18</span>
+                        <span class="m">MAY</span>
+                    </div>
+                    <div class="name">Opening of the bathing season<small>Riva · 11:00 · free</small></div>
+                    <span class="cat culture">culture</span>
+                    <div class="more">→</div>
+                </div>
+                <div class="event-row">
+                    <div class="date">
+                        <span class="d">24</span>
+                        <span class="m">MAY</span>
+                    </div>
+                    <div class="name">Klapa under the stars<small>Borelli garden · 21:00</small></div>
+                    <span class="cat music">music</span>
+                    <div class="more">→</div>
+                </div>
+                <div class="event-row">
+                    <div class="date">
+                        <span class="d">29</span>
+                        <span class="m">MAY</span>
+                    </div>
+                    <div class="name">Asparagus &amp; spring feast<small>Old market square · all day</small></div>
+                    <span class="cat food">food</span>
+                    <div class="more">→</div>
+                </div>
+                <div class="event-row">
+                    <div class="date">
+                        <span class="d">14</span>
+                        <span class="m">JUN</span>
+                    </div>
+                    <div class="name">Festival of Flowers<small>Town centre · 10:00–22:00 · since 2001</small></div>
+                    <span class="cat culture">culture</span>
+                    <div class="more">→</div>
                 </div>
             </div>
+        </div>
 
-            <template x-if="currentList.length === 0">
-                <div class="month-quiet">
-                    <span class="q-mark">A quiet month</span>
-                    <h3>Nothing on the calendar — and that's the point.</h3>
-                    <p x-text="full[currentMonth] + ' is the town at its most local: shutters half-closed, the riva to yourself, and a coffee that lasts an hour. Come back from spring onward, when the calendar fills up.'"></p>
-                </div>
-            </template>
-
-            <template x-if="currentList.length > 0">
-                <div class="evp-list reveal is-in">
-                    <template x-for="(ev, i) in currentList" :key="currentMonth + '-' + i">
-                        <div class="evp-row" role="button" tabindex="0" @click="openDetail(ev, currentMonth)" @keydown.enter="openDetail(ev, currentMonth)" @keydown.space.prevent="openDetail(ev, currentMonth)" :aria-label="ev.name + ' — view details'">
-                            <div class="date"><span class="d" x-text="String(ev.d).padStart(2,'0')"></span><span class="m" x-text="currentMonth"></span></div>
-                            <div class="name">
-                                <span x-text="ev.name"></span>
-                                <small x-text="ev.sub"></small>
-                            </div>
-                            <span class="cat" :class="ev.cat" x-text="ev.cat"></span>
-                            <div class="more">→</div>
-                        </div>
-                    </template>
-                </div>
-            </template>
+        <div class="events-foot reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+            <a href="events-calendar.html" class="btn primary">See all events <span class="arr"></span></a>
         </div>
     </div>
 </section>
@@ -412,42 +430,42 @@
         <div class="ev-cat reveal is-in">
             <div class="ev-cat-head">
                 <h3>Cultural &amp; religious events<small>Folklore ensembles (KUD-ovi), processions &amp; klapa nights</small></h3>
-                <a href="#" class="gal-link" @click.prevent="openGallery('culture')">View gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                <a href="cultural-religious-events.html" class="gal-link">View more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
             </div>
             <div class="ev-gallery">
-                <a href="#" class="ev-shot big" @click.prevent="openGallery('culture')"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('culture')"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('culture')"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('culture')"><picture class="img bg-cover"><img src="images/webp/heritage.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot more-shot" data-more="+24" @click.prevent="openGallery('culture')"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></a>
+                <div class="ev-shot big cursor-default"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/heritage.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></div>
             </div>
         </div>
 
         <div class="ev-cat reveal is-in">
             <div class="ev-cat-head">
                 <h3>Sports events<small>Bike rides, open-water races, the summer swimming school &amp; regattas</small></h3>
-                <a href="#" class="gal-link" @click.prevent="openGallery('sport')">View gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                <a href="sports-events.html" class="gal-link">View more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
             </div>
             <div class="ev-gallery">
-                <a href="#" class="ev-shot big" @click.prevent="openGallery('sport')"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('sport')"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('sport')"><picture class="img bg-cover"><img src="images/webp/snorkelling-opt.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('sport')"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot more-shot" data-more="+18" @click.prevent="openGallery('sport')"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture></a>
+                <div class="ev-shot big cursor-default"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/snorkelling-opt.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture></div>
             </div>
         </div>
 
         <div class="ev-cat reveal is-in">
             <div class="ev-cat-head">
                 <h3>Local festivals &amp; fairs<small>Maraška Fest, the Festival of Flowers &amp; the summer night markets</small></h3>
-                <a href="#" class="gal-link" @click.prevent="openGallery('festivals')">View gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                <a href="festivals-fairs.html" class="gal-link">View more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
             </div>
             <div class="ev-gallery">
-                <a href="#" class="ev-shot big" @click.prevent="openGallery('festivals')"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('festivals')"><picture class="img bg-cover"><img src="images/webp/event.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('festivals')"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot" @click.prevent="openGallery('festivals')"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture></a>
-                <a href="#" class="ev-shot more-shot" data-more="+31" @click.prevent="openGallery('festivals')"><picture class="img bg-cover"><img src="images/webp/biograd.webp" alt="" /></picture></a>
+                <div class="ev-shot big cursor-default"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/event.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture></div>
+                <div class="ev-shot cursor-default"><picture class="img bg-cover"><img src="images/webp/biograd.webp" alt="" /></picture></div>
             </div>
         </div>
     </div>
@@ -467,7 +485,7 @@
                 carpets down the riva, a petal-strewn parade, and konobas spilling into the
                 streets. It is the single busiest day of our year, and the one most worth
                 planning a trip around.</p>
-                <a href="#" class="btn primary">Read more <span class="arr"></span></a>
+                <a href="festival-of-flowers.html" class="btn primary">Read more <span class="arr"></span></a>
             </div>
         </div>
     </div>
@@ -522,7 +540,7 @@
             </div>
             <div class="col-span-2 lg:col-span-1">
                 <div class="footer-heading">Info</div>
-                <a href="#" class="footer-link">Kutak za iznajmljivače</a>
+                <a href="hosts-corner.html" class="footer-link">Kutak za iznajmljivače</a>
                 <a href="documents.html" class="footer-link">Dokumenti</a>
                 <a href="https://www.evisitor.hr/" target="_blank" rel="noopener" class="footer-link">E-visitor</a>
                 <a href="https://mvisitor.hr/" target="_blank" rel="noopener" class="footer-link">M-visitor</a>
@@ -551,39 +569,6 @@
 
     </div>
 </footer>
-
-<!-- ───────────────── GALLERY OVERLAY ───────────────── -->
-<div class="gallery-overlay" :class="{ open: galleryOpen }" :aria-hidden="!galleryOpen" role="dialog" aria-modal="true" aria-label="Photo gallery">
-    <div class="gallery-bar">
-        <div class="gallery-bar-title">
-            <span class="eyebrow" x-text="activeGallery.eyebrow"></span>
-            <h3 x-text="activeGallery.title"></h3>
-        </div>
-        <span class="gallery-count" x-text="activeGallery.shots.length + ' photos'"></span>
-        <button type="button" class="gallery-close" @click="closeGallery()" aria-label="Close gallery">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
-    </div>
-    <div class="gallery-grid">
-        <template x-for="(shot, i) in activeGallery.shots" :key="activeGalleryKey + '-' + i">
-            <button type="button" class="g-item" @click="openLightbox(i)" aria-label="Open photo">
-                <picture class="bg-cover"><img :src="shot[0]" :alt="shot[1]" /></picture>
-                <span class="g-cap" x-text="shot[1]"></span>
-            </button>
-        </template>
-    </div>
-</div>
-
-<!-- single-photo lightbox -->
-<div class="lightbox" :class="{ open: lightboxOpen }" :aria-hidden="!lightboxOpen" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) closeLightbox()" @keydown.escape.window="if (lightboxOpen) closeLightbox()" @keydown.arrow-left.window="if (lightboxOpen) lbPrev()" @keydown.arrow-right.window="if (lightboxOpen) lbNext()">
-    <button type="button" class="lb-close" @click="closeLightbox()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <button type="button" class="lb-nav prev" @click="lbPrev()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <figure class="lb-stage">
-        <img :src="lbShot[0]" :alt="lbShot[1]" />
-        <figcaption x-text="lbShot[1]"></figcaption>
-    </figure>
-    <button type="button" class="lb-nav next" @click="lbNext()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-</div>
 
 <!-- ───────────────── EVENT DETAIL MODAL ───────────────── -->
 <div class="ev-detail" :class="{ open: detailOpen }" :aria-hidden="!detailOpen" role="dialog" aria-modal="true" aria-label="Event details" @keydown.escape.window="if (detailOpen) closeDetail()">
@@ -904,7 +889,7 @@ document.addEventListener('alpine:init', () => {
         },
         closeDetail(){
             this.detailOpen = false;
-            if (!this.galleryOpen && !this.lightboxOpen) document.body.style.overflow = '';
+            document.body.style.overflow = '';
         },
         downloadIcs(){
             if (!this.detailEv || this.icsAdded) return;
@@ -950,79 +935,6 @@ document.addEventListener('alpine:init', () => {
                 }).catch(() => {});
             }
         },
-
-        /* ---------- gallery ---------- */
-        galleryOpen: false,
-        activeGalleryKey: '',
-        galleries: {
-            culture: {
-                title: 'Cultural & religious events',
-                eyebrow: 'Folklore · processions · klapa',
-                shots: [
-                    ['images/webp/heritage-folklore.webp', 'KUD folklore ensemble on the riva'],
-                    ['images/webp/heritage-concert.webp', 'Klapa night in the Borelli garden'],
-                    ['images/webp/old-town-walks.webp', 'Lantern walk through the old town'],
-                    ['images/webp/heritage.webp', 'Parish church · feast of Vela Gospa'],
-                    ['images/webp/town.webp', 'Maškare carnival parade'],
-                    ['images/webp/couples.webp', 'Easter procession at dusk'],
-                ],
-            },
-            sport: {
-                title: 'Sports events',
-                eyebrow: 'Bike · races · swimming school',
-                shots: [
-                    ['images/webp/yoga-sea.webp', 'Sunrise yoga on the promenade'],
-                    ['images/webp/marina.webp', 'Regatta morning at the marina'],
-                    ['images/webp/snorkelling-opt.webp', 'Summer swimming school'],
-                    ['images/webp/beaches.webp', 'Beach volleyball cup'],
-                    ['images/webp/pasman-island.webp', 'Babac island open-water swim'],
-                    ['images/webp/babac-islet.webp', 'Kayak crossing to the islet'],
-                    ['images/webp/turanj.webp', 'Riviera cycling day'],
-                    ['images/webp/nautika-marina.webp', 'Pašman cup · sailing regatta'],
-                ],
-            },
-            festivals: {
-                title: 'Local festivals & fairs',
-                eyebrow: 'Maraška Fest · Festival of Flowers',
-                shots: [
-                    ['images/webp/festival-flowers.webp', 'Festival of Flowers parade'],
-                    ['images/webp/event.webp', 'Maraška Fest on the riva'],
-                    ['images/webp/biograd.webp', 'Craft stalls along the harbour'],
-                    ['images/webp/zadar.webp', 'Wine night · Pašman whites'],
-                    ['images/webp/family.webp', 'Summer night market'],
-                    ['images/webp/sv-petar.webp', 'Lavender & saltpan fair'],
-                    ['images/webp/hero.webp', 'New Year on the square'],
-                ],
-            },
-        },
-        get activeGallery(){ return this.galleries[this.activeGalleryKey] || { title: '', eyebrow: '', shots: [] }; },
-        openGallery(key){
-            this.activeGalleryKey = key;
-            this.galleryOpen = true;
-            document.body.style.overflow = 'hidden';
-        },
-        closeGallery(){
-            this.galleryOpen = false;
-            if (!this.lightboxOpen) document.body.style.overflow = '';
-        },
-
-        /* ---------- lightbox ---------- */
-        lightboxOpen: false,
-        lbIndex: 0,
-        get lbShot(){ return this.activeGallery.shots[this.lbIndex] || ['', '']; },
-        openLightbox(i){
-            const len = this.activeGallery.shots.length;
-            if (!len) return;
-            this.lbIndex = (i + len) % len;
-            this.lightboxOpen = true;
-            document.body.style.overflow = 'hidden';
-        },
-        closeLightbox(){
-            this.lightboxOpen = false;
-            if (!this.galleryOpen) document.body.style.overflow = '';
-        },
-        lbNext(){ this.openLightbox(this.lbIndex + 1); },
-        lbPrev(){ this.openLightbox(this.lbIndex - 1); },
 
         init(){
             this.current = new Date().getMonth();

@@ -59,7 +59,7 @@
         <li><a href="explore.html">Explore</a></li>
         <li><a href="places.html">Places</a></li>
         <li><a href="experience.html">Experience</a></li>
-        <li><a href="#">Plan your trip</a></li>
+        <li><a href="plan-your-trip.html">Plan your trip</a></li>
         <li><a href="stay.html">Stay</a></li>
         <li><a href="things-to-do.html">Things to do</a></li>
         <li><a href="events.html">Events</a></li>
@@ -159,23 +159,23 @@
         <div class="nav-menu__body">
             <div class="nav-menu__cols">
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
+                    <a href="explore.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'istrazi' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
-                            <li><a href="explore.html">Prirodne ljepote i krajolik</a></li>
-                            <li><a href="explore.html">Kulturno-povijesna baština</a></li>
-                            <li><a href="explore.html">Klima i geografija</a></li>
-                            <li><a href="explore.html">Galerija fotografija i videa</a></li>
+                            <li><a href="natural-beauty-and-landscapes.html">Prirodne ljepote i krajolik</a></li>
+                            <li><a href="cultural-and-historical-heritage.html">Kulturno-povijesna baština</a></li>
+                            <li><a href="climate-and-geography.html">Klima i geografija</a></li>
+                            <li><a href="galleries.html">Galerija fotografija i videa</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
+                    <a href="places.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'mjesta' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -202,22 +202,22 @@
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="authentic-experiences.html">Autentična iskustva</a></li>
-                            <li><a href="experience.html">Za obitelji</a></li>
-                            <li><a href="experience.html">Za parove</a></li>
-                            <li><a href="experience.html">Za avanturiste</a></li>
-                            <li><a href="experience.html">Za digitalne nomade</a></li>
-                            <li><a href="experience.html">Camino</a></li>
+                            <li><a href="for-families.html">Za obitelji</a></li>
+                            <li><a href="for-couples.html">Za parove</a></li>
+                            <li><a href="for-adventurers.html">Za avanturiste</a></li>
+                            <li><a href="for-digital-nomads.html">Za digitalne nomade</a></li>
+                            <li><a href="camino.html">Camino</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'plan' }">Planiraj putovanje</a>
+                    <a href="plan-your-trip.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'plan' }">Planiraj putovanje</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'plan' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <a href="plan-your-trip.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="getting-here.html">Kako doći</a></li>
                             <li><a href="destination-map.html">Karta destinacije</a></li>
@@ -230,7 +230,7 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
+                    <a href="stay.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'smjestaj' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -569,6 +569,7 @@
 </section>
 
 <section class="page-sect stay-help" x-data="{}">
+    <picture class="bg bg-cover"><img src="images/webp/town.webp" alt="" /></picture>
     <div class="max-w-[1600px] mx-auto px-4">
         <div class="stay-help-inner reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
             <div>
@@ -644,7 +645,7 @@
             </div>
             <div class="col-span-2 lg:col-span-1">
                 <div class="footer-heading">Info</div>
-                <a href="#" class="footer-link">Kutak za iznajmljivače</a>
+                <a href="hosts-corner.html" class="footer-link">Kutak za iznajmljivače</a>
                 <a href="documents.html" class="footer-link">Dokumenti</a>
                 <a href="https://www.evisitor.hr/" target="_blank" rel="noopener" class="footer-link">E-visitor</a>
                 <a href="https://mvisitor.hr/" target="_blank" rel="noopener" class="footer-link">M-visitor</a>

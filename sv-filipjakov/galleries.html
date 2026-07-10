@@ -4,7 +4,7 @@
 
   	<meta charset="UTF-8">
 
-  	<title>Nautika | Sveti Filip i Jakov</title>
+  	<title>Galerija fotografija i videa | Sveti Filip i Jakov</title>
 
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -285,114 +285,172 @@
 </header>
 
 <header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
-    <picture class="bg bg-cover"><img src="images/webp/hero/nautika.webp" alt="" /></picture>
+    <picture class="bg bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture>
     <div class="page-head-inner">
         <nav class="crumb">
             <a href="index.html">Home</a>
             <span class="sep"></span>
-            <span>Nautika</span>
+            <span>Galerija fotografija i videa</span>
         </nav>
-        <h1>Drop anchor,<br />come <em>ashore</em>.</h1>
+        <h1>Galerija fotografija <em>i videa</em></h1>
         <p class="ph-lede">
-            Berths and buoy fields along the Pašman channel, from a full-service marina in
-            town to a sheltered mooring field in neighbouring Turanj.
+            Riva u zlatnom svjetlu, otoci u Pašmanskom kanalu, kamene jezgre i ljetne fešte —
+            zbirka fotografija i videa iz Svetog Filipa i Jakova. Otvorite album i pogledajte
+            svaku temu u punoj boji.
         </p>
     </div>
 </header>
 
-<section class="page-sect stay-listings" x-data="{ place: 'all', lightboxImg: null }">
+<div x-data="galleriesPage()">
+
+<section class="page-sect ev-cats">
     <div class="max-w-[1600px] mx-auto px-4">
-
-        <div class="chip-row">
-            <button type="button" class="chip" :class="{ active: place === 'all' }" @click="place = 'all'">Sva mjesta</button>
-            <button type="button" class="chip" :class="{ active: place === 'svfj' }" @click="place = 'svfj'">Sv. Filip i Jakov</button>
-            <button type="button" class="chip" :class="{ active: place === 'turanj' }" @click="place = 'turanj'">Turanj</button>
-            <button type="button" class="chip" :class="{ active: place === 'svpetar' }" @click="place = 'svpetar'">Sv. Petar</button>
+        <div class="sect-head reveal mb-14" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+            <div>
+                <span class="eyebrow">Fotografije</span>
+                <h2 class="heading-2 mt-4">Albumi iz naše riviere.</h2>
+            </div>
+            <p class="lede [text-wrap:pretty]">
+                Priroda, baština, more i događanja — kliknite bilo koju fotografiju za prikaz u
+                punoj veličini i listajte kroz cijeli album.
+            </p>
         </div>
 
-        <div class="stay-grid">
-
-            <article class="lodge" data-type="nautika" data-place="svfj" x-show="place === 'all' || place === $el.dataset.place" x-transition>
-                <div class="lodge-media" @click="lightboxImg = 'images/webp/nautika-marina.webp'">
-                    <span class="lodge-type">Marina · full-service</span>
-                    <picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture>
-                </div>
-                <div class="lodge-body">
-                    <div class="lodge-top">
-                        <h3 class="lodge-name">Marina Nautika</h3>
-                    </div>
-                    <div class="lodge-loc">Sveti Filip i Jakov</div>
-                    <div class="lodge-contact">
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Put Primorja 2, 23207 Sveti Filip i Jakov</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+385 23 389 200</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><span>info@marinanautika.hr</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>www.marinanautika.hr</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="lodge" data-type="nautika" data-place="turanj" x-show="place === 'all' || place === $el.dataset.place" x-transition>
-                <div class="lodge-media" @click="lightboxImg = 'images/webp/marina.webp'">
-                    <span class="lodge-type">Buoy field</span>
-                    <picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
-                </div>
-                <div class="lodge-body">
-                    <div class="lodge-top">
-                        <h3 class="lodge-name">Turanj Mooring Field</h3>
-                    </div>
-                    <div class="lodge-loc">Turanj</div>
-                    <div class="lodge-contact">
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Don Frane Sose bb, 23207 Turanj</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+385 23 389 201</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><span>info@turanjmooring.hr</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>www.turanjmooring.hr</span></div>
-                    </div>
-                </div>
-            </article>
-
+        <div class="ev-cat reveal is-in">
+            <div class="ev-cat-head">
+                <h3>Priroda i krajolik<small>Otoci, maslinici, borove šume i uvale Pašmanskog kanala</small></h3>
+                <button type="button" class="gal-link" @click="openLightbox('priroda', 0)">Otvori galeriju <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+            </div>
+            <div class="ev-gallery">
+                <button type="button" class="ev-shot big" @click="openLightbox('priroda', 0)"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="Otok Babac" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('priroda', 1)"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="Otok Pašman" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('priroda', 2)"><picture class="img bg-cover"><img src="images/webp/olive-harvest.webp" alt="Maslinici" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('priroda', 3)"><picture class="img bg-cover"><img src="images/webp/snorkelling-opt.webp" alt="Podmorje kanala" /></picture></button>
+                <button type="button" class="ev-shot more-shot" data-more="+6" @click="openLightbox('priroda', 4)"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="Uvale i plaže" /></picture></button>
+            </div>
         </div>
 
-        <div class="lightbox" :class="{ open: lightboxImg }" :aria-hidden="!lightboxImg" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) lightboxImg = null" @keydown.escape.window="lightboxImg = null">
-            <button type="button" class="lb-close" @click="lightboxImg = null" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </button>
-            <figure class="lb-stage">
-                <img :src="lightboxImg" alt="" />
+        <div class="ev-cat reveal is-in">
+            <div class="ev-cat-head">
+                <h3>Kulturno-povijesna baština<small>Kamene jezgre, barokne crkve, folklor i klapske večeri</small></h3>
+                <button type="button" class="gal-link" @click="openLightbox('bastina', 0)">Otvori galeriju <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+            </div>
+            <div class="ev-gallery">
+                <button type="button" class="ev-shot big" @click="openLightbox('bastina', 0)"><picture class="img bg-cover"><img src="images/webp/heritage.webp" alt="Povijesna jezgra" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('bastina', 1)"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="Folklorni nastup" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('bastina', 2)"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="Koncert u kamenoj jezgri" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('bastina', 3)"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="Šetnja starom jezgrom" /></picture></button>
+                <button type="button" class="ev-shot more-shot" data-more="+5" @click="openLightbox('bastina', 4)"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="Riva i mjesto" /></picture></button>
+            </div>
+        </div>
+
+        <div class="ev-cat reveal is-in">
+            <div class="ev-cat-head">
+                <h3>More, plaže i nautika<small>Marina, jedra, kupanje i duge ljetne večeri uz obalu</small></h3>
+                <button type="button" class="gal-link" @click="openLightbox('more', 0)">Otvori galeriju <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+            </div>
+            <div class="ev-gallery">
+                <button type="button" class="ev-shot big" @click="openLightbox('more', 0)"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="Plaže riviere" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('more', 1)"><picture class="img bg-cover"><img src="images/webp/marina.webp" alt="Marina" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('more', 2)"><picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="Vezovi u marini" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('more', 3)"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="Jutro uz more" /></picture></button>
+                <button type="button" class="ev-shot more-shot" data-more="+7" @click="openLightbox('more', 4)"><picture class="img bg-cover"><img src="images/webp/snorkelling-opt.webp" alt="Ronjenje na dah" /></picture></button>
+            </div>
+        </div>
+
+        <div class="ev-cat reveal is-in">
+            <div class="ev-cat-head">
+                <h3>Događanja i festivali<small>Festival cvijeća, Maraška Fest, koncerti i ljetne noćne tržnice</small></h3>
+                <button type="button" class="gal-link" @click="openLightbox('dogadanja', 0)">Otvori galeriju <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+            </div>
+            <div class="ev-gallery">
+                <button type="button" class="ev-shot big" @click="openLightbox('dogadanja', 0)"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="Festival cvijeća" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('dogadanja', 1)"><picture class="img bg-cover"><img src="images/webp/event.webp" alt="Ljetno događanje" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('dogadanja', 2)"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="Koncert na otvorenom" /></picture></button>
+                <button type="button" class="ev-shot" @click="openLightbox('dogadanja', 3)"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="Fešta na rivi" /></picture></button>
+                <button type="button" class="ev-shot more-shot" data-more="+8" @click="openLightbox('dogadanja', 4)"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="Ljetna večer u mjestu" /></picture></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page-sect gal-videos">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="sect-head reveal mb-14" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+            <div>
+                <span class="eyebrow">Video</span>
+                <h2 class="heading-2 mt-4">Rivijera u pokretu.</h2>
+            </div>
+            <p class="lede [text-wrap:pretty]">
+                Kratke snimke koje najbolje dočaravaju ugođaj naše destinacije — pokrenite ih i
+                zaronite u atmosferu Svetog Filipa i Jakova.
+            </p>
+        </div>
+
+        <div class="gal-vid-grid reveal stagger is-in">
+            <figure class="gal-vid" x-data="{ playing: false }">
+                <div class="gal-vid-frame">
+                    <video class="gal-vid-el" x-show="playing" x-cloak controls playsinline preload="none" poster="images/webp/town.webp" x-ref="v">
+                        <source src="videos/riva-golden-new.mp4" type="video/mp4" />
+                    </video>
+                    <button type="button" class="gal-vid-poster" x-show="!playing" @click="playing = true; $nextTick(() => $refs.v.play())" aria-label="Pokreni video: Zlatni sat na rivi">
+                        <picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture>
+                        <span class="gal-vid-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        <span class="gal-vid-title">Zlatni sat na rivi</span>
+                    </button>
+                </div>
+            </figure>
+            <figure class="gal-vid" x-data="{ playing: false }">
+                <div class="gal-vid-frame">
+                    <video class="gal-vid-el" x-show="playing" x-cloak controls playsinline preload="none" poster="images/webp/pasman-island.webp" x-ref="v">
+                        <source src="videos/postcard-pasman.mp4" type="video/mp4" />
+                    </video>
+                    <button type="button" class="gal-vid-poster" x-show="!playing" @click="playing = true; $nextTick(() => $refs.v.play())" aria-label="Pokreni video: Pašmanski kanal iz zraka">
+                        <picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture>
+                        <span class="gal-vid-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        <span class="gal-vid-title">Pašmanski kanal iz zraka</span>
+                    </button>
+                </div>
+            </figure>
+            <figure class="gal-vid" x-data="{ playing: false }">
+                <div class="gal-vid-frame">
+                    <video class="gal-vid-el" x-show="playing" x-cloak controls playsinline preload="none" poster="images/webp/beaches.webp" x-ref="v">
+                        <source src="videos/postcard-beaches.mp4" type="video/mp4" />
+                    </video>
+                    <button type="button" class="gal-vid-poster" x-show="!playing" @click="playing = true; $nextTick(() => $refs.v.play())" aria-label="Pokreni video: Plaže i kupanje">
+                        <picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture>
+                        <span class="gal-vid-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        <span class="gal-vid-title">Plaže i kupanje</span>
+                    </button>
+                </div>
+            </figure>
+            <figure class="gal-vid" x-data="{ playing: false }">
+                <div class="gal-vid-frame">
+                    <video class="gal-vid-el" x-show="playing" x-cloak controls playsinline preload="none" poster="images/webp/festival-flowers.webp" x-ref="v">
+                        <source src="videos/events-promo.mp4" type="video/mp4" />
+                    </video>
+                    <button type="button" class="gal-vid-poster" x-show="!playing" @click="playing = true; $nextTick(() => $refs.v.play())" aria-label="Pokreni video: Ljeto događanja">
+                        <picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture>
+                        <span class="gal-vid-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        <span class="gal-vid-title">Ljeto događanja</span>
+                    </button>
+                </div>
             </figure>
         </div>
     </div>
 </section>
 
-<section class="page-sect stay-help" x-data="{}">
-    <picture class="bg bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
-    <div class="max-w-[1600px] mx-auto px-4">
-        <div class="stay-help-inner reveal is-in">
-            <div>
-                <span class="eyebrow">Here to help</span>
-                <h2>Not sure where<br />to stay? <em>Ask us</em>.</h2>
-                <p>Drop by the info point or get in touch and tell us what kind of trip you're
-                planning — we'll point you to hosts and properties that match, then you
-                contact them directly to arrange your stay.</p>
-                <a href="contact.html" class="btn">Talk to the info point <span class="arr"></span></a>
-            </div>
-            <div class="help-points">
-                <div class="help-point">
-                    <span class="n">1</span>
-                    <div><h4>Pick your spot</h4><p>Riva and old town for the buzz, Turanj and Sv. Petar for the quiet.</p></div>
-                </div>
-                <div class="help-point">
-                    <span class="n">2</span>
-                    <div><h4>Choose your season</h4><p>July–August gets busy and prices rise; May, June and September are calmer and cheaper.</p></div>
-                </div>
-                <div class="help-point">
-                    <span class="n">3</span>
-                    <div><h4>Contact the host</h4><p>Reach out directly once you've found a place you like — we don't handle bookings ourselves.</p></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="lightbox" :class="{ open: lightboxOpen }" :aria-hidden="!lightboxOpen" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) closeLightbox()" @keydown.escape.window="if (lightboxOpen) closeLightbox()" @keydown.arrow-left.window="if (lightboxOpen) lbPrev()" @keydown.arrow-right.window="if (lightboxOpen) lbNext()">
+    <button type="button" class="lb-close" @click="closeLightbox()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button type="button" class="lb-nav prev" @click="lbPrev()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <figure class="lb-stage">
+        <img :src="lbShot[0]" :alt="lbShot[1]" />
+        <figcaption x-text="lbShot[1]"></figcaption>
+    </figure>
+    <button type="button" class="lb-nav next" @click="lbNext()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
 
+</div>
 
 <footer id="plan" class="bg-cream text-black pt-18 md:pt-25 pb-18 lg:pb-24">
     <div class="max-w-[1600px] mx-auto px-4">
@@ -559,7 +617,7 @@
                 <textarea class="feedback-textarea" placeholder="Write your message…" required></textarea>
                 <label class="feedback-upload">
                     <input type="file" accept="image/*,video/*" class="sr-only" @change="fileName = $event.target.files[0]?.name || ''">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/></svg>
                     <span x-text="fileName || 'Attach a photo or video (optional)'"></span>
                 </label>
                 <button type="submit" class="feedback-submit">Send</button>
@@ -568,9 +626,92 @@
     </div>
 </div>
 
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('galleriesPage', () => ({
+        galleries: {
+            priroda: {
+                title: 'Priroda i krajolik',
+                shots: [
+                    ['images/webp/babac-islet.webp',     'Otok Babac u Pašmanskom kanalu'],
+                    ['images/webp/pasman-island.webp',   'Otok Pašman preko kanala'],
+                    ['images/webp/olive-harvest.webp',   'Maslinici i berba maslina'],
+                    ['images/webp/snorkelling-opt.webp', 'Bistro podmorje kanala'],
+                    ['images/webp/beaches.webp',         'Uvale i plaže riviere'],
+                    ['images/webp/yoga-sea.webp',        'Mirno jutro uz more'],
+                    ['images/webp/turanj.webp',          'Obala kod Turnja'],
+                    ['images/webp/sv-petar.webp',        'Zelenilo uz Sveti Petar'],
+                    ['images/webp/town.webp',            'Pogled na kanal iz mjesta'],
+                    ['images/webp/pasman-island.webp',   'Zalazak nad otocima'],
+                ],
+            },
+            bastina: {
+                title: 'Kulturno-povijesna baština',
+                shots: [
+                    ['images/webp/heritage.webp',          'Povijesna kamena jezgra'],
+                    ['images/webp/heritage-folklore.webp', 'Folklorni nastup u nošnjama'],
+                    ['images/webp/heritage-concert.webp',  'Koncert u kamenoj jezgri'],
+                    ['images/webp/old-town-walks.webp',    'Šetnja starom jezgrom'],
+                    ['images/webp/town.webp',              'Riva i barokna crkva'],
+                    ['images/webp/couples.webp',           'Ljetna večer uz glazbu'],
+                    ['images/webp/family.webp',            'Fešta za sve naraštaje'],
+                ],
+            },
+            more: {
+                title: 'More, plaže i nautika',
+                shots: [
+                    ['images/webp/beaches.webp',         'Plaže i kupanje'],
+                    ['images/webp/marina.webp',          'Marina u srcu mjesta'],
+                    ['images/webp/nautika-marina.webp',  'Vezovi i jedra'],
+                    ['images/webp/yoga-sea.webp',        'Jutro uz more'],
+                    ['images/webp/snorkelling-opt.webp', 'Ronjenje na dah'],
+                    ['images/webp/pasman-island.webp',   'Isplovljavanje u kanal'],
+                    ['images/webp/babac-islet.webp',     'Kupanje kod Bapca'],
+                    ['images/webp/turanj.webp',          'Šljunčane uvale Turnja'],
+                    ['images/webp/biograd.webp',         'Pogled prema Biogradu'],
+                ],
+            },
+            dogadanja: {
+                title: 'Događanja i festivali',
+                shots: [
+                    ['images/webp/festival-flowers.webp', 'Festival cvijeća'],
+                    ['images/webp/event.webp',            'Ljetno događanje na rivi'],
+                    ['images/webp/heritage-concert.webp', 'Koncert na otvorenom'],
+                    ['images/webp/town.webp',             'Fešta na rivi'],
+                    ['images/webp/sv-petar.webp',         'Ljetna večer u mjestu'],
+                    ['images/webp/couples.webp',          'Noćna tržnica'],
+                    ['images/webp/family.webp',           'Program za obitelji'],
+                    ['images/webp/heritage-folklore.webp','Klapska večer'],
+                    ['images/webp/biograd.webp',          'Regata u kanalu'],
+                ],
+            },
+        },
+        activeKey: '',
+        get shots(){ return (this.galleries[this.activeKey] || { shots: [] }).shots; },
+
+        lightboxOpen: false,
+        lbIndex: 0,
+        get lbShot(){ return this.shots[this.lbIndex] || ['', '']; },
+        openLightbox(key, i){
+            this.activeKey = key;
+            const len = this.shots.length;
+            if (!len) return;
+            this.lbIndex = (i + len) % len;
+            this.lightboxOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        closeLightbox(){
+            this.lightboxOpen = false;
+            document.body.style.overflow = '';
+        },
+        lbNext(){ this.openLightbox(this.activeKey, this.lbIndex + 1); },
+        lbPrev(){ this.openLightbox(this.activeKey, this.lbIndex - 1); },
+    }));
+});
+</script>
+
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </body>
-
 </html>

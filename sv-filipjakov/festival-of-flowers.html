@@ -4,7 +4,7 @@
 
   	<meta charset="UTF-8">
 
-  	<title>Nautika | Sveti Filip i Jakov</title>
+  	<title>Festival cvijeća | Sveti Filip i Jakov</title>
 
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -159,7 +159,7 @@
         <div class="nav-menu__body">
             <div class="nav-menu__cols">
                 <div class="nav-menu__col">
-                    <a href="explore.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'istrazi' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -175,7 +175,7 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="places.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'mjesta' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -230,7 +230,7 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="stay.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'smjestaj' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -285,114 +285,232 @@
 </header>
 
 <header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
-    <picture class="bg bg-cover"><img src="images/webp/hero/nautika.webp" alt="" /></picture>
+    <picture class="bg bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture>
     <div class="page-head-inner">
         <nav class="crumb">
             <a href="index.html">Home</a>
             <span class="sep"></span>
-            <span>Nautika</span>
+            <a href="festivals-fairs.html">Lokalni festivali i sajmovi</a>
+            <span class="sep"></span>
+            <span>Festival cvijeća</span>
         </nav>
-        <h1>Drop anchor,<br />come <em>ashore</em>.</h1>
+        <h1>Festival <em>cvijeća</em>.</h1>
         <p class="ph-lede">
-            Berths and buoy fields along the Pašman channel, from a full-service marina in
-            town to a sheltered mooring field in neighbouring Turanj.
+            Jedan vikend svakog proljeća centar Svetog Filipa i Jakova pretvara se u more boja —
+            uzgajivači, cvjećari i dizajneri iz Hrvatske i inozemstva ispune rivu cvijećem,
+            radionicama, natjecanjima i modnom revijom. Tradicija od 2001. godine, i dan koji je
+            najvrjedniji putovanja.
         </p>
+        <div class="ph-foot">
+            <div class="ph-info">
+                <span class="k">Kada</span>
+                <span class="v">24.–26. travnja 2026.</span>
+                <span class="s">Zadnji vikend travnja · pet–ned</span>
+            </div>
+            <div class="ph-info">
+                <span class="k">Gdje</span>
+                <span class="v">Centar mjesta i riva</span>
+                <span class="s">Sveti Filip i Jakov</span>
+            </div>
+            <div class="ph-info">
+                <span class="k">Ulaz</span>
+                <span class="v">Besplatan</span>
+                <span class="s">Otvoren program · sve dobi</span>
+            </div>
+            <div class="ph-info">
+                <span class="k">Dio</span>
+                <span class="v">Dana županije</span>
+                <span class="s">Vodeći događaj Zadarske županije</span>
+            </div>
+        </div>
     </div>
 </header>
 
-<section class="page-sect stay-listings" x-data="{ place: 'all', lightboxImg: null }">
+<div x-data="festivalOfFlowersPage()">
+
+<section class="page-sect fair-tabs-sect">
     <div class="max-w-[1600px] mx-auto px-4">
-
-        <div class="chip-row">
-            <button type="button" class="chip" :class="{ active: place === 'all' }" @click="place = 'all'">Sva mjesta</button>
-            <button type="button" class="chip" :class="{ active: place === 'svfj' }" @click="place = 'svfj'">Sv. Filip i Jakov</button>
-            <button type="button" class="chip" :class="{ active: place === 'turanj' }" @click="place = 'turanj'">Turanj</button>
-            <button type="button" class="chip" :class="{ active: place === 'svpetar' }" @click="place = 'svpetar'">Sv. Petar</button>
-        </div>
-
-        <div class="stay-grid">
-
-            <article class="lodge" data-type="nautika" data-place="svfj" x-show="place === 'all' || place === $el.dataset.place" x-transition>
-                <div class="lodge-media" @click="lightboxImg = 'images/webp/nautika-marina.webp'">
-                    <span class="lodge-type">Marina · full-service</span>
-                    <picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture>
-                </div>
-                <div class="lodge-body">
-                    <div class="lodge-top">
-                        <h3 class="lodge-name">Marina Nautika</h3>
-                    </div>
-                    <div class="lodge-loc">Sveti Filip i Jakov</div>
-                    <div class="lodge-contact">
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Put Primorja 2, 23207 Sveti Filip i Jakov</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+385 23 389 200</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><span>info@marinanautika.hr</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>www.marinanautika.hr</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="lodge" data-type="nautika" data-place="turanj" x-show="place === 'all' || place === $el.dataset.place" x-transition>
-                <div class="lodge-media" @click="lightboxImg = 'images/webp/marina.webp'">
-                    <span class="lodge-type">Buoy field</span>
-                    <picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
-                </div>
-                <div class="lodge-body">
-                    <div class="lodge-top">
-                        <h3 class="lodge-name">Turanj Mooring Field</h3>
-                    </div>
-                    <div class="lodge-loc">Turanj</div>
-                    <div class="lodge-contact">
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Don Frane Sose bb, 23207 Turanj</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+385 23 389 201</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><span>info@turanjmooring.hr</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>www.turanjmooring.hr</span></div>
-                    </div>
-                </div>
-            </article>
-
-        </div>
-
-        <div class="lightbox" :class="{ open: lightboxImg }" :aria-hidden="!lightboxImg" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) lightboxImg = null" @keydown.escape.window="lightboxImg = null">
-            <button type="button" class="lb-close" @click="lightboxImg = null" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </button>
-            <figure class="lb-stage">
-                <img :src="lightboxImg" alt="" />
-            </figure>
-        </div>
-    </div>
-</section>
-
-<section class="page-sect stay-help" x-data="{}">
-    <picture class="bg bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
-    <div class="max-w-[1600px] mx-auto px-4">
-        <div class="stay-help-inner reveal is-in">
+        <div class="sect-head mb-10">
             <div>
-                <span class="eyebrow">Here to help</span>
-                <h2>Not sure where<br />to stay? <em>Ask us</em>.</h2>
-                <p>Drop by the info point or get in touch and tell us what kind of trip you're
-                planning — we'll point you to hosts and properties that match, then you
-                contact them directly to arrange your stay.</p>
-                <a href="contact.html" class="btn">Talk to the info point <span class="arr"></span></a>
+                <span class="eyebrow">Istraži festival</span>
+                <h2>Četiri lica vikenda.</h2>
             </div>
-            <div class="help-points">
-                <div class="help-point">
-                    <span class="n">1</span>
-                    <div><h4>Pick your spot</h4><p>Riva and old town for the buzz, Turanj and Sv. Petar for the quiet.</p></div>
+        </div>
+
+        <div class="fair-tabnav" role="tablist">
+            <button class="fair-tab" type="button" :class="{ active: activeTab === 'general' }" @click="activeTab = 'general'" role="tab">Opće informacije</button>
+            <button class="fair-tab" type="button" :class="{ active: activeTab === 'exhibitors' }" @click="activeTab = 'exhibitors'" role="tab">Izlagači i dizajneri</button>
+            <button class="fair-tab" type="button" :class="{ active: activeTab === 'promenade' }" @click="activeTab = 'promenade'" role="tab">Cvjetna promenada</button>
+            <button class="fair-tab" type="button" :class="{ active: activeTab === 'fashion' }" @click="activeTab = 'fashion'" role="tab">Modna revija</button>
+        </div>
+
+        <!-- 01 · OPĆE INFORMACIJE -->
+        <div class="fair-panel" x-show="activeTab === 'general'" x-cloak>
+            <div class="fair-panel-head">
+                <div class="ph-title">
+                    <span class="eyebrow">01 · Opće informacije</span>
+                    <h2>Rođen iz mjesta koje voli svoje <em>cvijeće</em>.</h2>
+                    <p>Tradicija je započela krajem 1998. godine, kada je Sveti Filip i Jakov osvojio titulu najurednijeg mjesta u Zadarskoj županiji — priča koja se nastavila i na drugim županijskim natjecanjima. Godine 2001. ta priča o cvijeću nadahnula je pokretanje Festivala cvijeća u Svetom Filipu i Jakovu.</p>
                 </div>
-                <div class="help-point">
-                    <span class="n">2</span>
-                    <div><h4>Choose your season</h4><p>July–August gets busy and prices rise; May, June and September are calmer and cheaper.</p></div>
+                <div class="ph-body">
+                    <p>Danas je festival dio najznačajnije manifestacije Zadarske županije — „Dana županije” — i tradicionalno se održava zadnjeg vikenda travnja u centru mjesta. Okuplja veliki broj izlagača i proizvođača cvijeća, kao i sudionike iz Hrvatske i inozemstva, a obogaćen je raznim programima i etnografskim prikazima starih običaja karakterističnih za ovo područje, kao i za druge dijelove Hrvatske.</p>
+                    <p>Tijekom tri dana posjetitelji mogu sudjelovati u eko-radionicama, prezentacijama, savjetovanjima i predavanjima, natjecanjima u cvjetnom aranžiranju, izložbama i modnim revijama. Uz izlagački dio, bogat je i kazališni program — nastupaju predškolska djeca iz vrtića Zadarske županije, učenici osnovnih škola, kulturno-umjetnička društva, dalmatinske klape i zabavljači.</p>
                 </div>
-                <div class="help-point">
-                    <span class="n">3</span>
-                    <div><h4>Contact the host</h4><p>Reach out directly once you've found a place you like — we don't handle bookings ourselves.</p></div>
+            </div>
+            <div class="ev-cat">
+                <div class="ev-cat-head">
+                    <h3>Iz prethodnih festivala<small>Trg, štandovi i mnoštvo posjetitelja kroz prošla izdanja</small></h3>
+                    <a href="#" class="gal-link" @click.prevent="openGallery('general')">Otvori galeriju <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                </div>
+                <div class="ev-gallery">
+                    <a href="#" class="ev-shot big" @click.prevent="openGallery('general')"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('general')"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('general')"><picture class="img bg-cover"><img src="images/webp/event.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('general')"><picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot more-shot" data-more="+22" @click.prevent="openGallery('general')"><picture class="img bg-cover"><img src="images/webp/family.webp" alt="" /></picture></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 02 · IZLAGAČI I DIZAJNERI -->
+        <div class="fair-panel" x-show="activeTab === 'exhibitors'" x-cloak>
+            <div class="fair-panel-head">
+                <div class="ph-title">
+                    <span class="eyebrow">02 · Izlagači i dizajneri</span>
+                    <h2>Najnoviji trendovi, složeni od <em>najboljih</em>.</h2>
+                </div>
+                <div class="ph-body">
+                    <p>Cvjetna izložba — dio festivala namijenjen cvjećarima i aranžerima — donosi najnovije trendove u struci. Kroz godine je ugostila renomirane aranžere, svaki sa svojim individualnim pristupom umijeću cvjetnog aranžiranja.</p>
+                    <p>Davne 2001. prvi festival ugostio je pet izlagača. Danas okuplja više od stotinu izlagača i sudionika.</p>
+                    <button class="btn mt-6" id="exhibitorToggle" type="button" @click="partsOpen = true" aria-haspopup="dialog">
+                        Pogledaj sudionike
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="ev-cat">
+                <div class="ev-cat-head">
+                    <h3>Cvjetna izložba<small>Aranžmani, štandovi i demonstracije iz prošlih izdanja</small></h3>
+                    <a href="#" class="gal-link" @click.prevent="openGallery('exhibitors')">Otvori galeriju <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                </div>
+                <div class="ev-gallery">
+                    <a href="#" class="ev-shot big" @click.prevent="openGallery('exhibitors')"><picture class="img bg-cover"><img src="images/webp/event.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('exhibitors')"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('exhibitors')"><picture class="img bg-cover"><img src="images/webp/biograd.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('exhibitors')"><picture class="img bg-cover"><img src="images/webp/zadar.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot more-shot" data-more="+18" @click.prevent="openGallery('exhibitors')"><picture class="img bg-cover"><img src="images/webp/family.webp" alt="" /></picture></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 03 · CVJETNA PROMENADA -->
+        <div class="fair-panel" x-show="activeTab === 'promenade'" x-cloak>
+            <div class="fair-panel-head">
+                <div class="ph-title">
+                    <span class="eyebrow">03 · Cvjetna promenada</span>
+                    <h2>Vrt kojim se <em>prošeta</em><br />duž rive.</h2>
+                </div>
+                <div class="ph-body">
+                    <p>Cvjetna promenada pretvara cijelu dužinu rive u vrt na otvorenom. Uzgajivači i rasadnici postavljaju štandove uz rivu s velikim izborom cvijeća, biljaka, sadnica i suvenira, dok velike cvjetne instalacije i foto-točke pozivaju posjetitelje da se zaustave, pomirišu i uslikaju.</p>
+                    <p>To je dio festivala kojim svi prošetaju — od jutra do noći, s morem s jedne strane i zidom boja s druge — uz dječju zonu i lokalnu gastro ponudu.</p>
+                </div>
+            </div>
+            <div class="ev-cat">
+                <div class="ev-cat-head">
+                    <h3>Duž rive<small>Ukrašena riva i njezine instalacije kroz godine</small></h3>
+                    <a href="#" class="gal-link" @click.prevent="openGallery('promenade')">Otvori galeriju <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                </div>
+                <div class="ev-gallery">
+                    <a href="#" class="ev-shot big" @click.prevent="openGallery('promenade')"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('promenade')"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('promenade')"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('promenade')"><picture class="img bg-cover"><img src="images/webp/couples.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot more-shot" data-more="+15" @click.prevent="openGallery('promenade')"><picture class="img bg-cover"><img src="images/webp/biograd.webp" alt="" /></picture></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 04 · MODNA REVIJA -->
+        <div class="fair-panel" x-show="activeTab === 'fashion'" x-cloak>
+            <div class="fair-panel-head">
+                <div class="ph-title">
+                    <span class="eyebrow">04 · Modna revija</span>
+                    <h2>Kad cvijeće stupi<br />na <em>modnu pistu</em>.</h2>
+                </div>
+                <div class="ph-body">
+                    <p>Cvijeće je uvijek privlačno i nadahnjujuće — a na Festivalu cvijeća stupa na modnu pistu. Modna revija spaja rad lokalnih dizajnera i stilista s cvjetnim motivima i aranžmanima, pretvarajući rivu u modnu pistu na otvorenom.</p>
+                    <p>Modeli predstavljaju kolekcije u kojima cvijeće postaje ukrasi, pokrivala za glavu i cijela odjevna kombinacija — najglamurozniji trenutak vikenda, koji privlači najveću večernju publiku festivala.</p>
+                </div>
+            </div>
+            <div class="ev-cat">
+                <div class="ev-cat-head">
+                    <h3>Na modnoj pisti<small>Cvjetne kolekcije i večernja publika iz prošlih revija</small></h3>
+                    <a href="#" class="gal-link" @click.prevent="openGallery('fashion')">Otvori galeriju <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                </div>
+                <div class="ev-gallery">
+                    <a href="#" class="ev-shot big" @click.prevent="openGallery('fashion')"><picture class="img bg-cover"><img src="images/webp/heritage-concert.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('fashion')"><picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('fashion')"><picture class="img bg-cover"><img src="images/webp/couples.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot" @click.prevent="openGallery('fashion')"><picture class="img bg-cover"><img src="images/webp/event.webp" alt="" /></picture></a>
+                    <a href="#" class="ev-shot more-shot" data-more="+12" @click.prevent="openGallery('fashion')"><picture class="img bg-cover"><img src="images/webp/family.webp" alt="" /></picture></a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- ───────────────── PARTICIPANTS POPUP ───────────────── -->
+<div class="parts-overlay" :class="{ open: partsOpen }" :aria-hidden="!partsOpen" role="dialog" aria-modal="true" aria-label="Sudionici festivala" @keydown.escape.window="partsOpen = false">
+    <div class="parts-scrim" @click="partsOpen = false"></div>
+    <div class="parts-card" role="document">
+        <button class="parts-close" type="button" @click="partsOpen = false" aria-label="Zatvori">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <span class="eyebrow">Kroz godine</span>
+        <h3 class="parts-title">Priznati aranžeri i dizajneri</h3>
+        <div class="fair-names">
+            <div class="fair-name"><span class="nm">Emilio Prezziosi</span><span class="org">Potpredsjednik, Rimsko cvjećarsko udruženje</span></div>
+            <div class="fair-name"><span class="nm">Lord Cornelius Veldhuis</span><span class="org">Nizozemski majstor cvjetnog dizajna · Nizozemska</span></div>
+            <div class="fair-name"><span class="nm">Kristina Skvrce</span><span class="org">Dubrovnik</span></div>
+            <div class="fair-name"><span class="nm">Marko Bijelić &amp; Suzana Lonjak</span><span class="org">Osijek</span></div>
+            <div class="fair-name"><span class="nm">Viola Odorata</span><span class="org">Udruženje · Split</span></div>
+            <div class="fair-name"><span class="nm">Nives Stančin</span><span class="org">Bjelovar</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="gallery-overlay" :class="{ open: galleryOpen }" :aria-hidden="!galleryOpen" role="dialog" aria-modal="true" aria-label="Photo gallery">
+    <div class="gallery-bar">
+        <div class="gallery-bar-title">
+            <span class="eyebrow" x-text="activeGallery.eyebrow"></span>
+            <h3 x-text="activeGallery.title"></h3>
+        </div>
+        <span class="gallery-count" x-text="activeGallery.shots.length + ' fotografija'"></span>
+        <button type="button" class="gallery-close" @click="closeGallery()" aria-label="Close gallery">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+    </div>
+    <div class="gallery-grid">
+        <template x-for="(shot, i) in activeGallery.shots" :key="activeGalleryKey + '-' + i">
+            <button type="button" class="g-item" @click="openLightbox(i)" aria-label="Open photo">
+                <img :src="shot[0]" :alt="shot[1]" />
+                <span class="g-cap" x-text="shot[1]"></span>
+            </button>
+        </template>
+    </div>
+</div>
+
+<div class="lightbox" :class="{ open: lightboxOpen }" :aria-hidden="!lightboxOpen" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) closeLightbox()" @keydown.escape.window="if (lightboxOpen) closeLightbox()" @keydown.arrow-left.window="if (lightboxOpen) lbPrev()" @keydown.arrow-right.window="if (lightboxOpen) lbNext()">
+    <button type="button" class="lb-close" @click="closeLightbox()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button type="button" class="lb-nav prev" @click="lbPrev()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <figure class="lb-stage">
+        <img :src="lbShot[0]" :alt="lbShot[1]" />
+        <figcaption x-text="lbShot[1]"></figcaption>
+    </figure>
+    <button type="button" class="lb-nav next" @click="lbNext()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+
+</div>
 
 <footer id="plan" class="bg-cream text-black pt-18 md:pt-25 pb-18 lg:pb-24">
     <div class="max-w-[1600px] mx-auto px-4">
@@ -559,7 +677,7 @@
                 <textarea class="feedback-textarea" placeholder="Write your message…" required></textarea>
                 <label class="feedback-upload">
                     <input type="file" accept="image/*,video/*" class="sr-only" @change="fileName = $event.target.files[0]?.name || ''">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/></svg>
                     <span x-text="fileName || 'Attach a photo or video (optional)'"></span>
                 </label>
                 <button type="submit" class="feedback-submit">Send</button>
@@ -567,6 +685,93 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('festivalOfFlowersPage', () => ({
+        activeTab: 'general',
+
+        partsOpen: false,
+
+        galleryOpen: false,
+        activeGalleryKey: '',
+        galleries: {
+            general: {
+                title: 'Opće informacije · Festival cvijeća',
+                eyebrow: 'Prošla izdanja',
+                shots: [
+                    ['images/webp/festival-flowers.webp', 'Cvjetni sajam ispunjava centar mjesta'],
+                    ['images/webp/town.webp',              'Štandovi i mnoštvo posjetitelja uz rivu'],
+                    ['images/webp/event.webp',              'Program na glavnom trgu'],
+                    ['images/webp/heritage-folklore.webp',  'Klape i kulturno-umjetnička društva'],
+                    ['images/webp/family.webp',             'Dječji program na rivi'],
+                    ['images/webp/couples.webp',            'Proljetna večer na festivalu'],
+                ],
+            },
+            exhibitors: {
+                title: 'Izlagači i dizajneri',
+                eyebrow: 'Cvjetna izložba',
+                shots: [
+                    ['images/webp/event.webp',              'Cvjetni aranžmani na izložbi'],
+                    ['images/webp/festival-flowers.webp',   'Štandovi izlagača uz rivu'],
+                    ['images/webp/biograd.webp',            'Demonstracije gostujućih cvjećara'],
+                    ['images/webp/zadar.webp',               'Natjecateljski radovi'],
+                    ['images/webp/family.webp',              'Posjetitelji razgledavaju izložbu'],
+                ],
+            },
+            promenade: {
+                title: 'Cvjetna promenada',
+                eyebrow: 'Duž rive',
+                shots: [
+                    ['images/webp/town.webp',               'Ukrašena riva'],
+                    ['images/webp/festival-flowers.webp',   'Zid boja uz more'],
+                    ['images/webp/sv-petar.webp',           'Cvjetne instalacije i foto-točke'],
+                    ['images/webp/couples.webp',            'Šetnja promenadom'],
+                    ['images/webp/biograd.webp',             'Štandovi uzgajivača i rasadnika'],
+                ],
+            },
+            fashion: {
+                title: 'Modna revija',
+                eyebrow: 'Na modnoj pisti',
+                shots: [
+                    ['images/webp/heritage-concert.webp',   'Večernja modna revija na rivi'],
+                    ['images/webp/festival-flowers.webp',   'Cvjetna moda'],
+                    ['images/webp/couples.webp',            'Publika na modnoj pisti'],
+                    ['images/webp/event.webp',               'Dizajneri predstavljaju kolekcije'],
+                    ['images/webp/family.webp',              'Zatvaranje festivala'],
+                ],
+            },
+        },
+        get activeGallery(){ return this.galleries[this.activeGalleryKey] || { title: '', eyebrow: '', shots: [] }; },
+        openGallery(key){
+            this.activeGalleryKey = key;
+            this.galleryOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        closeGallery(){
+            this.galleryOpen = false;
+            if (!this.lightboxOpen) document.body.style.overflow = '';
+        },
+
+        lightboxOpen: false,
+        lbIndex: 0,
+        get lbShot(){ return this.activeGallery.shots[this.lbIndex] || ['', '']; },
+        openLightbox(i){
+            const len = this.activeGallery.shots.length;
+            if (!len) return;
+            this.lbIndex = (i + len) % len;
+            this.lightboxOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        closeLightbox(){
+            this.lightboxOpen = false;
+            if (!this.galleryOpen) document.body.style.overflow = '';
+        },
+        lbNext(){ this.openLightbox(this.lbIndex + 1); },
+        lbPrev(){ this.openLightbox(this.lbIndex - 1); },
+    }));
+});
+</script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

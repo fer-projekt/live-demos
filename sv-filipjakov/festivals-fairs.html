@@ -59,7 +59,7 @@
         <li><a href="explore.html">Explore</a></li>
         <li><a href="places.html">Places</a></li>
         <li><a href="experience.html">Experience</a></li>
-        <li><a href="#">Plan your trip</a></li>
+        <li><a href="plan-your-trip.html">Plan your trip</a></li>
         <li><a href="stay.html">Stay</a></li>
         <li><a href="things-to-do.html">Things to do</a></li>
         <li><a href="events.html">Events</a></li>
@@ -159,23 +159,23 @@
         <div class="nav-menu__body">
             <div class="nav-menu__cols">
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
+                    <a href="explore.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'istrazi' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
-                            <li><a href="explore.html">Prirodne ljepote i krajolik</a></li>
-                            <li><a href="explore.html">Kulturno-povijesna baština</a></li>
-                            <li><a href="explore.html">Klima i geografija</a></li>
-                            <li><a href="explore.html">Galerija fotografija i videa</a></li>
+                            <li><a href="natural-beauty-and-landscapes.html">Prirodne ljepote i krajolik</a></li>
+                            <li><a href="cultural-and-historical-heritage.html">Kulturno-povijesna baština</a></li>
+                            <li><a href="climate-and-geography.html">Klima i geografija</a></li>
+                            <li><a href="galleries.html">Galerija fotografija i videa</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
+                    <a href="places.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'mjesta' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -202,22 +202,22 @@
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="authentic-experiences.html">Autentična iskustva</a></li>
-                            <li><a href="experience.html">Za obitelji</a></li>
-                            <li><a href="experience.html">Za parove</a></li>
-                            <li><a href="experience.html">Za avanturiste</a></li>
-                            <li><a href="experience.html">Za digitalne nomade</a></li>
-                            <li><a href="experience.html">Camino</a></li>
+                            <li><a href="for-families.html">Za obitelji</a></li>
+                            <li><a href="for-couples.html">Za parove</a></li>
+                            <li><a href="for-adventurers.html">Za avanturiste</a></li>
+                            <li><a href="for-digital-nomads.html">Za digitalne nomade</a></li>
+                            <li><a href="camino.html">Camino</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'plan' }">Planiraj putovanje</a>
+                    <a href="plan-your-trip.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'plan' }">Planiraj putovanje</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'plan' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <a href="plan-your-trip.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="getting-here.html">Kako doći</a></li>
                             <li><a href="destination-map.html">Karta destinacije</a></li>
@@ -230,7 +230,7 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
+                    <a href="stay.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'smjestaj' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -333,7 +333,7 @@
                 <h2>Festival cvijeća Zadarske županije</h2>
                 <p>Jedna od najprepoznatljivijih manifestacija u destinaciji. Održava se tradicionalno <b>posljednjeg vikenda u travnju</b> u centru Svetog Filipa i Jakova, u sklopu šire manifestacije „Dani županije”.</p>
                 <p>Okuplja velik broj izlagača i proizvođača cvijeća iz Hrvatske i inozemstva: izložbe cvijeća i sadnica, natjecanja aranžera, modne revije, prezentacije starih običaja i eko-radionice. Suradnja s projektom <b>„Spiza od cvića”</b> donosi spoj cvijeća i gastronomije.</p>
-                <a class="go" href="events-calendar.html">Pogledaj kalendar festivala <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                <a href="festival-of-flowers.html" class="btn primary mt-2">Pogledaj festival <span class="arr"></span></a>
             </div>
             <div class="story-media">
                 <picture class="img bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture>
@@ -347,7 +347,6 @@
                 <h2>Sajam domaćih hrvatskih proizvoda</h2>
                 <p>U srcu ljetne sezone, na rivi Svetog Filipa i Jakova tijekom nekoliko tjedana održava se sajam domaćih hrvatskih proizvoda. Na štandovima lokalnih <b>OPG-ova</b>, proizvođača i obrtnika iz Zadarske županije i šire regije prezentiraju se prehrambeni proizvodi, rukotvorine i suveniri.</p>
                 <p>Od <b>meda, maslinovog ulja i sireva</b> do rakija, suvenira i autentičnih ambijentalnih proizvoda — sajam je mjesto susreta lokalnih proizvođača s posjetiteljima i promocije autohtonih proizvoda i tradicije.</p>
-                <div class="story-tags"><span>OPG-ovi</span><span>Med · ulje · sir</span><span>Rukotvorine</span></div>
             </div>
             <div class="story-media">
                 <picture class="img bg-cover"><img src="images/webp/olive-harvest.webp" alt="" /></picture>
@@ -361,7 +360,6 @@
                 <h2>FJAKA Film Festival</h2>
                 <p>Poseban filmski događaj koji se održava u Svetom Filipu i Jakovu, fokusiran na <b>horor i dark fantasy</b> žanr.</p>
                 <p>Festival prikazuje domaće i međunarodne horor filmove, uključuje retrospektive kultnih naslova, radionice i popratne sadržaje, te okuplja ljubitelje žanra iz čitave regije.</p>
-                <div class="story-tags"><span>Horor</span><span>Dark fantasy</span><span>Retrospektive</span></div>
             </div>
             <div class="story-media">
                 <picture class="img bg-cover"><img src="images/webp/fjaka.webp" alt="" /></picture>
@@ -375,7 +373,6 @@
                 <h2>Maraška Fest — Fešta od maraške</h2>
                 <p>Manifestacija koja slavi autohtoni plod dalmatinskog kraja — <b>marašku</b>. Održava se tijekom ljeta na rivijeri.</p>
                 <p>Kroz degustacije, prezentacije tradicionalnih recepata, glazbene nastupe i tematske večeri približava povijest i kulturu uzgoja ove karakteristične voćke te tradiciju <b>Ravnih kotara</b>.</p>
-                <div class="story-tags"><span>Maraška</span><span>Degustacije</span><span>Ravni kotari</span></div>
             </div>
             <div class="story-media">
                 <picture class="img bg-cover"><img src="images/webp/couples.webp" alt="" /></picture>
@@ -389,7 +386,6 @@
                 <h2>Manje fešte i etno događanja</h2>
                 <p>Osim istaknutih festivala, rivijera nudi i niz manjih lokalnih sajmova, fešti i etno događanja tijekom cijele sezone — od <b>ribarskih večeri</b> i <b>klapskih susreta</b> do dječjih radionica i prezentacija lokalnih proizvoda.</p>
                 <p>Uz cvijeće, film, marašku i domaće proizvode, ovi događaji čine kulturnu i društvenu ponudu destinacije raznolikom i dostupnom svim posjetiteljima.</p>
-                <div class="story-tags"><span>Ribarske večeri</span><span>Klapski susreti</span><span>Dječje radionice</span></div>
             </div>
             <div class="story-media">
                 <picture class="img bg-cover"><img src="images/webp/heritage-folklore.webp" alt="" /></picture>
@@ -484,6 +480,7 @@
 </section>
 
 <section class="page-sect stay-help">
+    <picture class="bg bg-cover"><img src="images/webp/festival-flowers.webp" alt="" /></picture>
     <div class="max-w-[1600px] mx-auto px-4">
         <div class="stay-help-inner">
             <div>
@@ -591,7 +588,7 @@
             </div>
             <div class="col-span-2 lg:col-span-1">
                 <div class="footer-heading">Info</div>
-                <a href="#" class="footer-link">Kutak za iznajmljivače</a>
+                <a href="hosts-corner.html" class="footer-link">Kutak za iznajmljivače</a>
                 <a href="documents.html" class="footer-link">Dokumenti</a>
                 <a href="https://www.evisitor.hr/" target="_blank" rel="noopener" class="footer-link">E-visitor</a>
                 <a href="https://mvisitor.hr/" target="_blank" rel="noopener" class="footer-link">M-visitor</a>

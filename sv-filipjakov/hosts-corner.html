@@ -4,7 +4,7 @@
 
   	<meta charset="UTF-8">
 
-  	<title>Nautika | Sveti Filip i Jakov</title>
+  	<title>Kutak za iznajmljivače | Sveti Filip i Jakov</title>
 
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -284,115 +284,136 @@
     </nav>
 </header>
 
-<header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
-    <picture class="bg bg-cover"><img src="images/webp/hero/nautika.webp" alt="" /></picture>
+<header class="page-head page-head--sm" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
+    <picture class="bg bg-cover"><img src="images/webp/private-accommodation.webp" alt="" /></picture>
     <div class="page-head-inner">
         <nav class="crumb">
             <a href="index.html">Home</a>
             <span class="sep"></span>
-            <span>Nautika</span>
+            <span>Kutak za iznajmljivače</span>
         </nav>
-        <h1>Drop anchor,<br />come <em>ashore</em>.</h1>
+        <h1>Kutak za <em>iznajmljivače</em>.</h1>
         <p class="ph-lede">
-            Berths and buoy fields along the Pašman channel, from a full-service marina in
-            town to a sheltered mooring field in neighbouring Turanj.
+            Sve što treba vlasnicima privatnog smještaja u Svetom Filipu i Jakovu — turistička
+            pristojba i članarina, obrasci za preuzimanje, Local Host platforma i upute za
+            iznajmljivače. Na jednom mjestu.
         </p>
     </div>
 </header>
 
-<section class="page-sect stay-listings" x-data="{ place: 'all', lightboxImg: null }">
+<section class="page-sect doc-page" x-data="{ tab: 'preuzimanje' }">
     <div class="max-w-[1600px] mx-auto px-4">
 
-        <div class="chip-row">
-            <button type="button" class="chip" :class="{ active: place === 'all' }" @click="place = 'all'">Sva mjesta</button>
-            <button type="button" class="chip" :class="{ active: place === 'svfj' }" @click="place = 'svfj'">Sv. Filip i Jakov</button>
-            <button type="button" class="chip" :class="{ active: place === 'turanj' }" @click="place = 'turanj'">Turanj</button>
-            <button type="button" class="chip" :class="{ active: place === 'svpetar' }" @click="place = 'svpetar'">Sv. Petar</button>
-        </div>
-
-        <div class="stay-grid">
-
-            <article class="lodge" data-type="nautika" data-place="svfj" x-show="place === 'all' || place === $el.dataset.place" x-transition>
-                <div class="lodge-media" @click="lightboxImg = 'images/webp/nautika-marina.webp'">
-                    <span class="lodge-type">Marina · full-service</span>
-                    <picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture>
-                </div>
-                <div class="lodge-body">
-                    <div class="lodge-top">
-                        <h3 class="lodge-name">Marina Nautika</h3>
-                    </div>
-                    <div class="lodge-loc">Sveti Filip i Jakov</div>
-                    <div class="lodge-contact">
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Put Primorja 2, 23207 Sveti Filip i Jakov</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+385 23 389 200</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><span>info@marinanautika.hr</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>www.marinanautika.hr</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="lodge" data-type="nautika" data-place="turanj" x-show="place === 'all' || place === $el.dataset.place" x-transition>
-                <div class="lodge-media" @click="lightboxImg = 'images/webp/marina.webp'">
-                    <span class="lodge-type">Buoy field</span>
-                    <picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
-                </div>
-                <div class="lodge-body">
-                    <div class="lodge-top">
-                        <h3 class="lodge-name">Turanj Mooring Field</h3>
-                    </div>
-                    <div class="lodge-loc">Turanj</div>
-                    <div class="lodge-contact">
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Don Frane Sose bb, 23207 Turanj</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+385 23 389 201</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><span>info@turanjmooring.hr</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>www.turanjmooring.hr</span></div>
-                    </div>
-                </div>
-            </article>
-
-        </div>
-
-        <div class="lightbox" :class="{ open: lightboxImg }" :aria-hidden="!lightboxImg" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) lightboxImg = null" @keydown.escape.window="lightboxImg = null">
-            <button type="button" class="lb-close" @click="lightboxImg = null" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </button>
-            <figure class="lb-stage">
-                <img :src="lightboxImg" alt="" />
-            </figure>
-        </div>
-    </div>
-</section>
-
-<section class="page-sect stay-help" x-data="{}">
-    <picture class="bg bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
-    <div class="max-w-[1600px] mx-auto px-4">
-        <div class="stay-help-inner reveal is-in">
+        <div class="sect-head">
             <div>
-                <span class="eyebrow">Here to help</span>
-                <h2>Not sure where<br />to stay? <em>Ask us</em>.</h2>
-                <p>Drop by the info point or get in touch and tell us what kind of trip you're
-                planning — we'll point you to hosts and properties that match, then you
-                contact them directly to arrange your stay.</p>
-                <a href="contact.html" class="btn">Talk to the info point <span class="arr"></span></a>
+                <span class="eyebrow">Za vlasnike smještaja</span>
+                <h2 class="heading-2 mt-4">Podaci i obrasci za iznajmljivače.</h2>
             </div>
-            <div class="help-points">
-                <div class="help-point">
-                    <span class="n">1</span>
-                    <div><h4>Pick your spot</h4><p>Riva and old town for the buzz, Turanj and Sv. Petar for the quiet.</p></div>
-                </div>
-                <div class="help-point">
-                    <span class="n">2</span>
-                    <div><h4>Choose your season</h4><p>July–August gets busy and prices rise; May, June and September are calmer and cheaper.</p></div>
-                </div>
-                <div class="help-point">
-                    <span class="n">3</span>
-                    <div><h4>Contact the host</h4><p>Reach out directly once you've found a place you like — we don't handle bookings ourselves.</p></div>
-                </div>
+            <p class="lede [text-wrap:pretty]">
+                Odaberite rubriku i preuzmite dokument koji vas zanima. Dokumenti za preuzimanje
+                su u PDF formatu i redovito se ažuriraju.
+            </p>
+        </div>
+
+        <div class="chip-row" role="tablist">
+            <button type="button" class="chip" :class="{ active: tab === 'preuzimanje' }" @click="tab = 'preuzimanje'" role="tab" :aria-selected="tab === 'preuzimanje'">Preuzimanje <span class="count">6</span></button>
+            <button type="button" class="chip" :class="{ active: tab === 'formulari' }" @click="tab = 'formulari'" role="tab" :aria-selected="tab === 'formulari'">Preuzimanje formulara <span class="count">2</span></button>
+            <button type="button" class="chip" :class="{ active: tab === 'localhost' }" @click="tab = 'localhost'" role="tab" :aria-selected="tab === 'localhost'">Local Host</button>
+            <button type="button" class="chip" :class="{ active: tab === 'upute' }" @click="tab = 'upute'" role="tab" :aria-selected="tab === 'upute'">Upute za iznajmljivače</button>
+            <button type="button" class="chip" :class="{ active: tab === 'prigovori' }" @click="tab = 'prigovori'" role="tab" :aria-selected="tab === 'prigovori'">Prigovori</button>
+        </div>
+
+        <div class="doc-panel" x-show="tab === 'preuzimanje'">
+            <div class="doc-panel-head">
+                <h3>Preuzimanje</h3>
+                <p>Odluke i obrasci vezani uz turističku pristojbu i turističku članarinu za privatne iznajmljivače.</p>
+            </div>
+            <div class="doc-list">
+                <a class="doc-dl" href="docs/turisticka-pristojba-2025.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Turistička pristojba za 2025.</b><small>PDF · download</small></span>
+                </a>
+                <a class="doc-dl acc-sun" href="docs/turisticka-pristojba-2026.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Visina turističke pristojbe za 2026.</b><small>PDF · download</small></span>
+                </a>
+                <a class="doc-dl" href="docs/pausal-turisticka-pristojba.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Plaćanje paušala turističke pristojbe</b><small>PDF · download</small></span>
+                </a>
+                <a class="doc-dl acc-fuchsia" href="docs/turisticka-clanarina.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Turistička članarina</b><small>PDF · download</small></span>
+                </a>
+                <a class="doc-dl acc-fuchsia" href="docs/pausal-turisticka-clanarina.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Plaćanje paušala turističke članarine</b><small>PDF · download</small></span>
+                </a>
+                <a class="doc-dl acc-olive" href="docs/info-vlasnici-kuca-stanova-za-odmor.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Info za vlasnike kuća i stanova za odmor</b><small>PDF · download</small></span>
+                </a>
             </div>
         </div>
+
+        <div class="doc-panel" x-show="tab === 'formulari'">
+            <div class="doc-panel-head">
+                <h3>Preuzimanje formulara</h3>
+                <p>Kućni red i cjenik koje ističete u svom smještajnom objektu — spremni za preuzimanje i ispis.</p>
+            </div>
+            <div class="doc-list">
+                <a class="doc-dl" href="docs/kucni-red.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Kućni red</b><small>PDF · download</small></span>
+                </a>
+                <a class="doc-dl acc-sun" href="docs/cjenik.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Cjenik</b><small>PDF · download</small></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="doc-panel" x-show="tab === 'localhost'">
+            <div class="doc-panel-head">
+                <h3>Local Host</h3>
+                <p>Platforma Hrvatske turističke zajednice namijenjena privatnim iznajmljivačima.</p>
+            </div>
+            <div class="ui-card max-w-[640px]">
+                <div class="ui-card-head">
+                    <span class="ui-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>
+                    <div>
+                        <h4>Local Host</h4>
+                        <span class="sub">Hrvatska turistička zajednica</span>
+                    </div>
+                </div>
+                <p class="text-[15px] leading-[1.6] text-ink-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — kratki opis platforme Local Host bit će ovdje.</p>
+                <a href="https://localhost.hr" target="_blank" rel="noopener" class="btn mt-5">Otvori Local Host <span class="arr"></span></a>
+            </div>
+        </div>
+
+        <div class="doc-panel" x-show="tab === 'upute'">
+            <div class="doc-panel-head">
+                <h3>Upute za iznajmljivače</h3>
+                <p>Priručnik s praktičnim uputama za vlasnike apartmana, kuća za odmor, studio apartmana i soba u domaćinstvu.</p>
+            </div>
+            <div class="doc-list">
+                <a class="doc-dl" href="docs/prirucnik-iznajmljivaci.pdf" download>
+                    <span class="doc-dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></span>
+                    <span class="doc-dl-txt"><b>Upute za iznajmljivače</b><small>PDF · download</small></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="doc-panel" x-show="tab === 'prigovori'">
+            <div class="doc-panel-head">
+                <h3>Prigovori</h3>
+                <p>Za prigovore i primjedbe vezane uz smještaj ili usluge u našoj destinaciji, javite se putem kontakt forme.</p>
+            </div>
+            <button type="button" class="btn" @click="window.dispatchEvent(new CustomEvent('open-feedback'))">Podnesi prigovor <span class="arr"></span></button>
+        </div>
+
     </div>
 </section>
-
 
 <footer id="plan" class="bg-cream text-black pt-18 md:pt-25 pb-18 lg:pb-24">
     <div class="max-w-[1600px] mx-auto px-4">
@@ -472,7 +493,7 @@
     </div>
 </footer>
 
-<div x-data="{ moodOpen: false, moodRated: false, feedbackOpen: false }">
+<div x-data="{ moodOpen: false, moodRated: false, feedbackOpen: false }" @open-feedback.window="feedbackOpen = true">
     <div class="utility-bar" x-data="{ show: false }" x-init="window.addEventListener('scroll', () => { show = window.scrollY > 300 }, { passive: true })" :class="{ 'is-in': show }">
         <div class="utility-bar__mood">
             <button type="button" class="utility-bar__mood-btn" aria-label="Rate your visit" @click="moodOpen = true">
@@ -559,7 +580,7 @@
                 <textarea class="feedback-textarea" placeholder="Write your message…" required></textarea>
                 <label class="feedback-upload">
                     <input type="file" accept="image/*,video/*" class="sr-only" @change="fileName = $event.target.files[0]?.name || ''">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/></svg>
                     <span x-text="fileName || 'Attach a photo or video (optional)'"></span>
                 </label>
                 <button type="submit" class="feedback-submit">Send</button>
@@ -572,5 +593,4 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </body>
-
 </html>

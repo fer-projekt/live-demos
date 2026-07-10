@@ -1648,9 +1648,17 @@
     .trip-thumb{ @apply relative overflow-hidden w-[150px] h-[100px] rounded-md max-md:hidden!; }
 
     /* ---------- Places · map CTA band ---------- */
-    .stay-help{ @apply bg-black text-cream; }
+    .stay-help{
+        @apply relative isolate bg-black text-cream overflow-hidden;
+
+        &::before{
+            content: "";
+            @apply absolute! inset-0 z-1;
+            background: linear-gradient(180deg, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.86) 100%);
+        }
+    }
     .stay-help-inner{
-        @apply grid grid-cols-1 lg:grid-cols-2 gap-9 lg:gap-[70px] items-center;
+        @apply relative z-2 grid grid-cols-1 lg:grid-cols-2 gap-9 lg:gap-[70px] items-center;
 
         h2{ @apply text-[clamp(36px,4.6vw,68px)] font-light tracking-[-0.01em] leading-[1.05] text-cream; }
         h2 em{ @apply font-caveat not-italic text-sun; }
@@ -1786,7 +1794,7 @@
         &::-webkit-scrollbar{ display: none; }
     }
     .exp-card{
-        @apply relative flex-none rounded-[14px] overflow-hidden isolate cursor-pointer;
+        @apply relative flex-none rounded-[14px] overflow-hidden isolate;
         flex-basis: clamp(270px, 29vw, 400px);
         aspect-ratio: 5 / 4;
         scroll-snap-align: start;
@@ -2298,6 +2306,132 @@
     .ev-feature-stats .v{ @apply text-[38px] font-extralight tracking-[-0.02em] leading-none; }
     .ev-feature-stats .l{ @apply text-[11px] tracking-[0.12em] uppercase text-muted mt-1.75; }
 
+    /* ════════════════════════════ FESTIVAL OF FLOWERS (event detail) ════════════════════════════ */
+    .ph-foot{
+        @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-5.5 gap-x-9 mt-9 pt-7 border-t border-white/25;
+        @apply max-md:mt-6! max-md:pt-5! max-md:gap-x-6! max-md:gap-y-4.5!;
+    }
+    .ph-info{
+        @apply flex flex-col gap-1.5 max-w-[30ch];
+
+        .k{ @apply text-[11px] tracking-[0.16em] uppercase font-bold opacity-80; }
+        .v{ @apply text-2xl font-light tracking-[-0.01em] leading-[1.1] max-md:text-xl!; }
+        .s{ @apply text-[13px] opacity-82 max-md:text-xs!; }
+    }
+    .page-head .ph-foot{ @apply opacity-0 translate-y-7; }
+    .page-head.is-in .ph-foot{ animation: rise 1s .75s cubic-bezier(.2,.7,.2,1) forwards; }
+
+    /* ════════════════════════════ PLAN YOUR TRIP — HUB ════════════════════════════ */
+    .plan-intro{ @apply bg-cream; }
+    .plan-intro-grid{
+        @apply grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-6 lg:gap-16 items-end;
+
+        h2{ @apply text-[clamp(34px,4.2vw,62px)] font-extralight tracking-[-0.02em] leading-[1.04] mt-4; }
+        h2 em{ @apply font-caveat not-italic text-sea text-[1.12em]; }
+    }
+    .plan-intro .lede{ @apply text-lg leading-[1.7] text-ink-2 max-w-[52ch] [text-wrap:pretty]; }
+
+    .hub-grid{ @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5.5 mt-11 lg:mt-17; }
+    .hub-card{
+        @apply relative flex flex-col bg-white border border-black/7 rounded-2xl no-underline text-black overflow-hidden min-h-[300px];
+        padding: 34px 32px 30px;
+        border-top: 4px solid var(--accent, var(--color-sea));
+        transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .3s ease;
+
+        &:hover{ @apply -translate-y-1.5; box-shadow: 0 34px 70px -40px rgba(0,0,0,0.5); }
+
+        .num{
+            @apply absolute top-6.5 right-7.5 font-caveat text-[40px] leading-none;
+            color: color-mix(in oklab, var(--accent, var(--color-sea)) 42%, transparent);
+        }
+        .hub-ic{
+            @apply w-13.5 h-13.5 rounded-[13px] shrink-0 grid place-items-center mb-5.5;
+            background: color-mix(in oklab, var(--accent, var(--color-sea)) 14%, #fff);
+            color: var(--accent, var(--color-sea));
+
+            svg{ @apply w-6.5 h-6.5; }
+        }
+        .kick{ @apply text-[11px] tracking-[0.16em] uppercase font-bold; color: var(--accent, var(--color-sea)); }
+        h3{ @apply text-[clamp(21px,1.7vw,26px)] font-bold tracking-[-0.01em] leading-[1.14] mt-2 text-black; }
+        p{ @apply text-[15px] leading-[1.6] text-ink-2 mt-3 [text-wrap:pretty]; }
+    }
+    .hub-go{
+        @apply mt-auto pt-6 inline-flex items-center gap-3 text-[12.5px] tracking-[0.06em] uppercase font-bold text-muted;
+
+        .arrow{
+            @apply w-8.5 h-8.5 rounded-full grid place-items-center shrink-0 border border-line text-black;
+            transition: background-color .3s ease, color .3s ease, border-color .3s ease, transform .35s cubic-bezier(.2,.7,.2,1);
+
+            svg{ @apply w-4 h-4; }
+        }
+    }
+    .hub-card:hover .hub-go{ @apply text-black; }
+    .hub-card:hover .hub-go .arrow{
+        background: var(--accent, var(--color-sea));
+        border-color: var(--accent, var(--color-sea));
+        @apply text-white rotate-[-45deg];
+    }
+
+    .fair-tabnav{
+        @apply flex gap-2 flex-wrap border-b border-line pb-6.5 mb-2;
+        @apply max-md:flex-nowrap max-md:overflow-x-auto max-md:[scrollbar-width:none] max-md:pb-4.5!;
+
+        &::-webkit-scrollbar{ @apply max-md:hidden; }
+    }
+    .fair-tab{
+        @apply py-3 px-5.5 rounded-full border border-line text-sm font-bold tracking-[0.01em] text-ink-2 bg-transparent cursor-pointer whitespace-nowrap;
+        transition: background-color .22s ease, color .22s ease, border-color .22s ease;
+
+        &:hover{ @apply border-black; }
+        &.active{ @apply bg-black text-cream border-black; }
+        .num{ @apply font-caveat text-[19px] mr-2 text-sea; }
+        &.active .num{ @apply text-[#8fd6e6]; }
+    }
+    .fair-panel-head{
+        @apply grid grid-cols-1 lg:grid-cols-2 gap-9 lg:gap-20 items-start mb-12.5;
+
+        .ph-title h2{ @apply text-[clamp(32px,3.6vw,54px)] font-extralight tracking-[-0.02em] mt-3.5; }
+        .ph-title h2 em{ @apply font-caveat not-italic text-sea; }
+        .ph-title p{ @apply text-[17px] leading-[1.68] text-ink-2 mt-5.5 [text-wrap:pretty]; }
+        .ph-body{ @apply text-[17px] leading-[1.68] text-ink-2 [text-wrap:pretty]; }
+        .ph-body p + p{ @apply mt-4; }
+    }
+
+    /* ---------- participants popup ---------- */
+    .parts-overlay{
+        @apply fixed! inset-0 z-[230] flex items-center justify-center p-6 opacity-0 invisible;
+        transition: opacity .3s ease, visibility 0s linear .3s;
+
+        &.open{ @apply opacity-100 visible; transition: opacity .3s ease; }
+    }
+    .parts-scrim{ @apply absolute! inset-0 bg-[rgba(12,20,24,0.55)]; }
+    .parts-card{
+        @apply relative z-1 w-full max-w-[520px] max-h-[84vh] overflow-auto bg-cream rounded-2xl;
+        padding: 40px 40px 34px;
+        transform: translateY(14px) scale(.98);
+        transition: transform .4s cubic-bezier(.2,.7,.2,1);
+        @apply max-md:px-5.5! max-md:pt-8! max-md:pb-6.5!;
+    }
+    .parts-overlay.open .parts-card{ transform: none; }
+    .parts-close{
+        @apply absolute! top-4.5 right-4.5 z-2 w-10.5 h-10.5 rounded-full border border-line grid place-items-center text-black cursor-pointer;
+        transition: background-color .2s ease, color .2s ease, border-color .2s ease, rotate .3s ease;
+
+        svg{ @apply w-4.5 h-4.5; }
+        &:hover{ @apply bg-black text-cream border-black rotate-90; }
+    }
+    .parts-title{ @apply text-[clamp(24px,2.4vw,32px)] font-light tracking-[-0.01em] mt-3 mb-5.5; }
+    .fair-names{ @apply mt-6 grid gap-0; }
+    .fair-name{
+        @apply grid grid-cols-[1fr_auto] gap-4.5 items-baseline py-3.5 border-t border-line;
+        @apply max-md:grid-cols-1! max-md:gap-0.75!;
+
+        &:last-child{ @apply border-b border-line; }
+        .nm{ @apply text-lg font-normal; }
+        .org{ @apply text-[13px] text-muted tracking-[0.01em] text-right; }
+        @apply max-md:[&_.org]:text-left!;
+    }
+
     /* ════════════════════════════ GALLERY OVERLAY ════════════════════════════ */
     .gallery-overlay{
         @apply fixed! inset-0 z-[200] bg-cream flex flex-col opacity-0 invisible overflow-hidden;
@@ -2366,6 +2500,40 @@
         &:hover{ @apply bg-white/16 border-white; }
         &.prev{ left: clamp(14px, 4vw, 48px); }
         &.next{ right: clamp(14px, 4vw, 48px); }
+    }
+
+    /* ---------- gallery videos ---------- */
+    .gal-videos{ @apply bg-white; }
+    .gal-vid-grid{ @apply grid grid-cols-1 md:grid-cols-2 gap-6.5; }
+    .gal-vid{ @apply m-0; }
+    .gal-vid-frame{
+        @apply relative rounded-2xl overflow-hidden aspect-video isolate bg-black;
+        box-shadow: 0 30px 66px -38px rgba(0,0,0,0.6);
+    }
+    .gal-vid-el{ @apply absolute! inset-0 w-full h-full object-cover bg-black; }
+    .gal-vid-poster{
+        @apply absolute! inset-0 w-full h-full block cursor-pointer border-0 p-0 text-left;
+
+        .img{ @apply absolute! inset-0 bg-cover bg-center transition-[transform,scale] duration-1000 ease-[cubic-bezier(.2,.7,.2,1)]; }
+        &::after{
+            content: "";
+            @apply absolute! inset-0 z-1;
+            background: linear-gradient(180deg, rgba(10,10,10,0) 42%, rgba(10,10,10,0.66) 100%);
+        }
+        &:hover .img{ @apply scale-[1.05]; }
+    }
+    .gal-vid-play{
+        @apply absolute! top-1/2 left-1/2 z-2 grid place-items-center w-16 h-16 rounded-full bg-white/92 text-black;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 18px 44px -18px rgba(0,0,0,0.7);
+        transition: scale .35s cubic-bezier(.2,.7,.2,1), background-color .25s ease;
+
+        svg{ @apply w-6 h-6 translate-x-0.5; }
+    }
+    .gal-vid-poster:hover .gal-vid-play{ @apply scale-[1.08] bg-white; }
+    .gal-vid-title{
+        @apply absolute! left-5.5 bottom-4.5 right-5.5 z-2 text-white text-[17px] font-medium tracking-[-0.01em] leading-[1.2];
+        text-shadow: 0 1px 12px rgba(0,0,0,0.55);
     }
 
     /* ════════════════════════════ EVENT DETAIL MODAL ════════════════════════════ */
@@ -2561,16 +2729,6 @@
     }
     .dest-map-note{ @apply flex items-center gap-2.5 text-[13px] text-muted mt-5; }
     .dest-map-note svg{ @apply w-4 h-4 text-sea shrink-0; }
-
-    .map-pin{
-        @apply block w-6.5 h-6.5 border-2 border-white;
-        border-radius: 50% 50% 50% 0;
-        transform: rotate(-45deg);
-        box-shadow: 0 2px 8px rgba(0,0,0,.4);
-    }
-    .map-legend{ @apply flex flex-wrap gap-x-6 gap-y-2 mt-5; }
-    .map-legend-item{ @apply flex items-center gap-2 text-[13px] text-ink-2; }
-    .map-legend-dot{ @apply w-2.75 h-2.75 rounded-full shrink-0; }
 
     /* ════════════════════════════════ BROCHURES ════════════════════════════════ */
     .broch-page{ @apply bg-cream; }

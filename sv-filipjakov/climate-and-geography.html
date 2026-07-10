@@ -4,7 +4,7 @@
 
   	<meta charset="UTF-8">
 
-  	<title>Nautika | Sveti Filip i Jakov</title>
+  	<title>Klima i geografija | Sveti Filip i Jakov</title>
 
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -285,114 +285,171 @@
 </header>
 
 <header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
-    <picture class="bg bg-cover"><img src="images/webp/hero/nautika.webp" alt="" /></picture>
+    <picture class="bg bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
     <div class="page-head-inner">
         <nav class="crumb">
             <a href="index.html">Home</a>
             <span class="sep"></span>
-            <span>Nautika</span>
+            <span>Klima i geografija</span>
         </nav>
-        <h1>Drop anchor,<br />come <em>ashore</em>.</h1>
+        <h1>Klima <em>i geografija</em>.</h1>
         <p class="ph-lede">
-            Berths and buoy fields along the Pašman channel, from a full-service marina in
-            town to a sheltered mooring field in neighbouring Turanj.
+            Na prijelazu između mora i plodnog zaleđa Ravnih kotara, Sveti Filip i Jakov spaja
+            mediteranski i ruralni krajolik u destinaciju ugodnu i atraktivnu tijekom cijele godine.
         </p>
     </div>
 </header>
 
-<section class="page-sect stay-listings" x-data="{ place: 'all', lightboxImg: null }">
+<section class="page-sect place-page">
     <div class="max-w-[1600px] mx-auto px-4">
-
-        <div class="chip-row">
-            <button type="button" class="chip" :class="{ active: place === 'all' }" @click="place = 'all'">Sva mjesta</button>
-            <button type="button" class="chip" :class="{ active: place === 'svfj' }" @click="place = 'svfj'">Sv. Filip i Jakov</button>
-            <button type="button" class="chip" :class="{ active: place === 'turanj' }" @click="place = 'turanj'">Turanj</button>
-            <button type="button" class="chip" :class="{ active: place === 'svpetar' }" @click="place = 'svpetar'">Sv. Petar</button>
+        <div class="lead-grid">
+            <div>
+                <span class="eyebrow">More, sunce &amp; zaleđe</span>
+                <h2>Klima za sve godišnje doba.</h2>
+            </div>
+            <div class="lead-body">
+                <p>Destinacija Sveti Filip i Jakov smještena je u središnjem dijelu jadranske obale, na prijelazu između mora i plodnog zaleđa Ravnih kotara.</p>
+                <p>Ovakav geografski položaj stvorio je <b>jedinstven spoj mediteranskog i ruralnog krajolika</b>, koji destinaciju čini ugodnom i atraktivnom tijekom cijele godine.</p>
+            </div>
         </div>
 
-        <div class="stay-grid">
-
-            <article class="lodge" data-type="nautika" data-place="svfj" x-show="place === 'all' || place === $el.dataset.place" x-transition>
-                <div class="lodge-media" @click="lightboxImg = 'images/webp/nautika-marina.webp'">
-                    <span class="lodge-type">Marina · full-service</span>
-                    <picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture>
-                </div>
-                <div class="lodge-body">
-                    <div class="lodge-top">
-                        <h3 class="lodge-name">Marina Nautika</h3>
-                    </div>
-                    <div class="lodge-loc">Sveti Filip i Jakov</div>
-                    <div class="lodge-contact">
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Put Primorja 2, 23207 Sveti Filip i Jakov</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+385 23 389 200</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><span>info@marinanautika.hr</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>www.marinanautika.hr</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="lodge" data-type="nautika" data-place="turanj" x-show="place === 'all' || place === $el.dataset.place" x-transition>
-                <div class="lodge-media" @click="lightboxImg = 'images/webp/marina.webp'">
-                    <span class="lodge-type">Buoy field</span>
-                    <picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
-                </div>
-                <div class="lodge-body">
-                    <div class="lodge-top">
-                        <h3 class="lodge-name">Turanj Mooring Field</h3>
-                    </div>
-                    <div class="lodge-loc">Turanj</div>
-                    <div class="lodge-contact">
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Don Frane Sose bb, 23207 Turanj</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+385 23 389 201</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><span>info@turanjmooring.hr</span></div>
-                        <div class="lodge-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>www.turanjmooring.hr</span></div>
-                    </div>
-                </div>
-            </article>
-
-        </div>
-
-        <div class="lightbox" :class="{ open: lightboxImg }" :aria-hidden="!lightboxImg" role="dialog" aria-modal="true" aria-label="Photo viewer" @click="if ($event.target === $el) lightboxImg = null" @keydown.escape.window="lightboxImg = null">
-            <button type="button" class="lb-close" @click="lightboxImg = null" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </button>
-            <figure class="lb-stage">
-                <img :src="lightboxImg" alt="" />
-            </figure>
+        <div class="place-facts">
+            <div class="f"><div class="fv">2.600+ sati</div><div class="fl">Sunca godišnje</div></div>
+            <div class="f"><div class="fv">Maestral</div><div class="fl">Ljetno osvježenje s mora</div></div>
+            <div class="f"><div class="fv">Bura &amp; jugo</div><div class="fl">Prijelazni dio godine</div></div>
+            <div class="f"><div class="fv">Proljeće – jesen</div><div class="fl">Kupanje uz čisto more</div></div>
         </div>
     </div>
 </section>
 
-<section class="page-sect stay-help" x-data="{}">
-    <picture class="bg bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
+<section class="page-sect story">
     <div class="max-w-[1600px] mx-auto px-4">
-        <div class="stay-help-inner reveal is-in">
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">01</span><span class="eyebrow">Položaj</span></div>
+                <h2>Između mora i Ravnih kotara</h2>
+                <p>Područje obuhvaća obalna mjesta <b>Sveti Filip i Jakov, Turanj i Sveti Petar na Moru</b>, naselja u zaleđu Donje i Gornje Raštane, Sikovo te otok Babac u Pašmanskom kanalu.</p>
+                <p>Obala je razvedena, s brojnim plažama i uvalama, dok se prema unutrašnjosti krajolik pretvara u blage brežuljke, <b>maslinike, vinograde i poljoprivredne površine</b> Ravnih kotara.</p>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture>
+                <div class="cap">Razvedena obala i otoci Pašmanskog kanala</div>
+            </div>
+        </div>
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">02</span><span class="eyebrow">Mediteranska klima</span></div>
+                <h2>Blaga i sunčana</h2>
+                <p>Sveti Filip i Jakov ima izraženu mediteransku klimu — <b>duga, topla i suha ljeta</b> te blage i ugodne zime. Područje ima više od <b>2.600 sunčanih sati godišnje</b>, među sunčanijim dijelovima Jadrana.</p>
+                <p>Ljetne temperature ublažava utjecaj mora i blagi maestral, dok su proljeće i jesen idealni za boravak na otvorenom. Zime su blage, s rijetkim ekstremima — privlačno i izvan glavne sezone.</p>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture>
+                <div class="cap">Sunčani dani uz more gotovo cijele godine</div>
+            </div>
+        </div>
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">03</span><span class="eyebrow">Vjetrovi &amp; more</span></div>
+                <h2>Maestral, bura i jugo</h2>
+                <p>Područje karakteriziraju tipični jadranski vjetrovi — <b>maestral</b> ljeti donosi osvježenje i idealne uvjete za jedrenje i vodene sportove, dok <b>bura i jugo</b> oblikuju zimski i prijelazni dio godine.</p>
+                <p>More je iznimno čisto, s povoljnim temperaturama za kupanje od <b>kasnog proljeća do rane jeseni</b>.</p>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture>
+                <div class="cap">Maestral i idealni uvjeti za plovidbu</div>
+            </div>
+        </div>
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">04</span><span class="eyebrow">Cijela godina</span></div>
+                <h2>Idealna klima za aktivni odmor</h2>
+                <p>Zahvaljujući povoljnoj klimi i raznolikoj geografiji, destinacija nudi izvrsne uvjete za aktivni turizam tijekom cijele godine.</p>
+                <p>Od <b>kupanja i sportova na moru</b>, preko biciklizma i pješačenja, do istraživanja zaleđa i tematskih staza.</p>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture>
+                <div class="cap">Aktivan odmor uz more i u zaleđu</div>
+            </div>
+        </div>
+
+        <div class="story-row">
+            <div class="story-text">
+                <div class="story-kicker"><span class="n">05</span><span class="eyebrow">Boravak u prirodi</span></div>
+                <h2>Prirodni uvjeti za ugodan boravak</h2>
+                <p>Spoj mora, sunca, plodnog tla i blage klime stoljećima je omogućavao razvoj <b>poljoprivrede, ribarstva i pomorstva</b>.</p>
+                <p>Danas ti isti uvjeti stvaraju idealan okvir za kvalitetan odmor i boravak <b>u skladu s prirodom</b>.</p>
+            </div>
+            <div class="story-media">
+                <picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture>
+                <div class="cap">Plodno tlo i more kao temelj života kraja</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="page-sect bg-cream-2">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="group-head">
             <div>
-                <span class="eyebrow">Here to help</span>
-                <h2>Not sure where<br />to stay? <em>Ask us</em>.</h2>
-                <p>Drop by the info point or get in touch and tell us what kind of trip you're
-                planning — we'll point you to hosts and properties that match, then you
-                contact them directly to arrange your stay.</p>
-                <a href="contact.html" class="btn">Talk to the info point <span class="arr"></span></a>
+                <span class="eyebrow">Krajolik destinacije</span>
+                <h2>Od mora do brežuljaka.</h2>
+            </div>
+            <p class="lede [text-wrap:pretty]">Obalna mjesta, mirni kanal i zeleno zaleđe Ravnih kotara — geografija koja oblikuje klimu i ritam destinacije.</p>
+        </div>
+        <div class="exp-rail-wrap" x-data="{
+            atStart: true, atEnd: false,
+            update(){ const r = $refs.rail; const max = r.scrollWidth - r.clientWidth - 2; this.atStart = r.scrollLeft <= 2; this.atEnd = r.scrollLeft >= max; },
+            step(){ const c = $refs.rail.querySelector('.exp-card'); const gap = parseFloat(getComputedStyle($refs.rail).gap) || 22; return c ? c.getBoundingClientRect().width + gap : $refs.rail.clientWidth * 0.8; }
+        }" x-init="$nextTick(() => update())">
+            <div class="exp-rail" x-ref="rail" @scroll="update()" tabindex="0">
+                <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture><div class="meta"><span class="lbl">Položaj</span><span class="nm">Između mora i Ravnih kotara</span></div></article>
+                <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture><div class="meta"><span class="lbl">Mediteranska klima</span><span class="nm">Blaga i sunčana</span></div></article>
+                <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture><div class="meta"><span class="lbl">Vjetrovi &amp; more</span><span class="nm">Maestral, bura i jugo</span></div></article>
+                <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture><div class="meta"><span class="lbl">Cijela godina</span><span class="nm">Idealna klima za aktivni odmor</span></div></article>
+                <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/sv-petar.webp" alt="" /></picture><div class="meta"><span class="lbl">Boravak u prirodi</span><span class="nm">Prirodni uvjeti za ugodan boravak</span></div></article>
+                <article class="exp-card"><picture class="img bg-cover"><img src="images/webp/town.webp" alt="" /></picture><div class="meta"><span class="lbl">2.600+ sati</span><span class="nm">Sunca godišnje</span></div></article>
+            </div>
+            <div class="exp-rail-nav">
+                <button type="button" class="rail-prev" :disabled="atStart" @click="$refs.rail.scrollBy({ left: -step(), behavior: 'smooth' })" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+                <button type="button" class="rail-next" :disabled="atEnd" @click="$refs.rail.scrollBy({ left: step(), behavior: 'smooth' })" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page-sect stay-help">
+    <picture class="bg bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture>
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="stay-help-inner">
+            <div>
+                <span class="eyebrow">Isplaniraj boravak</span>
+                <h2>Uživaj u prirodi<br />cijele godine.</h2>
+                <p>Od ljetnog maestrala i kupanja do proljetnih i jesenskih šetnji zaleđem — blaga klima i raznolika geografija čine svako doba pravim za dolazak.</p>
+                <a href="things-to-do.html" class="btn">Pogledaj aktivnosti <span class="arr"></span></a>
             </div>
             <div class="help-points">
                 <div class="help-point">
-                    <span class="n">1</span>
-                    <div><h4>Pick your spot</h4><p>Riva and old town for the buzz, Turanj and Sv. Petar for the quiet.</p></div>
+                    <span class="n">~</span>
+                    <div><h4>More i sunce</h4><p>Preko 2.600 sunčanih sati i čisto more od kasnog proljeća do rane jeseni.</p></div>
                 </div>
                 <div class="help-point">
-                    <span class="n">2</span>
-                    <div><h4>Choose your season</h4><p>July–August gets busy and prices rise; May, June and September are calmer and cheaper.</p></div>
+                    <span class="n">~</span>
+                    <div><h4>Vjetar u jedrima</h4><p>Maestral donosi idealne uvjete za jedrenje i vodene sportove.</p></div>
                 </div>
                 <div class="help-point">
-                    <span class="n">3</span>
-                    <div><h4>Contact the host</h4><p>Reach out directly once you've found a place you like — we don't handle bookings ourselves.</p></div>
+                    <span class="n">~</span>
+                    <div><h4>Izvan sezone</h4><p>Blage zime i ugodni prijelazni mjeseci za aktivni odmor.</p></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 
 <footer id="plan" class="bg-cream text-black pt-18 md:pt-25 pb-18 lg:pb-24">
     <div class="max-w-[1600px] mx-auto px-4">
@@ -559,7 +616,7 @@
                 <textarea class="feedback-textarea" placeholder="Write your message…" required></textarea>
                 <label class="feedback-upload">
                     <input type="file" accept="image/*,video/*" class="sr-only" @change="fileName = $event.target.files[0]?.name || ''">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/></svg>
                     <span x-text="fileName || 'Attach a photo or video (optional)'"></span>
                 </label>
                 <button type="submit" class="feedback-submit">Send</button>
