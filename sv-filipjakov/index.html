@@ -194,12 +194,12 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
+                    <a href="experience.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'dozivi' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <a href="experience.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="authentic-experiences.html">Autentična iskustva</a></li>
                             <li><a href="for-families.html">Za obitelji</a></li>
@@ -254,12 +254,12 @@
                         </button>
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
-                            <li><a href="things-to-do.html">Aktivnosti na moru</a></li>
-                            <li><a href="things-to-do.html">Aktivnosti u prirodi</a></li>
-                            <li><a href="things-to-do.html">Plaže i kupanje</a></li>
-                            <li><a href="things-to-do.html">Gastronomija i lokalni specijaliteti</a></li>
-                            <li><a href="things-to-do.html">Izleti i obližnje atrakcije</a></li>
-                            <li><a href="things-to-do.html">Tematske staze</a></li>
+                            <li><a href="sea-activities.html">Aktivnosti na moru</a></li>
+                            <li><a href="outdoor-activities.html">Aktivnosti u prirodi</a></li>
+                            <li><a href="beaches.html">Plaže i kupanje</a></li>
+                            <li><a href="gastro.html">Gastronomija i lokalni specijaliteti</a></li>
+                            <li><a href="day-trips.html">Izleti i obližnje atrakcije</a></li>
+                            <li><a href="thematic-trails.html">Tematske staze</a></li>
                         </ul>
                     </div>
                 </div>
@@ -315,7 +315,7 @@
                 <div class="ev-card-text">
                     <span class="ev-card-label">14 Jun · Next event</span>
                     <h3 class="ev-card-title">Festival of Flowers</h3>
-                    <a class="ev-card-cta" href="#">Learn more
+                    <a class="ev-card-cta" href="festival-of-flowers.html">Learn more
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
                     </a>
                 </div>
@@ -432,7 +432,7 @@
                 market square, then disappear by boat for the afternoon. We've been
                 practising this rhythm for a thousand years.</p>
                 <div class="welcome-cta">
-                    <a href="#" class="btn primary">Plan your visit <span class="arr"></span></a>
+                    <a href="plan-your-trip.html" class="btn primary">Plan your visit <span class="arr"></span></a>
                     <a href="events.html" class="btn">See this week's events</a>
                 </div>
             </div>
@@ -577,15 +577,15 @@
         <div class="things-track" x-ref="track">
 
             <article class="thing-card" style="--off:60px">
-                <span class="thing-tag">Half day · From the marina</span>
-                <h3 class="thing-title font-sans">Sea activities<br />&amp; sailing</h3>
-                <a class="thing-img" href="#" aria-label="Sea activities and sailing"><picture class="bg-cover"><img src="images/webp/hero.webp" alt="" /></picture></a>
+                <span class="thing-tag">Beginner to pro · Sailing club &amp; school</span>
+                <h3 class="thing-title font-sans">Surfing<br />&amp; sailing</h3>
+                <a class="thing-img" href="sea-activities.html" aria-label="Surfing and sailing"><picture class="bg-cover"><img src="images/webp/hero.webp" alt="" /></picture></a>
             </article>
 
             <article class="thing-card" style="--off:150px">
-                <span class="thing-tag">2 hours · PADI harbour school</span>
-                <h3 class="thing-title font-sans">Diving &amp;<br />snorkelling</h3>
-                <a class="thing-img" href="#" aria-label="Diving and snorkelling"><picture class="bg-cover"><img src="images/webp/snorkelling-opt.webp" alt="" /></picture></a>
+                <span class="thing-tag">Guided dives · Grad pod morem, Turanj</span>
+                <h3 class="thing-title font-sans">Diving to<br />the sunken city</h3>
+                <a class="thing-img" href="sea-activities.html" aria-label="Diving to the sunken city"><picture class="bg-cover"><img src="images/webp/snorkelling-opt.webp" alt="" /></picture></a>
             </article>
 
             <article class="thing-card" style="--off:230px">
@@ -625,7 +625,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
                 </button>
             </div>
-            <a href="#" class="btn primary things-viewall">View all <span class="arr"></span></a>
+            <a href="things-to-do.html" class="btn primary things-viewall">View all <span class="arr"></span></a>
         </div>
     </div>
 </section>
@@ -660,7 +660,7 @@
                 <div class="heritage-head-main">
                     <span class="eyebrow no-line text-gold">HERITAGE · Since 1059</span>
                     <h2 class="heading-2 font-light">Shaped by sea,<br />stone <em>&amp; time</em>.</h2>
-                    <a href="#" class="btn heritage-cta font-medium">Live like a local <span class="arr"></span></a>
+                    <a href="authentic-experiences.html" class="btn heritage-cta font-medium">Live like a local <span class="arr"></span></a>
                 </div>
                 <div class="heritage-lede">
                     <p>From a Liburnian settlement three millennia old to a Roman road, a Venetian villa and a baroque church — a place that wears its history lightly.</p>
@@ -775,7 +775,7 @@
                 <span class="eyebrow h-1 max-lg:h-auto!">Flavours of Dalmatia</span>
                 <h2 class="heading-2">Dishes that<br />remember <span class="heading-2__accent_sun">everyone</span><br />who taught them.</h2>
                 <p class="h-[130px] max-lg:h-auto!">Coastal Dalmatian cooking, grown on a thousand small farms behind the town and pulled from the channel each morning. Olive oil, lamb on a spit, fish baked under the peka bell, and the bread our grandmothers still bake on Sundays.</p>
-                <a href="#" class="btn text-cream border-cream hover:bg-cream hover:text-black h-14 gap-10">Gastronomy &amp; local specialities</a>
+                <a href="gastro.html" class="btn text-cream border-cream hover:bg-cream hover:text-black h-14 gap-10">Gastronomy &amp; local specialities</a>
             </div>
 
             <div class="menu reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
@@ -1062,21 +1062,21 @@
                 <div class="stay-menu-head">
                     <span class="eyebrow">Where to stay</span>
                 </div>
-                <a href="#" class="stay-row">
+                <a href="hotels.html" class="stay-row">
                     <span class="left">
                         <span class="stay-name">Hotels <span class="stay-count">8</span></span>
                         <span class="stay-desc">Four-star rooms and sea-view balconies right on the riva.</span>
                     </span>
                     <span class="more" aria-hidden="true">→</span>
                 </a>
-                <a href="#" class="stay-row">
+                <a href="private-accommodation.html" class="stay-row">
                     <span class="left">
                         <span class="stay-name">Apartments <span class="stay-count">96</span></span>
                         <span class="stay-desc">Family-run places tucked behind the church, kitchen and all.</span>
                     </span>
                     <span class="more" aria-hidden="true">→</span>
                 </a>
-                <a href="#" class="stay-row">
+                <a href="campsites.html" class="stay-row">
                     <span class="left">
                         <span class="stay-name">Campsites <span class="stay-count">5</span></span>
                         <span class="stay-desc">Pitch a tent or park the van under the pines, steps from the sea.</span>

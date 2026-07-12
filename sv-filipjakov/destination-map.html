@@ -194,12 +194,12 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
+                    <a href="experience.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'dozivi' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <a href="experience.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="authentic-experiences.html">Autentična iskustva</a></li>
                             <li><a href="for-families.html">Za obitelji</a></li>
@@ -254,12 +254,12 @@
                         </button>
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
-                            <li><a href="things-to-do.html">Aktivnosti na moru</a></li>
-                            <li><a href="things-to-do.html">Aktivnosti u prirodi</a></li>
-                            <li><a href="things-to-do.html">Plaže i kupanje</a></li>
-                            <li><a href="things-to-do.html">Gastronomija i lokalni specijaliteti</a></li>
-                            <li><a href="things-to-do.html">Izleti i obližnje atrakcije</a></li>
-                            <li><a href="things-to-do.html">Tematske staze</a></li>
+                            <li><a href="sea-activities.html">Aktivnosti na moru</a></li>
+                            <li><a href="outdoor-activities.html">Aktivnosti u prirodi</a></li>
+                            <li><a href="beaches.html">Plaže i kupanje</a></li>
+                            <li><a href="gastro.html">Gastronomija i lokalni specijaliteti</a></li>
+                            <li><a href="day-trips.html">Izleti i obližnje atrakcije</a></li>
+                            <li><a href="thematic-trails.html">Tematske staze</a></li>
                         </ul>
                     </div>
                 </div>
@@ -309,32 +309,95 @@
                 <h2 class="heading-2 mt-4">Snađite se na terenu.</h2>
             </div>
             <p class="lede [text-wrap:pretty]">
-                Kliknite na oznake za osnovne informacije o svakom mjestu. Za detaljne upute
-                o dolasku pogledajte stranicu <a href="getting-here.html">Kako doći</a>.
+                Filtrirajte oznake po kategoriji i kliknite na njih za osnovne informacije o
+                svakoj lokaciji. Za detaljne upute o dolasku pogledajte stranicu
+                <a href="getting-here.html">Kako doći</a>.
             </p>
         </div>
 
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        <div class="dest-map" x-data x-init="
+
+        <div x-data="{ tab: 'znam' }" x-init="
             const map = L.map($refs.leafletMap, { scrollWheelZoom: false });
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OpenStreetMap</a> contributors &copy; <a href=\'https://carto.com/attributions\'>CARTO</a>',
                 subdomains: 'abcd',
                 maxZoom: 20
             }).addTo(map);
-            const pins = [
-                L.marker([43.9611, 15.4239]).bindPopup('<strong>Sveti Filip i Jakov</strong><br>Stari grad i riva — središte općine'),
-                L.marker([43.9600, 15.4222]).bindPopup('<strong>Marina Nautika</strong><br>Vezovi, gorivo i charter usluge'),
-                L.marker([43.9670, 15.4090]).bindPopup('<strong>Turanj</strong><br>Mirno naselje uz kanal'),
-                L.marker([43.9430, 15.4430]).bindPopup('<strong>Sveti Petar na Moru</strong><br>Ribarsko naselje s dugom plažom'),
-                L.marker([43.9500, 15.4100]).bindPopup('<strong>Otok Babac</strong><br>Izletište na obližnjem otočiću'),
-                L.marker([43.9440, 15.4460]).bindPopup('<strong>Kamp i plaže</strong><br>Šljunčano-pješčana obala u sjeni borova'),
-            ];
-            const group = L.featureGroup(pins).addTo(map);
-            map.fitBounds(group.getBounds(), { padding: [50, 50] });
+            const link = (url) => url ? '<br><a href=\'' + url + '\' target=\'_blank\' rel=\'noopener\'>Posjeti stranicu</a>' : '';
+            const groups = {
+                znam: { color: 'var(--color-sea)', pins: [
+                    [[43.96129926571362, 15.427643502488445], '<strong>Crkva sv. Filipa i Jakova</strong>'],
+                    [[43.998760031606615, 15.375343113094763], '<strong>Crkva sv. Petra apostola</strong>'],
+                    [[43.961546, 15.424456], '<strong>Sv. Mihovil</strong>'],
+                    [[43.978719, 15.442057], '<strong>Sv. Roko</strong>'],
+                    [[43.978055, 15.39456], '<strong>Crkva Uznesenja Blažene Djevice Marije</strong>'],
+                    [[43.966507, 15.409731], '<strong>Crkva Gospe Karmelske</strong>'],
+                ]},
+                arheo: { color: 'var(--color-olive)', pins: [
+                    [[43.972233, 15.43901], '<strong>Dvorine</strong><br>Arheološki lokalitet'],
+                    [[43.967056, 15.409162], '<strong>Kula Turanj</strong><br>Arheološki lokalitet'],
+                ]},
+                plaze: { color: 'var(--color-sun)', pins: [
+                    [[44.00558, 15.367019], '<strong>Tustica</strong>'],
+                    [[43.967708, 15.406137], '<strong>Krča</strong>'],
+                    [[43.964125, 15.415192], '<strong>Morovićka</strong>'],
+                    [[43.959986, 15.426693], '<strong>Croatia</strong>'],
+                    [[43.955383, 15.433259], '<strong>Iza Banja</strong>'],
+                ]},
+                okruzenje: { color: 'var(--color-purple)', pins: [
+                    [[44.89852, 15.606744], '<strong>Plitvice</strong>' + link('http://www.np-plitvicka-jezera.hr/')],
+                    [[43.903829, 16.005707], '<strong>Krka</strong>' + link('http://www.npkrka.hr/')],
+                    [[44.343693, 15.483974], '<strong>Paklenica</strong>' + link('http://www.paklenica.hr/')],
+                    [[43.748281, 15.382233], '<strong>Kornati</strong>' + link('http://www.kornati.hr/')],
+                    [[43.882707, 15.160983], '<strong>Telašćica</strong>' + link('http://www.telascica.hr/')],
+                    [[43.899624, 15.58239], '<strong>Vransko jezero</strong>' + link('http://www.vransko-jezero.hr/')],
+                    [[44.115814, 15.224304], '<strong>Zadar</strong>' + link('http://www.tzzadar.hr/')],
+                    [[44.243108, 15.184393], '<strong>Nin</strong>' + link('http://www.nin.hr/')],
+                    [[43.938203, 15.441767], '<strong>Biograd</strong>' + link('http://www.tzg-biograd.hr/')],
+                ]},
+                smjestaj: { color: 'var(--color-gold)', pins: [
+                    [[43.964334, 15.421489], '<strong>Apartmansko naselje Croatia</strong>' + link('http://www.apartmani-croatia.com.hr/')],
+                    [[43.95743, 15.435501], '<strong>Apartmansko naselje Margarita Maris</strong>' + link('http://www.vud.hr/')],
+                    [[43.992606, 15.384883], '<strong>Hotel Mare Nostrum</strong>' + link('http://www.marenostrum-hr.com/')],
+                    [[43.964025, 15.42297], '<strong>Hotel Alba</strong>' + link('http://www.apartmani-croatia.com.hr/')],
+                    [[43.96238, 15.426275], '<strong>Hotel Villa Donat</strong>' + link('http://www.ilirijabiograd.com/')],
+                    [[44.004762, 15.367384], '<strong>Kamp Filko</strong>' + link('http://www.autokamp-filko.hr/')],
+                    [[43.965484, 15.413593], '<strong>Kamp Bepo</strong>' + link('http://www.bepo1967.com/')],
+                    [[43.96048, 15.42783], '<strong>Kamp Đardin</strong>' + link('http://www.camping-croatia.com/')],
+                    [[43.960109, 15.428603], '<strong>Kamp Filip</strong>' + link('http://www.campingfilip.com/')],
+                    [[43.9596, 15.428967], '<strong>Kamp Moče</strong>' + link('http://www.camping-moce.com/')],
+                    [[43.958673, 15.430405], '<strong>Kamp Livade</strong><br>+385 23 388 934'],
+                    [[43.955429, 15.434074], '<strong>Kamp Rio</strong><br><a href=\'mailto:autocamp_rio@hotmail.com\'>autocamp_rio@hotmail.com</a>'],
+                    [[43.954626, 15.43534], '<strong>Kamp Adria</strong>' + link('http://www.autocamp-adria.de/')],
+                ]},
+            };
+            const dot = (color) => L.divIcon({ className: '', html: '<div class=\'pm-marker\' style=\'width:18px;height:18px;background:' + color + '\'></div>', iconSize: [18, 18], iconAnchor: [9, 9], popupAnchor: [0, -10] });
+            const layers = {};
+            for (const key in groups) {
+                const g = groups[key];
+                layers[key] = L.layerGroup(g.pins.map(p => L.marker(p[0], { icon: dot(g.color) }).bindPopup(p[1])));
+            }
+            let current = null;
+            $el._showTab = (key) => {
+                if (current) map.removeLayer(current);
+                current = layers[key];
+                current.addTo(map);
+                map.fitBounds(L.featureGroup(current.getLayers()).getBounds(), { padding: [50, 50] });
+            };
+            $el._showTab('znam');
         ">
-            <div x-ref="leafletMap" class="w-full h-full"></div>
+            <div class="chip-row">
+                <button type="button" class="chip map-chip acc-sea" :class="{ active: tab === 'znam' }" @click="tab = 'znam'; $root._showTab('znam')">Znamenitosti</button>
+                <button type="button" class="chip map-chip acc-olive" :class="{ active: tab === 'arheo' }" @click="tab = 'arheo'; $root._showTab('arheo')">Arheološki lokaliteti</button>
+                <button type="button" class="chip map-chip acc-sun" :class="{ active: tab === 'plaze' }" @click="tab = 'plaze'; $root._showTab('plaze')">Plaže</button>
+                <button type="button" class="chip map-chip acc-purple" :class="{ active: tab === 'okruzenje' }" @click="tab = 'okruzenje'; $root._showTab('okruzenje')">Okruženje</button>
+                <button type="button" class="chip map-chip acc-gold" :class="{ active: tab === 'smjestaj' }" @click="tab = 'smjestaj'; $root._showTab('smjestaj')">Smještaj</button>
+            </div>
+            <div class="dest-map">
+                <div x-ref="leafletMap" class="w-full h-full"></div>
+            </div>
         </div>
 
         <p class="dest-map-note">

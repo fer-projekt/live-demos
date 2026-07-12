@@ -194,12 +194,12 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
+                    <a href="experience.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'dozivi' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <a href="experience.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="authentic-experiences.html">Autentična iskustva</a></li>
                             <li><a href="for-families.html">Za obitelji</a></li>
@@ -254,12 +254,12 @@
                         </button>
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
-                            <li><a href="things-to-do.html">Aktivnosti na moru</a></li>
-                            <li><a href="things-to-do.html">Aktivnosti u prirodi</a></li>
-                            <li><a href="things-to-do.html">Plaže i kupanje</a></li>
-                            <li><a href="things-to-do.html">Gastronomija i lokalni specijaliteti</a></li>
-                            <li><a href="things-to-do.html">Izleti i obližnje atrakcije</a></li>
-                            <li><a href="things-to-do.html">Tematske staze</a></li>
+                            <li><a href="sea-activities.html">Aktivnosti na moru</a></li>
+                            <li><a href="outdoor-activities.html">Aktivnosti u prirodi</a></li>
+                            <li><a href="beaches.html">Plaže i kupanje</a></li>
+                            <li><a href="gastro.html">Gastronomija i lokalni specijaliteti</a></li>
+                            <li><a href="day-trips.html">Izleti i obližnje atrakcije</a></li>
+                            <li><a href="thematic-trails.html">Tematske staze</a></li>
                         </ul>
                     </div>
                 </div>
@@ -399,7 +399,8 @@
                 { latlng: [43.96129926571362, 15.427643502488445], label: '<strong>Sveti Filip i Jakov</strong><br>Crkva sv. Filipa i Jakova · pečat' },
                 { latlng: [43.998760031606615, 15.375343113094763], label: '<strong>Sveti Petar na Moru</strong><br>Crkva sv. Petra apostola · pečat' },
             ];
-            const pins = stops.map(s => L.marker(s.latlng).bindPopup(s.label));
+            const dot = L.divIcon({ className: '', html: '<div class=\'pm-marker\' style=\'width:18px;height:18px;background:#00A2C1\'></div>', iconSize: [18, 18], iconAnchor: [9, 9], popupAnchor: [0, -10] });
+            const pins = stops.map(s => L.marker(s.latlng, { icon: dot }).bindPopup(s.label));
             const group = L.featureGroup(pins).addTo(map);
             map.fitBounds(group.getBounds(), { padding: [50, 50] });
             const lineStyle = { color: '#8a6d3b', weight: 3, dashArray: '2 10', lineCap: 'round' };

@@ -4,7 +4,7 @@
 
   	<meta charset="UTF-8">
 
-  	<title>Korisne informacije | Sveti Filip i Jakov</title>
+  	<title>Things to do | Sveti Filip i Jakov</title>
 
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -284,315 +284,128 @@
     </nav>
 </header>
 
-<header class="page-head page-head--sm" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
-    <picture class="bg bg-cover"><img src="images/webp/hero/contact.webp" alt="" /></picture>
+<header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
+    <picture class="bg bg-cover"><img src="images/webp/hero/hero.webp" alt="" /></picture>
     <div class="page-head-inner">
         <nav class="crumb">
             <a href="index.html">Home</a>
             <span class="sep"></span>
-            <span>Korisne informacije</span>
+            <span>Things to do</span>
         </nav>
-        <h1>Korisne <em>informacije</em>.</h1>
+        <h1>From the riva<br />to the <em>open sea</em>.</h1>
         <p class="ph-lede">
-            Kontakti i telefonski brojevi koji vam mogu zatrebati tijekom boravka —
-            uprava, zdravstvo, prijevoz, taxi službe te hitni i korisni brojevi.
+            Half a dozen ways to spend a day in Sv. Filip i Jakov — sailing, diving, beach-hopping,
+            stone-lane wandering, a kayak to an empty islet, or sunrise yoga on the promenade.
+            None of them require a car. Most require nothing but a swimsuit.
         </p>
     </div>
 </header>
 
-<section class="page-sect ui-page" x-data="{ tab: 'uprava' }">
+<section class="page-sect ttd-page">
     <div class="max-w-[1600px] mx-auto px-4">
 
-        <div class="sect-head">
+        <div class="sect-head mb-12">
             <div>
-                <span class="eyebrow">Kontakti</span>
-                <h2 class="heading-2 mt-4">Sve na jednom mjestu.</h2>
+                <span class="eyebrow">Things to do</span>
+                <h2 class="heading-2 mt-4">Pick a day,<br /><em class="script-accent text-black!">pick the water</em>.</h2>
             </div>
             <p class="lede [text-wrap:pretty]">
-                Adrese, telefoni i radno vrijeme ustanova i službi koje vam mogu zatrebati
-                tijekom boravka u Svetom Filipu i Jakovu i okolici.
+                Every experience below is run by locals and starts within a short walk of the
+                harbour. Prices are per person in shoulder season — just turn up, or ask at the info point.
             </p>
         </div>
 
-        <div class="chip-row" role="tablist">
-            <button type="button" class="chip" :class="{ active: tab === 'uprava' }" @click="tab = 'uprava'" role="tab" :aria-selected="tab === 'uprava'">Uprava, zdravstvo i pošta</button>
-            <button type="button" class="chip" :class="{ active: tab === 'prijevoz' }" @click="tab = 'prijevoz'" role="tab" :aria-selected="tab === 'prijevoz'">Prijevoz</button>
-            <button type="button" class="chip" :class="{ active: tab === 'taxi' }" @click="tab = 'taxi'" role="tab" :aria-selected="tab === 'taxi'">Taxi službe</button>
-            <button type="button" class="chip" :class="{ active: tab === 'hitni' }" @click="tab = 'hitni'" role="tab" :aria-selected="tab === 'hitni'">Hitni i korisni brojevi</button>
-        </div>
-
-        <div class="doc-panel" x-show="tab === 'uprava'">
-            <div class="doc-panel-head">
-                <h3>Uprava, zdravstvo i pošta</h3>
-                <p>Općinska uprava, ljekarna, ambulante, pošta i veterinarske ordinacije u Svetom Filipu i Jakovu i Biogradu na Moru.</p>
-            </div>
-            <div class="ui-grid">
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Općina Sv. Filip i Jakov</h4><span class="sub">Radno vrijeme: 07:00 – 15:00</span></div>
+        <div class="ttd-grid">
+            <article class="ttd-card">
+                <div class="ttd-text">
+                    <span class="ttd-tag">Half day · From the marina</span>
+                    <h3 class="ttd-title">Sea activities<br />&amp; sailing</h3>
+                    <p class="ttd-desc">Take the helm of a skippered yacht or hop a RIB for the afternoon. Out past the breakwater the Pašman Channel opens up — flat, sheltered water that is as kind to first-timers as it is to old hands.</p>
+                    <div class="ttd-meta">
+                        <div class="m"><span class="mk">Duration</span><span class="mv">Half day</span></div>
+                        <div class="m"><span class="mk">Level</span><span class="mv">All levels</span></div>
+                        <div class="m"><span class="mk">From</span><span class="mv">€55 pp</span></div>
                     </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Obala kralja Tomislava 16, 23207 Sv. Filip i Jakov</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523389800">+385 23 389 800</a>, <a href="tel:+38523389802">+385 23 389 802</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:opcina-filip-jakov@zd.t-com.hr">opcina-filip-jakov@zd.t-com.hr</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><a href="http://www.opcina-svfilipjakov.hr" target="_blank" rel="noopener">www.opcina-svfilipjakov.hr</a></div>
-                    </div>
+                    <div class="ttd-incl"><span>Skipper</span><span>Life jackets</span><span>Swim stop</span><span>Drinks</span></div>
+                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
                 </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Ljekarna Pablo</h4></div>
+                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/hero.webp" alt="" /></picture></div>
+            </article>
+            <article class="ttd-card">
+                <div class="ttd-text">
+                    <span class="ttd-tag">2 hours · PADI harbour school</span>
+                    <h3 class="ttd-title">Diving &amp;<br />snorkelling</h3>
+                    <p class="ttd-desc">A PADI school runs straight off the harbour. Try a first dive in the shallows, or snorkel the rocky shelves where seagrass meadows hide seahorses, bream and the odd curious octopus.</p>
+                    <div class="ttd-meta">
+                        <div class="m"><span class="mk">Duration</span><span class="mv">2 hours</span></div>
+                        <div class="m"><span class="mk">Level</span><span class="mv">Beginner+</span></div>
+                        <div class="m"><span class="mk">From</span><span class="mv">€40</span></div>
                     </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Liburnska 1, 23207 Sv. Filip i Jakov</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523389445">+385 23 389 445</a>, <a href="tel:+38523389446">+385 23 389 446</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:filip-jakov@ljekarna-pablo.hr">filip-jakov@ljekarna-pablo.hr</a></div>
-                    </div>
+                    <div class="ttd-incl"><span>Gear included</span><span>Guide</span><span>Try-dive</span><span>Photos</span></div>
+                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
                 </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Ambulanta Grbin</h4><span class="sub">Ante Grbin, dr. med.</span></div>
+                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/snorkelling-opt.webp" alt="" /></picture></div>
+            </article>
+            <article class="ttd-card">
+                <div class="ttd-text">
+                    <span class="ttd-tag">All day · Riva to Turanj</span>
+                    <h3 class="ttd-title">Pebble coves<br />&amp; blue-flag bays</h3>
+                    <p class="ttd-desc">Walk or cycle the coast path and the beaches keep coming — blue-flag bays with showers and bars, then quiet pebble coves behind the pines where you can have the water to yourself.</p>
+                    <div class="ttd-meta">
+                        <div class="m"><span class="mk">Duration</span><span class="mv">All day</span></div>
+                        <div class="m"><span class="mk">Level</span><span class="mv">Easy</span></div>
+                        <div class="m"><span class="mk">From</span><span class="mv">Free</span></div>
                     </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Liburnska 1, 23207 Sv. Filip i Jakov</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523389015">+385 23 389 015</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:ambulanta.grbin@zd.t-com.hr">ambulanta.grbin@zd.t-com.hr</a></div>
-                    </div>
+                    <div class="ttd-incl"><span>Blue-flag</span><span>Showers</span><span>Shade</span><span>Family</span></div>
+                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
                 </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Dom zdravlja Biograd na Moru</h4></div>
+                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture></div>
+            </article>
+            <article class="ttd-card">
+                <div class="ttd-text">
+                    <span class="ttd-tag">90 minutes · Self-guided</span>
+                    <h3 class="ttd-title">Old town<br />stone walks</h3>
+                    <p class="ttd-desc">A self-guided loop through a thousand years of stone — the baroque parish church, the Borelli summer house and gardens, and lanes worn smooth underfoot, ending where the riva meets the sea.</p>
+                    <div class="ttd-meta">
+                        <div class="m"><span class="mk">Duration</span><span class="mv">90 minutes</span></div>
+                        <div class="m"><span class="mk">Level</span><span class="mv">Easy</span></div>
+                        <div class="m"><span class="mk">From</span><span class="mv">Free</span></div>
                     </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Matije Ivanića 6, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523383014">+385 23 383 014</a>, <a href="tel:+38523239802">+385 23 239 802</a></div>
-                    </div>
+                    <div class="ttd-incl"><span>Self-guided</span><span>Map</span><span>Church</span><span>Gardens</span></div>
+                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
                 </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Specijalna bolnica za ortopediju</h4></div>
+                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture></div>
+            </article>
+            <article class="ttd-card">
+                <div class="ttd-text">
+                    <span class="ttd-tag">3 min by boat · Uninhabited</span>
+                    <h3 class="ttd-title">Kayak to<br />Babac islet</h3>
+                    <p class="ttd-desc">Paddle out to the pine-covered dot in the channel. Beach the kayak on a rocky inlet, swim off the warm slabs, lay out a picnic, and drift back as the light turns gold over the water.</p>
+                    <div class="ttd-meta">
+                        <div class="m"><span class="mk">Duration</span><span class="mv">Half day</span></div>
+                        <div class="m"><span class="mk">Level</span><span class="mv">Moderate</span></div>
+                        <div class="m"><span class="mk">From</span><span class="mv">€30</span></div>
                     </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Zadarska 62, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Centrala <a href="tel:+38523206050">+385 23 206 050</a> · Info <a href="tel:+38523206062">+385 23 206 062</a></span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:upis.bolnica.biograd@ortopedija-biograd.hr">upis.bolnica.biograd@ortopedija-biograd.hr</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><a href="http://www.ortopedija-biograd.hr" target="_blank" rel="noopener">www.ortopedija-biograd.hr</a></div>
-                    </div>
+                    <div class="ttd-incl"><span>Kayak</span><span>Dry bag</span><span>Map</span><span>Picnic tips</span></div>
+                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
                 </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Stomatološka ordinacija</h4><span class="sub">Milivoj Vuletić, dr. med. dent.</span></div>
+                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="" /></picture></div>
+            </article>
+            <article class="ttd-card">
+                <div class="ttd-text">
+                    <span class="ttd-tag">Every morning · 7am · Free</span>
+                    <h3 class="ttd-title">Sunrise yoga<br />by the sea</h3>
+                    <p class="ttd-desc">Roll out a mat on the promenade as the sun lifts over the channel. A gentle all-levels flow led by a local teacher, finishing with a swim for anyone who wants one. Mats provided, nothing to book.</p>
+                    <div class="ttd-meta">
+                        <div class="m"><span class="mk">Duration</span><span class="mv">1 hour</span></div>
+                        <div class="m"><span class="mk">Level</span><span class="mv">All levels</span></div>
+                        <div class="m"><span class="mk">From</span><span class="mv">Free</span></div>
                     </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Put primorja, 23207 Sv. Filip i Jakov</span></div>
-                    </div>
+                    <div class="ttd-incl"><span>Mats</span><span>Local teacher</span><span>Daily</span><span>Sea swim</span></div>
+                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
                 </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>HP – Hrvatska pošta d.d.</h4></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Obala kralja Tomislava 15, 23207 Sv. Filip i Jakov</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523388922">+385 23 388 922</a></div>
-                    </div>
-                </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Veterinarska ambulanta Biograd</h4></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Kralja Petra Svačića 25, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523385860">+385 23 385 860</a>, <a href="tel:+385915115092">+385 91 511 50 92</a></div>
-                    </div>
-                </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Veterinarska ambulanta Nova d.o.o.</h4></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Braće Radić 21, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523385005">+385 23 385 005</a>, <a href="tel:+385992243310">+385 99 224 3310</a></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="doc-panel" x-show="tab === 'prijevoz'">
-            <div class="doc-panel-head">
-                <h3>Prijevoz i dolazak</h3>
-                <p>Autobusni kolodvor, lučka kapetanija i zračna luka koje ćete najčešće koristiti na putu do Svetog Filipa i Jakova.</p>
-            </div>
-            <div class="ui-grid">
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Autobusni kolodvor</h4><span class="sub">Biograd na Moru · 06:00 – 22:00</span></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Trg hrvatskih velikana bb, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38560350350">+385 60 350 350</a></div>
-                    </div>
-                </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Lučka kapetanija Zadar</h4><span class="sub">Lučka ispostava Biograd</span></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Obala kralja Petra Krešimira IV 30, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523383210">+385 23 383 210</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:li-ispostava@pomorstvo.hr">li-ispostava@pomorstvo.hr</a></div>
-                    </div>
-                </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Zračna luka Zadar</h4><span class="sub">Radno vrijeme: 06:00 – 22:00</span></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>PP 367, 23000 Zadar</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38523205800">+385 23 205 800</a>, <a href="tel:+38523205833">+385 23 205 833</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:info@zadar-airport.hr">info@zadar-airport.hr</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><a href="http://www.zadar-airport.hr" target="_blank" rel="noopener">www.zadar-airport.hr</a></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="doc-panel" x-show="tab === 'taxi'">
-            <div class="doc-panel-head">
-                <h3>Taxi službe</h3>
-                <p>Lokalne taxi službe s bazom u Biogradu na Moru koje pokrivaju cijelu rivijeru.</p>
-            </div>
-            <div class="ui-grid">
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Taxi služba M I D</h4><span class="sub">Ivica Šarić</span></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Kalnička 9, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+385982920002">+385 98 292 002</a>, <a href="tel:+385919331411">+385 91 933 1411</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:markobiograd@yahoo.com">markobiograd@yahoo.com</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><a href="http://www.autotaxi-biograd.com" target="_blank" rel="noopener">www.autotaxi-biograd.com</a></div>
-                    </div>
-                </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Taxi služba Erstić</h4><span class="sub">Branko Erstić</span></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Porto san Giorgio 25, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+385925078111">+385 92 507 8111</a>, <a href="tel:+38523384169">+385 23 384 169</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:auto.taxi@zd.t-com.hr">auto.taxi@zd.t-com.hr</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><a href="http://www.autotaxi-erstic.hr" target="_blank" rel="noopener">www.autotaxi-erstic.hr</a></div>
-                    </div>
-                </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Taxi služba L T</h4><span class="sub">Vlado Stojanov</span></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Osječka 5, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38598792450">+385 98 792 450</a></div>
-                    </div>
-                </div>
-
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>Taxi služba Johnnie</h4></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Dr. Franje Tuđmana 12, 23210 Biograd na Moru</span></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38598536591">+385 98 536 591</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:info@taxi-biograd.com">info@taxi-biograd.com</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><a href="http://www.taxi-biograd.com" target="_blank" rel="noopener">www.taxi-biograd.com</a></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="doc-panel" x-show="tab === 'hitni'">
-            <div class="doc-panel-head">
-                <h3>Hitni i korisni brojevi</h3>
-                <p>Međunarodni pozivni broj za Hrvatsku je <b>385</b>. U slučaju hitnoće nazovite jedinstveni europski broj 112 ili izravno odgovarajuću službu ispod.</p>
-            </div>
-
-            <div class="ui-emg-grid">
-                <div class="ui-emg-tile acc-sea"><a class="num" href="tel:112">112</a><span class="lbl">Jedinstveni broj za hitne slučajeve</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:194">194</a><span class="lbl">Hitna medicinska pomoć</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:193">193</a><span class="lbl">Vatrogasci</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:192">192</a><span class="lbl">Policija</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:1987">1987</a><span class="lbl">Cestovna pomoć</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:155">155</a><span class="lbl">Služba traganja i spašavanja na moru</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:+38514821049">01 4821 049</a><span class="lbl">Gorska služba spašavanja</span></div>
-            </div>
-
-            <div class="doc-panel-head">
-                <h3>Informacije i cestovne službe</h3>
-            </div>
-            <div class="ui-emg-grid">
-                <div class="ui-emg-tile"><a class="num" href="tel:18981">18981</a><span class="lbl">Opće informacije</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:11888">11888</a><span class="lbl">Telefonski brojevi (lokalni i međugradski)</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:11802">11802</a><span class="lbl">Međunarodni pozivni brojevi</span></div>
-                <div class="ui-emg-tile"><a class="num" href="tel:060520520">060 520 520</a><span class="lbl">Vremenska prognoza i stanje na cestama</span></div>
-            </div>
-
-            <div class="ui-grid">
-                <div class="ui-card">
-                    <div class="ui-card-head">
-                        <div><h4>HAK — Hrvatski autoklub</h4></div>
-                    </div>
-                    <div class="ui-contact">
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+38514640800">+385 1 4640 800</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg><a href="mailto:info@hak.hr">info@hak.hr</a></div>
-                        <div class="ui-contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><a href="http://www.hak.hr" target="_blank" rel="noopener">www.hak.hr</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section class="page-sect stay-help" x-data="{}">
-    <picture class="bg bg-cover"><img src="images/webp/town.webp" alt="" /></picture>
-    <div class="max-w-[1600px] mx-auto px-4">
-        <div class="stay-help-inner reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
-            <div>
-                <span class="eyebrow">Treba vam dodatna pomoć?</span>
-                <h2>Turistička zajednica<br /><em>je tu</em>.</h2>
-                <p>Za sve dodatne informacije koje niste pronašli ovdje, obratite se turističkoj
-                zajednici osobno, telefonom ili putem kontakt obrasca.</p>
-                <a href="contact.html" class="btn">Kontaktirajte nas <span class="arr"></span></a>
-            </div>
-            <div class="help-points">
-                <div class="help-point">
-                    <span class="n">1</span>
-                    <div><h4>Turistička informativna služba</h4><p>Uredi u Svetom Filipu i Jakovu i Turnju, otvoreni cijele godine.</p></div>
-                </div>
-                <div class="help-point">
-                    <span class="n">2</span>
-                    <div><h4>Kontakt obrazac</h4><p>Pošaljite upit putem stranice Kontakt i odgovaramo u najkraćem roku.</p></div>
-                </div>
-                <div class="help-point">
-                    <span class="n">3</span>
-                    <div><h4>Česta pitanja</h4><p>Pogledajte i našu stranicu <a href="faq.html" class="underline">česta pitanja</a> za brze odgovore.</p></div>
-                </div>
-            </div>
+                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture></div>
+            </article>
         </div>
     </div>
 </section>
@@ -646,7 +459,7 @@
             <div class="col-span-2 lg:col-span-1">
                 <div class="footer-heading">Info</div>
                 <a href="hosts-corner.html" class="footer-link">Kutak za iznajmljivače</a>
-                <a href="documents.html" class="footer-link">Dokumenti</a>
+                <a href="#" class="footer-link">Dokumenti</a>
                 <a href="https://www.evisitor.hr/" target="_blank" rel="noopener" class="footer-link">E-visitor</a>
                 <a href="https://mvisitor.hr/" target="_blank" rel="noopener" class="footer-link">M-visitor</a>
             </div>
@@ -661,13 +474,11 @@
         <div class="flex flex-col items-center text-center gap-2 lg:flex-row lg:justify-between lg:items-center lg:text-left text-xs opacity-55 border-t border-black/16 pt-6 tracking-[0.04em]">
             <span>© 2026 Tourist Board of Sveti Filip i Jakov · All rights reserved</span>
             <div class="flex flex-wrap items-center gap-2 max-lg:flex-col!">
-                <a href="page.html" class="hover:text-sea max-lg:block!">Izjava o kolačićima</a>
+                <a href="#" class="hover:text-sea max-lg:block!">Izjava o kolačićima</a>
                 <span class="max-lg:hidden!">|</span>
-                <a href="page.html" class="hover:text-sea max-lg:block!">Pravila o privatnosti</a>
+                <a href="#" class="hover:text-sea max-lg:block!">Pravila o privatnosti</a>
                 <span class="max-lg:hidden!">|</span>
-                <a href="page.html" class="hover:text-sea max-lg:block!">Izjava o digitalnoj pristupačnosti</a>
-                <span class="max-lg:hidden!">|</span>
-                <a href="page.html" class="hover:text-sea max-lg:block!">Uvjeti korištenja</a>
+                <a href="#" class="hover:text-sea max-lg:block!">Izjava o digitalnoj pristupačnosti</a>
             </div>
             <span>Izrada web stranica <a href="https://www.fer-projekt.com/" target="_blank" rel="noopener" class="hover:text-sea">Fer Projekt</a></span>
         </div>

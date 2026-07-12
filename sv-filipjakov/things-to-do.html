@@ -194,12 +194,12 @@
                 </div>
 
                 <div class="nav-menu__col">
-                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
+                    <a href="experience.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
                     <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'dozivi' }">
                         <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <a href="experience.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
                             <li><a href="authentic-experiences.html">Autentična iskustva</a></li>
                             <li><a href="for-families.html">Za obitelji</a></li>
@@ -254,12 +254,12 @@
                         </button>
                         <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
                         <ul>
-                            <li><a href="things-to-do.html">Aktivnosti na moru</a></li>
-                            <li><a href="things-to-do.html">Aktivnosti u prirodi</a></li>
-                            <li><a href="things-to-do.html">Plaže i kupanje</a></li>
-                            <li><a href="things-to-do.html">Gastronomija i lokalni specijaliteti</a></li>
-                            <li><a href="things-to-do.html">Izleti i obližnje atrakcije</a></li>
-                            <li><a href="things-to-do.html">Tematske staze</a></li>
+                            <li><a href="sea-activities.html">Aktivnosti na moru</a></li>
+                            <li><a href="outdoor-activities.html">Aktivnosti u prirodi</a></li>
+                            <li><a href="beaches.html">Plaže i kupanje</a></li>
+                            <li><a href="gastro.html">Gastronomija i lokalni specijaliteti</a></li>
+                            <li><a href="day-trips.html">Izleti i obližnje atrakcije</a></li>
+                            <li><a href="thematic-trails.html">Tematske staze</a></li>
                         </ul>
                     </div>
                 </div>
@@ -285,130 +285,144 @@
 </header>
 
 <header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
-    <picture class="bg bg-cover"><img src="images/webp/hero/hero.webp" alt="" /></picture>
+    <div class="bg overflow-hidden">
+        <video autoplay muted loop playsinline poster="images/webp/hero/snorkelling-opt.webp" class="absolute inset-0 w-full h-full object-cover">
+            <source src="videos/experience-hero.mp4" type="video/mp4" />
+        </video>
+    </div>
     <div class="page-head-inner">
         <nav class="crumb">
             <a href="index.html">Home</a>
             <span class="sep"></span>
-            <span>Things to do</span>
+            <span>Experience</span>
         </nav>
-        <h1>From the riva<br />to the <em>open sea</em>.</h1>
+        <h1>So much to do,<br />so little <em>hurry</em>.</h1>
         <p class="ph-lede">
-            Half a dozen ways to spend a day in Sv. Filip i Jakov — sailing, diving, beach-hopping,
-            stone-lane wandering, a kayak to an empty islet, or sunrise yoga on the promenade.
-            None of them require a car. Most require nothing but a swimsuit.
+            Dive the channel, ride the back roads, long-lunch in a konoba, sail to an empty islet,
+            or follow an old olive trail into the hills. Six ways to spend your days in
+            Sv. Filip i Jakov — pick one, or string them all together.
         </p>
     </div>
 </header>
 
-<section class="page-sect ttd-page">
+<section class="page-sect bg-cream" x-data="{}">
     <div class="max-w-[1600px] mx-auto px-4">
 
-        <div class="sect-head mb-12">
+        <div class="sect-head reveal mb-13.5" x-intersect.once.threshold.10="$el.classList.add('is-in')">
             <div>
-                <span class="eyebrow">Things to do</span>
-                <h2 class="heading-2 mt-4">Pick a day,<br /><em class="script-accent text-black!">pick the water</em>.</h2>
+                <span class="eyebrow">What to do</span>
+                <h2 class="heading-2 mt-4">Sea, stone,<br /><em class="script-accent">table &amp; trail</em>.</h2>
             </div>
             <p class="lede [text-wrap:pretty]">
-                Every experience below is run by locals and starts within a short walk of the
-                harbour. Prices are per person in shoulder season — just turn up, or ask at the info point.
+                Almost everything starts within a short walk of the harbour, runs by locals, and needs
+                nothing more than a swimsuit, an appetite, or a good pair of shoes.
             </p>
         </div>
 
-        <div class="ttd-grid">
-            <article class="ttd-card">
-                <div class="ttd-text">
-                    <span class="ttd-tag">Half day · From the marina</span>
-                    <h3 class="ttd-title">Sea activities<br />&amp; sailing</h3>
-                    <p class="ttd-desc">Take the helm of a skippered yacht or hop a RIB for the afternoon. Out past the breakwater the Pašman Channel opens up — flat, sheltered water that is as kind to first-timers as it is to old hands.</p>
-                    <div class="ttd-meta">
-                        <div class="m"><span class="mk">Duration</span><span class="mv">Half day</span></div>
-                        <div class="m"><span class="mk">Level</span><span class="mv">All levels</span></div>
-                        <div class="m"><span class="mk">From</span><span class="mv">€55 pp</span></div>
-                    </div>
-                    <div class="ttd-incl"><span>Skipper</span><span>Life jackets</span><span>Swim stop</span><span>Drinks</span></div>
-                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
+        <div class="pl-cards reveal stagger" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+
+            <a class="pl-card col6 tall" href="sea-activities.html">
+                <picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture>
+                <div class="body">
+                    <span class="dist">Swim, dive &amp; sail</span>
+                    <div class="nm">Sea activities</div>
+                    <p class="ds">Clean, calm water in the sheltered Pašman channel — swimming off sandy and pebble beaches, diving to a sunken Roman-era site, boat trips to Babac and Galešnjak, and sailing or surfing lessons for every level.</p>
+                    <div class="tags"><span>Swimming</span><span>Diving</span><span>Boat trips</span><span>Sailing</span><span>SUP &amp; kayak</span></div>
                 </div>
-                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/hero.webp" alt="" /></picture></div>
-            </article>
-            <article class="ttd-card">
-                <div class="ttd-text">
-                    <span class="ttd-tag">2 hours · PADI harbour school</span>
-                    <h3 class="ttd-title">Diving &amp;<br />snorkelling</h3>
-                    <p class="ttd-desc">A PADI school runs straight off the harbour. Try a first dive in the shallows, or snorkel the rocky shelves where seagrass meadows hide seahorses, bream and the odd curious octopus.</p>
-                    <div class="ttd-meta">
-                        <div class="m"><span class="mk">Duration</span><span class="mv">2 hours</span></div>
-                        <div class="m"><span class="mk">Level</span><span class="mv">Beginner+</span></div>
-                        <div class="m"><span class="mk">From</span><span class="mv">€40</span></div>
-                    </div>
-                    <div class="ttd-incl"><span>Gear included</span><span>Guide</span><span>Try-dive</span><span>Photos</span></div>
-                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
+                <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+            </a>
+
+            <a class="pl-card col6 tall" href="outdoor-activities.html">
+                <picture class="img bg-cover"><img src="images/webp/campsites.webp" alt="" /></picture>
+                <div class="body">
+                    <span class="dist">Coastal trails &amp; open air</span>
+                    <div class="nm">Outdoor activities</div>
+                    <p class="ds">Walking trails through pine and olive groves, mountain biking into the hinterland, sunset views over heart-shaped Galešnjak, and easy trails for every pace.</p>
+                    <div class="tags"><span>Hiking</span><span>Cycling</span><span>Viewpoints</span><span>Nature trails</span></div>
                 </div>
-                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/snorkelling-opt.webp" alt="" /></picture></div>
-            </article>
-            <article class="ttd-card">
-                <div class="ttd-text">
-                    <span class="ttd-tag">All day · Riva to Turanj</span>
-                    <h3 class="ttd-title">Pebble coves<br />&amp; blue-flag bays</h3>
-                    <p class="ttd-desc">Walk or cycle the coast path and the beaches keep coming — blue-flag bays with showers and bars, then quiet pebble coves behind the pines where you can have the water to yourself.</p>
-                    <div class="ttd-meta">
-                        <div class="m"><span class="mk">Duration</span><span class="mv">All day</span></div>
-                        <div class="m"><span class="mk">Level</span><span class="mv">Easy</span></div>
-                        <div class="m"><span class="mk">From</span><span class="mv">Free</span></div>
-                    </div>
-                    <div class="ttd-incl"><span>Blue-flag</span><span>Showers</span><span>Shade</span><span>Family</span></div>
-                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
+                <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+            </a>
+
+            <a class="pl-card col4 tall" href="beaches.html">
+                <picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture>
+                <div class="body">
+                    <span class="dist">Sand, pebble &amp; stone</span>
+                    <div class="nm">Beaches &amp; swimming</div>
+                    <p class="ds">From Iza Banja's quiet peninsulas to Tustica's easy shallows — every village along the riviera has its own stretch of crystal-clear water.</p>
+                    <div class="tags"><span>Iza Banja</span><span>Morovička</span><span>Tustica</span></div>
                 </div>
-                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture></div>
-            </article>
-            <article class="ttd-card">
-                <div class="ttd-text">
-                    <span class="ttd-tag">90 minutes · Self-guided</span>
-                    <h3 class="ttd-title">Old town<br />stone walks</h3>
-                    <p class="ttd-desc">A self-guided loop through a thousand years of stone — the baroque parish church, the Borelli summer house and gardens, and lanes worn smooth underfoot, ending where the riva meets the sea.</p>
-                    <div class="ttd-meta">
-                        <div class="m"><span class="mk">Duration</span><span class="mv">90 minutes</span></div>
-                        <div class="m"><span class="mk">Level</span><span class="mv">Easy</span></div>
-                        <div class="m"><span class="mk">From</span><span class="mv">Free</span></div>
-                    </div>
-                    <div class="ttd-incl"><span>Self-guided</span><span>Map</span><span>Church</span><span>Gardens</span></div>
-                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
+                <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+            </a>
+
+            <a class="pl-card col8 tall" href="gastro.html">
+                <video class="vid" autoplay muted loop playsinline poster="images/webp/olive-harvest.webp">
+                    <source src="videos/gastro-bg.mp4" type="video/mp4" />
+                </video>
+                <div class="body">
+                    <span class="dist">Okusi Dalmacije na dlanu</span>
+                    <div class="nm">Gastronomija i lokalni specijaliteti</div>
+                    <p class="ds">Svježa riba iz Pašmanskog kanala, maslinovo ulje zaleđa i konobe u kojima se tradicija još uvijek kuha na starinski način.</p>
+                    <div class="tags"><span>Riblji specijaliteti</span><span>Maslinovo ulje</span><span>Konobe</span></div>
                 </div>
-                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture></div>
-            </article>
-            <article class="ttd-card">
-                <div class="ttd-text">
-                    <span class="ttd-tag">3 min by boat · Uninhabited</span>
-                    <h3 class="ttd-title">Kayak to<br />Babac islet</h3>
-                    <p class="ttd-desc">Paddle out to the pine-covered dot in the channel. Beach the kayak on a rocky inlet, swim off the warm slabs, lay out a picnic, and drift back as the light turns gold over the water.</p>
-                    <div class="ttd-meta">
-                        <div class="m"><span class="mk">Duration</span><span class="mv">Half day</span></div>
-                        <div class="m"><span class="mk">Level</span><span class="mv">Moderate</span></div>
-                        <div class="m"><span class="mk">From</span><span class="mv">€30</span></div>
-                    </div>
-                    <div class="ttd-incl"><span>Kayak</span><span>Dry bag</span><span>Map</span><span>Picnic tips</span></div>
-                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
+                <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+            </a>
+
+            <a class="pl-card col8 tall" href="day-trips.html">
+                <picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture>
+                <div class="body">
+                    <span class="dist">Morem i kopnom</span>
+                    <div class="nm">Izleti i obližnje atrakcije</div>
+                    <p class="ds">Pašmanski kanal, Kornati i otok Babac brodom, biciklističke rute kroz zaleđe, i nacionalni parkovi Krka i Plitvice na dohvat ruke.</p>
+                    <div class="tags"><span>Kornati</span><span>Biciklizam</span><span>Nacionalni parkovi</span></div>
                 </div>
-                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/babac-islet.webp" alt="" /></picture></div>
-            </article>
-            <article class="ttd-card">
-                <div class="ttd-text">
-                    <span class="ttd-tag">Every morning · 7am · Free</span>
-                    <h3 class="ttd-title">Sunrise yoga<br />by the sea</h3>
-                    <p class="ttd-desc">Roll out a mat on the promenade as the sun lifts over the channel. A gentle all-levels flow led by a local teacher, finishing with a swim for anyone who wants one. Mats provided, nothing to book.</p>
-                    <div class="ttd-meta">
-                        <div class="m"><span class="mk">Duration</span><span class="mv">1 hour</span></div>
-                        <div class="m"><span class="mk">Level</span><span class="mv">All levels</span></div>
-                        <div class="m"><span class="mk">From</span><span class="mv">Free</span></div>
-                    </div>
-                    <div class="ttd-incl"><span>Mats</span><span>Local teacher</span><span>Daily</span><span>Sea swim</span></div>
-                    <div class="ttd-foot"><a href="contact.html" class="btn">Book or ask <span class="arr"></span></a></div>
+                <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+            </a>
+
+            <a class="pl-card col4" href="thematic-trails.html">
+                <picture class="img bg-cover"><img src="images/webp/old-town-walks.webp" alt="" /></picture>
+                <div class="body">
+                    <span class="dist">Self-guided routes</span>
+                    <div class="nm">Thematic trails</div>
+                    <p class="ds">Heritage walks through old stone, olive-grove routes, and coastal cycling loops — themed trails through town and country.</p>
+                    <div class="tags"><span>Heritage walk</span><span>Olive route</span><span>Cycling loop</span></div>
                 </div>
-                <div class="ttd-media"><picture class="img bg-cover"><img src="images/webp/yoga-sea.webp" alt="" /></picture></div>
-            </article>
+                <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+            </a>
+
         </div>
     </div>
 </section>
+
+<section class="page-sect stay-help" x-data="{}">
+    <picture class="bg bg-cover"><img src="images/webp/stay-room.webp" alt="" /></picture>
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="stay-help-inner reveal is-in">
+            <div>
+                <span class="eyebrow">Ovdje smo za vas</span>
+                <h2>Imate pitanja?<br /><em>Javite nam se</em>.</h2>
+                <p>Za više informacija o smještaju za dugoročni boravak, internetskoj povezanosti
+                ili planiranju posjeta javite se Turističkoj zajednici Sveti Filip i Jakov —
+                rado ćemo vam pomoći pronaći ono što tražite.</p>
+                <a href="contact.html" class="btn">Kontaktirajte nas <span class="arr"></span></a>
+            </div>
+            <div class="help-points">
+                <div class="help-point">
+                    <span class="n">~</span>
+                    <div><h4>Turistička zajednica</h4><p>+385 23 389 071 · info@svfilipjakov.hr</p></div>
+                </div>
+                <div class="help-point">
+                    <span class="n">~</span>
+                    <div><h4>TIC Sveti Filip i Jakov</h4><p>Obala kralja Tomislava 16 · ljeti 08–20 h</p></div>
+                </div>
+                <div class="help-point">
+                    <span class="n">~</span>
+                    <div><h4>TIC Turanj</h4><p>Kula Toretta · lipanj – rujan, 08–19 h</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <footer id="plan" class="bg-cream text-black pt-18 md:pt-25 pb-18 lg:pb-24">
     <div class="max-w-[1600px] mx-auto px-4">
@@ -459,7 +473,7 @@
             <div class="col-span-2 lg:col-span-1">
                 <div class="footer-heading">Info</div>
                 <a href="hosts-corner.html" class="footer-link">Kutak za iznajmljivače</a>
-                <a href="#" class="footer-link">Dokumenti</a>
+                <a href="documents.html" class="footer-link">Dokumenti</a>
                 <a href="https://www.evisitor.hr/" target="_blank" rel="noopener" class="footer-link">E-visitor</a>
                 <a href="https://mvisitor.hr/" target="_blank" rel="noopener" class="footer-link">M-visitor</a>
             </div>
@@ -474,11 +488,13 @@
         <div class="flex flex-col items-center text-center gap-2 lg:flex-row lg:justify-between lg:items-center lg:text-left text-xs opacity-55 border-t border-black/16 pt-6 tracking-[0.04em]">
             <span>© 2026 Tourist Board of Sveti Filip i Jakov · All rights reserved</span>
             <div class="flex flex-wrap items-center gap-2 max-lg:flex-col!">
-                <a href="#" class="hover:text-sea max-lg:block!">Izjava o kolačićima</a>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Izjava o kolačićima</a>
                 <span class="max-lg:hidden!">|</span>
-                <a href="#" class="hover:text-sea max-lg:block!">Pravila o privatnosti</a>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Pravila o privatnosti</a>
                 <span class="max-lg:hidden!">|</span>
-                <a href="#" class="hover:text-sea max-lg:block!">Izjava o digitalnoj pristupačnosti</a>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Izjava o digitalnoj pristupačnosti</a>
+                <span class="max-lg:hidden!">|</span>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Uvjeti korištenja</a>
             </div>
             <span>Izrada web stranica <a href="https://www.fer-projekt.com/" target="_blank" rel="noopener" class="hover:text-sea">Fer Projekt</a></span>
         </div>
