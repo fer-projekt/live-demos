@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AutoOpomena — automatizacija naplate iz Verteks kartica</title>
+<meta name="description" content="AI pročita kartice kupaca iz Verteksa, prepozna dužnike po OIB-u i pripremi opomene. Vi pregledate i pošaljete." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:    { DEFAULT:'#15181E', 700:'#282D38', 500:'#5A6472', 300:'#9AA3B0' },
+          paper:  '#F5F4EF',
+          line:   '#E6E3DA',
+          brand:  { DEFAULT:'#0E7C66', 600:'#0B6E5B', 700:'#0A5C4C', 50:'#E7F2EE' },
+          calm:   '#0EA5A0',
+          warn:   '#E0A100',
+          hot:    '#E0602B',
+          crit:   '#C81E1E',
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"','system-ui','sans-serif'],
+          sans:    ['"IBM Plex Sans"','system-ui','sans-serif'],
+          mono:    ['"IBM Plex Mono"','ui-monospace','monospace'],
+        },
+        maxWidth: { content: '1180px' },
+      }
+    }
+  }
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<style>
+  html { scroll-behavior:smooth; }
+  body { -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  [x-cloak] { display:none !important; }
+  .tnum { font-variant-numeric: tabular-nums; font-feature-settings:"tnum" 1; }
+  .reveal { opacity:0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity:1; transform:none; }
+  .ao-ramp { background: linear-gradient(90deg,#0EA5A0 0%,#E0A100 40%,#E0602B 70%,#C81E1E 100%); }
+  .ao-grid { background-image: linear-gradient(#00000008 1px, transparent 1px), linear-gradient(90deg,#00000008 1px, transparent 1px); background-size: 34px 34px; }
+  .ao-dot { box-shadow: 0 0 0 4px rgba(255,255,255,.9); }
+  @keyframes ao-float { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-7px) } }
+  @keyframes ao-chip { 0%{ opacity:0; transform:translateY(12px) scale(.96) } 100%{ opacity:1; transform:none } }
+  @keyframes ao-scan { 0%{ transform:translateY(-6%); opacity:0 } 12%{opacity:1} 88%{opacity:1} 100%{ transform:translateY(560%); opacity:0 } }
+  .ao-float { animation: ao-float 6.5s ease-in-out infinite; }
+  .ao-chip  { animation: ao-chip .8s .7s both; }
+  .ao-scan  { animation: ao-scan 3.6s cubic-bezier(.4,0,.2,1) 1.1s infinite; }
+  a:focus-visible, button:focus-visible { outline:2px solid #0E7C66; outline-offset:3px; border-radius:5px; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1 !important; transform:none !important; transition:none; }
+    .ao-float,.ao-chip,.ao-scan{ animation:none !important; }
+  }
+  @media print {
+    .reveal{ opacity:1 !important; transform:none !important; }
+    [x-cloak]{ display:revert !important; }
+    header{ position:static !important; }
+  }
+</style>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
+</head>
+
+<body class="bg-paper text-ink font-sans antialiased">
+
+<!-- ===================== NAV ===================== -->
+<header x-data="{ open:false, scrolled:false }" @scroll.window="scrolled = window.scrollY > 12"
+        class="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
+        :class="scrolled ? 'bg-paper/90 backdrop-blur border-b border-line' : 'bg-transparent'">
+  <div class="mx-auto max-w-content px-5 sm:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <span class="grid h-8 w-8 place-items-center rounded-md bg-ink text-paper font-display font-bold text-sm">A</span>
+        <span class="font-display font-bold tracking-tight text-[17px]">AutoOpomena</span>
+        <span class="hidden sm:inline text-[11px] font-mono text-ink-500 border border-line rounded px-1.5 py-0.5">prijedlog</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm text-ink-700">
+        <a href="#problem" class="hover:text-brand transition-colors">Problem</a>
+        <a href="#kako"    class="hover:text-brand transition-colors">Kako radi</a>
+        <a href="#pravila" class="hover:text-brand transition-colors">Pravila</a>
+        <a href="#kontrola" class="hover:text-brand transition-colors">Kontrola</a>
+        <a href="#faze"    class="hover:text-brand transition-colors">Faze</a>
+      </nav>
+      <a href="#dalje" class="hidden md:inline-flex items-center gap-2 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-paper hover:bg-ink-700 transition-colors">
+        Sljedeći korak
+      </a>
+      <button @click="open=!open" class="md:hidden grid h-10 w-10 place-items-center rounded-lg border border-line" aria-label="Izbornik">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path x-show="!open" d="M4 7h16M4 12h16M4 17h16"/><path x-show="open" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div x-show="open" x-cloak x-transition class="md:hidden border-t border-line bg-paper">
+    <nav class="mx-auto max-w-content px-5 py-4 flex flex-col gap-3 text-ink-700">
+      <a @click="open=false" href="#problem">Problem</a>
+      <a @click="open=false" href="#kako">Kako radi</a>
+      <a @click="open=false" href="#pravila">Pravila</a>
+      <a @click="open=false" href="#kontrola">Kontrola</a>
+      <a @click="open=false" href="#faze">Faze</a>
+      <a @click="open=false" href="#dalje" class="mt-1 inline-flex w-max rounded-lg bg-ink px-4 py-2 text-sm text-paper">Sljedeći korak</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section id="top" class="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-24">
+  <div class="absolute inset-0 ao-grid opacity-70"></div>
+  <div class="absolute -top-24 right-0 h-[420px] w-[420px] rounded-full bg-brand/10 blur-3xl"></div>
+  <div class="relative mx-auto max-w-content px-5 sm:px-8">
+    <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-12 lg:gap-10 items-center">
+
+      <!-- copy -->
+      <div>
+        <p class="inline-flex items-center gap-2 text-[13px] font-mono text-brand-600 bg-brand-50 border border-brand/20 rounded-full px-3 py-1">
+          <span class="h-1.5 w-1.5 rounded-full bg-brand"></span>
+          Automatizacija naplate · kartice kupaca iz Verteksa
+        </p>
+        <h1 class="mt-6 font-display font-bold tracking-tight text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.03]">
+          Svih 200 kartica<br>pročita AI.<br>
+          <span class="text-brand">Vi samo pregledate<br>i pošaljete.</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-ink-500 leading-relaxed">
+          Sustav preuzme mjesečni izvoz kartica iz Verteksa, prepozna svakog kupca po OIB-u,
+          izračuna dospjeli dug i predloži pravu opomenu — podsjetnik, opomenu ili obavijest
+          pred ovrhu. Ništa ne odlazi kupcu bez vaše potvrde.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#kako" class="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3 font-medium text-white hover:bg-brand-600 transition-colors">
+            Pogledaj kako radi
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#pravila" class="inline-flex items-center gap-2 rounded-xl border border-ink/15 px-5 py-3 font-medium text-ink hover:border-ink/40 transition-colors">
+            Predložena pravila
+          </a>
+        </div>
+
+        <dl class="mt-12 grid grid-cols-3 gap-4 sm:gap-6 max-w-lg">
+          <div>
+            <dt class="font-display font-bold text-2xl sm:text-3xl tnum">150–200</dt>
+            <dd class="mt-1 text-[13px] text-ink-500 leading-snug">kartica obradi odjednom</dd>
+          </div>
+          <div class="border-l border-line pl-4 sm:pl-6">
+            <dt class="font-display font-bold text-2xl sm:text-3xl">sati<span class="text-ink-300">→</span>min</dt>
+            <dd class="mt-1 text-[13px] text-ink-500 leading-snug">vašeg vremena mjesečno</dd>
+          </div>
+          <div class="border-l border-line pl-4 sm:pl-6">
+            <dt class="font-display font-bold text-2xl sm:text-3xl tnum">0</dt>
+            <dd class="mt-1 text-[13px] text-ink-500 leading-snug">propuštenih dospjelih računa</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- signature: kartica → odluka -->
+      <div class="relative ao-float">
+        <div class="relative rounded-2xl bg-white border border-line shadow-[0_24px_60px_-24px_rgba(21,24,30,.28)] overflow-hidden">
+          <!-- scan line -->
+          <div class="pointer-events-none absolute inset-x-0 top-0 h-10 ao-scan bg-gradient-to-b from-brand/25 to-transparent"></div>
+          <div class="flex items-center justify-between px-5 py-3 border-b border-line bg-paper/60">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-crit/70"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-warn/70"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-calm/70"></span>
+            </div>
+            <span class="font-mono text-[11px] text-ink-500">kartica-kupca.pdf</span>
+          </div>
+
+          <div class="p-5">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <p class="text-[11px] font-mono uppercase tracking-wider text-ink-300">Partner</p>
+                <p class="font-display font-semibold text-lg leading-tight">MEDIUS d.o.o.</p>
+              </div>
+              <p class="font-mono text-[12px] text-ink-500 tnum">OIB 78225674173</p>
+            </div>
+
+            <div class="mt-4 rounded-lg border border-line overflow-hidden">
+              <div class="grid grid-cols-[1fr_auto_auto] gap-2 px-3 py-2 bg-paper/70 text-[11px] font-mono uppercase tracking-wide text-ink-500">
+                <span>Dospijeće</span><span class="text-right">Iznos</span><span class="text-right pl-3">Status</span>
+              </div>
+              <div class="divide-y divide-line font-mono text-[13px] tnum">
+                <div class="grid grid-cols-[1fr_auto_auto] gap-2 px-3 py-2 items-center">
+                  <span class="text-ink-500">30.01.2026</span><span class="text-right">100,00 €</span>
+                  <span class="text-right pl-3 text-brand-600">plaćeno</span>
+                </div>
+                <div class="grid grid-cols-[1fr_auto_auto] gap-2 px-3 py-2 items-center bg-crit/5">
+                  <span>15.04.2026</span><span class="text-right font-semibold">100,00 €</span>
+                  <span class="text-right pl-3 text-crit font-semibold">dospjelo</span>
+                </div>
+                <div class="grid grid-cols-[1fr_auto_auto] gap-2 px-3 py-2 items-center bg-hot/5">
+                  <span>30.05.2026</span><span class="text-right font-semibold">100,00 €</span>
+                  <span class="text-right pl-3 text-hot font-semibold">dospjelo</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-[1fr_auto] gap-2 px-3 py-2 border-t border-line bg-paper/70 font-mono text-[13px] tnum">
+                <span class="font-semibold uppercase tracking-wide text-[11px] self-center text-ink-500">Saldo</span>
+                <span class="text-right font-display font-bold text-base">200,00 €</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- decision chip -->
+        <div class="ao-chip absolute -bottom-6 -left-3 sm:-left-6 max-w-[86%]">
+          <div class="rounded-xl bg-ink text-paper shadow-2xl px-4 py-3 flex items-center gap-3">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-hot/20 text-hot">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+            </span>
+            <div class="leading-tight">
+              <p class="text-[11px] font-mono text-ink-300 uppercase tracking-wide">AI prijedlog</p>
+              <p class="font-display font-semibold">2. opomena · dospjelo 200,00 €</p>
+              <p class="text-[12px] text-ink-300">kašnjenje 44 dana · prepoznato po OIB-u</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROBLEM ===================== -->
+<section id="problem" class="py-20 sm:py-28 border-t border-line bg-white">
+  <div class="mx-auto max-w-content px-5 sm:px-8">
+    <div class="max-w-2xl reveal">
+      <p class="font-mono text-[13px] uppercase tracking-widest text-ink-300">Trenutno stanje</p>
+      <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl tracking-tight">Svaki mjesec — isti ručni maraton</h2>
+      <p class="mt-4 text-lg text-ink-500">
+        Naplata radi, ali stoji na jednoj osobi i puno sati. Postupak je jednostavan, ali monoton i podložan previdima.
+      </p>
+    </div>
+
+    <ol class="mt-12 grid md:grid-cols-4 gap-px bg-line rounded-2xl overflow-hidden border border-line reveal">
+      <li class="bg-white p-6">
+        <span class="font-mono text-sm text-ink-300">01</span>
+        <h3 class="mt-3 font-display font-semibold text-lg">Stigne ZIP</h3>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">Knjigovodstvo pošalje 150–200 PDF kartica kupaca odjednom.</p>
+      </li>
+      <li class="bg-white p-6">
+        <span class="font-mono text-sm text-ink-300">02</span>
+        <h3 class="mt-3 font-display font-semibold text-lg">Otvaranje jedne po jedne</h3>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">Za svaku karticu ručno se čita saldo i datum dospijeća.</p>
+      </li>
+      <li class="bg-white p-6">
+        <span class="font-mono text-sm text-ink-300">03</span>
+        <h3 class="mt-3 font-display font-semibold text-lg">Ručno pisanje mailova</h3>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">Opomena se za svakog dužnika piše i šalje pojedinačno.</p>
+      </li>
+      <li class="bg-white p-6">
+        <span class="font-mono text-sm text-ink-300">04</span>
+        <h3 class="mt-3 font-display font-semibold text-lg">Cijena: sati i previdi</h3>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">Sporija naplata, propušteni slučajevi, neujednačene opomene.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== KAKO RADI ===================== -->
+<section id="kako" class="py-20 sm:py-28">
+  <div class="mx-auto max-w-content px-5 sm:px-8">
+    <div class="max-w-2xl reveal">
+      <p class="font-mono text-[13px] uppercase tracking-widest text-ink-300">Kako radi</p>
+      <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl tracking-tight">Šest koraka, od ZIP-a do poslane opomene</h2>
+      <p class="mt-4 text-lg text-ink-500">Isti tijek kao i danas — samo što prve četiri korake radi sustav, a vi zadržavate zadnju riječ.</p>
+    </div>
+
+    <div class="mt-14 relative">
+      <div class="hidden lg:block absolute left-0 right-0 top-[42px] h-px bg-line"></div>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 reveal">
+
+        <!-- step -->
+        <div class="relative">
+          <div class="flex items-center gap-3">
+            <span class="relative z-10 grid h-11 w-11 place-items-center rounded-xl bg-ink text-paper font-mono font-semibold ao-dot">01</span>
+            <span class="font-mono text-xs text-brand-600 bg-brand-50 border border-brand/20 rounded px-2 py-0.5">ulaz</span>
+          </div>
+          <h3 class="mt-4 font-display font-semibold text-lg">Učitavanje</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Ubacite ZIP knjigovodstva (ili, kad Verteks to omogući, izravan izvoz). Sustav raspakira sve kartice.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3">
+            <span class="relative z-10 grid h-11 w-11 place-items-center rounded-xl bg-ink text-paper font-mono font-semibold ao-dot">02</span>
+            <span class="font-mono text-xs text-brand-600 bg-brand-50 border border-brand/20 rounded px-2 py-0.5">AI čita</span>
+          </div>
+          <h3 class="mt-4 font-display font-semibold text-lg">Čitanje kartice</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Svaka kartica → strukturirani podaci (stavke, dospijeća, iznosi). Ugrađena provjera: duguje − potražuje mora dati saldo.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3">
+            <span class="relative z-10 grid h-11 w-11 place-items-center rounded-xl bg-ink text-paper font-mono font-semibold ao-dot">03</span>
+            <span class="font-mono text-xs text-brand-600 bg-brand-50 border border-brand/20 rounded px-2 py-0.5">spajanje</span>
+          </div>
+          <h3 class="mt-4 font-display font-semibold text-lg">Prepoznavanje kupca</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Spoj po <b>OIB-u</b> (rezerva: IBAN, pa naziv) s imenikom e-mail adresa. Nema adrese → ide u red za ručnu obradu.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3">
+            <span class="relative z-10 grid h-11 w-11 place-items-center rounded-xl bg-ink text-paper font-mono font-semibold ao-dot">04</span>
+            <span class="font-mono text-xs text-brand-600 bg-brand-50 border border-brand/20 rounded px-2 py-0.5">izračun</span>
+          </div>
+          <h3 class="mt-4 font-display font-semibold text-lg">Procjena duga</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Uplate se povežu s najstarijim računima; sustav zna koji su računi otvoreni, koliko je dospjelo i koliko dana kasni.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3">
+            <span class="relative z-10 grid h-11 w-11 place-items-center rounded-xl bg-ink text-paper font-mono font-semibold ao-dot">05</span>
+            <span class="font-mono text-xs text-brand-600 bg-brand-50 border border-brand/20 rounded px-2 py-0.5">odluka</span>
+          </div>
+          <h3 class="mt-4 font-display font-semibold text-lg">Odluka o razini</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Pravila odaberu razinu (ili „preskoči"). Sustav pamti prošli mjesec, pa opomena eskalira: 1. → 2. → pred ovrhu.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3">
+            <span class="relative z-10 grid h-11 w-11 place-items-center rounded-xl bg-brand text-white font-mono font-semibold ao-dot">06</span>
+            <span class="font-mono text-xs text-white bg-brand rounded px-2 py-0.5">vi odlučujete</span>
+          </div>
+          <h3 class="mt-4 font-display font-semibold text-lg">Pregled i slanje</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Na nadzornoj ploči vidite sve, uredite po potrebi i potvrdite. Mail odlazi iz <b>vašeg</b> sandučića.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- brain band -->
+    <div class="mt-16 grid md:grid-cols-3 gap-4 reveal">
+      <div class="rounded-2xl border border-line bg-white p-6">
+        <p class="font-mono text-[13px] text-ink-300">Pitanje 1</p>
+        <h4 class="mt-1 font-display font-semibold text-lg">Tko je kupac?</h4>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">OIB je jedinstven i uvijek na kartici — to je sigurna spona prema e-mail adresi. IBAN i naziv su rezerva.</p>
+      </div>
+      <div class="rounded-2xl border border-line bg-white p-6">
+        <p class="font-mono text-[13px] text-ink-300">Pitanje 2</p>
+        <h4 class="mt-1 font-display font-semibold text-lg">Duguje li — i je li dospjelo?</h4>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">Saldo ≤ 0 → ne šalje se ništa. Saldo > 0, ali samo ako postoje računi kojima je prošlo dospijeće.</p>
+      </div>
+      <div class="rounded-2xl border border-line bg-white p-6">
+        <p class="font-mono text-[13px] text-ink-300">Pitanje 3</p>
+        <h4 class="mt-1 font-display font-semibold text-lg">Što točno poslati?</h4>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">Razina prema najvećem kašnjenju i povijesti slanja. Ispod praga iznosa — preskoči.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRAVILA (interaktivno) ===================== -->
+<section id="pravila" class="py-20 sm:py-28 bg-ink text-paper">
+  <div class="mx-auto max-w-content px-5 sm:px-8">
+    <div class="max-w-2xl reveal">
+      <p class="font-mono text-[13px] uppercase tracking-widest text-ink-300">Predložena pravila</p>
+      <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl tracking-tight text-white">Ljestvica opomena — naš prijedlog</h2>
+      <p class="mt-4 text-lg text-ink-300">
+        Što je dug stariji, to je ton stroži. Ovo su razumne zadane vrijednosti za B2B u Hrvatskoj —
+        svaki prag, rok i tekst prilagođavamo vama. Kliknite razinu.
+      </p>
+    </div>
+
+    <div x-data="{ sel: 2 }" class="mt-12 reveal">
+      <!-- ramp bar -->
+      <div class="relative">
+        <div class="h-2 rounded-full ao-ramp"></div>
+        <div class="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <template x-for="(s, i) in [
+            {k:'Podsjetnik', d:'1–7 dana', c:'#0EA5A0'},
+            {k:'1. opomena', d:'8–30 dana', c:'#E0A100'},
+            {k:'2. opomena', d:'31–60 dana', c:'#E0602B'},
+            {k:'Pred ovrhu', d:'61+ dana', c:'#C81E1E'}
+          ]" :key="i">
+            <button @click="sel=i"
+              class="text-left rounded-xl border p-4 transition-all"
+              :class="sel===i ? 'bg-white/10 border-white/40' : 'bg-white/5 border-white/10 hover:border-white/25'">
+              <span class="block h-1.5 w-8 rounded-full mb-3" :style="`background:${s.c}`"></span>
+              <span class="font-display font-semibold" x-text="s.k"></span>
+              <span class="block font-mono text-[12px] text-ink-300 mt-0.5" x-text="s.d"></span>
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <!-- detail panels -->
+      <div class="mt-8 grid lg:grid-cols-[1fr_.9fr] gap-6">
+        <!-- left: description -->
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-6 sm:p-8 min-h-[16rem]">
+          <template x-if="sel===0">
+            <div>
+              <h3 class="font-display font-semibold text-xl text-white">Podsjetnik <span class="font-mono text-sm text-calm">· 1–7 dana</span></h3>
+              <p class="mt-3 text-ink-300">Blag, prijateljski ton. Pretpostavlja se previd, ne krivnja. Cilj je platiti bez narušavanja odnosa.</p>
+              <ul class="mt-4 space-y-2 text-sm text-paper/90">
+                <li class="flex gap-2"><span class="text-calm">▪</span> Bez kamata i prijetnji.</li>
+                <li class="flex gap-2"><span class="text-calm">▪</span> Prilog: pregled dospjelih stavaka + IBAN i poziv na broj.</li>
+                <li class="flex gap-2"><span class="text-calm">▪</span> Opcionalno — ne mora se slati za sve.</li>
+              </ul>
+            </div>
+          </template>
+          <template x-if="sel===1">
+            <div>
+              <h3 class="font-display font-semibold text-xl text-white">1. opomena <span class="font-mono text-sm text-warn">· 8–30 dana</span></h3>
+              <p class="mt-3 text-ink-300">Formalna, jasna obavijest o dospjelom, nepodmirenom dugovanju s konkretnim rokom.</p>
+              <ul class="mt-4 space-y-2 text-sm text-paper/90">
+                <li class="flex gap-2"><span class="text-warn">▪</span> Popis dospjelih računa s datumima i iznosima.</li>
+                <li class="flex gap-2"><span class="text-warn">▪</span> Rok za podmirenje (npr. 8 dana).</li>
+                <li class="flex gap-2"><span class="text-warn">▪</span> Napomena: zanemarite ako je već plaćeno.</li>
+              </ul>
+            </div>
+          </template>
+          <template x-if="sel===2">
+            <div>
+              <h3 class="font-display font-semibold text-xl text-white">2. opomena <span class="font-mono text-sm text-hot">· 31–60 dana</span></h3>
+              <p class="mt-3 text-ink-300">Stroži ton, najava daljnjih koraka i obračun zakonske zatezne kamate.</p>
+              <ul class="mt-4 space-y-2 text-sm text-paper/90">
+                <li class="flex gap-2"><span class="text-hot">▪</span> Obračun zatezne kamate od dana dospijeća.</li>
+                <li class="flex gap-2"><span class="text-hot">▪</span> Najava mogućeg utuženja / ovrhe.</li>
+                <li class="flex gap-2"><span class="text-hot">▪</span> Kraći rok za podmirenje.</li>
+              </ul>
+            </div>
+          </template>
+          <template x-if="sel===3">
+            <div>
+              <h3 class="font-display font-semibold text-xl text-white">Opomena pred ovrhu <span class="font-mono text-sm text-crit">· 61+ dana</span></h3>
+              <p class="mt-3 text-ink-300">Posljednja obavijest prije pokretanja postupka prisilne naplate.</p>
+              <ul class="mt-4 space-y-2 text-sm text-paper/90">
+                <li class="flex gap-2"><span class="text-crit">▪</span> Jasan zadnji rok (npr. 8 dana).</li>
+                <li class="flex gap-2"><span class="text-crit">▪</span> Glavnica + obračunata kamata.</li>
+                <li class="flex gap-2"><span class="text-crit">▪</span> Priprema podataka za ovrhu (kasnija faza).</li>
+              </ul>
+            </div>
+          </template>
+        </div>
+
+        <!-- right: email preview -->
+        <div class="rounded-2xl bg-white text-ink border border-white/10 overflow-hidden">
+          <div class="flex items-center justify-between px-5 py-3 border-b border-line bg-paper/70">
+            <span class="font-mono text-[12px] text-ink-500">nacrt e-maila</span>
+            <span class="font-mono text-[11px] text-ink-300">šalje se tek nakon potvrde</span>
+          </div>
+          <div class="p-5 text-sm leading-relaxed">
+            <p class="font-mono text-[12px] text-ink-500">Predmet</p>
+            <p class="font-semibold mb-4"
+               x-text="['Podsjetnik na dospjeli račun','Opomena — dospjelo dugovanje','2. opomena — dospjelo dugovanje','Opomena pred ovrhu'][sel]"></p>
+            <p class="text-ink-700">Poštovani,</p>
+            <p class="mt-2 text-ink-700"
+               x-text="[
+                 'podsjećamo da je na dan izvoda evidentiran dospjeli, nepodmireni iznos od 200,00 €. Vjerujemo da se radi o previdu te molimo uplatu na račun iz priloga.',
+                 'evidentiramo dospjelo, nepodmireno dugovanje u iznosu od 200,00 €. Molimo podmirenje u roku od 8 dana od primitka ove obavijesti.',
+                 'unatoč prethodnoj obavijesti, dugovanje od 200,00 € i dalje je nepodmireno. Na iznos obračunavamo zakonsku zateznu kamatu i najavljujemo daljnje korake naplate.',
+                 'ovo je posljednja obavijest prije pokretanja postupka prisilne naplate (ovrhe) za dospjeli iznos od 200,00 € uvećan za kamate. Rok za podmirenje je 8 dana.'
+               ][sel]"></p>
+            <p class="mt-3 text-ink-700">U prilogu je specifikacija dospjelih računa s datumima dospijeća.</p>
+            <p class="mt-3 text-ink-500">S poštovanjem,<br>[Vaša tvrtka]</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- knobs -->
+      <div class="mt-8 grid sm:grid-cols-3 gap-4">
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5">
+          <p class="font-mono text-[12px] text-ink-300">Donji prag</p>
+          <p class="mt-1 font-display font-semibold text-lg text-white tnum">5,00 €</p>
+          <p class="mt-1 text-[13px] text-ink-300">Ispod praga se ne šalje — bez gnjavaže za sitne iznose.</p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5">
+          <p class="font-mono text-[12px] text-ink-300">Zatezne kamate</p>
+          <p class="mt-1 font-display font-semibold text-lg text-white">zakonska (B2B)</p>
+          <p class="mt-1 text-[13px] text-ink-300">Referentna stopa HNB + 8 p.b., od 2. opomene naviše.</p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5">
+          <p class="font-mono text-[12px] text-ink-300">Valute</p>
+          <p class="mt-1 font-display font-semibold text-lg text-white">obrada po valuti</p>
+          <p class="mt-1 text-[13px] text-ink-300">Iznosi se ne zbrajaju kroz različite valute.</p>
+        </div>
+      </div>
+      <p class="mt-6 font-mono text-[12px] text-ink-300">* Sve vrijednosti su prijedlog i podešavaju se prema vašoj politici naplate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KONTROLA ===================== -->
+<section id="kontrola" class="py-20 sm:py-28 bg-white border-t border-line">
+  <div class="mx-auto max-w-content px-5 sm:px-8">
+    <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-12 items-start">
+      <div class="reveal">
+        <p class="font-mono text-[13px] uppercase tracking-widest text-ink-300">Kontrola i sigurnost</p>
+        <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl tracking-tight">Vi ste uvijek zadnja provjera</h2>
+        <p class="mt-4 text-lg text-ink-500">Automatizacija priprema posao, ali odluku o slanju držite vi. Nijedan mail ne ode kupcu na slijepo.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4 reveal">
+        <div class="rounded-2xl border border-line p-6">
+          <div class="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600 mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg">Ništa bez potvrde</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Sve se priprema kao prijedlog. Slanje je vaš klik — pojedinačno ili skupno.</p>
+        </div>
+        <div class="rounded-2xl border border-line p-6">
+          <div class="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600 mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg">Samoprovjera podataka</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Ako se zbroj stavaka ne slaže sa saldom, kartica se označi za pregled, ne šalje se.</p>
+        </div>
+        <div class="rounded-2xl border border-line p-6">
+          <div class="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600 mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg">Šalje se iz vašeg maila</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Opomena dolazi s vaše adrese i u vašem vizualnom identitetu — kupac vidi vas, ne alat.</p>
+        </div>
+        <div class="rounded-2xl border border-line p-6">
+          <div class="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600 mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg">Stop-lista i sporovi</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Kupce u sporu ili na čekanju označite — sustav ih automatski preskače.</p>
+        </div>
+        <div class="rounded-2xl border border-line p-6 sm:col-span-2">
+          <div class="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600 mb-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h11M8 12h11M8 18h11"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg">Potpuni zapis</h3>
+          <p class="mt-2 text-sm text-ink-500 leading-relaxed">Za svakog kupca vidi se što je i kada poslano — temelj za eskalaciju idući mjesec i dokaz u slučaju spora.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAZE ===================== -->
+<section id="faze" class="py-20 sm:py-28">
+  <div class="mx-auto max-w-content px-5 sm:px-8">
+    <div class="max-w-2xl reveal">
+      <p class="font-mono text-[13px] uppercase tracking-widest text-ink-300">Isporuka</p>
+      <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl tracking-tight">Gradimo u fazama</h2>
+      <p class="mt-4 text-lg text-ink-500">Prvo najbrži put do vrijednosti, pa nadogradnje. Svaka faza je upotrebljiva sama za sebe.</p>
+    </div>
+
+    <div x-data="{ tab: 1 }" class="mt-12 reveal">
+      <div class="flex flex-wrap gap-2">
+        <button @click="tab=1" :class="tab===1 ? 'bg-ink text-paper' : 'bg-white border border-line text-ink-700 hover:border-ink/30'" class="rounded-lg px-4 py-2 text-sm font-medium transition-colors">Faza 1 · Temelj</button>
+        <button @click="tab=2" :class="tab===2 ? 'bg-ink text-paper' : 'bg-white border border-line text-ink-700 hover:border-ink/30'" class="rounded-lg px-4 py-2 text-sm font-medium transition-colors">Faza 2 · Eskalacija i kamate</button>
+        <button @click="tab=3" :class="tab===3 ? 'bg-ink text-paper' : 'bg-white border border-line text-ink-700 hover:border-ink/30'" class="rounded-lg px-4 py-2 text-sm font-medium transition-colors">Faza 3 · Integracije i pravno</button>
+      </div>
+
+      <div class="mt-6 rounded-2xl border border-line bg-white p-6 sm:p-8">
+        <div x-show="tab===1">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-sm text-brand-600 bg-brand-50 border border-brand/20 rounded px-2 py-0.5">MVP</span>
+            <h3 class="font-display font-semibold text-xl">Radna verzija koja štedi sate već prvi mjesec</h3>
+          </div>
+          <div class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm text-ink-700">
+            <p class="flex gap-2"><span class="text-brand">✓</span> Učitavanje ZIP-a i AI čitanje svih kartica</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Prepoznavanje kupca po OIB-u + uvoz imenika e-mailova</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Izračun otvorenih stavaka, dospjelog iznosa i kašnjenja</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Nadzorna ploča: pregled, uređivanje, potvrda</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Generiranje opomene (e-mail + PDF prilog)</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Slanje iz vašeg sandučića + osnovni zapis</p>
+          </div>
+        </div>
+        <div x-show="tab===2" x-cloak>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-sm text-hot bg-hot/10 border border-hot/20 rounded px-2 py-0.5">nadogradnja</span>
+            <h3 class="font-display font-semibold text-xl">Pametnija naplata kroz vrijeme</h3>
+          </div>
+          <div class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm text-ink-700">
+            <p class="flex gap-2"><span class="text-brand">✓</span> Pamćenje razina i automatska eskalacija kroz mjesece</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Obračun zakonskih zateznih kamata</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Podrška za više valuta</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Predlošci opomena u vašem vizualnom identitetu</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Izvještaji: starost duga, najveći dužnici, naplaćeno</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Pravila po segmentima kupaca</p>
+          </div>
+        </div>
+        <div x-show="tab===3" x-cloak>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-sm text-crit bg-crit/10 border border-crit/20 rounded px-2 py-0.5">proširenje</span>
+            <h3 class="font-display font-semibold text-xl">Manje ručnog rada, dublja integracija</h3>
+          </div>
+          <div class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm text-ink-700">
+            <p class="flex gap-2"><span class="text-brand">✓</span> Izravna veza s Verteksom (bez PDF-a, ako je moguće)</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Automatsko preuzimanje ZIP-a iz sandučića</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Paket za ovrhu (prijedlog / e-Ovrha)</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Link za plaćanje kupcu u opomeni</p>
+            <p class="flex gap-2"><span class="text-brand">✓</span> Automatsko usklađenje uplata (kad postoji izvor)</p>
+          </div>
+        </div>
+      </div>
+      <p class="mt-5 font-mono text-[12px] text-ink-500">Vremenski okvir i cijenu definiramo nakon potvrde opsega i odgovora Verteksa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ŠTO NAM TREBA / DALJE ===================== -->
+<section id="dalje" class="py-20 sm:py-28 bg-white border-t border-line">
+  <div class="mx-auto max-w-content px-5 sm:px-8">
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div class="reveal">
+        <p class="font-mono text-[13px] uppercase tracking-widest text-ink-300">Za točnu ponudu treba nam</p>
+        <h2 class="mt-3 font-display font-bold text-3xl sm:text-4xl tracking-tight">Tri kratke provjere</h2>
+        <div class="mt-8 space-y-5">
+          <div class="flex gap-4">
+            <span class="font-mono text-brand-600 shrink-0">01</span>
+            <div>
+              <h3 class="font-display font-semibold">Može li Verteks izvesti CSV/Excel?</h3>
+              <p class="mt-1 text-sm text-ink-500 leading-relaxed">Ili izvorni PDF (ne „Print to PDF"). Ako da — obrada je pouzdanija i jeftinija.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="font-mono text-brand-600 shrink-0">02</span>
+            <div>
+              <h3 class="font-display font-semibold">Gdje su e-mail adrese kupaca?</h3>
+              <p class="mt-1 text-sm text-ink-500 leading-relaxed">Trebamo popis „OIB → e-mail" (iz Verteksa ili vaše tablice) — to je spona za slanje.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <span class="font-mono text-brand-600 shrink-0">03</span>
+            <div>
+              <h3 class="font-display font-semibold">Vaša politika naplate</h3>
+              <p class="mt-1 text-sm text-ink-500 leading-relaxed">Pragovi, rokovi, tekst opomena i brend — mi predlažemo, vi potvrđujete.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="rounded-2xl bg-ink text-paper p-8 h-full flex flex-col justify-between">
+          <div>
+            <h3 class="font-display font-bold text-2xl text-white">Sljedeći korak</h3>
+            <p class="mt-3 text-ink-300 leading-relaxed">
+              Napravimo kratki demo na <b class="text-white">vašim stvarnim karticama</b> — pokažemo
+              točnost čitanja i prijedlog opomena na par kupaca. Bez obveze.
+            </p>
+          </div>
+          <div class="mt-8 space-y-3">
+            <a href="mailto:matej@fer-projekt.com?subject=AutoOpomena%20—%20demo" class="flex items-center justify-between rounded-xl bg-brand px-5 py-4 font-medium text-white hover:bg-brand-600 transition-colors">
+              Dogovori demo
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <p class="font-mono text-[12px] text-ink-300 text-center">matej@fer-projekt.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="border-t border-line bg-paper">
+  <div class="mx-auto max-w-content px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div class="flex items-center gap-2.5">
+      <span class="grid h-7 w-7 place-items-center rounded-md bg-ink text-paper font-display font-bold text-xs">A</span>
+      <span class="font-display font-semibold">AutoOpomena</span>
+      <span class="text-[12px] font-mono text-ink-300">radni naziv</span>
+    </div>
+    <p class="text-[13px] text-ink-500 font-mono">Prijedlog rješenja · fer-projekt · srpanj 2026.</p>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal (bez vanjskih plugina)
+  (function () {
+    var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if (prefersReduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+    // sigurnosna mreža: pri ispisu/PDF-u otkrij sve
+    window.addEventListener('beforeprint', function () {
+      document.querySelectorAll('.reveal').forEach(function (e) { e.classList.add('in'); });
+    });
+  })();
+</script>
+</body>
+</html>

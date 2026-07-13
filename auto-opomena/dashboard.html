@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AutoOpomena — demo dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        ink:{ DEFAULT:'#15181E', 700:'#282D38', 500:'#5A6472', 300:'#9AA3B0' },
+        paper:'#F5F4EF', line:'#E6E3DA',
+        brand:{ DEFAULT:'#0E7C66', 600:'#0B6E5B', 50:'#E7F2EE' },
+        calm:'#0EA5A0', warn:'#E0A100', hot:'#E0602B', crit:'#C81E1E',
+      },
+      fontFamily: {
+        display:['"Space Grotesk"','sans-serif'],
+        sans:['"IBM Plex Sans"','sans-serif'],
+        mono:['"IBM Plex Mono"','monospace'],
+      },
+    }}
+  }
+</script>
+<style>
+  [x-cloak]{ display:none !important; }
+  .tnum{ font-variant-numeric:tabular-nums; }
+  @keyframes spin{ to{ transform:rotate(360deg) } }
+  .spin{ animation:spin .8s linear infinite; }
+</style>
+
+<script>
+function app(){
+  return {
+    filter:'svi', q:'', sel:null, noviEmail:'',
+    showPostavke:false, showPredlosci:false,
+    stopForm:false, stopIzbor:'reklamacija u tijeku',
+    editUpute:false, uputeDraft:'', spremljeno:false,
+
+    init(){ this.aiUpute = this.aiUputeDefault; },
+
+    // ---- AI: system prompt (fiksan) + upute (uredive) ----
+    sysPrompt:
+`Ti si sustav za čitanje kartica kupaca i pripremu opomena.
+
+PRAVILA TOČNOSTI — nepromjenjiva:
+• Podatke čitaš isključivo s učitane kartice; ništa ne izmišljaš niti procjenjuješ napamet.
+• Kontrola svake kartice: zbroj "duguje" − zbroj "potražuje" mora dati saldo s kartice.
+  Ako se ne slaže → kartica ide u ručnu provjeru i opomena se NE priprema.
+• Kupca prepoznaješ po OIB-u (rezerva: IBAN, pa naziv).
+  Bez pouzdane identifikacije → ručna provjera.
+• Različite valute nikad ne zbrajaš niti preračunavaš.
+• Poštuješ postavke pravila (prag, razine, kamate) i stop-listu — njih ne zaobilaziš.
+• Nikad samostalno ne šalješ e-mail: pripremaš prijedlog, slanje potvrđuje korisnik.
+• Podatke kupaca koristiš isključivo za pripremu opomena.`,
+
+    aiUputeDefault:
+`Ton: profesionalan i pristojan; obraćanje s poštovanjem (Vi), na hrvatskom.
+• Budi konkretan: navedi iznos, brojeve računa i datume dospijeća.
+• U podsjetniku pretpostavi previd, ne krivnju.
+• Kamate spominji tek od razine određene postavkama.
+• Nabrajaj samo dospjele račune, nedospjele ne spominji.
+• Bez prijetećih formulacija; u opomeni pred ovrhu dopuštena stroga,
+  ali korektna pravna formulacija.
+• Potpis: "S poštovanjem, [Vaša tvrtka]".`,
+    aiUpute:'',
+    tplTab:'op1', ton:'neutralno', generating:false,
+
+    // ---- postavke (u demu se primjenjuju odmah) ----
+    s:{
+      prag: 5,
+      podsjetnik: true,
+      op1Od: 8,
+      op2Od: 31,
+      ovrOd: 61,
+      kamate: 'op2',   // 'off' | 'op1' | 'op2' | 'ovr'
+    },
+
+    // ---- predlošci e-maila (podesivi; {naziv} {iznos} {rok} su varijable) ----
+    tpl:{
+      pod:{ predmet:'Podsjetnik na dospjeli račun',
+            tijelo:'podsjećamo da je prema našoj evidenciji dospio, a još nije podmiren iznos od {iznos}. Vjerujemo da se radi o previdu te molimo uplatu prema specifikaciji u prilogu.' },
+      op1:{ predmet:'Opomena — dospjelo dugovanje',
+            tijelo:'evidentiramo dospjelo, nepodmireno dugovanje u iznosu od {iznos}. Molimo podmirenje u roku od {rok} od primitka ove obavijesti.' },
+      op2:{ predmet:'2. opomena — dospjelo dugovanje',
+            tijelo:'unatoč prethodnoj obavijesti, dugovanje od {iznos} i dalje je nepodmireno. Molimo podmirenje u roku od {rok}; u protivnom najavljujemo daljnje korake naplate.' },
+      ovr:{ predmet:'Opomena pred ovrhu',
+            tijelo:'ovo je posljednja obavijest prije pokretanja postupka prisilne naplate (ovrhe) za dospjeli iznos od {iznos}. Rok za podmirenje je {rok}.' },
+    },
+
+    // ---- simulirani AI prijedlozi (bez API-ja — u pravoj aplikaciji generira se prema podacima kupca) ----
+    varijante:{
+      pod:{
+        blago:'slobodni smo Vas ljubazno podsjetiti da je na dan izvoda otvoren iznos od {iznos}. Vjerujemo da se radi o previdu — u prilogu je specifikacija, a stojimo na raspolaganju za sva pitanja.',
+        neutralno:'podsjećamo da je prema našoj evidenciji dospio, a još nije podmiren iznos od {iznos}. Molimo uplatu prema specifikaciji u prilogu.',
+        strogo:'prema našoj evidenciji iznos od {iznos} dospio je na naplatu. Molimo da obvezu podmirite bez odgode.',
+      },
+      op1:{
+        blago:'evidentiramo dospjelo dugovanje od {iznos}. Razumijemo da ponekad dođe do kašnjenja — molimo podmirenje u roku od {rok} ili nam se javite radi dogovora.',
+        neutralno:'evidentiramo dospjelo, nepodmireno dugovanje u iznosu od {iznos}. Molimo podmirenje u roku od {rok} od primitka ove obavijesti.',
+        strogo:'unatoč dospijeću, iznos od {iznos} nije podmiren. Zahtijevamo uplatu u roku od {rok}; u protivnom ćemo pooštriti mjere naplate.',
+      },
+      op2:{
+        blago:'nažalost, ni nakon prve opomene dugovanje od {iznos} nije podmireno. Molimo Vas da obvezu podmirite u roku od {rok} kako bismo izbjegli daljnje korake.',
+        neutralno:'unatoč prethodnoj obavijesti, dugovanje od {iznos} i dalje je nepodmireno. Molimo podmirenje u roku od {rok}; najavljujemo daljnje korake naplate.',
+        strogo:'ovo je druga opomena za nepodmireni iznos od {iznos}. Ne primimo li uplatu u roku od {rok}, pokrenut ćemo postupak prisilne naplate bez daljnje najave.',
+      },
+      ovr:{
+        blago:'unatoč ranijim opomenama dugovanje od {iznos} ostaje otvoreno. Ovo je posljednja prilika za podmirenje u roku od {rok} prije pokretanja ovrhe — javite nam se ako želite dogovoriti obročnu otplatu.',
+        neutralno:'ovo je posljednja obavijest prije pokretanja postupka prisilne naplate (ovrhe) za dospjeli iznos od {iznos}. Rok za podmirenje je {rok}.',
+        strogo:'posljednji put pozivamo na podmirenje iznosa od {iznos} u roku od {rok}. Nakon isteka roka predmet bez daljnje obavijesti predajemo na ovrhu, uz pripadajuće troškove na Vaš teret.',
+      },
+    },
+
+    kupci:[
+      { naziv:'MEDIUS d.o.o.', oib:'78225674173', email:'racunovodstvo@medius.hr', novo:false, valuta:'EUR',
+        saldo:200, dospjelo:200, dana:44, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'186/1/1',  d:'16.02.2026.', i:100, s:'placeno'},
+          {r:'907/1/1',  d:'10.05.2026.', i:100, s:'dospjelo'},
+          {r:'1402/1/1', d:'30.05.2026.', i:100, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'23.05.2026.', t:'Poslana 1. opomena (200,00 €) na racunovodstvo@medius.hr'},
+          {d:'23.06.2026.', t:'Uvoz: kartica ažurirana — dug i dalje otvoren → prijedlog eskalacije na 2. opomenu'},
+        ]},
+      { naziv:'VELPRO PARTNER d.o.o.', oib:'95175384628', email:'racuni@velpro-partner.hr', novo:false, valuta:'EUR',
+        saldo:12450, dospjelo:12450, dana:84, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'204/1/1', d:'31.03.2026.', i:6200, s:'dospjelo'},
+          {r:'419/1/1', d:'30.04.2026.', i:6250, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'23.04.2026.', t:'Poslana 1. opomena (6.200,00 €)'},
+          {d:'23.05.2026.', t:'Poslana 2. opomena (12.450,00 €) — bez uplate'},
+          {d:'23.06.2026.', t:'Uvoz: bez promjene → prijedlog opomene pred ovrhu'},
+        ]},
+      { naziv:'INSTALACIJE MODRIĆ d.o.o.', oib:'85296374102', email:'ured@instalacije-modric.hr', novo:false, valuta:'EUR',
+        saldo:2780, dospjelo:1890, dana:38, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'512/1/1', d:'16.05.2026.', i:1890, s:'dospjelo'},
+          {r:'788/1/1', d:'15.07.2026.', i:890,  s:'otvoreno'},
+        ],
+        povijest:[
+          {d:'23.05.2026.', t:'Poslana 1. opomena (1.890,00 €)'},
+          {d:'23.06.2026.', t:'Uvoz: kartica ažurirana — dospjeli dio neplaćen'},
+        ]},
+      { naziv:'GRAĐEVINAR NOVA d.o.o.', oib:'45871236901', email:'uprava@gradjevinar-nova.hr', novo:true, valuta:'EUR',
+        saldo:1240, dospjelo:1240, dana:12, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'1105/1/1', d:'11.06.2026.', i:740, s:'dospjelo'},
+          {r:'1106/1/1', d:'11.06.2026.', i:500, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'23.06.2026.', t:'Uvoz: novi kupac — kreiran iz kartice (OIB 45871236901)'},
+        ]},
+      { naziv:'LUKA COMMERCE d.o.o.', oib:'25836914705', email:'accounting@lukacommerce.com', novo:false, valuta:'USD',
+        saldo:1100, dospjelo:1100, dana:25, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'IZV-88/26', d:'29.05.2026.', i:1100, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'23.06.2026.', t:'Uvoz: kartica u USD — obrada odvojeno od EUR kartica'},
+        ]},
+      { naziv:'OPG MARIĆ', oib:'65214789305', email:'opg.maric@gmail.com', novo:false, valuta:'EUR',
+        saldo:340, dospjelo:340, dana:5, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'1387/1/1', d:'18.06.2026.', i:340, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'23.06.2026.', t:'Uvoz: kartica ažurirana — kratko kašnjenje → prijedlog podsjetnika'},
+        ]},
+      { naziv:'KAMENOLOM JURIĆ d.o.o.', oib:'55214477903', email:'info@kamenolom-juric.hr', bounce:true, novo:false, valuta:'EUR',
+        saldo:2140, dospjelo:2140, dana:33, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'451/1/1', d:'21.05.2026.', i:2140, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'23.05.2026.', t:'Poslana 1. opomena (2.140,00 €) na info@kamenolom-juric.hr'},
+          {d:'24.05.2026.', t:'⚠ Mail odbijen — adresa ne postoji (bounce). Kupac opomenu NIJE primio.'},
+          {d:'23.06.2026.', t:'Uvoz: dug otvoren → prijedlog 2. opomene — čeka ispravnu adresu'},
+        ]},
+      { naziv:'TRGOVINA KLAS j.d.o.o.', oib:'89562314785', email:null, novo:false, valuta:'EUR',
+        saldo:890, dospjelo:890, dana:71, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'301/1/1', d:'13.04.2026.', i:890, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'23.05.2026.', t:'Uvoz: dug otvoren — opomena NIJE poslana (nema e-mail adrese)'},
+          {d:'23.06.2026.', t:'Uvoz: dug i dalje otvoren — i dalje nedostaje e-mail'},
+        ]},
+      { naziv:'AUTOSERVIS BARIĆ d.o.o.', oib:'15987534682', email:'servis@autobaric.hr', novo:false, valuta:'EUR',
+        saldo:0, dospjelo:0, dana:0, akcija:'naplaceno', chk:false, poslano:false,
+        stavke:[
+          {r:'644/1/1', d:'02.05.2026.', i:450, s:'placeno'},
+        ],
+        povijest:[
+          {d:'23.05.2026.', t:'Poslana 1. opomena (450,00 €)'},
+          {d:'02.06.2026.', t:'Uplata 450,00 € — račun 644/1/1 zatvoren'},
+          {d:'23.06.2026.', t:'Uvoz: saldo 0 — naplaćeno nakon opomene ✓'},
+        ]},
+      { naziv:'METALIA d.o.o.', oib:'95135748206', email:'finance@metalia.hr', novo:false, valuta:'EUR',
+        saldo:5600, dospjelo:5600, dana:120, akcija:'posalji', stop:true, stopRazlog:'reklamacija u tijeku', chk:false, poslano:false,
+        stavke:[
+          {r:'77/1/1', d:'23.02.2026.', i:5600, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'15.04.2026.', t:'Ručno označen: u sporu (reklamacija na isporuku) — ne slati opomene'},
+          {d:'23.06.2026.', t:'Uvoz: kartica ažurirana — preskočeno (stop-lista)'},
+        ]},
+      { naziv:'PEKARNICA ZLATNO ZRNO', oib:'75315948602', email:'pekara@zlatnozrno.hr', novo:false, valuta:'EUR',
+        saldo:3.2, dospjelo:3.2, dana:19, akcija:'posalji', chk:false, poslano:false,
+        stavke:[
+          {r:'998/1/1', d:'04.06.2026.', i:3.2, s:'dospjelo'},
+        ],
+        povijest:[
+          {d:'23.06.2026.', t:'Uvoz: dospjelo 3,20 € — ispod praga → preskočeno'},
+        ]},
+      { naziv:'HOTEL ADRIA TOURS d.o.o.', oib:'35795145623', email:'booking@adriatours.hr', novo:false, valuta:'EUR',
+        saldo:-150, dospjelo:0, dana:0, akcija:'preplata', chk:false, poslano:false,
+        stavke:[
+          {r:'uplata', d:'10.06.2026.', i:150, s:'placeno'},
+        ],
+        povijest:[
+          {d:'23.06.2026.', t:'Uvoz: saldo −150,00 € (preplata) — nema akcije'},
+        ]},
+      { naziv:'STUDIO KVADRAT j.d.o.o.', oib:'35714586920', email:'studio@kvadrat.hr', novo:true, valuta:'EUR',
+        saldo:0, dospjelo:0, dana:0, akcija:'bezduga', chk:false, poslano:false,
+        stavke:[
+          {r:'1201/1/1', d:'30.06.2026.', i:0, s:'placeno'},
+        ],
+        povijest:[
+          {d:'23.06.2026.', t:'Uvoz: novi kupac — kreiran iz kartice, sve plaćeno'},
+        ]},
+    ],
+
+    // ---- pomoćne ----
+    fmt(n, v){ return n.toLocaleString('hr-HR',{minimumFractionDigits:2, maximumFractionDigits:2}) + (v==='USD' ? ' USD' : ' €'); },
+
+    // razina se IZVODI iz kašnjenja + postavki (zato promjena postavki odmah mijenja tablicu)
+    razina(k){
+      if (k.akcija !== 'posalji') return null;
+      if (k.stop || k.skip) return null;
+      if (k.dospjelo <= 0 || k.dospjelo < this.s.prag) return null;
+      const d = k.dana;
+      if (d >= this.s.ovrOd) return 'ovr';
+      if (d >= this.s.op2Od) return 'op2';
+      if (d >= this.s.op1Od) return 'op1';
+      if (d >= 1 && this.s.podsjetnik) return 'pod';
+      return null;
+    },
+    sendable(k){ return !!this.razina(k) && !!k.email && !k.bounce && !k.poslano; },
+
+    razinaInfo(k){
+      const m = {
+        pod:{ t:'Podsjetnik',  c:'text-calm bg-calm/10' },
+        op1:{ t:'1. opomena',  c:'text-warn bg-warn/10' },
+        op2:{ t:'2. opomena',  c:'text-hot bg-hot/10' },
+        ovr:{ t:'Pred ovrhu',  c:'text-crit bg-crit/10' },
+      };
+      const r = this.razina(k);
+      return r ? m[r] : null;
+    },
+    statusInfo(k){
+      if (k.poslano)              return { t:'Poslano ✓',            c:'text-brand-600 bg-brand-50' };
+      if (k.bounce)               return { t:'⚠ Neisporučeno',       c:'text-crit bg-crit/10' };
+      if (k.stop)                 return { t:'Stop-lista · ' + k.stopRazlog, c:'text-ink-500 bg-line/70' };
+      if (k.skip)                 return { t:'Preskočeno ovaj mjesec', c:'text-ink-500 bg-line/70' };
+      if (k.akcija==='naplaceno') return { t:'Naplaćeno · 02.06.',   c:'text-brand-600 bg-brand-50' };
+      if (k.akcija==='preplata')  return { t:'Preplata',             c:'text-ink-500 bg-line/70' };
+      if (k.akcija==='bezduga')   return { t:'Bez duga',             c:'text-ink-500 bg-line/70' };
+      if (k.dospjelo > 0 && k.dospjelo < this.s.prag)
+                                  return { t:'Ispod praga (' + this.s.prag + ' €)', c:'text-ink-500 bg-line/70' };
+      if (!this.razina(k))        return { t:'Bez akcije',           c:'text-ink-500 bg-line/70' };
+      if (!k.email)               return { t:'⚠ Nedostaje e-mail',   c:'text-crit bg-crit/10' };
+      return { t:'Za slanje', c:'text-ink bg-paper border border-line' };
+    },
+
+    // ---- e-mail iz predloška (zamjena varijabli + kamate po postavci) ----
+    sub(str, k){
+      return str.replaceAll('{naziv}', k.naziv)
+                .replaceAll('{iznos}', this.fmt(k.dospjelo, k.valuta))
+                .replaceAll('{rok}', '8 dana');
+    },
+    kamateZa(r){
+      if (this.s.kamate === 'off' || !r) return false;
+      const rank = { pod:1, op1:2, op2:3, ovr:4 };
+      return rank[r] >= rank[this.s.kamate];
+    },
+    predmet(k){ const r = this.razina(k); return r ? this.tpl[r].predmet : ''; },
+    tijelo(k){
+      const r = this.razina(k);
+      if (!r) return '';
+      let t = this.sub(this.tpl[r].tijelo, k);
+      if (this.kamateZa(r)) t += ' Na dospjeli iznos obračunava se zakonska zatezna kamata od dana dospijeća.';
+      return t;
+    },
+    primjer(str){
+      let t = str.replaceAll('{naziv}','MEDIUS d.o.o.').replaceAll('{iznos}','200,00 €').replaceAll('{rok}','8 dana');
+      if (this.kamateZa(this.tplTab)) t += ' Na dospjeli iznos obračunava se zakonska zatezna kamata od dana dospijeća.';
+      return t;
+    },
+
+    // ---- simulirano AI generiranje (bez API-ja) ----
+    generirajAI(){
+      this.generating = true;
+      setTimeout(() => {
+        this.tpl[this.tplTab].tijelo = this.varijante[this.tplTab][this.ton];
+        this.generating = false;
+      }, 900);
+    },
+
+    // ---- lista / filtri ----
+    get list(){
+      let l = this.kupci;
+      if (this.filter==='slanje') l = l.filter(k => this.sendable(k));
+      if (this.filter==='email')  l = l.filter(k => !k.email || k.bounce);
+      if (this.filter==='novi')   l = l.filter(k => k.novo);
+      if (this.filter==='ostalo') l = l.filter(k => !this.razina(k) && !k.poslano);
+      if (this.q){
+        const s = this.q.toLowerCase();
+        l = l.filter(k => k.naziv.toLowerCase().includes(s) || k.oib.includes(s));
+      }
+      return l;
+    },
+    get odabrani(){ return this.kupci.filter(k => k.chk && this.sendable(k)); },
+    get demoZaSlanje(){ return this.kupci.filter(k => this.sendable(k)).length; },
+
+    toggleAll(){
+      const t = this.list.filter(k => this.sendable(k));
+      const sve = t.length && t.every(k => k.chk);
+      t.forEach(k => k.chk = !sve);
+    },
+    posalji(k){ k.poslano = true; k.chk = false; },
+    posaljiOdabrane(){ this.odabrani.forEach(k => k.poslano = true); },
+    spremiEmail(k){
+      const e = this.noviEmail.trim();
+      if (e.includes('@')) { k.email = e; k.bounce = false; this.noviEmail=''; }
+    },
+    preskoci(k){ k.skip = true; k.chk = false; k.povijest.push({d:'23.06.2026.', t:'Ručno: preskočeno u ovoj obradi'}); },
+    vratiUSlanje(k){ k.skip = false; k.povijest.push({d:'23.06.2026.', t:'Ručno: vraćen u slanje'}); },
+    stopiraj(k){ k.stop = true; k.stopRazlog = this.stopIzbor; k.chk = false; this.stopForm = false;
+                 k.povijest.push({d:'23.06.2026.', t:'Ručno: stavljen na stop-listu (' + this.stopIzbor + ')'}); },
+    odstopiraj(k){ k.stop = false; k.stopRazlog = ''; k.povijest.push({d:'23.06.2026.', t:'Ručno: maknut sa stop-liste'}); },
+    urediUpute(){ this.uputeDraft = this.aiUpute; this.editUpute = true; },
+    spremiUpute(){ this.aiUpute = this.uputeDraft; this.editUpute = false; this.spremljeno = true;
+                   setTimeout(() => this.spremljeno = false, 1600); },
+    resetUpute(){ this.uputeDraft = this.aiUputeDefault; },
+  }
+}
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-paper text-ink font-sans antialiased" x-data="app()">
+
+<!-- app bar -->
+<header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
+  <div class="mx-auto max-w-[1240px] px-4 sm:px-6 flex h-14 items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <span class="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-ink text-paper font-display font-bold text-sm">A</span>
+      <span class="font-display font-bold tracking-tight truncate">AutoOpomena</span>
+      <span class="shrink-0 font-mono text-[11px] text-crit bg-crit/10 rounded px-1.5 py-0.5">DEMO · izmišljeni podaci</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button @click="showPredlosci=true" class="inline-flex items-center gap-1.5 rounded-lg border border-line bg-white px-3 py-1.5 text-sm font-medium hover:border-ink/30 transition-colors">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>
+        <span class="hidden sm:inline">Predlošci</span>
+      </button>
+      <button @click="showPostavke=true" class="inline-flex items-center gap-1.5 rounded-lg border border-line bg-white px-3 py-1.5 text-sm font-medium hover:border-ink/30 transition-colors">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span class="hidden sm:inline">Postavke</span>
+      </button>
+      <a href="opis.html" class="text-sm text-brand-600 font-medium hover:underline underline-offset-2 whitespace-nowrap">← Opis</a>
+    </div>
+  </div>
+</header>
+
+<main class="mx-auto max-w-[1240px] px-4 sm:px-6 py-6 pb-28">
+
+  <!-- traka uvoza -->
+  <div class="rounded-xl border border-brand/25 bg-brand-50 px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
+    <span class="font-mono text-[12px] text-brand-700 font-semibold">✓ ZIP OBRAĐEN</span>
+    <span class="text-ink-700"><b>kartice-2026-06.zip</b> · 23.06.2026.</span>
+    <span class="text-ink-500 font-mono text-[13px] tnum">187 kartica</span>
+    <span class="text-brand-600 font-mono text-[13px] tnum">+12 novih kupaca</span>
+    <span class="text-ink-500 font-mono text-[13px] tnum">175 ažurirano</span>
+    <button @click="filter='email'" class="font-mono text-[13px] text-crit hover:underline underline-offset-2 tnum">⚠ 3 bez e-maila</button>
+  </div>
+
+  <!-- statistika -->
+  <div class="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3">
+    <div class="rounded-xl border border-line bg-white p-4">
+      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Dospjelo ukupno</p>
+      <p class="mt-1 font-display font-bold text-2xl tnum">48.230,00 €</p>
+      <p class="text-[12px] text-ink-300 font-mono tnum">+ 1.100,00 USD</p>
+    </div>
+    <div class="rounded-xl border border-line bg-white p-4">
+      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Za slanje</p>
+      <p class="mt-1 font-display font-bold text-2xl tnum">34</p>
+      <p class="text-[12px] text-ink-300">opomena čeka potvrdu</p>
+    </div>
+    <div class="rounded-xl border border-line bg-white p-4">
+      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Bez e-maila</p>
+      <p class="mt-1 font-display font-bold text-2xl text-crit tnum">3</p>
+      <p class="text-[12px] text-ink-300">kupca treba dopuniti</p>
+    </div>
+    <div class="rounded-xl border border-line bg-white p-4">
+      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Naplaćeno nakon opomena</p>
+      <p class="mt-1 font-display font-bold text-2xl text-brand-600 tnum">4.320,00 €</p>
+      <p class="text-[12px] text-ink-300">11 kupaca od svibnja</p>
+    </div>
+  </div>
+
+  <!-- aktivna pravila -->
+  <div class="mt-4 flex flex-wrap items-center gap-2 text-[12px] font-mono">
+    <span class="text-ink-300 uppercase tracking-wide">Aktivna pravila:</span>
+    <button @click="showPostavke=true" class="rounded-full border border-line bg-white px-2.5 py-1 text-ink-500 hover:border-ink/30 transition-colors tnum">min. iznos <b class="text-ink" x-text="s.prag + ' €'"></b></button>
+    <button @click="showPostavke=true" class="rounded-full border border-line bg-white px-2.5 py-1 text-ink-500 hover:border-ink/30 transition-colors tnum">
+      <span class="text-calm">●</span> 1–<span x-text="s.op1Od-1"></span> d
+      <span class="text-warn pl-1">●</span> <span x-text="s.op1Od"></span>–<span x-text="s.op2Od-1"></span> d
+      <span class="text-hot pl-1">●</span> <span x-text="s.op2Od"></span>–<span x-text="s.ovrOd-1"></span> d
+      <span class="text-crit pl-1">●</span> <span x-text="s.ovrOd"></span>+ d
+    </button>
+    <button @click="showPostavke=true" class="rounded-full border border-line bg-white px-2.5 py-1 text-ink-500 hover:border-ink/30 transition-colors">
+      kamate: <b class="text-ink" x-text="{off:'isključene', op1:'od 1. opomene', op2:'od 2. opomene', ovr:'pred ovrhu'}[s.kamate]"></b>
+    </button>
+    <span class="text-ink-300">· promjena postavki odmah se primjenjuje na tablicu</span>
+  </div>
+
+  <!-- filtri + pretraga -->
+  <div class="mt-4 flex flex-wrap items-center gap-2">
+    <template x-for="f in [
+      {k:'svi', t:'Svi'},
+      {k:'slanje', t:'Za slanje'},
+      {k:'email', t:'E-mail problemi'},
+      {k:'novi', t:'Novi kupci'},
+      {k:'ostalo', t:'Bez akcije'}
+    ]" :key="f.k">
+      <button @click="filter=f.k"
+        class="rounded-lg px-3 py-1.5 text-sm font-medium transition-colors"
+        :class="filter===f.k ? 'bg-ink text-paper' : 'bg-white border border-line text-ink-700 hover:border-ink/30'"
+        x-text="f.t"></button>
+    </template>
+    <div class="ml-auto">
+      <input type="search" name="pretraga" x-model="q" placeholder="Traži naziv ili OIB…"
+        class="w-56 rounded-lg border border-line bg-white px-3 py-1.5 text-sm placeholder:text-ink-300 focus:outline-none focus:border-brand" />
+    </div>
+  </div>
+
+  <!-- tablica -->
+  <div class="mt-3 rounded-xl border border-line bg-white overflow-x-auto">
+    <table class="w-full min-w-[860px] text-sm">
+      <thead>
+        <tr class="border-b border-line bg-paper/70 text-left font-mono text-[11px] uppercase tracking-wide text-ink-500">
+          <th class="pl-4 pr-2 py-2.5 w-8">
+            <input type="checkbox" @click="toggleAll()" :checked="list.filter(k=>sendable(k)).length && list.filter(k=>sendable(k)).every(k=>k.chk)" class="accent-[#0E7C66]" title="Označi sve za slanje" />
+          </th>
+          <th class="px-2 py-2.5">Kupac</th>
+          <th class="px-2 py-2.5">E-mail</th>
+          <th class="px-2 py-2.5 text-right">Dospjelo</th>
+          <th class="px-2 py-2.5 text-right">Kašnjenje</th>
+          <th class="px-2 py-2.5">Prijedlog</th>
+          <th class="px-2 py-2.5">Status</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-line">
+        <template x-for="k in list" :key="k.oib">
+          <tr @click="sel=k; noviEmail=''; stopForm=false" class="cursor-pointer hover:bg-paper/60 transition-colors">
+            <td class="pl-4 pr-2 py-3" @click.stop>
+              <input type="checkbox" x-model="k.chk" :disabled="!sendable(k)" class="accent-[#0E7C66] disabled:opacity-25" />
+            </td>
+            <td class="px-2 py-3">
+              <div class="flex items-center gap-2">
+                <span class="font-medium" x-text="k.naziv"></span>
+                <span x-show="k.novo" class="font-mono text-[10px] text-brand-600 bg-brand-50 border border-brand/25 rounded px-1 py-px">NOVO</span>
+                <span x-show="k.valuta!=='EUR'" class="font-mono text-[10px] text-ink-500 bg-paper border border-line rounded px-1 py-px" x-text="k.valuta"></span>
+              </div>
+              <p class="font-mono text-[11px] text-ink-300 tnum" x-text="'OIB ' + k.oib"></p>
+            </td>
+            <td class="px-2 py-3">
+              <span x-show="k.email" class="text-ink-500 text-[13px]" x-text="k.email"></span>
+              <span x-show="!k.email" class="inline-flex items-center gap-1 text-[12px] font-mono text-crit bg-crit/10 rounded px-1.5 py-0.5">⚠ nedostaje</span>
+            </td>
+            <td class="px-2 py-3 text-right font-mono tnum" :class="k.dospjelo>0 ? 'font-semibold' : 'text-ink-300'"
+                x-text="k.dospjelo>0 ? fmt(k.dospjelo,k.valuta) : (k.saldo<0 ? fmt(k.saldo,k.valuta) : '—')"></td>
+            <td class="px-2 py-3 text-right font-mono tnum" :class="k.dana>=s.ovrOd ? 'text-crit' : k.dana>=s.op2Od ? 'text-hot' : k.dana>=s.op1Od ? 'text-warn' : 'text-ink-500'"
+                x-text="k.dana>0 ? k.dana + ' d' : '—'"></td>
+            <td class="px-2 py-3">
+              <template x-if="razinaInfo(k)">
+                <span class="inline-block rounded px-2 py-0.5 text-[12px] font-medium" :class="razinaInfo(k).c" x-text="razinaInfo(k).t"></span>
+              </template>
+              <span x-show="!razinaInfo(k)" class="text-ink-300">—</span>
+            </td>
+            <td class="px-2 py-3">
+              <span class="inline-block rounded px-2 py-0.5 text-[12px] font-medium whitespace-nowrap" :class="statusInfo(k).c" x-text="statusInfo(k).t"></span>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+  <p class="mt-2 font-mono text-[12px] text-ink-300">Demo prikazuje 13 od 187 kupaca — svaki redak je klikabilan. Promijenite postavke ili predloške i gledajte kako se tablica i mailovi mijenjaju.</p>
+
+</main>
+
+<!-- traka za skupno slanje -->
+<div x-show="odabrani.length" x-cloak x-transition
+     class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-ink text-paper">
+  <div class="mx-auto max-w-[1240px] px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+    <p class="text-sm"><b class="font-mono tnum" x-text="odabrani.length"></b> opomena odabrano za slanje</p>
+    <button @click="posaljiOdabrane()" class="rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-600 transition-colors">
+      Pošalji odabrane
+    </button>
+  </div>
+</div>
+
+<!-- ============ MODAL: POSTAVKE ============ -->
+<div x-show="showPostavke" x-cloak class="fixed inset-0 z-50" @keydown.escape.window="showPostavke=false">
+  <div class="absolute inset-0 bg-ink/40" @click="showPostavke=false"></div>
+  <div class="absolute inset-x-0 top-8 sm:top-14 mx-auto w-[calc(100%-2rem)] max-w-lg rounded-2xl bg-white shadow-2xl max-h-[85vh] overflow-y-auto"
+       x-transition:enter="transition duration-150" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+    <div class="sticky top-0 flex items-center justify-between border-b border-line bg-white px-5 py-4">
+      <h2 class="font-display font-bold text-lg">Postavke pravila</h2>
+      <button @click="showPostavke=false" class="grid h-9 w-9 place-items-center rounded-lg border border-line hover:border-ink/40" aria-label="Zatvori">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="px-5 py-4 space-y-5">
+
+      <div>
+        <label for="prag" class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Minimalni iznos za slanje</label>
+        <div class="mt-1.5 flex items-center gap-2">
+          <input id="prag" name="prag" type="number" min="0" step="1" x-model.number="s.prag"
+            class="w-28 rounded-lg border border-line px-3 py-2 text-sm font-mono tnum focus:outline-none focus:border-brand" />
+          <span class="text-sm text-ink-500">€ — dospjeli dug ispod ovoga se preskače</span>
+        </div>
+        <p class="mt-1 text-[12px] text-ink-300">Npr. postavite 1.000 € i gledajte koliko kupaca ispadne iz slanja.</p>
+      </div>
+
+      <div class="border-t border-line pt-4">
+        <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Ljestvica eskalacije (dana kašnjenja)</p>
+        <div class="mt-2 space-y-2.5 text-sm">
+          <div class="flex items-center justify-between gap-3">
+            <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-calm"></span>Podsjetnik <span class="font-mono text-[12px] text-ink-300 tnum" x-text="'(1–' + (s.op1Od-1) + ' d)'"></span></span>
+            <label class="inline-flex items-center gap-2 text-[13px] text-ink-500 cursor-pointer">
+              <input type="checkbox" name="podsjetnik" x-model="s.podsjetnik" class="accent-[#0E7C66]" /> šalje se
+            </label>
+          </div>
+          <div class="flex items-center justify-between gap-3">
+            <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-warn"></span>1. opomena od</span>
+            <span class="flex items-center gap-1.5"><input type="number" name="op1od" min="1" x-model.number="s.op1Od" class="w-20 rounded-lg border border-line px-2 py-1.5 text-sm font-mono tnum text-right focus:outline-none focus:border-brand" /> <span class="text-ink-500 text-[13px]">dana</span></span>
+          </div>
+          <div class="flex items-center justify-between gap-3">
+            <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-hot"></span>2. opomena od</span>
+            <span class="flex items-center gap-1.5"><input type="number" name="op2od" min="1" x-model.number="s.op2Od" class="w-20 rounded-lg border border-line px-2 py-1.5 text-sm font-mono tnum text-right focus:outline-none focus:border-brand" /> <span class="text-ink-500 text-[13px]">dana</span></span>
+          </div>
+          <div class="flex items-center justify-between gap-3">
+            <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-crit"></span>Pred ovrhu od</span>
+            <span class="flex items-center gap-1.5"><input type="number" name="ovrod" min="1" x-model.number="s.ovrOd" class="w-20 rounded-lg border border-line px-2 py-1.5 text-sm font-mono tnum text-right focus:outline-none focus:border-brand" /> <span class="text-ink-500 text-[13px]">dana</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-line pt-4">
+        <label for="kamate" class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Zatezne kamate (zakonska stopa, B2B)</label>
+        <select id="kamate" name="kamate" x-model="s.kamate"
+          class="mt-1.5 w-full rounded-lg border border-line bg-white px-3 py-2 text-sm focus:outline-none focus:border-brand">
+          <option value="off">Ne obračunavaj</option>
+          <option value="op1">Spominji od 1. opomene</option>
+          <option value="op2">Spominji od 2. opomene</option>
+          <option value="ovr">Samo u opomeni pred ovrhu</option>
+        </select>
+        <p class="mt-1 text-[12px] text-ink-300">Mijenja tekst e-maila — otvorite kupca i pogledajte prijedlog.</p>
+      </div>
+
+      <div class="border-t border-line pt-4 space-y-1.5 text-[13px] text-ink-500">
+        <p>· Kupci <b class="text-ink">bez e-maila</b> nikad ne ulaze u slanje — idu u red za ručnu obradu.</p>
+        <p>· Kupci na <b class="text-ink">stop-listi</b> (spor, poseban dogovor) uvijek se preskaču.</p>
+        <p>· Različite <b class="text-ink">valute</b> se ne zbrajaju — obrada po valuti.</p>
+      </div>
+
+      <div class="border-t border-line pt-4">
+        <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Upute za AI</p>
+
+        <!-- system prompt: vidljiv, zaključan -->
+        <div class="mt-2">
+          <p class="text-[13px] font-medium flex items-center gap-1.5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink-300"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            System prompt <span class="text-ink-300 font-normal">— fiksan, definira izvođač (štiti točnost podataka)</span>
+          </p>
+          <pre class="mt-1.5 max-h-44 overflow-y-auto whitespace-pre-wrap rounded-lg border border-line bg-paper/60 p-3 font-mono text-[11.5px] leading-relaxed text-ink-500" x-text="sysPrompt"></pre>
+        </div>
+
+        <!-- AI upute: uredive -->
+        <div class="mt-3">
+          <div class="flex items-center justify-between">
+            <p class="text-[13px] font-medium">Vaše upute za AI <span class="text-ink-300 font-normal">— ton i stil opomena</span></p>
+            <span x-show="spremljeno" x-cloak class="text-[12px] text-brand-600 font-medium">✓ spremljeno</span>
+          </div>
+          <template x-if="!editUpute">
+            <div>
+              <pre class="mt-1.5 max-h-44 overflow-y-auto whitespace-pre-wrap rounded-lg border border-line bg-white p-3 font-mono text-[11.5px] leading-relaxed text-ink-700" x-text="aiUpute"></pre>
+              <button @click="urediUpute()" class="mt-2 rounded-lg border border-line bg-white px-3 py-1.5 text-[13px] font-medium hover:border-ink/40 transition-colors">Uredi upute</button>
+            </div>
+          </template>
+          <template x-if="editUpute">
+            <div>
+              <textarea name="ai-upute" rows="9" x-model="uputeDraft"
+                class="mt-1.5 w-full rounded-lg border border-brand/40 p-3 font-mono text-[11.5px] leading-relaxed focus:outline-none focus:border-brand"></textarea>
+              <div class="mt-2 flex flex-wrap items-center gap-2">
+                <button @click="spremiUpute()" class="rounded-lg bg-brand px-3 py-1.5 text-[13px] font-medium text-white hover:bg-brand-600 transition-colors">Spremi</button>
+                <button @click="resetUpute()" class="rounded-lg border border-line bg-white px-3 py-1.5 text-[13px] hover:border-ink/40 transition-colors">Vrati zadano</button>
+                <button @click="editUpute=false" class="text-[13px] text-ink-500 hover:text-ink">Odustani</button>
+              </div>
+            </div>
+          </template>
+          <p class="mt-2 text-[12px] text-ink-300">Uputama prilagođavate ton opomena svom stilu — AI ih slijedi pri pisanju teksta, ali ne može prekršiti system prompt. »Vrati zadano« vraća početne upute.</p>
+        </div>
+      </div>
+
+      <div class="rounded-lg bg-brand-50 border border-brand/25 px-3 py-2.5 text-[13px] text-brand-700">
+        U demu se promjene primjenjuju <b>odmah</b> — zatvorite prozor i pogledajte tablicu.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: PREDLOŠCI ============ -->
+<div x-show="showPredlosci" x-cloak class="fixed inset-0 z-50" @keydown.escape.window="showPredlosci=false">
+  <div class="absolute inset-0 bg-ink/40" @click="showPredlosci=false"></div>
+  <div class="absolute inset-x-0 top-8 sm:top-14 mx-auto w-[calc(100%-2rem)] max-w-2xl rounded-2xl bg-white shadow-2xl max-h-[85vh] overflow-y-auto"
+       x-transition:enter="transition duration-150" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+    <div class="sticky top-0 flex items-center justify-between border-b border-line bg-white px-5 py-4">
+      <h2 class="font-display font-bold text-lg">Predlošci e-maila</h2>
+      <button @click="showPredlosci=false" class="grid h-9 w-9 place-items-center rounded-lg border border-line hover:border-ink/40" aria-label="Zatvori">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="px-5 py-4 space-y-4">
+
+      <!-- tabovi razina -->
+      <div class="flex flex-wrap gap-2">
+        <template x-for="r in [
+          {k:'pod', t:'Podsjetnik', dot:'bg-calm'},
+          {k:'op1', t:'1. opomena', dot:'bg-warn'},
+          {k:'op2', t:'2. opomena', dot:'bg-hot'},
+          {k:'ovr', t:'Pred ovrhu', dot:'bg-crit'}
+        ]" :key="r.k">
+          <button @click="tplTab=r.k"
+            class="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors"
+            :class="tplTab===r.k ? 'bg-ink text-paper' : 'bg-white border border-line text-ink-700 hover:border-ink/30'">
+            <span class="h-2 w-2 rounded-full" :class="r.dot"></span><span x-text="r.t"></span>
+          </button>
+        </template>
+      </div>
+
+      <!-- predmet -->
+      <div>
+        <label for="tpl-predmet" class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Predmet</label>
+        <input id="tpl-predmet" name="tpl-predmet" type="text" x-model="tpl[tplTab].predmet"
+          class="mt-1.5 w-full rounded-lg border border-line px-3 py-2 text-sm font-medium focus:outline-none focus:border-brand" />
+      </div>
+
+      <!-- tijelo -->
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="tpl-tijelo" class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Tekst (nakon "Poštovani,")</label>
+          <span class="font-mono text-[11px] text-ink-300">varijable:
+            <code class="bg-paper border border-line rounded px-1">{iznos}</code>
+            <code class="bg-paper border border-line rounded px-1">{rok}</code>
+            <code class="bg-paper border border-line rounded px-1">{naziv}</code>
+          </span>
+        </div>
+        <textarea id="tpl-tijelo" name="tpl-tijelo" rows="4" x-model="tpl[tplTab].tijelo"
+          class="mt-1.5 w-full rounded-lg border border-line px-3 py-2 text-sm leading-relaxed focus:outline-none focus:border-brand"></textarea>
+      </div>
+
+      <!-- AI generiranje (simulirano) -->
+      <div class="rounded-xl border border-line bg-paper/50 p-4">
+        <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">✨ Generiraj prijedlog s AI</p>
+        <div class="mt-2.5 flex flex-wrap items-center gap-2">
+          <div class="flex rounded-lg border border-line bg-white p-0.5">
+            <template x-for="t in ['blago','neutralno','strogo']" :key="t">
+              <button @click="ton=t"
+                class="rounded-md px-3 py-1.5 text-[13px] font-medium capitalize transition-colors"
+                :class="ton===t ? 'bg-ink text-paper' : 'text-ink-500 hover:text-ink'"
+                x-text="t"></button>
+            </template>
+          </div>
+          <button @click="generirajAI()" :disabled="generating"
+            class="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-600 transition-colors disabled:opacity-60">
+            <svg x-show="generating" class="spin" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.2-8.56"/></svg>
+            <span x-text="generating ? 'Generiram…' : '✨ Generiraj'"></span>
+          </button>
+        </div>
+        <p class="mt-2 text-[12px] text-ink-300">Demo — prijedlog je simuliran. U pravoj aplikaciji AI piše tekst prema podacima kupca (iznos, kašnjenje, povijest) u odabranom tonu.</p>
+      </div>
+
+      <!-- pregled -->
+      <div>
+        <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Pregled s primjerom (MEDIUS d.o.o. · 200,00 €)</p>
+        <div class="mt-1.5 rounded-lg border border-line bg-paper/50 p-4 text-[13px] leading-relaxed">
+          <p class="font-mono text-[11px] text-ink-300">Predmet</p>
+          <p class="font-semibold" x-text="tpl[tplTab].predmet"></p>
+          <p class="mt-2.5 text-ink-700">Poštovani,</p>
+          <p class="mt-1 text-ink-700" x-text="primjer(tpl[tplTab].tijelo)"></p>
+          <p class="mt-1 text-ink-500">U prilogu je specifikacija dospjelih računa. — [Vaša tvrtka]</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ PANEL: DETALJ KUPCA ============ -->
+<div x-show="sel" x-cloak class="fixed inset-0 z-50" @keydown.escape.window="sel=null">
+  <div class="absolute inset-0 bg-ink/40" @click="sel=null"></div>
+  <aside class="absolute inset-y-0 right-0 w-full sm:w-[480px] bg-white shadow-2xl overflow-y-auto"
+         x-transition:enter="transition transform duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0">
+    <template x-if="sel">
+      <div>
+        <div class="sticky top-0 flex items-start justify-between gap-3 border-b border-line bg-white px-5 py-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-display font-bold text-lg" x-text="sel.naziv"></h2>
+              <span x-show="sel.novo" class="font-mono text-[10px] text-brand-600 bg-brand-50 border border-brand/25 rounded px-1 py-px">NOVO</span>
+            </div>
+            <p class="font-mono text-[12px] text-ink-500 tnum" x-text="'OIB ' + sel.oib"></p>
+          </div>
+          <button @click="sel=null" class="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-line hover:border-ink/40" aria-label="Zatvori">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+
+        <div class="px-5 py-4 space-y-5">
+
+          <!-- e-mail -->
+          <div>
+            <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">E-mail za opomene</p>
+            <p x-show="sel.email" class="mt-1 text-sm" x-text="sel.email"></p>
+            <div x-show="sel.bounce" class="mt-2 rounded-lg border border-crit/30 bg-crit/5 p-3">
+              <p class="text-[13px] text-crit font-medium">⚠ Zadnja opomena nije isporučena — adresa vjerojatno ne postoji. Unesite ispravnu:</p>
+              <div class="mt-2 flex gap-2">
+                <input type="email" name="ispravak-email" x-model="noviEmail" placeholder="ispravna adresa"
+                  class="flex-1 rounded-lg border border-line px-3 py-1.5 text-sm placeholder:text-ink-300 focus:outline-none focus:border-brand" />
+                <button @click="spremiEmail(sel)" class="rounded-lg bg-ink px-3 py-1.5 text-sm text-paper hover:bg-ink-700">Spremi</button>
+              </div>
+            </div>
+            <div x-show="!sel.email" class="mt-2 rounded-lg border border-crit/30 bg-crit/5 p-3">
+              <p class="text-[13px] text-crit font-medium">⚠ Kupac nema e-mail — opomena se ne može poslati.</p>
+              <div class="mt-2 flex gap-2">
+                <input type="email" name="novi-email" x-model="noviEmail" placeholder="npr. racuni@klas.hr"
+                  class="flex-1 rounded-lg border border-line px-3 py-1.5 text-sm placeholder:text-ink-300 focus:outline-none focus:border-brand" />
+                <button @click="spremiEmail(sel)" class="rounded-lg bg-ink px-3 py-1.5 text-sm text-paper hover:bg-ink-700">Spremi</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- brojke -->
+          <div class="grid grid-cols-3 gap-3">
+            <div class="rounded-lg border border-line p-3">
+              <p class="font-mono text-[10px] uppercase text-ink-500">Saldo</p>
+              <p class="mt-0.5 font-mono font-semibold tnum" x-text="fmt(sel.saldo, sel.valuta)"></p>
+            </div>
+            <div class="rounded-lg border border-line p-3">
+              <p class="font-mono text-[10px] uppercase text-ink-500">Dospjelo</p>
+              <p class="mt-0.5 font-mono font-semibold tnum" :class="sel.dospjelo>0 && 'text-crit'" x-text="fmt(sel.dospjelo, sel.valuta)"></p>
+            </div>
+            <div class="rounded-lg border border-line p-3">
+              <p class="font-mono text-[10px] uppercase text-ink-500">Kašnjenje</p>
+              <p class="mt-0.5 font-mono font-semibold tnum" x-text="sel.dana ? sel.dana + ' dana' : '—'"></p>
+            </div>
+          </div>
+
+          <!-- stavke -->
+          <div>
+            <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Stavke s kartice</p>
+            <div class="mt-2 rounded-lg border border-line overflow-hidden">
+              <div class="divide-y divide-line">
+                <template x-for="st in sel.stavke" :key="st.r">
+                  <div class="grid grid-cols-[1fr_auto_auto_auto] items-center gap-2 px-3 py-2 font-mono text-[12px] tnum">
+                    <span x-text="st.r"></span>
+                    <span class="text-ink-500" x-text="st.d"></span>
+                    <span class="text-right w-24" x-text="fmt(st.i, sel.valuta)"></span>
+                    <span class="w-16 text-right"
+                      :class="st.s==='dospjelo' ? 'text-crit' : st.s==='placeno' ? 'text-brand-600' : 'text-ink-300'"
+                      x-text="st.s==='placeno' ? 'plaćeno' : st.s"></span>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- povijest -->
+          <div>
+            <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Povijest (pamti se iz mjeseca u mjesec)</p>
+            <ol class="mt-2 space-y-2">
+              <template x-for="(p,i) in sel.povijest" :key="i">
+                <li class="flex gap-3 text-[13px]">
+                  <span class="font-mono text-ink-300 shrink-0 tnum" x-text="p.d"></span>
+                  <span class="text-ink-700" x-text="p.t"></span>
+                </li>
+              </template>
+            </ol>
+          </div>
+
+          <!-- prijedlog maila -->
+          <div x-show="razina(sel)">
+            <div class="flex items-center justify-between">
+              <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Prijedlog e-maila</p>
+              <button @click="showPredlosci=true; tplTab=razina(sel)" class="text-[12px] text-brand-600 font-medium hover:underline underline-offset-2">Uredi predložak →</button>
+            </div>
+            <div class="mt-2 rounded-lg border border-line bg-paper/50 p-4 text-[13px] leading-relaxed">
+              <p class="font-mono text-[11px] text-ink-300">Predmet</p>
+              <p class="font-semibold" x-text="predmet(sel)"></p>
+              <p class="mt-3 text-ink-700">Poštovani,</p>
+              <p class="mt-1.5 text-ink-700" x-text="tijelo(sel)"></p>
+              <p class="mt-1.5 text-ink-500">U prilogu je specifikacija dospjelih računa. — [Vaša tvrtka]</p>
+            </div>
+          </div>
+
+          <!-- ručno upravljanje -->
+          <div x-show="sel.akcija==='posalji' && !sel.poslano" class="rounded-lg border border-line bg-paper/40 p-3">
+            <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Ručno upravljanje</p>
+            <div class="mt-2 flex flex-wrap items-center gap-2">
+              <button x-show="!sel.stop && !sel.skip" @click="preskoci(sel)"
+                class="rounded-lg border border-line bg-white px-3 py-1.5 text-[13px] hover:border-ink/40 transition-colors">Preskoči ovaj mjesec</button>
+              <button x-show="!sel.stop && !sel.skip && !stopForm" @click="stopForm=true"
+                class="rounded-lg border border-line bg-white px-3 py-1.5 text-[13px] hover:border-ink/40 transition-colors">Stavi na stop-listu…</button>
+              <button x-show="sel.skip" @click="vratiUSlanje(sel)"
+                class="rounded-lg border border-line bg-white px-3 py-1.5 text-[13px] hover:border-ink/40 transition-colors">Vrati u slanje</button>
+              <button x-show="sel.stop" @click="odstopiraj(sel)"
+                class="rounded-lg border border-line bg-white px-3 py-1.5 text-[13px] hover:border-ink/40 transition-colors">Makni sa stop-liste</button>
+              <span x-show="sel.stop" class="text-[12px] text-ink-500 font-mono" x-text="'razlog: ' + sel.stopRazlog"></span>
+            </div>
+            <div x-show="stopForm && !sel.stop" x-cloak class="mt-2 flex flex-wrap items-center gap-2">
+              <select name="stop-razlog" x-model="stopIzbor"
+                class="rounded-lg border border-line bg-white px-2 py-1.5 text-[13px] focus:outline-none focus:border-brand">
+                <option>reklamacija u tijeku</option>
+                <option>dogovorena odgoda plaćanja</option>
+                <option>sudski spor</option>
+                <option>rješava se osobnim kontaktom</option>
+                <option>ostalo</option>
+              </select>
+              <button @click="stopiraj(sel)" class="rounded-lg bg-ink px-3 py-1.5 text-[13px] text-paper hover:bg-ink-700">Potvrdi</button>
+              <button @click="stopForm=false" class="text-[13px] text-ink-500 hover:text-ink">odustani</button>
+            </div>
+            <p class="mt-2 text-[12px] text-ink-300">Preskoči = samo ova obrada. Stop-lista = trajno dok je ne maknete; razlog i promjene pamte se u povijesti.</p>
+          </div>
+
+          <!-- akcije -->
+          <div class="flex gap-2 pb-4">
+            <button x-show="sendable(sel)" @click="posalji(sel)"
+              class="flex-1 rounded-lg bg-brand px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 transition-colors">
+              Pošalji opomenu
+            </button>
+            <p x-show="sel.poslano" class="flex-1 rounded-lg bg-brand-50 border border-brand/25 px-4 py-2.5 text-sm text-brand-600 font-medium text-center">✓ Poslano danas</p>
+            <p x-show="!sendable(sel) && !sel.poslano" class="flex-1 rounded-lg bg-paper border border-line px-4 py-2.5 text-sm text-ink-500 text-center" x-text="statusInfo(sel).t"></p>
+            <button @click="sel=null" class="rounded-lg border border-line px-4 py-2.5 text-sm hover:border-ink/40 transition-colors">Zatvori</button>
+          </div>
+
+        </div>
+      </div>
+    </template>
+  </aside>
+</div>
+
+</body>
+</html>
