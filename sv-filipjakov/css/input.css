@@ -2345,45 +2345,39 @@
     }
     .plan-intro .lede{ @apply text-lg leading-[1.7] text-ink-2 max-w-[52ch] [text-wrap:pretty]; }
 
-    .hub-grid{ @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5.5 mt-11 lg:mt-17; }
+    .hub-grid{ @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5 mt-11 lg:mt-17; }
     .hub-card{
-        @apply relative flex flex-col bg-white border border-black/7 rounded-2xl no-underline text-black overflow-hidden min-h-[300px];
-        padding: 34px 32px 30px;
-        border-top: 4px solid var(--accent, var(--color-sea));
-        transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .3s ease;
+        @apply relative block rounded-md overflow-hidden isolate no-underline text-white aspect-[3/3.2] lg:aspect-[3/3.5];
+        transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease;
 
-        &:hover{ @apply -translate-y-1.5; box-shadow: 0 34px 70px -40px rgba(0,0,0,0.5); }
+        &:hover{ @apply -translate-y-1.5; box-shadow: 0 34px 70px -44px rgba(0,0,0,0.55); }
 
-        .num{
-            @apply absolute top-6.5 right-7.5 font-caveat text-[40px] leading-none;
-            color: color-mix(in oklab, var(--accent, var(--color-sea)) 42%, transparent);
+        .img{ @apply absolute! inset-0 bg-cover bg-center transition-transform duration-[.8s] ease-[cubic-bezier(.2,.7,.2,1)]; }
+        &:hover .img{ @apply scale-[1.06]; }
+
+        &::after{
+            content: "";
+            @apply absolute! inset-0 z-1;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 26%, rgba(0,0,0,0.86) 100%);
         }
-        .hub-ic{
-            @apply w-13.5 h-13.5 rounded-[13px] shrink-0 grid place-items-center mb-5.5;
-            background: color-mix(in oklab, var(--accent, var(--color-sea)) 14%, #fff);
-            color: var(--accent, var(--color-sea));
 
-            svg{ @apply w-6.5 h-6.5; }
+        .tag{
+            @apply absolute! top-4 left-4 z-2 inline-flex items-center gap-1.75 bg-white/92 text-black text-[10px] font-bold tracking-[0.14em] uppercase rounded-full py-1.25 px-2.75;
+
+            .no{ @apply font-caveat not-italic text-[15px] leading-none tracking-normal; color: var(--accent, var(--color-sea)); }
         }
-        .kick{ @apply text-[11px] tracking-[0.16em] uppercase font-bold; color: var(--accent, var(--color-sea)); }
-        h3{ @apply text-[clamp(21px,1.7vw,26px)] font-bold tracking-[-0.01em] leading-[1.14] mt-2 text-black; }
-        p{ @apply text-[15px] leading-[1.6] text-ink-2 mt-3 [text-wrap:pretty]; }
-    }
-    .hub-go{
-        @apply mt-auto pt-6 inline-flex items-center gap-3 text-[12.5px] tracking-[0.06em] uppercase font-bold text-muted;
+
+        .meta{ @apply absolute! left-5.5 right-5.5 bottom-5.5 z-2 flex items-end justify-between gap-3.5; }
+        h3{ @apply text-[clamp(21px,1.7vw,27px)] font-light leading-[1.12] tracking-[-0.01em] mb-1.5; }
+        .sub{ @apply text-[12.5px] leading-[1.45] opacity-86 tracking-[0.02em] [text-wrap:pretty]; }
 
         .arrow{
-            @apply w-8.5 h-8.5 rounded-full grid place-items-center shrink-0 border border-line text-black;
-            transition: background-color .3s ease, color .3s ease, border-color .3s ease, transform .35s cubic-bezier(.2,.7,.2,1);
+            @apply w-10.5 h-10.5 rounded-full grid place-items-center shrink-0 border-[1.5px] border-white/85 bg-transparent;
+            transition: transform .35s ease, background-color .35s ease, border-color .35s ease;
 
-            svg{ @apply w-4 h-4; }
+            svg{ @apply w-3.5 h-3.5 stroke-white [stroke-width:2] fill-none; }
         }
-    }
-    .hub-card:hover .hub-go{ @apply text-black; }
-    .hub-card:hover .hub-go .arrow{
-        background: var(--accent, var(--color-sea));
-        border-color: var(--accent, var(--color-sea));
-        @apply text-white rotate-[-45deg];
+        &:hover .arrow{ background: var(--accent, var(--color-sea)); border-color: var(--accent, var(--color-sea)); @apply -rotate-45; }
     }
 
     .fair-tabnav{

@@ -301,7 +301,7 @@
     </div>
 </header>
 
-<section class="page-sect plan-intro">
+<section class="page-sect plan-intro" x-data="{}">
     <div class="max-w-[1600px] mx-auto px-4">
         <div class="plan-intro-grid">
             <div>
@@ -311,84 +311,78 @@
             <p class="lede">Svaka rubrika vodi na zasebnu stranicu s detaljnim informacijama. Počnite s dolaskom i kartom, a ostalo posložite prema potrebi.</p>
         </div>
 
-        <div class="hub-grid">
+        <div class="hub-grid reveal stagger" x-intersect.once.threshold.10="$el.classList.add('is-in')">
 
             <a class="hub-card" href="getting-here.html" style="--accent: var(--color-sun)">
-                <span class="num">01</span>
-                <span class="hub-ic">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h11l4 5h1a1 1 0 0 1 1 1v5h-2"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/><path d="M9.5 17.5h6"/></svg>
-                </span>
-                <span class="kick">Dolazak</span>
-                <h3>Kako doći</h3>
-                <p>Autocestom, morem ili zrakom — rute, udaljenosti i najbliže zračne luke i trajektne linije.</p>
-                <span class="hub-go">Otvori
-                    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-                </span>
+                <picture class="img bg-cover"><img src="images/webp/zadar.webp" alt="" /></picture>
+                <span class="tag"><span class="no">01</span>Dolazak</span>
+                <div class="meta">
+                    <div>
+                        <h3>Kako doći</h3>
+                        <div class="sub">Autocesta, more i zrak · rute i udaljenosti</div>
+                    </div>
+                    <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
             </a>
 
             <a class="hub-card" href="destination-map.html" style="--accent: var(--color-sea)">
-                <span class="num">02</span>
-                <span class="hub-ic">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>
-                </span>
-                <span class="kick">Orijentacija</span>
-                <h3>Karta destinacije</h3>
-                <p>Interaktivna karta s mjestima, plažama, marinom i ključnim točkama duž Pašmanskog kanala.</p>
-                <span class="hub-go">Otvori
-                    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-                </span>
+                <picture class="img bg-cover"><img src="images/webp/pasman-island.webp" alt="" /></picture>
+                <span class="tag"><span class="no">02</span>Orijentacija</span>
+                <div class="meta">
+                    <div>
+                        <h3>Karta destinacije</h3>
+                        <div class="sub">Mjesta, plaže, marina · Pašmanski kanal</div>
+                    </div>
+                    <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
             </a>
 
             <a class="hub-card" href="useful-information.html" style="--accent: var(--color-fuchsia)">
-                <span class="num">03</span>
-                <span class="hub-ic">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </span>
-                <span class="kick">Kontakt</span>
-                <h3>Važni kontakti</h3>
-                <p>Turistička zajednica, informativni centri i direktni brojevi — dostupni tijekom cijele godine.</p>
-                <span class="hub-go">Otvori
-                    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-                </span>
+                <picture class="img bg-cover"><img src="images/webp/turanj.webp" alt="" /></picture>
+                <span class="tag"><span class="no">03</span>Kontakt</span>
+                <div class="meta">
+                    <div>
+                        <h3>Važni kontakti</h3>
+                        <div class="sub">Turistička zajednica i info centri, cijelu godinu</div>
+                    </div>
+                    <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
             </a>
 
             <a class="hub-card" href="faq.html" style="--accent: var(--color-olive)">
-                <span class="num">04</span>
-                <span class="hub-ic">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
-                </span>
-                <span class="kick">Odgovori</span>
-                <h3>Česta pitanja (FAQ)</h3>
-                <p>Sezona, plaže, kućni ljubimci, parking, boravišna pristojba — brzi odgovori na najčešća pitanja.</p>
-                <span class="hub-go">Otvori
-                    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-                </span>
+                <picture class="img bg-cover"><img src="images/webp/beaches.webp" alt="" /></picture>
+                <span class="tag"><span class="no">04</span>Odgovori</span>
+                <div class="meta">
+                    <div>
+                        <h3>Česta pitanja (FAQ)</h3>
+                        <div class="sub">Sezona, plaže, ljubimci, parking, pristojba</div>
+                    </div>
+                    <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
             </a>
 
             <a class="hub-card" href="brochures.html" style="--accent: var(--color-sea)">
-                <span class="num">05</span>
-                <span class="hub-ic">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6M9 15l3 3 3-3"/></svg>
-                </span>
-                <span class="kick">Preuzimanje</span>
-                <h3>Brošure za preuzimanje</h3>
-                <p>Vodiči, karte i dokumenti Turističke zajednice u PDF formatu — uvijek pri ruci.</p>
-                <span class="hub-go">Otvori
-                    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-                </span>
+                <picture class="img bg-cover"><img src="images/webp/heritage.webp" alt="" /></picture>
+                <span class="tag"><span class="no">05</span>Preuzimanje</span>
+                <div class="meta">
+                    <div>
+                        <h3>Brošure za preuzimanje</h3>
+                        <div class="sub">Vodiči, karte i dokumenti u PDF formatu</div>
+                    </div>
+                    <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
             </a>
 
             <a class="hub-card" href="parking-marina-ev.html" style="--accent: var(--color-sun)">
-                <span class="num">06</span>
-                <span class="hub-ic">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 16V8h3.5a2.5 2.5 0 0 1 0 5H8"/></svg>
-                </span>
-                <span class="kick">Praktično</span>
-                <h3>Parkirališta, marine i e-punionice</h3>
-                <p>Parkirne zone, vezovi u marini i mreža punionica za električna vozila — sve na karti.</p>
-                <span class="hub-go">Otvori
-                    <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-                </span>
+                <picture class="img bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture>
+                <span class="tag"><span class="no">06</span>Praktično</span>
+                <div class="meta">
+                    <div>
+                        <h3>Parking, marine i e-punionice</h3>
+                        <div class="sub">Parkirne zone, vezovi i EV punionice na karti</div>
+                    </div>
+                    <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </div>
             </a>
 
         </div>
