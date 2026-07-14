@@ -40,6 +40,7 @@ function app(){
     showPostavke:false, showPredlosci:false,
     stopForm:false, stopIzbor:'reklamacija u tijeku',
     editUpute:false, uputeDraft:'', spremljeno:false,
+    showUpload:false, uploadHint:false,
 
     init(){ this.aiUpute = this.aiUputeDefault; },
 
@@ -367,6 +368,10 @@ PRAVILA TOČNOSTI — nepromjenjiva:
       <span class="shrink-0 font-mono text-[11px] text-crit bg-crit/10 rounded px-1.5 py-0.5">DEMO · izmišljeni podaci</span>
     </div>
     <div class="flex items-center gap-2">
+      <button @click="showUpload=true; uploadHint=false" class="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-600 transition-colors">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
+        <span class="hidden sm:inline">Učitaj kartice</span>
+      </button>
       <button @click="showPredlosci=true" class="inline-flex items-center gap-1.5 rounded-lg border border-line bg-white px-3 py-1.5 text-sm font-medium hover:border-ink/30 transition-colors">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>
         <span class="hidden sm:inline">Predlošci</span>
@@ -390,6 +395,10 @@ PRAVILA TOČNOSTI — nepromjenjiva:
     <span class="text-brand-600 font-mono text-[13px] tnum">+12 novih kupaca</span>
     <span class="text-ink-500 font-mono text-[13px] tnum">175 ažurirano</span>
     <button @click="filter='email'" class="font-mono text-[13px] text-crit hover:underline underline-offset-2 tnum">⚠ 3 bez e-maila</button>
+    <button @click="showUpload=true; uploadHint=false" class="ml-auto inline-flex items-center gap-1.5 font-medium text-[13px] text-brand-600 hover:underline underline-offset-2">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
+      Nova obrada
+    </button>
   </div>
 
   <!-- statistika -->
@@ -516,6 +525,81 @@ PRAVILA TOČNOSTI — nepromjenjiva:
     <button @click="posaljiOdabrane()" class="rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-600 transition-colors">
       Pošalji odabrane
     </button>
+  </div>
+</div>
+
+<!-- ============ MODAL: UČITAVANJE ============ -->
+<div x-show="showUpload" x-cloak class="fixed inset-0 z-50" @keydown.escape.window="showUpload=false">
+  <div class="absolute inset-0 bg-ink/40" @click="showUpload=false"></div>
+  <div class="absolute inset-x-0 top-8 sm:top-14 mx-auto w-[calc(100%-2rem)] max-w-lg rounded-2xl bg-white shadow-2xl max-h-[85vh] overflow-y-auto"
+       x-transition:enter="transition duration-150" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+    <div class="sticky top-0 flex items-center justify-between border-b border-line bg-white px-5 py-4">
+      <h2 class="font-display font-bold text-lg">Nova obrada — učitavanje kartica</h2>
+      <button @click="showUpload=false" class="grid h-9 w-9 place-items-center rounded-lg border border-line hover:border-ink/40" aria-label="Zatvori">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="px-5 py-4 space-y-4">
+
+      <!-- dropzone -->
+      <button @click="uploadHint=true"
+        class="w-full rounded-xl border-2 border-dashed border-line bg-paper/40 px-6 py-9 text-center hover:border-brand hover:bg-brand-50/40 transition-colors cursor-pointer">
+        <svg class="mx-auto text-ink-300" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
+        <p class="mt-3 font-medium text-[15px]">Povucite datoteke ovdje <span class="text-ink-500 font-normal">ili kliknite za odabir</span></p>
+        <p class="mt-1 text-[13px] text-ink-500">ZIP sa svim karticama · pojedinačni PDF-ovi · CSV/Excel izvoz</p>
+      </button>
+      <div class="flex flex-wrap gap-1.5 -mt-1">
+        <span class="font-mono text-[11px] text-ink-500 bg-paper border border-line rounded px-1.5 py-0.5">.zip</span>
+        <span class="font-mono text-[11px] text-ink-500 bg-paper border border-line rounded px-1.5 py-0.5">.pdf</span>
+        <span class="font-mono text-[11px] text-ink-500 bg-paper border border-line rounded px-1.5 py-0.5">.csv</span>
+        <span class="font-mono text-[11px] text-ink-500 bg-paper border border-line rounded px-1.5 py-0.5">.xlsx</span>
+        <span class="text-[12px] text-ink-300 pl-1">do 300 kartica po obradi</span>
+      </div>
+
+      <div x-show="uploadHint" x-cloak x-transition class="rounded-lg border border-warn/40 bg-warn/10 px-3.5 py-2.5 text-[13px] text-ink-700">
+        <b>Demo</b> — učitavanje je isključeno. Prikazana je već obrađena datoteka <span class="font-mono text-[12px]">kartice-2026-06.zip</span>.
+      </div>
+
+      <!-- prethodne obrade -->
+      <div class="border-t border-line pt-4">
+        <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Prethodne obrade</p>
+        <div class="mt-2 rounded-lg border border-line divide-y divide-line overflow-hidden">
+          <div class="flex items-center justify-between gap-3 px-3.5 py-2.5 bg-brand-50/60">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-brand-600">✓</span>
+              <span class="font-mono text-[13px] truncate">kartice-2026-06.zip</span>
+              <span class="font-mono text-[10px] text-brand-600 bg-white border border-brand/25 rounded px-1 py-px shrink-0">aktivna</span>
+            </div>
+            <span class="font-mono text-[12px] text-ink-500 tnum shrink-0">23.06. · 187 kartica</span>
+          </div>
+          <div class="flex items-center justify-between gap-3 px-3.5 py-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-brand-600">✓</span>
+              <span class="font-mono text-[13px] text-ink-500 truncate">kartice-2026-05.zip</span>
+            </div>
+            <span class="font-mono text-[12px] text-ink-300 tnum shrink-0">23.05. · 179 kartica</span>
+          </div>
+          <div class="flex items-center justify-between gap-3 px-3.5 py-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-brand-600">✓</span>
+              <span class="font-mono text-[13px] text-ink-500 truncate">kartice-2026-04.zip</span>
+            </div>
+            <span class="font-mono text-[12px] text-ink-300 tnum shrink-0">23.04. · 183 kartice</span>
+          </div>
+        </div>
+        <p class="mt-2 text-[12px] text-ink-300">Svaka obrada se arhivira — vidi se što je učitano, poslano i preskočeno.</p>
+      </div>
+
+      <!-- akcije -->
+      <div class="flex gap-2 pb-1">
+        <button class="flex-1 rounded-lg bg-brand/40 px-4 py-2.5 text-sm font-medium text-white cursor-not-allowed" disabled title="U demu isključeno">
+          Pokreni obradu
+        </button>
+        <button @click="showUpload=false" class="rounded-lg border border-line px-4 py-2.5 text-sm hover:border-ink/40 transition-colors">Zatvori</button>
+      </div>
+
+    </div>
   </div>
 </div>
 
