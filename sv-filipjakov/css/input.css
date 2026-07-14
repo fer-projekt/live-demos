@@ -462,14 +462,28 @@
     .map-canvas{
         @apply relative overflow-hidden min-h-[520px] max-lg:min-h-[360px];
     }
+    .map-stage{
+        @apply absolute! top-1/2 left-1/2 w-[1166px] h-[597px] [transform:translate(-50%,-50%)];
+    }
     .map-svg{
         @apply absolute! inset-0 w-full h-full;
     }
+    .map-routes{
+        @apply absolute! inset-0 w-full h-full z-2 pointer-events-none;
+    }
+    .map-label{
+        @apply absolute! left-1/2 font-bold pointer-events-none whitespace-nowrap;
+        font-family: 'Lato', sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.3em;
+        color: #6f6a61;
+        transform: translateX(-50%);
+    }
     .map-pin{
-        @apply absolute! [transform:translate(-50%,-50%)] flex items-center gap-2 p-0 z-3 cursor-pointer whitespace-nowrap;
+        @apply absolute! [transform:translate(-50%,-50%)] flex flex-col-reverse items-center gap-1.5 p-0 z-3 cursor-pointer whitespace-nowrap;
 
         &:hover .pin-dot{ @apply scale-125; }
-        &:hover .pin-name{ @apply translate-x-0.5; }
+        &:hover .pin-name{ @apply -translate-y-0.5; }
 
         .pin-dot{
             @apply w-3.5 h-3.5 rounded-full bg-white border-[3px] border-sea-deep shadow-[0_2px_8px_rgba(0,0,0,0.18)] shrink-0 relative transition-[scale,border-color] duration-250 ease-[cubic-bezier(.2,.7,.2,1)];
@@ -504,7 +518,7 @@
     }
     .map-info{
         h3{ @apply text-[30px] font-light tracking-[-0.01em] mt-1; }
-        p{ @apply text-sm leading-[1.6] text-black/72; }
+        p{ @apply text-sm leading-[1.6] text-black/72 min-h-[67px]; }
     }
     .map-info-photo{
         @apply relative rounded-md overflow-hidden aspect-[16/10] grow min-h-[120px];
@@ -2829,11 +2843,18 @@
         transition: border-color .2s ease, color .2s ease;
 
         &:hover{ @apply border-black text-black; }
+        &.active{ @apply text-cream; background: var(--color-sea); border-color: var(--color-sea); }
         .dot{ @apply w-2.25 h-2.25 rounded-full shrink-0; }
         &.marina .dot{ @apply bg-sea; }
         &.parking .dot{ @apply bg-sun; }
         &.ev .dot{ @apply bg-olive; }
         &.map .dot{ @apply bg-fuchsia; }
+
+        &.hotels .dot{ @apply bg-sun; }
+        &.private .dot{ @apply bg-sea; }
+        &.homes .dot{ @apply bg-fuchsia; }
+        &.camp .dot{ @apply bg-olive; }
+        &.naut .dot{ @apply bg-gold; }
     }
 
     /* ---- rubric header (shared marina / parking / ev) ---- */

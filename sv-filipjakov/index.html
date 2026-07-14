@@ -909,7 +909,7 @@
     </div>
 </section>
 
-<section class="sect map-section" x-data="{
+<section class="sect map-section max-[1300px]:hidden!" x-data="{
     selected: 'town',
     photoSwapping: false,
     displayedPhoto: '',
@@ -951,6 +951,7 @@
 
         <div class="map-card reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
             <div class="map-canvas">
+              <div class="map-stage">
                 <svg class="map-svg" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                     <!-- sea base (flat) -->
                     <rect width="1000" height="620" fill="#eceae3" style="fill: rgb(249, 248, 245)"/>
@@ -976,51 +977,51 @@
 
                     <!-- islets -->
                     <path fill="#bcb7ac" stroke="#d2cdc2" stroke-width="1.2"
-                        d="M470 360 q 40 -22 78 -4 q 14 22 -18 34 q -50 14 -68 -6 q -6 -16 8 -24 Z" style="fill: rgb(222, 217, 208)"/>
-                    <path fill="#bcb7ac" stroke="#d2cdc2" stroke-width="1.2"
-                        d="M648 372 q 24 -12 44 -2 q 8 12 -10 19 q -28 9 -40 -3 q -4 -9 6 -14 Z" style="fill: rgb(222, 217, 208)"/>
+                        d="M670 360 q 40 -22 78 -4 q 14 22 -18 34 q -50 14 -68 -6 q -6 -16 8 -24 Z" style="fill: rgb(222, 217, 208)"/>
 
-                    <!-- ferry / boat routes -->
+                </svg>
+
+                <span class="map-label" style="top:25px">MAINLAND · DALMATIA</span>
+                <span class="map-label" style="bottom:25px">PAŠMAN ISLAND</span>
+
+                <!-- ferry / boat routes (drawn in the same 0-100 % space as the pins so they always line up) -->
+                <svg class="map-routes" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                     <g fill="none" stroke="#86817a" stroke-width="1.6" stroke-dasharray="5 7" stroke-linecap="round" opacity="0.8">
-                        <path d="M300 215 Q 360 320 500 372"/>
-                        <path d="M300 215 Q 520 360 670 380"/>
-                        <path d="M300 215 Q 520 420 760 470"/>
+                        <path d="M74 24 Q 82 50 76.2 84" vector-effect="non-scaling-stroke"/>
+                        <path d="M74 24 Q 74 43 68.5 62" vector-effect="non-scaling-stroke"/>
                     </g>
-
-                    <!-- region labels -->
-                    <text x="60" y="90" font-family="Lato" font-size="13" letter-spacing="0.3em" fill="#6f6a61" font-weight="700">MAINLAND · DALMATIA</text>
-                    <text x="60" y="560" font-family="Lato" font-size="13" letter-spacing="0.3em" fill="#6f6a61" font-weight="700">PAŠMAN ISLAND</text>
                 </svg>
 
                 <!-- interactive markers -->
-                <button type="button" class="map-pin main" :class="{ active: selected === 'town' }" style="left:30%; top:35%" @click="selectPlace('town', $el)">
+                <button type="button" class="map-pin main" :class="{ active: selected === 'town' }" style="left:865px; top:130px" @click="selectPlace('town', $el)">
                     <span class="pin-dot"></span>
                     <span class="pin-name">Sv. Filip i Jakov</span>
                 </button>
-                <button type="button" class="map-pin" :class="{ active: selected === 'zadar' }" style="left:11%; top:26%" @click="selectPlace('zadar', $el)">
+                <button type="button" class="map-pin" :class="{ active: selected === 'zadar' }" style="left:168px; top:192px" @click="selectPlace('zadar', $el)">
                     <span class="pin-dot"></span>
                     <span class="pin-name">Zadar</span>
                 </button>
-                <button type="button" class="map-pin" :class="{ active: selected === 'biograd' }" style="left:80%; top:28%" @click="selectPlace('biograd', $el)">
+                <button type="button" class="map-pin" :class="{ active: selected === 'biograd' }" style="left:1005px; top:121px" @click="selectPlace('biograd', $el)">
                     <span class="pin-dot"></span>
                     <span class="pin-name">Biograd</span>
                 </button>
-                <button type="button" class="map-pin" :class="{ active: selected === 'turanj' }" style="left:43%; top:30%" @click="selectPlace('turanj', $el)">
+                <button type="button" class="map-pin" :class="{ active: selected === 'turanj' }" style="left:772px; top:153px" @click="selectPlace('turanj', $el)">
                     <span class="pin-dot"></span>
                     <span class="pin-name">Turanj</span>
                 </button>
-                <button type="button" class="map-pin" :class="{ active: selected === 'petar' }" style="left:20%; top:38%" @click="selectPlace('petar', $el)">
+                <button type="button" class="map-pin" :class="{ active: selected === 'petar' }" style="left:566px; top:168px" @click="selectPlace('petar', $el)">
                     <span class="pin-dot"></span>
                     <span class="pin-name">Sv. Petar</span>
                 </button>
-                <button type="button" class="map-pin" :class="{ active: selected === 'babac' }" style="left:51%; top:60%" @click="selectPlace('babac', $el)">
+                <button type="button" class="map-pin" :class="{ active: selected === 'babac' }" style="left:801px; top:356px" @click="selectPlace('babac', $el)">
                     <span class="pin-dot"></span>
                     <span class="pin-name">Babac</span>
                 </button>
-                <button type="button" class="map-pin" :class="{ active: selected === 'pasman' }" style="left:74%; top:78%" @click="selectPlace('pasman', $el)">
+                <button type="button" class="map-pin" :class="{ active: selected === 'pasman' }" style="left:891px; top:488px" @click="selectPlace('pasman', $el)">
                     <span class="pin-dot"></span>
                     <span class="pin-name">Pašman</span>
                 </button>
+              </div>
             </div>
 
             <!-- info panel -->
