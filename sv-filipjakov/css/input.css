@@ -2348,7 +2348,7 @@
     .hub-grid{ @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5 mt-11 lg:mt-17; }
     .hub-card{
         @apply relative block rounded-md overflow-hidden isolate no-underline text-white aspect-[3/3.2] lg:aspect-[3/3.5];
-        transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease;
+        transition: translate .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease;
 
         &:hover{ @apply -translate-y-1.5; box-shadow: 0 34px 70px -44px rgba(0,0,0,0.55); }
 
