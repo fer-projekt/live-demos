@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FER CMS 2026 — Plan izgradnje (Filament 5+)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+<style>
+:root{
+  --bg:#f6f7fb; --surface:#ffffff; --surface2:#f1f3f9; --text:#1c2333; --muted:#5b6478;
+  --border:#e3e7f0; --accent:#2456d6; --accent-soft:#e8eefc; --red:#e23a4e;
+  --green:#0f8a5f; --green-bg:#e4f5ee; --blue:#2456d6; --blue-bg:#e8eefc;
+  --amber:#b05e0d; --amber-bg:#fdf0df; --violet:#6d3fd4; --violet-bg:#f0eafc;
+  --code-bg:#0f1526; --code-text:#dbe4ff; --code-comment:#7f8db3;
+  --shadow:0 1px 2px rgba(20,30,60,.05),0 4px 16px rgba(20,30,60,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1220; --surface:#171c2e; --surface2:#1e2438; --text:#e6eaf6; --muted:#96a0bd;
+    --border:#2a3149; --accent:#7da2ff; --accent-soft:#1d2742; --red:#ff6b7d;
+    --green:#4cd6a2; --green-bg:#12302a; --blue:#8ab0ff; --blue-bg:#1c2942;
+    --amber:#f4b45e; --amber-bg:#33270f; --violet:#b79aff; --violet-bg:#281f42;
+    --code-bg:#0a0e1a; --code-text:#d5deff; --code-comment:#6d7aa3;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  display:grid; grid-template-columns:300px minmax(0,1fr);
+}
+code,pre{font-family:ui-monospace,SFMono-Regular,"Cascadia Code",Consolas,Menlo,monospace}
+code{background:var(--surface2); border:1px solid var(--border); border-radius:5px; padding:.08em .38em; font-size:.86em; white-space:nowrap}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ===== Sidebar ===== */
+aside{
+  position:sticky; top:0; height:100vh; overflow-y:auto; padding:26px 18px 40px 22px;
+  background:var(--surface); border-right:1px solid var(--border);
+}
+.brand{font-weight:800; font-size:22px; letter-spacing:-.02em; margin-bottom:2px}
+.brand .plus{color:var(--red)}
+.brand-sub{font-size:12.5px; color:var(--muted); margin-bottom:20px}
+aside nav a{
+  display:block; padding:6px 10px; border-radius:8px; color:var(--muted);
+  font-size:14px; font-weight:500; margin:1px 0;
+}
+aside nav a:hover{background:var(--surface2); color:var(--text); text-decoration:none}
+aside nav a.active{background:var(--accent-soft); color:var(--accent); font-weight:650}
+aside nav .toc-group{margin:2px 0 2px 10px; padding-left:10px; border-left:1px solid var(--border)}
+aside nav .toc-group a{font-size:13px; padding:3.5px 8px}
+aside nav .toc-group a code{background:none;border:none;padding:0;font-size:12.5px}
+details.tocbox summary{display:none; cursor:pointer; font-weight:700; padding:8px 0}
+
+/* ===== Main ===== */
+main{padding:40px 52px 90px; max-width:1000px}
+header.hero{margin-bottom:38px}
+header.hero h1{font-size:34px; line-height:1.2; letter-spacing:-.02em; margin:0 0 10px}
+header.hero p.lede{color:var(--muted); font-size:17px; max-width:66ch; margin:0 0 18px}
+.meta-chips{display:flex; flex-wrap:wrap; gap:8px}
+.mchip{
+  background:var(--surface); border:1px solid var(--border); border-radius:999px;
+  padding:5px 13px; font-size:13px; font-weight:600; color:var(--muted); box-shadow:var(--shadow);
+}
+.mchip strong{color:var(--text)}
+
+section{margin-top:56px; scroll-margin-top:24px}
+h2{font-size:25px; letter-spacing:-.015em; margin:0 0 6px; padding-bottom:10px; border-bottom:2px solid var(--border)}
+h2 .sec-num{color:var(--accent); font-weight:800; margin-right:6px}
+.sec-intro{color:var(--muted); margin:12px 0 22px; max-width:72ch}
+h3.tier{font-size:15px; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); margin:38px 0 14px}
+h3.tier .t-ico{margin-right:6px}
+
+/* ===== Legend / chips ===== */
+.chip{display:inline-flex; align-items:center; gap:5px; border-radius:999px; padding:2px 10px; font-size:12.5px; font-weight:700; white-space:nowrap}
+.chip.native{background:var(--green-bg); color:var(--green)}
+.chip.plugin{background:var(--blue-bg); color:var(--blue)}
+.chip.custom{background:var(--amber-bg); color:var(--amber)}
+.chip.paid{background:var(--violet-bg); color:var(--violet)}
+.legend{display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 0}
+
+/* ===== Callouts ===== */
+.callout{border:1px solid var(--border); border-left:4px solid var(--accent); background:var(--surface); border-radius:10px; padding:13px 17px; margin:18px 0; font-size:14.5px; box-shadow:var(--shadow)}
+.callout.warn{border-left-color:var(--amber)}
+.callout.good{border-left-color:var(--green)}
+
+/* ===== Stack diagram ===== */
+.diagram{display:flex; flex-direction:column; align-items:stretch; gap:0; margin:26px 0 8px}
+.layer{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 22px; box-shadow:var(--shadow)}
+.layer h4{margin:0 0 4px; font-size:15px}
+.layer p{margin:0; color:var(--muted); font-size:13.5px}
+.layer .pkgchips{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.pkgchip{background:var(--accent-soft); color:var(--accent); border-radius:6px; padding:2px 9px; font-size:12.5px; font-weight:650; font-family:ui-monospace,Consolas,monospace}
+.arrow{display:flex; align-items:center; gap:10px; padding:6px 0 6px 34px; color:var(--muted); font-size:13px}
+.arrow::before{content:"↓"; font-size:17px; color:var(--accent); font-weight:700}
+
+/* ===== Code ===== */
+pre.code{background:var(--code-bg); color:var(--code-text); border-radius:12px; padding:18px 22px; overflow-x:auto; font-size:13.5px; line-height:1.6; box-shadow:var(--shadow)}
+pre.code .cm{color:var(--code-comment)}
+pre.code .fn{color:#8ecdff}
+
+/* ===== Package cards ===== */
+.pkg{background:var(--surface); border:1px solid var(--border); border-radius:14px; margin:0 0 18px; box-shadow:var(--shadow); overflow:hidden; scroll-margin-top:24px}
+.pkg-head{display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:14px 20px; background:var(--surface2); border-bottom:1px solid var(--border)}
+.pkg-head .pname{font-family:ui-monospace,Consolas,monospace; font-weight:750; font-size:16.5px}
+.pkg-head .ptag{margin-left:auto; font-size:12.5px; color:var(--muted); font-weight:600}
+.pkg-body{padding:8px 20px 16px}
+.prow{display:grid; grid-template-columns:110px 1fr; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); font-size:14.5px}
+.prow:last-child{border-bottom:none}
+.prow .plabel{font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; font-weight:750; color:var(--muted); padding-top:3px}
+.prow ul{margin:0; padding-left:18px}
+.prow li{margin:2px 0}
+
+/* ===== Tables ===== */
+.tablewrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface); box-shadow:var(--shadow); margin:20px 0}
+table{width:100%; border-collapse:collapse; font-size:13.8px}
+th{
+  text-align:left; padding:11px 14px; background:var(--surface2); color:var(--muted);
+  font-size:11.5px; text-transform:uppercase; letter-spacing:.07em; border-bottom:1px solid var(--border); white-space:nowrap;
+}
+td{padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td code{white-space:nowrap}
+
+/* ===== Roadmap ===== */
+ol.roadmap{list-style:none; counter-reset:rm; margin:24px 0 0; padding:0; position:relative}
+ol.roadmap::before{content:""; position:absolute; left:17px; top:8px; bottom:8px; width:2px; background:var(--border)}
+ol.roadmap li{counter-increment:rm; position:relative; padding:0 0 20px 56px}
+ol.roadmap li::before{
+  content:counter(rm); position:absolute; left:0; top:-2px; width:36px; height:36px;
+  background:var(--surface); border:2px solid var(--accent); color:var(--accent);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:14.5px;
+}
+ol.roadmap li strong{display:block; margin-bottom:1px}
+ol.roadmap li span{color:var(--muted); font-size:14px}
+
+/* ===== Sources ===== */
+ul.sources{padding-left:20px; font-size:14.5px}
+ul.sources li{margin:5px 0}
+
+footer{margin-top:70px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:13px}
+
+/* ===== Responsive ===== */
+@media (max-width:1080px){
+  body{grid-template-columns:1fr}
+  aside{position:static; height:auto; border-right:none; border-bottom:1px solid var(--border); padding:18px 22px}
+  details.tocbox summary{display:block}
+  main{padding:28px 22px 70px}
+  .prow{grid-template-columns:1fr; gap:2px}
+}
+@media print{
+  aside{display:none}
+  body{grid-template-columns:1fr; background:#fff}
+  .pkg,.tablewrap,.layer{box-shadow:none; break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<aside>
+  <div class="brand">FER<span class="plus">+</span> CMS 2026</div>
+  <div class="brand-sub">Plan izgradnje · Filament 5+ · srpanj 2026.</div>
+  <details class="tocbox" id="tocDetails" open>
+    <summary>📑 Sadržaj</summary>
+    <nav aria-label="Sadržaj">
+      <a href="#stack">0 · Baseline stack</a>
+      <a href="#koncept">1 · Koncept: builder plate</a>
+      <a href="#paketi">2 · fer/* paketi</a>
+      <div class="toc-group">
+        <a href="#pkg-support"><code>fer/support</code></a>
+        <a href="#pkg-panel"><code>fer/panel</code></a>
+        <a href="#pkg-settings"><code>fer/settings</code></a>
+        <a href="#pkg-pages"><code>fer/pages</code></a>
+        <a href="#pkg-blocks"><code>fer/blocks</code></a>
+        <a href="#pkg-menus"><code>fer/menus</code></a>
+        <a href="#pkg-media"><code>fer/media</code></a>
+        <a href="#pkg-i18n"><code>fer/i18n</code></a>
+        <a href="#pkg-articles"><code>fer/articles</code></a>
+        <a href="#pkg-forms"><code>fer/forms</code></a>
+        <a href="#pkg-seo"><code>fer/seo</code></a>
+        <a href="#pkg-search"><code>fer/search</code></a>
+        <a href="#pkg-ai"><code>fer/ai</code></a>
+        <a href="#pkg-starter"><code>fer/cms</code> + starter</a>
+      </div>
+      <a href="#third-party">3 · Third-party inventar</a>
+      <a href="#mapping">4 · Feature → paket</a>
+      <a href="#razvoj">5 · Razvoj &amp; održavanje</a>
+      <a href="#roadmap">6 · Roadmap</a>
+      <a href="#izvori">Izvori</a>
+    </nav>
+  </details>
+</aside>
+
+<main>
+
+<header class="hero">
+  <h1>🚀 FER CMS 2026 — Plan izgradnje</h1>
+  <p class="lede">
+    Reusable <strong>"builder plate"</strong> (starter kit) za nove projekte — isti modularni model kao stari CMS
+    (<code>fer/*</code> obitelj paketa), ali na modernom Filament stacku. Svaki paket se verzionira, updatea i razvija zasebno.
+  </p>
+  <div class="meta-chips">
+    <span class="mchip">PHP <strong>8.4+</strong></span>
+    <span class="mchip">Laravel <strong>13+</strong></span>
+    <span class="mchip">Livewire <strong>4.3+</strong></span>
+    <span class="mchip">Filament <strong>5.6+</strong></span>
+    <span class="mchip">PostgreSQL <strong>16+ · pgvector</strong></span>
+    <span class="mchip">AI: <strong>Claude</strong> via Prism</span>
+  </div>
+  <div class="legend">
+    <span class="chip native">✅ native — Filament/Laravel</span>
+    <span class="chip plugin">🧩 3rd-party plugin — wrappamo ga</span>
+    <span class="chip custom">🔧 naš kod — fer/* paket</span>
+    <span class="chip paid">💰 plaćeni plugin</span>
+  </div>
+</header>
+
+<!-- ===================== 0 STACK ===================== -->
+<section id="stack">
+  <h2><span class="sec-num">0</span>Baseline stack</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Sloj</th><th>Verzija</th><th>Napomena</th></tr></thead>
+    <tbody>
+      <tr><td><strong>PHP</strong></td><td>8.4+</td><td></td></tr>
+      <tr><td><strong>Laravel</strong></td><td>13+</td><td>stricter typing, bolji performance defaults</td></tr>
+      <tr><td><strong>Livewire</strong></td><td>4.3+</td><td>koristi ga Filament 5</td></tr>
+      <tr><td><strong>Filament</strong></td><td>5.6+</td><td>plugin API + <strong>Blueprint</strong> scaffolder</td></tr>
+      <tr><td><strong>Laravel AI SDK</strong></td><td>v0.1+ (mlado)</td><td>službeni paket, gradi na <strong>Prism</strong>-u</td></tr>
+      <tr><td><strong>Prism</strong></td><td>aktualan stabilan</td><td>zreo LLM sloj (Anthropic/OpenAI/Gemini/Ollama…)</td></tr>
+      <tr><td><strong>Baza</strong></td><td>PostgreSQL 16+ + pgvector</td><td>semantic search / embeddings</td></tr>
+      <tr><td><strong>AI model</strong></td><td>Claude (Anthropic)</td><td>preko Prism/AI SDK providera; konkretan model po zadatku (jeftin za bulk, jači za pisanje/asistenta)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">ℹ️ Verzije su "zadnja pronađena +" — pri instalaciji uzeti najnoviju stabilnu (<code>composer</code>).</div>
+</section>
+
+<!-- ===================== 1 KONCEPT ===================== -->
+<section id="koncept">
+  <h2><span class="sec-num">1</span>Koncept: "builder plate"</h2>
+  <p class="sec-intro">
+    Starter kit iz kojeg se novi klijentski projekt digne za par sati; zajednička logika živi u verzioniranim
+    <code>fer/*</code> paketima.
+    <strong>Ključni idiom:</strong> svaki <code>fer/*</code> paket = <strong>Filament v5 plugin</strong>
+    (iznimka: <code>fer/support</code> — čista biblioteka bez UI-a).
+  </p>
+
+  <div class="diagram">
+    <div class="layer">
+      <h4>PROJEKT (klijent)</h4>
+      <p><code>composer create-project fer/cms-starter</code> → skeleton · samo: entiteti, blokovi specifični za klijenta, tema/dizajn</p>
+    </div>
+    <div class="arrow">require — <code>fer/cms</code> (metapaket) povuče sve fer/* pakete</div>
+    <div class="layer">
+      <h4>fer/* PAKETI — Filament v5 plugini, zasebno verzionirani</h4>
+      <div class="pkgchips">
+        <span class="pkgchip">support</span><span class="pkgchip">panel</span><span class="pkgchip">settings</span>
+        <span class="pkgchip">pages</span><span class="pkgchip">blocks</span><span class="pkgchip">menus</span>
+        <span class="pkgchip">media</span><span class="pkgchip">i18n</span><span class="pkgchip">articles</span>
+        <span class="pkgchip">forms</span><span class="pkgchip">seo</span><span class="pkgchip">search</span><span class="pkgchip">ai</span>
+      </div>
+    </div>
+    <div class="arrow">wrap / extend</div>
+    <div class="layer">
+      <h4>FILAMENT 5 + community pluginovi</h4>
+      <p>Spatie · awcodes · Lara Zeus · Ralph J. Smit · TomatoPHP …</p>
+    </div>
+    <div class="arrow"></div>
+    <div class="layer">
+      <h4>LARAVEL 13 · Livewire 4 · PHP 8.4 · PostgreSQL + pgvector</h4>
+    </div>
+  </div>
+
+  <p class="sec-intro" style="margin-top:26px"><strong>Kako se paketi uključe u projekt</strong> (Filament plugin kompozicija — nasljednik starog "registriraj resurse/menije"):</p>
+
+<pre class="code"><span class="cm">// app/Providers/Filament/AdminPanelProvider.php</span>
+$panel
+    -&gt;plugin(<span class="fn">FerPanelPlugin</span>::make())      <span class="cm">// branding, dashboard, RBAC</span>
+    -&gt;plugin(<span class="fn">FerSettingsPlugin</span>::make())   <span class="cm">// postavke klijenta (info, kontakti, socials)</span>
+    -&gt;plugin(<span class="fn">FerPagesPlugin</span>::make())      <span class="cm">// stranice + content builder</span>
+    -&gt;plugin(<span class="fn">FerBlocksPlugin</span>::make())     <span class="cm">// paleta blokova</span>
+    -&gt;plugin(<span class="fn">FerMenusPlugin</span>::make())      <span class="cm">// menu builder</span>
+    -&gt;plugin(<span class="fn">FerMediaPlugin</span>::make())      <span class="cm">// media biblioteka</span>
+    -&gt;plugin(<span class="fn">FerI18nPlugin</span>::make())       <span class="cm">// prijevodi + jezici</span>
+    -&gt;plugin(<span class="fn">FerArticlesPlugin</span>::make())   <span class="cm">// objave/blog modul</span>
+    -&gt;plugin(<span class="fn">FerFormsPlugin</span>::make())      <span class="cm">// kontakt forme + upiti</span>
+    -&gt;plugin(<span class="fn">FerSeoPlugin</span>::make())        <span class="cm">// SEO + AEO/GEO</span>
+    -&gt;plugin(<span class="fn">FerSearchPlugin</span>::make())     <span class="cm">// search</span>
+    -&gt;plugin(<span class="fn">FerAiPlugin</span>::make());        <span class="cm">// AI (prijevodi/pisanje/asistent)</span></pre>
+
+  <p class="sec-intro">Uključuju se samo paketi koje projekt treba.</p>
+</section>
+
+<!-- ===================== 2 PAKETI ===================== -->
+<section id="paketi">
+  <h2><span class="sec-num">2</span>In-house <code>fer/*</code> paketi</h2>
+  <p class="sec-intro">Za svaki: <strong>Uloga · Wrappamo (3rd-party) · Pruža</strong> (+ napomena gdje je bitna). Podijeljeni u tierove.</p>
+
+  <h3 class="tier"><span class="t-ico">🧱</span>Tier 1 — Temelj</h3>
+
+  <article class="pkg" id="pkg-support">
+    <div class="pkg-head"><span class="pname">fer/support</span><span class="ptag">shared library (no UI) · nasljednik fer/contracts</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Zajednički temelj: contracts/interfaces, enumi, traitovi, helperi, base config, base ServiceProvider. Sve ostalo ovisi o njemu.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><code>spatie/laravel-package-tools</code> — standardni boilerplate za gradnju Laravel paketa</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div><code>HasFerTranslations</code>, <code>FerModel</code> base, locale registry contract, config publishing, shared traits/enum.</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Thin package — samo shared kod (interfaces, traits, helpers), bez UI-a u panelu. Drži konvencije koje svi paketi dijele.</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-panel">
+    <div class="pkg-head"><span class="pname">fer/panel</span><span class="ptag">nasljednik fer/admin jezgre</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Bootstrap Filament panela: branding (FER logo/tema), navigacijska struktura, dashboard, RBAC — ali tanak (Filament radi teški dio).</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><span class="chip native">✅</span> Filament 5 Panel + <span class="chip plugin">🧩</span> <code>bezhansalleh/filament-shield</code> (RBAC na <code>spatie/laravel-permission</code>)</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Gotov panel s FER izgledom, standardne navigacijske grupe, role/permission setup, <strong>MFA</strong> (native u Filamentu), base Resource klase, Blueprint konfiguracija za scaffolding.</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Ovdje živi zajednički look &amp; feel svih FER projekata.</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-settings">
+    <div class="pkg-head"><span class="pname">fer/settings</span><span class="ptag">nasljednik ProjectSettings koncepta</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Postavke projekta/klijenta na jednom mjestu — <strong>sve što se pojavljuje u footeru, headeru, kontaktu i schema.org</strong>: naziv tvrtke, adresa, OIB/VAT, telefoni, emailovi, social links, radno vrijeme, Google Maps, analytics/tracking ID-jevi, default OG slika.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><code>spatie/laravel-settings</code> (typed settings klase u bazi) + službeni Filament settings plugin (gotove "Settings" stranice u panelu)</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Settings grupe (Tvrtka / Kontakt / Social / Tracking…) kao tabovi u panelu, translatable polja gdje treba, Blade/helper API za frontend — npr. <code>settings('company.address')</code>.</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Footer, header, kontakt stranica i <strong>Organization JSON-LD u <code>fer/seo</code></strong> čitaju odavde → klijent sam ažurira podatke, bez developera.</div></div>
+    </div>
+  </article>
+
+  <h3 class="tier"><span class="t-ico">📄</span>Tier 2 — Sadržaj</h3>
+
+  <article class="pkg" id="pkg-pages">
+    <div class="pkg-head"><span class="pname">fer/pages</span><span class="ptag">nasljednik Site/Tree/StreamField dijela</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Stranice: hijerarhijsko stablo (nesting/children), content <strong>Builder</strong>, tipovi stranica → template, frontend routing/render.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><code>kalnoy/nestedset</code> (nested-set hijerarhija u bazi) + <code>solution-forest/filament-tree</code> (drag&amp;drop stablo u panelu) + <span class="chip native">✅</span> Filament <code>Builder</code> field</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Page model + stablo + drag&amp;drop reorder, content Builder polje, page-type→template resolver, frontend rendering blokova, <strong>publishing statusi (draft / published / scheduled)</strong>, <strong>preview</strong>, content revisions.</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Page-modul gradimo sami — postoji gotov plugin "Fabricator" (block-based page-builder skeleton), ali se loše slaže s višejezičnošću i našim publishing workflowom, pa ga <strong>ne koristimo</strong>. Paleta blokova dolazi iz <code>fer/blocks</code>.</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-blocks">
+    <div class="pkg-head"><span class="pname">fer/blocks</span><span class="ptag">reusable block katalog · nasljednik StreamFieldsService palete</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div><strong>Reusable katalog content blokova</strong> + njihove frontend render komponente.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><span class="chip native">✅</span> Filament <code>Builder::block()</code> + <code>Repeater</code> + native <strong>RichEditor</strong> (TipTap: custom blocks, merge tags, HTML/JSON pohrana)</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>
+        <ul>
+          <li>Blokovi: text/section, heading, quote, image, image+alt, gallery, slider, embed/video, CTA, FAQ, documents, pricelist… — svaki s Filament <code>schema()</code> + Blade render komponentom</li>
+          <li><strong>Relacijski blokovi</strong>: Select/CheckboxList polja unutar bloka vezana na modele (BelongsTo/BelongsToMany + pivot podaci) — blok sprema ID-jeve, render resolva relacije pri prikazu</li>
+        </ul>
+      </div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Zaseban paket da katalog verzioniramo neovisno; projekt dodaje svoje blokove preko <code>fer/blocks</code> API-ja. RichEditor <strong>custom blocks</strong> (drag&amp;drop unutar teksta) komplementarni su Builderu — mali umetci (CTA, citat, slika) u rich textu.</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-menus">
+    <div class="pkg-head"><span class="pname">fer/menus</span><span class="ptag">nasljednik fer/menu</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Menu builder: više menija (header/footer/…), stavke tipa page/custom/URL, drag&amp;drop.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><code>datlechin/filament-menu-builder</code> — drag&amp;drop menu builder, više lokacija</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Menu resource, veza stavki na <code>fer/pages</code> modele, frontend menu render helper. Stranica koja nije ni u jednom meniju prirodno ispada iz navigacije ("nepovezano").</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-media">
+    <div class="pkg-head"><span class="pname">fer/media</span><span class="ptag">nasljednik fer/files</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Media biblioteka + konvencije: kolekcije, konverzije (WebP/AVIF), responsive, focus crop, fallbacks, translatable alt/SEO na mediju.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div>
+        <ul>
+          <li><code>spatie/laravel-medialibrary</code> — temelj: originali, konverzije, kolekcije</li>
+          <li><code>tomatophp/filament-media-manager</code> — centralna "Mediateka" na Spatie temelju</li>
+          <li>službeni <code>filament/spatie-laravel-media-library-plugin</code> — upload polja na resursima</li>
+          <li><code>spatie/laravel-image-optimizer</code> + <span class="chip native">✅</span> Filament <code>FileUpload-&gt;imageEditor()</code></li>
+        </ul>
+      </div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>
+        <ul>
+          <li>Media model s translatable <code>alt</code>/<code>title</code>/<code>caption</code>, <strong>obavezan alt</strong> (a11y)</li>
+          <li>Konverzije: izlaz WebP/AVIF/PNG/JPEG · image editor: crop, <strong>rotate</strong>, flip, focal crop</li>
+          <li><strong>Centralna "Mediateka"</strong>: folderi/subfolderi, browser, <strong>picker polje</strong> za odabir iz biblioteke, drag&amp;drop reorder, live preview</li>
+          <li>Multi-field uploadi preko named kolekcija · <strong>per-locale datoteke</strong> (npr. brošura HR/EN — locale-aware kolekcije <span class="chip custom">🔧</span>)</li>
+        </ul>
+      </div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div><span class="chip paid">💰</span> Premium opcija: <strong>Media Library Pro</strong> (<code>ralphjsmit/laravel-filament-media-library</code>, ~€99) — najpoliraniji UI, bulk-upload, permissions, isto na Spatie temelju; isprobati obje pa odlučiti. <strong>Curator otpada</strong> — nekompatibilan sa Spatie (vlastiti Media model).</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-i18n">
+    <div class="pkg-head"><span class="pname">fer/i18n</span><span class="ptag">nasljednik fer/translator</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Prijevodi + upravljanje jezicima — <strong>"easy lang add": dodaj locale → sve dobije jezik, bez migracija</strong>.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div>
+        <ul>
+          <li><code>spatie/laravel-translatable</code> — prijevodi kao JSON po atributu</li>
+          <li><code>lara-zeus/spatie-translatable</code> — Filament language switcher (službeni plugin je napušten, Lara Zeus održava)</li>
+          <li><code>spatie/laravel-sluggable</code> — per-locale slugovi · <code>mcamara/laravel-localization</code> — <code>/hr/</code> <code>/en/</code> rute</li>
+          <li>UI keys: <code>spatie/laravel-translation-loader</code> (stringovi u bazi) + <code>kenepa/translation-manager</code> (Filament sučelje)</li>
+        </ul>
+      </div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Locale registry, language switcher na formama/tablicama, per-locale slugovi, lokalizirano rutiranje, UI-keys prijevodi, "needs-review" flag. Novi locale se propagira i na <strong>admin panel</strong> — jedan config unos aktivira jezik u adminu, modelima, rutama i UI keys prijevodima.</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Dodavanje jezika = config unos (bez migracija). AI auto-prijevod dolazi iz <code>fer/ai</code>.</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-articles">
+    <div class="pkg-head"><span class="pname">fer/articles</span><span class="ptag">default modul</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Objave/blog modul — default sadržajni entitet svakog projekta (novosti, blog, aktualnosti).</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><span class="chip native">✅</span> Filament Resource + naši paketi (blocks, media, i18n, seo)</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Article model (kategorije, autori, <code>published_at</code>, featured image, Builder sadržaj), arhiva/kategorija/single frontend, RSS feed.</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Referentna implementacija "kako se entitet gradi na fer/* stacku" — ujedno predložak za custom entitete po projektu.</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-forms">
+    <div class="pkg-head"><span class="pname">fer/forms</span><span class="ptag">default modul</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Kontakt forme + prikupljanje upita/leadova (s marketing podacima i privolama).</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><span class="chip native">✅</span> Filament (submissions inbox) · <span class="chip plugin">🧩</span> opcionalno <code>lara-zeus/bolt</code> (full form builder kad klijent sam slaže forme)</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Frontend form komponente, submissions inbox u panelu (pregled, export), email notifikacije, <strong>honeypot/anti-spam</strong>, <strong>GDPR privole</strong> (marketing consent, retention).</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Default: par predefiniranih formi po projektu (pokriva 90% slučajeva); Bolt tek kad treba klijentski form builder.</div></div>
+    </div>
+  </article>
+
+  <h3 class="tier"><span class="t-ico">🔎</span>Tier 3 — Prezentacija &amp; pronalaženje</h3>
+
+  <article class="pkg" id="pkg-seo">
+    <div class="pkg-head"><span class="pname">fer/seo</span><span class="ptag">SEO + AEO/GEO za bilo koji model</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>SEO + <strong>AEO/GEO</strong> (optimizacija za AI tražilice: ChatGPT, Perplexity, Google AI Overviews) za bilo koji model.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><code>ralphjsmit/laravel-seo</code> + <code>ralphjsmit/laravel-filament-seo</code> (Filament polja) + <code>spatie/schema-org</code> + <code>spatie/laravel-sitemap</code></div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>
+        <ul>
+          <li><code>HasSeo</code> trait (meta/OG/canonical po modelu), JSON-LD (Article/FAQPage/Organization), sitemap, hreflang</li>
+          <li>TOC, responsive tablice, lazy slike, <strong><code>llms.txt</code> generacija</strong></li>
+          <li>AEO polja: <code>ai_summary</code>, <code>key_facts</code>, <code>faq</code></li>
+          <li><strong>GEO polja</strong>: citation-ready summaries, entity/brand schema, quotable facts — strukturirano za AI search engines</li>
+          <li><strong>Redirects manager</strong> (301 pri promjeni sluga — <code>spatie/laravel-missing-page-redirector</code>)</li>
+        </ul>
+      </div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>AEO/GEO dio je <span class="chip custom">🔧</span> custom — nema gotovog paketa. AI generira <code>ai_summary</code> (iz <code>fer/ai</code>). Organization JSON-LD se auto-puni iz <code>fer/settings</code>.</div></div>
+    </div>
+  </article>
+
+  <article class="pkg" id="pkg-search">
+    <div class="pkg-head"><span class="pname">fer/search</span><span class="ptag">full-text + semantička pretraga</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Pretraga: klasična full-text + semantička (višejezično).</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><code>laravel/scout</code> + Meilisearch/Typesense; PostgreSQL <strong>pgvector</strong> za semantic</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Searchable trait, hybrid search (keyword + semantic), Filament global-search integracija.</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div>Embeddings pipeline dijeli s <code>fer/ai</code> (pgvector kolone).</div></div>
+    </div>
+  </article>
+
+  <h3 class="tier"><span class="t-ico">🤖</span>Tier 4 — Inteligencija</h3>
+
+  <article class="pkg" id="pkg-ai">
+    <div class="pkg-head"><span class="pname">fer/ai</span><span class="ptag">AI sloj</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>Auto-prijevodi, pisanje sadržaja, blog generacija, RAG asistent, embeddings za semantic search.</div></div>
+      <div class="prow"><div class="plabel">Wrappamo</div><div><strong>Prism</strong> (+ <strong>Laravel AI SDK</strong>) · <strong>Claude</strong> (Anthropic provider) · pgvector · embeddings (Voyage/OpenAI)</div></div>
+      <div class="prow"><div class="plabel">Napomena</div><div><strong>Laravel AI SDK je javni sloj</strong> (agent klase, conversations, streaming); Prism je underlying engine dok SDK ne sazrije — API prema projektima ostaje AI SDK-kompatibilan. Ugraditi <strong>cost kontrole</strong>: sve preko queue-a + rate limit, cache odgovora, budget po projektu, log potrošnje tokena.</div></div>
+    </div>
+  </article>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Sposobnost</th><th>Kako</th><th>Model</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Auto-prijevodi</strong> (UI keys + sadržaj)</td><td>artisan komanda / queue job → batch → JSON izlaz; "needs-review" flag</td><td>Claude <strong>Haiku klasa</strong> + Batch API (50% jeftinije)</td></tr>
+      <tr><td><strong>Content writing</strong> (inline pomoć)</td><td>Filament <strong>field actions</strong> ("✨ napiši / proširi / skrati / promijeni ton") pored polja</td><td>Claude <strong>Sonnet klasa</strong></td></tr>
+      <tr><td><strong>Blog generacija</strong></td><td>tema/outline → structured output → <strong>Filament Builder JSON</strong> draft (naslov, sekcije, FAQ, SEO, <code>ai_summary</code>)</td><td><strong>Sonnet/Opus klasa</strong></td></tr>
+      <tr><td><strong>RAG asistent</strong> (docs za klijenta)</td><td>docs → embeddings → pgvector → Claude odgovara s citatima; Filament panel widget (Livewire streaming)</td><td>Claude <strong>Opus klasa</strong> + embeddings</td></tr>
+      <tr><td><strong>Semantic search</strong> (za fer/search)</td><td>sadržaj → embeddings → pgvector cosine similarity → hybrid</td><td>embeddings (Voyage/OpenAI)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn">⚠️ <strong>Embeddings ≠ Claude.</strong> Za semantic search/RAG vektore treba embeddings model (Voyage <code>voyage-3</code> ili OpenAI <code>text-embedding-3</code>). Claude radi generaciju/odgovore. Prism/AI SDK vode oba providera paralelno.</div>
+
+  <h3 class="tier"><span class="t-ico">📦</span>Starter kit</h3>
+
+  <article class="pkg" id="pkg-starter">
+    <div class="pkg-head"><span class="pname">fer/cms</span> <span style="color:var(--muted)">+</span> <span class="pname">fer/cms-starter</span><span class="ptag">metapaket + projekt template</span></div>
+    <div class="pkg-body">
+      <div class="prow"><div class="plabel">Uloga</div><div>"Builder plate": <code>fer/cms</code> je metapaket koji povuče sve <code>fer/*</code> pakete; <code>fer/cms-starter</code> je skeleton projekta (<code>composer create-project</code>).</div></div>
+      <div class="prow"><div class="plabel">Pruža</div><div>Gotov panel + migracije + config + primjer entiteta/blokova. Novi projekt: <code>create-project</code>, podešavanje teme i entiteta.</div></div>
+      <div class="prow"><div class="plabel">Frontend tema</div><div>Tailwind CSS 4 + Vite + Alpine/Livewire, Blade komponente blokova (iz <code>fer/blocks</code>), SEO partials (meta/hreflang/JSON-LD/breadcrumbs), responsive/lazy slike.</div></div>
+      <div class="prow"><div class="plabel">Ops defaults</div><div><code>spatie/laravel-activitylog</code> (audit log), <code>spatie/laravel-backup</code>, <code>spatie/laravel-health</code>, cookie consent (GDPR), Redis + Horizon (queue za AI/media jobove), error tracking (Sentry/Flare).</div></div>
+    </div>
+  </article>
+</section>
+
+<!-- ===================== 3 THIRD PARTY ===================== -->
+<section id="third-party">
+  <h2><span class="sec-num">3</span>Third-party paketi — inventar</h2>
+  <p class="sec-intro">Svaki paket s objašnjenjem što je i tko ga koristi. Sva imena su <strong>verificirana composer imena</strong>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Domena</th><th>Paket</th><th>Što je / što radi</th><th>Koristi ga</th></tr></thead>
+    <tbody>
+      <tr><td>Panel/UI</td><td><strong>Filament 5</strong> (core)</td><td>admin panel framework — resursi, forme, tablice, akcije, widgeti</td><td>svi</td></tr>
+      <tr><td>RBAC</td><td><code>bezhansalleh/filament-shield</code></td><td>UI za role i dozvole u panelu (na <code>spatie/laravel-permission</code>)</td><td>fer/panel</td></tr>
+      <tr><td>Settings</td><td><code>spatie/laravel-settings</code> + službeni Filament plugin</td><td>typed settings u bazi + gotove "Settings" stranice u panelu</td><td>fer/settings</td></tr>
+      <tr><td>Package tooling</td><td><code>spatie/laravel-package-tools</code></td><td>standardni boilerplate za pisanje Laravel paketa</td><td>fer/support (svi)</td></tr>
+      <tr><td>Stablo stranica</td><td><code>kalnoy/nestedset</code></td><td>nested-set hijerarhija u bazi (parent/child/subchild stranice)</td><td>fer/pages</td></tr>
+      <tr><td>Tree UI</td><td><code>solution-forest/filament-tree</code></td><td>drag&amp;drop stablo u panelu (expand/collapse, reorder)</td><td>fer/pages</td></tr>
+      <tr><td>Rich text</td><td><span class="chip native">✅ native RichEditor</span> (TipTap)</td><td>WYSIWYG s custom blocks + merge tags — poseban plugin ne treba</td><td>fer/blocks</td></tr>
+      <tr><td>Menu</td><td><code>datlechin/filament-menu-builder</code></td><td>drag&amp;drop menu builder (stavke: stranica/custom/URL; više lokacija)</td><td>fer/menus</td></tr>
+      <tr><td>Media</td><td><code>spatie/laravel-medialibrary</code></td><td>datoteke na modelima: originali, konverzije (WebP/AVIF), responsive, fallbacks</td><td>fer/media</td></tr>
+      <tr><td>Media UI ("Mediateka")</td><td><code>tomatophp/filament-media-manager</code> (free) ili <span class="chip paid">💰</span> <strong>Media Library Pro</strong> (<code>ralphjsmit/laravel-filament-media-library</code>, ~€99)</td><td>centralni media browser na Spatie temelju: folderi, picker, bulk-upload (Curator otpada — nekompatibilan sa Spatie)</td><td>fer/media</td></tr>
+      <tr><td>Media upload polja</td><td>službeni <code>filament/spatie-laravel-media-library-plugin</code></td><td><code>SpatieMediaLibraryFileUpload</code> polje + table kolone + infolist entries</td><td>fer/media</td></tr>
+      <tr><td>Optimizacija slika</td><td><code>spatie/laravel-image-optimizer</code></td><td>automatska kompresija slika pri uploadu</td><td>fer/media</td></tr>
+      <tr><td>Prijevodi (sadržaj)</td><td><code>spatie/laravel-translatable</code></td><td>prijevodi kao JSON po atributu — novi jezik bez migracija</td><td>fer/i18n</td></tr>
+      <tr><td>Prijevodi (Filament UI)</td><td><code>lara-zeus/spatie-translatable</code></td><td>language switcher na formama/tablicama (održavana zamjena za napušteni službeni plugin)</td><td>fer/i18n</td></tr>
+      <tr><td>Prijevodi (UI keys)</td><td><code>spatie/laravel-translation-loader</code> + <code>kenepa/translation-manager</code></td><td>lang stringovi u bazi + Filament sučelje za uređivanje/sync</td><td>fer/i18n</td></tr>
+      <tr><td>Slugovi</td><td><code>spatie/laravel-sluggable</code></td><td>auto-slug iz naslova, per-locale</td><td>fer/i18n</td></tr>
+      <tr><td>Lokalizirane rute</td><td><code>mcamara/laravel-localization</code></td><td><code>/hr/…</code> <code>/en/…</code> rute + locale detekcija/redirect</td><td>fer/i18n</td></tr>
+      <tr><td>SEO</td><td><code>ralphjsmit/laravel-seo</code> + <code>laravel-filament-seo</code></td><td>meta/OG/Twitter/canonical polja na bilo kojem modelu + Filament sekcija</td><td>fer/seo</td></tr>
+      <tr><td>Schema.org</td><td><code>spatie/schema-org</code></td><td>fluent PHP builder za JSON-LD (Article, FAQPage, Organization…)</td><td>fer/seo</td></tr>
+      <tr><td>Sitemap</td><td><code>spatie/laravel-sitemap</code></td><td>generiranje <code>sitemap.xml</code></td><td>fer/seo</td></tr>
+      <tr><td>Redirects</td><td><code>spatie/laravel-missing-page-redirector</code></td><td>301/302 preusmjeravanja iz baze (stari URL → novi)</td><td>fer/seo</td></tr>
+      <tr><td>Search</td><td><code>laravel/scout</code> + Meilisearch/Typesense</td><td>full-text indeksiranje i pretraga modela</td><td>fer/search</td></tr>
+      <tr><td>Vektori</td><td><code>pgvector/pgvector</code></td><td>vector kolone + similarity queries u Postgresu</td><td>fer/search, fer/ai</td></tr>
+      <tr><td>AI</td><td><code>prism-php/prism</code> (+ Laravel AI SDK)</td><td>jedinstveni PHP API prema LLM-ovima (Claude…): tekst, structured output, embeddings, streaming</td><td>fer/ai</td></tr>
+      <tr><td>Form builder (opcija)</td><td><code>lara-zeus/bolt</code></td><td>klijent sam slaže forme u panelu (polja, validacije) — tek ako zatreba</td><td>fer/forms</td></tr>
+      <tr><td>Audit log</td><td><code>spatie/laravel-activitylog</code></td><td>bilježi tko je što promijenio na modelima</td><td>fer/cms-starter</td></tr>
+      <tr><td>Backup</td><td><code>spatie/laravel-backup</code></td><td>automatski backup baze + fileova</td><td>fer/cms-starter</td></tr>
+      <tr><td>Health</td><td><code>spatie/laravel-health</code></td><td>health-check monitoring (baza, queue, disk…)</td><td>fer/cms-starter</td></tr>
+      <tr><td>Cookie consent</td><td><code>spatie/laravel-cookie-consent</code></td><td>GDPR cookie banner</td><td>fer/cms-starter</td></tr>
+      <tr><td>PDF/Excel</td><td><code>spatie/laravel-pdf</code> / Filament exports</td><td>generiranje PDF-a / export tablica — dodati po potrebi</td><td>projekt</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ===================== 4 MAPPING ===================== -->
+<section id="mapping">
+  <h2><span class="sec-num">4</span>Feature → paket mapping</h2>
+  <p class="sec-intro">Pokrivenost wishlista — svaka funkcionalnost ima vlasnika.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Funkcionalnost</th><th>Vlasnik paket</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>RBAC (role/dozvole) + MFA + branding panela</td><td><code>fer/panel</code></td><td><span class="chip plugin">🧩</span><span class="chip native">✅</span></td></tr>
+      <tr><td>Menu builder</td><td><code>fer/menus</code></td><td><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Pages + content builder (blokovi, polja, relacije, pivoti)</td><td><code>fer/pages</code> + <code>fer/blocks</code></td><td><span class="chip native">✅</span><span class="chip custom">🔧</span></td></tr>
+      <tr><td>Page nesting (children/subchildren)</td><td><code>fer/pages</code></td><td><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Menu ↔ pages (header/footer/nepovezano)</td><td><code>fer/menus</code> + <code>fer/pages</code></td><td><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Translations + easy lang add</td><td><code>fer/i18n</code></td><td><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Advanced media manager (editor/webp/crop/focus/fallbacks/originali)</td><td><code>fer/media</code></td><td><span class="chip plugin">🧩</span><span class="chip native">✅</span></td></tr>
+      <tr><td>File uploads (multi-lang, multi-field)</td><td><code>fer/media</code></td><td><span class="chip native">✅</span><span class="chip custom">🔧</span></td></tr>
+      <tr><td>Media SEO (alt/desc/title multilang)</td><td><code>fer/media</code></td><td><span class="chip custom">🔧</span></td></tr>
+      <tr><td>SEO paket (svi modeli)</td><td><code>fer/seo</code></td><td><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>AEO &amp; GEO polja</td><td><code>fer/seo</code></td><td><span class="chip custom">🔧</span></td></tr>
+      <tr><td>Reorder mehanizmi (flat + tree)</td><td><code>fer/pages</code> (tree) + Filament native (flat)</td><td><span class="chip native">✅</span><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Tablice/izlistavanja/search (višejezično)</td><td>Filament Tables + <code>fer/search</code></td><td><span class="chip native">✅</span><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Objave/blog (default modul)</td><td><code>fer/articles</code></td><td><span class="chip native">✅</span><span class="chip custom">🔧</span></td></tr>
+      <tr><td>Kontakt forme + upiti/leads (GDPR, anti-spam)</td><td><code>fer/forms</code></td><td><span class="chip custom">🔧</span><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Draft / preview / scheduled publishing / revisions</td><td><code>fer/pages</code></td><td><span class="chip custom">🔧</span></td></tr>
+      <tr><td>Redirects (301)</td><td><code>fer/seo</code></td><td><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Audit log (tko je što mijenjao)</td><td><code>fer/cms-starter</code> (<code>spatie/laravel-activitylog</code>)</td><td><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Postavke klijenta (naziv, adresa, OIB, kontakti, socials, radno vrijeme…)</td><td><code>fer/settings</code></td><td><span class="chip plugin">🧩</span><span class="chip custom">🔧</span></td></tr>
+      <tr><td>Auto translations (frontend/backend)</td><td><code>fer/ai</code></td><td><span class="chip custom">🔧</span><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Auto blog writing</td><td><code>fer/ai</code></td><td><span class="chip custom">🔧</span><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Auto content writing</td><td><code>fer/ai</code></td><td><span class="chip custom">🔧</span><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>CMS AI asistent</td><td><code>fer/ai</code></td><td><span class="chip custom">🔧</span><span class="chip plugin">🧩</span></td></tr>
+      <tr><td>Semantic search (pgvector)</td><td><code>fer/search</code> + <code>fer/ai</code></td><td><span class="chip native">✅</span><span class="chip custom">🔧</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><code>fer/support</code> (biblioteka bez UI-a) i <code>fer/cms</code>/<code>fer/cms-starter</code> (agregacija/skeleton) su infrastrukturni paketi — namjerno nemaju feature retke.</div>
+</section>
+
+<!-- ===================== 5 RAZVOJ ===================== -->
+<section id="razvoj">
+  <h2><span class="sec-num">5</span>Razvoj &amp; održavanje paketa</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Tema</th><th>Odluka</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Repo strategija</strong></td><td>Monorepo (<code>fer-projekt/cms</code>) sa svim <code>fer/*</code> paketima u <code>packages/*</code> tijekom razvoja → <code>path</code> repositories za lokalni rad. Publish: subtree split (GitHub Action) u read-only pojedinačne repove.</td></tr>
+      <tr><td><strong>Distribucija</strong></td><td>Privatni Composer repo — nasljednik starog <code>packages.fer.plus</code> → <strong>Private Packagist</strong> ili <strong>Satis</strong>. Projekti rade <code>require "fer/pages": "^2.0"</code> itd.</td></tr>
+      <tr><td><strong>Verzioniranje</strong></td><td><strong>SemVer po paketu</strong> — breaking change u <code>fer/blocks</code> ne ruši <code>fer/seo</code>. Projekt pinna verzije i updatea kad želi (<code>composer update fer/pages</code>).</td></tr>
+      <tr><td><strong>Kvaliteta</strong></td><td>Testovi: <strong>Pest</strong> + <strong>Orchestra Testbench</strong> (testiranje paketa izvan aplikacije). CI po paketu: <code>pint</code> (lint), <code>phpstan</code> (static), testovi. Svaki paket: composer.json, README, CHANGELOG, config publish, migracije.</td></tr>
+      <tr><td><strong>Scaffolding</strong></td><td><strong>Filament Blueprint</strong> + <code>make:filament-resource</code> → novi entitet u projektu koristi naše <code>fer/*</code> traitove (SEO, translatable, media). Zamjena starog code generatora.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ===================== 6 ROADMAP ===================== -->
+<section id="roadmap">
+  <h2><span class="sec-num">6</span>Roadmap — redoslijed gradnje</h2>
+  <ol class="roadmap">
+    <li><strong><code>fer/support</code> + <code>fer/panel</code> + <code>fer/settings</code></strong><span>temelj panela + RBAC + branding + postavke klijenta</span></li>
+    <li><strong><code>fer/pages</code> + <code>fer/blocks</code></strong><span>stranice, stablo, content Builder, paleta blokova (+ draft/preview/scheduled publishing)</span></li>
+    <li><strong><code>fer/menus</code> + <code>fer/media</code></strong><span>navigacija + mediji</span></li>
+    <li><strong><code>fer/i18n</code></strong><span>prijevodi + "easy lang add"</span></li>
+    <li><strong><code>fer/articles</code> + <code>fer/forms</code></strong><span>default moduli (objave + kontakt forme/upiti)</span></li>
+    <li><strong><code>fer/seo</code></strong><span>SEO + schema + sitemap + redirects + AEO/GEO + llms.txt</span></li>
+    <li><strong><code>fer/search</code></strong><span>Scout + priprema pgvector</span></li>
+    <li><strong><code>fer/ai</code> — faza 1</strong><span>auto-prijevodi + content-writing actions</span></li>
+    <li><strong><code>fer/ai</code> — faza 2</strong><span>blog generacija + AEO auto-fill</span></li>
+    <li><strong><code>fer/ai</code> — faza 3</strong><span>RAG asistent + semantic search (pgvector)</span></li>
+    <li><strong><code>fer/cms</code> + <code>fer/cms-starter</code></strong><span>builder plate (tema + ops defaults) + prvi projekt</span></li>
+  </ol>
+  <div class="callout good">Koraci <strong>1–5</strong> = upotrebljiv CMS za tipičan klijentski projekt. Koraci <strong>8–10</strong> = AI funkcionalnosti. Starter (11) se gradi paralelno i finalizira na kraju.</div>
+</section>
+
+<!-- ===================== IZVORI ===================== -->
+<section id="izvori">
+  <h2>📚 Izvori <span style="font-size:14px; color:var(--muted); font-weight:500">(provjereno, srpanj 2026.)</span></h2>
+  <ul class="sources">
+    <li><a href="https://laravel-news.com/filament-5">Filament v5 Released With Livewire v4 Support and a New Blueprint Tool — Laravel News</a></li>
+    <li><a href="https://filamentphp.com/insights/danharrin-filament-v5-blueprint">Introducing Filament v5 and Filament Blueprint — filamentphp.com</a></li>
+    <li><a href="https://www.phpeveryday.com/articles/laravel-13-2026-release-new-features-and-upgrade-guide/">Laravel 13 (2026) Release — PHP Everyday</a></li>
+    <li><a href="https://laravel-news.com/livewire-v4-2-0">Livewire v4.2.0 Released with Laravel 13 Support — Laravel News</a></li>
+    <li><a href="https://hafiz.dev/blog/laravel-ai-sdk-what-it-changes-why-it-matters-and-should-you-use-it">Laravel AI SDK: What It Changes — hafiz.dev</a></li>
+    <li><a href="https://github.com/prism-php/prism">Prism — a unified LLM interface for Laravel (GitHub)</a> · <a href="https://prismphp.com/">prismphp.com</a></li>
+    <li><a href="https://filamentapps.com/blog/best-filament-plugins-to-build-a-feature-rich-cms">Best Filament Plugins to Build a Feature-Rich CMS — filamentapps.com</a></li>
+    <li><a href="https://filamentphp.com/plugins/3x1io-tomato-media-manager">Media Manager (TomatoPHP)</a> · <a href="https://filamentphp.com/plugins/ralphjsmit-media-library-manager">Media Library Pro (Ralph J. Smit)</a> · <a href="https://filamentphp.com/plugins/filament-spatie-media-library">Spatie Media Library (službeni)</a></li>
+    <li><a href="https://filamentphp.com/plugins/bezhansalleh-shield">Shield</a> · <a href="https://filamentphp.com/plugins/filament-spatie-settings">Spatie Settings plugin</a></li>
+    <li><a href="https://filamentphp.com/docs/5.x/forms/rich-editor">Rich editor (native, TipTap) — Filament docs</a> — pokriva use-caseove starog tiptap plugina</li>
+    <li><a href="https://filamentphp.com/plugins/lara-zeus-spatie-translatable">Lara Zeus Spatie Translatable (Filament v4+)</a> · <a href="https://filamentphp.com/plugins/kenepa-translation-manager">Kenepa Translation Manager</a></li>
+  </ul>
+  <p style="color:var(--muted); font-size:13.5px">AI modeli i pricing (Claude klase modela, Batch API 50%, embeddings Voyage/OpenAI) — prema Anthropic Claude API referenci.</p>
+</section>
+
+<footer>
+  FER-Projekt · interni plan · generirano iz <code>FER-CMS-NOVI-PLAN.md</code> (source of truth) · srpanj 2026.
+</footer>
+
+</main>
+
+<script>
+// TOC: collapse on mobile, scrollspy
+(function(){
+  var det = document.getElementById('tocDetails');
+  function sync(){ det.open = window.innerWidth > 1080; }
+  sync();
+  det.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ if(window.innerWidth <= 1080) det.open = false; });
+  });
+  var links = Array.prototype.slice.call(document.querySelectorAll('aside nav a'));
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var targets = document.querySelectorAll('section[id], article[id]');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting && map[e.target.id]){
+        links.forEach(function(a){ a.classList.remove('active'); });
+        map[e.target.id].classList.add('active');
+      }
+    });
+  }, {rootMargin:'-15% 0px -75% 0px'});
+  targets.forEach(function(t){ obs.observe(t); });
+})();
+</script>
+
+</body>
+</html>

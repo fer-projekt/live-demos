@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sveti Filip i Jakov — Every moment has a heartbeat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link id="gfont-Lato" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&amp;display=swap">
+
+<!-- Map info-panel photos are set from JS strings (app.js MAP_PLACES); lift them so the bundler inlines them -->
+<meta name="ext-resource-dependency" content="assets/std/hero.jpg" data-resource-id="mapTown" />
+<meta name="ext-resource-dependency" content="assets/zadar.jpg" data-resource-id="mapZadar" />
+<meta name="ext-resource-dependency" content="assets/biograd.jpg" data-resource-id="mapBiograd" />
+<meta name="ext-resource-dependency" content="assets/turanj.jpg" data-resource-id="mapTuranj" />
+<meta name="ext-resource-dependency" content="assets/sv-petar.jpg" data-resource-id="mapPetar" />
+<meta name="ext-resource-dependency" content="assets/babac-islet.jpg" data-resource-id="mapBabac" />
+<meta name="ext-resource-dependency" content="assets/pasman-island.jpg" data-resource-id="mapPasman" />
+<link id="gfont-Caveat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@300;400;500;600;700&amp;display=swap">
+</head>
+<body>
+
+<div class="boot" id="boot"><div class="boot-mark"></div></div>
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- ───────────────── NAV ───────────────── -->
+<header class="nav" id="nav" data-screen-label="Nav">
+  <a class="nav__logo" href="#top">
+    <img class="nav__logo-color" src="assets/logo.png" alt="Sveti Filip i Jakov" />
+    <img class="nav__logo-white" src="assets/logo-white.png" alt="Sveti Filip i Jakov" />
+  </a>
+  <ul class="nav__links">
+    <li><a href="#discover">Discover</a></li>
+    <li><a href="#welcome">Places</a></li>
+    <li><a href="#activities">Experience</a></li>
+    <li><a href="#plan">Plan your trip</a></li>
+    <li><a href="#stay">Stay</a></li>
+    <li><a href="#taste">Taste</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#plan">Contact</a></li>
+  </ul>
+  <div class="nav__right">
+    <span class="nav__lang" style="font-weight: 500">EN
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg>
+    </span>
+    <span class="nav__sep nav__sep--full"></span>
+    <button class="nav__menu-btn" id="navMenuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <span class="nav__menu-bars"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+  <nav class="nav-menu" id="navMenu" aria-hidden="true">
+    <a href="#discover">Discover</a>
+    <a href="#welcome">Places</a>
+    <a href="#activities">Experience</a>
+    <a href="#plan">Plan your trip</a>
+    <a href="#stay">Stay</a>
+    <a href="#taste">Taste</a>
+    <a href="#events">Events</a>
+    <a href="#plan">Contact</a>
+  </nav>
+</header>
+
+<!-- ───────────────── HERO ───────────────── -->
+<section class="hero" id="top" data-screen-label="01 Hero">
+  <div class="bg">
+    <video class="hero-video" autoplay muted loop playsinline poster="assets/hero.jpg">
+      <source src="assets/hero.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">DALMATIAN RIVIERA · SV.FILIP I JAKOV</div>
+      <h1><span class="w">Every</span> <span class="w" style="font-weight: 300">moment</span><br /><span class="w">has&nbsp;a</span> <span class="w"><em style="color: rgb(245, 237, 9)">heartbeat</em></span></h1>
+    </div>
+    <div class="hero-meta" style="color: rgb(255, 255, 255); border-width: 0px">
+      <div class="hero-tagline text-pretty">
+        Where the pine-scented coast meets centuries-old stone, and every sunset
+        feels like a private discovery.
+        <span class="signature">~ Sveti Filip i Jakov</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="hero-dock" id="heroDock" aria-hidden="true">
+    <div class="hero-tiles">
+    <div class="hero-tile hero-tile--event">
+      <div class="ev-card-text">
+        <span class="ev-card-label">14 Jun · Next event</span>
+        <h3 class="ev-card-title">Festival of Flowers</h3>
+        <a class="ev-card-cta" href="#events">Learn more
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="tile-photo">
+        <img src="assets/festival-flowers.jpg" alt="Festival of Flowers" />
+      </div>
+    </div>
+    </div>
+  </aside>
+
+  <div class="scroll-cue">
+    <span>SCROLL</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- ───────────────── TICKER ───────────────── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span><i class="dot"></i> Festival cvijeća · 14 June</span>
+    <span><i class="dot"></i> Klapa nights · every Thursday</span>
+    <span><i class="dot"></i> Free yoga on the riva · 7am</span>
+    <span><i class="dot"></i> Fishermen's evening · 22 July</span>
+    <span><i class="dot"></i> Ribarska večer · Pašman bay</span>
+    <span><i class="dot"></i> Festival cvijeća · 14 June</span>
+    <span><i class="dot"></i> Klapa nights · every Thursday</span>
+    <span><i class="dot"></i> Free yoga on the riva · 7am</span>
+    <span><i class="dot"></i> Fishermen's evening · 22 July</span>
+    <span><i class="dot"></i> Ribarska večer · Pašman bay</span>
+  </div>
+</div>
+
+<!-- ───────────────── MOOD / AUDIENCE ───────────────── -->
+<section class="sect mood" id="discover" data-screen-label="02 Discover by mood">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <span class="eyebrow" style="gap: 10px">Welcome</span>
+        <h2 style="font-size: 75px; font-weight: 300">How will you<br /><em class="script-accent" style="color: rgb(0, 0, 0); font-size: 85px">travel</em> this time?</h2>
+      </div>
+      <p class="lede text-pretty" style="font-weight: 400; font-size: 22px">
+        Pick the kind of holiday that fits you today — your selection re-orders
+        everything below: stays, dishes, events, even the time we suggest you arrive.
+      </p>
+    </div>
+
+    <div class="mood-grid reveal stagger" id="mood-grid">
+      <a class="mood-card" data-tags="family" data-color="green" href="#">
+        <div class="img" style="background-image:url('assets/family.jpg')"></div>
+        <span class="tag">FAMILIES</span>
+        <div class="meta">
+          <div>
+            <h3>For families</h3>
+            <div class="sub">Workshops · safe beaches · gelato runs</div>
+          </div>
+          <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></div>
+        </div>
+      </a>
+      <a class="mood-card" data-tags="couples" data-color="orange" href="#">
+        <div class="img" style="background-image:url('assets/couples.jpg')"></div>
+        <span class="tag">COUPLES</span>
+        <div class="meta">
+          <div>
+            <h3>For couples</h3>
+            <div class="sub">Sunset rocks · konobas · quiet bays</div>
+          </div>
+          <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></div>
+        </div>
+      </a>
+      <a class="mood-card" data-tags="nomads" data-color="pink" href="#">
+        <div class="img" style="background-image:url('assets/marina.jpg')"></div>
+        <span class="tag">NOMADS</span>
+        <div class="meta">
+          <div>
+            <h3>Digital nomads</h3>
+            <div class="sub">Sea-view desks · 700 Mbps · co-living</div>
+          </div>
+          <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></div>
+        </div>
+      </a>
+      <a class="mood-card" data-tags="adventure" data-color="green" href="#">
+        <div class="img" style="background-image:url('assets/town.jpg')"></div>
+        <span class="tag">ADVENTURE</span>
+        <div class="meta">
+          <div>
+            <h3>For adventurers</h3>
+            <div class="sub">Dive trails · kayak loops · island hopping</div>
+          </div>
+          <div class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── WELCOME ───────────────── -->
+<section class="sect" id="welcome" data-screen-label="03 Welcome">
+  <div class="wrap">
+    <div class="welcome reveal">
+      <div class="welcome-img">
+        <div class="badge">
+          <strong>Founded 1059</strong>
+          A walled coastal town between Zadar and Biograd na Moru.
+        </div>
+        <div class="photo-credit">Photo · Klapa procession, 1962</div>
+      </div>
+      <div class="welcome-text">
+        <span class="script handwrite" style="height: 60px"><span style="color: #0a0a0a">welcome ashore</span></span>
+        <span class="eyebrow" style="height: 40px">A welcome from the mayor</span>
+        <h2>Picturesque town<br />between Zadar &amp; Biograd.</h2>
+        <p>Sveti Filip i Jakov is the centre of its municipality and the tourist
+        heart of the destination — a place where rich history meets the
+        Mediterranean way of life, set along the Pašman Channel with views to
+        the islets and sunsets that feel like they were arranged for you.</p>
+        <p>Stroll the kilometre-long riva at dawn, take a coffee at the old
+        market square, then disappear by boat for the afternoon. We've been
+        practising this rhythm for a thousand years.</p>
+        <div class="welcome-cta">
+          <a href="#plan" class="btn primary">Plan your visit <span class="arr"></span></a>
+          <a href="#events" class="btn">See this week's events</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── ACTIVITIES + HERITAGE (curtain reveal) ───────────────── -->
+<div class="reveal-wrap">
+<!-- ───────────────── THINGS TO DO · staggered slider ───────────────── -->
+<section class="sect things" id="activities" data-screen-label="04 Things to do">
+  <div class="wrap" style="height: 300px">
+    <div class="sect-head things-head reveal" style="height: 100px">
+      <div style="height: 250px">
+        <span class="eyebrow">Things to do</span>
+        <h2 style="font-size: 75px; margin-top: 18px; height: 250px">From the riva<br />to the <em class="script-accent" style="font-size: 85px; color: rgb(0, 0, 0)">open sea</em>.</h2>
+      </div>
+      <div class="things-head-right">
+        <p class="lede text-pretty" style="font-size: 22px; height: 200px">
+          Half a dozen ways to spend a day in Sv. Filip i Jakov. None of them
+          require a car — most require nothing but a swimsuit.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="things-viewport" id="things-viewport">
+    <div class="things-track" id="things-track" style="height: 580px">
+
+      <article class="thing-card" style="--off:60px; --h:520px">
+        <span class="thing-tag">Half day · From the marina</span>
+        <h3 class="thing-title" style="font-family: Lato">Sea activities<br />&amp; sailing</h3>
+        <a class="thing-img" href="#" style="background-image: url(&#39;assets/hero.jpg&#39;)" aria-label="Sea activities and sailing"></a>
+      </article>
+
+      <article class="thing-card" style="--off:150px; --h:470px">
+        <span class="thing-tag">2 hours · PADI harbour school</span>
+        <h3 class="thing-title" style="font-family: Lato">Diving &amp;<br />snorkelling</h3>
+        <a class="thing-img" href="#" style="background-image:url('assets/snorkelling-opt.jpg')" aria-label="Diving and snorkelling"></a>
+      </article>
+
+      <article class="thing-card" style="--off:230px; --h:380px">
+        <span class="thing-tag">All day · Riva to Turanj</span>
+        <h3 class="thing-title" style="font-family: Lato">Pebble coves<br />&amp; blue-flag bays</h3>
+        <a class="thing-img" href="#" style="background-image:url('assets/beaches.jpg')" aria-label="Pebble coves and blue-flag bays"></a>
+      </article>
+
+      <article class="thing-card" style="--off:60px; --h:520px">
+        <span class="thing-tag">90 minutes · Self-guided</span>
+        <h3 class="thing-title">Old town<br />stone walks</h3>
+        <a class="thing-img" href="#" style="background-image:url('assets/old-town-walks.jpg')" aria-label="Old town stone walks"></a>
+      </article>
+
+      <article class="thing-card" style="--off:175px; --h:450px">
+        <span class="thing-tag">3 min by boat · Uninhabited</span>
+        <h3 class="thing-title">Kayak to<br />Babac islet</h3>
+        <a class="thing-img" href="#" style="background-image:url('assets/babac-islet.jpg')" aria-label="Kayak to Babac islet"></a>
+      </article>
+
+      <article class="thing-card" style="--off:245px; --h:380px">
+        <span class="thing-tag">Every morning · 7am · Free</span>
+        <h3 class="thing-title">Sunrise yoga<br />by the sea</h3>
+        <a class="thing-img" href="#" style="background-image:url('assets/yoga-sea.jpg')" aria-label="Sunrise yoga by the sea"></a>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="things-controls">
+      <div class="things-nav" aria-hidden="false">
+        <button class="things-arrow" data-dir="-1" type="button" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="things-arrow" data-dir="1" type="button" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <a href="#" class="btn primary things-viewall">View all <span class="arr"></span></a>
+    </div>
+  </div>
+</section>
+</div>
+<!-- /reveal-wrap -->
+
+<!-- ───────────────── HERITAGE + EVENTS · pinned reveal ───────────────── -->
+<div class="pin-wrap">
+<!-- ───────────────── HERITAGE (pinned behind, revealed as activities scrolls up) ───────────────── -->
+<section class="heritage" id="heritage" data-screen-label="05 Heritage" style="height: 700px">
+  <div class="bg" style="height: 900px; background-position: center center; background-size: auto"></div>
+  <div class="heritage-content" style="font-weight: 400; height: 60px">
+    <div class="heritage-head reveal" style="transform: translateY(-250px)">
+      <div class="heritage-head-main">
+        <span class="eyebrow no-line" style="color: rgb(244, 220, 71)">HERITAGE · Since 1059</span>
+        <h2><span style="color: rgb(255, 255, 255); font-weight: 300">Shaped by sea,<br />stone <em style="color: rgb(244, 220, 71)">&amp; time</em>.</span></h2>
+        <a href="#welcome" class="btn heritage-cta" style="font-weight: 500">Live like a local <span class="arr"></span></a>
+      </div>
+      <div class="heritage-lede">
+        <p style="color: #ffffff">From a Liburnian settlement three millennia old to a Roman road, a Venetian villa and a baroque church — a place that wears its history lightly.</p>
+      </div>
+    </div>
+
+    <ol class="heritage-timeline reveal" aria-label="Village history" style="transform: translateY(-250px); margin-top: 28px">
+      <li class="ht-item">
+        <span class="ht-year" style="color: rgb(255, 255, 255); font-weight: 300">3000 BC</span>
+        <span class="ht-label">Liburnian settlement — dry-stone walls &amp; tumuli</span>
+      </li>
+      <li class="ht-item">
+        <span class="ht-year" style="color: rgb(255, 255, 255)">1st c.</span>
+        <span class="ht-label">Roman road links coast to hinterland</span>
+      </li>
+      <li class="ht-item ht-item--mark">
+        <span class="ht-year">1059</span>
+        <span class="ht-label">First written mention of the village</span>
+      </li>
+      <li class="ht-item">
+        <span class="ht-year" style="color: rgb(255, 255, 255)">1737</span>
+        <span class="ht-label">Baroque church of SS Philip &amp; James built</span>
+      </li>
+      <li class="ht-item ht-item--now">
+        <span class="ht-year">Today</span>
+        <span class="ht-label">A living harbour town on the Dalmatian riva</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ───────────────── EVENTS ───────────────── -->
+<section class="sect events" id="events" data-screen-label="06 Events">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <span class="eyebrow" style="height: 40px">Events &amp; calendar</span>
+        <h2 style="font-size: 75px">Celebrating<br /><em class="script-accent" style="color: rgb(0, 0, 0); font-size: 85px; font-family: Caveat">Life &amp; Tradition</em>.</h2>
+      </div>
+      <p class="lede text-pretty" style="font-size: 22px">
+        From the Festival of Flowers in June to fishermen's nights every Friday
+        in August — pick a month and we'll line up your evenings.
+      </p>
+    </div>
+
+    <div class="events-grid">
+      <aside class="events-side reveal" data-color="pink">
+        <div class="img" style="background-image:url('assets/festival-flowers.jpg')"></div>
+        <span class="tag">HIGHLIGHT</span>
+        <div class="meta">
+          <div class="meta-text">
+            <h3>Festival of Flowers</h3>
+            <p>Since 2001 — Sv. Filip i Jakov turns into a sea of colour for one weekend. 80,000 visitors, 12 tonnes of petals, one unforgettable parade.</p>
+          </div>
+          <a href="#" class="arrow" aria-label="See the details"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" stroke="#fff" stroke-width="2" fill="none"/></svg></a>
+        </div>
+      </aside>
+
+      <div class="event-list reveal" id="event-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <div class="events-foot reveal">
+      <a href="#" class="btn primary">See all events <span class="arr"></span></a>
+    </div>
+  </div>
+</section>
+</div>
+<!-- /pin-wrap -->
+
+<!-- ───────────────── GASTRONOMY ───────────────── -->
+<section class="sect gastro" id="taste" data-screen-label="07 Taste" style="background-color: rgba(15, 15, 15, 0.776)">
+  <video class="gastro-bg" autoplay muted loop playsinline preload="auto">
+    <source src="assets/gastro-bg.mp4" type="video/mp4" />
+  </video>
+  <div class="wrap" style="font-size: 17px">
+    <div class="gastro-inner">
+      <div class="gastro-text reveal">
+        <span class="eyebrow" style="height: 4px">Flavours of Dalmatia</span>
+        <h2>Dishes that<br />remember <em style="font-size: 85px">everyone</em><br />who taught them.</h2>
+        <p style="color: rgb(255, 255, 255); height: 130px">Coastal Dalmatian cooking, grown on a thousand small farms behind the town and pulled from the channel each morning. Olive oil, lamb on a spit, fish baked under the peka bell, and the bread our grandmothers still bake on Sundays.</p>
+        <a href="#" class="btn" style="height: 56px; gap: 40px; padding: 16px 26px">Gastronomy &amp; local specialities</a>
+      </div>
+
+      <div class="menu reveal">
+        <div class="menu-head" style="height: 50px">
+          <span class="eyebrow">LOCAL SPECIALITIES MUST TRY</span>
+        </div>
+        <div class="menu-row" style="height: 131px; padding: 20px 0px 40px 34px">
+          <span class="left">
+            <span class="dish" style="height: 34px; font-weight: 400">Brudet od ribe</span>
+            <span class="desc">Fisherman's stew with white fish, polenta and a glass of pošip from neighbouring Pašman.</span>
+          </span>
+        </div>
+        <div class="menu-row" style="padding: 20px 0px 40px 34px">
+          <span class="left">
+            <span class="dish" style="font-weight: 400">Janjetina ispod peke</span>
+            <span class="desc">Slow-cooked lamb under the bell, served with potatoes that soak up everything good.</span>
+          </span>
+        </div>
+        <div class="menu-row" style="padding: 15px 0px 40px 34px">
+          <span class="left">
+            <span class="dish" style="font-weight: 400; color: rgb(255, 255, 255)">Crni rižot</span>
+            <span class="desc">Black risotto with cuttlefish, finished with our own oil and a squeeze of Pašman lemon.</span>
+          </span>
+        </div>
+        <div class="menu-row" style="padding: 20px 0px 40px 34px">
+          <span class="left">
+            <span class="dish" style="font-weight: 400">Pašticada</span>
+            <span class="desc">Marinated beef in prošek and dried plums, the Sunday dish of the whole coast.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── SURROUNDING PLACES ───────────────── -->
+<section class="sect places" id="around" data-screen-label="08 Around">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <span class="eyebrow" style="height: 40px">Around the bay</span>
+        <h2>Five villages,<br />one <em class="script-accent" style="color: rgb(0, 0, 0); font-size: 85px">quiet coastline</em>.</h2>
+      </div>
+      <p class="lede text-pretty" style="font-size: 22px">
+        From Babac islet (3 minutes by boat) to the saltpans of Sv. Petar
+        (20 minutes by bike), the surrounding places are an unhurried itinerary
+        in themselves.
+      </p>
+    </div>
+
+    <div class="places-grid reveal stagger">
+      <a class="place lg" style="background-image:url('assets/babac-islet.jpg')" href="#">
+        <div class="info">
+          <span class="pl-dist">3 MIN BY BOAT · UNINHABITED</span>
+          <span class="pl-name">Babac izlet</span>
+          <span class="pl-desc">A pine-covered dot in the channel — swim, picnic, row back by dusk.</span>
+        </div>
+      </a>
+      <a class="place wide" style="background-image:url('assets/turanj.jpg')" href="#">
+        <div class="info">
+          <span class="pl-dist">7 MIN BY BIKE · 1,200 INHABITANTS</span>
+          <span class="pl-name">Turanj</span>
+          <span class="pl-desc">A fishing hamlet of stone houses where the day still ends on the water.</span>
+        </div>
+      </a>
+      <a class="place md" style="background-image:url('assets/nautika-marina.jpg')" href="#">
+        <div class="info">
+          <span class="pl-dist">14 MIN BY ROAD</span>
+          <span class="pl-name">Nautika marina</span>
+          <span class="pl-desc">Berths, charter desks and the café where every sail begins.</span>
+        </div>
+      </a>
+      <a class="place md" style="background-image:url('assets/sv-petar.jpg')" href="#">
+        <div class="info">
+          <span class="pl-dist">22 MIN BY BIKE</span>
+          <span class="pl-name">Sv. Petar</span>
+          <span class="pl-desc">Saltpans, lavender fields and the quietest sunsets on the riviera.</span>
+        </div>
+      </a>
+      <a class="place md" style="background-image:url('assets/pasman-island.jpg')" href="#">
+        <div class="info">
+          <span class="pl-dist">FERRY · 35 MIN</span>
+          <span class="pl-name">Pašman island</span>
+          <span class="pl-desc">Olive groves and hidden coves, a short ferry from the riva.</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── MAP ───────────────── -->
+<section class="map-section" data-screen-label="09 Map">
+  <div class="wrap">
+    <div class="sect-head reveal" style="margin-bottom: 30px">
+      <div>
+        <span class="eyebrow">Lay of the land</span>
+        <h2>The bay,  full of <em class="script-accent" style="color: rgb(0, 0, 0); font-size: 85px">treasures</em>.</h2>
+      </div>
+    </div>
+
+    <div class="map-card reveal" id="map-card">
+      <div class="map-canvas">
+        <svg class="map-svg" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <!-- sea base (flat) -->
+          <rect width="1000" height="620" fill="#eceae3" style="fill: rgb(249, 248, 245)"/>
+
+          <!-- MAINLAND (Dalmatian coast, top) -->
+          <path fill="#bcb7ac" stroke="#d2cdc2" stroke-width="1.5"
+            d="M0 0 H1000 V150
+               C 930 168 905 150 858 172
+               C 805 196 770 168 705 188
+               C 648 206 612 182 545 200
+               C 470 220 432 196 360 212
+               C 300 226 250 206 188 222
+               C 120 240 70 222 0 244 Z" style="fill: rgb(234, 231, 225); stroke: rgb(232, 229, 223)"/>
+
+          <!-- PAŠMAN ISLAND (bottom) -->
+          <path fill="#bcb7ac" stroke="#d2cdc2" stroke-width="1.5"
+            d="M0 620 H1000 V470
+               C 920 452 880 486 812 470
+               C 740 452 700 488 624 472
+               C 548 456 500 490 430 474
+               C 356 458 300 492 224 476
+               C 160 462 110 488 0 478 Z" style="fill: rgb(232, 229, 223); stroke: rgb(232, 229, 223)"/>
+
+          <!-- islets -->
+          <path fill="#bcb7ac" stroke="#d2cdc2" stroke-width="1.2"
+            d="M470 360 q 40 -22 78 -4 q 14 22 -18 34 q -50 14 -68 -6 q -6 -16 8 -24 Z" style="fill: rgb(222, 217, 208)"/>
+          <path fill="#bcb7ac" stroke="#d2cdc2" stroke-width="1.2"
+            d="M648 372 q 24 -12 44 -2 q 8 12 -10 19 q -28 9 -40 -3 q -4 -9 6 -14 Z" style="fill: rgb(222, 217, 208)"/>
+
+          <!-- ferry / boat routes -->
+          <g fill="none" stroke="#86817a" stroke-width="1.6" stroke-dasharray="5 7" stroke-linecap="round" opacity="0.8">
+            <path d="M300 215 Q 360 320 500 372"/>      <!-- town → Babac -->
+            <path d="M300 215 Q 520 360 670 380"/>      <!-- town → islet 2 -->
+            <path d="M300 215 Q 520 420 760 470"/>      <!-- town → Pašman -->
+          </g>
+
+          <!-- region labels -->
+          <text x="60" y="90" font-family="Lato" font-size="13" letter-spacing="0.3em" fill="#6f6a61" font-weight="700">MAINLAND · DALMATIA</text>
+          <text x="60" y="560" font-family="Lato" font-size="13" letter-spacing="0.3em" fill="#6f6a61" font-weight="700">PAŠMAN ISLAND</text>
+        </svg>
+
+        <!-- interactive markers -->
+        <button class="map-pin main" data-key="town" style="left:30%; top:35%">
+          <span class="pin-dot" style="border-color: rgb(255, 255, 255)"></span>
+          <span class="pin-name">Sv. Filip i Jakov</span>
+        </button>
+        <button class="map-pin" data-key="zadar" style="left:11%; top:26%">
+          <span class="pin-dot" style="border-color: rgb(112, 107, 95)"></span>
+          <span class="pin-name" style="color: rgb(0, 0, 0)">Zadar</span>
+        </button>
+        <button class="map-pin" data-key="biograd" style="left:80%; top:28%">
+          <span class="pin-dot" style="border-color: rgb(112, 107, 95)"></span>
+          <span class="pin-name" style="color: rgb(0, 0, 0)">Biograd</span>
+        </button>
+        <button class="map-pin" data-key="turanj" style="left:43%; top:30%">
+          <span class="pin-dot" style="border-color: rgb(112, 107, 95)"></span>
+          <span class="pin-name">Turanj</span>
+        </button>
+        <button class="map-pin" data-key="petar" style="left:20%; top:38%">
+          <span class="pin-dot" style="border-color: rgb(112, 107, 95)"></span>
+          <span class="pin-name" style="color: rgb(0, 0, 0)">Sv. Petar</span>
+        </button>
+        <button class="map-pin" data-key="babac" style="left:51%; top:60%">
+          <span class="pin-dot" style="border-color: rgb(112, 107, 95)"></span>
+          <span class="pin-name" style="color: rgb(0, 0, 0)">Babac</span>
+        </button>
+        <button class="map-pin" data-key="pasman" style="left:74%; top:78%">
+          <span class="pin-dot" style="border-color: rgb(112, 107, 95)"></span>
+          <span class="pin-name" style="color: rgb(0, 0, 0)">Pašman</span>
+        </button>
+      </div>
+
+      <!-- info panel -->
+      <aside class="map-info" id="map-info" style="background-color: rgb(255, 255, 255)">
+        <div class="map-info-head">
+          <span class="eyebrow no-line">Selected place</span>
+          <span class="map-info-dist" id="mi-dist">CENTRE</span>
+        </div>
+        <h3 id="mi-name">Sv. Filip i Jakov</h3>
+        <p id="mi-desc">The tourist heart of the municipality — a kilometre-long riva, a baroque parish church, and the marina you'll keep coming back to.</p>
+        <div class="map-info-photo">
+          <img id="mi-photo" src="assets/std/hero.jpg" alt="" />
+        </div>
+        <div class="map-info-stats">
+          <div><div class="v" id="mi-stat1">3,000+</div><div class="l" id="mi-lab1">Years lived in</div></div>
+          <div><div class="v" id="mi-stat2">11 km</div><div class="l" id="mi-lab2">Coastline</div></div>
+        </div>
+        <div class="map-legend">
+          <span><i class="lg-dot main"></i> You are here</span>
+          <span><i class="lg-route"></i> Boat route</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── STAY ───────────────── -->
+<section class="sect stay" id="stay" data-screen-label="10 Stay" style="height: 700px">
+  <image-slot id="stay-bg" class="stay-bg" shape="rect" fit="cover"
+    placeholder="Drop a luxury hotel room photo" src="assets/stay-room.jpg"></image-slot>
+  <div class="wrap">
+    <div class="stay-inner">
+      <div class="stay-text reveal">
+        <span class="eyebrow">Where to sleep</span>
+        <h2>A bed for<br />every kind of trip.</h2>
+        <p>Four-star hotels on the riva, family-run apartments behind the church, and three campsites under the pines. Whatever your rhythm, there's a pillow here with your name on it.</p>
+        <a href="#plan" class="btn stay-search-btn">Search stays <span class="arr"></span></a>
+      </div>
+
+      <aside class="stay-menu reveal">
+        <div class="stay-menu-head">
+          <span class="eyebrow">Where to stay</span>
+        </div>
+        <a href="#plan" class="stay-row" style="padding: 15px 0px 40px 44px">
+          <span class="left">
+            <span class="stay-name">Hotels <span class="stay-count">8</span></span>
+            <span class="stay-desc">Four-star rooms and sea-view balconies right on the riva.</span>
+          </span>
+          <span class="more" aria-hidden="true">→</span>
+        </a>
+        <a href="#plan" class="stay-row" style="padding: 15px 0px 40px 44px">
+          <span class="left">
+            <span class="stay-name">Apartments <span class="stay-count">96</span></span>
+            <span class="stay-desc">Family-run places tucked behind the church, kitchen and all.</span>
+          </span>
+          <span class="more" aria-hidden="true">→</span>
+        </a>
+        <a href="#plan" class="stay-row" style="padding: 15px 0px 40px 44px">
+          <span class="left">
+            <span class="stay-name">Campsites <span class="stay-count">5</span></span>
+            <span class="stay-desc">Pitch a tent or park the van under the pines, steps from the sea.</span>
+          </span>
+          <span class="more" aria-hidden="true">→</span>
+        </a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── GALLERY · send a virtual postcard ───────────────── -->
+<section class="gallery" id="gallery" data-screen-label="11 Postcards">
+  <div class="gallery-sticky">
+    <div class="gallery-track" id="gallery-track">
+
+      <div class="g-intro" data-speed="0">
+        <span class="eyebrow">Postcards</span>
+        <h2 style="font-size: 75px; font-weight: 300">Send a virtual<br /><em class="script-accent" style="color: rgb(0, 0, 0); font-size: 85px">postcard</em>.</h2>
+        <p class="lede text-pretty" style="font-size: 22px; margin-top: 18px">
+          Pick a frame from the bay, add a note, and share a little of
+          Sv. Filip i Jakov with someone who isn't here yet.
+        </p>
+      </div>
+
+      <div class="g-strip">
+      <figure class="g-item" data-speed="0.05" style="--ch: 74vh">
+        <span class="g-media has-video is-playing" style="background-image:url('assets/hero.jpg')">
+          <video class="g-video" autoplay muted loop playsinline preload="auto" poster="assets/hero.jpg">
+            <source src="assets/riva-golden-new.mp4" type="video/mp4" />
+          </video>
+        </span>
+        <button class="g-share" type="button" aria-label="Send this postcard" data-title="The riva at golden hour" data-img="assets/hero.jpg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </figure>
+
+      <figure class="g-item" data-speed="0.04" style="--ch: 74vh">
+        <span class="g-media has-video is-playing" style="background-image:url('assets/marina.jpg')">
+          <video class="g-video" autoplay muted loop playsinline preload="auto" poster="assets/marina.jpg">
+            <source src="assets/nautika-marina.mp4" type="video/mp4" />
+          </video>
+        </span>
+        <button class="g-share" type="button" aria-label="Send this postcard" data-title="Nautika marina" data-img="assets/marina.jpg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </figure>
+
+      <figure class="g-item" data-speed="0.04" style="--ch: 74vh">
+        <span class="g-media has-video is-playing" style="background-image:url('assets/pasman-island.jpg')">
+          <video class="g-video" autoplay muted loop playsinline preload="auto" poster="assets/pasman-island.jpg">
+            <source src="assets/postcard-pasman.mp4" type="video/mp4" />
+          </video>
+        </span>
+        <button class="g-share" type="button" aria-label="Send this postcard" data-title="Pašman channel" data-img="assets/pasman-island.jpg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </figure>
+
+      <figure class="g-item" data-speed="0.09" style="--ch: 74vh">
+        <span class="g-media has-video is-playing" style="background-image:url('assets/beaches.jpg')">
+          <video class="g-video" autoplay muted loop playsinline preload="auto" poster="assets/beaches.jpg">
+            <source src="assets/postcard-beaches.mp4" type="video/mp4" />
+          </video>
+        </span>
+        <button class="g-share" type="button" aria-label="Send this postcard" data-title="Blue-flag bays" data-img="assets/beaches.jpg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </figure>
+
+      <figure class="g-item" data-speed="0.06" style="--ch: 74vh">
+        <span class="g-media has-video is-playing" style="background-image:url('assets/town.jpg')">
+          <video class="g-video" autoplay muted loop playsinline preload="auto" poster="assets/town.jpg">
+            <source src="assets/postcard-town.mp4" type="video/mp4" />
+          </video>
+        </span>
+        <button class="g-share" type="button" aria-label="Send this postcard" data-title="Old town stone" data-img="assets/town.jpg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </figure>
+
+      <figure class="g-item" data-speed="0.085" style="--ch: 74vh">
+        <span class="g-media has-video is-playing" style="background-image:url('assets/family.jpg')">
+          <video class="g-video" autoplay muted loop playsinline preload="auto" poster="assets/family.jpg">
+            <source src="assets/postcard-kids.mp4" type="video/mp4" />
+          </video>
+        </span>
+        <button class="g-share" type="button" aria-label="Send this postcard" data-title="Summers by the sea" data-img="assets/family.jpg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </figure>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── FOOTER / CTA ───────────────── -->
+<footer class="foot" id="plan" data-screen-label="11 Plan / footer">
+  <div class="wrap">
+    <div class="foot-cta">
+      <h2 class="text-pretty">A postcard arrives<br />in your inbox<br />each <em>season</em>.</h2>
+      <form class="form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Welcome aboard ✓';">
+        <input type="email" placeholder="your@email.com" required />
+        <div class="row">
+          <small style="opacity:.55; font-size:12px">Four sends a year. Off-season tips. Unsubscribe in one click.</small>
+          <button class="submit">Subscribe →</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="foot-grid">
+      <div class="col brand">
+        <img src="assets/logo-green.png" alt="Sveti Filip i Jakov" style="height: 80px;" />
+        <p>The official visitor site of Sveti Filip i Jakov — a coastal town and municipality in the Zadar County of Dalmatia, Croatia.</p>
+      </div>
+      <div class="col">
+        <h4>Discover</h4>
+        <a href="#">Things to do</a>
+        <a href="#">Heritage</a>
+        <a href="#">Beaches</a>
+        <a href="#">Boats &amp; sailing</a>
+      </div>
+      <div class="col">
+        <h4>Stay &amp; eat</h4>
+        <a href="#">Hotels</a>
+        <a href="#">Apartments</a>
+        <a href="#">Campsites</a>
+        <a href="#">Restaurants</a>
+      </div>
+      <div class="col">
+        <h4>Plan</h4>
+        <a href="#">Getting here</a>
+        <a href="#">Calendar</a>
+        <a href="#">Maps</a>
+        <a href="#">Info point</a>
+      </div>
+      <div class="col">
+        <h4>Contact</h4>
+        <a href="#">+385 23 389 071</a>
+        <a href="#">info@svfilipjakov.hr</a>
+        <a href="#">Obala kralja Tomislava 16</a>
+        <a href="#">23207 Sv. Filip i Jakov</a>
+      </div>
+    </div>
+
+    <div class="foot-bot">
+      <span>© 2026 Tourist Board of Sveti Filip i Jakov · All rights reserved</span>
+      <span>Designed in Dalmatia · Hand-made for visitors</span>
+    </div>
+  </div>
+</footer>
+
+
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<div id="tweaks-root"></div>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+<script src="assets/image-slot.js"></script>
+<script src="app.js"></script>
+
+<template id="__bundler_thumbnail" data-bg-color="#f9f8f5">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f9f8f5"/>
+    <rect x="0" y="470" width="1200" height="330" fill="#1f7a8c"/>
+    <path d="M0 470 Q 300 430 600 470 T 1200 470 V800 H0 Z" fill="#2a93a8"/>
+    <circle cx="980" cy="180" r="70" fill="none" stroke="#e0a82e" stroke-width="10"/>
+    <g stroke="#e0a82e" stroke-width="10" stroke-linecap="round">
+      <line x1="980" y1="70" x2="980" y2="40"/>
+      <line x1="980" y1="320" x2="980" y2="290"/>
+      <line x1="870" y1="180" x2="840" y2="180"/>
+      <line x1="1120" y1="180" x2="1090" y2="180"/>
+      <line x1="903" y1="103" x2="882" y2="82"/>
+      <line x1="1078" y1="278" x2="1057" y2="257"/>
+      <line x1="1057" y1="103" x2="1078" y2="82"/>
+      <line x1="882" y1="278" x2="903" y2="257"/>
+    </g>
+    <path d="M180 470 L320 470 L250 250 Z" fill="#c9c4b8"/>
+    <rect x="360" y="350" width="120" height="120" fill="#bcb7ac"/>
+  </svg>
+</template>
+</body>
+</html>

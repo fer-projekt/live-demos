@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fidelia — Poliklinika za longevity, specijalističku i estetsku medicinu</title>
+
+<!-- Fonts: Cormorant Garamond ≈ Fidelia wordmark serif (primarna) · Jost (sekundarna, sans/UI) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/tailwind-config.js"></script>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body class="bg-[#FCF8F5] antialiased">
+
+<!-- ================= UTILITY BAR ================= -->
+<div class="hidden sm:block sticky top-0 z-50 bg-ink text-cream/90 text-[12px] tracking-wide transition-transform duration-500 ease-out"
+     x-data="{ done: false }" @hero-progress.window="done = $event.detail >= 0.66"
+     :class="done ? '-translate-y-full' : 'translate-y-0'"
+     :style="done ? 'margin-bottom:-36px' : ''">
+  <div class="max-w-[1280px] mx-auto px-6 h-9 flex items-center justify-between">
+    <p class="hidden sm:block font-light">Personalizirani pristup zdravlju · Zagreb</p>
+    <div class="flex items-center gap-5 font-light">
+      <a href="tel:+38510000000" class="hover:text-white transition">+385 1 000 00 00</a>
+      <a href="mailto:info@fidelia.hr" class="hidden sm:inline hover:text-white transition">info@fidelia.hr</a>
+      <span class="hidden sm:inline text-cream/40">|</span>
+      <a href="#" class="hover:text-white transition">HR</a>
+      <a href="#" class="text-cream/50 hover:text-white transition">EN</a>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HEADER + MEGA MENU ================= -->
+<header
+  x-data="{ open: null, hover: false, scrolled: false, hidden: false, lastY: 0, get lite() { return this.hover || this.scrolled || this.open !== null } }"
+  x-init="lastY = window.scrollY"
+  @keydown.escape.window="open=null"
+  @hero-progress.window="scrolled = $event.detail >= 0.66"
+  @scroll.window="const y = window.scrollY; hidden = y > lastY && y > window.innerHeight * 2 && open === null; lastY = y"
+  @mouseenter="hover=true"
+  @mouseleave="hover=false"
+  class="sticky top-0 sm:top-9 z-50 transition-all duration-500 ease-out"
+  :style="(scrolled ? 'top:0;' : '') + (hidden ? 'transform:translateY(-130%)' : '')"
+  :class="lite ? 'bg-white' : 'bg-[#FCF8F5]'">
+
+  <div class="px-6 lg:px-12">
+    <div class="h-[90px] flex items-center justify-between gap-8">
+
+      <!-- Logo -->
+      <a href="#" class="shrink-0 block relative mt-3">
+        <img src="images/fidelia-logo-white.png" alt="Fidelia Poliklinika &amp; Skin Clinic" class="h-[62px] w-auto transition-opacity duration-300 opacity-0" />
+        <img src="images/fidelia-logo-taupe-dark.png" alt="" class="h-[62px] w-auto absolute inset-0 transition-opacity duration-300 opacity-100" />
+      </a>
+
+      <!-- Primary nav -->
+      <nav class="hidden lg:flex items-stretch h-[90px]" @mouseleave="open=null">
+        <template x-for="item in [
+          {id:'longevity', label:'LONGEVITY'},
+          {id:'special',   label:'SPECIJALISTIČKE DJELATNOSTI'},
+          {id:'regen',     label:'REGENERATIVNA MEDICINA'},
+          {id:'skin',      label:'SKIN CLINIC'},
+          {id:'programi',  label:'FIDELIA PROGRAMI'}
+        ]">
+          <button
+            @mouseenter="open=item.id"
+            @focus="open=item.id"
+            :class="open===item.id ? 'text-ink' : 'text-mute hover:text-ink'"
+            class="relative px-4 text-[12.5px] tracking-[.08em] font-medium text-left transition-colors flex items-center">
+            <span x-text="item.label"></span>
+            <span class="absolute left-4 right-4 -bottom-px h-[2px] transition-transform origin-left"
+                  :class="(open===item.id ? 'scale-x-100 ' : 'scale-x-0 ') + 'bg-taupe'"></span>
+          </button>
+        </template>
+        <a href="#o-nama" class="px-4 flex items-center whitespace-nowrap text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">O NAMA</a>
+        <a href="#blog" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">BLOG</a>
+        <a href="#kontakt" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">KONTAKT</a>
+      </nav>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="#kontakt" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-ink text-white text-[12px] tracking-[.12em] px-5 py-3 hover:bg-[#E0CEBD] hover:text-ink transition-colors">
+          NARUČI SE
+        </a>
+        <!-- Mobile toggle -->
+        <button class="lg:hidden p-2 transition-colors text-ink" x-data="{}" @click="$dispatch('toggle-mobile')" aria-label="Izbornik">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MEGA PANELS ===== -->
+  <div class="hidden lg:block" @mouseleave="open=null">
+
+    <!-- LONGEVITY -->
+    <div x-show="open==='longevity'" x-transition.opacity.duration.150ms
+         @mouseenter="open='longevity'"
+         class="absolute left-0 right-0 bg-white border-b border-sand shadow-[0_24px_40px_-24px_rgba(57,50,45,.35)]" style="display:none">
+      <div class="max-w-[1280px] mx-auto px-6 py-10 grid grid-cols-12 gap-10">
+        <div class="col-span-3 border-r border-sand/70 pr-8">
+          <p class="text-[11px] tracking-[.22em] text-taupe mb-2">LONGEVITY</p>
+          <p class="font-sans font-semibold text-[24px] leading-tight text-ink">Dugovječnost,<br>znanstveno</p>
+          <p class="mt-3 text-sm text-mute font-light leading-relaxed">Znanstveno utemeljen pristup dugovječnosti — dijagnostika, prevencija i personalizirani protokoli.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-6 rounded-full bg-ink text-cream text-[12px] tracking-[.1em] px-5 py-3 hover:bg-taupe transition-colors">SAZNAJTE VIŠE →</a>
+        </div>
+        <div class="col-span-9 grid grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-1 self-start">
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Dijagnostika</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Sveobuhvatna procjena zdravlja i biomarkera.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Genetsko testiranje</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Uvid u genetske predispozicije i rizike.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Hormoni</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Analiza i optimizacija hormonske ravnoteže.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Preventivni pregledi</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Rano otkrivanje i prevencija bolesti.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Nutricionizam</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Personalizirani plan prehrane i suplementacije.</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPECIJALISTIČKE -->
+    <div x-show="open==='special'" x-transition.opacity.duration.150ms
+         @mouseenter="open='special'"
+         class="absolute left-0 right-0 bg-white border-b border-sand shadow-[0_24px_40px_-24px_rgba(57,50,45,.35)]" style="display:none">
+      <div class="max-w-[1280px] mx-auto px-6 py-10 grid grid-cols-12 gap-10">
+        <div class="col-span-3 border-r border-sand/70 pr-8">
+          <p class="text-[11px] tracking-[.22em] text-taupe mb-2">SPECIJALISTIČKE</p>
+          <p class="font-sans font-semibold text-[24px] leading-tight text-ink">Cjelovita<br>specijalistička skrb</p>
+          <p class="mt-3 text-sm text-mute font-light leading-relaxed">Vrhunski specijalisti i suvremena dijagnostika za cjelovitu skrb o vašem zdravlju.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-6 rounded-full bg-ink text-cream text-[12px] tracking-[.1em] px-5 py-3 hover:bg-taupe transition-colors">SVE DJELATNOSTI →</a>
+        </div>
+        <div class="col-span-9 grid grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-1 self-start">
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Dermatovenerologija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Zdravlje kože, kose i noktiju.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Gastroenterologija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Probavni sustav i endoskopija.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Kardiologija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Srce i krvožilni sustav.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Pulmologija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Dišni sustav i pluća.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Nefrologija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Bubrezi i mokraćni sustav.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Ambulanta za koagulaciju</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Zgrušavanje krvi i antikoagulacija.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Ortopedija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Kosti, zglobovi i sustav kretanja.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Vaskularna kirurgija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Vene, arterije i krvne žile.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Plastična kirurgija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Rekonstruktivni i estetski zahvati.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Ultrazvučna dijagnostika</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Neinvazivna slikovna dijagnostika.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Endoskopska dijagnostika</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Pregledi probavnog i dišnog sustava.</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGENERATIVNA -->
+    <div x-show="open==='regen'" x-transition.opacity.duration.150ms
+         @mouseenter="open='regen'"
+         class="absolute left-0 right-0 bg-white border-b border-sand shadow-[0_24px_40px_-24px_rgba(57,50,45,.35)]" style="display:none">
+      <div class="max-w-[1280px] mx-auto px-6 py-10 grid grid-cols-12 gap-10">
+        <div class="col-span-3 border-r border-sand/70 pr-8">
+          <p class="text-[11px] tracking-[.22em] text-taupe mb-2">REGENERATIVNA MEDICINA</p>
+          <p class="font-sans font-semibold text-[24px] leading-tight text-ink">Obnova iz<br>vlastitog tijela</p>
+          <p class="mt-3 text-sm text-mute font-light leading-relaxed">Aktiviranje prirodnih regenerativnih mehanizama tijela za obnovu i vitalnost.</p>
+          <a href="#" class="inline-flex items-center gap-2 mt-6 rounded-full bg-ink text-cream text-[12px] tracking-[.1em] px-5 py-3 hover:bg-taupe transition-colors">SAZNAJTE VIŠE →</a>
+        </div>
+        <div class="col-span-9 grid grid-cols-2 gap-x-10 gap-y-1 self-start">
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Matične stanice</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Regeneracija tkiva vlastitim stanicama.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Autologna transfuzija Miracell® Stem Cell</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Napredna autologna stanična terapija.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Vitaminski boosteri</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Intravenska vitaminska i mineralna terapija.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Sinergija metoda</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Kombinacija regenerativnih protokola.</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKIN CLINIC (tabbed mega) -->
+    <div x-show="open==='skin'" x-transition.opacity.duration.150ms
+         @mouseenter="open='skin'"
+         class="absolute left-0 right-0 bg-white border-b border-sand shadow-[0_24px_40px_-24px_rgba(57,50,45,.35)]" style="display:none">
+      <div x-data="{ pi:0, skin:[
+             {label:'Estetska medicina', tag:'Injekcijski i uređajni tretmani', featured:'VECTRA H2 · 3D analiza lica', groups:[
+               {t:'Lice', items:['Lifting i učvršćivanje kože','Bore i fine linije','Gubitak volumena i kontura lica','Povećanje usana','Podočnjaci i umoran izgled','Spušteni kapci']},
+               {t:'Kožna stanja', items:['Ožiljci, proširene pore i nepravilnosti','Pigmentacije i neujednačen ten','Crvenilo i kapilare','Hidratacija i regeneracija kože']},
+               {t:'Tijelo', items:['Oblikovanje tijela','Strije i regeneracija kože','Vaginalna rejuvenacija','Prekomjerno znojenje','Kosa i vlasište']}
+             ]},
+             {label:'Kozmetologija', tag:'Njega i revitalizacija kože', featured:'Visbody · 3D analiza tijela', groups:[
+               {t:'Lice', items:['Digitalna analiza lica','Nečista koža','Akne i problematična koža','Osjetljiva koža','Hidratacija i revitalizacija','Anti-age i regeneracija','Područje oko očiju']},
+               {t:'Tretmani tijela', items:['Visbody 3D analiza tijela','Konturiranje tijela i smanjenje masnih naslaga','Celulit','Zatezanje kože i učvršćivanje tijela','Detoksikacija i limfna drenaža','Njega ruku']}
+             ]},
+             {label:'Laseri', tag:'Napredne laserske tehnologije', featured:null, groups:[
+               {t:'Koža i ten', items:['Pigmentacije','Crvenilo i rozaceja','Pore i tekstura kože','Bore i znakovi starenja']},
+               {t:'Nepravilnosti', items:['Akne i postakne','Ožiljci','Strije']},
+               {t:'Dlake i nokti', items:['Trajno uklanjanje dlačica','Gljivične infekcije noktiju']},
+               {t:'Zatezanje i oblikovanje', items:['Opuštena koža i konturiranje lica','Masne naslage i oblikovanje tijela']},
+               {t:'Ostalo', items:['Kapilare i vene','Uklanjanje tetovaža','Uklanjanje promjena na koži','Intimno pomlađivanje']}
+             ]}
+           ] }"
+           class="max-w-[1280px] mx-auto px-6 py-8 grid grid-cols-12 gap-10">
+
+        <!-- LEFT: pillar selector -->
+        <div class="col-span-3">
+          <p class="text-[11px] tracking-[.22em] text-taupe mb-4">SKIN CLINIC</p>
+          <div class="flex flex-col">
+            <template x-for="(p,i) in skin" :key="p.label">
+              <button @mouseenter="pi=i" @focus="pi=i" @click="pi=i"
+                :class="pi===i ? 'bg-cream' : 'hover:bg-cream/50'"
+                class="group text-left px-4 py-3.5 border-l-2 transition-colors flex items-center justify-between"
+                :style="pi===i ? 'border-color:#C0A392' : 'border-color:transparent'">
+                <span>
+                  <span class="block font-sans font-semibold text-[16px]" :class="pi===i ? 'text-ink' : 'text-mute'" x-text="p.label"></span>
+                  <span class="block text-[11px] text-mute/80 font-light mt-0.5" x-text="p.tag"></span>
+                </span>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"
+                     class="shrink-0 text-taupe transition-opacity" :class="pi===i ? 'opacity-100' : 'opacity-0'"><path d="M6 4l5 4-5 4"/></svg>
+              </button>
+            </template>
+          </div>
+        </div>
+
+        <!-- RIGHT: groups for active pillar -->
+        <div class="col-span-9">
+          <div class="flex items-center justify-between gap-6 pb-3 mb-4 border-b border-sand">
+            <p class="text-[12px] tracking-[.2em] text-taupe" x-text="skin[pi].label.toUpperCase()"></p>
+            <div class="flex items-center gap-5">
+              <template x-if="skin[pi].featured">
+                <a href="#" class="flex items-center gap-2 rounded-full bg-ink text-cream px-4 py-2.5 hover:bg-taupe transition-colors">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l1.8 1"/></svg>
+                  <span class="text-[12px] tracking-[.04em] whitespace-nowrap" x-text="skin[pi].featured"></span>
+                </a>
+              </template>
+            </div>
+          </div>
+          <div class="columns-2 xl:columns-3 gap-x-10" style="column-fill:balance">
+            <template x-for="grp in skin[pi].groups" :key="grp.t">
+              <div class="break-inside-avoid mb-6">
+                <p class="text-[10.5px] tracking-[.18em] text-taupe font-semibold uppercase pb-2 mb-1" x-text="grp.t"></p>
+                <template x-for="it in grp.items" :key="it">
+                  <a href="#" class="mega-link !text-[15px] !py-1.5" x-text="it"></a>
+                </template>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIDELIA PROGRAMI -->
+    <div x-show="open==='programi'" x-transition.opacity.duration.150ms
+         @mouseenter="open='programi'"
+         class="absolute left-0 right-0 bg-white border-b border-sand shadow-[0_24px_40px_-24px_rgba(57,50,45,.35)]" style="display:none">
+      <div class="max-w-[1280px] mx-auto px-6 py-10 grid grid-cols-12 gap-10">
+        <div class="col-span-3 border-r border-sand/70 pr-8">
+          <p class="text-[11px] tracking-[.22em] text-taupe mb-2">FIDELIA PROGRAMI</p>
+          <p class="font-sans font-semibold text-[24px] leading-tight text-ink">Personalizirani<br>pristup zdravlju</p>
+          <p class="mt-3 text-sm text-mute font-light leading-relaxed">Programi prilagođeni vašem životnom stilu i ciljevima.</p>
+          <a href="#kontakt" class="inline-flex items-center gap-2 mt-6 rounded-full bg-ink text-cream text-[12px] tracking-[.1em] px-5 py-3 hover:bg-taupe transition-colors">ZATRAŽI PROGRAM →</a>
+        </div>
+        <div class="col-span-9 grid grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-1 self-start">
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Menadžerski program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Za dinamičan tempo života.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Program za turiste</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Kompaktna skrb tijekom boravka.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Ženski program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Hormoni, prevencija i estetika.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Muški program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Vitalnost i kardiometabolička prevencija.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Longevity paket S</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Uvod u longevity medicinu.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Longevity paket L</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Prošireni longevity protokol.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Well-Aging paket</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Estetika i zdravo starenje.</span></a>
+          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-taupe group-hover:text-ink transition-colors">Fidelia Club Longevity →</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Ekskluzivno članstvo dugoročne skrbi.</span></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- Mega link base style — see css/styles.css -->
+
+<!-- ================= MOBILE MENU ================= -->
+<div x-data="{ m:false, sub:null }" @toggle-mobile.window="m=!m" x-cloak>
+  <div x-show="m" x-transition.opacity class="lg:hidden fixed inset-0 z-[60] bg-ink/40" @click="m=false" style="display:none"></div>
+  <aside x-show="m" x-transition:enter="transition duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+         x-transition:leave="transition duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+         class="lg:hidden fixed top-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-white shadow-xl overflow-y-auto" style="display:none">
+    <div class="h-20 px-6 flex items-center justify-between border-b border-sand">
+      <img src="images/fidelia-logo-taupe-dark.png" alt="Fidelia" class="h-10 w-auto" />
+      <button @click="m=false" class="p-2 text-ink"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <nav class="px-6 py-4 text-ink">
+      <template x-for="g in [
+        {t:'LONGEVITY', c:['Dijagnostika','Genetsko testiranje','Hormoni','Preventivni pregledi','Nutricionizam']},
+        {t:'SPECIJALISTIČKE DJELATNOSTI', c:['Dermatovenerologija','Gastroenterologija','Kardiologija','Pulmologija','Nefrologija','Ortopedija','Vaskularna kirurgija','Plastična kirurgija','Ultrazvučna dijagnostika','Endoskopska dijagnostika']},
+        {t:'REGENERATIVNA MEDICINA', c:['Matične stanice','Miracell® Stem Cell','Vitaminski boosteri','Sinergija metoda']},
+        {t:'SKIN CLINIC', p:[
+          {t:'Estetska medicina', g:[
+            {t:'Lice', items:['Lifting i učvršćivanje kože','Bore i fine linije','Gubitak volumena i kontura lica','Povećanje usana','Podočnjaci i umoran izgled','Spušteni kapci']},
+            {t:'Kožna stanja', items:['Ožiljci, proširene pore i nepravilnosti','Pigmentacije i neujednačen ten','Crvenilo i kapilare','Hidratacija i regeneracija kože']},
+            {t:'Tijelo', items:['Oblikovanje tijela','Strije i regeneracija kože','Vaginalna rejuvenacija','Prekomjerno znojenje','Kosa i vlasište']}
+          ]},
+          {t:'Kozmetologija', g:[
+            {t:'Lice', items:['Digitalna analiza lica','Nečista koža','Akne i problematična koža','Osjetljiva koža','Hidratacija i revitalizacija','Anti-age i regeneracija','Područje oko očiju']},
+            {t:'Tretmani tijela', items:['Visbody 3D analiza tijela','Konturiranje tijela i smanjenje masnih naslaga','Celulit','Zatezanje kože i učvršćivanje tijela','Detoksikacija i limfna drenaža','Njega ruku']}
+          ]},
+          {t:'Laseri', g:[
+            {t:'Koža i ten', items:['Pigmentacije','Crvenilo i rozaceja','Pore i tekstura kože','Bore i znakovi starenja']},
+            {t:'Nepravilnosti', items:['Akne i postakne','Ožiljci','Strije']},
+            {t:'Dlake i nokti', items:['Trajno uklanjanje dlačica','Gljivične infekcije noktiju']},
+            {t:'Zatezanje i oblikovanje', items:['Opuštena koža i konturiranje lica','Masne naslage i oblikovanje tijela']},
+            {t:'Ostalo', items:['Kapilare i vene','Uklanjanje tetovaža','Uklanjanje promjena na koži','Intimno pomlađivanje']}
+          ]}
+        ]},
+        {t:'FIDELIA PROGRAMI', c:['Menadžerski program','Program za turiste','Ženski program','Muški program','Longevity paket S / L','Well-Aging paket']}
+      ]" :key="g.t">
+        <div class="border-b border-sand/70">
+          <button @click="sub === g.t ? sub=null : sub=g.t" class="w-full flex items-center justify-between py-4 text-[13px] tracking-[.08em] font-medium">
+            <span x-text="g.t"></span>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" :class="sub===g.t && 'rotate-45'" class="transition-transform"><path d="M9 4v10M4 9h10"/></svg>
+          </button>
+          <div x-show="sub===g.t" x-collapse class="pb-2" style="display:none">
+            <template x-if="g.c">
+              <div><template x-for="c in g.c" :key="c"><a href="#" class="block py-2 text-[16px] text-mute" x-text="c"></a></template></div>
+            </template>
+            <template x-if="g.p">
+              <div>
+                <template x-for="pl in g.p" :key="pl.t">
+                  <div x-data="{o:false}" class="border-t border-sand/50">
+                    <button @click="o=!o" class="w-full flex items-center justify-between py-3 text-[13px] font-medium text-ink">
+                      <span x-text="pl.t"></span>
+                      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" class="transition-transform text-taupe" :class="o && 'rotate-45'"><path d="M7.5 2v11M2 7.5h11"/></svg>
+                    </button>
+                    <div x-show="o" x-collapse class="pb-2 pl-3" style="display:none">
+                      <template x-for="grp in pl.g" :key="grp.t">
+                        <div class="mb-3">
+                          <p class="text-[10px] tracking-[.16em] uppercase text-taupe font-semibold mb-1" x-text="grp.t"></p>
+                          <template x-for="it in grp.items" :key="it"><a href="#" class="block py-1.5 text-[13px] text-mute leading-snug" x-text="it"></a></template>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+      <a href="#kontakt" class="block py-4 text-[13px] tracking-[.08em] font-medium border-b border-sand/70">KONTAKT</a>
+      <a href="#o-nama" class="block py-4 text-[13px] tracking-[.08em] font-medium border-b border-sand/70">O NAMA</a>
+      <a href="#blog" class="block py-4 text-[13px] tracking-[.08em] font-medium">BLOG</a>
+      <a href="#kontakt" class="mt-4 block text-center bg-ink text-white py-4 text-[12px] tracking-[.12em]">NARUČI SE</a>
+    </nav>
+  </aside>
+</div>
+
+<!-- ================= HERO (full-screen video) ================= -->
+<section id="hero" class="relative overflow-hidden h-[calc(100svh-90px)] sm:h-[calc(100svh-126px)] min-h-[560px] bg-ink">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+    <source src="images/hero-video.mp4" type="video/mp4" />
+  </video>
+  <div class="absolute inset-0" style="background:linear-gradient(90deg, rgba(30,25,21,.62) 0%, rgba(30,25,21,.32) 55%, rgba(30,25,21,.15) 100%)"></div>
+
+  <div class="relative h-full flex flex-col justify-end px-6 lg:px-12 pb-16 lg:pb-20">
+    <p class="hero-in text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-white/80 mb-6" style="animation-delay:.15s">POLIKLINIKA · LONGEVITY &amp; ESTETIKA</p>
+    <h1 class="hero-in font-sans text-[52px] sm:text-[64px] lg:text-[84px] xl:text-[96px] leading-[1.04] tracking-[.005em]" style="font-weight: 400; color: #F0E0D1; animation-delay:.3s">
+      Personalizirani<br>pristup zdravlju<br>i dugovječnosti
+    </h1>
+    <p class="hero-in mt-7 text-[19px] leading-relaxed text-white/85 font-normal max-w-md" style="animation-delay:.5s">
+      Spoj vrhunske medicinske dijagnostike, regenerativne medicine i estetike — usmjeren na jednu osobu: vas.
+    </p>
+    <div class="hero-in mt-9 flex flex-wrap items-center gap-4" style="animation-delay:.65s">
+      <a href="#kontakt" class="group relative overflow-hidden inline-flex items-center gap-2 rounded-full bg-white text-ink text-[12.5px] tracking-[.12em] px-8 py-4 transition-colors duration-300"><span class="absolute inset-0 bg-[#E0CEBD] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span><span class="relative">NARUČI KONZULTACIJE</span></a>
+      <a href="#programi-sec" class="inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-white border-b border-white/60 pb-1 hover:text-sand hover:border-sand transition-colors">ISTRAŽI PROGRAME →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FIDELIA PRISTUP ================= -->
+<section id="pristup" class="bg-[#FCF8F5]">
+  <div class="grid lg:grid-cols-2">
+
+    <!-- LEFT: photo with headline inside -->
+    <div class="relative overflow-hidden min-h-[52vh] lg:min-h-full">
+      <img id="pristup-img" src="images/pristup-dermatoskopija.jpg" alt="Fidelia — dermatoskopski pregled" class="absolute -inset-y-24 inset-x-0 w-full h-[calc(100%+192px)] object-cover will-change-transform" />
+      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(30,25,21,.30) 0%, rgba(30,25,21,.10) 45%, rgba(30,25,21,.45) 100%)"></div>
+      <div class="relative h-full flex flex-col justify-end p-8 lg:p-14" style="transform:translateY(-15px)">
+        <p class="reveal text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-white/80 mb-5">FIDELIA PRISTUP</p>
+        <h2 class="reveal font-sans text-[40px] sm:text-[44px] xl:text-[54px] leading-[1.1] text-white tracking-[.005em] text-balance" style="font-weight:500; transition-delay:.15s">
+          Ne liječimo samo simptome, mi gradimo <span class="text-[#E0CEBD]">dugoročno</span> zdravlje.
+        </h2>
+      </div>
+    </div>
+
+    <!-- RIGHT: content -->
+    <div class="flex flex-col justify-center items-start text-left px-6 py-14 lg:pl-24 lg:pr-14 lg:py-16">
+      <span class="font-serif text-[26px] leading-none text-transparent mb-6 select-none" aria-hidden="true">✦</span>
+      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#AE947E] mb-6">FIDELIA PRISTUP</p>
+      <p class="reveal rise-in font-sans text-[34px] sm:text-[34px] lg:text-[34px] leading-[1.25] text-ink tracking-[.005em] max-w-lg text-balance" style="font-weight:500; transition-delay:.15s">
+        Svaki plan počinje temeljitom <span class="text-[#9E7C64]">dijagnostikom</span> i razgovorom.
+      </p>
+      <p class="reveal rise-in mt-5 text-[19px] lg:text-[18px] leading-relaxed font-normal lg:font-light text-ink/90 lg:text-ink/75 max-w-md" style="transition-delay:.3s">
+        Povezujemo longevity medicinu, specijalističke djelatnosti i estetiku u jedan cjeloviti, personalizirani protokol.
+      </p>
+      <a href="#o-nama" class="reveal rise-in group mt-7 inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-ink border-b border-ink/50 pb-1 hover:text-taupe hover:border-taupe transition-colors" style="transition-delay:.45s">O NAMA <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span></a>
+
+      <div class="mt-10 flex flex-col gap-4 w-full max-w-xl">
+        <div class="reveal bg-[#F5EDE4] rounded-2xl px-7 py-5 lg:px-8 lg:py-6 flex items-start gap-6" style="transition-delay:0.00s">
+          <p class="font-serif italic text-[24px] leading-none text-[#AE947E] w-10 shrink-0 pt-1">01</p>
+          <div>
+            <p class="font-sans font-semibold text-[20px] text-ink">Dijagnostika</p>
+            <p class="mt-2 text-[17px] text-ink font-light leading-relaxed" style="font-weight: 400">Precizna analiza — genetika, hormoni i preventivni pregledi kao temelj svake odluke.</p>
+          </div>
+        </div>
+        <div class="reveal bg-[#F5EDE4] rounded-2xl px-7 py-5 lg:px-8 lg:py-6 flex items-start gap-6" style="transition-delay:0.18s">
+          <p class="font-serif italic text-[24px] leading-none text-[#AE947E] w-10 shrink-0 pt-1">02</p>
+          <div>
+            <p class="font-sans font-semibold text-[20px] text-ink">Personalizacija</p>
+            <p class="mt-2 text-[17px] text-ink font-light leading-relaxed" style="font-weight: 400">Protokol prilagođen vašem tijelu, životnom stilu i ciljevima — ne standardiziran.</p>
+          </div>
+        </div>
+        <div class="reveal bg-[#F5EDE4] rounded-2xl px-7 py-5 lg:px-8 lg:py-6 flex items-start gap-6" style="transition-delay:0.36s">
+          <p class="font-serif italic text-[24px] leading-none text-[#AE947E] w-10 shrink-0 pt-1">03</p>
+          <div>
+            <p class="font-sans font-semibold text-[20px] text-ink">Kontinuitet</p>
+            <p class="mt-2 text-[17px] text-ink font-light leading-relaxed" style="font-weight: 400">Praćenje rezultata i dugoročna skrb kroz Fidelia Club Longevity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= FILOZOFIJA ================= -->
+<section id="filozofija" class="bg-white">
+  <div class="px-6 lg:px-12 pt-24 pb-10 lg:py-36">
+    <div class="flex justify-start lg:justify-end">
+      <h2 class="reveal font-sans text-[42px] sm:text-[54px] xl:text-[68px] leading-[1.08] text-ink tracking-[.005em] max-w-3xl text-left lg:text-right" style="font-weight:500">
+        Vrhunska medicina,<br><span class="text-[#9E7C64]">iskrena</span> skrb.
+      </h2>
+    </div>
+    <div class="mt-12 lg:mt-16 flex justify-start">
+      <div class="grid sm:grid-cols-2 gap-8 lg:gap-12 max-w-2xl">
+        <p class="reveal text-[18px] lg:text-[16px] leading-relaxed" style="transition-delay:.15s; color:#39322D; font-weight:400">
+          Radimo isključivo s provjerenim metodama i tehnologijama — svaki protokol temeljimo na dijagnostici, znanosti i mjerljivim rezultatima, bez kompromisa u sigurnosti.
+        </p>
+        <p class="reveal text-[18px] lg:text-[16px] leading-relaxed" style="transition-delay:.3s; color:#39322D; font-weight:400">
+          Bez skrivenih koraka i nerealnih obećanja — uvijek znate što radimo, zašto to radimo i što možete očekivati. Povjerenje gradimo transparentnošću.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ISTAKNUTE USLUGE (HOVER LIST) ================= -->
+<section id="usluge-showcase" class="bg-white pt-8 pb-20 lg:py-0 relative lg:h-[350vh]" x-data="uslugeShowcase()" x-init="onScroll()" @scroll.window="onScroll()" @resize.window="onScroll()">
+  <div class="lg:sticky lg:top-0 lg:h-screen grid lg:grid-cols-2 items-stretch">
+
+    <!-- left: heading + list -->
+    <div class="px-6 lg:px-12 flex flex-col justify-center">
+      <div class="mb-14">
+        <p class="text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-[#AE947E] mb-5">PODRUČJA DJELOVANJA</p>
+        <h2 class="font-sans font-semibold text-[46px] xl:text-[56px] leading-tight text-ink">Istaknute <span class="text-[#9E7C64]">usluge</span></h2>
+      </div>
+
+      <!-- list (desktop) -->
+      <div class="hidden lg:block border-t border-ink/10">
+        <template x-for="(s, i) in items" :key="i">
+          <div class="border-b border-ink/10 py-7 flex items-center gap-4 sm:gap-6 cursor-pointer" @click="active=i" @mouseenter="if (window.innerWidth < 1024) active=i">
+            <span class="font-serif italic text-[19px] w-7 shrink-0 transition-colors duration-300" :class="active===i ? 'text-[#9E7C64]' : 'text-mute/60'" x-text="String(i+1).padStart(2,'0')"></span>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-sans text-[24px] sm:text-[28px] xl:text-[34px] leading-tight transition-colors duration-300" style="font-weight:500" :class="active===i ? 'text-ink' : 'text-ink/30'" x-text="s.t"></h3>
+              <p class="mt-2 text-[17px] text-ink/75 font-light leading-relaxed" x-show="active===i" x-transition.opacity.duration.300ms x-text="s.d"></p>
+            </div>
+            <a href="#kontakt" class="shrink-0 h-12 w-12 rounded-full border flex items-center justify-center transition-all duration-300"
+               :class="active===i ? 'bg-[#C0A392] border-[#C0A392] text-white' : 'border-ink/15 text-ink/40'">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg>
+            </a>
+          </div>
+        </template>
+      </div>
+
+      <!-- list (mobile: all expanded, thumbnail + text, no arrows) -->
+      <div class="lg:hidden border-t border-ink/10">
+        <template x-for="(s, i) in items" :key="i">
+          <div class="reveal rise-in border-b border-ink/10 py-6 flex items-start gap-5" :style="'transition-delay:'+(i*0.12)+'s'"
+               x-init="$nextTick(() => window.revealIO ? window.revealIO.observe($el) : $el.classList.add('is-visible'))">
+            <div class="shrink-0 w-[96px] h-[128px] overflow-hidden rounded-lg">
+              <img :src="s.img" :alt="s.t" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-sans text-[24px] leading-tight text-ink" style="font-weight:500" x-text="s.t"></h3>
+              <p class="mt-2 text-[17px] text-ink font-normal leading-relaxed" x-text="s.d"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+
+    </div>
+
+    <!-- right: full-bleed image (desktop only) -->
+    <div class="relative hidden lg:block lg:h-full overflow-hidden">
+      <template x-for="(s, i) in items" :key="i">
+        <div class="absolute inset-0 transition-opacity duration-500 ease-out" :style="`opacity:${active===i ? 1 : 0}`">
+          <img :src="s.img" :alt="s.t" class="w-full h-full object-cover" />
+        </div>
+      </template>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= ISTAKNUTI PROGRAMI (CAROUSEL) ================= -->
+<div id="programi-wrap" class="relative">
+<section id="programi-sec" class="py-20 lg:py-28 bg-white sticky top-0 z-0"
+  x-data="{ scroll(dir){ window.scrollBy({ top: dir*360, behavior: 'smooth' }); } }">
+  <div class="px-6 lg:px-12">
+    <div class="flex items-end justify-between gap-6 mb-12">
+      <div>
+        <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-taupe mb-5">FIDELIA PROGRAMI</p>
+        <h2 class="leading-[0.95]">
+          <span class="reveal rise-in block font-sans font-medium text-[46px] sm:text-[64px] text-ink" style="transition-delay:.15s">Personalizirani</span>
+          <span class="reveal rise-in block font-sans font-medium text-[46px] sm:text-[64px] text-taupe" style="transition-delay:.3s">pristup zdravlju</span>
+        </h2>
+      </div>
+      <div class="hidden md:flex gap-3 shrink-0 pb-2">
+        <button @click="scroll(-1)" class="w-16 h-16 rounded-full bg-cream text-ink hover:bg-sand transition-colors flex items-center justify-center" aria-label="Prethodno"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9H4M8 5L4 9l4 4"/></svg></button>
+        <button @click="scroll(1)" class="w-16 h-16 rounded-full bg-ink text-white hover:bg-taupe transition-colors flex items-center justify-center" aria-label="Sljedeće"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9h8M10 5l4 4-4 4"/></svg></button>
+      </div>
+    </div>
+
+    <div x-ref="track" class="no-scrollbar flex gap-5 overflow-x-auto -mx-6 px-6 pb-2">
+      <template x-for="(p, i) in [
+        {t:'Menadžerski program', d:'Sveobuhvatan pregled i optimizacija zdravlja za dinamičan tempo života.', k:'PROGRAM', img:'images/program-menadzerski.jpg'},
+        {t:'Program za turiste', d:'Kompaktna dijagnostika i tretmani prilagođeni kratkom boravku.', k:'PROGRAM', img:'images/usluga-skin-clinic.jpg'},
+        {t:'Ženski program', d:'Hormonsko zdravlje, prevencija i estetika u jednom protokolu.', k:'PROGRAM', img:'images/program-zenski.jpg'},
+        {t:'Muški program', d:'Vitalnost, hormoni i kardiometabolička prevencija.', k:'PROGRAM', img:'images/usluga-specijalisticke.jpg'},
+        {t:'Longevity paket S', d:'Uvod u longevity medicinu — ključna dijagnostika i plan.', k:'PAKET', img:'images/usluga-longevity.jpg'},
+        {t:'Longevity paket L', d:'Prošireni protokol s regenerativnim i preventivnim modulom.', k:'PAKET', img:'images/usluga-regenerativna.jpg'},
+        {t:'Well-Aging paket', d:'Estetika i regeneracija za zdravo, mladoliko starenje.', k:'PAKET', img:'images/program-well-aging.jpg'}
+      ]">
+        <article class="card-pop snap-start shrink-0 w-[min(340px,calc(100vw-72px))] sm:w-[400px] group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col"
+                 :style="'transition-delay:'+(i*0.14)+'s'"
+                 x-init="$nextTick(() => window.revealIO ? window.revealIO.observe($el) : $el.classList.add('is-visible'))">
+          <div class="relative rounded-[20px] overflow-hidden h-[320px] sm:h-[380px]">
+            <img :src="p.img" :alt="p.t" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+            <span class="absolute top-4 left-4 rounded-full bg-white/95 text-ink text-[11px] tracking-[.18em] px-5 py-2.5" x-text="p.k"></span>
+            <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+            </span>
+          </div>
+          <div class="px-3 pt-5 pb-4 flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-sans font-semibold text-[20px] leading-snug text-ink uppercase tracking-[.02em] group-hover:text-taupe transition-colors" x-text="p.t"></h3>
+              <p class="mt-2 text-[17px] lg:text-[16px] text-ink font-light leading-relaxed" x-text="p.d"></p>
+            </div>
+          </div>
+        </article>
+      </template>
+    </div>
+
+    <p class="mt-10 max-w-md text-[16px] lg:text-[15px] tracking-[.08em] uppercase text-ink font-light leading-relaxed">Odaberite polazišnu točku — svaki program prilagođavamo nakon inicijalne konzultacije i dijagnostike.</p>
+  </div>
+</section>
+</div>
+
+
+
+<!-- ================= FIDELIA CLUB (ČLANSTVO) ================= -->
+<section id="club" class="relative z-10 px-6 lg:px-12 pt-6 pb-24 lg:py-32 bg-[#C0A392] rounded-t-[40px]" data-screen-label="Club">
+  <div class="grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-6 order-2 lg:order-1 flex flex-col items-center text-center">
+      <p class="reveal text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.28em] text-ink/70 mb-6" style="color: #FFFFFF; font-weight: 500">ČLANSTVO</p>
+      <h2 class="reveal font-sans font-medium text-[46px] lg:text-[56px] leading-[1.05] text-white" style="transition-delay:.1s">
+        Fidelia Club<br /><span class="text-[#FCF8F5]/80">Longevity</span>
+      </h2>
+      <p class="reveal mt-7 text-[17px] text-ink/80 font-light leading-relaxed max-w-lg mx-auto" style="transition-delay: .2s; color: #FFFFFF; font-weight: 500">
+        Ekskluzivan program dugoročne skrbi s kontinuiranim praćenjem, prioritetnim terminima i personaliziranim protokolima dugovječnosti.
+      </p>
+      <div class="reveal mt-10 flex flex-col gap-4 w-full max-w-md mx-auto" style="transition-delay:.3s">
+        <div class="flex items-center justify-center border-b border-white/40 pb-4"><p class="text-ink/85 font-light text-[15.5px]" style="color: #FFFFFF; font-weight: 400; font-size: 17px">Redovito praćenje biomarkera i napretka</p></div>
+        <div class="flex items-center justify-center border-b border-white/40 pb-4"><p class="text-ink/85 font-light text-[15.5px]" style="color: #FFFFFF; font-weight: 400; font-size: 17px">Prioritetni pristup specijalistima i tretmanima</p></div>
+        <div class="flex items-center justify-center border-b border-white/40 pb-4"><p class="text-ink/85 font-light text-[15.5px]" style="color: #FFFFFF; font-weight: 400; font-size: 17px">Personalizirani longevity plan</p></div>
+      </div>
+      <a href="#kontakt" class="reveal group mt-10 inline-flex items-center gap-3 rounded-full bg-white text-ink text-[12.5px] tracking-[.12em] pl-8 pr-3 py-3 hover:bg-sand transition-colors duration-300" style="transition-delay:.3s">
+        POSTANI ČLAN
+        <span class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </span>
+      </a>
+    </div>
+    <div class="lg:col-span-6 order-1 lg:order-2 reveal" style="transition-delay:.2s">
+      <div class="zoomable overflow-hidden rounded-[24px] lg:rounded-none h-[440px] sm:h-[520px] lg:h-[660px]">
+        <img src="images/usluga-longevity.jpg" alt="Fidelia Club Longevity" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA / KONTAKT (NARUČIVANJE) ================= -->
+<section id="kontakt" class="relative z-10 px-6 lg:px-12 pt-10 lg:pt-12 pb-24 lg:pb-32 bg-[#C0A392]" data-screen-label="Kontakt">
+  <div class="reveal rise-in rounded-[32px] bg-cream p-8 lg:p-16 grid lg:grid-cols-2 gap-14">
+    <div>
+      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#9E7C64] mb-6">NARUČIVANJE</p>
+      <h2 class="reveal font-sans font-medium text-[42px] lg:text-[48px] leading-[1.08] text-ink text-balance" style="transition-delay:.1s">
+        Zakažite konzultacije <span class="text-[#9E7C64]">s povjerenjem</span>
+      </h2>
+      <p class="reveal mt-6 text-[18px] lg:text-[16px] text-mute font-light leading-relaxed max-w-md" style="transition-delay: .2s; color: #5B493A">Ostavite upit i naš tim javit će vam se s prijedlogom termina i programa.</p>
+      <div class="reveal mt-10 space-y-5 text-[17px] lg:text-[15.5px]" style="transition-delay:.3s">
+        <p class="text-ink">+385 1 000 00 00 <span class="text-mute font-light text-[15px] lg:text-sm ml-2">Pon–Pet · 08:00–20:00</span></p>
+        <p class="text-ink">info@fidelia.hr <span class="text-mute font-light text-[15px] lg:text-sm ml-2">Odgovaramo unutar 24h</span></p>
+        <p class="text-ink">Zagreb, Hrvatska</p>
+      </div>
+    </div>
+    <form class="reveal" style="transition-delay:.2s" @submit.prevent>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <input placeholder="Ime" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
+        <input placeholder="Prezime" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
+        <input placeholder="Mobitel" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
+        <input type="email" placeholder="E-mail" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
+      </div>
+      <textarea rows="4" placeholder="Poruka" class="mt-4 w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe resize-none"></textarea>
+      <label class="flex items-start gap-3 mt-5 text-[12.5px] text-mute font-light"><input type="checkbox" class="mt-0.5 accent-taupe" /> Suglasan/na sam s obradom podataka u skladu s politikom privatnosti.</label>
+      <button class="mt-6 w-full rounded-full bg-ink text-white text-[12.5px] tracking-[.14em] py-4 hover:bg-[#9E7C64] transition-colors">POŠALJI UPIT</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="relative z-10 bg-ink text-cream/70 px-6 lg:px-12 pt-16 pb-8" data-screen-label="Footer">
+  <div class="pb-12 mb-10 border-b border-white/10 grid lg:grid-cols-2 gap-8 items-center">
+    <div>
+      <h2 class="font-sans font-medium text-[34px] sm:text-[36px] text-white">Ostanite u toku</h2>
+      <p class="mt-3 text-[17px] lg:text-[15px] text-cream/60 font-light max-w-md" style="color: #F6F0EA; font-weight: 400">Savjeti o zdravlju, longevity uvidi i novosti iz poliklinike — povremeno, bez spama.</p>
+    </div>
+    <div>
+      <form class="flex flex-col sm:flex-row gap-3 lg:justify-end" @submit.prevent>
+        <input type="email" required placeholder="Vaša e-mail adresa" class="flex-1 sm:max-w-sm bg-white/5 border border-white/15 rounded-full px-6 py-4 text-sm text-white placeholder-cream/50 focus:outline-none focus:border-taupe" />
+        <button class="rounded-full bg-white text-ink text-[12px] tracking-[.14em] px-8 py-4 hover:bg-sand transition-colors">PRETPLATI SE</button>
+      </form>
+      <p class="mt-3 text-[11px] text-cream/40 font-light lg:text-right">Prijavom prihvaćate politiku privatnosti.</p>
+    </div>
+  </div>
+  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10 pb-10 border-b border-white/10">
+    <img src="images/fidelia-logo-white.png" alt="Fidelia Poliklinika &amp; Skin Clinic" class="h-14 w-auto self-start object-contain" />
+    <nav class="flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-[.08em] font-light">
+      <a href="#usluge-showcase" class="hover:text-white transition">USLUGE</a>
+      <a href="#pristup" class="hover:text-white transition">PRISTUP</a>
+      <a href="#programi-sec" class="hover:text-white transition">PROGRAMI</a>
+      <a href="#club" class="hover:text-white transition">CLUB</a>
+      <a href="#kontakt" class="hover:text-white transition">KONTAKT</a>
+    </nav>
+  </div>
+  <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-cream/40 font-light">
+    <p>© 2026 Fidelia poliklinika. Sva prava pridržana.</p>
+    <div class="flex gap-6"><a href="#" class="hover:text-white transition">Pravila privatnosti</a><a href="#" class="hover:text-white transition">Kolačići</a></div>
+  </div>
+</footer>
+
+
+<script src="js/main.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</body>
+</html>

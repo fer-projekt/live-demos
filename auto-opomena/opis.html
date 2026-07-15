@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AutoOpomena — opis rješenja i pitanja za dogovor</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        ink:{ DEFAULT:'#15181E', 700:'#282D38', 500:'#5A6472', 300:'#9AA3B0' },
+        paper:'#F5F4EF', line:'#E6E3DA',
+        brand:{ DEFAULT:'#0E7C66', 600:'#0B6E5B', 50:'#E7F2EE' },
+        calm:'#0EA5A0', warn:'#E0A100', hot:'#E0602B', crit:'#C81E1E',
+      },
+      fontFamily: {
+        display:['"Space Grotesk"','sans-serif'],
+        sans:['"IBM Plex Sans"','sans-serif'],
+        mono:['"IBM Plex Mono"','monospace'],
+      },
+    }}
+  }
+</script>
+<style>
+  .tnum{ font-variant-numeric:tabular-nums; }
+  .chip{ display:inline-block; border-radius:.375rem; padding:.125rem .5rem; font-size:12px; font-weight:500; white-space:nowrap; }
+  @media print {
+    .no-print{ display:none !important; }
+    body{ background:#fff !important; }
+    header{ position:static !important; }
+    a{ color:inherit !important; text-decoration:none; }
+    section{ break-inside:avoid; }
+  }
+</style>
+</head>
+
+<body class="bg-paper text-ink font-sans antialiased">
+
+<!-- app bar — isti kao dashboard -->
+<header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
+  <div class="mx-auto max-w-[1240px] px-4 sm:px-6 flex h-14 items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <span class="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-ink text-paper font-display font-bold text-sm">A</span>
+      <span class="font-display font-bold tracking-tight truncate">AutoOpomena</span>
+      <span class="shrink-0 font-mono text-[11px] text-ink-500 bg-white border border-line rounded px-1.5 py-0.5">prijedlog · srpanj 2026.</span>
+    </div>
+    <a href="dashboard.html" class="no-print inline-flex items-center gap-2 rounded-lg bg-ink px-3.5 py-2 text-sm font-medium text-paper hover:bg-ink-700 transition-colors whitespace-nowrap">
+      Otvori demo
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</header>
+
+<main class="mx-auto max-w-[1240px] px-4 sm:px-6 py-8 sm:py-10">
+
+  <!-- naslov -->
+  <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Automatska priprema opomena<br class="hidden sm:block"> iz Verteks kartica kupaca</h1>
+
+  <!-- ukratko — banner kao "ZIP obrađen" u dashboardu -->
+  <section class="mt-6 rounded-xl border border-brand/25 bg-brand-50 p-5">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-brand-600">Ukratko</p>
+    <p class="mt-2 text-[16px] sm:text-[17px] leading-relaxed">
+      Umjesto da svaki mjesec ručno otvarate <b>150–200 kartica</b> i pišete mailove dužnicima —
+      ubacite ZIP u aplikaciju. Ona pročita kartice, pronađe dužnike i pripremi opomene,
+      a <b>vi ih samo pregledate i kliknete »Pošalji«</b>.
+    </p>
+    <div class="mt-3.5 flex flex-wrap gap-2 text-[13px] font-medium">
+      <span class="rounded-full bg-white border border-brand/25 px-3 py-1">sati posla → minute pregleda</span>
+      <span class="rounded-full bg-white border border-brand/25 px-3 py-1">ništa se ne šalje bez vaše potvrde</span>
+      <span class="rounded-full bg-white border border-brand/25 px-3 py-1">pamti tko je opomenut i tko je platio</span>
+    </div>
+  </section>
+
+  <!-- 1 · danas vs s aplikacijom -->
+  <section class="mt-10">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-ink-500">01 · Danas — i što se mijenja</p>
+    <div class="mt-3 grid sm:grid-cols-2 gap-3">
+      <div class="rounded-xl border border-line bg-white p-5">
+        <p class="font-mono text-[11px] uppercase tracking-widest text-ink-300">Danas, ručno</p>
+        <ul class="mt-2.5 space-y-1.5 text-[15px] text-ink-700">
+          <li class="flex gap-2"><span class="text-crit">✕</span> 150–200 PDF kartica otvara se jedna po jedna</li>
+          <li class="flex gap-2"><span class="text-crit">✕</span> za svaku se ručno gleda dug i piše e-mail</li>
+          <li class="flex gap-2"><span class="text-crit">✕</span> sati posla, lako se netko propusti</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-brand/30 bg-white p-5">
+        <p class="font-mono text-[11px] uppercase tracking-widest text-brand-600">S aplikacijom</p>
+        <ul class="mt-2.5 space-y-1.5 text-[15px] text-ink-700">
+          <li class="flex gap-2"><span class="text-brand">✓</span> ubacite ZIP — sve kartice pročitane odjednom</li>
+          <li class="flex gap-2"><span class="text-brand">✓</span> opomene pripremljene i adresirane automatski</li>
+          <li class="flex gap-2"><span class="text-brand">✓</span> vi samo pregledate i kliknete »Pošalji«</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · kako radi -->
+  <section class="mt-10">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-ink-500">02 · Kako radi — šest koraka</p>
+    <div class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div class="rounded-xl border border-line bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">1</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug">Učita ZIP (ili pojedinačne PDF-ove) i raspakira sve kartice.</p>
+      </div>
+      <div class="rounded-xl border border-line bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">2</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug">AI pročita svaku karticu (računi, rokovi, iznosi) i sam provjeri da brojke štimaju sa saldom.</p>
+      </div>
+      <div class="rounded-xl border border-line bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">3</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug">Prepozna kupca po <b>OIB-u</b> i poveže ga s e-mail adresom iz evidencije.</p>
+      </div>
+      <div class="rounded-xl border border-line bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">4</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug">Izračuna koliko je dospjelo i koliko dana kasni (po datumu dospijeća).</p>
+      </div>
+      <div class="rounded-xl border border-line bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">5</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug">Predloži razinu opomene — ili »preskoči« ako nema razloga za slanje.</p>
+      </div>
+      <div class="rounded-xl border border-brand/30 bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">6</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug"><b>Vi pregledate i potvrdite</b> — mailovi odlaze s vaše adrese, sve se bilježi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · evidencija -->
+  <section class="mt-10">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-ink-500">03 · Evidencija kupaca — pamti iz mjeseca u mjesec</p>
+    <div class="mt-3 rounded-xl border border-line bg-white p-5">
+      <p class="font-mono text-[13px] text-ink-500 leading-relaxed">
+        kartica stigne → postoji li kupac s tim OIB-om?<br>
+        &nbsp;&nbsp;├─ <b class="text-brand-600">ne</b> → kreiraj kupca iz kartice (naziv, OIB, IBAN)<br>
+        &nbsp;&nbsp;└─ <b class="text-brand-600">da</b> → ažuriraj stanje (nove stavke, novi saldo) — nikad duplikat
+      </p>
+      <ul class="mt-4 space-y-2 text-[14px] text-ink-700 border-t border-line pt-4">
+        <li class="flex gap-2"><span class="text-brand">▪</span><span><b>Praćenje uplata:</b> račun otvoren prošli mjesec, sada zatvoren → zabilježeno kao <b>plaćeno</b>, s datumom. Vidi se je li opomena urodila plodom.</span></li>
+        <li class="flex gap-2"><span class="text-brand">▪</span><span><b>Povijest po kupcu:</b> što je poslano, kada, na koju adresu — temelj za eskalaciju (1. → 2. → pred ovrhu) i dokaz u slučaju spora.</span></li>
+        <li class="flex gap-2"><span class="text-crit">▪</span><span><b>Kupci bez e-maila jasno su istaknuti</b> i ne ulaze u slanje dok se adresa ne doda.</span></li>
+        <li class="flex gap-2"><span class="text-brand">▪</span><span><b>Mjesečna arhiva:</b> svaka obrada se čuva — koji ZIP, što je poslano, što preskočeno i zašto.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 · statusi -->
+  <section class="mt-10">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-ink-500">04 · Statusi — što sustav javlja za svakog kupca</p>
+    <div class="mt-3 rounded-xl border border-line bg-white p-5">
+      <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5 text-[14px] text-ink-700">
+        <div class="flex items-center gap-2.5"><span class="chip text-ink bg-paper border border-line">Za slanje</span><span>opomena spremna, čeka vašu potvrdu</span></div>
+        <div class="flex items-center gap-2.5"><span class="chip text-brand-600 bg-brand-50">Poslano ✓</span><span>opomena poslana s vaše adrese</span></div>
+        <div class="flex items-center gap-2.5"><span class="chip text-crit bg-crit/10">⚠ Neisporučeno</span><span>mail odbijen — ispravite adresu, pa ponovno</span></div>
+        <div class="flex items-center gap-2.5"><span class="chip text-crit bg-crit/10">⚠ Nedostaje e-mail</span><span>kupac nema adresu — dopunite je</span></div>
+        <div class="flex items-center gap-2.5"><span class="chip text-ink-500 bg-line/70">Stop-lista · razlog</span><span>ručno izuzet: reklamacija, odgoda, sudski spor…</span></div>
+        <div class="flex items-center gap-2.5"><span class="chip text-ink-500 bg-line/70">Preskočeno ovaj mjesec</span><span>jednokratno, ručna odluka</span></div>
+        <div class="flex items-center gap-2.5"><span class="chip text-brand-600 bg-brand-50">Naplaćeno</span><span>dug zatvoren nakon opomene</span></div>
+        <div class="flex items-center gap-2.5"><span class="chip text-ink-500 bg-line/70">Ispod praga</span><span>sitan iznos — ne gnjavi se kupca</span></div>
+      </div>
+      <div class="mt-4 border-t border-line pt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2.5 text-[14px] text-ink-700">
+        <div class="flex items-center gap-2.5"><span class="chip text-calm bg-calm/10">Podsjetnik</span><span class="chip text-warn bg-warn/10">1. opomena</span><span class="chip text-hot bg-hot/10">2. opomena</span><span class="chip text-crit bg-crit/10">Pred ovrhu</span></div>
+        <p class="text-ink-500 text-[13px]">Razina se određuje automatski — iz dana kašnjenja, pravila i povijesti slanja.</p>
+      </div>
+      <p class="mt-4 rounded-lg bg-paper/70 border border-line px-3.5 py-2.5 text-[13px] text-ink-500">
+        <b class="text-ink">Ručno mijenjate</b> samo ono što je vaša odluka: preskoči ovaj mjesec, stop-lista (s razlogom), ispravak e-maila.
+        Izračunate statuse (razina, ispod praga, naplaćeno) određuju podaci s kartice — njih nije moguće »prepraviti«, i to čuva red u evidenciji.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5 · pravila -->
+  <section class="mt-10">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-ink-500">05 · Predložena pravila <span class="normal-case tracking-normal">(sve je podesivo — ovo je polazna točka)</span></p>
+    <div class="mt-3 overflow-x-auto rounded-xl border border-line bg-white">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-line bg-paper/70 text-left font-mono text-[11px] uppercase tracking-wide text-ink-500">
+            <th class="px-4 py-2.5">Razina</th><th class="px-4 py-2.5">Kašnjenje</th><th class="px-4 py-2.5">Sadržaj</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          <tr><td class="px-4 py-2.5 font-medium"><span class="inline-block h-2 w-2 rounded-full bg-calm mr-2"></span>Podsjetnik</td><td class="px-4 py-2.5 font-mono tnum">1–7 dana</td><td class="px-4 py-2.5 text-ink-500">blag ton, bez kamata</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium"><span class="inline-block h-2 w-2 rounded-full bg-warn mr-2"></span>1. opomena</td><td class="px-4 py-2.5 font-mono tnum">8–30 dana</td><td class="px-4 py-2.5 text-ink-500">formalno, rok 8 dana</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium"><span class="inline-block h-2 w-2 rounded-full bg-hot mr-2"></span>2. opomena</td><td class="px-4 py-2.5 font-mono tnum">31–60 dana</td><td class="px-4 py-2.5 text-ink-500">strože + zatezne kamate</td></tr>
+          <tr><td class="px-4 py-2.5 font-medium"><span class="inline-block h-2 w-2 rounded-full bg-crit mr-2"></span>Pred ovrhu</td><td class="px-4 py-2.5 font-mono tnum">61+ dana</td><td class="px-4 py-2.5 text-ink-500">zadnji rok, najava ovrhe</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-2.5 flex flex-wrap gap-2 text-[12px] font-mono text-ink-500">
+      <span class="rounded-full border border-line bg-white px-2.5 py-1">min. iznos <b class="text-ink">5 €</b></span>
+      <span class="rounded-full border border-line bg-white px-2.5 py-1">kamate: zakonska stopa (B2B), od 2. opomene</span>
+      <span class="rounded-full border border-line bg-white px-2.5 py-1">valute se ne zbrajaju</span>
+      <span class="rounded-full border border-line bg-white px-2.5 py-1">stop-lista za sporove i dogovore</span>
+    </div>
+  </section>
+
+  <!-- 6 · AI kontrola -->
+  <section class="mt-10">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-ink-500">06 · AI radi po pravilima — ne po slobodnoj volji</p>
+    <div class="mt-3 grid sm:grid-cols-2 gap-3">
+      <div class="rounded-xl border border-line bg-white p-5">
+        <p class="text-[13px] font-semibold flex items-center gap-1.5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink-300"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          System prompt — fiksan, vidljiv
+        </p>
+        <ul class="mt-2.5 space-y-1.5 text-[13.5px] text-ink-700">
+          <li class="flex gap-2"><span class="text-ink-300">▪</span> čita samo s kartice — ništa ne izmišlja</li>
+          <li class="flex gap-2"><span class="text-ink-300">▪</span> svaka kartica se kontrolira: brojke moraju dati saldo, inače ručna provjera</li>
+          <li class="flex gap-2"><span class="text-ink-300">▪</span> ne zbraja valute, ne zaobilazi pravila ni stop-listu</li>
+          <li class="flex gap-2"><span class="text-ink-300">▪</span><span><b>nikad sam ne šalje</b> — samo priprema prijedlog</span></li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-line bg-white p-5">
+        <p class="text-[13px] font-semibold flex items-center gap-1.5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-brand-600"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+          Vaše upute — uredive
+        </p>
+        <ul class="mt-2.5 space-y-1.5 text-[13.5px] text-ink-700">
+          <li class="flex gap-2"><span class="text-brand">▪</span> ton i stil opomena (blaže/strože, obraćanje, potpis)</li>
+          <li class="flex gap-2"><span class="text-brand">▪</span> mijenjate ih kad želite; »Vrati zadano« vraća početne</li>
+          <li class="flex gap-2"><span class="text-brand">▪</span><span>promjena tona <b>ne može pokvariti</b> pravila točnosti — njih čuva system prompt</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · pitanja -->
+  <section class="mt-10 rounded-xl border-2 border-ink bg-white p-5 sm:p-7">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-ink-500">07 · Pitanja za vas</p>
+    <h2 class="mt-1 font-display font-bold text-xl">Trebamo odgovore za točnu ponudu</h2>
+
+    <div class="mt-5 grid lg:grid-cols-2 gap-x-10 gap-y-6">
+      <div>
+        <h3 class="font-mono text-[12px] uppercase tracking-widest text-ink-500">A · Podaci i ulaz</h3>
+        <ul class="mt-2 space-y-2.5 text-[15px] text-ink-700">
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Može li Verteks / knjigovodstvo izvesti kartice kao <b>Excel/CSV</b> (ili "pravi" PDF)? <span class="text-ink-500">Testirali smo primjer — trenutni PDF nema strojno čitljiv tekst; AI čitanje radi, ali je izvoz pouzdaniji i jeftiniji.</span></span></li>
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Stiže li ZIP uvijek u isto vrijeme u mjesecu? Treba li ga sustav sam pokupiti iz e-maila?</span></li>
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Ima li kartica u <b>drugim valutama</b>? Koje i koliko često?</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-mono text-[12px] uppercase tracking-widest text-ink-500">B · Kupci i kontakti</h3>
+        <ul class="mt-2 space-y-2.5 text-[15px] text-ink-700">
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Postoji li popis kupaca s e-mail adresama (<b>OIB → e-mail</b>)? Gdje — Verteks, Excel, negdje treće?</span></li>
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Što s kupcima <b>bez e-maila</b> — pošta, telefon, preskočiti?</span></li>
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Ima li kupaca u sporu / s posebnim dogovorima za stop-listu — i tko o tome odlučuje?</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-mono text-[12px] uppercase tracking-widest text-ink-500">C · Pravila slanja</h3>
+        <ul class="mt-2 space-y-2.5 text-[15px] text-ink-700">
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Slažete li se s predloženom ljestvicom i rokovima? Što biste mijenjali?</span></li>
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Minimalni iznos ispod kojeg se ne šalje (prijedlog 5 €)?</span></li>
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Obračun <b>zateznih kamata</b> — da/ne, od koje razine?</span></li>
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Imate li postojeće tekstove opomena / memorandum koji zadržavamo?</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-mono text-[12px] uppercase tracking-widest text-ink-500">D · Slanje i korištenje</h3>
+        <ul class="mt-2 space-y-2.5 text-[15px] text-ink-700">
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>S koje adrese se šalje — Gmail, Outlook/Microsoft 365, vlastita domena?</span></li>
+          <li class="flex gap-3"><span class="mt-0.5 h-4 w-4 shrink-0 rounded border-2 border-ink-300"></span><span>Tko sve koristi sustav i tko ima zadnju riječ prije slanja?</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · sljedeći korak -->
+  <section class="mt-10">
+    <p class="font-mono text-[11px] uppercase tracking-widest text-ink-500">08 · Sljedeći korak</p>
+    <div class="mt-3 grid sm:grid-cols-3 gap-3">
+      <div class="rounded-xl border border-line bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">1</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug">Prođemo pitanja gore (ovaj sastanak).</p>
+      </div>
+      <div class="rounded-xl border border-line bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">2</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug">Probna obrada na <b>vašim stvarnim karticama</b> — pokažemo točnost čitanja i prijedloge.</p>
+      </div>
+      <div class="rounded-xl border border-line bg-white p-4">
+        <span class="font-mono text-[13px] text-brand-600 font-semibold">3</span>
+        <p class="mt-1.5 text-[14px] text-ink-700 leading-snug">Ponuda s opsegom, cijenom i rokovima.</p>
+      </div>
+    </div>
+    <a href="dashboard.html" class="no-print mt-5 flex items-center justify-between rounded-xl bg-ink px-5 py-4 text-paper hover:bg-ink-700 transition-colors">
+      <span class="font-medium">Pogledajte kako aplikacija izgleda u radu — demo dashboard</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <p class="no-print mt-1.5 font-mono text-[12px] text-ink-300">Demo je klikabilan: filtri, detalj kupca, postavke pravila, predlošci s AI generiranjem, ručno upravljanje — sve na izmišljenim podacima.</p>
+  </section>
+
+  <footer class="mt-12 border-t border-line pt-5 flex flex-wrap justify-between gap-2 text-[13px] text-ink-500 font-mono">
+    <span>fer-projekt · matej@fer-projekt.com</span>
+    <span>AutoOpomena · prijedlog · srpanj 2026.</span>
+  </footer>
+
+</main>
+</body>
+</html>

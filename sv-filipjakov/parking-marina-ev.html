@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="hr">
+<head>
+
+  	<meta charset="UTF-8">
+
+  	<title>Parking, marina i punionice za e-vozila | Sveti Filip i Jakov</title>
+
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<link href="./css/output.css" rel="stylesheet">
+  	<link rel="icon" href="./images/logo-green.png">
+
+</head>
+
+<body class="font-sans">
+
+<div class="boot" x-data="{ gone: false, removed: false }" x-init="
+    const dismiss = () => {
+        setTimeout(() => { gone = true; }, 250);
+        setTimeout(() => { removed = true; }, 1400);
+    };
+    if (document.readyState === 'complete') { dismiss(); }
+    else { window.addEventListener('load', dismiss); setTimeout(dismiss, 3000); }
+" :class="{ gone: gone }" x-show="!removed">
+    <div class="boot-mark"></div>
+</div>
+
+<div class="scroll-progress" x-data="{ pct: 0 }" x-init="
+    const update = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+" :style="{ width: pct + '%' }"></div>
+
+<header class="nav" id="nav" :class="{ scrolled: scrolled }" x-data="{
+    open: false,
+    scrolled: false,
+    activeCol: null,
+    init(){
+        const updateNav = () => { this.scrolled = window.scrollY > 30; };
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
+        document.addEventListener('click', (e) => {
+            if (this.open && !this.$refs.menu.contains(e.target) && e.target !== this.$refs.menuBtn && !this.$refs.menuBtn.contains(e.target)) {
+                this.open = false;
+            }
+        });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') this.open = false; });
+    }
+}">
+    <a class="nav__logo" href="index.html">
+        <img class="nav__logo-color" src="images/webp/logo.webp" alt="Sveti Filip i Jakov" />
+        <img class="nav__logo-white" src="images/webp/logo-white.webp" alt="Sveti Filip i Jakov" />
+    </a>
+    <ul class="nav__links">
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="places.html">Places</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="plan-your-trip.html">Plan your trip</a></li>
+        <li><a href="stay.html">Stay</a></li>
+        <li><a href="things-to-do.html">Things to do</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__right">
+        <div class="nav__search-wrap" x-data="{ searchOpen: false }" @keydown.escape.window="searchOpen = false">
+            <button type="button" class="nav__search-btn" aria-label="Search" :aria-expanded="searchOpen" @click.stop="searchOpen = true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            </button>
+
+            <div class="nav__search-overlay" :class="{ open: searchOpen }">
+                <div class="nav__search-header" :class="{ scrolled: scrolled }">
+                    <button type="button" class="nav__search-close" aria-label="Close search" @click="searchOpen = false">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                    </button>
+                </div>
+                <div class="nav__search-body">
+                    <form class="nav__search-form" @submit.prevent="searchOpen = false">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                        <input type="text" placeholder="Search places, events, stays…" x-ref="searchInput" x-init="$watch('searchOpen', v => { if (v) $nextTick(() => $refs.searchInput.focus()) })" />
+                    </form>
+                    <div class="search-results">
+                        <div class="search-result">
+                            <h3 class="search-result__title">Prirodne ljepote i krajolik</h3>
+                            <p class="search-result__desc">Šumovita zaleđa, maslinici i vidici na Pašmanski kanal koji oduzimaju dah u svako doba dana.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                        <div class="search-result">
+                            <h3 class="search-result__title">Kulturno-povijesna baština</h3>
+                            <p class="search-result__desc">Od liburnijskih humaka do baroknih crkava — tisućljeće povijesti u jednom mjestu.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                        <div class="search-result">
+                            <h3 class="search-result__title">Sveti Filip i Jakov</h3>
+                            <p class="search-result__desc">Središte općine i riva s koje sve počinje.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                        <div class="search-result">
+                            <h3 class="search-result__title">Turanj</h3>
+                            <p class="search-result__desc">Mirno mjesto uz kanal, idealno za dulji obiteljski odmor.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                        <div class="search-result">
+                            <h3 class="search-result__title">Sveti Petar na Moru</h3>
+                            <p class="search-result__desc">Ribarsko naselje s dugom pješčano-šljunčanom plažom.</p>
+                            <a href="#" class="search-result__link">Otvori <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span class="nav__sep nav__sep--full"></span>
+        <div class="nav__lang-wrap" x-data="{ langOpen: false, lang: 'EN' }" @click.outside="langOpen = false" @keydown.escape.window="langOpen = false">
+            <button type="button" class="nav__lang" :aria-expanded="langOpen" @click.stop="langOpen = !langOpen">
+                <span x-text="lang"></span>
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg>
+            </button>
+            <div class="nav__lang-menu" :class="{ open: langOpen }">
+                <button type="button" :class="{ active: lang === 'EN' }" @click="lang = 'EN'; langOpen = false">EN</button>
+                <button type="button" :class="{ active: lang === 'DE' }" @click="lang = 'DE'; langOpen = false">DE</button>
+                <button type="button" :class="{ active: lang === 'HR' }" @click="lang = 'HR'; langOpen = false">HR</button>
+            </div>
+        </div>
+        <span class="nav__sep nav__sep--full"></span>
+        <button class="nav__menu-btn" type="button" aria-label="Open menu" :aria-expanded="open" aria-controls="navMenu" x-ref="menuBtn" @click.stop="open = !open; activeCol = null">
+            <span class="nav__menu-bars"><span></span><span></span><span></span></span>
+        </button>
+    </div>
+    <nav class="nav-menu" id="navMenu" :class="{ open: open }" :aria-hidden="!open" x-ref="menu" @click="if ($event.target.closest('a')) { open = false; activeCol = null }">
+        <div class="nav-menu__header" :class="{ scrolled: scrolled }">
+            <div class="nav-menu__social">
+                <a href="https://www.facebook.com/pages/Turisti%C4%8Dka-zajednica-SvFilip-i-Jakov/106688182694943?ref=hl" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z"/></svg>
+                    Facebook
+                </a>
+                <a href="https://www.instagram.com/riviera_sv._filipijakov/" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    Instagram
+                </a>
+                <a href="https://www.youtube.com/channel/UCC2_iddu3ClPJhh9Q-1PBWA" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+                    YouTube
+                </a>
+                <a href="https://www.tiktok.com/@sv.filipijakov" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+                    TikTok
+                </a>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="nav__sep"></span>
+                <button type="button" class="nav-menu__close" aria-label="Close menu" @click.stop="open = false; activeCol = null">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
+            </div>
+        </div>
+        <div class="nav-menu__body">
+            <div class="nav-menu__cols">
+                <div class="nav-menu__col">
+                    <a href="explore.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'istrazi' }">Istraži</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'istrazi' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="natural-beauty-and-landscapes.html">Prirodne ljepote i krajolik</a></li>
+                            <li><a href="cultural-and-historical-heritage.html">Kulturno-povijesna baština</a></li>
+                            <li><a href="climate-and-geography.html">Klima i geografija</a></li>
+                            <li><a href="galleries.html">Galerija fotografija i videa</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="places.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'mjesta' }">Mjesta</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'mjesta' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="place.html">Sveti Filip i Jakov</a></li>
+                            <li><a href="place.html">Turanj</a></li>
+                            <li><a href="place.html">Sveti Petar na Moru</a></li>
+                            <li><a href="place.html">Donje Raštane</a></li>
+                            <li><a href="place.html">Gornje Raštane</a></li>
+                            <li><a href="place.html">Otok Babac</a></li>
+                            <li><a href="place.html">Sikovo</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="experience.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dozivi' }">Doživi</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'dozivi' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="experience.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="authentic-experiences.html">Autentična iskustva</a></li>
+                            <li><a href="for-families.html">Za obitelji</a></li>
+                            <li><a href="for-couples.html">Za parove</a></li>
+                            <li><a href="for-adventurers.html">Za avanturiste</a></li>
+                            <li><a href="for-digital-nomads.html">Za digitalne nomade</a></li>
+                            <li><a href="camino.html">Camino</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="plan-your-trip.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'plan' }">Planiraj putovanje</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'plan' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="plan-your-trip.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="getting-here.html">Kako doći</a></li>
+                            <li><a href="destination-map.html">Karta destinacije</a></li>
+                            <li><a href="useful-information.html">Važni kontakti</a></li>
+                            <li><a href="faq.html">Česta pitanja (FAQ)</a></li>
+                            <li><a href="brochures.html">Brošure za preuzimanje</a></li>
+                            <li><a href="parking-marina-ev.html">Parkirališta, marine i punionice za e-vozila</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="stay.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'smjestaj' }">Smještaj</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'smjestaj' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="private-accommodation.html">Privatni smještaj</a></li>
+                            <li><a href="vacation-homes.html">Kuće za odmor</a></li>
+                            <li><a href="campsites.html">Kampovi</a></li>
+                            <li><a href="hotels.html">Hoteli</a></li>
+                            <li><a href="nautika.html">Nautika</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="#" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'raditi' }">Što raditi?</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'raditi' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="#" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="sea-activities.html">Aktivnosti na moru</a></li>
+                            <li><a href="outdoor-activities.html">Aktivnosti u prirodi</a></li>
+                            <li><a href="beaches.html">Plaže i kupanje</a></li>
+                            <li><a href="gastro.html">Gastronomija i lokalni specijaliteti</a></li>
+                            <li><a href="day-trips.html">Izleti i obližnje atrakcije</a></li>
+                            <li><a href="thematic-trails.html">Tematske staze</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-menu__col">
+                    <a href="events.html" class="title" @click="if (window.matchMedia('(max-width:1199px)').matches) { $event.preventDefault(); $event.stopPropagation(); activeCol = 'dogadjanja' }">Događanja</a>
+                    <div class="nav-menu__sub" :class="{ 'nav-menu__sub--open': activeCol === 'dogadjanja' }">
+                        <button type="button" class="nav-menu__sub-back" @click="activeCol = null">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <a href="events.html" class="nav-menu__sub-all">Pogledaj sve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                        <ul>
+                            <li><a href="events-calendar.html">Kalendar događanja</a></li>
+                            <li><a href="cultural-religious-events.html">Kulturne i vjerske manifestacije</a></li>
+                            <li><a href="sports-events.html">Sportska događanja</a></li>
+                            <li><a href="festivals-fairs.html">Lokalni festivali i sajmovi</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<header class="page-head" x-data x-init="requestAnimationFrame(() => $el.classList.add('is-in'))">
+    <picture class="bg bg-cover"><img src="images/webp/nautika-marina.webp" alt="" /></picture>
+    <div class="page-head-inner">
+        <nav class="crumb">
+            <a href="index.html">Home</a>
+            <span class="sep"></span>
+            <span>Parking, marina i punionice</span>
+        </nav>
+        <h1>Parking, marina <em>&amp;</em> e-punionice.</h1>
+        <p class="ph-lede">
+            Sve što vam treba za bezbrižan dolazak i boravak — siguran vez u marini,
+            jasno označene parkirališne zone i mreža punionica za električna vozila,
+            na jednom mjestu i na karti.
+        </p>
+    </div>
+</header>
+
+<nav class="pm-nav">
+    <div class="max-w-[1600px] mx-auto px-4 pm-nav-inner">
+        <a class="pm-chip marina" href="#marina"><span class="dot"></span>Marina</a>
+        <a class="pm-chip parking" href="#parking"><span class="dot"></span>Parkirališta</a>
+        <a class="pm-chip ev" href="#ev"><span class="dot"></span>E-punionice</a>
+        <a class="pm-chip map" href="#karta"><span class="dot"></span>Karta lokacija</a>
+    </div>
+</nav>
+
+<section class="page-sect rubric c-marina pmv-page" id="marina" x-data="{}">
+    <div class="max-w-[1600px] mx-auto px-4">
+            <div class="rubric-head reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <span class="rubric-num">01</span>
+                <div>
+                    <span class="eyebrow">Nautika · vez</span>
+                    <h2>Molum Marine Club</h2>
+                    <p class="lede">Smješten u samom srcu mjesta, uz Obalu kralja Tomislava, Molum Marine Club moderna je i sigurna luka za nautičare koji traže visoku razinu usluge, sigurnosti i osobnog pristupa.</p>
+                </div>
+            </div>
+
+            <div class="marina-grid reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="marina-photo">
+                    <picture class="img bg-cover"><img src="images/webp/marina.webp" alt="" /></picture>
+                    <div class="cap">Molum Marine Club — vez u srcu Svetog Filipa i Jakova</div>
+                </div>
+                <div class="info-card">
+                    <h3>Kontakt i osnovne informacije</h3>
+                    <p class="sub">Recepcija: pon–sub 08:00–16:00 · nedjelja zatvoreno</p>
+                    <div class="info-row"><div class="k">Adresa</div><div class="v">Obala kralja Tomislava bb,<br />23207 Sveti Filip i Jakov</div></div>
+                    <div class="info-row"><div class="k">GPS</div><div class="v">43°57′34.8″N / 15°25′19.8″E</div></div>
+                    <div class="info-row"><div class="k">VHF kanal</div><div class="v">17</div></div>
+                    <div class="info-row"><div class="k">Telefon</div><div class="v"><a href="tel:+385916116733">+385 91 611 67 33</a></div></div>
+                    <div class="info-row"><div class="k">Recepcija</div><div class="v"><a href="tel:+385916133332">+385 91 613 33 32</a></div></div>
+                    <div class="info-row"><div class="k">E-mail</div><div class="v"><a href="mailto:info-marina@molum.hr">info-marina@molum.hr</a></div></div>
+                </div>
+            </div>
+
+            <div class="spec-strip reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="spec"><div class="sv">127</div><div class="sl">Sigurnih vezova u moru</div></div>
+                <div class="spec"><div class="sv">10–35 m</div><div class="sl">Duljina plovila</div></div>
+                <div class="spec"><div class="sv">2,5–8 m</div><div class="sl">Dubina mora u marini</div></div>
+                <div class="spec"><div class="sv">16–250 A</div><div class="sl">Priključci struje na gatu</div></div>
+            </div>
+
+            <div class="feat-list reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="feat">
+                    <div class="fh">
+                        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+                        <h4>24/7 nadzor</h4>
+                    </div>
+                    <p>Stalna mornarska služba, video nadzor i <b>Protective Boat Care</b> sustav brinu o plovilu dok ste odsutni.</p>
+                </div>
+                <div class="feat">
+                    <div class="fh">
+                        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></span>
+                        <h4>Struja i voda</h4>
+                    </div>
+                    <p>Priključci struje 16 A, 32 A, 64 A, 124 A i 250 A te priključak vode na svakom gatu.</p>
+                </div>
+                <div class="feat">
+                    <div class="fh">
+                        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+                        <h4>Osobni pristup</h4>
+                    </div>
+                    <p>Stručan i predan tim osigurava vrhunsku uslugu i individualan pristup svakom nautičaru.</p>
+                </div>
+            </div>
+    </div>
+</section>
+
+<section class="page-sect rubric c-parking bg-cream-2 pmv-page" id="parking" x-data="{}">
+    <div class="max-w-[1600px] mx-auto px-4">
+            <div class="rubric-head reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <span class="rubric-num">02</span>
+                <div>
+                    <span class="eyebrow">Javna parkirališta</span>
+                    <h2>Parkiranje po zonama</h2>
+                    <p class="lede">Na području općine organiziran je sustav javnog parkiranja s označenim zonama. Naplata započinje <b>1. svibnja</b> i provodi se svakodnevno prema zonama.</p>
+                </div>
+            </div>
+
+            <div class="zone-grid reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="zone z0">
+                    <div class="zone-top">
+                        <span class="zn">0. zona</span>
+                        <span class="zh">07:00 – 18:00</span>
+                    </div>
+                    <div class="zone-body">
+                        <div class="price-row"><span class="pl">Satna karta</span><span class="pv"><em>2,00 €</em></span></div>
+                        <div class="zone-note">Parkiranje s povlaštenim kartama moguće je najviše 2 sata. Plaćanje SMS-om na <b>702304</b> ili na parkirnom aparatu u zoni.</div>
+                    </div>
+                </div>
+                <div class="zone z1">
+                    <div class="zone-top">
+                        <span class="zn">1. zona</span>
+                        <span class="zh">07:00 – 23:00</span>
+                    </div>
+                    <div class="zone-body">
+                        <div class="price-row"><span class="pl">Satna karta</span><span class="pv"><em>1,20 €</em></span></div>
+                        <div class="price-row"><span class="pl">Dnevna karta</span><span class="pv">10,00 €</span></div>
+                        <div class="price-row"><span class="pl">Tjedna karta</span><span class="pv">35,00 €</span></div>
+                        <div class="price-row"><span class="pl">Mjesečna karta</span><span class="pv">60,00 €</span></div>
+                        <div class="price-row"><span class="pl">Sezonska karta</span><span class="pv">80,00 €</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pay-block reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div>
+                    <span class="eyebrow">Načini plaćanja</span>
+                    <div class="pay-list">
+                        <div class="pay-item"><span class="n">a</span><div><h4>Satna karta — 0. zona</h4><p>SMS na broj <b>702304</b> ili na parkirnom aparatu u 0. zoni.</p></div></div>
+                        <div class="pay-item"><span class="n">b</span><div><h4>Satna karta — 1. zona</h4><p>SMS na broj <b>702303</b>, na aparatima u 1. zoni ili putem <b>BMOVE</b> aplikacije i web platforme.</p></div></div>
+                        <div class="pay-item"><span class="n">c</span><div><h4>Dnevna karta</h4><p>Putem BMOVE aplikacije, na aparatima u 1. zoni ili kod organizatora parkiranja.</p></div></div>
+                        <div class="pay-item"><span class="n">d</span><div><h4>Tjedna, mjesečna i sezonska</h4><p>Putem BMOVE aplikacije, kod organizatora parkiranja ili u turističkom uredu.</p></div></div>
+                    </div>
+                </div>
+                <div class="callout">
+                    <span class="eyebrow">Dobro je znati</span>
+                    <h4>Popust <b>50 %</b> unutar 48 sati</h4>
+                    <p>Ako korisnik ili vlasnik vozila plati parkirališnu kartu u roku od 48 sati od izdavanja — kod organizatora parkiranja ili putem BMOVE aplikacije — ostvaruje se popust od 50 %.</p>
+                    <p class="mt-3">Povlaštene parkirališne karte dostupne su kod organizatora parkiranja i u turističkom uredu.</p>
+                    <div class="hours">
+                        <div><div class="hz">0. zona</div><div class="ht">07 – 18 h</div></div>
+                        <div><div class="hz">1. zona</div><div class="ht">07 – 23 h</div></div>
+                        <div><div class="hz">Sezona</div><div class="ht">od 1. svibnja</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-13">
+                <span class="eyebrow reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">Lokacije javnih parkirališta</span>
+                <div class="loc-grid reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                    <div class="loc">
+                        <div class="lh">
+                            <svg class="pin" viewBox="0 0 24 24" fill="var(--color-sun)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                            <h4>Sveti Filip i Jakov</h4>
+                        </div>
+                        <ul>
+                            <li><b>Put Primorja</b><small>uz plažu iza Banja</small></li>
+                            <li><b>Centar mjesta</b><small>uz crkvu, Ul. kralja Petra Krešimira IV</small></li>
+                            <li>Označena mjesta uz rivu i u okolnim ulicama</li>
+                        </ul>
+                    </div>
+                    <div class="loc">
+                        <div class="lh">
+                            <svg class="pin" viewBox="0 0 24 24" fill="var(--color-sun)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                            <h4>Turanj</h4>
+                        </div>
+                        <ul>
+                            <li><b>Centar — riva</b><small>Obala Franje Tuđmana</small></li>
+                            <li>Dodatna označena mjesta unutar naselja</li>
+                        </ul>
+                    </div>
+                    <div class="loc">
+                        <div class="lh">
+                            <svg class="pin" viewBox="0 0 24 24" fill="var(--color-sun)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                            <h4>Sveti Petar na Moru</h4>
+                        </div>
+                        <ul>
+                            <li>Označena javna mjesta u blizini plaža i centra mjesta</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-5.5 text-[13.5px] text-muted max-w-[70ch] reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">Preporučuje se poštivanje prometne signalizacije i uputa organizatora parkiranja, osobito tijekom ljetne turističke sezone.</p>
+            </div>
+    </div>
+</section>
+
+<section class="page-sect rubric c-ev pmv-page" id="ev" x-data="{}">
+    <div class="max-w-[1600px] mx-auto px-4">
+            <div class="rubric-head reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <span class="rubric-num">03</span>
+                <div>
+                    <span class="eyebrow">Električna vozila</span>
+                    <h2>Punionice u okolici</h2>
+                    <p class="lede">Za posjetitelje i stanovnike koji putuju električnim vozilima, u krugu od oko 20 km od Svetog Filipa i Jakova postoji nekoliko javnih punionica koje omogućuju sigurnu i praktičnu dopunu baterije.</p>
+                </div>
+            </div>
+
+            <div class="ev-lead reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div>
+                    <p>U <b>Biogradu na Moru</b>, tek nekoliko kilometara od mjesta, dostupno je više javnih punionica raspoređenih po gradu i uz trgovačke centre.</p>
+                    <p>U <b>Zadru</b>, također u krugu od oko 20 km i lako dostupnom cestom, nalazi se velika mreža s desecima javnih punionica te kombinacijom <b>AC i DC</b> punjača za brže punjenje različitih modela.</p>
+                </div>
+                <div class="apps-card">
+                    <span class="eyebrow">Provjeri prije polaska</span>
+                    <h3>Aplikacije i karte punionica</h3>
+                    <div class="apps">
+                        <span class="app-chip">PlugShare</span>
+                        <span class="app-chip">Electromaps</span>
+                        <span class="app-chip">ELEN HEP karta</span>
+                        <span class="app-chip">GreenWay EV</span>
+                    </div>
+                    <p class="apps-tip">Alati prikazuju stvarne pozicije, tip priključaka, status i moguće cijene. Budući da se infrastruktura često nadograđuje, provjerite radno stanje punionice prije polaska.</p>
+                </div>
+            </div>
+
+            <span class="eyebrow reveal mt-13" x-intersect.once.threshold.10="$el.classList.add('is-in')">Lokacije punionica</span>
+            <div class="loc-grid cols-2 reveal" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+                <div class="loc">
+                    <div class="lh">
+                        <svg class="pin" viewBox="0 0 24 24" fill="var(--color-olive)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                        <h4>Biograd na Moru</h4>
+                    </div>
+                    <ul>
+                        <li><b>Elen punionica</b><small>Kralja Petra Svačića 30 — više priključaka</small></li>
+                        <li><b>EV stanica</b><small>Šetalište kneza Branimira — turistička zona</small></li>
+                        <li><b>Kaufland</b><small>Jadranska magistrala 1 — uz trgovački centar</small></li>
+                        <li><b>Lidl</b><small>Ulica Slave Raškaj</small></li>
+                    </ul>
+                </div>
+                <div class="loc">
+                    <div class="lh">
+                        <svg class="pin" viewBox="0 0 24 24" fill="var(--color-olive)"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>
+                        <h4>Zadar i šira okolica</h4>
+                    </div>
+                    <ul>
+                        <li><b>Auto Hrvatska Zadar</b><small>Uskočka ulica</small></li>
+                        <li>Punionice duž Jadranske magistrale</li>
+                        <li>Trgovački centri i benzinske postaje</li>
+                        <li>Desetci javnih punjača — AC i DC</li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+</section>
+
+<!-- ───────────────── MAP ───────────────── -->
+<section class="page-sect pm-map-sect" id="karta">
+    <div class="max-w-[1600px] mx-auto px-4">
+        <div class="pm-map-head reveal" x-data="{}" x-intersect.once.threshold.10="$el.classList.add('is-in')">
+            <div>
+                <span class="eyebrow">Sve na jednom mjestu</span>
+                <h2>Karta lokacija</h2>
+            </div>
+            <div class="pm-map-legend">
+                <span class="lg"><span class="d" style="background:#00A2C1"></span>Marina</span>
+                <span class="lg"><span class="d" style="background:#F7921E"></span>Parkirališta</span>
+                <span class="lg"><span class="d" style="background:#94B348"></span>E-punionice</span>
+            </div>
+        </div>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <div id="pmMap" x-data x-init="
+            const map = L.map($el, { scrollWheelZoom: false }).setView([43.97, 15.44], 12);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href=\'https://www.openstreetmap.org/copyright\'>OpenStreetMap</a> contributors &copy; <a href=\'https://carto.com/attributions\'>CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(map);
+            const dotIcon = (color) => L.divIcon({
+                className: '',
+                html: '<div class=\'pm-marker\' style=\'width:18px;height:18px;background:' + color + '\'></div>',
+                iconSize: [18, 18], iconAnchor: [9, 9], popupAnchor: [0, -10]
+            });
+            const cMarina = '#00A2C1', cParking = '#F7921E', cEv = '#94B348';
+            const points = [
+                { c: cMarina, ll: [43.9597, 15.4222], name: 'Molum Marine Club', sub: 'Obala kralja Tomislava bb · 127 vezova' },
+                { c: cParking, ll: [43.9585, 15.4327], name: 'Parking · plaža Banja', sub: 'Put Primorja, Sv. Filip i Jakov' },
+                { c: cParking, ll: [43.9609, 15.4256], name: 'Parking · centar', sub: 'uz crkvu · Kralja Petra Krešimira IV' },
+                { c: cParking, ll: [43.9663, 15.4089], name: 'Parking · riva Turanj', sub: 'Obala Franje Tuđmana' },
+                { c: cParking, ll: [43.9332, 15.4525], name: 'Parking · Sveti Petar na Moru', sub: 'uz plaže i centar mjesta' },
+                { c: cEv, ll: [43.9376, 15.4460], name: 'Elen punionica', sub: 'Biograd · Kralja Petra Svačića 30' },
+                { c: cEv, ll: [43.9331, 15.4402], name: 'EV stanica', sub: 'Biograd · Šetalište kneza Branimira' },
+                { c: cEv, ll: [43.9421, 15.4520], name: 'Kaufland punionica', sub: 'Biograd · Jadranska magistrala 1' },
+                { c: cEv, ll: [43.9402, 15.4482], name: 'Lidl punionica', sub: 'Biograd · Ulica Slave Raškaj' },
+                { c: cEv, ll: [44.1185, 15.2310], name: 'Auto Hrvatska Zadar', sub: 'Zadar · Uskočka ulica' },
+            ];
+            const bounds = [];
+            points.forEach(p => {
+                L.marker(p.ll, { icon: dotIcon(p.c) }).addTo(map)
+                    .bindPopup('<div class=\'pm-pop\'><b>' + p.name + '</b><span>' + p.sub + '</span></div>');
+                bounds.push(p.ll);
+            });
+            map.fitBounds(bounds, { padding: [50, 50] });
+            map.on('click', () => map.scrollWheelZoom.enable());
+            setTimeout(() => map.invalidateSize(), 300);
+        "></div>
+        <p class="pm-map-foot">Pozicije parkirališta i punionica su okvirne i služe za orijentaciju. Za točan status e-punionica koristite PlugShare ili ELEN HEP kartu.</p>
+    </div>
+</section>
+
+<footer id="plan" class="bg-cream text-black pt-18 md:pt-25 pb-18 lg:pb-24">
+    <div class="max-w-[1600px] mx-auto px-4">
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-15 pb-12 lg:pb-[70px] border-b border-black/16">
+            <h2 class="heading-2">
+                A postcard arrives<br />in your inbox<br />each <span class="heading-2__accent">season</span>.
+            </h2>
+
+            <form x-data="{ subscribed: false }" @submit.prevent="subscribed = true" class="grid content-end gap-3.5">
+                <input type="email" placeholder="your@email.com" required class="bg-transparent border-0 border-b border-black/35 py-3.5 px-0 text-lg text-black outline-none placeholder:text-black/45" />
+                <div class="flex flex-col items-stretch gap-3.5 md:flex-row md:justify-between md:items-center">
+                    <small class="opacity-55 text-xs">Four sends a year. Off-season tips. Unsubscribe in one click.</small>
+                    <button type="submit" class="w-full md:w-auto bg-black text-cream py-4 md:py-3.5 px-[22px] rounded-full font-bold text-[13px] tracking-[0.08em]" x-text="subscribed ? 'Welcome aboard ✓' : 'Subscribe →'">Subscribe →</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-x-6 gap-y-7 md:gap-10 pt-12 md:pt-[70px] pb-9 md:pb-[50px]">
+            <div class="col-span-2 lg:col-span-1">
+                <img src="images/webp/logo-green.webp" alt="Sveti Filip i Jakov" class="h-16 md:h-20" />
+                <p class="text-sm opacity-65 max-w-[30ch] mt-3">The official visitor site of Sveti Filip i Jakov — a coastal town and municipality in the Zadar County of Dalmatia, Croatia.</p>
+            </div>
+            <div class="col-span-2 lg:col-span-1">
+                <div class="footer-heading">Contact</div>
+                <a href="tel:+38523389071" class="footer-link">+385 23 389 071</a>
+                <a href="mailto:info@svfilipjakov.hr" class="footer-link">info@svfilipjakov.hr</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Obala+kralja+Tomislava+16%2C+23207+Sveti+Filip+i+Jakov" target="_blank" rel="noopener" class="footer-link">Obala kralja Tomislava 16</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Obala+kralja+Tomislava+16%2C+23207+Sveti+Filip+i+Jakov" target="_blank" rel="noopener" class="footer-link">23207 Sv. Filip i Jakov</a>
+            </div>
+            <div class="col-span-2 lg:col-span-1">
+                <div class="footer-heading">Follow us</div>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/pages/Turisti%C4%8Dka-zajednica-SvFilip-i-Jakov/106688182694943?ref=hl" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/riviera_sv._filipijakov/" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCC2_iddu3ClPJhh9Q-1PBWA" target="_blank" rel="noopener" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@sv.filipijakov" target="_blank" rel="noopener" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="col-span-2 lg:col-span-1">
+                <div class="footer-heading">Info</div>
+                <a href="hosts-corner.html" class="footer-link">Kutak za iznajmljivače</a>
+                <a href="documents.html" class="footer-link">Dokumenti</a>
+                <a href="https://www.evisitor.hr/" target="_blank" rel="noopener" class="footer-link">E-visitor</a>
+                <a href="https://mvisitor.hr/" target="_blank" rel="noopener" class="footer-link">M-visitor</a>
+            </div>
+            <div class="col-span-2 lg:col-span-1">
+                <div class="footer-heading">Partneri</div>
+                <a href="http://www.croatia.hr" target="_blank" rel="noopener" class="footer-link">Hrvatska turistička zajednica</a>
+                <a href="http://www.mint.hr/" target="_blank" rel="noopener" class="footer-link">Ministarstvo turizma i sporta</a>
+                <a href="http://www.zadar.hr/" target="_blank" rel="noopener" class="footer-link">Grad Zadar</a>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center text-center gap-2 lg:flex-row lg:justify-between lg:items-center lg:text-left text-xs opacity-55 border-t border-black/16 pt-6 tracking-[0.04em]">
+            <span>© 2026 Tourist Board of Sveti Filip i Jakov · All rights reserved</span>
+            <div class="flex flex-wrap items-center gap-2 max-lg:flex-col!">
+                <a href="page.html" class="hover:text-sea max-lg:block!">Izjava o kolačićima</a>
+                <span class="max-lg:hidden!">|</span>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Pravila o privatnosti</a>
+                <span class="max-lg:hidden!">|</span>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Izjava o digitalnoj pristupačnosti</a>
+                <span class="max-lg:hidden!">|</span>
+                <a href="page.html" class="hover:text-sea max-lg:block!">Uvjeti korištenja</a>
+            </div>
+            <span>Izrada web stranica <a href="https://www.fer-projekt.com/" target="_blank" rel="noopener" class="hover:text-sea">Fer Projekt</a></span>
+        </div>
+
+    </div>
+</footer>
+
+<div x-data="{ moodOpen: false, moodRated: false, feedbackOpen: false }">
+    <div class="utility-bar" x-data="{ show: false }" x-init="window.addEventListener('scroll', () => { show = window.scrollY > 300 }, { passive: true })" :class="{ 'is-in': show }">
+        <div class="utility-bar__mood">
+            <button type="button" class="utility-bar__mood-btn" aria-label="Rate your visit" @click="moodOpen = true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 15c1 1.1 2.2 1.6 3.5 1.6s2.5-.5 3.5-1.6"/><circle cx="9" cy="9.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="15" cy="9.5" r="0.9" fill="currentColor" stroke="none"/></svg>
+            </button>
+            <span class="utility-bar__sep max-lg:hidden!"></span>
+            <button type="button" class="utility-bar__feedback-btn" aria-label="Suggestions and complaints" @click="feedbackOpen = true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4H5.5A2.5 2.5 0 0 1 3 14.5v-8Z"/><path d="M12 8v4.2"/><circle cx="12" cy="15" r="0.9" fill="currentColor" stroke="none"/></svg>
+            </button>
+        </div>
+        <div class="utility-bar__right">
+            <div class="utility-bar__social max-lg:hidden!">
+                <a href="https://www.facebook.com/pages/Turisti%C4%8Dka-zajednica-SvFilip-i-Jakov/106688182694943?ref=hl" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z"/></svg>
+                </a>
+                <span class="utility-bar__sep"></span>
+                <a href="https://www.instagram.com/riviera_sv._filipijakov/" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                </a>
+                <span class="utility-bar__sep"></span>
+                <a href="https://www.youtube.com/channel/UCC2_iddu3ClPJhh9Q-1PBWA" target="_blank" rel="noopener" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+                </a>
+                <span class="utility-bar__sep"></span>
+                <a href="https://www.tiktok.com/@sv.filipijakov" target="_blank" rel="noopener" aria-label="TikTok">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+                </a>
+            </div>
+            <span class="utility-bar__sep max-lg:hidden!"></span>
+            <a href="https://www.whatsupcams.com/en/webcams/croatia/zadar/sveti-filip-i-jakov/webcam-sveti-filip-i-jakov/" target="_blank" rel="noopener" class="utility-bar__link" aria-label="Web cam">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="15" height="12" rx="2"/><path d="M17 10l5-3v10l-5-3"/></svg>
+                <span class="max-lg:hidden!">Web cam</span>
+            </a>
+            <span class="utility-bar__sep max-lg:hidden!"></span>
+            <button type="button" class="utility-bar__a11y" aria-label="Accessibility options">A+</button>
+        </div>
+    </div>
+
+    <div class="rate-overlay" :class="{ open: moodOpen }" :aria-hidden="!moodOpen" role="dialog" aria-modal="true" aria-label="Rate your visit" @keydown.escape.window="moodOpen = false">
+        <div class="rate-scrim" @click="moodOpen = false"></div>
+        <div class="rate-card">
+            <button type="button" class="rate-close" aria-label="Close" @click="moodOpen = false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
+            <template x-if="!moodRated">
+                <div class="rate-ask">
+                    <span class="rate-eyebrow">Happiness Rating</span>
+                    <div class="rate-faces">
+                        <button type="button" class="rate-face" aria-label="Not great" @click="moodRated = true">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><circle cx="32" cy="32" r="27"/><circle cx="23" cy="26" r="2.4" fill="currentColor" stroke="none"/><circle cx="41" cy="26" r="2.4" fill="currentColor" stroke="none"/><path d="M21 43c3-4.5 7-7 11-7s8 2.5 11 7"/></svg>
+                        </button>
+                        <button type="button" class="rate-face" aria-label="It was okay" @click="moodRated = true">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><circle cx="32" cy="32" r="27"/><circle cx="23" cy="26" r="2.4" fill="currentColor" stroke="none"/><circle cx="41" cy="26" r="2.4" fill="currentColor" stroke="none"/><path d="M22 39h20"/></svg>
+                        </button>
+                        <button type="button" class="rate-face" aria-label="It was great" @click="moodRated = true">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><circle cx="32" cy="32" r="27"/><circle cx="23" cy="26" r="2.4" fill="currentColor" stroke="none"/><circle cx="41" cy="26" r="2.4" fill="currentColor" stroke="none"/><path d="M21 35c3 4.5 7 7 11 7s8-2.5 11-7"/></svg>
+                        </button>
+                    </div>
+                    <div class="rate-question">Rate your visit to Sveti Filip i Jakov</div>
+                </div>
+            </template>
+
+            <template x-if="moodRated">
+                <div class="rate-thanks">
+                    <h3>Thank you for helping us make your visit even better.</h3>
+                    <p>Find out more on <strong>sv-filipjakov.hr</strong></p>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <div class="feedback-overlay" :class="{ open: feedbackOpen }" :aria-hidden="!feedbackOpen" role="dialog" aria-modal="true" aria-label="Suggestions and complaints" @keydown.escape.window="feedbackOpen = false" x-data="{ fileName: '' }">
+        <div class="feedback-scrim" @click="feedbackOpen = false"></div>
+        <div class="feedback-card">
+            <button type="button" class="feedback-close" aria-label="Close" @click="feedbackOpen = false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
+            <span class="feedback-eyebrow">Get in touch</span>
+            <h3 class="feedback-title">Suggestions and complaints</h3>
+
+            <form class="feedback-form" @submit.prevent="feedbackOpen = false; fileName = ''; $el.reset()">
+                <textarea class="feedback-textarea" placeholder="Write your message…" required></textarea>
+                <label class="feedback-upload">
+                    <input type="file" accept="image/*,video/*" class="sr-only" @change="fileName = $event.target.files[0]?.name || ''">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                    <span x-text="fileName || 'Attach a photo or video (optional)'"></span>
+                </label>
+                <button type="submit" class="feedback-submit">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</body>
+
+</html>
