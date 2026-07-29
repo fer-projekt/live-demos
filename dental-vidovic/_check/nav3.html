@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>logo position: menu closed vs open</title>
+<style>
+ body{margin:0;background:#444;color:#fff;font:12px monospace}
+ figure{margin:0 0 10px}
+ figcaption{padding:4px 8px}
+ iframe{border:0;background:#fff;display:block;height:560px}
+</style></head><body>
+ <div id="frames"></div>
+ <script>
+   const widths = [390, 768, 991];
+   const host = document.getElementById('frames');
+   for (const w of widths) {
+     const fig = document.createElement('figure');
+     fig.innerHTML = `<figcaption>ask ${w}px</figcaption><iframe src="../index.html" width="${w}"></iframe>`;
+     host.append(fig);
+   }
+   const snap = (f) => {
+     const d = f.contentDocument;
+     const nav = d.querySelector('.navbar');
+     const img = d.querySelector('.logo-img');
+     const btn = d.querySelector('.navbar-toggler');
+     const cont = d.querySelector('.navbar .container');
+     const nr = nav.getBoundingClientRect();
+     return {
+       logoTop: Math.round(img.getBoundingClientRect().top - nr.top),
+       togglerTop: Math.round(btn.getBoundingClientRect().top - nr.top),
+       navHeight: Math.round(nr.height),
+       containerHeight: Math.round(cont.getBoundingClientRect().height),
+       open: d.querySelector('#navbar').classList.contains('show')
+     };
+   };
+   window.compare = async () => {
+     const frames = [...document.querySelectorAll('iframe')];
+     const closed = frames.map(snap);
+     frames.forEach(f => f.contentDocument.querySelector('.navbar-toggler').click());
+     await new Promise(r => setTimeout(r, 1200));
+     const open = frames.map(snap);
+     return frames.map((f, i) => ({
+       asked: widths[i],
+       closed: closed[i], open: open[i],
+       logoShift: open[i].logoTop - closed[i].logoTop,
+       togglerShift: open[i].togglerTop - closed[i].togglerTop
+     }));
+   };
+ </script>
+</body></html>
