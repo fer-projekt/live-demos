@@ -6578,8 +6578,12 @@ blockquote {
         height: 70px;
         padding: 0 15px;
     }
+    /* The template gives the burger a 10px top margin below 768px, which made the flex row
+       80px tall inside a 70px bar and pushed the logo 5px down. Its height handles the
+       alignment now, so the margin goes. */
     .navbar .navbar-toggler {
         height: 70px;
+        margin: 0;
         display: flex;
         align-items: center;
     }
