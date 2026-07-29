@@ -211,6 +211,39 @@ css = css.replace(/([^{}]+)\{([^{}]*)\}/g, (m, sel, body) => {
   return sel + '{' + fixed + '}';
 });
 
+/* ---------- 3b. move the collapsed-navbar breakpoint to match navbar-expand-xl ---------- */
+// The markup uses navbar-expand-xl, so the burger appears below 1200px. All 28 of the
+// template's collapsed-navbar rules sit in a single @media (max-width: 991px) block that
+// contains nothing else, so its condition can be widened without dragging along unrelated
+// mobile styling (the other 18 blocks at that width are not navbar rules and stay put).
+// Both sides of the boundary move: the collapsed-bar rules (max-width: 991px) and the
+// expanded-bar rules (min-width: 992px, which carry the hover-to-open dropdown behaviour).
+// Leaving the latter behind would give 992-1199px desktop dropdowns inside a burger menu.
+const BOUNDARY = [
+  { re: /(@media[^{]*max-width: *991px[^{]*)\{/g, from: 'max-width: 991px', to: 'max-width: 1199.98px', expect: 1 },
+  { re: /(@media[^{]*min-width: *992px[^{]*)\{/g, from: 'min-width: 992px', to: 'min-width: 1200px', expect: 1 },
+];
+for (const step of BOUNDARY) {
+  let moved = 0;
+  css = css.replace(step.re, (full, head, offset) => {
+    // read the block body to decide whether this block is navbar-only
+    let depth = 1, k = offset + full.length;
+    for (; k < css.length; k++) {
+      if (css[k] === '{') depth++;
+      else if (css[k] === '}') { depth--; if (depth === 0) break; }
+    }
+    const body = css.slice(offset + full.length, k);
+    const sels = [...body.matchAll(/([^{}]+)\{/g)].map(x => x[1].trim()).filter(Boolean);
+    const navSels = sels.filter(s => /navbar|logo|nav-scroll|dropdown/.test(s)).length;
+    if (!sels.length || navSels !== sels.length) return full;   // mixed or unrelated, leave it
+    moved++;
+    return head.replace(step.from, step.to) + '{';
+  });
+  if (moved !== step.expect) {
+    throw new Error(`expected ${step.expect} navbar-only block for "${step.from}", moved ${moved}`);
+  }
+}
+
 /* ---------- 4. fonts ---------- */
 const jost = (css.match(/font-family: *"Jost", *sans-serif/g) || []).length;
 css = css.replace(/font-family: *"Jost", *sans-serif/g, 'font-family: var(--font-body)');
@@ -319,7 +352,7 @@ blockquote {
 .navbar .navbar-right .phonex {
     white-space: nowrap;
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1200px) {
     .navbar .navbar-nav .nav-link {
         padding-left: 12px;
         padding-right: 12px;
@@ -330,10 +363,35 @@ blockquote {
     }
 }
 
-/* Shorter bar once the menu collapses (navbar-expand-lg switches at 992px). The template
+/* Logo scales in three steps: 300px on wide screens, 200px across the rest of the expanded
+   range, and the template's 143px once the menu collapses at 1200px. Both the resting and
+   the scrolled bar are set — the template sizes .logo-img and .nav-scroll .logo-img
+   separately, so touching only one would make the lockup resize as soon as the page moves. */
+@media only screen and (min-width: 1600px) {
+    .logo-img,
+    .nav-scroll .logo-img {
+        width: 300px;
+    }
+}
+@media only screen and (min-width: 1200px) and (max-width: 1599.98px) {
+    .logo-img,
+    .nav-scroll .logo-img {
+        width: 200px;
+    }
+}
+
+/* Full-width bar: the markup uses .container-fluid instead of .container, so the inset
+   comes from here rather than from Bootstrap's centred max-width. Logo sits left, the menu
+   group is pushed right by ms-auto in the markup. */
+.navbar .container-fluid {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+/* Shorter bar once the menu collapses (navbar-expand-xl switches at 1200px). The template
    keeps 100px with 28px of wrapper padding around a 20px logo, which is a lot of empty
    height on a phone. The hero's min-height tracks the new bar height. */
-@media only screen and (max-width: 991.98px) {
+@media only screen and (max-width: 1199.98px) {
     .navbar {
         height: 70px;
     }
@@ -341,10 +399,15 @@ blockquote {
        expanded list, and align-items:center would then centre the first row inside that
        tall box — dragging the logo and burger upward. Pinning both to the bar height keeps
        them put whether the menu is open or closed. */
+    .navbar .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    /* Horizontal inset now lives on the container, so the wrapper only keeps its height. */
     .logo-wrapper,
     .nav-scroll .logo-wrapper {
         height: 70px;
-        padding: 0 15px;
+        padding: 0;
     }
     /* The template gives the burger a 10px top margin below 768px, which made the flex row
        80px tall inside a 70px bar and pushed the logo 5px down. Its height handles the
@@ -360,6 +423,16 @@ blockquote {
     }
     .header.hero-static .item {
         min-height: calc(95vh - 70px);
+    }
+}
+
+/* The template's cursor-following blob is a desktop flourish; on a touch screen it jumps to
+   wherever you tapped and lingers there, which reads as a glitch when opening the burger.
+   Off below 1200px, i.e. wherever the menu is collapsed. Nothing in the stylesheet sets
+   cursor:none, so the real pointer is unaffected. */
+@media only screen and (max-width: 1199.98px) {
+    .cursor {
+        display: none;
     }
 }
 

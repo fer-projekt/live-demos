@@ -1528,7 +1528,7 @@ blockquote.vert-move {
     color: var(--ink);
 }
 /* Navbar Media Query */
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1200px) {
     .navbar .dropdown-menu {
         display: block;
         opacity: 0;
@@ -1560,7 +1560,7 @@ blockquote.vert-move {
         transform: translateY(0);
     }
 }
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1199.98px) {
     .navbar {
         padding-left: 0px;
         padding-right: 0px;
@@ -6551,7 +6551,7 @@ blockquote {
 .navbar .navbar-right .phonex {
     white-space: nowrap;
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1200px) {
     .navbar .navbar-nav .nav-link {
         padding-left: 12px;
         padding-right: 12px;
@@ -6562,10 +6562,35 @@ blockquote {
     }
 }
 
-/* Shorter bar once the menu collapses (navbar-expand-lg switches at 992px). The template
+/* Logo scales in three steps: 300px on wide screens, 200px across the rest of the expanded
+   range, and the template's 143px once the menu collapses at 1200px. Both the resting and
+   the scrolled bar are set — the template sizes .logo-img and .nav-scroll .logo-img
+   separately, so touching only one would make the lockup resize as soon as the page moves. */
+@media only screen and (min-width: 1600px) {
+    .logo-img,
+    .nav-scroll .logo-img {
+        width: 300px;
+    }
+}
+@media only screen and (min-width: 1200px) and (max-width: 1599.98px) {
+    .logo-img,
+    .nav-scroll .logo-img {
+        width: 200px;
+    }
+}
+
+/* Full-width bar: the markup uses .container-fluid instead of .container, so the inset
+   comes from here rather than from Bootstrap's centred max-width. Logo sits left, the menu
+   group is pushed right by ms-auto in the markup. */
+.navbar .container-fluid {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+/* Shorter bar once the menu collapses (navbar-expand-xl switches at 1200px). The template
    keeps 100px with 28px of wrapper padding around a 20px logo, which is a lot of empty
    height on a phone. The hero's min-height tracks the new bar height. */
-@media only screen and (max-width: 991.98px) {
+@media only screen and (max-width: 1199.98px) {
     .navbar {
         height: 70px;
     }
@@ -6573,10 +6598,15 @@ blockquote {
        expanded list, and align-items:center would then centre the first row inside that
        tall box — dragging the logo and burger upward. Pinning both to the bar height keeps
        them put whether the menu is open or closed. */
+    .navbar .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    /* Horizontal inset now lives on the container, so the wrapper only keeps its height. */
     .logo-wrapper,
     .nav-scroll .logo-wrapper {
         height: 70px;
-        padding: 0 15px;
+        padding: 0;
     }
     /* The template gives the burger a 10px top margin below 768px, which made the flex row
        80px tall inside a 70px bar and pushed the logo 5px down. Its height handles the
@@ -6592,6 +6622,16 @@ blockquote {
     }
     .header.hero-static .item {
         min-height: calc(95vh - 70px);
+    }
+}
+
+/* The template's cursor-following blob is a desktop flourish; on a touch screen it jumps to
+   wherever you tapped and lingers there, which reads as a glitch when opening the burger.
+   Off below 1200px, i.e. wherever the menu is collapsed. Nothing in the stylesheet sets
+   cursor:none, so the real pointer is unaffected. */
+@media only screen and (max-width: 1199.98px) {
+    .cursor {
+        display: none;
     }
 }
 

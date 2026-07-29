@@ -36,8 +36,10 @@
         </svg>
     </div>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
+    <!-- expand-xl (ne -lg): meni prelazi u hamburger ispod 1200px. -->
+    <nav class="navbar navbar-expand-xl">
+        <!-- Bez .container: traka ide punom širinom, logo lijevo, sve ostalo desno. -->
+        <div class="container-fluid">
             <!-- Logo -->
             <div class="logo-wrapper">
                 <!-- Skrola na vrh bez reloada — onepage. -->
@@ -47,7 +49,9 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Otvori navigaciju"> <span class="navbar-toggler-icon"><i class="ti-menu"></i></span> </button>
             <!-- Menu -->
             <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav mx-auto">
+                <!-- ms-auto umjesto mx-auto: meni se ne centrira, nego se skupa s
+                     telefonom i gumbom potiskuje na desnu stranu. -->
+                <ul class="navbar-nav ms-auto">
                     <!-- Bez "Naslovna" — na vrh se ide preko loga. -->
                     <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="1"><span class="rolling-text">O nama</span></a></li>
                     <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Usluge <i class="ti-angle-down"></i></a>
