@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klesarstvo Baković — Granit · Mramor · Kamen</title>
+<meta name="description" content="Klesarstvo Baković — obrada granita, mramora i prirodnog kamena. Radne ploče, obloge, fasade, stepenice i spomenici. Izmjera i ponuda bez naplate.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Italianno&display=swap" rel="stylesheet">
+
+<!-- Tailwind: CDN je samo za prototip. U produkciji instaliraj Tailwind (npm/CLI) i prenesi ovaj `theme` u tailwind.config.js -->
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#16181a',        /* antracit */
+          graphite: '#3d4145',
+          stone: '#8a857c',
+          muted: '#4c4944',
+          sand: '#f7f5f1',       /* bijela / papir */
+          beige: '#eae6de',
+          line: '#e2ded6',
+        },
+        fontFamily: {
+          sans: ['Jost', 'system-ui', 'sans-serif'],
+          serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+          script: ['Italianno', 'cursive'],
+        },
+        transitionTimingFunction: {
+          stone: 'cubic-bezier(.22,1,.36,1)',
+        },
+      },
+    },
+  };
+</script>
+
+<!-- Alpine.js + intersect plugin (scroll reveal) -->
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  ::selection { background: #e3ddd2; }
+  [x-cloak] { display: none !important; }
+</style>
+<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+</head>
+
+<body class="bg-sand font-sans text-ink antialiased"
+  x-data="{ sweep() { document.querySelectorAll('.reveal').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.remove('opacity-0','translate-y-4','translate-y-5','translate-y-[18px]'); }); } }"
+  x-init="sweep(); setInterval(() => sweep(), 300)"
+  @scroll.window="sweep()"
+  @resize.window="sweep()">
+
+<!-- ============ HEADER ============ -->
+<header
+  x-data="{ scrolled: false, open: false }"
+  @scroll.window="scrolled = window.scrollY > 40"
+  :class="scrolled ? 'shadow-[0_1px_28px_rgba(0,0,0,0.45)]' : 'shadow-none'"
+  class="sticky top-0 z-50 border-b border-sand/10 bg-ink bg-[url('images/grey-bg.jpg')] bg-[length:300px_300px] bg-repeat text-sand transition-shadow duration-500 ease-stone">
+
+  <div class="mx-auto flex max-w-[1440px] items-end gap-8 px-5 py-3.5 md:px-8">
+
+    <!-- logo + naziv + materijali -->
+    <a href="#top" class="flex items-stretch gap-4 md:gap-5">
+      <span class="flex flex-col items-center gap-2">
+        <img src="images/kb-mark.png" alt="Klesarstvo Baković" class="block h-11 w-11 invert md:h-[52px] md:w-[52px]" loading="lazy" decoding="async">
+        <span class="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.22em] md:text-[11px]">Klesarstvo Baković</span>
+      </span>
+      <span class="hidden w-px bg-sand/20 sm:block"></span>
+      <span class="hidden flex-col justify-center gap-0.5 pb-1.5 sm:flex">
+        <span class="font-script text-[26px] leading-[1.05] text-sand/75">Granit</span>
+        <span class="font-script text-[26px] leading-[1.05] text-sand/75">Mramor</span>
+        <span class="font-script text-[26px] leading-[1.05] text-sand/75">Kamen</span>
+      </span>
+    </a>
+
+    <!-- desktop nav -->
+    <nav class="ml-auto hidden items-center gap-6 pb-1.5 lg:flex xl:gap-8">
+      <a href="#" @click.prevent class="whitespace-nowrap text-[11.5px] uppercase tracking-[0.13em] text-sand/70 transition-colors duration-300 hover:text-sand">Materijali</a>
+      <a href="#" @click.prevent class="whitespace-nowrap text-[11.5px] uppercase tracking-[0.13em] text-sand/70 transition-colors duration-300 hover:text-sand">Radovi</a>
+      <a href="#" @click.prevent class="whitespace-nowrap text-[11.5px] uppercase tracking-[0.13em] text-sand/70 transition-colors duration-300 hover:text-sand">Novosti</a>
+      <a href="#" @click.prevent class="whitespace-nowrap text-[11.5px] uppercase tracking-[0.13em] text-sand/70 transition-colors duration-300 hover:text-sand">O nama</a>
+      <a href="#" @click.prevent class="whitespace-nowrap text-[11.5px] uppercase tracking-[0.13em] text-sand/70 transition-colors duration-300 hover:text-sand">Lokacija</a>
+      <a href="#kontakt" class="whitespace-nowrap bg-sand px-5 py-3 text-[11.5px] uppercase tracking-[0.16em] text-ink transition-colors duration-500 ease-stone hover:bg-[#d9d4c9]">Zatraži ponudu</a>
+    </nav>
+
+    <!-- mobile toggle -->
+    <button type="button" @click="open = !open" :aria-expanded="open" aria-label="Meni"
+      class="ml-auto flex h-10 w-10 flex-col items-center justify-center gap-[5px] lg:hidden">
+      <span class="block h-px w-6 bg-sand transition-transform duration-300" :class="open && 'translate-y-[6px] rotate-45'"></span>
+      <span class="block h-px w-6 bg-sand transition-opacity duration-300" :class="open && 'opacity-0'"></span>
+      <span class="block h-px w-6 bg-sand transition-transform duration-300" :class="open && '-translate-y-[6px] -rotate-45'"></span>
+    </button>
+  </div>
+
+  <!-- mobile nav -->
+  <nav x-show="open" x-cloak x-collapse @click="open = false"
+    class="border-t border-sand/10 bg-ink bg-[url('images/grey-bg.jpg')] bg-[length:300px_300px] bg-repeat px-5 pb-6 pt-2 lg:hidden">
+    <a href="#" @click.prevent class="block border-b border-sand/10 py-4 text-xs uppercase tracking-[0.18em] text-sand/80">Materijali</a>
+    <a href="#" @click.prevent class="block border-b border-sand/10 py-4 text-xs uppercase tracking-[0.18em] text-sand/80">Radovi</a>
+    <a href="#" @click.prevent class="block border-b border-sand/10 py-4 text-xs uppercase tracking-[0.18em] text-sand/80">Novosti</a>
+    <a href="#" @click.prevent class="block border-b border-sand/10 py-4 text-xs uppercase tracking-[0.18em] text-sand/80">O nama</a>
+    <a href="#" @click.prevent class="block border-b border-sand/10 py-4 text-xs uppercase tracking-[0.18em] text-sand/80">Lokacija</a>
+    <a href="#kontakt" class="mt-5 block bg-sand px-5 py-4 text-center text-xs uppercase tracking-[0.18em] text-ink">Zatraži ponudu</a>
+  </nav>
+</header>
+
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative flex min-h-[560px] items-end overflow-hidden bg-ink md:h-[min(86vh,820px)]">
+  <picture>
+    <source type="image/webp" media="(min-width: 420px)" srcset="images/hero-desk-1920x820.webp">
+    <img src="images/hero-mob-860x1400.webp" width="860" height="1400" alt="Klesarsko dlijeto pri obradi kamenog bloka" fetchpriority="high" decoding="async" class="absolute inset-0 h-full w-full object-cover object-center">
+  </picture>
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+
+  <div class="reveal relative mx-auto w-full max-w-[1440px] translate-y-4 px-5 pb-14 opacity-0 transition-all duration-[900ms] ease-stone md:px-8 md:pb-16">
+    <span class="mb-5 block text-[1rem] uppercase tracking-[0.34em] text-sand/70">Klesarstvo Baković — obrada prirodnog kamena</span>
+    <h1 class="max-w-[15ch] font-serif text-[clamp(38px,5.6vw,88px)] font-light leading-[1.04] tracking-tight text-sand">Kamen koji nadživi generacije</h1>
+    <p class="mt-6 max-w-[46ch] text-[1.125rem] font-light leading-[1.75] text-sand/80 md:text-[1.25rem]">Granit, mramor i prirodni kamen — od odabira ploče do posljednjeg poteza ruke. Radimo za interijere, arhitekturu i spomenike.</p>
+    <a href="#kontakt" class="group mt-9 inline-flex items-center gap-3.5 border-b border-sand/45 pb-2 text-[11.5px] uppercase tracking-[0.2em] text-sand transition-all duration-500 ease-stone hover:gap-6 hover:border-sand">
+      Zatraži ponudu <span class="text-[15px]">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ TRI KUĆICE ============ -->
+<section class="mx-auto max-w-[1440px] px-5 pb-6 pt-16 md:px-8 md:pt-20">
+  <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+
+    <a href="materijali.html"
+      class="reveal group relative block aspect-[16/11] translate-y-5 overflow-hidden bg-beige opacity-0 transition-all duration-700 ease-stone">
+      <img src="images/materijali.png" alt="Ploče granita i mramora u izložbenom prostoru" class="h-full w-full object-cover object-[80%_center] transition-transform duration-[900ms] ease-stone group-hover:scale-[1.03]" loading="lazy" decoding="async">
+      <div class="absolute inset-x-0 bottom-0 bg-ink/85 px-5 py-3.5">
+        <h3 class="text-[1.125rem] font-light uppercase tracking-[0.14em] text-sand md:text-[1.25rem]">Vrste materijala</h3>
+      </div>
+    </a>
+
+    <a href="radovi.html"
+      class="reveal group relative block aspect-[16/11] translate-y-5 overflow-hidden bg-beige opacity-0 transition-all delay-75 duration-700 ease-stone">
+      <img src="images/radovi.png" alt="Kuhinjski otok od tamnog granita uz mramornu oblogu" class="h-full w-full object-cover transition-transform duration-[900ms] ease-stone group-hover:scale-[1.03]" loading="lazy" decoding="async">
+      <div class="absolute inset-x-0 bottom-0 bg-ink/85 px-5 py-3.5">
+        <h3 class="text-[1.125rem] font-light uppercase tracking-[0.14em] text-sand md:text-[1.25rem]">Radovi</h3>
+      </div>
+    </a>
+
+    <a href="novosti.html"
+      class="reveal group relative block aspect-[16/11] translate-y-5 overflow-hidden bg-beige opacity-0 transition-all delay-150 duration-700 ease-stone sm:col-span-2 lg:col-span-1">
+      <img src="images/lokacija.png" alt="Radionica i izložbeni prostor Klesarstva Baković" class="h-full w-full object-cover object-center transition-transform duration-[900ms] ease-stone group-hover:scale-[1.03]" loading="lazy" decoding="async">
+      <div class="absolute inset-x-0 bottom-0 bg-ink/85 px-5 py-3.5">
+        <h3 class="text-[1.125rem] font-light uppercase tracking-[0.14em] text-sand md:text-[1.25rem]">Novosti</h3>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ CITAT ============ -->
+<section class="mt-10 bg-beige">
+  <div
+    class="reveal mx-auto max-w-[1000px] translate-y-4 px-5 py-20 text-center opacity-0 transition-all duration-700 ease-stone md:px-8 md:py-24">
+    <p class="font-script text-[clamp(38px,5vw,64px)] font-normal leading-[1.25] text-ink">„Kamen ne oprašta greške. Zato mjerimo triput, a režemo jednom."</p>
+    <span class="mt-7 block text-[1rem] uppercase tracking-[0.28em] text-stone">Klesarstvo Baković</span>
+  </div>
+</section>
+
+<!-- ============ O NAMA ============ -->
+<section id="o-nama" class="scroll-mt-28 bg-ink bg-[url('images/grey-bg.jpg')] bg-[length:300px_300px] bg-repeat text-sand">
+  <div class="mx-auto max-w-[1440px] px-5 py-24 md:px-8 md:py-32">
+  <div
+    class="reveal grid translate-y-5 items-center gap-12 opacity-0 transition-all duration-[850ms] ease-stone lg:grid-cols-2 lg:gap-20">
+    <div class="relative aspect-[4/5] overflow-hidden bg-graphite">
+      <img src="images/o-nama.png" alt="Klesar pri obradi kamenog bloka" class="h-full w-full object-cover object-center" loading="lazy" decoding="async">
+    </div>
+    <div class="max-w-[46ch]">
+      <span class="mb-5 block text-[1rem] uppercase tracking-[0.3em] text-sand/50">O nama</span>
+      <h2 class="font-serif text-[clamp(30px,3.4vw,50px)] font-light leading-[1.12]">Tradicija koja se mjeri milimetrima</h2>
+      <p class="mt-7 text-[1rem] font-light leading-[1.85] text-sand/70 md:text-[1.125rem]">Klesarstvo Baković obiteljska je radionica koja kamen obrađuje već tri desetljeća. Ono što je počelo s ručnim alatom i jednim strojem danas je radionica u kojoj se moderna CNC obrada spaja s klesarskim zanatom koji se ne može programirati.</p>
+      <p class="mt-5 text-[1rem] font-light leading-[1.85] text-sand/70 md:text-[1.125rem]">Svaki projekt vodimo od izmjere na terenu do ugradnje. Bez podizvođača, bez improvizacije — jer kamen pamti svaku odluku.</p>
+      <div class="mt-12 grid grid-cols-3 gap-7 border-t border-sand/12 pt-8">
+        <div x-data="counter(30)" x-intersect.once="run()">
+          <span class="block font-serif text-[40px] font-light leading-none"><span x-text="shown"></span>+</span>
+          <span class="mt-2.5 block max-w-[7ch] text-[11px] uppercase tracking-[0.16em] text-sand/50">Godina iskustva</span>
+        </div>
+        <div x-data="counter(900)" x-intersect.once="run()">
+          <span class="block font-serif text-[40px] font-light leading-none"><span x-text="shown"></span>+</span>
+          <span class="mt-2.5 block text-[11px] uppercase tracking-[0.16em] text-sand/50">Izvedenih projekata</span>
+        </div>
+        <div x-data="counter(100)" x-intersect.once="run()">
+          <span class="block font-serif text-[40px] font-light leading-none"><span x-text="shown"></span> %</span>
+          <span class="mt-2.5 block max-w-[8ch] text-[11px] uppercase tracking-[0.16em] text-sand/50">Vlastita izvedba</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOKACIJA ============ -->
+<section id="lokacija" class="scroll-mt-28 bg-beige">
+  <div
+    class="reveal mx-auto grid max-w-[1440px] translate-y-[18px] items-center gap-12 px-5 py-20 opacity-0 transition-all duration-[850ms] ease-stone md:px-8 md:py-24 lg:grid-cols-[1fr_1.2fr] lg:gap-[72px]">
+    <div>
+      <span class="mb-5 block text-[1rem] uppercase tracking-[0.3em] text-stone">Lokacija</span>
+      <h2 class="font-serif text-[clamp(30px,3.4vw,50px)] font-light leading-[1.12]">Dođi vidjeti kamen uživo</h2>
+      <p class="mt-6 max-w-[40ch] text-[1rem] md:text-[1.125rem] font-light leading-[1.85] text-muted">Ploče se ne biraju s ekrana. U našem izložbenom prostoru možeš vidjeti punu ploču, uzorke završnih obrada i usporediti boje pri dnevnom svjetlu.</p>
+      <div class="mt-9 flex flex-col gap-2">
+        <span class="text-[1rem] md:text-[1.125rem]">Klesarstvo Baković</span>
+        <span class="text-[1rem] md:text-[1.125rem] font-light text-muted">Pristeg 31, 23420 Pristeg, Hrvatska</span>
+        <span class="mt-1.5 text-[1rem] text-stone md:text-[1.125rem]">Pon – Pet 08:00 – 16:00<br>Sub 08:00 – 12:00</span>
+      </div>
+    </div>
+    <div class="relative aspect-[16/10] overflow-hidden bg-[#ded9d0]">
+      <!-- KARTA: Pristeg 31 — 43.9574, 15.6346 (fino podesi marker na točan kućni broj ako treba) -->
+      <iframe
+        title="Karta — Klesarstvo Baković"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=15.6096%2C43.9424%2C15.6596%2C43.9724&amp;layer=mapnik&amp;marker=43.9574%2C15.6346"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        class="h-full w-full border-0 grayscale contrast-[0.92] brightness-[1.04]"></iframe>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=43.9574,15.6346" target="_blank" rel="noopener"
+        class="absolute bottom-0 right-0 bg-ink/85 px-4 py-3 text-[10.5px] uppercase tracking-[0.18em] text-sand transition-colors duration-300 hover:bg-ink">Otvori u kartama →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KONTAKT ============ -->
+<section id="kontakt" class="scroll-mt-28 bg-ink bg-[url('images/grey-bg.jpg')] bg-[length:300px_300px] bg-repeat text-sand">
+
+
+  <div
+    class="reveal mx-auto max-w-[1440px] translate-y-[18px] px-5 py-24 opacity-0 transition-all duration-[850ms] ease-stone md:px-8 md:py-32">
+    <div class="grid items-end gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
+      <div>
+        <span class="mb-6 block text-[1rem] uppercase tracking-[0.3em] text-sand/50">Kontakt</span>
+        <h2 class="max-w-[20ch] font-serif text-[clamp(30px,3.4vw,50px)] font-light leading-[1.12]">Pošalji nam nacrt ili samo ideju</h2>
+        <p class="mt-6 max-w-[44ch] text-[1rem] font-light leading-[1.8] text-sand/70 md:text-[1.125rem]">Izmjeru i ponudu radimo bez naplate. Javi nam se s dimenzijama, fotografijom prostora ili nacrtom — ostalo je na nama.</p>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div>
+          <span class="mb-2.5 block text-[10.5px] uppercase tracking-[0.24em] text-sand/45">Telefon</span>
+          <a href="tel:+385916312600" class="text-xl font-light transition-colors duration-300 hover:text-[#b8b2a8]">+385 91 6312 600</a>
+        </div>
+        <div>
+          <span class="mb-2.5 block text-[10.5px] uppercase tracking-[0.24em] text-sand/45">E-mail</span>
+          <a href="mailto:info@bakovic.hr" class="text-xl font-light transition-colors duration-300 hover:text-[#b8b2a8]">info@bakovic.hr</a>
+        </div>
+        <a href="mailto:info@bakovic.hr"
+          class="mt-3 flex items-center justify-between gap-5 bg-sand px-6 py-5 text-[11.5px] uppercase tracking-[0.2em] text-ink transition-colors duration-500 ease-stone hover:bg-[#d9d4c9]">
+          Zatraži ponudu <span class="text-base">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-sand/10">
+    <div class="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-5 px-5 py-8 md:flex-row md:items-center md:px-8">
+      <div class="flex items-center gap-4">
+        <img src="images/kb-mark.png" alt="" class="h-10 w-10 opacity-90 invert" loading="lazy" decoding="async">
+        <div class="flex flex-col gap-1.5">
+          <span class="text-[11px] uppercase tracking-[0.22em] text-sand/85">Klesarstvo Baković</span>
+          <span class="text-[10.5px] uppercase tracking-[0.2em] text-sand/45">Granit · Mramor · Kamen</span>
+        </div>
+      </div>
+      <span class="text-[11.5px] tracking-[0.1em] text-sand/40">© 2026 Klesarstvo Baković</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

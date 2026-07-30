@@ -428,9 +428,11 @@ blockquote {
 
 /* The template's cursor-following blob is a desktop flourish; on a touch screen it jumps to
    wherever you tapped and lingers there, which reads as a glitch when opening the burger.
-   Off below 1200px, i.e. wherever the menu is collapsed. Nothing in the stylesheet sets
-   cursor:none, so the real pointer is unaffected. */
-@media only screen and (max-width: 1199.98px) {
+   Two conditions, either one is enough (comma = OR): below 1200px, i.e. wherever the menu is
+   collapsed, and on any device with no real hover — that second one catches wide tablets that
+   would otherwise slip through on width alone. Nothing in the stylesheet sets cursor:none, so
+   the real pointer is unaffected. */
+@media only screen and (max-width: 1199.98px), only screen and (hover: none) {
     .cursor {
         display: none;
     }
