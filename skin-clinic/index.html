@@ -11,8 +11,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="js/tailwind-config.js"></script>
+<script src="js/tailwind.config.js"></script>
 <link rel="stylesheet" href="css/styles.css" />
+
 </head>
 
 <body class="bg-[#FCF8F5] antialiased">
@@ -173,18 +174,11 @@
                {t:'Lice', items:['Lifting i učvršćivanje kože','Bore i fine linije','Gubitak volumena i kontura lica','Povećanje usana','Podočnjaci i umoran izgled','Spušteni kapci']},
                {t:'Kožna stanja', items:['Ožiljci, proširene pore i nepravilnosti','Pigmentacije i neujednačen ten','Crvenilo i kapilare','Hidratacija i regeneracija kože']},
                {t:'Tijelo', items:['Oblikovanje tijela','Strije i regeneracija kože','Vaginalna rejuvenacija','Prekomjerno znojenje','Kosa i vlasište']}
-             ]},
+             ], tret:{t:'Tretmani', items:['Botox','Hijaluronski fileri','Skinboosteri','Profhilo','PRP','Mezoterapija','Polinukleotidi','Egzosomi','Biostimulatori','Mezoniti','RF microneedling','Ultraformer','Plasmage','Karboksiterapija','Injekcijska lipoliza']}},
              {label:'Kozmetologija', tag:'Njega i revitalizacija kože', featured:'Visbody · 3D analiza tijela', groups:[
                {t:'Lice', items:['Digitalna analiza lica','Nečista koža','Akne i problematična koža','Osjetljiva koža','Hidratacija i revitalizacija','Anti-age i regeneracija','Područje oko očiju']},
-               {t:'Tretmani tijela', items:['Visbody 3D analiza tijela','Konturiranje tijela i smanjenje masnih naslaga','Celulit','Zatezanje kože i učvršćivanje tijela','Detoksikacija i limfna drenaža','Njega ruku']}
-             ]},
-             {label:'Laseri', tag:'Napredne laserske tehnologije', featured:null, groups:[
-               {t:'Koža i ten', items:['Pigmentacije','Crvenilo i rozaceja','Pore i tekstura kože','Bore i znakovi starenja']},
-               {t:'Nepravilnosti', items:['Akne i postakne','Ožiljci','Strije']},
-               {t:'Dlake i nokti', items:['Trajno uklanjanje dlačica','Gljivične infekcije noktiju']},
-               {t:'Zatezanje i oblikovanje', items:['Opuštena koža i konturiranje lica','Masne naslage i oblikovanje tijela']},
-               {t:'Ostalo', items:['Kapilare i vene','Uklanjanje tetovaža','Uklanjanje promjena na koži','Intimno pomlađivanje']}
-             ]}
+             ], tret:{t:'Tretmani', groups:[{t:'Tretmani lica', items:['HydraCool Facial','Oxygenceuticals tretman','Mehaničko čišćenje lica','Kozmetički boosteri','Dermapen','CACI Synergy','Med Visage','Dr Platon hladna plazma','Celluma LED terapija','Kemijski pilinzi']},{t:'Tretmani tijela', items:['iCoone Laser Med','King Shape','Kriolipoliza','Tesla trening mišića','ID Sculpt','Presoterapija']}]}},
+             {label:'Laseri', tag:'Napredne laserske tehnologije', featured:null, groups:[], tret:{t:'Tretmani', groups:[{t:'Koža i ten', items:['Lasersko pomlađivanje lica','Laserski resurfacing kože','Laserski tretman pigmentacija','Laserski tretman kapilara i vena']},{t:'Nepravilnosti', items:['Laserski tretman ožiljaka i akni','Uklanjanje promjena na koži']},{t:'Dlake i nokti', items:['Lasersko uklanjanje dlačica','Laserski tretman gljivičnih infekcija noktiju']},{t:'Zatezanje i oblikovanje', items:['Opuštena koža i konturiranje lica','Masne naslage i oblikovanje tijela']},{t:'Ostalo', items:['Lasersko uklanjanje tetovaža','Intimno pomlađivanje']}]}, tech:{t:'Tehnologije', items:['Frakcijski CO₂ laser','Er:YAG laser','Nd:YAG laser','Aleksandrit laser','IPL fototerapija','Q-switched laser','Vaskularni laser','Radiofrekvencijsko zatezanje','HIFU ultrazvuk']}}
            ] }"
            class="max-w-[1280px] mx-auto px-6 py-8 grid grid-cols-12 gap-10">
 
@@ -210,22 +204,46 @@
 
         <!-- RIGHT: groups for active pillar -->
         <div class="col-span-9">
-          <div class="flex items-center justify-between gap-6 pb-3 mb-4 border-b border-sand">
-            <p class="text-[12px] tracking-[.2em] text-taupe" x-text="skin[pi].label.toUpperCase()"></p>
-            <div class="flex items-center gap-5">
+          <div class="grid grid-cols-3 gap-x-10">
+            <div x-show="skin[pi].groups.length" :class="skin[pi].groups.length>1 ? 'col-span-2' : 'col-span-1'">
+              <p class="text-[11px] tracking-[.2em] text-taupe font-semibold pb-2.5 mb-3 border-b border-sand/70">STANJA</p>
+              <div :class="skin[pi].groups.length>1 ? 'columns-2 gap-x-10' : ''" style="column-fill:balance">
+                <template x-for="grp in skin[pi].groups" :key="grp.t">
+                  <div class="break-inside-avoid mb-6">
+                    <p class="text-[10.5px] tracking-[.18em] text-taupe/90 font-semibold uppercase pb-2 mb-1" x-text="grp.t"></p>
+                    <template x-for="it in grp.items" :key="it">
+                      <a href="#" class="mega-link !text-[15px] !py-1.5" x-text="it"></a>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div :class="(skin[pi].groups.length ? 'border-l border-sand/70 pl-10 ' : '') + (skin[pi].groups.length>1 ? 'col-span-1' : 'col-span-2')">
+              <p class="text-[11px] tracking-[.2em] text-taupe font-semibold pb-2.5 mb-3 border-b border-sand/70" x-text="skin[pi].tret.t.toUpperCase()"></p>
               <template x-if="skin[pi].featured">
-                <a href="#" class="flex items-center gap-2 rounded-full bg-ink text-cream px-4 py-2.5 hover:bg-taupe transition-colors">
-                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l1.8 1"/></svg>
+                <a href="#" class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-4 py-2.5 mb-3 hover:bg-taupe transition-colors">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" class="shrink-0"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l1.8 1"/></svg>
                   <span class="text-[12px] tracking-[.04em] whitespace-nowrap" x-text="skin[pi].featured"></span>
                 </a>
               </template>
+              <div :class="skin[pi].groups.length>1 ? '' : 'columns-2 gap-x-10'" style="column-fill:balance">
+                <template x-for="it in skin[pi].tret.items || []" :key="it">
+                  <a href="#" class="mega-link !text-[15px] !py-1.5 break-inside-avoid" x-text="it"></a>
+                </template>
+                <template x-for="grp in skin[pi].tret.groups || []" :key="grp.t">
+                  <div class="break-inside-avoid mb-6">
+                    <p class="text-[10.5px] tracking-[.18em] text-taupe/90 font-semibold uppercase pb-2 mb-1" x-text="grp.t"></p>
+                    <template x-for="it in grp.items" :key="it">
+                      <a href="#" class="mega-link !text-[15px] !py-1.5" x-text="it"></a>
+                    </template>
+                  </div>
+                </template>
+              </div>
             </div>
-          </div>
-          <div class="columns-2 xl:columns-3 gap-x-10" style="column-fill:balance">
-            <template x-for="grp in skin[pi].groups" :key="grp.t">
-              <div class="break-inside-avoid mb-6">
-                <p class="text-[10.5px] tracking-[.18em] text-taupe font-semibold uppercase pb-2 mb-1" x-text="grp.t"></p>
-                <template x-for="it in grp.items" :key="it">
+            <template x-if="skin[pi].tech">
+              <div class="border-l border-sand/70 pl-10">
+                <p class="text-[11px] tracking-[.2em] text-taupe font-semibold pb-2.5 mb-3 border-b border-sand/70" x-text="skin[pi].tech.t.toUpperCase()"></p>
+                <template x-for="it in skin[pi].tech.items" :key="it">
                   <a href="#" class="mega-link !text-[15px] !py-1.5" x-text="it"></a>
                 </template>
               </div>
@@ -239,22 +257,41 @@
     <div x-show="open==='programi'" x-transition.opacity.duration.150ms
          @mouseenter="open='programi'"
          class="absolute left-0 right-0 bg-white border-b border-sand shadow-[0_24px_40px_-24px_rgba(57,50,45,.35)]" style="display:none">
-      <div class="max-w-[1280px] mx-auto px-6 py-10 grid grid-cols-12 gap-10">
-        <div class="col-span-3 border-r border-sand/70 pr-8">
-          <p class="text-[11px] tracking-[.22em] text-taupe mb-2">FIDELIA PROGRAMI</p>
-          <p class="font-sans font-semibold text-[24px] leading-tight text-ink">Personalizirani<br>pristup zdravlju</p>
-          <p class="mt-3 text-sm text-mute font-light leading-relaxed">Programi prilagođeni vašem životnom stilu i ciljevima.</p>
-          <a href="#kontakt" class="inline-flex items-center gap-2 mt-6 rounded-full bg-ink text-cream text-[12px] tracking-[.1em] px-5 py-3 hover:bg-taupe transition-colors">ZATRAŽI PROGRAM →</a>
+      <div class="max-w-[1280px] mx-auto px-6 py-8 grid grid-cols-12 gap-10">
+        <!-- LEFT: selector (site-map group 1 + club) -->
+        <div class="col-span-3">
+          <p class="text-[11px] tracking-[.22em] text-taupe mb-4">FIDELIA PROGRAMI</p>
+          <div class="flex flex-col">
+            <div class="text-left px-4 py-3.5 border-l-2 bg-cream flex items-center justify-between" style="border-color:#C0A392">
+              <span>
+                <span class="block font-sans font-semibold text-[16px] text-ink">Personalizirani pristup zdravlju</span>
+                <span class="block text-[11px] text-mute/80 font-light mt-0.5">Programi i paketi po mjeri</span>
+              </span>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" class="shrink-0 text-taupe"><path d="M6 4l5 4-5 4"/></svg>
+            </div>
+            <a href="#club" @click="open=null" class="group text-left px-4 py-3.5 border-l-2 bg-[#C0A392] hover:bg-taupe flex items-center justify-between transition-colors" style="border-color:#9E7C64">
+              <span>
+                <span class="block font-sans font-semibold text-[16px] text-white">Fidelia Club Longevity</span>
+                <span class="block text-[11px] text-white/80 font-light mt-0.5">Ekskluzivno članstvo</span>
+              </span>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" class="shrink-0 text-white transition-transform duration-300 group-hover:translate-x-0.5"><path d="M6 4l5 4-5 4"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="col-span-9 grid grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-1 self-start">
-          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Menadžerski program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Za dinamičan tempo života.</span></a>
-          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Program za turiste</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Kompaktna skrb tijekom boravka.</span></a>
-          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Ženski program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Hormoni, prevencija i estetika.</span></a>
-          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Muški program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Vitalnost i kardiometabolička prevencija.</span></a>
-          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Longevity paket S</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Uvod u longevity medicinu.</span></a>
-          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Longevity paket L</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Prošireni longevity protokol.</span></a>
-          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Well-Aging paket</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Estetika i zdravo starenje.</span></a>
-          <a href="#" class="group block py-2.5"><span class="block text-[15px] text-taupe group-hover:text-ink transition-colors">Fidelia Club Longevity →</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Ekskluzivno članstvo dugoročne skrbi.</span></a>
+        <!-- RIGHT: anchor links for group 1 -->
+        <div class="col-span-9">
+          <div class="flex items-center justify-between gap-6 pb-3 mb-4 border-b border-sand">
+            <p class="text-[12px] tracking-[.2em] text-taupe">PERSONALIZIRANI PRISTUP ZDRAVLJU</p>
+          </div>
+          <div class="grid grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-1">
+            <a href="#programi-sec" @click.prevent="open=null; window.scrollToProgram(0)" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Menadžerski program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Za dinamičan tempo života.</span></a>
+            <a href="#programi-sec" @click.prevent="open=null; window.scrollToProgram(1)" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Program za turiste</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Kompaktna skrb tijekom boravka.</span></a>
+            <a href="#programi-sec" @click.prevent="open=null; window.scrollToProgram(2)" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Ženski program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Hormoni, prevencija i estetika.</span></a>
+            <a href="#programi-sec" @click.prevent="open=null; window.scrollToProgram(3)" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Muški program</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Vitalnost i kardiometabolička prevencija.</span></a>
+            <a href="#programi-sec" @click.prevent="open=null; window.scrollToProgram(4)" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Longevity paket S</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Uvod u longevity medicinu.</span></a>
+            <a href="#programi-sec" @click.prevent="open=null; window.scrollToProgram(5)" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Longevity paket L</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Prošireni longevity protokol.</span></a>
+            <a href="#programi-sec" @click.prevent="open=null; window.scrollToProgram(6)" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Well-Aging paket</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Estetika i zdravo starenje.</span></a>
+          </div>
         </div>
       </div>
     </div>
@@ -262,7 +299,7 @@
   </div>
 </header>
 
-<!-- Mega link base style — see css/styles.css -->
+<!-- Mega link base style -->
 
 <!-- ================= MOBILE MENU ================= -->
 <div x-data="{ m:false, sub:null }" @toggle-mobile.window="m=!m" x-cloak>
@@ -277,27 +314,20 @@
     <nav class="px-6 py-4 text-ink">
       <template x-for="g in [
         {t:'LONGEVITY', c:['Dijagnostika','Genetsko testiranje','Hormoni','Preventivni pregledi','Nutricionizam']},
-        {t:'SPECIJALISTIČKE DJELATNOSTI', c:['Dermatovenerologija','Gastroenterologija','Kardiologija','Pulmologija','Nefrologija','Ortopedija','Vaskularna kirurgija','Plastična kirurgija','Ultrazvučna dijagnostika','Endoskopska dijagnostika']},
+        {t:'SPECIJALISTIČKE DJELATNOSTI', c:['Dermatovenerologija','Gastroenterologija','Kardiologija','Pulmologija','Nefrologija','Ambulanta za koagulaciju','Ortopedija','Vaskularna kirurgija','Plastična kirurgija','Ultrazvučna dijagnostika','Endoskopska dijagnostika']},
         {t:'REGENERATIVNA MEDICINA', c:['Matične stanice','Miracell® Stem Cell','Vitaminski boosteri','Sinergija metoda']},
         {t:'SKIN CLINIC', p:[
           {t:'Estetska medicina', g:[
             {t:'Lice', items:['Lifting i učvršćivanje kože','Bore i fine linije','Gubitak volumena i kontura lica','Povećanje usana','Podočnjaci i umoran izgled','Spušteni kapci']},
             {t:'Kožna stanja', items:['Ožiljci, proširene pore i nepravilnosti','Pigmentacije i neujednačen ten','Crvenilo i kapilare','Hidratacija i regeneracija kože']},
             {t:'Tijelo', items:['Oblikovanje tijela','Strije i regeneracija kože','Vaginalna rejuvenacija','Prekomjerno znojenje','Kosa i vlasište']}
-          ]},
+          ], tt:'Tretmani', f:'VECTRA H2 · 3D analiza lica', ti:['Botox','Hijaluronski fileri','Skinboosteri','Profhilo','PRP','Mezoterapija','Polinukleotidi','Egzosomi','Biostimulatori','Mezoniti','RF microneedling','Ultraformer','Plasmage','Karboksiterapija','Injekcijska lipoliza']},
           {t:'Kozmetologija', g:[
             {t:'Lice', items:['Digitalna analiza lica','Nečista koža','Akne i problematična koža','Osjetljiva koža','Hidratacija i revitalizacija','Anti-age i regeneracija','Područje oko očiju']},
-            {t:'Tretmani tijela', items:['Visbody 3D analiza tijela','Konturiranje tijela i smanjenje masnih naslaga','Celulit','Zatezanje kože i učvršćivanje tijela','Detoksikacija i limfna drenaža','Njega ruku']}
-          ]},
-          {t:'Laseri', g:[
-            {t:'Koža i ten', items:['Pigmentacije','Crvenilo i rozaceja','Pore i tekstura kože','Bore i znakovi starenja']},
-            {t:'Nepravilnosti', items:['Akne i postakne','Ožiljci','Strije']},
-            {t:'Dlake i nokti', items:['Trajno uklanjanje dlačica','Gljivične infekcije noktiju']},
-            {t:'Zatezanje i oblikovanje', items:['Opuštena koža i konturiranje lica','Masne naslage i oblikovanje tijela']},
-            {t:'Ostalo', items:['Kapilare i vene','Uklanjanje tetovaža','Uklanjanje promjena na koži','Intimno pomlađivanje']}
-          ]}
+          ], tt:'Tretmani', f:'Visbody · 3D analiza tijela', tg:[{t:'Tretmani lica', items:['HydraCool Facial','Oxygenceuticals tretman','Mehaničko čišćenje lica','Kozmetički boosteri','Dermapen','CACI Synergy','Med Visage','Dr Platon hladna plazma','Celluma LED terapija','Kemijski pilinzi']},{t:'Tretmani tijela', items:['iCoone Laser Med','King Shape','Kriolipoliza','Tesla trening mišića','ID Sculpt','Presoterapija']}]},
+          {t:'Laseri', g:[], tt:'Tretmani', tg:[{t:'Koža i ten', items:['Lasersko pomlađivanje lica','Laserski resurfacing kože','Laserski tretman pigmentacija','Laserski tretman kapilara i vena']},{t:'Nepravilnosti', items:['Laserski tretman ožiljaka i akni','Uklanjanje promjena na koži']},{t:'Dlake i nokti', items:['Lasersko uklanjanje dlačica','Laserski tretman gljivičnih infekcija noktiju']},{t:'Zatezanje i oblikovanje', items:['Opuštena koža i konturiranje lica','Masne naslage i oblikovanje tijela']},{t:'Ostalo', items:['Lasersko uklanjanje tetovaža','Intimno pomlađivanje']}], t2:'Tehnologije', ti2:['Frakcijski CO₂ laser','Er:YAG laser','Nd:YAG laser','Aleksandrit laser','IPL fototerapija','Q-switched laser','Vaskularni laser','Radiofrekvencijsko zatezanje','HIFU ultrazvuk']}
         ]},
-        {t:'FIDELIA PROGRAMI', c:['Menadžerski program','Program za turiste','Ženski program','Muški program','Longevity paket S / L','Well-Aging paket']}
+        {t:'FIDELIA PROGRAMI', c:['Menadžerski program','Program za turiste','Ženski program','Muški program','Longevity paket S','Longevity paket L','Well-Aging paket','Fidelia Club Longevity']}
       ]" :key="g.t">
         <div class="border-b border-sand/70">
           <button @click="sub === g.t ? sub=null : sub=g.t" class="w-full flex items-center justify-between py-4 text-[13px] tracking-[.08em] font-medium">
@@ -306,23 +336,52 @@
           </button>
           <div x-show="sub===g.t" x-collapse class="pb-2" style="display:none">
             <template x-if="g.c">
-              <div><template x-for="c in g.c" :key="c"><a href="#" class="block py-2 text-[16px] text-mute" x-text="c"></a></template></div>
+              <div><template x-for="(c, ci) in g.c" :key="c"><a :href="g.t==='FIDELIA PROGRAMI' ? (c==='Fidelia Club Longevity' ? '#club' : '#programi-sec') : '#'" @click="if(g.t==='FIDELIA PROGRAMI'){ m=false; if(c!=='Fidelia Club Longevity'){ $event.preventDefault(); window.scrollToProgram(ci); } }" class="block py-2.5 text-[16px] text-mute" x-text="c"></a></template></div>
             </template>
             <template x-if="g.p">
               <div>
                 <template x-for="pl in g.p" :key="pl.t">
                   <div x-data="{o:false}" class="border-t border-sand/50">
-                    <button @click="o=!o" class="w-full flex items-center justify-between py-3 text-[13px] font-medium text-ink">
+                    <button @click="o=!o" class="w-full flex items-center justify-between py-4 text-[15px] font-medium text-ink">
                       <span x-text="pl.t"></span>
                       <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" class="transition-transform text-taupe" :class="o && 'rotate-45'"><path d="M7.5 2v11M2 7.5h11"/></svg>
                     </button>
-                    <div x-show="o" x-collapse class="pb-2 pl-3" style="display:none">
-                      <template x-for="grp in pl.g" :key="grp.t">
-                        <div class="mb-3">
-                          <p class="text-[10px] tracking-[.16em] uppercase text-taupe font-semibold mb-1" x-text="grp.t"></p>
-                          <template x-for="it in grp.items" :key="it"><a href="#" class="block py-1.5 text-[13px] text-mute leading-snug" x-text="it"></a></template>
+                    <div x-show="o" x-collapse class="pb-3 pl-3" style="display:none">
+                      <div x-data="{tb: (pl.g && pl.g.length) ? 's' : 't'}">
+                        <div class="flex border-b border-sand/70 mb-3">
+                          <template x-if="pl.g.length"><button @click="tb='s'" class="flex-1 py-3 text-[12.5px] tracking-[.14em] font-semibold border-b-2 -mb-px transition-colors" :class="tb==='s' ? 'text-ink border-ink' : 'text-mute/50 border-transparent'">STANJA</button></template>
+                          <button @click="tb='t'" class="flex-1 py-3 text-[12.5px] tracking-[.14em] font-semibold border-b-2 -mb-px transition-colors" :class="tb==='t' ? 'text-ink border-ink' : 'text-mute/50 border-transparent'" x-text="pl.tt.toUpperCase()"></button>
+                          <template x-if="pl.ti2">
+                            <button @click="tb='x'" class="flex-1 py-3 text-[12.5px] tracking-[.14em] font-semibold border-b-2 -mb-px transition-colors" :class="tb==='x' ? 'text-ink border-ink' : 'text-mute/50 border-transparent'" x-text="pl.t2.toUpperCase()"></button>
+                          </template>
                         </div>
-                      </template>
+                        <div x-show="tb==='s'">
+                          <template x-for="grp in pl.g" :key="grp.t">
+                            <div class="mb-3">
+                              <p class="text-[11px] tracking-[.16em] uppercase text-taupe font-semibold mb-1.5" x-text="grp.t"></p>
+                              <template x-for="it in grp.items" :key="it"><a href="#" class="block py-2.5 text-[16px] text-ink/80 leading-snug" x-text="it"></a></template>
+                            </div>
+                          </template>
+                        </div>
+                        <div x-show="tb==='t'" style="display:none">
+                          <template x-if="pl.f">
+                            <a href="#" class="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-4 py-2.5 mb-2">
+                              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" class="shrink-0"><circle cx="7.5" cy="7.5" r="5"/><path d="M7.5 4.7v2.8l1.7 1"/></svg>
+                              <span class="text-[12px] tracking-[.04em]" x-text="pl.f"></span>
+                            </a>
+                          </template>
+                          <template x-for="it in pl.ti || []" :key="it"><a href="#" class="block py-2.5 text-[16px] text-ink/80 leading-snug" x-text="it"></a></template>
+                          <template x-for="grp in pl.tg || []" :key="grp.t">
+                            <div class="mb-3">
+                              <p class="text-[11px] tracking-[.16em] uppercase text-taupe font-semibold mb-1.5" x-text="grp.t"></p>
+                              <template x-for="it in grp.items" :key="it"><a href="#" class="block py-2.5 text-[16px] text-ink/80 leading-snug" x-text="it"></a></template>
+                            </div>
+                          </template>
+                        </div>
+                        <div x-show="tb==='x'" style="display:none">
+                          <template x-for="it in pl.ti2" :key="it"><a href="#" class="block py-2.5 text-[16px] text-ink/80 leading-snug" x-text="it"></a></template>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </template>
@@ -342,7 +401,7 @@
 <!-- ================= HERO (full-screen video) ================= -->
 <section id="hero" class="relative overflow-hidden h-[calc(100svh-90px)] sm:h-[calc(100svh-126px)] min-h-[560px] bg-ink">
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-    <source src="images/hero-video.mp4" type="video/mp4" />
+    <source src="video/hero-video.mp4" type="video/mp4" />
   </video>
   <div class="absolute inset-0" style="background:linear-gradient(90deg, rgba(30,25,21,.62) 0%, rgba(30,25,21,.32) 55%, rgba(30,25,21,.15) 100%)"></div>
 
@@ -456,7 +515,7 @@
             <span class="font-serif italic text-[19px] w-7 shrink-0 transition-colors duration-300" :class="active===i ? 'text-[#9E7C64]' : 'text-mute/60'" x-text="String(i+1).padStart(2,'0')"></span>
             <div class="flex-1 min-w-0">
               <h3 class="font-sans text-[24px] sm:text-[28px] xl:text-[34px] leading-tight transition-colors duration-300" style="font-weight:500" :class="active===i ? 'text-ink' : 'text-ink/30'" x-text="s.t"></h3>
-              <p class="mt-2 text-[17px] text-ink/75 font-light leading-relaxed" x-show="active===i" x-transition.opacity.duration.300ms x-text="s.d"></p>
+              <p class="mt-2 text-[17px] text-ink/75 font-light leading-relaxed transition-opacity duration-300" :class="active===i ? 'opacity-100' : 'opacity-0'" x-text="s.d"></p>
             </div>
             <a href="#kontakt" class="shrink-0 h-12 w-12 rounded-full border flex items-center justify-center transition-all duration-300"
                :class="active===i ? 'bg-[#C0A392] border-[#C0A392] text-white' : 'border-ink/15 text-ink/40'">
@@ -495,7 +554,6 @@
 
   </div>
 </section>
-
 
 <!-- ================= ISTAKNUTI PROGRAMI (CAROUSEL) ================= -->
 <div id="programi-wrap" class="relative">
@@ -550,8 +608,6 @@
   </div>
 </section>
 </div>
-
-
 
 <!-- ================= FIDELIA CLUB (ČLANSTVO) ================= -->
 <section id="club" class="relative z-10 px-6 lg:px-12 pt-6 pb-24 lg:py-32 bg-[#C0A392] rounded-t-[40px]" data-screen-label="Club">
@@ -640,10 +696,9 @@
   </div>
   <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-cream/40 font-light">
     <p>© 2026 Fidelia poliklinika. Sva prava pridržana.</p>
-    <div class="flex gap-6"><a href="#" class="hover:text-white transition">Pravila privatnosti</a><a href="#" class="hover:text-white transition">Kolačići</a></div>
+    <div class="flex gap-6"><a href="#" class="hover:text-white transition">Pravila privatnosti</a><a href="#" class="hover:text-white transition">Kolačići</a><span>Design: <a href="https://fer-projekt.com" target="_blank" rel="noopener" class="text-white hover:text-white transition">Fer Projekt</a></span></div>
   </div>
 </footer>
-
 
 <script src="js/main.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>

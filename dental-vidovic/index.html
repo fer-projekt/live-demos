@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Dental Vidović Bjelovar — stomatolog, implantati i funkcijska dijagnostika</title>
+    <meta name="description" content="Dental Vidović, Bjelovar. Dr. Goran Vidović — više od 30 godina iskustva. All on 4 / All on 6, zubni implantati, protetika, oralna kirurgija, endodoncija i funkcijska dijagnostika. Besplatan prvi pregled.">
+    <meta name="author" content="Dental Vidović">
+    <meta property="og:title" content="Dental Vidović Bjelovar — stručnost kojoj vjerujete, osmijeh koji volite">
+    <meta property="og:description" content="Više od 30 godina iskustva u dentalnoj medicini. Besplatan prvi pregled i stručne konzultacije.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="hr_HR">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Lora = brand display font, Jost = body copy (per branding kit) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Jost:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="stylesheet" href="css/plugins.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader-bg"></div>
+    <div id="preloader">
+        <div id="preloader-status">
+            <div class="preloader-position loader"> <span></span> </div>
+        </div>
+    </div>
+    <!-- Cursor -->
+    <div class="cursor js-cursor"></div>
+    <!-- Progress scroll totop -->
+    <div class="progress-wrap cursor-pointer">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+        </svg>
+    </div>
+    <!-- Navbar -->
+    <!-- expand-xl (ne -lg): meni prelazi u hamburger ispod 1200px. -->
+    <nav class="navbar navbar-expand-xl">
+        <!-- Bez .container: traka ide punom širinom, logo lijevo, sve ostalo desno. -->
+        <div class="container-fluid">
+            <!-- Logo -->
+            <div class="logo-wrapper">
+                <!-- Skrola na vrh bez reloada — onepage. -->
+                <a class="logo" href="#" data-scroll-nav="0"><img src="img/logo.svg" class="logo-img" alt="Dental Vidović"></a>
+            </div>
+            <!-- Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Otvori navigaciju"> <span class="navbar-toggler-icon"><i class="ti-menu"></i></span> </button>
+            <!-- Menu -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <!-- ms-auto umjesto mx-auto: meni se ne centrira, nego se skupa s
+                     telefonom i gumbom potiskuje na desnu stranu. -->
+                <ul class="navbar-nav ms-auto">
+                    <!-- Bez "Naslovna" — na vrh se ide preko loga. -->
+                    <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="1"><span class="rolling-text">O nama</span></a></li>
+                    <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Usluge <i class="ti-angle-down"></i></a>
+                        <!-- Podstranice usluga još nisu izrađene — linkovi vode na #. -->
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="dropdown-item" data-scroll-nav="2"><span>Sve usluge</span></a></li>
+                            <li><a href="#" class="dropdown-item"><span>All on 4 / All on 6</span></a></li>
+                            <li><a href="#" class="dropdown-item"><span>Zubni implantati</span></a></li>
+                            <li><a href="#" class="dropdown-item"><span>Protetika</span></a></li>
+                            <li><a href="#" class="dropdown-item"><span>Oralna kirurgija</span></a></li>
+                            <li><a href="#" class="dropdown-item"><span>Endodoncija</span></a></li>
+                            <li><a href="#" class="dropdown-item"><span>Funkcijska dijagnostika</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="8"><span class="rolling-text">Aktualno</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="5"><span class="rolling-text">Galerija</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="6"><span class="rolling-text">Recenzije</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="7"><span class="rolling-text">Cjenik</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="9"><span class="rolling-text">Kontakt</span></a></li>
+                </ul>
+                <div class="navbar-right">
+                    <a href="tel:+38543211105" class="phonex mr-30"><i class="fa-solid fa-phone-arrow-down-left mr-5"></i> 043 211 105</a>
+                    <a href="#" data-scroll-nav="9" class="durubtn5"><i class="fa-light fa-calendar-check mr-5"></i> <span class="text-wrapper"><span class="text slide-up">Zatraži termin</span><span class="text slide-down">Zatraži termin</span></span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero -->
+    <!-- TODO slika: img/slider/2.jpg je još iz templatea — zamijeniti fotografijom ordinacije (min. 1920×1080). -->
+    <!-- Statičan hero, ne slider: samo jedan slajd na svim rezolucijama. -->
+    <header id="naslovna" data-scroll-index="0" class="header hero-static">
+        <!-- Zatamnjenje slike se postavlja preko data-overlay-dark="0-9". -->
+        <div class="item bg-img valign bg-position-center" data-overlay-dark="4" data-background="img/slider/2.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12">
+                        <h5><i class="icon"></i> Dental Vidović · Bjelovar</h5>
+                        <!-- Jedini h1 na stranici. -->
+                        <h1 class="mb-5">Stručnost kojoj vjerujete, osmijeh koji volite</h1>
+                        <p class="mb-20">Više od 30 godina iskustva u dentalnoj medicini — uz individualan pristup, iskrenost i funkcijsku dijagnostiku.</p>
+                        <a href="#" data-scroll-nav="9" class="durubtn2"><span class="text-wrapper"><span class="text slide-up">Zatraži termin</span><span class="text slide-down">Zatraži termin</span></span> <i class="fa-light fa-arrow-up-right ml-10"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- O nama -->
+    <div id="o-nama" data-scroll-index="1" class="about section-padding">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-5 col-md-12 mb-30">
+                    <div class="section-subtitle wow zoomIn" data-wow-delay=".1s"><i class="icon"></i> O nama</div>
+                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Stomatolog u Bjelovaru <span>kojem možete vjerovati</span></div>
+                    <p class="wow fadeInUp mb-20" data-wow-delay=".3s">Dr. Goran Vidović u dentalnoj medicini je više od 30 godina. Tijekom karijere vodio je hitni stomatološki prijem i radio u ambulanti za osobe s posebnim potrebama, u Hrvatskoj i u inozemstvu — iskustvo koje danas znači smiren i prilagođen pristup svakom pacijentu.</p>
+                    <p class="wow fadeInUp mb-25" data-wow-delay=".35s">Poseban naglasak stavlja na funkcijsku dijagnostiku, koju smatra prekretnicom u svojoj karijeri i temeljem svoje filozofije liječenja. Pacijenti često ističu da uz njega nestaju i strah i bol.</p>
+                    <ul class="page-list list-unstyled wow fadeInUp" data-wow-delay=".4s">
+                        <li>
+                            <div class="page-list-icon"> <i class="dental-icon-asset-15"></i> </div>
+                            <div class="page-list-text">
+                                <p>30+ godina iskustva</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="page-list-icon"> <i class="dental-icon-asset-25"></i> </div>
+                            <div class="page-list-text">
+                                <p>Besplatan stomatološki prvi pregled i stručne konzultacije</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" data-scroll-nav="4" class="durubtn2 wow fadeInUp" data-wow-delay=".5s"><span class="text-wrapper"><span class="text slide-up">Upoznaj naš tim</span><span class="text slide-down">Upoznaj naš tim</span></span><i class="fa-regular fa-arrow-up-right ml-10"></i></a>
+                </div>
+                <div class="col-lg-4 offset-lg-1 col-md-12 mb-25">
+                    <div class="item">
+                        <div class="reveal-effect"><img src="img/o-nama.jpg" class="img-fluid" alt="Ordinacija Dental Vidović u Bjelovaru" loading="lazy"></div>
+                        <div class="icon">
+                            <a href="#" data-scroll-nav="9" class="circle-button-overlay wow zoomIn">
+                                <div class="circle-button in-bord hover-anim">
+                                    <div class="rotate-circle">
+                                        <svg class="textcircle" viewBox="0 0 500 500">
+                                            <defs>
+                                                <path id="textcircle" d="M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z"></path>
+                                            </defs>
+                                            <text>
+                                                <textPath xlink:href="#textcircle" startOffset="0"> Besplatan prvi pregled </textPath>
+                                            </text>
+                                        </svg>
+                                    </div>
+                                    <div class="in-circle text-center"><i class="dental-icon-asset-8"></i></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 mb-25">
+                    <div class="wow imago"><img src="img/tim-grupa.jpg" class="img-fluid mb-25 br-20" alt="Tim ordinacije Dental Vidović" loading="lazy"></div>
+                    <!-- Treća slika se skriva na uskim ekranima da kolona ne postane predugačka. -->
+                    <div class="wow imago hide-under-640"><img src="img/funkcijska-1.jpg" class="img-fluid br-20" alt="Funkcijska dijagnostika zagriza" loading="lazy"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Usluge -->
+    <!-- TODO slike: img/services/0*.jpg su još iz templatea — zamijeniti fotografijama iz ordinacije. -->
+    <section id="usluge" data-scroll-index="2" class="services2 section-padding bg-lightblue">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-30 text-center">
+                    <div class="section-subtitle bg-white wow zoomIn" data-wow-delay=".1s"> <i class="icon"></i> Naše usluge</div>
+                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Što za vas <span>možemo učiniti</span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="owl-carousel owl-theme">
+                        <div class="item">
+                            <div class="row rest">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="img/services/01.jpg" class="img-cover" alt="All on 4 i All on 6">
+                                    <div class="icon"> <a href="#" class="arrow" aria-label="All on 4 / All on 6"><span class="ti-arrow-top-right"></span></a> </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 cont valign">
+                                    <div class="full-width">
+                                        <div class="icon-i"><i class="dental-icon-asset-16"></i></div>
+                                        <h5>All on 4 / All on 6</h5>
+                                        <p>Fiksni zubi u 72 sata. Kompletna rekonstrukcija na četiri ili šest implantata, s fiksnim mostom već isti tjedan.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row rest">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="img/services/02.jpg" class="img-cover" alt="Zubni implantati">
+                                    <div class="icon"> <a href="#" class="arrow" aria-label="Zubni implantati"><span class="ti-arrow-top-right"></span></a> </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 cont valign">
+                                    <div class="full-width">
+                                        <div class="icon-i"><i class="dental-icon-asset-15"></i></div>
+                                        <h5>Zubni implantati</h5>
+                                        <p>Nadomještamo izgubljene zube implantatima, s planiranjem prema funkciji zagriza — ne samo prema estetici.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row rest">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="img/services/03.jpg" class="img-cover" alt="Protetika — krunice, mostovi i proteze">
+                                    <div class="icon"> <a href="#" class="arrow" aria-label="Protetika"><span class="ti-arrow-top-right"></span></a> </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 cont valign">
+                                    <div class="full-width">
+                                        <div class="icon-i"><i class="dental-icon-asset-3"></i></div>
+                                        <h5>Protetika</h5>
+                                        <p>Keramičke krunice, mostovi i proteze izrađeni tako da se uklope u vaš zagriz i izdrže godinama.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row rest">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="img/services/04.jpg" class="img-cover" alt="Oralna kirurgija">
+                                    <div class="icon"> <a href="#" class="arrow" aria-label="Oralna kirurgija"><span class="ti-arrow-top-right"></span></a> </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 cont valign">
+                                    <div class="full-width">
+                                        <div class="icon-i"><i class="dental-icon-asset-9"></i></div>
+                                        <h5>Oralna kirurgija</h5>
+                                        <p>Vađenja, apikotomije i priprema koštanog grebena za implantate — u kontroliranim i ugodnim uvjetima.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row rest">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="img/services/05.jpg" class="img-cover" alt="Endodoncija — liječenje korijenskog kanala">
+                                    <div class="icon"> <a href="#" class="arrow" aria-label="Endodoncija"><span class="ti-arrow-top-right"></span></a> </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 cont valign">
+                                    <div class="full-width">
+                                        <div class="icon-i"><i class="dental-icon-asset-20"></i></div>
+                                        <h5>Endodoncija</h5>
+                                        <p>Liječenje korijenskog kanala kojim spašavamo zub i uklanjamo izvor upale i bola.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row rest">
+                                <div class="col-lg-6 col-md-12 img rest"> <img src="img/services/06.jpg" class="img-cover" alt="Funkcijska dijagnostika">
+                                    <div class="icon"> <a href="#" class="arrow" data-scroll-nav="3" aria-label="Funkcijska dijagnostika"><span class="ti-arrow-top-right"></span></a> </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 cont valign">
+                                    <div class="full-width">
+                                        <div class="icon-i"><i class="dental-icon-asset-11"></i></div>
+                                        <h5>Funkcijska dijagnostika</h5>
+                                        <p>Analiza i terapija poremećaja žvačnog sustava: čeljusti, zubi, žvačnih mišića i čeljusnih zglobova.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Funkcijska dijagnostika -->
+    <div id="funkcijska" data-scroll-index="3" class="about section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-30">
+                    <div class="section-subtitle wow zoomIn" data-wow-delay=".1s"> <i class="icon"></i> Funkcijska dijagnostika </div>
+                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Zagriz utječe na <span>cijelo tijelo</span></div>
+                    <p class="wow fadeInUp mb-20" data-wow-delay=".3s">Vjerujemo da stomatološka terapija mora biti više od „popravljanja” zuba. Funkcijska dijagnostika analizira žvačni sustav kao cjelinu — čeljusti, zube, žvačne mišiće, čeljusne zglobove te živčane centre koji koordiniraju pokrete — i rješava uzrok, a ne samo simptom.</p>
+                    <!-- Jedan popis, ne dva stupca: u col-lg-4 su se duži pojmovi lomili u dva reda. -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="page-list list-unstyled mb-20">
+                                <li class="wow fadeInUp text-lightpurple" data-wow-delay=".35s">
+                                    <div class="page-list-icon"> <span class="ti-check"></span> </div>
+                                    <div class="page-list-text">
+                                        <p class="text-navy">Gubitak zuba</p>
+                                    </div>
+                                </li>
+                                <li class="wow fadeInUp text-lightpurple" data-wow-delay=".4s">
+                                    <div class="page-list-icon"> <span class="ti-check"></span> </div>
+                                    <div class="page-list-text">
+                                        <p class="text-navy">Nepravilan odnos čeljusti</p>
+                                    </div>
+                                </li>
+                                <li class="wow fadeInUp text-lightpurple" data-wow-delay=".45s">
+                                    <div class="page-list-icon"> <span class="ti-check"></span> </div>
+                                    <div class="page-list-text">
+                                        <p class="text-navy">Previsoke krunice i mostovi</p>
+                                    </div>
+                                </li>
+                                <li class="wow fadeInUp text-lightpurple" data-wow-delay=".5s">
+                                    <div class="page-list-icon"> <span class="ti-check"></span> </div>
+                                    <div class="page-list-text">
+                                        <p class="text-navy">Nefunkcionalni implantati</p>
+                                    </div>
+                                </li>
+                                <li class="wow fadeInUp text-lightpurple" data-wow-delay=".55s">
+                                    <div class="page-list-icon"> <span class="ti-check"></span> </div>
+                                    <div class="page-list-text">
+                                        <p class="text-navy">Stres i bruksizam</p>
+                                    </div>
+                                </li>
+                                <li class="wow fadeInUp text-lightpurple" data-wow-delay=".6s">
+                                    <div class="page-list-icon"> <span class="ti-check"></span> </div>
+                                    <div class="page-list-text">
+                                        <p class="text-navy">Bol u čeljusnom zglobu</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> <!-- "Opširnije" vodi na podstranicu Funkcijska dijagnostika, koja još nije izrađena. -->
+                    <a href="#" class="durubtn2 wow fadeInUp" data-wow-delay=".7s"><span class="text-wrapper"><span class="text slide-up">Opširnije</span><span class="text slide-down">Opširnije</span></span><i class="fa-regular fa-arrow-up-right ml-10"></i></a>
+                </div>
+                <!-- Recenzije su izbačene iz ovog reda (imaju svoju sekciju niže).
+                     6 + 1 + 5 = 12; srednja kolona je samo razmak. -->
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5 col-md-12 mb-20 position-relative">
+                    <div class="reveal-effect"><img class="rounded-4 animation-float1 img-fluid" src="img/funkcijska-3.jpg" alt="Analiza zagriza i žvačnog sustava" loading="lazy"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Naš tim -->
+    <section id="tim" data-scroll-index="4" class="team section-padding bg-lightblue">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-30 text-center">
+                    <div class="section-subtitle bg-white wow zoomIn" data-wow-delay=".1s"> <i class="icon"></i> Naš tim</div>
+                    <div class="section-title wow zoomIn" data-wow-delay=".3s">Ljudi koji <span>stoje iza osmijeha</span></div>
+                </div>
+            </div>
+            <!-- Statični grid, ne karusel: tim ima točno tri člana, a karusel bi ih vrtio u krug i ponavljao. -->
+            <div class="row justify-content-center align-items-start">
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="item">
+                        <div class="wrapper">
+                            <div class="img"><img src="img/tim-goran.jpg" class="img-fluid" alt="Dr. Goran Vidović, dr. med. dent." loading="lazy"></div>
+                            <!-- Podstranice tima nisu izrađene — strelica je neaktivna (demo za odobrenje dizajna). -->
+                            <div class="icon"> <a href="#" class="arrow" aria-label="O dr. Goranu Vidoviću"><span class="fa-solid fa-info default-icon"></span><span class="ti-arrow-top-right hover-icon"></span></a></div>
+                        </div>
+                        <div class="text">
+                            <h4 class="name">Goran Vidović</h4>
+                            <h6 class="position">dr. med. dent. · funkcijska dijagnostika</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="item">
+                        <div class="wrapper">
+                            <div class="img"><img src="img/tim-ivana.jpg" class="img-fluid" alt="Ivana Kržak, dentalni asistent" loading="lazy"></div>
+                            <div class="icon"> <a href="#" class="arrow" aria-label="O Ivani Kržak"><span class="fa-solid fa-info default-icon"></span><span class="ti-arrow-top-right hover-icon"></span></a></div>
+                        </div>
+                        <div class="text">
+                            <h4 class="name">Ivana Kržak</h4>
+                            <h6 class="position">Dentalni asistent</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="item">
+                        <div class="wrapper">
+                            <div class="img"><img src="img/tim-tanja.jpg" class="img-fluid" alt="Tanja Ikač, direktorica" loading="lazy"></div>
+                            <div class="icon"> <a href="#" class="arrow" aria-label="O Tanji Ikač"><span class="fa-solid fa-info default-icon"></span><span class="ti-arrow-top-right hover-icon"></span></a></div>
+                        </div>
+                        <div class="text">
+                            <h4 class="name">Tanja Ikač</h4>
+                            <h6 class="position">Direktorica</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-30">
+                <div class="col-lg-8 col-md-12 text-center">
+                    <p class="wow fadeInUp" data-wow-delay=".2s">U našoj ordinaciji pružit ćemo Vam opuštajuće iskustvo, a personalizirana briga pomoći će Vam da nas posjetite ubrzo ponovno. Hvala što ćete se pobrinuti za Vaše stomatološke potrebe — radujemo se skorom susretu!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Citat -->
+    <div class="quote-band">
+        <img src="img/osmijeh.jpg" alt="Osmijeh je sreća koju ćete naći odmah ispod svog nosa" loading="lazy">
+    </div>
+    <!-- Česta pitanja -->
+    <div class="faqs section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-12 mb-30">
+                    <div class="item wow zoomIn" data-wow-delay=".1s">
+                        <div class="img position-relative faqs"><img src="img/funkcijska-2.jpg" class="img-fluid tilt-image" alt="Funkcijska dijagnostika u ordinaciji Dental Vidović" loading="lazy"> </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1 col-md-12">
+                    <div class="section-subtitle wow zoomIn" data-wow-delay=".2s"> <i class="icon"></i>Česta pitanja </div>
+                    <div class="section-title mb-10 wow zoomIn" data-wow-delay=".3s">Ono što nas najčešće pitate</div>
+                    <ul class="accordion-box clearfix mb-25">
+                        <li class="accordion block wow fadeInUp" data-wow-delay=".4s">
+                            <div class="number"><i class="fa-light fa-circle-question"></i></div>
+                            <div class="acc-btn">Kada je potrebna funkcijska dijagnostika?</div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <p>Kad god postoji sumnja na poremećaj u radu žvačnog sustava — zbog simptoma, nelagode ili prethodnih zahvata koji nisu funkcionalno usklađeni.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion block wow fadeInUp" data-wow-delay=".5s">
+                            <div class="number"><i class="fa-light fa-circle-question"></i></div>
+                            <div class="acc-btn">Koji simptomi upućuju na poremećaj zagriza?</div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <p>Česte glavobolje, bol u čeljusti, šum u ušima, otežano otvaranje usta ili osjećaj da „nešto ne štima” nakon stomatološkog zahvata.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion block wow fadeInUp" data-wow-delay=".6s">
+                            <div class="number"><i class="fa-light fa-circle-question"></i></div>
+                            <div class="acc-btn">Je li prvi pregled besplatan?</div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <p>Da. Prvi stomatološki pregled i stručne konzultacije su besplatni. Rezervacija termina je obavezna.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion block wow fadeInUp" data-wow-delay=".7s">
+                            <div class="number"><i class="fa-light fa-circle-question"></i></div>
+                            <div class="acc-btn">Osiguravate li smještaj za pacijente izvan Bjelovara?</div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <p>Da. Za naše pacijente i njihove pratnje osiguravamo besplatan smještaj.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" data-scroll-nav="9" class="durubtn2 wow fadeInUp" data-wow-delay=".8s"><span class="text-wrapper"><span class="text slide-up">Imate drugo pitanje?</span><span class="text slide-down">Imate drugo pitanje?</span></span><i class="fa-regular fa-arrow-up-right ml-10"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Galerija prije / poslije -->
+    <!-- TODO slike: img/ba/*.jpg su još iz templatea — zamijeniti stvarnim prije/poslije fotografijama pacijenata (uz pisani pristanak). -->
+    <div id="galerija" data-scroll-index="5" class="before-after section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-12 text-center mb-60">
+                    <div class="section-subtitle wow fadeInUp" data-wow-delay=".1s">Galerija</div>
+                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Prije i poslije</div>
+                    <p class="wow fadeInUp" data-wow-delay=".3s">Povucite klizač da vidite razliku. Svaki rezultat je rezultat plana prilagođenog pacijentu.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-12 mb-60">
+                    <div class="item"> <img src="img/ba/a3.jpg" alt="Poslije" class="img ba-after">
+                        <div class="item-overlay"> <img src="img/ba/b3.jpg" alt="Prije" class="img"> </div>
+                        <div class="handle"> <span class="handle-line"></span> <span class="handle-circle"></span> </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-60">
+                    <div class="item"> <img src="img/ba/a1.jpg" alt="Poslije" class="img ba-after">
+                        <div class="item-overlay"> <img src="img/ba/b1.jpg" alt="Prije" class="img"> </div>
+                        <div class="handle"> <span class="handle-line"></span> <span class="handle-circle"></span> </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-60">
+                    <div class="item"> <img src="img/ba/a2.jpg" alt="Poslije" class="img ba-after">
+                        <div class="item-overlay"> <img src="img/ba/b2.jpg" alt="Prije" class="img"> </div>
+                        <div class="handle"> <span class="handle-line"></span> <span class="handle-circle"></span> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center mt-30 wow zoomIn" data-wow-delay=".2s">
+                    <div class="section-info">
+                        <div class="tag"><i class="fa-regular fa-sparkles"></i></div>
+                        <div class="desc">Ovo je samo dio naših rezultata — galerija se redovno dopunjava.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Recenzije -->
+    <div id="recenzije" data-scroll-index="6" class="testimonials section-padding bg-lightblue">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-40 text-center">
+                    <div class="section-subtitle bg-white wow zoomIn" data-wow-delay=".1s"><i class="icon"></i> Recenzije</div>
+                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Što kažu <span>naši pacijenti</span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Karusel s točkicama; recenzije su preuzete s dental-vidovic.com. -->
+                    <div class="owl-carousel owl-theme">
+                        <div class="item"> <i class="fa-solid fa-quote-left"></i>
+                            <div class="text">
+                                <p>Majstor za zube, potvrđujem. 20g imam keramiku koju je isti ugradio.</p>
+                            </div>
+                            <div class="info">
+                                <div class="text-box">
+                                    <h6>Alojzije J.</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item"> <i class="fa-solid fa-quote-left"></i>
+                            <div class="text">
+                                <p>Najbolji doktor u Bjelovaru i okolici. Nema mu ravnih. Veliko poštovanje!</p>
+                            </div>
+                            <div class="info">
+                                <div class="text-box">
+                                    <h6>Jadranka G. B.</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item"> <i class="fa-solid fa-quote-left"></i>
+                            <div class="text">
+                                <p>Doktore, hvala Vam, promijenili ste mi život na bolje! Vječno zahvalan!</p>
+                            </div>
+                            <div class="info">
+                                <div class="text-box">
+                                    <h6>Rok K.</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item"> <i class="fa-solid fa-quote-left"></i>
+                            <div class="text">
+                                <p>Nisam upoznala boljeg stručnjaka i ujedno simpatičnog i vrhunskog intelektualca.</p>
+                            </div>
+                            <div class="info">
+                                <div class="text-box">
+                                    <h6>Martica V.</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item"> <i class="fa-solid fa-quote-left"></i>
+                            <div class="text">
+                                <p>Jako profesionalan, izuzetno zabavan i stručan doktor, jako detaljno obavlja svoj posao.</p>
+                            </div>
+                            <div class="info">
+                                <div class="text-box">
+                                    <h6>Dajana S.</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item"> <i class="fa-solid fa-quote-left"></i>
+                            <div class="text">
+                                <p>Sve pohvale za moju dentalnu ordinaciju. Bez ustručavanja odaberite Dental Vidović.</p>
+                            </div>
+                            <div class="info">
+                                <div class="text-box">
+                                    <h6>Željka F.</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cjenik -->
+    <section id="cjenik" data-scroll-index="7" class="pricing section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-12 mb-40 text-center">
+                    <div class="section-subtitle bg-transparent wow zoomIn" data-wow-delay=".1s"> <i class="icon"></i> Cjenik</div>
+                    <div class="section-title text-white wow zoomIn" data-wow-delay=".3s">Jasno i bez iznenađenja</div>
+                    <p class="text-white wow fadeInUp" data-wow-delay=".4s">Prvi pregled i konzultacije su besplatni. Nakon pregleda dobivate plan terapije s cijenom svakog koraka — pisano, prije nego što bilo što započne.</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-11 col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- TODO cjenik: iznosi nisu popunjeni jer ih nemamo od klijenta.
+                                 Zamijeniti "na upit" stvarnim cijenama ili ostaviti kao upit. -->
+                            <div class="owl-carousel owl-theme">
+                                <div class="item price-active">
+                                    <div class="head">
+                                        <h3 class="title">Prvi pregled</h3>
+                                        <div class="price-wrapper">
+                                            <div class="price-cont">
+                                                <div class="price">Besplatno</div>
+                                            </div>
+                                            <div class="frequency">uz rezervaciju termina</div>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="price-line"> <i class="ti-check"></i>Stomatološki pregled</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Stručne konzultacije</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Plan terapije s cijenama</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Bez obveze nastavka</div>
+                                        <div class="button-wrap"> <a href="#" data-scroll-nav="9" class="durubtn"><span class="text-wrapper"><span class="text slide-up">Zatraži termin</span><span class="text slide-down">Zatraži termin</span></span></a> </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="head">
+                                        <h3 class="title">Terapija</h3>
+                                        <div class="price-wrapper">
+                                            <div class="price-cont">
+                                                <div class="price">Na upit</div>
+                                            </div>
+                                            <div class="frequency">prema planu terapije</div>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="price-line"> <i class="ti-check"></i>All on 4 / All on 6</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Zubni implantati</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Protetika i oralna kirurgija</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Endodoncija</div>
+                                        <div class="button-wrap"> <a href="#" data-scroll-nav="9" class="durubtn2"><span class="text-wrapper"><span class="text slide-up">Traži cjenik</span><span class="text slide-down">Traži cjenik</span></span></a> </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="head">
+                                        <h3 class="title">Smještaj</h3>
+                                        <div class="price-wrapper">
+                                            <div class="price-cont">
+                                                <div class="price">Besplatno</div>
+                                            </div>
+                                            <div class="frequency">za pacijente i pratnju</div>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="price-line"> <i class="ti-check"></i>Za pacijente izvan Bjelovara</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Uključena i pratnja</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Dogovara se uz termin</div>
+                                        <div class="price-line"> <i class="ti-check"></i>Bez dodatnih troškova</div>
+                                        <div class="button-wrap"> <a href="#" data-scroll-nav="9" class="durubtn2"><span class="text-wrapper"><span class="text slide-up">Pitaj o smještaju</span><span class="text slide-down">Pitaj o smještaju</span></span></a> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dots-half bg-img bg-imgfixed" data-overlay-dark="5" data-background="img/slider/4.jpg"></div>
+    </section>
+    <!-- Misija i vizija -->
+    <!-- TODO slike: img/about4.jpg i img/about5.jpg su još iz templatea. -->
+    <div class="about section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-30">
+                    <div class="section-subtitle wow zoomIn" data-wow-delay=".1s"> <i class="icon"></i>Misija i vizija </div>
+                    <div class="section-title wow zoomIn mb-30" data-wow-delay=".2s">Vrijednosti <span>koje nas definiraju</span></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="page-list list-unstyled mb-20">
+                                <li class="wow fadeInUp" data-wow-delay=".4s">
+                                    <div class="page-list-icon"> <span class="fa-solid fa-tooth"></span> </div>
+                                    <div class="page-list-text">
+                                        <p>Stručnost</p>
+                                    </div>
+                                </li>
+                                <li class="wow fadeInUp" data-wow-delay=".5s">
+                                    <div class="page-list-icon"> <span class="fa-solid fa-hands-holding-heart"></span> </div>
+                                    <div class="page-list-text">
+                                        <p>Individualan pristup</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="page-list list-unstyled mb-20">
+                                <li class="wow fadeInUp" data-wow-delay=".6s">
+                                    <div class="page-list-icon"> <span class="fa-solid fa-shield-halved"></span> </div>
+                                    <div class="page-list-text">
+                                        <p>Iskrenost</p>
+                                    </div>
+                                </li>
+                                <li class="wow fadeInUp" data-wow-delay=".7s">
+                                    <div class="page-list-icon"> <span class="fa-solid fa-lightbulb"></span> </div>
+                                    <div class="page-list-text">
+                                        <p>Cjeloživotno učenje</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="wow fadeInUp mb-20" data-wow-delay=".3s">Pružamo vrhunsku stomatologiju koja se bazira na 30 godina iskustva i znanja, individualnom pristupu, iskrenosti te funkcijskoj dijagnostici. Skupa s Vama kreiramo nove osmijehe, liječimo i održavamo postojeće te vraćamo samopouzdanje i osmijeh na Vaša lica.</p>
+                </div>
+                <div class="col-lg-7 offset-lg-1 col-md-12 mb-30">
+                    <div class="ovalimage">
+                        <div class="wrapper">
+                            <div class="bg-img-left"><img src="img/about4.jpg" class="img-fluid" alt="Ordinacija Dental Vidović" loading="lazy"></div>
+                            <div class="small-img-left"><img src="img/about5.jpg" alt="Detalj iz ordinacije" loading="lazy"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Aktualno -->
+    <!-- TODO blog: samo prvi članak ima napisan sadržaj. Ostala dva su predlošci — dopuniti tekstom i slikama. -->
+    <section id="aktualno" data-scroll-index="8" class="blog section-padding bg-lightblue">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center mb-15">
+                    <div class="section-subtitle bg-white wow zoomIn" data-wow-delay=".1s"><i class="icon"></i> Aktualno</div>
+                    <div class="section-title wow zoomIn" data-wow-delay=".2s">Blogovi i novosti</div>
+                </div>
+            </div>
+            <!-- Statični grid, ne karusel: tri novosti stanu u jedan red. -->
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="item mt-10">
+<div class="img"> <img src="img/funkcijska-1.jpg" class="img-fluid" alt="Funkcijska dijagnostika" loading="lazy"></div>
+                            <div class="icon"><a href="#" class="arrow" aria-label="Pročitaj članak"><span class="ti-arrow-top-right"></span></a></div>
+                            <div class="cont">
+                                <h4><a href="#">Funkcijska dijagnostika — temelj stomatološke terapije</a></h4>
+                                <div class="author">
+                                    <div>
+                                        <h5><i class="fa-light fa-user"></i>Dental Vidović</h5>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="item mt-10">
+<div class="img"> <img src="img/blog/02.jpg" class="img-fluid" alt="" loading="lazy"></div>
+                            <div class="icon"><a href="#" class="arrow" aria-label="Pročitaj članak"><span class="ti-arrow-top-right"></span></a></div>
+                            <div class="cont">
+                                <h4><a href="#">All on 4 i All on 6 — kako izgleda put do fiksnih zubi u 72 sata</a></h4>
+                                <div class="author">
+                                    <div>
+                                        <h5><i class="fa-light fa-user"></i>Dental Vidović</h5>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="item mt-10">
+<div class="img"> <img src="img/blog/03.jpg" class="img-fluid" alt="" loading="lazy"></div>
+                            <div class="icon"><a href="#" class="arrow" aria-label="Pročitaj članak"><span class="ti-arrow-top-right"></span></a></div>
+                            <div class="cont">
+                                <h4><a href="#">Zubni implantati — što treba znati prije prvog koraka</a></h4>
+                                <div class="author">
+                                    <div>
+                                        <h5><i class="fa-light fa-user"></i>Dental Vidović</h5>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Poziv na termin -->
+    <section class="appointment bg-img bg-imgfixed section-padding" data-background="img/slider/5.jpg" data-overlay-dark="5">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-4 col-md-12">
+                    <h4 class="wow zoomIn" data-wow-delay=".1s">Rezervirajte svoj termin — prvi pregled je besplatan.</h4>
+                </div>
+                <div class="col-lg-4 offset-lg-1 col-md-12">
+                    <div class="help wow zoomIn" data-wow-delay=".2s">
+                        <div class="icon"><i class="fa-solid fa-phone-arrow-down-left fa-beat-fade"></i></div>
+                        <div class="text">
+                            <p>Rezervacija termina</p> <a href="tel:+38543211105">+385 43 211 105</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Traka usluga -->
+    <div class="scrolling scrolling-ticker">
+        <div class="wrapper feather-shadow2">
+            <div class="content">
+                <span><i class="dental-icon-asset-9 mr-30"></i>All on 4 / All on 6</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Zubni implantati</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Protetika</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Keramičke krunice</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Mostovi</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Oralna kirurgija</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Endodoncija</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Funkcijska dijagnostika</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Bruksizam</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Čeljusni zglob</span>
+            </div>
+            <div class="content">
+                <span><i class="dental-icon-asset-9 mr-30"></i>All on 4 / All on 6</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Zubni implantati</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Protetika</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Keramičke krunice</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Mostovi</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Oralna kirurgija</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Endodoncija</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Funkcijska dijagnostika</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Bruksizam</span>
+                <span><i class="dental-icon-asset-9 mr-30"></i>Čeljusni zglob</span>
+            </div>
+        </div>
+    </div>
+    <!-- Kontakt -->
+    <div id="kontakt" data-scroll-index="9" class="contact-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 animate-box" data-animate-effect="fadeInUp">
+                    <div class="item active"> <i class="icon fa-thin fa-location-dot"></i>
+                        <h5>Adresa ordinacije</h5>
+                        <p>Franjevačka 12a, 43000 Bjelovar</p> <i class="numb fa-solid fa-location-dot"></i>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 animate-box" data-animate-effect="fadeInUp">
+                    <div class="item"> <i class="icon fa-thin fa-envelope"></i>
+                        <h5>E-mail</h5>
+                        <p><a href="mailto:info@dental-vidovic.com">info@dental-vidovic.com</a></p> <i class="numb fa-solid fa-envelope"></i>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 animate-box" data-animate-effect="fadeInUp">
+                    <div class="item"> <i class="icon fa-thin fa-phone-arrow-down-left"></i>
+                        <h5>Telefon</h5>
+                        <p><a href="tel:+38543211105">043 211 105</a> / <a href="tel:+385992125615">099 212 5615</a></p> <i class="numb fa-solid fa-phone-arrow-down-left fa-beat-fade"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info-box section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 mb-30 ">
+                    <img src="img/tim-grupa.jpg" class="br-20 mb-25 img-fluid" alt="Tim ordinacije Dental Vidović" loading="lazy">
+                    <!-- TODO radno vrijeme: nije objavljeno na dental-vidovic.com — potvrditi s klijentom. -->
+                    <div class="worktime">
+                        <ul>
+                            <li>
+                                <div class="tit">Ponedjeljak – petak</div>
+                                <div class="dots"></div> <span>po dogovoru</span>
+                            </li>
+                            <li>
+                                <div class="tit">Subota</div>
+                                <div class="dots"></div> <span>po dogovoru</span>
+                            </li>
+                            <li>
+                                <div class="tit">Nedjelja</div>
+                                <div class="dots"></div> <span>zatvoreno</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12">
+                    <div class="contact-form br-20">
+                        <!-- TODO forma: nema backenda. Dodati action/PHP handler ili servis (Formspree, web3forms) prije objave. -->
+                        <form method="post">
+                            <div class="section-subtitle"> <i class="icon"></i> Rezervacija </div>
+                            <div class="section-title mb-30">Zatražite termin</div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"> <span class="form-icon"><i class="fa-light fa-face-smile"></i></span>
+                                        <input type="text" name="ime" id="ime" placeholder="Ime i prezime" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> <span class="form-icon"><i class="fa-light fa-envelope"></i></span>
+                                        <input type="email" name="email" id="email" placeholder="E-mail adresa" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"> <span class="form-icon"><i class="fa-light fa-phone"></i></span>
+                                        <input type="tel" name="telefon" id="telefon" placeholder="Broj telefona" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-icon"><i class="fa-light fa-user-doctor"></i></span>
+                                        <select class="form-select" name="usluga" aria-label="Usluga">
+                                            <option hidden disabled selected>Odaberite uslugu</option>
+                                            <option>Prvi pregled (besplatan)</option>
+                                            <option>All on 4 / All on 6</option>
+                                            <option>Zubni implantati</option>
+                                            <option>Protetika</option>
+                                            <option>Oralna kirurgija</option>
+                                            <option>Endodoncija</option>
+                                            <option>Funkcijska dijagnostika</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="position: relative;">
+                                        <span class="form-icon"><i class="fa-light fa-calendar"></i></span>
+                                        <input class="form-control" type="date" name="datum" aria-label="Željeni datum">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <span class="form-icon"><i class="fa-light fa-bed"></i></span>
+                                        <select class="form-select" name="smjestaj" aria-label="Smještaj">
+                                            <option hidden disabled selected>Trebate smještaj?</option>
+                                            <option>Ne, ne treba mi smještaj</option>
+                                            <option>Da, za mene</option>
+                                            <option>Da, za mene i pratnju</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form-textarea"> <span class="form-icon"><i class="fa-light fa-comment"></i></span>
+                                        <textarea name="poruka" id="poruka" cols="20" rows="3" placeholder="Vaša poruka — opišite što vas muči" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="durubtn2">
+                                        <i class="fa-solid fa-paper-plane mr-5"></i>
+                                        <span class="text-wrapper">
+                                            <span class="text slide-up">Pošalji zahtjev</span>
+                                            <span class="text slide-down">Pošalji zahtjev</span>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="links">
+                            <!-- Pravni dokumenti još nisu izrađeni — linkovi vode na #. -->
+                            <ul>
+                                <li><a href="#">Pravila privatnosti</a></li>
+                                <li><a href="#">Pravila o kolačićima</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 text-end">
+                        <p>&copy; Dental Vidović · Developed by Fer Projekt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/jquery-migrate-3.5.0.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/jquery.isotope.v3.0.2.js"></script>
+    <script src="js/scrollIt.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.magnific-popup.js"></script>
+    <script src="js/YouTubePopUp.js"></script>
+    <script src="js/smooth-scroll.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- Demo: nedovršene veze su href="#", što bi inače skočilo na vrh stranice. Ostaju
+         <a> elementi da hover efekti iz templatea rade, samo im se skok blokira.
+         Kad se podstranice izrade, ova skripta i href="#" se zamijene pravim putanjama. -->
+    <script>
+        document.addEventListener('click', function (e) {
+            var a = e.target.closest('a[href="#"]');
+            if (!a) return;
+            if (a.hasAttribute('data-scroll-nav') || a.hasAttribute('data-bs-toggle')) return;
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

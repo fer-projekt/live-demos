@@ -402,26 +402,51 @@ PRAVILA TOČNOSTI — nepromjenjiva:
   </div>
 
   <!-- statistika -->
-  <div class="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3">
+  <div class="mt-4 grid grid-cols-2 lg:grid-cols-5 gap-3">
     <div class="rounded-xl border border-line bg-white p-4">
-      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Dospjelo ukupno</p>
-      <p class="mt-1 font-display font-bold text-2xl tnum">48.230,00 €</p>
-      <p class="text-[12px] text-ink-300 font-mono tnum">+ 1.100,00 USD</p>
+      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Otvoreno ukupno</p>
+      <p class="mt-1 font-display font-bold text-2xl tnum">61.480,00 €</p>
+      <p class="text-[12px] text-ink-300 font-mono tnum">+ 1.100,00 USD · 78 kupaca</p>
+    </div>
+    <div class="rounded-xl border border-line bg-white p-4">
+      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Dospjelo — nenaplaćeno</p>
+      <p class="mt-1 font-display font-bold text-2xl text-crit tnum">48.230,00 €</p>
+      <p class="text-[12px] text-ink-300">prosječno kašnjenje 38 dana</p>
     </div>
     <div class="rounded-xl border border-line bg-white p-4">
       <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Za slanje</p>
       <p class="mt-1 font-display font-bold text-2xl tnum">34</p>
-      <p class="text-[12px] text-ink-300">opomena čeka potvrdu</p>
+      <p class="text-[12px] text-ink-300 font-mono tnum">vrijednost 36.760,00 €</p>
     </div>
     <div class="rounded-xl border border-line bg-white p-4">
-      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Bez e-maila</p>
+      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">E-mail problemi</p>
       <p class="mt-1 font-display font-bold text-2xl text-crit tnum">3</p>
-      <p class="text-[12px] text-ink-300">kupca treba dopuniti</p>
+      <p class="text-[12px] text-ink-300 font-mono tnum">blokirano 5.870,00 €</p>
     </div>
-    <div class="rounded-xl border border-line bg-white p-4">
+    <div class="rounded-xl border border-line bg-white p-4 col-span-2 lg:col-span-1">
       <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Naplaćeno nakon opomena</p>
       <p class="mt-1 font-display font-bold text-2xl text-brand-600 tnum">4.320,00 €</p>
       <p class="text-[12px] text-ink-300">11 kupaca od svibnja</p>
+    </div>
+  </div>
+
+  <!-- starost dospjelog duga -->
+  <div class="mt-3 rounded-xl border border-line bg-white p-4">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <p class="font-mono text-[11px] uppercase tracking-wide text-ink-500">Starost dospjelog duga</p>
+      <p class="font-mono text-[12px] text-ink-300 tnum">ukupno 48.230,00 €</p>
+    </div>
+    <div class="mt-2.5 flex h-2.5 rounded-full overflow-hidden">
+      <div class="bg-calm" style="width:12.8%" title="Podsjetnik · 6.180,00 €"></div>
+      <div class="bg-warn" style="width:29.7%" title="1. opomena · 14.320,00 €"></div>
+      <div class="bg-hot"  style="width:26.8%" title="2. opomena · 12.940,00 €"></div>
+      <div class="bg-crit" style="width:30.7%" title="Pred ovrhu · 14.790,00 €"></div>
+    </div>
+    <div class="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2 text-[12px]">
+      <div class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-calm shrink-0"></span><span class="text-ink-500">1–7 d</span><span class="font-mono font-semibold tnum ml-auto">6.180,00</span></div>
+      <div class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-warn shrink-0"></span><span class="text-ink-500">8–30 d</span><span class="font-mono font-semibold tnum ml-auto">14.320,00</span></div>
+      <div class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-hot shrink-0"></span><span class="text-ink-500">31–60 d</span><span class="font-mono font-semibold tnum ml-auto">12.940,00</span></div>
+      <div class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-crit shrink-0"></span><span class="text-ink-500">61+ d</span><span class="font-mono font-semibold tnum ml-auto">14.790,00</span></div>
     </div>
   </div>
 

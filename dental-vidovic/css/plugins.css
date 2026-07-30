@@ -1,0 +1,27 @@
+/* ----------------------------------------------------------------
+			[ All Css Plugins & Helper Classes File ]
+-----------------------------------------------------------------*/
+
+/* == Bootstrap == */
+@import url("plugins/bootstrap.min.css");
+
+/* == Owl.carousel == */
+@import url("plugins/owl.carousel.min.css");
+@import url("plugins/owl.theme.default.min.css");
+
+/* == Animate css == */
+@import url("plugins/animate.min.css");
+
+/* == Themify & Fontawesome Icons ==*/
+@import url("plugins/themify-icons.css");
+@import url("plugins/font-awesome-pro.css");
+@import url("plugins/dental-icons.css");
+
+/* == Magnific-popup Gallery  == */
+@import url("plugins/magnific-popup.css");
+
+/* == YouTubePopUp == */
+@import url("plugins/YouTubePopUp.css");
+
+/* == Vegas Slider == */
+@import url("plugins/vegas.slider.min.css");
