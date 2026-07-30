@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="hr" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opomat — Automatske opomene i naplata potraživanja</title>
+<meta name="description" content="Automatizirajte naplatu potraživanja i izradu opomena iz kartica kupaca. Opomat štedi vrijeme, smanjuje administrativni trošak i priprema provjerene opomene za slanje.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7C66'/%3E%3Cpath d='M14 34 50 18 40 48l-9-9-6 7-1-10z' fill='white'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|space-grotesk:500,600,700" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                brand:  { DEFAULT:'#0E7C66', 50:'#E9F6F2', 100:'#D2EDE4', 300:'#7BC9B4', 400:'#3AA98D', 600:'#0C6B58', 700:'#0A5A4A', 900:'#06382E' },
+                ink:    { DEFAULT:'#0B1220', 700:'#27303F', 500:'#5B6472', 300:'#98A0AD', 100:'#E7E9EC' },
+                paper:  '#F6F8F7',
+                calm:   '#3AA98D',
+                warn:   '#D9A13B',
+                hot:    '#D97A3B',
+                crit:   '#C4453B',
+            },
+            fontFamily: {
+                display: ['Space Grotesk','ui-sans-serif','system-ui','sans-serif'],
+                sans: ['Inter','ui-sans-serif','system-ui','sans-serif'],
+            },
+        }
+    }
+}
+</script>
+
+<style>
+    body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    .font-display { letter-spacing: -0.02em; }
+
+    /* ---------- aurora hero background ---------- */
+    .aurora { position:absolute; border-radius:9999px; filter:blur(70px); opacity:.55; will-change:transform; }
+    .hero-grid {
+        background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, black 35%, transparent 75%);
+    }
+    .noise::after {
+        content:''; position:absolute; inset:0; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+    }
+
+    /* ---------- scanner ---------- */
+    .scanbeam {
+        position:absolute; left:0; right:0; height:44px; top:-44px; pointer-events:none;
+        background: linear-gradient(180deg, transparent, rgba(58,169,141,.28) 55%, rgba(14,124,102,.75) 98%, transparent);
+        box-shadow: 0 2px 18px rgba(14,124,102,.55);
+    }
+    .row-flash { transition: background-color .25s, color .25s; }
+    .row-flash.lit { background-color: rgba(14,124,102,.16); }
+    .row-flash.lit .oib-ok { opacity:1; transform:scale(1); }
+    .oib-ok { opacity:0; transform:scale(.4); transition:all .3s cubic-bezier(.34,1.56,.64,1); }
+
+    /* ---------- marquee ---------- */
+    .marquee-track { display:flex; gap:1rem; width:max-content; animation: marquee 26s linear infinite; }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* ---------- misc ---------- */
+    .glass { backdrop-filter: blur(14px); background: rgba(255,255,255,.72); }
+    .glass-dark { backdrop-filter: blur(14px); background: rgba(11,18,32,.55); }
+    .tilt-wrap { transform-style: preserve-3d; transition: transform .18s ease-out; }
+    .coin { position:fixed; z-index:90; font-weight:700; pointer-events:none; user-select:none; }
+    .fade-item { opacity:0; transform:translateY(26px); }
+    [id] { scroll-margin-top: 6rem; }
+    :focus-visible { outline:3px solid rgba(58,169,141,.65); outline-offset:3px; }
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
+        background:#0E7C66; border:3px solid white; box-shadow:0 1px 6px rgba(0,0,0,.25); cursor:pointer;
+    }
+    [x-cloak] { display:none !important; }
+    @media (prefers-reduced-motion: reduce) {
+        .marquee-track { animation:none; }
+    }
+</style>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Physics2DPlugin.min.js"></script>
+</head>
+
+<body id="vrh" class="bg-paper text-ink antialiased" x-data="{ mobileNav:false }">
+
+<!-- ======================= NAV ======================= -->
+<header class="fixed inset-x-0 top-0 z-50">
+    <div class="mx-auto mt-3 flex max-w-6xl items-center justify-between rounded-2xl glass px-4 py-2.5 shadow-lg shadow-ink/5 ring-1 ring-ink/5 sm:px-6" >
+        <a href="#vrh" class="flex items-center gap-2.5" aria-label="Opomat — povratak na vrh">
+            <span class="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white shadow-md shadow-brand/30">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 13 20 5l-5 15-4-5-4 3z"/></svg>
+            </span>
+            <span class="font-display text-lg font-bold tracking-tight">Opomat</span>
+        </a>
+        <nav class="hidden items-center gap-7 text-[14.5px] font-medium text-ink-700 md:flex">
+            <a href="#kako-radi" class="hover:text-brand">Kako radi</a>
+            <a href="#mogucnosti" class="hover:text-brand">Mogućnosti</a>
+            <a href="#kalkulator" class="hover:text-brand">Kalkulator</a>
+            <a href="#sigurnost" class="hover:text-brand">Sigurnost</a>
+            <a href="#faq" class="hover:text-brand">FAQ</a>
+        </nav>
+        <div class="flex items-center gap-2">
+            <a href="#demo" class="hidden rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-white shadow-md shadow-brand/25 transition hover:bg-brand-600 md:inline-block">Zatraži demo</a>
+            <button type="button" class="grid h-9 w-9 place-items-center rounded-xl border border-ink/10 md:hidden" @click="mobileNav = !mobileNav" :aria-expanded="mobileNav" aria-label="Otvori navigaciju">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+            </button>
+        </div>
+    </div>
+    <div x-cloak x-show="mobileNav" x-transition class="mx-3 mt-2 rounded-2xl glass p-4 shadow-lg ring-1 ring-ink/5 md:hidden" @click.outside="mobileNav=false">
+        <nav class="flex flex-col gap-3 text-[15px] font-medium">
+            <a href="#kako-radi" @click="mobileNav=false">Kako radi</a>
+            <a href="#mogucnosti" @click="mobileNav=false">Mogućnosti</a>
+            <a href="#kalkulator" @click="mobileNav=false">Kalkulator</a>
+            <a href="#sigurnost" @click="mobileNav=false">Sigurnost</a>
+            <a href="#faq" @click="mobileNav=false">FAQ</a>
+            <a href="#demo" class="mt-1 rounded-xl bg-brand px-4 py-2 text-center font-semibold text-white" @click="mobileNav=false">Zatraži demo</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="noise relative overflow-hidden bg-[#07211C] pt-32 pb-20 text-white sm:pt-40 sm:pb-28">
+    <!-- aurora -->
+    <div class="aurora left-[-10%] top-[-15%] h-[34rem] w-[34rem] bg-brand-700" id="aur1"></div>
+    <div class="aurora right-[-12%] top-[5%] h-[30rem] w-[30rem] bg-emerald-500/80" id="aur2"></div>
+    <div class="aurora bottom-[-30%] left-[30%] h-[28rem] w-[28rem] bg-teal-400/60" id="aur3"></div>
+    <div class="hero-grid absolute inset-0"></div>
+
+    <div class="relative mx-auto grid max-w-6xl items-center gap-14 px-5 lg:grid-cols-[1.05fr_1fr] lg:gap-8">
+        <!-- left: copy -->
+        <div>
+            <div class="hero-in inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[13px] font-medium text-brand-300">
+                <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-300 opacity-60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-brand-300"></span></span>
+                Automatizacija naplate za računovodstvo i male tvrtke
+            </div>
+
+            <h1 class="mt-5 font-display text-[42px] font-bold leading-[1.06] tracking-tight sm:text-6xl" id="heroTitle">
+                Automatske opomene koje štede vrijeme i novac.
+            </h1>
+
+            <p class="hero-in mt-5 max-w-xl text-lg leading-relaxed text-white/75">
+                Opomat pretvara <b class="text-white">kartice kupaca u provjerene opomene spremne za slanje</b>.
+                Bez sati prepisivanja, sastavljanja e-mailova i praćenja u tablicama —
+                <span class="text-brand-300">manje administracije, niži trošak i više vremena za posao.</span>
+            </p>
+
+
+
+        </div>
+
+        <!-- right: product visual -->
+        <div class="relative" x-data="tilt()" @mousemove="move($event)" @mouseleave="reset()">
+            <!-- flight path (plane) -->
+            <svg class="pointer-events-none absolute -top-10 left-0 z-20 h-[120%] w-full overflow-visible" viewBox="0 0 480 560" fill="none">
+                <path id="flightPath" d="M60 430 C 140 300, 90 170, 240 120 S 460 90, 440 40" stroke="rgba(255,255,255,.14)" stroke-dasharray="5 7" stroke-width="1.5"/>
+                <g id="plane">
+                    <g transform="translate(-13,-13)">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="#8FE3C0" stroke="#07211C" stroke-width="1"><path d="M4 13 20 5l-5 15-4-5-4 3z"/></svg>
+                    </g>
+                </g>
+
+            </svg>
+
+            <div class="tilt-wrap relative z-10" x-ref="card">
+                <!-- kartica (scan target) -->
+                <div class="relative overflow-hidden rounded-2xl bg-white text-ink shadow-2xl shadow-black/40 ring-1 ring-white/20">
+                    <div class="flex items-center justify-between bg-brand px-4 py-2.5 text-white">
+                        <p class="font-display text-[13px] font-semibold tracking-wide">Kartica kupca · srpanj 2026.</p>
+                        <span class="rounded-md bg-white/15 px-2 py-0.5 font-mono text-[10.5px]">PDF · skenirano</span>
+                    </div>
+                    <div class="px-4 pt-3 pb-1 text-[12.5px]">
+                        <p class="font-mono text-[11px] text-ink-500">Partner: 22526</p>
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">MEŠTAR HENDIĆ d.o.o.</p>
+                            <span class="oib-hero inline-flex items-center gap-1 font-mono text-[11px] text-ink-500">
+                                OIB 22145497807
+                                <svg class="oib-ok-hero h-3.5 w-3.5 text-brand" style="opacity:0;transform:scale(.4)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                    <table class="w-full text-[12px]">
+                        <thead>
+                            <tr class="border-b border-ink/10 text-left font-mono text-[10px] uppercase tracking-wide text-ink-500">
+                                <th class="py-1.5 pl-4">Račun</th><th>Dospjeće</th><th class="pr-4 text-right">Iznos €</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scanRows" class="font-mono">
+                            <tr class="row-flash border-b border-ink/5"><td class="py-1.5 pl-4">2382/1/1</td><td>30.08.2025.</td><td class="pr-4 text-right">1.425,21</td></tr>
+                            <tr class="row-flash border-b border-ink/5"><td class="py-1.5 pl-4">115/1/1</td><td>14.02.2026.</td><td class="pr-4 text-right">2.428,55</td></tr>
+                            <tr class="row-flash border-b border-ink/5"><td class="py-1.5 pl-4">830/1/1</td><td>15.04.2026.</td><td class="pr-4 text-right">2.067,84</td></tr>
+                            <tr class="row-flash"><td class="py-1.5 pl-4">1663/1/1</td><td>15.06.2026.</td><td class="pr-4 text-right">1.824,90</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="flex items-center justify-between border-t border-ink/10 bg-paper px-4 py-2 font-mono text-[11.5px]">
+                        <span class="text-ink-500">SALDO</span><span class="font-bold">8.617,96 €</span>
+                    </div>
+                    <div class="scanbeam" id="beam"></div>
+                </div>
+
+                <!-- mini dashboard chips -->
+                <div class="mt-4 grid grid-cols-3 gap-3" id="chips">
+                    <div class="chip rounded-xl bg-white/95 p-3 text-ink shadow-xl ring-1 ring-white/30">
+                        <p class="font-mono text-[9.5px] uppercase tracking-wider text-ink-500">Dospjelo</p>
+                        <p class="font-display text-lg font-bold text-crit"><span data-chip="8617.96">0,00</span> €</p>
+                    </div>
+                    <div class="chip rounded-xl bg-white/95 p-3 text-ink shadow-xl ring-1 ring-white/30">
+                        <p class="font-mono text-[9.5px] uppercase tracking-wider text-ink-500">Za slanje</p>
+                        <p class="font-display text-lg font-bold text-brand"><span data-chip="1">0</span> <span class="text-[11px] font-medium text-ink-500">kupac</span></p>
+                    </div>
+                    <div class="chip rounded-xl bg-white/95 p-3 text-ink shadow-xl ring-1 ring-white/30">
+                        <p class="font-mono text-[9.5px] uppercase tracking-wider text-ink-500">Razina</p>
+                        <p class="font-display text-lg font-bold text-hot">2. opomena</p>
+                    </div>
+                </div>
+
+                <!-- aging bar -->
+                <div class="mt-3 rounded-xl bg-white/95 p-3 text-ink shadow-xl ring-1 ring-white/30">
+                    <div class="mb-1.5 flex justify-between font-mono text-[9.5px] uppercase tracking-wider text-ink-500">
+                        <span>Starost duga</span><span>29.07.2026.</span>
+                    </div>
+                    <div class="flex h-2.5 overflow-hidden rounded-full bg-ink/10" id="agingHero">
+                        <div class="bg-calm" style="width:0%"></div>
+                        <div class="bg-warn" style="width:0%"></div>
+                        <div class="bg-hot"  style="width:0%"></div>
+                        <div class="bg-crit" style="width:0%"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="hero-in mt-8 max-w-xl" x-data="demoForm()">
+                <form x-show="!sent" @submit.prevent="submit()">
+                    <div class="flex flex-col gap-2.5 rounded-2xl border border-white/15 bg-white/10 p-2 shadow-2xl shadow-black/15 backdrop-blur-sm sm:flex-row">
+                        <label for="hero-email" class="sr-only">Poslovni e-mail</label>
+                        <input id="hero-email" type="email" x-model.trim="email" placeholder="Vaš poslovni e-mail" autocomplete="email" required
+                               class="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder:text-white/45 focus:border-brand-300 focus:bg-white/15 focus:outline-none">
+                        <input type="text" x-model="website" class="absolute -left-[9999px]" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <button type="submit" :disabled="sending" class="cta-burst group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 font-semibold text-white shadow-lg shadow-brand/25 transition hover:bg-brand-600 disabled:cursor-wait disabled:opacity-70">
+                            <svg x-show="sending" class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4z"/></svg>
+                            <span x-text="sending ? 'Šaljem…' : 'Zatraži demo'"></span>
+                            <svg x-show="!sending" class="transition group-hover:translate-x-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                        </button>
+                    </div>
+                </form>
+                <div x-cloak x-show="sent" x-transition class="rounded-2xl border border-brand-300/30 bg-brand/15 px-5 py-4 text-sm text-white/80">
+                    <b class="text-brand-300">✓ Upit je poslan.</b> Javit ćemo vam se na <span class="text-white" x-text="email"></span>.
+                </div>
+                <p x-cloak x-show="error" x-text="error" role="alert" class="mt-2 rounded-xl bg-crit/20 px-3 py-2 text-sm text-red-100"></p>
+                <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px] text-white/55">
+                    <span class="inline-flex items-center gap-1.5"><span class="text-brand-300">✓</span> Besplatna provjera jedne kartice</span>
+                    <span class="inline-flex items-center gap-1.5"><span class="text-brand-300">✓</span> Bez instalacije i obveze</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- scroll cue -->
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/40">
+        <svg class="animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+</section>
+
+<!-- ======================= MARQUEE ======================= -->
+<section class="marquee overflow-hidden border-b border-ink/5 bg-white py-4">
+    <div class="marquee-track font-mono text-[13px] text-ink-500">
+        <!-- duplicated for seamless loop -->
+        <template x-for="i in 2" :key="i">
+            <div class="flex shrink-0 items-center gap-4 pr-4">
+                <span class="rounded-full border border-ink/10 px-3.5 py-1.5">📄 PDF (i skenirani)</span>
+                <span class="rounded-full border border-ink/10 px-3.5 py-1.5">📊 XLSX</span>
+                <span class="rounded-full border border-ink/10 px-3.5 py-1.5">🧾 CSV</span>
+                <span class="rounded-full border border-ink/10 px-3.5 py-1.5">🗜 ZIP s više kartica</span>
+                <span class="rounded-full border border-brand/25 bg-brand-50 px-3.5 py-1.5 text-brand-700">✓ OIB kontrolna znamenka</span>
+                <span class="rounded-full border border-brand/25 bg-brand-50 px-3.5 py-1.5 text-brand-700">✓ Kontrolni zbrojevi</span>
+                <span class="rounded-full border border-ink/10 px-3.5 py-1.5">📚 Izvoz iz knjigovodstva</span>
+                <span class="rounded-full border border-ink/10 px-3.5 py-1.5">📁 Više datoteka odjednom</span>
+                <span class="rounded-full border border-ink/10 px-3.5 py-1.5">👁 Pregled prije slanja</span>
+                <span class="rounded-full border border-ink/10 px-3.5 py-1.5">✉ Evidencija isporuke</span>
+            </div>
+        </template>
+    </div>
+</section>
+
+<!-- ======================= KAKO RADI ======================= -->
+<section id="kako-radi" class="relative mx-auto max-w-6xl px-5 py-24">
+    <div class="mx-auto max-w-2xl text-center">
+        <p class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">Kako radi</p>
+        <h2 class="fade-item mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Od izvoza do slanja u tri jasna koraka</h2>
+        <p class="fade-item mt-4 text-ink-500">Bez prepisivanja iznosa i lova po karticama. Vi se uključujete tamo gdje treba odluka.</p>
+    </div>
+
+    <div class="relative mt-14 grid gap-6 md:grid-cols-3">
+        <svg class="pointer-events-none absolute left-0 right-0 top-10 hidden h-10 w-full md:block" viewBox="0 0 1000 40" fill="none" preserveAspectRatio="none">
+            <path id="stepsPath" d="M170 20 H 830" stroke="#0E7C66" stroke-width="2" stroke-dasharray="6 8" opacity=".45"/>
+        </svg>
+
+        <div class="fade-item relative rounded-3xl border border-ink/5 bg-white p-7 shadow-sm">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-50 font-display text-lg font-bold text-brand">1</div>
+            <h3 class="mt-4 font-display text-xl font-bold">Ubacite cijelu obradu</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-500">Dodajte PDF-ove, CSV, XLSX ili jedan ZIP iz knjigovodstvenog programa. Napredak vidite uživo — <span class="font-mono text-[13px] text-ink-700">kartica 12/50</span> — bez nagađanja je li obrada zapela.</p>
+        </div>
+        <div class="fade-item relative rounded-3xl border border-ink/5 bg-white p-7 shadow-sm">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-50 font-display text-lg font-bold text-brand">2</div>
+            <h3 class="mt-4 font-display text-xl font-bold">Opomat pročita i provjeri</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-500">AI prepiše kupce i otvorene račune, a obična matematika provjeri rezultat: OIB mora biti valjan, a duguje − potražuje mora odgovarati saldu. Sve sumnjivo ostaje blokirano za slanje.</p>
+        </div>
+        <div class="fade-item relative rounded-3xl border border-ink/5 bg-white p-7 shadow-sm">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-50 font-display text-lg font-bold text-brand">3</div>
+            <h3 class="mt-4 font-display text-xl font-bold">Odaberite i odobrite</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-500">Kupci su složeni po danima kašnjenja i razini opomene. Pregledate prijedlog, preskočite iznimke i pošaljete odabrane poruke. <b class="text-ink-700">Ništa ne ide bez vaše potvrde.</b></p>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= MOGUĆNOSTI (bento) ======================= -->
+<section id="mogucnosti" class="relative border-y border-ink/5 bg-white py-24">
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent"></div>
+    <div class="mx-auto max-w-6xl px-5">
+        <div class="mx-auto max-w-2xl text-center">
+            <p class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">Mogućnosti</p>
+            <h2 class="fade-item mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Od „tko duguje?” do „poslano” — na jednom mjestu</h2>
+            <p class="fade-item mt-4 text-ink-500">Brzo vidite što je spremno, što traži vašu pažnju i što se dogodilo nakon slanja.</p>
+        </div>
+
+        <div class="mt-14 grid gap-5 md:grid-cols-3">
+
+            <!-- eskalacija (wide) -->
+            <div class="fade-item group relative overflow-hidden rounded-3xl bg-paper p-7 ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-ink/5 hover:ring-brand/20 md:col-span-2">
+                <div class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-calm via-warn to-crit opacity-70"></div>
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <div class="grid h-11 w-11 place-items-center rounded-2xl bg-brand-50 text-brand ring-1 ring-brand/10">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+                        </div>
+                        <h3 class="mt-4 font-display text-lg font-bold">Pravi ton za svaku fazu kašnjenja</h3>
+                        <p class="mt-1.5 max-w-md text-[14.5px] leading-relaxed text-ink-500">Vi određujete pragove i tekst. Opomat zatim predlaže razinu — od kratkog podsjetnika do ozbiljne opomene pred ovrhu.</p>
+                    </div>
+                    <span class="hidden shrink-0 rounded-full border border-ink/10 bg-white px-3 py-1 font-mono text-[11px] text-ink-500 sm:block">po vašim pravilima</span>
+                </div>
+
+                <div class="mt-6 grid grid-cols-2 gap-2 text-center font-mono text-[11px] sm:grid-cols-4">
+                    <div class="rounded-xl border border-calm/25 bg-calm/5 px-2 py-2"><span class="mb-1 mx-auto block h-2 w-2 rounded-full bg-calm"></span><b class="block text-ink-700">podsjetnik</b><span class="text-ink-300">1–7 d</span></div>
+                    <div class="rounded-xl border border-warn/25 bg-warn/5 px-2 py-2"><span class="mb-1 mx-auto block h-2 w-2 rounded-full bg-warn"></span><b class="block text-ink-700">1. opomena</b><span class="text-ink-300">8–30 d</span></div>
+                    <div class="rounded-xl border border-hot/25 bg-hot/5 px-2 py-2"><span class="mb-1 mx-auto block h-2 w-2 rounded-full bg-hot"></span><b class="block text-ink-700">2. opomena</b><span class="text-ink-300">31–60 d</span></div>
+                    <div class="rounded-xl border border-crit/25 bg-crit/5 px-2 py-2"><span class="mb-1 mx-auto block h-2 w-2 rounded-full bg-crit"></span><b class="block text-ink-700">pred ovrhu</b><span class="text-ink-300">61+ d</span></div>
+                </div>
+                <div class="mt-4 flex h-3 overflow-hidden rounded-full bg-ink/10" id="agingDemo">
+                    <div class="bg-calm" style="width:0%"></div><div class="bg-warn" style="width:0%"></div><div class="bg-hot" style="width:0%"></div><div class="bg-crit" style="width:0%"></div>
+                </div>
+            </div>
+
+            <!-- živi napredak -->
+            <div id="progCard" class="fade-item group rounded-3xl bg-paper p-7 ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-ink/5 hover:ring-brand/20">
+                <div class="grid h-11 w-11 place-items-center rounded-2xl bg-brand-50 text-brand ring-1 ring-brand/10">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M12 7v5l3 2"/></svg>
+                </div>
+                <h3 class="mt-4 font-display text-lg font-bold">Uvijek znate što se obrađuje</h3>
+                <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-500">Napredak se prikazuje karticu po karticu, sve do spremanja kupaca.</p>
+                <div class="mt-5 rounded-2xl border border-ink/10 bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between text-[12.5px]">
+                        <span class="flex items-center gap-2 font-medium text-ink-700">
+                            <span id="progDot" class="h-2 w-2 rounded-full bg-brand"></span>
+                            <span id="progLabel">Čitanje kartica…</span>
+                        </span>
+                        <span class="flex items-center gap-1.5">
+                            <svg id="progDone" class="h-4 w-4 text-brand" style="opacity:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
+                            <span id="progCount" class="tabular-nums font-mono text-[12px] text-ink-500">0/50</span>
+                        </span>
+                    </div>
+                    <div class="mt-2.5 h-2 overflow-hidden rounded-full bg-ink/10">
+                        <div id="progFill" class="h-full rounded-full bg-brand transition-none" style="width:0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- brand mail -->
+            <div class="fade-item group rounded-3xl bg-paper p-7 ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-ink/5 hover:ring-brand/20">
+                <div class="grid h-11 w-11 place-items-center rounded-2xl bg-brand-50 text-brand ring-1 ring-brand/10">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 8 9 6 9-6"/></svg>
+                </div>
+                <h3 class="mt-4 font-display text-lg font-bold">Poruka izgleda kao vaša</h3>
+                <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-500">Vaš logo, boja, potpis i podnožje. Kupac vidi poznatog pošiljatelja, ne generički alat.</p>
+                <div class="mt-5 overflow-hidden rounded-2xl border border-ink/10 bg-white text-[11px] shadow-sm transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md">
+                    <div class="flex items-center justify-between bg-brand px-3.5 py-2 font-semibold text-white">
+                        VAŠA TVRTKA d.o.o.
+                        <span class="rounded bg-white/15 px-1.5 py-0.5 font-mono text-[9px] font-normal">1. opomena</span>
+                    </div>
+                    <div class="space-y-1.5 px-3.5 py-3 text-ink-700">
+                        <p>Poštovani,</p>
+                        <p class="text-ink-500">podsjećamo na dospjeli iznos od <b class="text-ink">1.824,90 €</b>…</p>
+                        <p class="pt-1">S poštovanjem,<br><b>Ana iz računovodstva</b></p>
+                    </div>
+                    <div class="border-t border-ink/5 px-3.5 py-1.5 font-mono text-[9px] text-ink-300">Vaša tvrtka d.o.o. · OIB 12345678901 · IBAN HR12…</div>
+                </div>
+            </div>
+
+            <!-- karantena -->
+            <div class="fade-item group rounded-3xl bg-paper p-7 ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-ink/5 hover:ring-warn/30">
+                <div class="grid h-11 w-11 place-items-center rounded-2xl bg-warn/10 text-warn ring-1 ring-warn/15">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                </div>
+                <h3 class="mt-4 font-display text-lg font-bold">Sumnjivo ne prolazi tiho</h3>
+                <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-500">Ako se saldo i stavke ne slažu, kupac je jasno označen za <b class="text-ink-700">ručnu provjeru</b> i ostaje blokiran za slanje.</p>
+                <div class="mt-5 rounded-2xl border border-warn/25 bg-white p-3.5 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[13px] font-semibold text-ink-700">ELEKTRO BARBIR d.o.o.</span>
+                        <span class="rounded-md bg-warn/15 px-2 py-0.5 font-mono text-[10px] font-semibold text-warn">RUČNA PROVJERA</span>
+                    </div>
+                    <p class="mt-1 font-mono text-[11px] text-ink-500">saldo 1.500,00 ≠ zbroj stavki 1.000,00</p>
+                </div>
+            </div>
+
+            <!-- arhiva -->
+            <div class="fade-item group rounded-3xl bg-paper p-7 ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-ink/5 hover:ring-brand/20">
+                <div class="grid h-11 w-11 place-items-center rounded-2xl bg-brand-50 text-brand ring-1 ring-brand/10">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"/><path d="M10 13h4"/></svg>
+                </div>
+                <h3 class="mt-4 font-display text-lg font-bold">Svaki mjesec ostaje sačuvan</h3>
+                <p class="mt-1.5 text-[14.5px] leading-relaxed text-ink-500">Otvorite prošlu obradu u načinu samo za čitanje i provjerite tadašnje stanje, brojke i poslane opomene.</p>
+                <div class="mt-5 space-y-1.5 font-mono text-[12px]">
+                    <div class="flex items-center justify-between rounded-xl border border-brand/20 bg-brand-50/60 px-3.5 py-2"><span class="font-semibold text-ink-700">srpanj 2026.</span><span class="flex items-center gap-1.5 text-brand"><span class="h-1.5 w-1.5 rounded-full bg-brand"></span>aktivna</span></div>
+                    <div class="flex items-center justify-between rounded-xl border border-ink/5 bg-white px-3.5 py-2 shadow-sm"><span>lipanj 2026.</span><span class="text-ink-300">187 kartica</span></div>
+                    <div class="flex items-center justify-between rounded-xl border border-ink/5 bg-white px-3.5 py-2 opacity-70 shadow-sm"><span>svibanj 2026.</span><span class="text-ink-300">179 kartica</span></div>
+                </div>
+            </div>
+
+            <!-- stop lista / prag / povijest (wide) -->
+            <div class="fade-item group relative overflow-hidden rounded-3xl bg-[#07211C] p-7 text-white ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-900/20 md:col-span-3">
+                <div class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-brand-700/40 blur-3xl"></div>
+                <div class="relative grid items-center gap-8 lg:grid-cols-[1fr_1.4fr]">
+                    <div>
+                        <div class="grid h-11 w-11 place-items-center rounded-2xl bg-white/10 text-brand-300 ring-1 ring-white/10">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13M3 12h9M3 18h13"/><path d="m17 15 2 2 4-4"/></svg>
+                        </div>
+                        <h3 class="mt-4 font-display text-xl font-bold">Iznimke su dio procesa, ne problem sa strane</h3>
+                        <p class="mt-1.5 text-[14.5px] leading-relaxed text-white/60">Reklamaciju stavite na stop-listu, mali iznos ostavite ispod praga, a kupca po potrebi preskočite samo u ovoj obradi. Svaka odluka ostaje zabilježena.</p>
+                    </div>
+                    <div class="grid gap-2.5 sm:grid-cols-3">
+                        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <svg class="text-crit" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 9v6M15 9v6"/></svg>
+                            <p class="mt-2.5 font-mono text-[10px] uppercase tracking-wider text-white/40">Stop-lista</p>
+                            <p class="mt-1 text-[13px] font-medium">OPG Marić</p>
+                            <p class="font-mono text-[11px] text-white/50">reklamacija u tijeku</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <svg class="text-warn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v5l-4 2v-7z"/></svg>
+                            <p class="mt-2.5 font-mono text-[10px] uppercase tracking-wider text-white/40">Ispod praga</p>
+                            <p class="mt-1 text-[13px] font-medium">Studio Nina</p>
+                            <p class="font-mono text-[11px] text-white/50">3,80 € — preskočeno</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <svg class="text-brand-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                            <p class="mt-2.5 font-mono text-[10px] uppercase tracking-wider text-white/40">Povijest</p>
+                            <p class="mt-1 text-[13px] font-medium">Medius d.o.o.</p>
+                            <p class="font-mono text-[11px] text-white/50">23.06. — 1. opomena</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= KALKULATOR ======================= -->
+<section id="kalkulator" class="mx-auto max-w-6xl px-5 py-24">
+    <div class="grid items-center gap-10 lg:grid-cols-2"
+         x-data="{
+            n: 150,
+            get minutes() { return this.n * 6 },
+            get hours() { return Math.round(this.minutes / 60 * 10) / 10 },
+            get days() { return Math.round(this.hours / 8 * 10) / 10 },
+            fmt(x) { return x.toLocaleString('hr-HR') }
+         }">
+        <div>
+            <p class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">Procjena ručnog rada</p>
+            <h2 class="fade-item mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Koliko vam mjeseca ode na pripremu opomena?</h2>
+            <p class="fade-item mt-4 text-ink-500">Otvoriti karticu, pronaći dospjele račune, provjeriti iznos, odabrati ton i složiti e-mail. Ako za jednog kupca treba oko <b class="text-ink-700">6 minuta</b>, broj se brzo nakupi:</p>
+
+            <div class="fade-item mt-8">
+                <div class="flex items-baseline justify-between">
+                    <label class="text-sm font-semibold text-ink-700">Kartica mjesečno</label>
+                    <span class="font-display text-2xl font-bold text-brand" x-text="fmt(n)"></span>
+                </div>
+                <input type="range" min="20" max="1000" step="10" x-model.number="n"
+                       class="mt-3 h-2 w-full cursor-pointer appearance-none rounded-full bg-brand-100 accent-brand">
+                <div class="mt-1 flex justify-between font-mono text-[11px] text-ink-300"><span>20</span><span>1000</span></div>
+            </div>
+        </div>
+
+        <div class="fade-item rounded-3xl bg-[#07211C] p-8 text-white shadow-2xl shadow-brand-900/30">
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-300">Ručno, svaki mjesec</p>
+            <p class="mt-2 font-display text-5xl font-bold"><span x-text="fmt(hours)"></span><span class="text-2xl text-white/60"> sati</span></p>
+            <p class="mt-1 text-white/60">≈ <span x-text="fmt(days)"></span> radnih dana prepisivanja brojki</p>
+            <div class="my-6 h-px bg-white/10"></div>
+            <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-300">S Opomatom</p>
+            <p class="mt-2 font-display text-4xl font-bold text-brand-300 sm:text-5xl">Bez prepisivanja</p>
+            <p class="mt-1 text-white/60">obrada u pozadini + vaš pregled i odobrenje</p>
+            <p class="mt-4 rounded-xl bg-white/5 px-4 py-3 text-[13.5px] leading-relaxed text-white/70">
+                Opomat preuzima čitanje, računanje i pripremu. Vaše vrijeme ostaje za iznimke i odluke koje stvarno traže čovjeka.
+            </p>
+            <p class="mt-3 text-[11px] text-white/35">*procjena ručnog rada je ilustrativna; stvarno trajanje ovisi o vašem procesu i kvaliteti izvora</p>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= SIGURNOST ======================= -->
+<section id="sigurnost" class="noise relative overflow-hidden bg-[#0B1220] py-24 text-white">
+    <div class="aurora left-[10%] top-[-30%] h-[26rem] w-[26rem] bg-brand-700 opacity-40"></div>
+    <div class="relative mx-auto max-w-6xl px-5">
+        <div class="mx-auto max-w-2xl text-center">
+            <p class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-brand-300">Sigurnost i kontrola</p>
+            <h2 class="fade-item mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">AI čita. Matematika provjerava. Vi odlučujete.</h2>
+            <p class="fade-item mt-4 text-white/60">Sustav je napravljen da sumnjiv podatak zaustavi prije slanja, a konačnu odluku ostavi vama.</p>
+        </div>
+
+        <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="fade-item rounded-2xl border border-white/10 bg-white/5 p-6">
+                <span class="grid h-11 w-11 place-items-center rounded-2xl bg-brand/20 text-brand-300 ring-1 ring-brand-300/20">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></svg>
+                </span>
+                <h3 class="mt-4 font-display font-bold">OIB s kontrolnom znamenkom</h3>
+                <p class="mt-1.5 text-[13.5px] leading-relaxed text-white/60">Svaki OIB prolazi matematičku provjeru (ISO 7064). Izmišljen ili krivo pročitan broj <b class="text-white">ne može ući</b> u sustav.</p>
+            </div>
+            <div class="fade-item rounded-2xl border border-white/10 bg-white/5 p-6">
+                <span class="grid h-11 w-11 place-items-center rounded-2xl bg-brand/20 text-brand-300 ring-1 ring-brand-300/20">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8"/><path d="M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg>
+                </span>
+                <h3 class="mt-4 font-display font-bold">Kontrolni zbrojevi</h3>
+                <p class="mt-1.5 text-[13.5px] leading-relaxed text-white/60">Duguje − potražuje mora dati saldo s kartice. Ne štima? Karantena i ručna provjera — nikad automatska opomena.</p>
+            </div>
+            <div class="fade-item rounded-2xl border border-white/10 bg-white/5 p-6">
+                <span class="grid h-11 w-11 place-items-center rounded-2xl bg-brand/20 text-brand-300 ring-1 ring-brand-300/20">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="m9 12 2 2 4-4"/></svg>
+                </span>
+                <h3 class="mt-4 font-display font-bold">Aktivno stanje ostaje zaštićeno</h3>
+                <p class="mt-1.5 text-[13.5px] leading-relaxed text-white/60">Kartica bez sigurnog identiteta prekida novu obradu, pa ona ne zamjenjuje zadnju ispravnu. Neslaganje iznosa ostaje vidljivo, ali <b class="text-white">blokirano za slanje</b>.</p>
+            </div>
+            <div class="fade-item rounded-2xl border border-white/10 bg-white/5 p-6">
+                <span class="grid h-11 w-11 place-items-center rounded-2xl bg-brand/20 text-brand-300 ring-1 ring-brand-300/20">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M3 21v-1a6 6 0 0 1 6-6h1.5"/><path d="m15 18 2 2 4-4"/></svg>
+                </span>
+                <h3 class="mt-4 font-display font-bold">Vi odobravate slanje</h3>
+                <p class="mt-1.5 text-[13.5px] leading-relaxed text-white/60">Opomat pripremi i razvrsta prijedloge, ali ne šalje ih sam. Stop-lista, preskakanje, prag i konačan odabir ostaju pod vašom kontrolom.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= ISHODI ======================= -->
+<section class="mx-auto max-w-6xl px-5 py-24">
+    <div class="mx-auto max-w-2xl text-center">
+        <p class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">Što se mijenja u praksi</p>
+        <h2 class="fade-item mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Manje administracije. Više kontrole nad naplatom.</h2>
+        <p class="fade-item mt-4 text-ink-500">Ne morate svaki mjesec iznova slagati proces. Otvorite obradu i odmah znate što je sljedeće.</p>
+    </div>
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+        <div class="fade-item rounded-3xl border border-ink/5 bg-white p-7 shadow-sm">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-brand-50 text-brand">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/><path d="m16 17 2 2 4-5"/></svg>
+            </span>
+            <h3 class="mt-4 font-display text-lg font-bold">Odmah vidite gdje zapinje</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-500">Spremno za slanje, nedostaje e-mail, ručna provjera ili bez akcije — svaki kupac ima jasan status i sljedeći korak.</p>
+        </div>
+        <div class="fade-item rounded-3xl border border-ink/5 bg-white p-7 shadow-sm">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-brand-50 text-brand">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v13H7l-3 3z"/><path d="M8 9h8M8 13h5"/></svg>
+            </span>
+            <h3 class="mt-4 font-display text-lg font-bold">Kupcu se obraćate dosljedno</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-500">Svaka razina ima dogovoreni ton i vaš vizualni potpis. Poruka je jasna i profesionalna, bez improviziranja pod pritiskom.</p>
+        </div>
+        <div class="fade-item rounded-3xl border border-ink/5 bg-white p-7 shadow-sm">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-brand-50 text-brand">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <h3 class="mt-4 font-display text-lg font-bold">Nakon slanja ostaje trag</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-500">Vidite što je isporučeno, što se vratilo i kome treba nova adresa. Prošle obrade ostaju dostupne za kasniju provjeru.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section id="faq" class="border-t border-ink/5 bg-white py-24">
+    <div class="mx-auto max-w-3xl px-5" x-data="{ open: 1 }">
+        <div class="text-center">
+            <p class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">FAQ</p>
+            <h2 class="fade-item mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Prije prve obrade, ljudi obično pitaju ovo</h2>
+        </div>
+
+        <div class="mt-10 space-y-3">
+            <template x-for="(item, i) in [
+                { q:'Koje formate kartica čita?', a:'PDF (uključujući skenirane), CSV, XLSX te ZIP s više kartica odjednom. Stari .xls ne — spremite ga kao .xlsx ili .csv i sve štima.' },
+                { q:'Šalje li se ijedna opomena bez mene?', a:'Ne. Opomat pripremi i razvrsta prijedloge, ali vi birate kupce i potvrđujete slanje. Stop-lista, minimalni iznos i preskakanje dodatno štite iznimke.' },
+                { q:'Što ako AI nešto pogrešno pročita?', a:'Opomat nakon čitanja zasebno provjerava OIB i ponovno računa iznose. Nesiguran identitet zaustavlja novu obradu, a neslaganje salda označava kupca za ručnu provjeru i blokira slanje.' },
+                { q:'Što ako na kartici nema e-mail adrese?', a:'Kupac je jasno označen kao blokiran zbog e-maila. U dashboardu možete dodati zamjensku adresu bez mijenjanja izvornog podatka s kartice.' },
+                { q:'Kako opomene izgledaju dužniku?', a:'Kao vaš e-mail: vaš logo, boja, potpis i podnožje. Ton se mijenja po razini — podsjetnik je ljubazan, pred-ovrha ozbiljna, ali uvijek profesionalno.' },
+                { q:'Mogu li vidjeti prošle mjesece?', a:'Da — svaka obrada ostaje zamrznuta u arhivi: stanje kupaca, brojke i sve poslane opomene po mjesecu.' },
+                { q:'Moram li mijenjati knjigovodstveni program?', a:'Ne. Opomat radi s izvozom koji već imate: PDF, CSV ili XLSX, pojedinačno ili zajedno u ZIP-u. Stari .xls samo spremite kao .xlsx ili .csv.' },
+            ]" :key="i">
+                <div class="overflow-hidden rounded-2xl border border-ink/10 bg-paper">
+                    <button type="button" class="flex w-full items-center justify-between px-5 py-4 text-left font-semibold" @click="open = open === i ? null : i">
+                        <span x-text="item.q"></span>
+                        <svg class="shrink-0 transition-transform" :class="open === i && 'rotate-45'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                    <div x-show="open === i" x-collapse>
+                        <p class="px-5 pb-4 text-[15px] leading-relaxed text-ink-500" x-text="item.a"></p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</section>
+
+<!-- ======================= CTA / DEMO ======================= -->
+<section id="demo" class="noise relative overflow-hidden bg-[#07211C] py-24 text-white">
+    <div class="aurora left-[-8%] top-[-20%] h-[28rem] w-[28rem] bg-brand-700"></div>
+    <div class="aurora right-[-10%] bottom-[-35%] h-[30rem] w-[30rem] bg-teal-500/70"></div>
+
+    <div class="relative mx-auto max-w-3xl px-5 text-center" x-data="demoForm()">
+        <h2 class="fade-item font-display text-3xl font-bold tracking-tight sm:text-5xl">Ponesite jednu karticu. Pokazat ćemo vam cijeli put.</h2>
+        <p class="fade-item mx-auto mt-4 max-w-xl text-white/65">Na kratkom demu prolazimo vaš stvarni izvoz: od učitavanja i provjere do opomene spremne za vaše odobrenje.</p>
+
+        <form x-show="!sent" @submit.prevent="submit()" class="fade-item mx-auto mt-9 flex max-w-xl flex-col gap-3 sm:flex-row">
+            <label for="demo-ime" class="sr-only">Ime i tvrtka</label>
+            <input id="demo-ime" type="text" x-model.trim="name" placeholder="Ime i tvrtka" autocomplete="name" required
+                   class="w-full rounded-2xl border border-white/15 bg-white/10 px-5 py-3.5 text-white placeholder:text-white/40 focus:border-brand-300 focus:outline-none">
+            <label for="demo-email" class="sr-only">Poslovni e-mail</label>
+            <input id="demo-email" type="email" x-model.trim="email" placeholder="Poslovni e-mail" autocomplete="email" required
+                   class="w-full rounded-2xl border border-white/15 bg-white/10 px-5 py-3.5 text-white placeholder:text-white/40 focus:border-brand-300 focus:outline-none">
+            <input type="text" x-model="website" class="absolute -left-[9999px]" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" :disabled="sending"
+                    class="cta-burst inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-brand px-7 py-3.5 font-semibold text-white shadow-xl shadow-brand/30 transition hover:bg-brand-600 disabled:cursor-wait disabled:opacity-70">
+                <svg x-show="sending" class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4z"/></svg>
+                <span x-text="sending ? 'Šaljem…' : 'Želim svoj primjer'"></span>
+            </button>
+        </form>
+
+        <p x-cloak x-show="error" x-text="error" role="alert" class="mx-auto mt-3 max-w-xl rounded-xl bg-crit/20 px-4 py-3 text-sm text-red-100"></p>
+
+        <div x-cloak x-show="sent" x-transition class="mx-auto mt-9 max-w-xl rounded-2xl border border-brand-300/30 bg-brand/15 px-6 py-5">
+            <p class="flex items-center justify-center gap-2 font-display text-xl font-bold text-brand-300">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+                Zaprimljeno!
+            </p>
+            <p class="mt-1 text-white/70">Demo upit je poslan. Javit ćemo vam se na <span class="text-white" x-text="email"></span>.</p>
+        </div>
+
+        <p class="mt-5 font-mono text-[12px] text-white/35">Ili ručno: <span class="text-white/60">demo@opomat.hr</span> · Bez instalacije · Ništa se ne šalje bez vaše potvrde</p>
+    </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="border-t border-white/5 bg-[#06231D] py-10 text-white/50">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 text-[13.5px] sm:flex-row">
+        <div class="flex items-center gap-2">
+            <span class="grid h-7 w-7 place-items-center rounded-lg bg-brand text-white">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 13 20 5l-5 15-4-5-4 3z"/></svg>
+            </span>
+            <span class="font-display font-bold text-white/80">Opomat</span>
+            <span class="ml-1">© 2026</span>
+        </div>
+        <p class="font-mono text-[12px]">Uporan oko rokova. Pristojan prema kupcima.</p>
+    </div>
+</footer>
+
+<!-- ======================= ANIMATION SCRIPT ======================= -->
+<script>
+// Shared lead form used in the hero and the closing CTA.
+function demoForm() {
+    return {
+        name: '',
+        email: '',
+        website: '',
+        sending: false,
+        sent: false,
+        error: '',
+
+        async submit() {
+            if (this.sending) return;
+
+            this.sending = true;
+            this.error = '';
+
+            try {
+                const response = await fetch('/demo-request', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    body: JSON.stringify({
+                        name: this.name || null,
+                        email: this.email,
+                        website: this.website,
+                    }),
+                });
+                const payload = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    const firstValidationError = payload.errors
+                        ? Object.values(payload.errors).flat()[0]
+                        : null;
+                    throw new Error(firstValidationError || payload.message || 'Upit trenutačno nije moguće poslati.');
+                }
+
+                this.sent = true;
+            } catch (error) {
+                this.error = error instanceof Error
+                    ? error.message
+                    : 'Upit trenutačno nije moguće poslati. Pokušajte ponovno.';
+            } finally {
+                this.sending = false;
+            }
+        },
+    };
+}
+
+// Alpine helper: mouse-parallax tilt for the hero visual
+function tilt() {
+    return {
+        move(e) {
+            const el = this.$refs.card, r = el.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width - .5;
+            const py = (e.clientY - r.top) / r.height - .5;
+            el.style.transform = `perspective(1100px) rotateY(${px * 7}deg) rotateX(${py * -7}deg)`;
+        },
+        reset() { this.$refs.card.style.transform = 'perspective(1100px) rotateY(0) rotateX(0)'; }
+    };
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, Physics2DPlugin);
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- € coin burst (Physics2D) ---------- */
+    window.coinBurst = function (x, y) {
+        if (reduced) return;
+        for (let i = 0; i < 26; i++) {
+            const c = document.createElement('span');
+            c.className = 'coin';
+            c.textContent = Math.random() > .3 ? '€' : '✓';
+            c.style.cssText = `left:${x}px;top:${y}px;color:${Math.random() > .5 ? '#0E7C66' : '#8FE3C0'};font-size:${14 + Math.random() * 14}px`;
+            document.body.appendChild(c);
+            gsap.to(c, {
+                duration: 1.4 + Math.random(),
+                physics2D: { velocity: 260 + Math.random() * 240, angle: -90 + gsap.utils.random(-70, 70), gravity: 720 },
+                rotation: gsap.utils.random(-180, 180),
+                opacity: 0,
+                ease: 'none',
+                onComplete: () => c.remove(),
+            });
+        }
+    };
+    document.querySelectorAll('.cta-burst').forEach(btn =>
+        btn.addEventListener('click', e => coinBurst(e.clientX, e.clientY)));
+
+    if (reduced) {
+        // show everything statically, in its FINAL state, and stop here
+        gsap.set('.hero-in, .fade-item, #heroTitle', { opacity: 1, y: 0 });
+        document.querySelectorAll('#agingHero > div, #agingDemo > div').forEach((d, i) =>
+            d.style.width = ['34%', '26%', '24%', '16%'][i % 4]);
+        document.querySelectorAll('[data-count]').forEach(el =>
+            el.textContent = Math.round(parseFloat(el.dataset.count)) + (el.dataset.suffix || ''));
+        document.querySelector('[data-chip="8617.96"]').textContent = '8.617,96';
+        document.querySelector('[data-chip="1"]').textContent = '1';
+        document.querySelectorAll('#scanRows .row-flash').forEach(r => r.classList.add('lit'));
+        document.querySelectorAll('.oib-ok-hero').forEach(el => { el.style.opacity = 1; el.style.transform = 'scale(1)'; });
+        const pf = document.getElementById('progFill');
+        if (pf) {
+            pf.style.width = '100%';
+            document.getElementById('progLabel').textContent = 'Obrađeno';
+            document.getElementById('progCount').textContent = '50/50';
+            document.getElementById('progDone').style.opacity = 1;
+        }
+        return;
+    }
+
+    /* ---------- hero intro ---------- */
+    const title = document.getElementById('heroTitle');
+    title.innerHTML = title.textContent.trim().split(' ')
+        .map(w => `<span class="inline-block overflow-hidden pb-1"><span class="hero-word inline-block">${w}&nbsp;</span></span>`).join('');
+
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .from('.hero-word', { yPercent: 110, rotate: 6, duration: .85, stagger: .07 })
+        .from('.hero-in', { y: 24, opacity: 0, duration: .7, stagger: .09 }, '-=.45');
+
+    /* ---------- aurora drift ---------- */
+    gsap.to('#aur1', { x: 70, y: 45, duration: 11, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    gsap.to('#aur2', { x: -55, y: 65, duration: 13, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    gsap.to('#aur3', { x: 45, y: -55, duration: 15, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+    /* ---------- hero counters ---------- */
+    document.querySelectorAll('[data-count]').forEach(el => {
+        const target = parseFloat(el.dataset.count), suffix = el.dataset.suffix || '';
+        const o = { v: parseFloat(el.textContent) || 0 };
+        gsap.to(o, {
+            v: target, duration: 1.6, delay: .9, ease: 'power2.out',
+            onUpdate: () => el.textContent = Math.round(o.v) + suffix,
+        });
+    });
+
+    /* ---------- scanner loop: beam → rows light → chips tick → aging fills ---------- */
+    const rows = gsap.utils.toArray('#scanRows .row-flash');
+    const chipVals = { dosp: 0, cnt: 0 };
+    const dospEl = document.querySelector('[data-chip="8617.96"]');
+    const cntEl  = document.querySelector('[data-chip="1"]');
+    const fmt = n => n.toLocaleString('hr-HR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    const scan = gsap.timeline({ repeat: -1, repeatDelay: 2.2, delay: 1.2 });
+    scan.set('#beam', { top: '-44px' })
+        .set(rows, { className: 'row-flash' })
+        .set('.oib-ok-hero', { opacity: 0, scale: .4 })
+        .to('#beam', { top: '105%', duration: 1.5, ease: 'power1.inOut' }, 0);
+
+    rows.forEach((row, i) => {
+        scan.add(() => row.classList.add('lit'), .35 + i * .28);
+    });
+    scan.to('.oib-ok-hero', { opacity: 1, scale: 1, duration: .3, ease: 'back.out(2.5)' }, .5)
+        .add(() => {
+            gsap.to(chipVals, {
+                dosp: 8617.96, cnt: 1, duration: .9, ease: 'power2.out',
+                onUpdate: () => { dospEl.textContent = fmt(chipVals.dosp); cntEl.textContent = Math.round(chipVals.cnt); },
+            });
+        }, 1.15)
+        .from('#chips .chip', { y: 14, opacity: 0, scale: .94, stagger: .1, duration: .45, ease: 'back.out(1.8)', immediateRender: false }, 1.1)
+        .to('#agingHero > div', {
+            width: i => ['34%', '26%', '24%', '16%'][i],
+            duration: .8, stagger: .06, ease: 'power2.out',
+        }, 1.35)
+        .add(() => {}, '+=1.4') // hold
+        .add(() => { // reset for next loop
+            gsap.set(chipVals, { dosp: 0, cnt: 0 });
+            dospEl.textContent = '0,00'; cntEl.textContent = '0';
+            gsap.set('#agingHero > div', { width: '0%' });
+        });
+
+    /* ---------- paper plane on motion path ---------- */
+    gsap.to('#plane', {
+        motionPath: { path: '#flightPath', align: '#flightPath', alignOrigin: [.5, .5], autoRotate: true },
+        duration: 5.5, repeat: -1, repeatDelay: 1.6, ease: 'power1.inOut',
+    });
+
+    /* ---------- scroll reveals ---------- */
+    gsap.utils.toArray('.fade-item').forEach(el => {
+        gsap.to(el, {
+            opacity: 1, y: 0, duration: .8, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 86%' },
+        });
+    });
+
+    /* ---------- steps connector draw ---------- */
+    const steps = document.getElementById('stepsPath');
+    if (steps) {
+        const len = steps.getTotalLength();
+        gsap.fromTo(steps, { strokeDasharray: len, strokeDashoffset: len },
+            { strokeDashoffset: 0, ease: 'none',
+              scrollTrigger: { trigger: '#kako-radi', start: 'top 65%', end: 'bottom 70%', scrub: 1 } });
+    }
+
+    /* ---------- feature aging bar ---------- */
+    gsap.to('#agingDemo > div', {
+        width: i => ['34%', '26%', '24%', '16%'][i],
+        duration: 1, stagger: .08, ease: 'power2.out',
+        scrollTrigger: { trigger: '#agingDemo', start: 'top 85%' },
+    });
+
+    /* ---------- live processing demo (Mogućnosti) ---------- */
+    const progFill = document.getElementById('progFill');
+    if (progFill) {
+        const label = document.getElementById('progLabel');
+        const count = document.getElementById('progCount');
+        const done  = document.getElementById('progDone');
+        const dot   = document.getElementById('progDot');
+        const st = { v: 0 };
+        const paint = () => {
+            const n = Math.round(st.v);
+            count.textContent = n + '/50';
+            progFill.style.width = (n / 50 * 100) + '%';
+        };
+
+        gsap.timeline({
+            repeat: -1, repeatDelay: 1.8,
+            scrollTrigger: { trigger: '#progCard', start: 'top 88%' },
+        })
+        .add(() => {
+            label.textContent = 'Čitanje kartica…';
+            done.style.opacity = 0;
+            dot.classList.add('animate-pulse');
+            st.v = 0; paint();
+        })
+        .to(st, { v: 50, duration: 2.1, ease: 'power1.inOut', onUpdate: paint }, '+=.15')
+        .add(() => { label.textContent = 'Spremanje kupaca…'; st.v = 0; paint(); }, '+=.3')
+        .to(st, { v: 50, duration: 1.1, ease: 'power1.in', onUpdate: paint })
+        .add(() => {
+            label.textContent = 'Obrađeno';
+            done.style.opacity = 1;
+            dot.classList.remove('animate-pulse');
+        })
+        .to({}, { duration: 1.4 });
+    }
+});
+</script>
+</body>
+</html>
