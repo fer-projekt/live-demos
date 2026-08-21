@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Fidelia — Poliklinika za longevity, specijalističku i estetsku medicinu</title>
+<title>Biološka vs. kronološka starost — Fidelia Blog</title>
+<meta name="description" content="Što biomarkeri stvarno govore o tempu vašeg starenja — i koje nalaze ima smisla mjeriti." />
 
 <!-- Fonts: Cormorant Garamond ≈ Fidelia wordmark serif (primarna) · Jost (sekundarna, sans/UI) — self-hosted, vidi css/styles.css -->
 
@@ -11,11 +12,12 @@
 <script src="js/tailwind.config.js"></script>
 <link rel="stylesheet" href="css/styles.css" />
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </head>
 
-<body class="bg-[#FCF8F5] antialiased" x-data="homePage">
+<body class="bg-[#FCF8F5] antialiased">
 
 <!-- ================= UTILITY BAR ================= -->
 <div class="hidden sm:block sticky top-0 z-50 bg-ink text-cream/90 text-[12px] tracking-wide transition-transform duration-500 ease-out"
@@ -51,7 +53,7 @@
     <div class="h-[90px] flex items-center justify-between gap-8">
 
       <!-- Logo -->
-      <a href="#" class="shrink-0 block relative mt-3">
+      <a href="index.html" class="shrink-0 block relative mt-3">
         <img src="images/fidelia-logo-white.webp" alt="Fidelia Poliklinika &amp; Skin Clinic" class="h-[62px] w-auto transition-opacity duration-300 opacity-0" />
         <img src="images/fidelia-logo-taupe-dark.webp" alt="" class="h-[62px] w-auto absolute inset-0 transition-opacity duration-300 opacity-100" />
       </a>
@@ -77,7 +79,7 @@
           </button>
         </template>
         <a href="cjenik.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">CJENIK</a>
-        <a href="blog.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">BLOG</a>
+        <a href="blog.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-ink transition-colors relative">BLOG<span class="absolute left-4 right-4 -bottom-px h-[2px] bg-taupe transition-transform origin-left" :class="open === null ? 'scale-x-100' : 'scale-x-0'"></span></a>
         <a href="kontakt.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">KONTAKT</a>
       </nav>
 
@@ -284,9 +286,9 @@
         </div>
         <div class="col-span-9 grid grid-cols-2 gap-x-10 gap-y-1 self-start">
           <a href="o-poliklinici.html" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">O poliklinici</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Prostor, tim i filozofija rada Fidelije.</span></a>
-          <a href="#o-nama" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Misija i vizija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Zašto postojimo i kamo vas vodimo.</span></a>
+          <a href="index.html#o-nama" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Misija i vizija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Zašto postojimo i kamo vas vodimo.</span></a>
           <a href="nas-tim.html" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Naš tim</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Liječnici i kozmetolozi Fidelije.</span></a>
-          <a href="#pristup" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Pristup</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Well-aging filozofija skrbi.</span></a>
+          <a href="index.html#pristup" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Pristup</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Well-aging filozofija skrbi.</span></a>
         </div>
       </div>
     </div>
@@ -332,7 +334,7 @@
           </button>
           <div x-show="sub===g.t" x-collapse class="pb-2" style="display:none">
             <template x-if="g.c">
-              <div><template x-for="(c, ci) in g.c" :key="c"><a :href="g.t==='FIDELIA PROGRAMI' ? (c==='Fidelia Club Longevity' ? 'club.html' : 'programi.html') : (g.t==='O NAMA' ? (c==='Pristup' ? '#pristup' : (c==='Naš tim' ? 'nas-tim.html' : (c==='O poliklinici' ? 'o-poliklinici.html' : '#o-nama'))) : '#')" @click="if(g.t==='FIDELIA PROGRAMI' || g.t==='O NAMA'){ m=false; }" class="block py-2.5 text-[16px] text-mute" x-text="c"></a></template></div>
+              <div><template x-for="(c, ci) in g.c" :key="c"><a :href="g.t==='FIDELIA PROGRAMI' ? (c==='Fidelia Club Longevity' ? 'club.html' : 'programi.html') : (g.t==='O NAMA' ? (c==='Pristup' ? 'index.html#pristup' : (c==='Naš tim' ? 'nas-tim.html' : (c==='O poliklinici' ? 'o-poliklinici.html' : 'index.html#o-nama'))) : '#')" @click="if(g.t==='FIDELIA PROGRAMI' || g.t==='O NAMA'){ m=false; }" class="block py-2.5 text-[16px] text-mute" x-text="c"></a></template></div>
             </template>
             <template x-if="g.p">
               <div>
@@ -394,290 +396,274 @@
   </aside>
 </div>
 
-<!-- ================= HERO (full-screen video) ================= -->
-<section id="hero" class="relative overflow-hidden h-[calc(100svh-90px)] sm:h-[calc(100svh-126px)] min-h-[560px] bg-ink">
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-    <source src="video/hero-video.mp4" type="video/mp4" />
-  </video>
-  <div class="absolute inset-0" style="background:linear-gradient(90deg, rgba(30,25,21,.62) 0%, rgba(30,25,21,.32) 55%, rgba(30,25,21,.15) 100%)"></div>
+<div class="fixed top-0 left-0 right-0 z-[80] h-[3px] pointer-events-none"
+     x-data="{ p: 0, tik: false }"
+     @scroll.window="
+       if (tik) return;
+       tik = true;
+       requestAnimationFrame(() => {
+         tik = false;
+         const a = document.getElementById('clanak');
+         if (!a) return;
+         const total = Math.max(a.offsetTop + a.offsetHeight - window.innerHeight, 1);
+         const v = Math.round(Math.min(Math.max(window.scrollY / total, 0), 1) * 1000) / 10;
+         if (v !== p) p = v;
+         window.dispatchEvent(new CustomEvent('hero-progress', { detail: Math.min(window.scrollY / 220, 1) }));
+       })">
+  <div class="h-full bg-[#C0A392] transition-[width] duration-150 ease-out" :style="'width:' + p + '%'"></div>
+</div>
 
-  <div class="relative h-full flex flex-col justify-end px-6 lg:px-12 pb-16 lg:pb-20">
-    <p class="hero-in text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-white/80 mb-6" style="animation-delay:.15s">POLIKLINIKA · LONGEVITY &amp; ESTETIKA</p>
-    <h1 class="hero-in font-sans text-[52px] sm:text-[64px] lg:text-[84px] xl:text-[96px] leading-[1.04] tracking-[.005em]" style="font-weight: 400; color: #F0E0D1; animation-delay:.3s">
-      Personalizirani<br>pristup zdravlju<br>i dugovječnosti
-    </h1>
-    <p class="hero-in mt-7 text-[19px] leading-relaxed text-white/85 font-normal max-w-md" style="animation-delay:.5s">
-      Spoj vrhunske medicinske dijagnostike, regenerativne medicine i estetike — usmjeren na jednu osobu: vas.
-    </p>
-    <div class="hero-in mt-9 flex flex-wrap items-center gap-4" style="animation-delay:.65s">
-      <a href="#kontakt" class="group relative overflow-hidden inline-flex items-center gap-2 rounded-full bg-white text-ink text-[12.5px] tracking-[.12em] px-8 py-4 transition-colors duration-300"><span class="absolute inset-0 bg-[#E0CEBD] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span><span class="relative">NARUČI KONZULTACIJE</span></a>
-      <a href="#programi-sec" class="inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-white border-b border-white/60 pb-1 hover:text-sand hover:border-sand transition-colors">ISTRAŽI PROGRAME →</a>
-    </div>
-  </div>
-</section>
+<!-- ================= NASLOV + FOTOGRAFIJA ================= -->
+<section id="hero" class="bg-[#FCF8F5]">
+  <div class="grid lg:grid-cols-12">
 
-<!-- ================= FIDELIA PRISTUP ================= -->
-<section id="pristup" class="bg-[#FCF8F5]">
-  <div class="grid lg:grid-cols-2">
-
-    <!-- LEFT: photo with headline inside -->
-    <div class="relative overflow-hidden min-h-[52vh] lg:min-h-full">
-      <img id="pristup-img" src="images/pristup-dermatoskopija.jpg" alt="Fidelia — dermatoskopski pregled" class="absolute -inset-y-24 inset-x-0 w-full h-[calc(100%+192px)] object-cover will-change-transform" loading="lazy" />
-      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(30,25,21,.30) 0%, rgba(30,25,21,.10) 45%, rgba(30,25,21,.45) 100%)"></div>
-      <div class="relative h-full flex flex-col justify-end p-8 lg:p-14" style="transform:translateY(-15px)">
-        <p class="reveal text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-white/80 mb-5">FIDELIA PRISTUP</p>
-        <h2 class="reveal font-sans text-[40px] sm:text-[44px] xl:text-[54px] leading-[1.1] text-white tracking-[.005em] text-balance" style="font-weight:500; transition-delay:.15s">
-          Ne liječimo samo simptome, mi gradimo <span class="text-[#E0CEBD]">dugoročno</span> zdravlje.
-        </h2>
-      </div>
+    <div class="lg:col-span-7 px-6 lg:px-12 pt-12 pb-14 lg:pt-16 lg:pb-20 flex flex-col justify-center">
+      <nav class="flex items-center gap-3 text-[12px] tracking-[.14em] text-mute mb-10">
+        <a href="blog.html" class="hover:text-ink transition-colors">BLOG</a>
+        <span class="text-taupe">/</span>
+        <span class="text-taupe">LONGEVITY</span>
+      </nav>
+      <h1 class="hero-in font-sans text-[42px] sm:text-[52px] xl:text-[62px] leading-[1.06] tracking-[.005em] text-ink text-balance max-w-3xl" style="font-weight:500; animation-delay:.1s">
+        Biološka vs. kronološka starost: <span class="text-[#9E7C64]">što biomarkeri stvarno govore</span>
+      </h1>
+      <p class="hero-in mt-7 text-[21px] lg:text-[19px] leading-relaxed text-ink/75 font-light max-w-xl" style="animation-delay:.25s">
+        Godine u dokumentima su činjenica. Tempo kojim vaše tijelo stari je varijabla — i to onaj dio koji možete mjeriti i mijenjati.
+      </p>
     </div>
 
-    <!-- RIGHT: content -->
-    <div class="flex flex-col justify-center items-start text-left px-6 py-14 lg:pl-24 lg:pr-14 lg:py-16">
-      <span class="font-serif text-[26px] leading-none text-transparent mb-6 select-none" aria-hidden="true">✦</span>
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#AE947E] mb-6">FIDELIA PRISTUP</p>
-      <p class="reveal rise-in font-sans text-[34px] sm:text-[34px] lg:text-[34px] leading-[1.25] text-ink tracking-[.005em] max-w-lg text-balance" style="font-weight:500; transition-delay:.15s">
-        Svaki plan počinje temeljitom <span class="text-[#9E7C64]">dijagnostikom</span> i razgovorom.
+    <div class="lg:col-span-5 relative overflow-hidden min-h-[46vh] lg:min-h-[74vh]"
+         x-data="{ y: 0, tik: false }"
+         @scroll.window="
+           if (tik) return;
+           tik = true;
+           requestAnimationFrame(() => {
+             tik = false;
+             const r = $el.getBoundingClientRect();
+             const vh = window.innerHeight;
+             const p = Math.min(Math.max((vh - r.top) / (vh + r.height), 0), 1);
+             const v = Math.round((p - 0.5) * 120);
+             if (v !== y) y = v;
+           })">
+      <img src="images/usluga-longevity.jpg" alt="Longevity dijagnostika u Fidelia poliklinici"
+           decoding="async" fetchpriority="high"
+           class="absolute -inset-y-20 inset-x-0 w-full h-[calc(100%+160px)] object-cover will-change-transform"
+           :style="'transform: translate3d(0,' + y + 'px,0)'" />
+      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(30,25,21,.08) 0%, rgba(30,25,21,.05) 50%, rgba(30,25,21,.38) 100%)"></div>
+      <p class="absolute left-0 right-0 bottom-0 p-8 lg:p-10 text-[14px] text-white/80 font-light leading-relaxed">
+        Nalazi kao polazišna točka, ne kao cilj.
       </p>
-      <p class="reveal rise-in mt-5 text-[19px] lg:text-[18px] leading-relaxed font-normal lg:font-light text-ink/90 lg:text-ink/75 max-w-md" style="transition-delay:.3s">
-        Povezujemo longevity medicinu, specijalističke djelatnosti i estetiku u jedan cjeloviti, personalizirani protokol.
-      </p>
-      <a href="#o-nama" class="reveal rise-in group mt-7 inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-ink border-b border-ink/50 pb-1 hover:text-taupe hover:border-taupe transition-colors" style="transition-delay:.45s">O NAMA <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span></a>
-
-      <div class="mt-10 flex flex-col gap-4 w-full max-w-xl">
-        <div class="reveal bg-[#F5EDE4] rounded-2xl px-7 py-5 lg:px-8 lg:py-6 flex items-start gap-6" style="transition-delay:0.00s">
-          <p class="font-serif italic text-[24px] leading-none text-[#AE947E] w-10 shrink-0 pt-1">01</p>
-          <div>
-            <p class="font-sans font-semibold text-[20px] text-ink">Dijagnostika</p>
-            <p class="mt-2 text-[17px] text-ink font-light leading-relaxed" style="font-weight: 400">Precizna analiza — genetika, hormoni i preventivni pregledi kao temelj svake odluke.</p>
-          </div>
-        </div>
-        <div class="reveal bg-[#F5EDE4] rounded-2xl px-7 py-5 lg:px-8 lg:py-6 flex items-start gap-6" style="transition-delay:0.18s">
-          <p class="font-serif italic text-[24px] leading-none text-[#AE947E] w-10 shrink-0 pt-1">02</p>
-          <div>
-            <p class="font-sans font-semibold text-[20px] text-ink">Personalizacija</p>
-            <p class="mt-2 text-[17px] text-ink font-light leading-relaxed" style="font-weight: 400">Protokol prilagođen vašem tijelu, životnom stilu i ciljevima — ne standardiziran.</p>
-          </div>
-        </div>
-        <div class="reveal bg-[#F5EDE4] rounded-2xl px-7 py-5 lg:px-8 lg:py-6 flex items-start gap-6" style="transition-delay:0.36s">
-          <p class="font-serif italic text-[24px] leading-none text-[#AE947E] w-10 shrink-0 pt-1">03</p>
-          <div>
-            <p class="font-sans font-semibold text-[20px] text-ink">Kontinuitet</p>
-            <p class="mt-2 text-[17px] text-ink font-light leading-relaxed" style="font-weight: 400">Praćenje rezultata i dugoročna skrb kroz Fidelia Club Longevity.</p>
-          </div>
-        </div>
-      </div>
     </div>
 
   </div>
 </section>
 
-<!-- ================= FILOZOFIJA ================= -->
-<section id="filozofija" class="bg-white">
-  <div class="px-6 lg:px-12 pt-24 pb-10 lg:py-36">
-    <div class="flex justify-start lg:justify-end">
-      <h2 class="reveal font-sans text-[42px] sm:text-[54px] xl:text-[68px] leading-[1.08] text-ink tracking-[.005em] max-w-3xl text-left lg:text-right" style="font-weight:500">
-        Vrhunska medicina,<br><span class="text-[#9E7C64]">iskrena</span> skrb.
+<!-- ================= TEKST ================= -->
+<section id="clanak" class="bg-white px-6 lg:px-12 pb-24 lg:pb-32" data-screen-label="Clanak"
+         x-data="{
+           otvoren: null,
+           galerija: [
+             { src: 'images/galerija-01.jpg', c: 'Mjerenje tjelesne kompozicije — mišićna i masna masa umjesto same težine.' },
+             { src: 'images/usluga-specijalisticke.jpg', c: 'Kontrolni pregled: nalazi se tumače uz kliničku sliku.' },
+             { src: 'images/usluga-regenerativna.jpg', c: 'Laboratorijska obrada — metabolički i upalni markeri.' },
+             { src: 'images/pristup-dermatoskopija.jpg', c: 'Dijagnostika prije svakog protokola.' }
+           ],
+           otvori(i) { this.otvoren = i; document.body.style.overflow = 'hidden' },
+           zatvori() { this.otvoren = null; document.body.style.overflow = '' },
+           dalje(n) { this.otvoren = (this.otvoren + n + this.galerija.length) % this.galerija.length }
+         }"
+         @keydown.escape.window="if (otvoren !== null) zatvori()"
+         @keydown.arrow-right.window="if (otvoren !== null) dalje(1)"
+         @keydown.arrow-left.window="if (otvoren !== null) dalje(-1)">
+  <div class="grid lg:grid-cols-12 gap-12 xl:gap-16 pt-16 lg:pt-20 border-t border-ink/10">
+
+    <aside class="lg:col-span-3">
+      <div class="lg:sticky lg:top-32 flex flex-col">
+        <div class="flex justify-between gap-6 py-4 border-t border-ink/10">
+          <p class="text-[11px] tracking-[.2em] text-taupe pt-1">AUTOR</p>
+          <p class="text-[15px] text-ink text-right">Fidelia longevity tim</p>
+        </div>
+        <div class="flex justify-between gap-6 py-4 border-t border-ink/10">
+          <p class="text-[11px] tracking-[.2em] text-taupe pt-1">OBJAVLJENO</p>
+          <p class="text-[15px] text-ink text-right">12. ožujka 2026.</p>
+        </div>
+        <div class="flex justify-between gap-6 py-4 border-t border-b border-ink/10">
+          <p class="text-[11px] tracking-[.2em] text-taupe pt-1">ČITANJE</p>
+          <p class="text-[15px] text-ink text-right">8 min</p>
+        </div>
+      </div>
+    </aside>
+
+    <article class="lg:col-span-9 xl:col-span-8">
+      <p class="reveal text-[21px] lg:text-[20px] leading-[1.7] text-ink font-light" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Dvije osobe rođene istog dana mogu imati kardiovaskularni rizik koji se razlikuje dvostruko. Kronološka starost to ne objašnjava — ali kombinacija nalaza, tjelesne kompozicije i funkcionalnih testova vrlo često objasni.
+      </p>
+
+      <h2 id="sto-je" class="reveal font-sans text-[30px] lg:text-[34px] leading-tight text-ink mt-14 mb-5" style="font-weight:500" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Što je biološka starost
       </h2>
-    </div>
-    <div class="mt-12 lg:mt-16 flex justify-start">
-      <div class="grid sm:grid-cols-2 gap-8 lg:gap-12 max-w-2xl">
-        <p class="reveal text-[18px] lg:text-[16px] leading-relaxed" style="transition-delay:.15s; color:#39322D; font-weight:400">
-          Radimo isključivo s provjerenim metodama i tehnologijama — svaki protokol temeljimo na dijagnostici, znanosti i mjerljivim rezultatima, bez kompromisa u sigurnosti.
-        </p>
-        <p class="reveal text-[18px] lg:text-[16px] leading-relaxed" style="transition-delay:.3s; color:#39322D; font-weight:400">
-          Bez skrivenih koraka i nerealnih obećanja — uvijek znate što radimo, zašto to radimo i što možete očekivati. Povjerenje gradimo transparentnošću.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.75] text-ink/85 font-light" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Biološka starost je procjena stanja vaših sustava — krvožilnog, metaboličkog, hormonskog i mišićno-skeletnog — izražena u godinama. Nije jedan broj s jednog uređaja, nego model koji spaja više neovisnih mjerenja. Zato dva laboratorija mogu dati različitu procjenu: važnije od broja je smjer u kojem se on kreće kroz vrijeme.
+      </p>
 
-<!-- ================= ISTAKNUTE USLUGE (HOVER LIST) ================= -->
-<section id="usluge-showcase" class="bg-white pt-8 pb-20 lg:py-0 relative lg:h-[350vh]" x-data="uslugeShowcase()" x-init="onScroll()" @scroll.window="onScroll()" @resize.window="onScroll()">
-  <div class="lg:sticky lg:top-0 lg:h-screen grid lg:grid-cols-2 items-stretch">
+      <figure class="reveal my-12 border-l-2 border-[#C0A392] pl-8" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <blockquote class="font-sans text-[26px] lg:text-[30px] leading-[1.35] text-ink text-balance" style="font-weight:400">
+          Nalaz nije ocjena. Nalaz je polazišna točka za odluku što ćemo mijenjati prvo.
+        </blockquote>
+      </figure>
 
-    <!-- left: heading + list -->
-    <div class="px-6 lg:px-12 flex flex-col justify-center">
-      <div class="mb-14">
-        <p class="text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-[#AE947E] mb-5">PODRUČJA DJELOVANJA</p>
-        <h2 class="font-sans font-semibold text-[46px] xl:text-[56px] leading-tight text-ink">Istaknute <span class="text-[#9E7C64]">usluge</span></h2>
-      </div>
-
-      <!-- list (desktop) -->
-      <div class="hidden lg:block border-t border-ink/10">
-        <template x-for="(s, i) in items" :key="i">
-          <div class="border-b border-ink/10 py-7 flex items-center gap-4 sm:gap-6 cursor-pointer" @click="active=i" @mouseenter="if (window.innerWidth < 1024) active=i">
-            <span class="font-serif italic text-[19px] w-7 shrink-0 transition-colors duration-300" :class="active===i ? 'text-[#9E7C64]' : 'text-mute/60'" x-text="String(i+1).padStart(2,'0')"></span>
-            <div class="flex-1 min-w-0">
-              <h3 class="font-sans text-[24px] sm:text-[28px] xl:text-[34px] leading-tight transition-colors duration-300" style="font-weight:500" :class="active===i ? 'text-ink' : 'text-ink/30'" x-text="s.t"></h3>
-              <p class="mt-2 text-[17px] text-ink/75 font-light leading-relaxed transition-opacity duration-300" :class="active===i ? 'opacity-100' : 'opacity-0'" x-text="s.d"></p>
-            </div>
-            <a href="#kontakt" class="shrink-0 h-12 w-12 rounded-full border flex items-center justify-center transition-all duration-300"
-               :class="active===i ? 'bg-[#C0A392] border-[#C0A392] text-white' : 'border-ink/15 text-ink/40'">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg>
-            </a>
-          </div>
-        </template>
-      </div>
-
-      <!-- list (mobile: all expanded, thumbnail + text, no arrows) -->
-      <div class="lg:hidden border-t border-ink/10">
-        <template x-for="(s, i) in items" :key="i">
-          <div class="reveal rise-in border-b border-ink/10 py-6 flex items-start gap-5" :style="'transition-delay:'+(i*0.12)+'s'"
-               x-init="$nextTick(() => window.revealIO ? window.revealIO.observe($el) : $el.classList.add('is-visible'))">
-            <div class="shrink-0 w-[96px] h-[128px] overflow-hidden rounded-lg">
-              <img :src="s.img" :alt="s.t" class="w-full h-full object-cover" loading="lazy">
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="font-sans text-[24px] leading-tight text-ink" style="font-weight:500" x-text="s.t"></h3>
-              <p class="mt-2 text-[17px] text-ink font-normal leading-relaxed" x-text="s.d"></p>
-            </div>
-          </div>
-        </template>
-      </div>
-
-    </div>
-
-    <!-- right: full-bleed image (desktop only) -->
-    <div class="relative hidden lg:block lg:h-full overflow-hidden">
-      <template x-for="(s, i) in items" :key="i">
-        <div class="absolute inset-0 transition-opacity duration-500 ease-out" :style="`opacity:${active===i ? 1 : 0}`">
-          <img :src="s.img" :alt="s.t" class="w-full h-full object-cover" loading="lazy" />
-        </div>
-      </template>
-    </div>
-
-  </div>
-</section>
-
-<!-- ================= ISTAKNUTI PROGRAMI (CAROUSEL) ================= -->
-<section id="programi-sec" class="py-20 lg:py-28 bg-white"
-  x-data="{
-    dragging: false, startX: 0, startScroll: 0, moved: false,
-    scroll(dir){ this.$refs.track.scrollBy({ left: dir*416, behavior: 'smooth' }); },
-    dragStart(e){
-      this.dragging = true; this.moved = false;
-      this.startX = e.pageX; this.startScroll = this.$refs.track.scrollLeft;
-      this.$refs.track.style.scrollBehavior = 'auto';
-    },
-    dragMove(e){
-      if (!this.dragging) return;
-      const dx = e.pageX - this.startX;
-      if (Math.abs(dx) > 3) this.moved = true;
-      e.preventDefault();
-      this.$refs.track.scrollLeft = this.startScroll - dx;
-    },
-    dragEnd(){ this.dragging = false; this.$refs.track.style.scrollBehavior = ''; }
-  }">
-  <div class="px-6 lg:px-12">
-    <div class="flex items-end justify-between gap-6 mb-12">
-      <div>
-        <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-taupe mb-5">FIDELIA PROGRAMI</p>
-        <h2 class="leading-[0.95]">
-          <span class="reveal rise-in block font-sans font-medium text-[46px] sm:text-[64px] text-ink" style="transition-delay:.15s">Personalizirani</span>
-          <span class="reveal rise-in block font-sans font-medium text-[46px] sm:text-[64px] text-taupe" style="transition-delay:.3s">pristup zdravlju</span>
-        </h2>
-      </div>
-      <div class="hidden md:flex gap-3 shrink-0 pb-2">
-        <button @click="scroll(-1)" class="w-16 h-16 rounded-full bg-cream text-ink hover:bg-sand transition-colors flex items-center justify-center" aria-label="Prethodno"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9H4M8 5L4 9l4 4"/></svg></button>
-        <button @click="scroll(1)" class="w-16 h-16 rounded-full bg-ink text-white hover:bg-taupe transition-colors flex items-center justify-center" aria-label="Sljedeće"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9h8M10 5l4 4-4 4"/></svg></button>
-      </div>
-    </div>
-
-    <div x-ref="track" class="no-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth -mx-6 px-6 pb-2 cursor-grab active:cursor-grabbing select-none"
-      @mousedown="dragStart($event)" @mousemove="dragMove($event)" @mouseup.window="dragEnd()" @mouseleave="dragEnd()" @click.capture="if (moved) { $event.stopPropagation(); $event.preventDefault(); }">
-      <template x-for="(p, i) in [
-        {t:'Menadžerski program', d:'Sveobuhvatan pregled i optimizacija zdravlja za dinamičan tempo života.', k:'PROGRAM', img:'images/program-menadzerski.jpg'},
-        {t:'Program za turiste', d:'Kompaktna dijagnostika i tretmani prilagođeni kratkom boravku.', k:'PROGRAM', img:'images/usluga-skin-clinic.jpg'},
-        {t:'Ženski program', d:'Hormonsko zdravlje, prevencija i estetika u jednom protokolu.', k:'PROGRAM', img:'images/program-zenski.jpg'},
-        {t:'Muški program', d:'Vitalnost, hormoni i kardiometabolička prevencija.', k:'PROGRAM', img:'images/usluga-specijalisticke.jpg'},
-        {t:'Longevity paket S', d:'Uvod u longevity medicinu — ključna dijagnostika i plan.', k:'PAKET', img:'images/usluga-longevity.jpg'},
-        {t:'Longevity paket L', d:'Prošireni protokol s regenerativnim i preventivnim modulom.', k:'PAKET', img:'images/usluga-regenerativna.jpg'},
-        {t:'Well-Aging paket', d:'Estetika i regeneracija za zdravo, mladoliko starenje.', k:'PAKET', img:'images/program-well-aging.jpg'}
-      ]">
-        <article class="card-pop snap-start shrink-0 w-[min(340px,calc(100vw-72px))] sm:w-[400px] group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col"
-                 :style="'transition-delay:'+(i*0.14)+'s'"
-                 x-init="$nextTick(() => window.revealIO ? window.revealIO.observe($el) : $el.classList.add('is-visible'))">
-          <div class="relative rounded-[20px] overflow-hidden h-[320px] sm:h-[380px]">
-            <img :src="p.img" :alt="p.t" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
-            <span class="absolute top-4 left-4 rounded-full bg-white/95 text-ink text-[11px] tracking-[.18em] px-5 py-2.5" x-text="p.k"></span>
-            <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-            </span>
-          </div>
-          <div class="px-3 pt-5 pb-4 flex items-start justify-between gap-4">
+      <h2 id="mjerenje" class="reveal font-sans text-[30px] lg:text-[34px] leading-tight text-ink mt-14 mb-5" style="font-weight:500" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Što se mjeri
+      </h2>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.75] text-ink/85 font-light mb-7" x-data x-intersect.once="$el.classList.add('is-visible')">
+        U praksi se procjena gradi na nekoliko skupina podataka koje se međusobno provjeravaju:
+      </p>
+      <div class="reveal flex flex-col" x-data="{ grupe: [
+             { t: 'Metabolizam', d: 'Glukoza, inzulin, HbA1c i lipidni profil — najranije mjesto na kojem se vidi trend.' },
+             { t: 'Upala', d: 'CRP i povezani markeri kao mjera tihe, kronične upale.' },
+             { t: 'Hormoni', d: 'Štitnjača, spolni hormoni i kortizol — energija, san i regeneracija.' },
+             { t: 'Tjelesna kompozicija', d: 'Odnos mišićne i masne mase, mjeren uređajem, a ne vagom.' },
+             { t: 'Funkcija', d: 'Snaga hvata, kardiorespiratorna izdržljivost i tlak kroz dan.' }
+           ] }" x-intersect.once="$el.classList.add('is-visible')">
+        <template x-for="g in grupe" :key="g.t">
+          <div class="flex items-start gap-6 py-5 border-t border-ink/10 last:border-b">
+            <div class="w-2 h-2 rounded-full bg-[#C0A392] mt-2.5 shrink-0"></div>
             <div>
-              <h3 class="font-sans font-semibold text-[20px] leading-snug text-ink uppercase tracking-[.02em] group-hover:text-taupe transition-colors" x-text="p.t"></h3>
-              <p class="mt-2 text-[17px] lg:text-[16px] text-ink font-light leading-relaxed" x-text="p.d"></p>
+              <p class="font-sans font-semibold text-[18px] text-ink" x-text="g.t"></p>
+              <p class="mt-1.5 text-[17px] text-ink/75 font-light leading-relaxed" x-text="g.d"></p>
             </div>
           </div>
-        </article>
+        </template>
+      </div>
+
+      <figure class="reveal my-12" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <template x-for="(s, i) in galerija" :key="s.src">
+            <button type="button" @click="otvori(i)"
+                    class="group relative overflow-hidden rounded-[18px] h-[150px] lg:h-[170px] cursor-zoom-in">
+              <img :src="s.src" :alt="s.c" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" />
+              <span class="absolute inset-0 bg-ink/0 group-hover:bg-ink/15 transition-colors"></span>
+              <span class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/90 text-ink flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l3.5 3.5M4.5 6.5h4M6.5 4.5v4"/></svg>
+              </span>
+            </button>
+          </template>
+        </div>
+        <figcaption class="mt-4 text-[13px] text-mute font-light">Iz procesa longevity dijagnostike — kliknite za uvećanje.</figcaption>
+      </figure>
+
+      <h2 id="sto-mijenja" class="reveal font-sans text-[30px] lg:text-[34px] leading-tight text-ink mt-14 mb-5" style="font-weight:500" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Što stvarno mijenja rezultat
+      </h2>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.75] text-ink/85 font-light" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Najveći pomak gotovo nikada ne dolazi od egzotične terapije. Dolazi od mišićne mase, kvalitete sna, krvnog tlaka i količine alkohola — dosadnih varijabli s najboljim dokazima. Suplementi i napredni protokoli imaju smisla tek kada su ti temelji na mjestu; inače mjerimo šum.
+      </p>
+      <div class="reveal mt-8 rounded-[24px] bg-cream p-7 lg:p-9" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <p class="font-serif italic text-[20px] text-[#AE947E] mb-4">Kratko</p>
+        <div class="flex flex-col gap-3">
+          <p class="text-[17px] text-ink font-light leading-relaxed">Trend kroz 6–12 mjeseci govori više od jednog nalaza.</p>
+          <p class="text-[17px] text-ink font-light leading-relaxed">Mišićna masa je jedan od najjačih prediktora — i najzahvalniji za promjenu.</p>
+          <p class="text-[17px] text-ink font-light leading-relaxed">Bez sna i tlaka pod kontrolom, ostatak protokola daje manje od očekivanog.</p>
+        </div>
+      </div>
+
+      <h2 id="granice" class="reveal font-sans text-[30px] lg:text-[34px] leading-tight text-ink mt-14 mb-5" style="font-weight:500" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Granice metode
+      </h2>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.75] text-ink/85 font-light" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Procjena biološke starosti nije dijagnoza i ne zamjenjuje preventivne preglede. Osjetljiva je na trenutne okolnosti — infekciju, neprospavanu noć, intenzivan trening dan prije. Zato mjerimo u sličnim uvjetima i tumačimo je uz kliničku sliku, a ne kao izolirani broj na izvještaju.
+      </p>
+
+      <h2 id="praksa" class="reveal font-sans text-[30px] lg:text-[34px] leading-tight text-ink mt-14 mb-5" style="font-weight:500" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Kako to izgleda u praksi
+      </h2>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.75] text-ink/85 font-light" x-data x-intersect.once="$el.classList.add('is-visible')">
+        Prvi termin je razgovor i dijagnostika, bez plana napamet. Nakon nalaza dogovaramo dvije do tri promjene koje su izvedive u vašem tjednu, a kontrolno mjerenje slijedi za tri do šest mjeseci. Ako se brojevi kreću, protokol se sužava; ako ne, mijenjamo pretpostavku — ne pacijenta.
+      </p>
+
+      <div class="reveal mt-16 pt-10 border-t border-ink/10 flex flex-col sm:flex-row gap-6 items-start" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <div class="w-20 h-20 rounded-full overflow-hidden shrink-0">
+          <img src="images/pristup-dermatoskopija.jpg" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p class="text-[11px] tracking-[.22em] text-taupe mb-2">AUTOR</p>
+          <p class="font-sans font-semibold text-[20px] text-ink">Fidelia longevity tim</p>
+          <p class="mt-2 text-[17px] text-ink/75 font-light leading-relaxed max-w-lg">Specijalisti interne medicine, endokrinologije i nutricionizma koji vode longevity programe u Fidelia poliklinici.</p>
+          <a href="kontakt.html" class="group mt-5 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-ink border-b border-ink/40 pb-1 hover:text-taupe hover:border-taupe transition-colors">
+            NARUČI KONZULTACIJE <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- lightbox -->
+  <div x-show="otvoren !== null" x-transition.opacity class="fixed inset-0 z-[95] bg-ink/95 flex flex-col" style="display:none" x-cloak>
+    <div class="flex items-center justify-between px-6 lg:px-10 h-20 shrink-0">
+      <p class="text-[12px] tracking-[.2em] text-cream/60">
+        <span x-text="otvoren !== null ? otvoren + 1 : ''"></span> / <span x-text="galerija.length"></span>
+      </p>
+      <button type="button" @click="zatvori()" class="w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors" aria-label="Zatvori">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5l10 10M15 5L5 15"/></svg>
+      </button>
+    </div>
+    <div class="flex-1 min-h-0 flex items-center gap-4 lg:gap-8 px-4 lg:px-10 pb-4" @click.self="zatvori()">
+      <button type="button" @click="dalje(-1)" class="shrink-0 w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors" aria-label="Prethodna">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10H5M9 6l-4 4 4 4"/></svg>
+      </button>
+      <figure class="flex-1 min-w-0 h-full flex flex-col items-center justify-center gap-4">
+        <template x-if="otvoren !== null">
+          <img :src="galerija[otvoren].src" :alt="galerija[otvoren].c" decoding="async"
+               class="max-h-[70vh] max-w-full w-auto object-contain rounded-[20px]" />
+        </template>
+        <figcaption class="text-[14px] text-cream/70 font-light text-center max-w-xl" x-text="otvoren !== null ? galerija[otvoren].c : ''"></figcaption>
+      </figure>
+      <button type="button" @click="dalje(1)" class="shrink-0 w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors" aria-label="Sljedeća">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 10h8M11 6l4 4-4 4"/></svg>
+      </button>
+    </div>
+    <div class="shrink-0 px-6 lg:px-10 pb-8 flex justify-center gap-3">
+      <template x-for="(s, i) in galerija" :key="'t' + i">
+        <button type="button" @click="otvoren = i" class="w-16 h-12 rounded-lg overflow-hidden transition-opacity"
+                :class="otvoren === i ? 'opacity-100 ring-2 ring-[#C0A392]' : 'opacity-40 hover:opacity-70'">
+          <img :src="s.src" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+        </button>
       </template>
     </div>
-
-    <p class="mt-10 max-w-md text-[16px] lg:text-[15px] tracking-[.08em] uppercase text-ink font-light leading-relaxed">Odaberite polazišnu točku — svaki program prilagođavamo nakon inicijalne konzultacije i dijagnostike.</p>
   </div>
 </section>
 
-<!-- ================= FIDELIA CLUB (ČLANSTVO) ================= -->
-<section id="club" class="relative z-10 px-6 lg:px-12 pt-6 pb-24 lg:py-32 bg-[#C0A392] rounded-t-[40px]" data-screen-label="Club">
-  <div class="grid lg:grid-cols-12 gap-12 items-center">
-    <div class="lg:col-span-6 order-2 lg:order-1 flex flex-col items-center text-center">
-      <p class="reveal text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.28em] text-ink/70 mb-6" style="color: #FFFFFF; font-weight: 500">ČLANSTVO</p>
-      <h2 class="reveal font-sans font-medium text-[46px] lg:text-[56px] leading-[1.05] text-white" style="transition-delay:.1s">
-        Fidelia Club<br /><span class="text-[#FCF8F5]/80">Longevity</span>
-      </h2>
-      <p class="reveal mt-7 text-[17px] text-ink/80 font-light leading-relaxed max-w-lg mx-auto" style="transition-delay: .2s; color: #FFFFFF; font-weight: 500">
-        Ekskluzivan program dugoročne skrbi s kontinuiranim praćenjem, prioritetnim terminima i personaliziranim protokolima dugovječnosti.
-      </p>
-      <div class="reveal mt-10 flex flex-col gap-4 w-full max-w-md mx-auto" style="transition-delay:.3s">
-        <div class="flex items-center justify-center border-b border-white/40 pb-4"><p class="text-ink/85 font-light text-[15.5px]" style="color: #FFFFFF; font-weight: 400; font-size: 17px">Redovito praćenje biomarkera i napretka</p></div>
-        <div class="flex items-center justify-center border-b border-white/40 pb-4"><p class="text-ink/85 font-light text-[15.5px]" style="color: #FFFFFF; font-weight: 400; font-size: 17px">Prioritetni pristup specijalistima i tretmanima</p></div>
-        <div class="flex items-center justify-center border-b border-white/40 pb-4"><p class="text-ink/85 font-light text-[15.5px]" style="color: #FFFFFF; font-weight: 400; font-size: 17px">Personalizirani longevity plan</p></div>
-      </div>
-      <a href="#kontakt" class="reveal group mt-10 inline-flex items-center gap-3 rounded-full bg-white text-ink text-[12.5px] tracking-[.12em] pl-8 pr-3 py-3 hover:bg-sand transition-colors duration-300" style="transition-delay:.3s">
-        POSTANI ČLAN
-        <span class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-        </span>
+<!-- ================= POVEZANI TEKSTOVI ================= -->
+<section class="bg-[#FCF8F5] px-6 lg:px-12 py-20 lg:py-28">
+  <div class="flex items-end justify-between gap-6 mb-12">
+    <h2 class="reveal font-sans text-[34px] lg:text-[44px] leading-tight text-ink" style="font-weight:500" x-data x-intersect.once="$el.classList.add('is-visible')">
+      Nastavite čitati
+    </h2>
+    <a href="blog.html" class="hidden sm:inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-ink border-b border-ink/40 pb-1 hover:text-taupe hover:border-taupe transition-colors shrink-0">SVI TEKSTOVI →</a>
+  </div>
+
+  <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"
+       x-data="{ povezani: [
+         { t: 'Spavanje kao dijagnostički podatak', d: 'Što varijabilnost srčanog ritma otkriva o regeneraciji.', k: 'LONGEVITY', r: '8 min', img: 'images/galerija-01.jpg', link: 'blog-clanak.html' },
+         { t: 'Proteini, mišići i starenje', d: 'Zašto je masa mišića prognostički faktor dugovječnosti.', k: 'PREVENCIJA', r: '7 min', img: 'images/usluga-specijalisticke.jpg', link: 'blog-clanak.html' },
+         { t: 'Inzulinska rezistencija na vrijeme', d: 'Nalazi koji upozoravaju godinama prije dijagnoze.', k: 'PREVENCIJA', r: '8 min', img: 'images/usluga-regenerativna.jpg', link: 'blog-clanak.html' }
+       ] }">
+    <template x-for="(p, i) in povezani" :key="p.t">
+      <a :href="p.link" class="card-pop group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col"
+               :style="'transition-delay:' + (i * 0.1) + 's'"
+               x-intersect.once="$el.classList.add('is-visible')">
+        <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
+          <img :src="p.img" :alt="p.t" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+          <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </span>
+        </div>
+        <div class="px-3 pt-5 pb-4 flex flex-col flex-1">
+          <h3 class="font-sans font-semibold text-[19px] leading-snug text-ink group-hover:text-taupe transition-colors" x-text="p.t"></h3>
+          <p class="mt-2 text-[16px] text-ink font-light leading-relaxed" x-text="p.d"></p>
+          <p class="mt-4 pt-4 border-t border-ink/10 text-[12px] tracking-[.14em] text-mute" x-text="p.r + ' čitanja'"></p>
+        </div>
       </a>
-    </div>
-    <div class="lg:col-span-6 order-1 lg:order-2 reveal" style="transition-delay:.2s">
-      <div class="zoomable overflow-hidden rounded-[24px] lg:rounded-none h-[440px] sm:h-[520px] lg:h-[660px]">
-        <img src="images/usluga-longevity.jpg" alt="Fidelia Club Longevity" class="w-full h-full object-cover" loading="lazy" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CTA / KONTAKT (NARUČIVANJE) ================= -->
-<section id="kontakt" class="relative z-10 px-6 lg:px-12 pt-10 lg:pt-12 pb-24 lg:pb-32 bg-[#C0A392]" data-screen-label="Kontakt">
-  <div class="reveal rise-in rounded-[32px] bg-cream p-8 lg:p-16 grid lg:grid-cols-2 gap-14">
-    <div>
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#9E7C64] mb-6">NARUČIVANJE</p>
-      <h2 class="reveal font-sans font-medium text-[42px] lg:text-[48px] leading-[1.08] text-ink text-balance" style="transition-delay:.1s">
-        Zakažite konzultacije <span class="text-[#9E7C64]">s povjerenjem</span>
-      </h2>
-      <p class="reveal mt-6 text-[18px] lg:text-[16px] text-mute font-light leading-relaxed max-w-md" style="transition-delay: .2s; color: #5B493A">Ostavite upit i naš tim javit će vam se s prijedlogom termina i programa.</p>
-      <div class="reveal mt-10 space-y-5 text-[17px] lg:text-[15.5px]" style="transition-delay:.3s">
-        <p class="text-ink">+385 99 333 8878 <span class="text-mute font-light text-[15px] lg:text-sm ml-2">Pon–Pet · 08:00–20:00</span></p>
-        <p class="text-ink">+385 98 712 604</p>
-        <p class="text-ink">info@skinclinic.hr <span class="text-mute font-light text-[15px] lg:text-sm ml-2">Odgovaramo unutar 24h</span></p>
-        <p class="text-ink">Spinčićeva 2c, 21000 Split</p>
-      </div>
-    </div>
-    <form class="reveal" style="transition-delay:.2s" @submit.prevent>
-      <div class="grid sm:grid-cols-2 gap-4">
-        <input placeholder="Ime" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
-        <input placeholder="Prezime" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
-        <input placeholder="Mobitel" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
-        <input type="email" placeholder="E-mail" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
-      </div>
-      <textarea rows="4" placeholder="Poruka" class="mt-4 w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe resize-none"></textarea>
-      <label class="flex items-start gap-3 mt-5 text-[12.5px] text-mute font-light"><input type="checkbox" class="mt-0.5 accent-taupe" /> Suglasan/na sam s obradom podataka u skladu s politikom privatnosti.</label>
-      <button class="mt-6 w-full rounded-full bg-ink text-white text-[12.5px] tracking-[.14em] py-4 hover:bg-[#9E7C64] transition-colors">POŠALJI UPIT</button>
-    </form>
+    </template>
   </div>
 </section>
 
@@ -699,10 +685,10 @@
   <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10 pb-10 border-b border-white/10">
     <img src="images/fidelia-logo-white.webp" alt="Fidelia Poliklinika &amp; Skin Clinic" class="h-14 w-auto self-start object-contain" loading="lazy" />
     <nav class="flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-[.08em] font-light">
-      <a href="#usluge-showcase" class="hover:text-white transition">USLUGE</a>
-      <a href="#pristup" class="hover:text-white transition">PRISTUP</a>
-      <a href="#programi-sec" class="hover:text-white transition">PROGRAMI</a>
-      <a href="#club" class="hover:text-white transition">CLUB</a>
+      <a href="index.html#usluge-showcase" class="hover:text-white transition">USLUGE</a>
+      <a href="index.html#pristup" class="hover:text-white transition">PRISTUP</a>
+      <a href="index.html#programi-sec" class="hover:text-white transition">PROGRAMI</a>
+      <a href="index.html#club" class="hover:text-white transition">CLUB</a>
       <a href="cjenik.html" class="hover:text-white transition">CJENIK</a>
       <a href="kontakt.html" class="hover:text-white transition">KONTAKT</a>
     </nav>
@@ -712,102 +698,6 @@
     <div class="flex gap-6"><a href="#" class="hover:text-white transition">Pravila privatnosti</a><a href="#" class="hover:text-white transition">Kolačići</a><span>Design: <a href="https://fer-projekt.com" target="_blank" rel="noopener" class="text-white hover:text-white transition">Fer Projekt</a></span></div>
   </div>
 </footer>
-
-<script>
-  function uslugeShowcase() {
-    return {
-      active: 0,
-      _raf: null,
-      onScroll() {
-        if (this._raf) return;
-        this._raf = requestAnimationFrame(() => {
-          this._raf = null;
-          if (window.innerWidth < 1024) return;
-          const el = document.getElementById('usluge-showcase');
-          const total = el.offsetHeight - window.innerHeight;
-          if (total <= 0) return;
-          const p = Math.min(Math.max(-el.getBoundingClientRect().top / total, 0), 1);
-          const n = this.items.length;
-          // even bands with a centred mapping — no jitter at band edges
-          const idx = Math.min(Math.max(Math.round(p * (n - 1)), 0), n - 1);
-          if (idx !== this.active) this.active = idx;
-        });
-      },
-      items: [
-        { t: 'Longevity', d: 'Dijagnostika, genetika, hormoni i prevencija — temelj dugovječnosti.', img: 'images/usluga-longevity.jpg' },
-        { t: 'Specijalističke djelatnosti', d: 'Od dermatovenerologije do vaskularne i plastične kirurgije.', img: 'images/usluga-specijalisticke.jpg' },
-        { t: 'Regenerativna medicina', d: 'Matične stanice, Miracell® i vitaminski boosteri.', img: 'images/usluga-regenerativna.jpg' },
-        { t: 'Laserski tretmani', d: 'Napredne laserske tehnologije za kožu i tijelo.', img: 'images/usluga-laseri.jpg' },
-        { t: 'Estetska medicina', d: 'Suptilni, prirodni rezultati — bez pretjerivanja.', img: 'images/usluga-estetska.jpg' },
-        { t: 'Skin Clinic', d: 'Kozmetologija i njega kože vođena medicinom.', img: 'images/usluga-skin-clinic.jpg' }
-      ]
-    };
-  }
-
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('homePage', () => ({
-      init() {
-        // --- rAF-smoothed parallax on the pristup photo ---
-        const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
-        const lerp = (a, b, t) => a + (b - a) * t;
-        let parCur = null, lastT = null;
-
-        const frame = (now) => {
-          const dt = lastT === null ? 16 : Math.min(now - lastT, 50);
-          lastT = now;
-          // frame-rate independent smoothing factor
-          const k = 1 - Math.exp(-dt / 110);
-          const img = document.getElementById('pristup-img');
-          if (img) {
-            const sec = img.closest('section');
-            const r = sec.getBoundingClientRect();
-            const vh = window.innerHeight;
-            const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-            const target = (p - 0.5) * 170;
-            parCur = parCur === null ? target : lerp(parCur, target, k);
-            if (Math.abs(parCur - target) < 0.1) parCur = target;
-            img.style.transform = `translate3d(0, ${parCur.toFixed(2)}px, 0)`;
-          }
-          requestAnimationFrame(frame);
-        };
-        requestAnimationFrame(frame);
-
-        // scroll-reveal for .reveal elements
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
-        }, { threshold: 0.25 });
-        window.revealIO = io;
-        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-
-        // scroll the programs section into view, then slide its carousel to card i (mega-menu anchors)
-        window.scrollToProgram = function (i) {
-          const sec = document.getElementById('programi-sec');
-          if (!sec) return;
-          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          const track = sec.querySelector('[x-ref="track"]');
-          const card = track && track.querySelectorAll('article')[i];
-          if (card) {
-            setTimeout(() => {
-              const left = card.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft - 24;
-              track.scrollTo({ left, behavior: 'smooth' });
-            }, 400);
-          }
-        };
-
-        // dispatch hero-progress so utility bar / header keep their scroll behavior
-        const updateHeroProgress = () => {
-          const hero = document.getElementById('hero');
-          if (!hero) return;
-          const p = Math.min(Math.max(window.scrollY / Math.max(hero.offsetHeight - 100, 1), 0), 1);
-          window.dispatchEvent(new CustomEvent('hero-progress', { detail: p }));
-        };
-        window.addEventListener('scroll', updateHeroProgress, { passive: true });
-        window.addEventListener('resize', updateHeroProgress);
-        updateHeroProgress();
-      }
-    }));
-  });
-</script>
 
 </body>
 </html>
