@@ -58,7 +58,7 @@
       </a>
 
       <!-- Primary nav -->
-      <nav class="hidden lg:flex items-stretch h-[90px]" @mouseleave="open=null">
+      <nav class="hidden nav:flex items-stretch h-[90px] shrink-0" @mouseleave="open=null">
         <template x-for="item in [
           {id:'longevity', label:'LONGEVITY'},
           {id:'special',   label:'SPECIJALISTIČKE DJELATNOSTI'},
@@ -70,16 +70,16 @@
           <button
             @mouseenter="open=item.id"
             @focus="open=item.id"
-            :class="open===item.id ? 'text-ink' : 'text-mute hover:text-ink'"
-            class="relative px-4 text-[12.5px] tracking-[.08em] font-medium text-left transition-colors flex items-center">
+            :class="(open===item.id ? 'text-ink ' : 'text-mute hover:text-ink ') + (item.id==='special' ? 'max-[1650px]:max-w-[140px] max-[1650px]:leading-snug' : item.id==='regen' ? 'max-[1650px]:max-w-[130px] max-[1650px]:leading-snug' : '')"
+            class="relative px-4 text-[12.5px] tracking-[.08em] font-medium text-left transition-colors flex items-center shrink-0">
             <span x-text="item.label"></span>
             <span class="absolute left-4 right-4 -bottom-px h-[2px] transition-transform origin-left"
                   :class="(open===item.id ? 'scale-x-100 ' : 'scale-x-0 ') + 'bg-taupe'"></span>
           </button>
         </template>
-        <a href="cjenik.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">CJENIK</a>
-        <a href="blog.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-ink transition-colors relative">BLOG<span class="absolute left-4 right-4 -bottom-px h-[2px] bg-taupe transition-transform origin-left" :class="open === null ? 'scale-x-100' : 'scale-x-0'"></span></a>
-        <a href="kontakt.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">KONTAKT</a>
+        <a href="cjenik.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors shrink-0">CJENIK</a>
+        <a href="blog.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-ink transition-colors relative shrink-0">BLOG<span class="absolute left-4 right-4 -bottom-px h-[2px] bg-taupe transition-transform origin-left" :class="open === null ? 'scale-x-100' : 'scale-x-0'"></span></a>
+        <a href="kontakt.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors shrink-0">KONTAKT</a>
       </nav>
 
       <!-- Right actions -->
@@ -88,7 +88,7 @@
           NARUČI SE
         </a>
         <!-- Mobile toggle -->
-        <button class="lg:hidden p-2 transition-colors text-ink" x-data="{}" @click="$dispatch('toggle-mobile')" aria-label="Izbornik">
+        <button class="nav:hidden p-2 transition-colors text-ink" x-data="{}" @click="$dispatch('toggle-mobile')" aria-label="Izbornik">
           <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
       </div>
@@ -96,7 +96,7 @@
   </div>
 
   <!-- ===== MEGA PANELS ===== -->
-  <div class="hidden lg:block" @mouseleave="open=null">
+  <div class="hidden nav:block" @mouseleave="open=null">
 
     <!-- LONGEVITY -->
     <div x-show="open==='longevity'" x-transition.opacity.duration.150ms
@@ -285,9 +285,7 @@
         </div>
         <div class="col-span-9 grid grid-cols-2 gap-x-10 gap-y-1 self-start">
           <a href="o-poliklinici.html" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">O poliklinici</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Prostor, tim i filozofija rada Fidelije.</span></a>
-          <a href="index.html#o-nama" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Misija i vizija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Zašto postojimo i kamo vas vodimo.</span></a>
           <a href="nas-tim.html" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Naš tim</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Liječnici i kozmetolozi Fidelije.</span></a>
-          <a href="index.html#pristup" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Pristup</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Well-aging filozofija skrbi.</span></a>
         </div>
       </div>
     </div>
@@ -299,10 +297,10 @@
 
 <!-- ================= MOBILE MENU ================= -->
 <div x-data="{ m:false, sub:null }" @toggle-mobile.window="m=!m" x-cloak>
-  <div x-show="m" x-transition.opacity class="lg:hidden fixed inset-0 z-[60] bg-ink/40" @click="m=false" style="display:none"></div>
+  <div x-show="m" x-transition.opacity class="nav:hidden fixed inset-0 z-[60] bg-ink/40" @click="m=false" style="display:none"></div>
   <aside x-show="m" x-transition:enter="transition duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
          x-transition:leave="transition duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-         class="lg:hidden fixed top-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-white shadow-xl overflow-y-auto" style="display:none">
+         class="nav:hidden fixed top-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-white shadow-xl overflow-y-auto" style="display:none">
     <div class="h-20 px-6 flex items-center justify-between border-b border-sand">
       <img src="images/fidelia-logo-taupe-dark.webp" alt="Fidelia" class="h-10 w-auto" loading="lazy" />
       <button @click="m=false" class="p-2 text-ink"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -324,7 +322,7 @@
           {t:'Laseri', g:[], tt:'Tretmani', tg:[{t:'Koža i ten', items:['Lasersko pomlađivanje lica','Laserski resurfacing kože','Laserski tretman pigmentacija','Laserski tretman kapilara i vena']},{t:'Nepravilnosti', items:['Laserski tretman ožiljaka i akni','Uklanjanje promjena na koži']},{t:'Dlake i nokti', items:['Lasersko uklanjanje dlačica','Laserski tretman gljivičnih infekcija noktiju']},{t:'Zatezanje i oblikovanje', items:['Opuštena koža i konturiranje lica','Masne naslage i oblikovanje tijela']},{t:'Ostalo', items:['Lasersko uklanjanje tetovaža','Intimno pomlađivanje']}], t2:'Tehnologije', ti2:['Frakcijski CO₂ laser','Er:YAG laser','Nd:YAG laser','Aleksandrit laser','IPL fototerapija','Q-switched laser','Vaskularni laser','Radiofrekvencijsko zatezanje','HIFU ultrazvuk']}
         ]},
         {t:'FIDELIA PROGRAMI', c:['Personalizirani pristup zdravlju','Fidelia Club Longevity']},
-        {t:'O NAMA', c:['O poliklinici','Misija i vizija','Naš tim','Pristup']}
+        {t:'O NAMA', c:['O poliklinici','Naš tim']}
       ]" :key="g.t">
         <div class="border-b border-sand/70">
           <button @click="sub === g.t ? sub=null : sub=g.t" class="w-full flex items-center justify-between py-4 text-[13px] tracking-[.08em] font-medium">
@@ -333,7 +331,7 @@
           </button>
           <div x-show="sub===g.t" x-collapse class="pb-2" style="display:none">
             <template x-if="g.c">
-              <div><template x-for="(c, ci) in g.c" :key="c"><a :href="g.t==='FIDELIA PROGRAMI' ? (c==='Fidelia Club Longevity' ? 'club.html' : 'programi.html') : (g.t==='O NAMA' ? (c==='Pristup' ? 'index.html#pristup' : (c==='Naš tim' ? 'nas-tim.html' : (c==='O poliklinici' ? 'o-poliklinici.html' : 'index.html#o-nama'))) : '#')" @click="if(g.t==='FIDELIA PROGRAMI' || g.t==='O NAMA'){ m=false; }" class="block py-2.5 text-[16px] text-mute" x-text="c"></a></template></div>
+              <div><template x-for="(c, ci) in g.c" :key="c"><a :href="g.t==='FIDELIA PROGRAMI' ? (c==='Fidelia Club Longevity' ? 'club.html' : 'programi.html') : (g.t==='O NAMA' ? (c==='Naš tim' ? 'nas-tim.html' : 'o-poliklinici.html') : '#')" @click="if(g.t==='FIDELIA PROGRAMI' || g.t==='O NAMA'){ m=false; }" class="block py-2.5 text-[16px] text-mute" x-text="c"></a></template></div>
             </template>
             <template x-if="g.p">
               <div>
@@ -420,7 +418,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/usluga-longevity.jpg" alt="Biološka vs. kronološka starost" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/usluga-longevity.webp" alt="Biološka vs. kronološka starost" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -434,7 +432,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/pristup-dermatoskopija.jpg" alt="Dermatoskopija: zašto jednom godišnje" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/pristup-dermatoskopija.webp" alt="Dermatoskopija: zašto jednom godišnje" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -448,7 +446,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/usluga-skin-clinic.jpg" alt="Barijera kože i zašto je stalno rušimo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/usluga-skin-clinic.webp" alt="Barijera kože i zašto je stalno rušimo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -462,7 +460,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/usluga-regenerativna.jpg" alt="PRP i egzosomi bez marketinga" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/usluga-regenerativna.webp" alt="PRP i egzosomi bez marketinga" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -476,7 +474,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/blog-01.jpg" alt="Hormoni i žensko zdravlje nakon 40." class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/blog-01.webp" alt="Hormoni i žensko zdravlje nakon 40." class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -490,7 +488,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/usluga-laseri.jpg" alt="Laseri po tipu kože" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/usluga-laseri.webp" alt="Laseri po tipu kože" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -504,7 +502,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/usluga-estetska.jpg" alt="Fileri bez efekta &quot;napravljenog lica&quot;" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/usluga-estetska.webp" alt="Fileri bez efekta &quot;napravljenog lica&quot;" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -518,7 +516,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/blog-02.jpg" alt="Menadžerski pregled u jednom danu" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/blog-02.webp" alt="Menadžerski pregled u jednom danu" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -532,7 +530,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/usluga-specijalisticke.jpg" alt="Krvni tlak koji nitko ne mjeri kod kuće" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/usluga-specijalisticke.webp" alt="Krvni tlak koji nitko ne mjeri kod kuće" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -546,7 +544,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/blog-03.jpg" alt="Sunčanje, pigmentacije i melazma" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/blog-03.webp" alt="Sunčanje, pigmentacije i melazma" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -560,7 +558,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/blog-04.jpg" alt="Spavanje kao dijagnostički podatak" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/blog-04.webp" alt="Spavanje kao dijagnostički podatak" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>
@@ -574,7 +572,7 @@
 
     <a href="blog-clanak.html" class="group cursor-pointer rounded-[28px] bg-cream p-3 flex flex-col">
       <div class="relative rounded-[20px] overflow-hidden h-[260px] xl:h-[300px]">
-        <img src="images/blog-05.jpg" alt="Proteini, mišići i starenje" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+        <img src="images/blog-05.webp" alt="Proteini, mišići i starenje" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
         <span class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 text-ink flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
         </span>

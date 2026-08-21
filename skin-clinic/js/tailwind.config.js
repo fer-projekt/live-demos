@@ -1,6 +1,9 @@
 tailwind.config = {
     theme: {
       extend: {
+        screens: {
+          nav: '1400px',
+        },
         colors: {
           sand:  '#E0CEBD',
           taupe: '#C0A392',

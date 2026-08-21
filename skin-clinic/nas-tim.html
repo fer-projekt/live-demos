@@ -58,7 +58,7 @@
       </a>
 
       <!-- Primary nav -->
-      <nav class="hidden lg:flex items-stretch h-[90px]" @mouseleave="open=null">
+      <nav class="hidden nav:flex items-stretch h-[90px] shrink-0" @mouseleave="open=null">
         <template x-for="item in [
           {id:'longevity', label:'LONGEVITY'},
           {id:'special',   label:'SPECIJALISTIČKE DJELATNOSTI'},
@@ -70,16 +70,16 @@
           <button
             @mouseenter="open=item.id"
             @focus="open=item.id"
-            :class="open===item.id ? 'text-ink' : 'text-mute hover:text-ink'"
-            class="relative px-4 text-[12.5px] tracking-[.08em] font-medium text-left transition-colors flex items-center">
+            :class="(open===item.id ? 'text-ink ' : 'text-mute hover:text-ink ') + (item.id==='special' ? 'max-[1650px]:max-w-[140px] max-[1650px]:leading-snug' : item.id==='regen' ? 'max-[1650px]:max-w-[130px] max-[1650px]:leading-snug' : '')"
+            class="relative px-4 text-[12.5px] tracking-[.08em] font-medium text-left transition-colors flex items-center shrink-0">
             <span x-text="item.label"></span>
             <span class="absolute left-4 right-4 -bottom-px h-[2px] transition-transform origin-left"
                   :class="(open===item.id ? 'scale-x-100 ' : 'scale-x-0 ') + 'bg-taupe'"></span>
           </button>
         </template>
-        <a href="cjenik.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">CJENIK</a>
-        <a href="blog.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">BLOG</a>
-        <a href="kontakt.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors">KONTAKT</a>
+        <a href="cjenik.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors shrink-0">CJENIK</a>
+        <a href="blog.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors shrink-0">BLOG</a>
+        <a href="kontakt.html" class="px-4 flex items-center text-[12.5px] tracking-[.08em] font-medium text-mute hover:text-ink transition-colors shrink-0">KONTAKT</a>
       </nav>
 
       <!-- Right actions -->
@@ -88,7 +88,7 @@
           NARUČI SE
         </a>
         <!-- Mobile toggle -->
-        <button class="lg:hidden p-2 transition-colors text-ink" x-data="{}" @click="$dispatch('toggle-mobile')" aria-label="Izbornik">
+        <button class="nav:hidden p-2 transition-colors text-ink" x-data="{}" @click="$dispatch('toggle-mobile')" aria-label="Izbornik">
           <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
       </div>
@@ -96,7 +96,7 @@
   </div>
 
   <!-- ===== MEGA PANELS ===== -->
-  <div class="hidden lg:block" @mouseleave="open=null">
+  <div class="hidden nav:block" @mouseleave="open=null">
 
     <!-- LONGEVITY -->
     <div x-show="open==='longevity'" x-transition.opacity.duration.150ms
@@ -285,9 +285,7 @@
         </div>
         <div class="col-span-9 grid grid-cols-2 gap-x-10 gap-y-1 self-start">
           <a href="o-poliklinici.html" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">O poliklinici</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Prostor, tim i filozofija rada Fidelije.</span></a>
-          <a href="index.html#o-nama" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Misija i vizija</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Zašto postojimo i kamo vas vodimo.</span></a>
           <a href="nas-tim.html" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Naš tim</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Liječnici i kozmetolozi Fidelije.</span></a>
-          <a href="index.html#pristup" class="group block py-2.5"><span class="block text-[15px] text-ink group-hover:text-taupe transition-colors">Pristup</span><span class="block text-[12.5px] text-mute/90 font-light leading-snug mt-0.5">Well-aging filozofija skrbi.</span></a>
         </div>
       </div>
     </div>
@@ -299,10 +297,10 @@
 
 <!-- ================= MOBILE MENU ================= -->
 <div x-data="{ m:false, sub:null }" @toggle-mobile.window="m=!m" x-cloak>
-  <div x-show="m" x-transition.opacity class="lg:hidden fixed inset-0 z-[60] bg-ink/40" @click="m=false" style="display:none"></div>
+  <div x-show="m" x-transition.opacity class="nav:hidden fixed inset-0 z-[60] bg-ink/40" @click="m=false" style="display:none"></div>
   <aside x-show="m" x-transition:enter="transition duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
          x-transition:leave="transition duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-         class="lg:hidden fixed top-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-white shadow-xl overflow-y-auto" style="display:none">
+         class="nav:hidden fixed top-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-white shadow-xl overflow-y-auto" style="display:none">
     <div class="h-20 px-6 flex items-center justify-between border-b border-sand">
       <img src="images/fidelia-logo-taupe-dark.webp" alt="Fidelia" class="h-10 w-auto" loading="lazy" />
       <button @click="m=false" class="p-2 text-ink"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -324,7 +322,7 @@
           {t:'Laseri', g:[], tt:'Tretmani', tg:[{t:'Koža i ten', items:['Lasersko pomlađivanje lica','Laserski resurfacing kože','Laserski tretman pigmentacija','Laserski tretman kapilara i vena']},{t:'Nepravilnosti', items:['Laserski tretman ožiljaka i akni','Uklanjanje promjena na koži']},{t:'Dlake i nokti', items:['Lasersko uklanjanje dlačica','Laserski tretman gljivičnih infekcija noktiju']},{t:'Zatezanje i oblikovanje', items:['Opuštena koža i konturiranje lica','Masne naslage i oblikovanje tijela']},{t:'Ostalo', items:['Lasersko uklanjanje tetovaža','Intimno pomlađivanje']}], t2:'Tehnologije', ti2:['Frakcijski CO₂ laser','Er:YAG laser','Nd:YAG laser','Aleksandrit laser','IPL fototerapija','Q-switched laser','Vaskularni laser','Radiofrekvencijsko zatezanje','HIFU ultrazvuk']}
         ]},
         {t:'FIDELIA PROGRAMI', c:['Personalizirani pristup zdravlju','Fidelia Club Longevity']},
-        {t:'O NAMA', c:['O poliklinici','Misija i vizija','Naš tim','Pristup']}
+        {t:'O NAMA', c:['O poliklinici','Naš tim']}
       ]" :key="g.t">
         <div class="border-b border-sand/70">
           <button @click="sub === g.t ? sub=null : sub=g.t" class="w-full flex items-center justify-between py-4 text-[13px] tracking-[.08em] font-medium">
@@ -333,7 +331,7 @@
           </button>
           <div x-show="sub===g.t" x-collapse class="pb-2" style="display:none">
             <template x-if="g.c">
-              <div><template x-for="(c, ci) in g.c" :key="c"><a :href="g.t==='FIDELIA PROGRAMI' ? (c==='Fidelia Club Longevity' ? 'club.html' : 'programi.html') : (g.t==='O NAMA' ? (c==='Pristup' ? 'index.html#pristup' : (c==='Naš tim' ? 'nas-tim.html' : (c==='O poliklinici' ? 'o-poliklinici.html' : 'index.html#o-nama'))) : '#')" @click="if(g.t==='FIDELIA PROGRAMI' || g.t==='O NAMA'){ m=false; }" class="block py-2.5 text-[16px] text-mute" x-text="c"></a></template></div>
+              <div><template x-for="(c, ci) in g.c" :key="c"><a :href="g.t==='FIDELIA PROGRAMI' ? (c==='Fidelia Club Longevity' ? 'club.html' : 'programi.html') : (g.t==='O NAMA' ? (c==='Naš tim' ? 'nas-tim.html' : 'o-poliklinici.html') : '#')" @click="if(g.t==='FIDELIA PROGRAMI' || g.t==='O NAMA'){ m=false; }" class="block py-2.5 text-[16px] text-mute" x-text="c"></a></template></div>
             </template>
             <template x-if="g.p">
               <div>
@@ -423,7 +421,7 @@
              const v = Math.round((p - 0.5) * 120);
              if (v !== y) y = v;
            })">
-      <img src="images/tim-hero.jpg" alt="Tim Fidelia poliklinike" width="1500" height="2250" decoding="async" fetchpriority="high"
+      <img src="images/tim-hero.webp" alt="Tim Fidelia poliklinike" width="1500" height="2250" decoding="async" fetchpriority="high"
            class="absolute -inset-y-20 inset-x-0 w-full h-[calc(100%+160px)] object-cover will-change-transform"
            :style="'transform: translate3d(0,' + y + 'px,0)'" />
       <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(30,25,21,.08) 0%, rgba(30,25,21,.05) 50%, rgba(30,25,21,.40) 100%)"></div>
@@ -457,42 +455,42 @@
                polja: ['Fileri i botulinum', 'Konzultacije', 'Anti-age protokoli'],
                kratko: 'Voditeljica estetske medicine s naglaskom na suptilne, anatomski vođene rezultate.',
                bio: 'Nakon završenog Medicinskog fakulteta usmjerila se na estetsku medicinu i kontinuirano se educira na europskim kongresima iz područja injekcijskih tehnika i anatomije lica. U radu polazi od proporcija i mimike pojedinog lica, a ne od unaprijed zadanog protokola — cilj je rezultat koji okolina ne prepoznaje kao tretman.',
-               img: 'images/tim-01.jpg' },
+               img: 'images/tim-01.webp' },
              { ime: 'Ime i prezime', titula: 'dr. med., specijalist dermatovenerologije', k: 'LIJEČNICI',
                polja: ['Dermatoskopija', 'Problematična koža', 'Male kirurške intervencije'],
                kratko: 'Dijagnostika promjena na koži i vođenje kroničnih stanja — akne, dermatitisi, pigmentacije.',
                bio: 'Specijalist dermatovenerologije s iskustvom u dermatoskopskoj dijagnostici i praćenju pigmentnih promjena. Pristup se temelji na redovnom praćenju i ranom prepoznavanju, uz jasno objašnjenje svakog nalaza pacijentu.',
-               img: 'images/tim-02.jpg' },
+               img: 'images/tim-02.webp' },
              { ime: 'Ime i prezime', titula: 'dr. med., specijalist interne medicine', k: 'LIJEČNICI',
                polja: ['Longevity dijagnostika', 'Biomarkeri', 'Preventivni pregledi'],
                kratko: 'Vodi longevity obradu — od laboratorijskih nalaza do plana koji je izvediv u svakodnevici.',
                bio: 'Bavi se preventivnom i longevity medicinom: tumačenjem metaboličkih i upalnih markera, tjelesnom kompozicijom i kardiovaskularnim rizikom. Plan uvijek počinje temeljima — san, kretanje, tlak — prije naprednih protokola.',
-               img: 'images/tim-03.jpg' },
+               img: 'images/tim-03.webp' },
              { ime: 'Ime i prezime', titula: 'dr. med., regenerativna medicina', k: 'LIJEČNICI',
                polja: ['PRP', 'Egzosomi', 'Biostimulatori'],
                kratko: 'Regenerativni protokoli za kožu, kosu i zglobove, uz realna očekivanja.',
                bio: 'Radi s autolognim i biostimulacijskim tretmanima, uz dijagnostiku prije svake serije. Otvoreno komunicira granice metode i broj tretmana potreban za vidljiv rezultat.',
-               img: 'images/tim-04.jpg' },
+               img: 'images/tim-04.webp' },
              { ime: 'Ime i prezime', titula: 'magistra kozmetologije', k: 'KOZMETOLOZI',
                polja: ['Analiza kože', 'Kemijski pilinzi', 'Njega nakon tretmana'],
                kratko: 'Vodi kozmetološki dio klinike i kućne rutine koje drže rezultat između termina.',
                bio: 'Magistra kozmetologije s naglaskom na analizu kože i postupno građenje rutine. Radi tretmane dubinskog čišćenja, kemijske pilinge i protokole njege nakon laserskih i injekcijskih tretmana.',
-               img: 'images/tim-05.jpg' },
+               img: 'images/tim-05.webp' },
              { ime: 'Ime i prezime', titula: 'kozmetolog, specijalist za lasere', k: 'KOZMETOLOZI',
                polja: ['Laserska epilacija', 'Pigmentacije', 'Kapilare'],
                kratko: 'Laserski tretmani prilagođeni fototipu kože i sezoni.',
                bio: 'Certificirana za rad na više laserskih platformi. Prije svake serije radi test i procjenu fototipa, a plan tretmana usklađuje sa sezonom i izloženošću suncu.',
-               img: 'images/tim-06.jpg' },
+               img: 'images/tim-06.webp' },
              { ime: 'Ime i prezime', titula: 'kozmetolog, tretmani tijela', k: 'KOZMETOLOZI',
                polja: ['Oblikovanje tijela', 'Limfna drenaža', 'EMS tretmani'],
                kratko: 'Tretmani oblikovanja i njege tijela uz mjerenje napretka.',
                bio: 'Vodi programe oblikovanja tijela s mjerenjem na početku i kroz seriju, kombinirajući aparaturne tretmane s manualnim tehnikama i preporukama za kretanje.',
-               img: 'images/tim-07.jpg' },
+               img: 'images/tim-07.webp' },
              { ime: 'Ime i prezime', titula: 'medicinska sestra / koordinatorica', k: 'KOZMETOLOZI',
                polja: ['Prijem pacijenata', 'Priprema tretmana', 'Praćenje termina'],
                kratko: 'Prva osoba s kojom razgovarate — od upita do dogovorenog termina.',
                bio: 'Koordinira termine, pripremu tretmana i komunikaciju nalaza. Brine da svaki pacijent zna što ga čeka prije, tijekom i nakon tretmana.',
-               img: 'images/tim-08.jpg' }
+               img: 'images/tim-08.webp' }
            ],
            get filtrirani() { return this.kategorija === 'SVI' ? this.clanovi : this.clanovi.filter(c => c.k === this.kategorija) },
            otvori(c) { this.otvoren = c; document.body.style.overflow = 'hidden' },
