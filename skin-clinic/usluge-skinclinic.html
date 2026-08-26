@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Personalizirani pristup zdravlju — Fidelia Poliklinika</title>
-<meta name="description" content="Personalizirani zdravstveni programi Poliklinike Fidelia — menadžerski, ženski, muški, za turiste, longevity i well-aging." />
+<title>Dermalni fileri — Fidelia Poliklinika</title>
+<meta name="description" content="Dermalni fileri u Poliklinici Fidelia — vraćanje volumena, definiranje kontura i harmonizacija lica hijaluronskim filerima." />
 <link rel="icon" type="image/jpeg" href="images/favicon.jpg" />
 
 <!-- Fonts: Cormorant Garamond ≈ Fidelia wordmark serif (primarna) · Jost (sekundarna, sans/UI) — self-hosted, vidi css/styles.css -->
@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="bg-[#FCF8F5] antialiased" x-data="programiPage">
+<body class="bg-[#FCF8F5] antialiased" x-data="uslugaPage">
 
 <!-- ================= UTILITY BAR ================= -->
 <div class="hidden sm:block sticky top-0 z-50 bg-ink text-cream/90 text-[12px] tracking-wide transition-transform duration-500 ease-out"
@@ -41,8 +41,8 @@
   x-data="{ open: null, hover: false, scrolled: false, hidden: false, lastY: 0, get lite() { return this.hover || this.scrolled || this.open !== null } }"
   x-init="lastY = window.scrollY"
   @keydown.escape.window="open=null"
-  @hero-progress.window="scrolled = $event.detail >= 0.66"
-  @scroll.window="const y = window.scrollY; hidden = y > lastY && y > window.innerHeight * 2 && open === null; lastY = y"
+  @hero-progress.window="if (!window.__nsLock) scrolled = $event.detail >= 0.66"
+  @scroll.window="const y = window.scrollY; if (!window.__nsLock) hidden = y > lastY && y > window.innerHeight * 2 && open === null; lastY = y"
   @mouseenter="hover=true"
   @mouseleave="hover=false"
   class="sticky top-0 sm:top-9 z-50 transition-all duration-500 ease-out"
@@ -385,7 +385,6 @@
         </div>
       </template>
       <a href="kontakt.html" class="block py-4 text-[13px] tracking-[.08em] font-medium border-b border-sand/70">KONTAKT</a>
-      <a href="programi.html" class="block py-4 text-[13px] tracking-[.08em] font-medium border-b border-sand/70">PROGRAMI</a>
       <a href="blog.html" class="block py-4 text-[13px] tracking-[.08em] font-medium">BLOG</a>
       <a href="kontakt.html" class="mt-4 block text-center bg-ink text-white py-4 text-[12px] tracking-[.12em]">NARUČI SE</a>
     </nav>
@@ -396,29 +395,34 @@
 <section id="hero" class="bg-[#FCF8F5]">
   <div class="grid lg:grid-cols-12">
 
-    <div class="lg:col-span-7 px-6 lg:px-12 pt-16 pb-14 lg:pt-24 lg:pb-24 flex flex-col justify-center">
+    <div class="lg:col-span-7 px-6 lg:px-12 pt-14 pb-12 lg:pt-20 lg:pb-20 flex flex-col justify-center">
       <nav class="hero-in flex items-center gap-2 text-[12px] text-mute font-light mb-8 overflow-x-auto no-scrollbar whitespace-nowrap" style="animation-delay:.05s" aria-label="Putanja">
         <a href="index.html" class="hover:text-ink transition-colors">Naslovnica</a>
         <span class="text-taupe/60">/</span>
-        <span class="text-ink">Programi</span>
+        <a href="index.html#" class="hover:text-ink transition-colors">Skin Clinic</a>
+        <span class="text-taupe/60">/</span>
+        <span class="text-ink">Dermalni fileri</span>
       </nav>
-      <p class="hero-in text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-[#AE947E] mb-7" style="animation-delay:.1s">PROGRAMI</p>
-      <h1 class="hero-in font-sans text-[46px] sm:text-[56px] xl:text-[68px] leading-[1.06] tracking-[.005em] text-ink text-balance max-w-3xl" style="font-weight:500; animation-delay:.25s">
-        Personalizirani pristup <span class="text-[#9E7C64]">zdravlju</span>
+      <p class="hero-in text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-[#AE947E] mb-6" style="animation-delay:.1s">ESTETSKA MEDICINA</p>
+      <h1 class="hero-in font-sans text-[44px] sm:text-[54px] xl:text-[64px] leading-[1.06] tracking-[.005em] text-ink text-balance max-w-3xl" style="font-weight:500; animation-delay:.25s">
+        Dermalni fileri
       </h1>
-      <p class="hero-in mt-7 text-[20px] lg:text-[19px] leading-relaxed text-ink/75 font-light max-w-xl" style="animation-delay:.4s">
-        Zdravlju pristupamo cjelovito — s razumijevanjem, znanjem i pažnjom. Naša misija je očuvati vitalnost, spriječiti bolesti i podržati dugovječnost kroz individualno vođene programe.
+      <p class="hero-in mt-6 font-serif italic text-[24px] lg:text-[26px] leading-snug text-ink/80 max-w-xl" style="animation-delay:.38s">
+        Volumen i kontura koji izgledaju kao vaši — samo odmorniji.
       </p>
-      <div class="hero-in mt-10 flex flex-wrap items-center gap-4" style="animation-delay:.55s">
-        <a href="#programi" class="group relative overflow-hidden inline-flex items-center gap-2 rounded-full bg-ink text-white text-[12.5px] tracking-[.12em] px-8 py-4 transition-colors duration-300">
+      <p class="hero-in mt-7 text-[19px] lg:text-[18px] leading-[1.75] text-ink/75 font-light max-w-xl" style="animation-delay:.5s">
+        Hijaluronski fileri nadomještaju izgubljeni volumen, ublažavaju izražene linije i vraćaju definiciju kontura lica. Tretman je nekirurški, traje jedan termin, a rezultat je vidljiv odmah i razvija se kroz sljedećih dva tjedna.
+      </p>
+      <div class="hero-in mt-9 flex flex-wrap items-center gap-4" style="animation-delay:.6s">
+        <a href="kontakt.html#forma" class="group relative overflow-hidden inline-flex items-center gap-2 rounded-full bg-ink text-white text-[12.5px] tracking-[.12em] px-8 py-4 transition-colors duration-300">
           <span class="absolute inset-0 bg-[#E0CEBD] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
-          <span class="relative group-hover:text-ink transition-colors">POGLEDAJ PROGRAME</span>
+          <span class="relative group-hover:text-ink transition-colors">REZERVIRAJ KONZULTACIJU</span>
         </a>
-        <a href="cjenik.html" class="inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-ink border-b border-ink/50 pb-1 hover:text-taupe hover:border-taupe transition-colors">CJENIK →</a>
+        <a href="#tretman" class="inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-ink border-b border-ink/50 pb-1 hover:text-taupe hover:border-taupe transition-colors">KAKO IZGLEDA TRETMAN →</a>
       </div>
     </div>
 
-    <div class="lg:col-span-5 relative overflow-hidden min-h-[46vh] lg:min-h-[74vh]"
+    <div class="lg:col-span-5 relative overflow-hidden min-h-[42vh] lg:min-h-[70vh]"
          x-data="{ y: 0, tik: false }"
          @scroll.window="
            if (tik) return;
@@ -431,228 +435,223 @@
              const v = Math.round((p - 0.5) * 120);
              if (v !== y) y = v;
            })">
-      <img src="images/prog-hero.webp" alt="Personalizirani programi Poliklinike Fidelia" width="1500" height="2250" decoding="async" fetchpriority="high"
+      <img src="images/usluga-hero.webp" alt="Dermalni fileri — Poliklinika Fidelia" width="1500" height="2198" decoding="async" fetchpriority="high"
            class="absolute -inset-y-20 inset-x-0 w-full h-[calc(100%+160px)] object-cover will-change-transform"
            :style="'transform: translate3d(0,' + y + 'px,0)'" />
       <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(30,25,21,.08) 0%, rgba(30,25,21,.05) 50%, rgba(30,25,21,.38) 100%)"></div>
       <p class="absolute left-0 right-0 bottom-0 p-8 lg:p-10 font-serif italic text-[22px] lg:text-[26px] text-white/90 leading-snug max-w-sm">
-        Zdravlje nije stanje, nego proces ravnoteže.
+        Svaki tretman počinje analizom lica i planom — nikada šprica prije razgovora.
       </p>
     </div>
 
   </div>
 </section>
 
-<!-- ================= FILOZOFIJA ================= -->
-<section class="bg-white px-6 lg:px-12 py-20 lg:py-28">
-  <div class="grid lg:grid-cols-12 gap-12 xl:gap-16">
-    <div class="lg:col-span-5">
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#AE947E] mb-6">NAŠA FILOZOFIJA</p>
-      <h2 class="reveal rise-in font-sans text-[38px] lg:text-[46px] leading-[1.1] text-ink text-balance" style="font-weight:500">
-        Suvremena medicina i <span class="text-[#9E7C64]">svjesno življenje</span>
-      </h2>
+<!-- ================= OSNOVNE INFORMACIJE ================= -->
+<section class="bg-white px-6 lg:px-12 pt-14 lg:pt-16 pb-12 lg:pb-14">
+  <div class="reveal grid sm:grid-cols-3 gap-px bg-ink/10 rounded-[24px] overflow-hidden">
+    <div class="bg-white px-8 py-8 lg:px-10 lg:py-9">
+      <p class="font-sans text-[26px] lg:text-[30px] leading-tight text-ink" style="font-weight:500">Dermalni fileri</p>
+      <p class="mt-2 text-[13px] tracking-[.16em] text-taupe">TRETMAN</p>
     </div>
-    <div class="lg:col-span-7">
-      <p class="reveal text-[21px] lg:text-[20px] leading-[1.7] text-ink font-light">
-        Zato smo osmislili personalizirane zdravstvene programe koji pružaju jasnu sliku o funkcionalnom stanju organizma i stvaraju temelje za dugoročno zdravlje, snagu i mir.
-      </p>
-      <div class="reveal mt-10 grid sm:grid-cols-3 gap-8" style="transition-delay:.1s">
-        <div>
-          <p class="font-serif italic text-[20px] text-[#AE947E] mb-4">01</p>
-          <p class="font-sans font-semibold text-[18px] text-ink">Personalizacija</p>
-          <p class="mt-2 text-[16px] text-ink/70 font-light leading-relaxed">Program se gradi oko vaše svakodnevice, ne oko protokola.</p>
-        </div>
-        <div>
-          <p class="font-serif italic text-[20px] text-[#AE947E] mb-4">02</p>
-          <p class="font-sans font-semibold text-[18px] text-ink">Prevencija</p>
-          <p class="mt-2 text-[16px] text-ink/70 font-light leading-relaxed">Rano prepoznavanje disbalansa prije nego postane dijagnoza.</p>
-        </div>
-        <div>
-          <p class="font-serif italic text-[20px] text-[#AE947E] mb-4">03</p>
-          <p class="font-sans font-semibold text-[18px] text-ink">Transparentnost</p>
-          <p class="mt-2 text-[16px] text-ink/70 font-light leading-relaxed">Svaki nalaz i svaki korak objašnjeni su unaprijed.</p>
-        </div>
+    <div class="bg-white px-8 py-8 lg:px-10 lg:py-9">
+      <p class="font-sans text-[26px] lg:text-[30px] leading-tight text-ink" style="font-weight:500">30–60 min</p>
+      <p class="mt-2 text-[13px] tracking-[.16em] text-taupe">TRAJANJE</p>
+    </div>
+    <div class="bg-white px-8 py-8 lg:px-10 lg:py-9">
+      <p class="font-sans text-[26px] lg:text-[30px] leading-tight text-ink" style="font-weight:500">Estetska medicina</p>
+      <p class="mt-2 text-[13px] tracking-[.16em] text-taupe">VRSTA TRETMANA</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ANCHOR NAV ================= -->
+<div class="sticky z-40 bg-white/95 backdrop-blur border-y border-ink/10 transition-[top] duration-500 ease-out"
+     :class="hdrHidden ? 'top-0' : (scrolled ? 'top-[90px]' : 'top-[90px] sm:top-[126px]')"
+     x-data="{
+       aktivna: 'tretman', sekcije: ['tretman','kandidati','rezultati','oporavak','faq'], scrolled: false, hdrHidden: false, lastY: 0,
+       skoci(id) {
+         const el = document.getElementById(id);
+         const zaglavlje = document.querySelector('header');
+         if (!el || !zaglavlje) return;
+         window.__nsLock = true;
+         const navH = this.$el.offsetHeight;
+         const hdrH = Math.max(zaglavlje.getBoundingClientRect().bottom, 0);
+         const razmak = hdrH + navH - 10;
+         const cilj = el.getBoundingClientRect().top + window.scrollY - razmak;
+         const otkljucaj = () => { window.__nsLock = false; window.removeEventListener('scrollend', otkljucaj); };
+         window.addEventListener('scrollend', otkljucaj);
+         setTimeout(otkljucaj, 900);
+         window.scrollTo({ top: cilj, behavior: 'smooth' });
+       }
+     }"
+     @hero-progress.window="if (!window.__nsLock) scrolled = $event.detail >= 0.66"
+     @scroll.window="const y = window.scrollY; if (!window.__nsLock) hdrHidden = y > lastY && y > window.innerHeight * 2; lastY = y"
+     x-init="(() => {
+       const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) aktivna = e.target.id; }), { rootMargin: '-45% 0px -50% 0px' });
+       sekcije.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+     })()">
+  <div class="px-6 lg:px-12">
+    <nav class="flex items-stretch gap-7 lg:gap-10 overflow-x-auto no-scrollbar">
+      <a href="#tretman" @click.prevent="skoci('tretman')"
+         class="shrink-0 py-4 text-[14px] whitespace-nowrap border-b-2 transition-colors"
+         :class="aktivna === 'tretman' ? 'text-ink border-[#C0A392]' : 'text-mute border-transparent hover:text-ink'">Tretman</a>
+      <a href="#kandidati" @click.prevent="skoci('kandidati')"
+         class="shrink-0 py-4 text-[14px] whitespace-nowrap border-b-2 transition-colors"
+         :class="aktivna === 'kandidati' ? 'text-ink border-[#C0A392]' : 'text-mute border-transparent hover:text-ink'">Kandidati</a>
+      <a href="#rezultati" @click.prevent="skoci('rezultati')"
+         class="shrink-0 py-4 text-[14px] whitespace-nowrap border-b-2 transition-colors"
+         :class="aktivna === 'rezultati' ? 'text-ink border-[#C0A392]' : 'text-mute border-transparent hover:text-ink'">Rezultati</a>
+      <a href="#oporavak" @click.prevent="skoci('oporavak')"
+         class="shrink-0 py-4 text-[14px] whitespace-nowrap border-b-2 transition-colors"
+         :class="aktivna === 'oporavak' ? 'text-ink border-[#C0A392]' : 'text-mute border-transparent hover:text-ink'">Oporavak</a>
+      <a href="#faq" @click.prevent="skoci('faq')"
+         class="shrink-0 py-4 text-[14px] whitespace-nowrap border-b-2 transition-colors"
+         :class="aktivna === 'faq' ? 'text-ink border-[#C0A392]' : 'text-mute border-transparent hover:text-ink'">Česta pitanja</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ================= TRETMAN ================= -->
+<section id="tretman" class="bg-white px-6 lg:px-12 py-20 lg:py-28" data-screen-label="Tretman">
+  <div class="grid lg:grid-cols-12 gap-10 xl:gap-16">
+    <div class="lg:col-span-4">
+      <h2 class="reveal rise-in font-sans text-[34px] lg:text-[42px] leading-[1.12] text-ink text-balance" style="font-weight:500">Tretman</h2>
+    </div>
+    <div class="lg:col-span-8 max-w-2xl flex flex-col gap-6">
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Tretman počinje razgovorom i analizom lica. Prolazimo kroz to što vam smeta, gledamo proporcije i mimiku u pokretu i procjenjujemo je li filer uopće prava metoda — plan proizlazi iz vašeg lica, a ne iz unaprijed zadanog protokola.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Nakon dezinfekcije i fotodokumentacije nanosimo anestetičku kremu, koja djeluje desetak minuta, i označavamo točke aplikacije. Filer se zatim unosi tankom iglom ili kanilom u točno definirane slojeve, u malim količinama, uz stalnu provjeru simetrije u sjedećem položaju. Nema rezova ni šavova, a osjet je kratak pritisak koji većina pacijenata opisuje kao neugodan, ali ne bolan.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Sam tretman traje između trideset i šezdeset minuta, ovisno o području i količini materijala. Na kraju slijedi blago modeliranje, hlađenje i pisane upute za prvih četrdeset osam sati. Kontrolni pregled dogovaramo za dva tjedna, kada je rezultat u konačnom obliku, a on je uključen u cijenu tretmana.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Radimo isključivo s CE certificiranim hijaluronskim filerima, koji se u slučaju potrebe mogu i otopiti.</p>
+      <div class="reveal card-pop mt-4 rounded-[24px] overflow-hidden h-[280px] lg:h-[420px]">
+        <img src="images/usluga-01.webp" alt="Tretman dermalnim filerima" width="900" height="1350" loading="lazy" decoding="async" class="w-full h-full object-cover" />
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= PROGRAMI ================= -->
-<section id="programi" class="bg-[#FCF8F5] px-6 lg:px-12 py-20 lg:py-28 scroll-mt-24" data-screen-label="Programi"
-         x-data="{
-           odabran: 0,
-           programi: [
-             { n: 'Menadžerski program', k: 'ZA INTENZIVAN RITAM',
-               u: 'Namijenjen osobama koje žive intenzivno, pod stresom i u stalnom ritmu obaveza.',
-               d: 'Program je usmjeren na rano prepoznavanje disbalansa uzrokovanog stresom, umorom i modernim načinom života, s ciljem da se očuva energija, fokus i vitalnost.',
-               f: ['Stres i kortizolni profil', 'Kardiometabolički rizik', 'Kvaliteta sna i regeneracija', 'Plan za putovanja i smjene'] },
-             { n: 'Program za turiste', k: 'BRZO I DISKRETNO',
-               u: 'Dizajniran za posjetitelje koji tijekom boravka u Hrvatskoj žele kvalitetnu i brzu procjenu svog zdravstvenog stanja.',
-               d: 'Program kombinira preventivu, sigurnost i udobnost, pružajući osjećaj brige — gdje god se nalazili, uz individualni pristup i diskretnu medicinsku skrb.',
-               f: ['Nalazi isti dan', 'Konzultacije na engleskom', 'Dokumentacija za matičnog liječnika', 'Termini bez čekanja'] },
-             { n: 'Ženski program', k: 'SVE ŽIVOTNE FAZE',
-               u: 'Posvećen zdravlju žene u svim životnim fazama — od hormonalne ravnoteže i reproduktivnog zdravlja, do kože, kostiju i općeg osjećaja vitalnosti.',
-               d: 'Cilj je podrška ženskom tijelu i umu kroz razumijevanje njegovih promjena, potreba i snage.',
-               f: ['Hormonalni status', 'Reproduktivno zdravlje', 'Gustoća kostiju', 'Koža i njega'] },
-             { n: 'Muški program', k: 'ENERGIJA I IZDRŽLJIVOST',
-               u: 'Namijenjen muškarcima koji žele aktivno brinuti o svom zdravlju i vitalnosti.',
-               d: 'Program se fokusira na prevenciju kardiovaskularnih, metaboličkih i hormonalnih poremećaja, s naglaskom na očuvanje energije, izdržljivosti i mentalne bistrine.',
-               f: ['Kardiovaskularni rizik', 'Metabolički profil', 'Testosteron i hormoni', 'Kondicija i snaga'] }
-           ],
-           izHasha() {
-             const m = window.location.hash.match(/^#p([1-4])$/);
-             if (m) this.odabran = Number(m[1]) - 1;
-           }
-         }"
-         x-init="izHasha()"
-         @hashchange.window="izHasha()">
-  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-    <div>
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#AE947E] mb-6">PROGRAMI PO POTREBI</p>
-      <h2 class="reveal rise-in font-sans text-[38px] lg:text-[46px] leading-[1.1] text-ink text-balance max-w-2xl" style="font-weight:500">
-        Četiri polazišne točke
-      </h2>
+<!-- ================= KANDIDATI ================= -->
+<section id="kandidati" class="bg-[#FCF8F5] px-6 lg:px-12 py-20 lg:py-28" data-screen-label="Kandidati">
+  <div class="grid lg:grid-cols-12 gap-10 xl:gap-16">
+    <div class="lg:col-span-4">
+      <h2 class="reveal rise-in font-sans text-[34px] lg:text-[42px] leading-[1.12] text-ink text-balance" style="font-weight:500">Kandidati</h2>
     </div>
-    <p class="reveal text-[16px] text-ink/70 font-light leading-relaxed max-w-sm shrink-0">
-      Odaberite program koji vam je najbliži — konačni obim uvijek se dogovara na prvoj konzultaciji.
-    </p>
+    <div class="lg:col-span-8 max-w-2xl flex flex-col gap-6">
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Tretman je namijenjen osobama kod kojih je lice s vremenom izgubilo volumen — najčešće u području sljepoočnica, jabučica i podočnjaka, zbog čega izgleda umorno i ispijeno bez obzira na san. Drugi česti razlog dolaska je nedefinirana kontura čeljusti i brade, odnosno profil bez jasne linije i blago spuštena donja trećina lica.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Filerima se dobro rješavaju i nazolabijalne brazde koje ostaju vidljive i u mirovanju, tanke ili asimetrične usne kod kojih želimo blago povećanje bez promjene karaktera lica, te manje nepravilnosti nosa i profila, gdje tretman može biti alternativa kirurškom zahvatu.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Tretman ne provodimo u trudnoći i tijekom dojenja, kod akutne infekcije ili upale na području tretmana, kod autoimunih bolesti u aktivnoj fazi te u slučaju poznate preosjetljivosti na hijaluronsku kiselinu. Terapija antikoagulansima, nedavni dentalni zahvati ili planirano cijepljenje nisu kontraindikacija, ali mijenjaju termin tretmana.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Filer ne zamjenjuje kirurški lifting i kod izraženijeg viška kože nije prava metoda. Na konzultaciji ćemo to reći otvoreno i, ako ima smisla, predložiti drugi pristup.</p>
+    </div>
   </div>
+</section>
 
-  <div class="grid lg:grid-cols-12 gap-5">
-    <div class="lg:col-span-7 flex flex-col">
-      <template x-for="(p, i) in programi" :key="p.n">
-        <div class="reveal border-t border-ink/10 last:border-b scroll-mt-28" :id="'p' + (i + 1)" :style="'transition-delay:' + (i * 0.06) + 's'"
-             x-init="$nextTick(() => window.revealIO ? window.revealIO.observe($el) : $el.classList.add('is-visible'))">
-          <button type="button" @click="odabran = i" class="w-full flex items-start gap-6 text-left py-7 group">
-            <span class="font-serif italic text-[19px] leading-none w-9 shrink-0 pt-2 transition-colors" :class="odabran === i ? 'text-[#AE947E]' : 'text-taupe/60'" x-text="'0' + (i + 1)"></span>
-            <span class="flex-1 min-w-0">
-              <span class="block font-sans text-[24px] lg:text-[28px] leading-snug transition-colors" style="font-weight:500" :class="odabran === i ? 'text-ink' : 'text-ink/55 group-hover:text-ink'" x-text="p.n"></span>
-              <span class="block mt-2 text-[16px] text-ink/70 font-light leading-relaxed max-w-lg" x-text="p.u"></span>
-            </span>
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" class="shrink-0 mt-3 transition-transform duration-300" :class="odabran === i ? 'text-[#AE947E] translate-x-1' : 'text-taupe'"><path d="M2 8h12M10 4l4 4-4 4"/></svg>
-          </button>
-        </div>
-      </template>
+<!-- ================= REZULTATI ================= -->
+<section id="rezultati" class="bg-white px-6 lg:px-12 py-20 lg:py-28" data-screen-label="Rezultati">
+  <div class="grid lg:grid-cols-12 gap-10 xl:gap-16">
+    <div class="lg:col-span-4">
+      <h2 class="reveal rise-in font-sans text-[34px] lg:text-[42px] leading-[1.12] text-ink text-balance" style="font-weight:500">Rezultati</h2>
     </div>
-
-    <div class="lg:col-span-5">
-      <div class="reveal card-pop lg:sticky lg:top-32 rounded-[28px] bg-white p-3" style="transition-delay:.1s">
-        <div class="relative rounded-[20px] overflow-hidden h-[280px] lg:h-[340px]">
-          <img src="images/prog-01.webp" alt="Konzultacija u Poliklinici Fidelia" width="900" height="1393" loading="lazy" decoding="async" class="w-full h-full object-cover" />
-          <span class="absolute top-4 left-4 rounded-full bg-white/95 text-ink text-[11px] tracking-[.18em] px-5 py-2.5" x-text="programi[odabran].k"></span>
-        </div>
-        <div class="px-5 pt-7 pb-5">
-          <h3 class="font-sans text-[26px] lg:text-[30px] leading-tight text-ink" style="font-weight:500" x-text="programi[odabran].n"></h3>
-          <p class="mt-4 text-[17px] text-ink/75 font-light leading-relaxed" x-text="programi[odabran].d"></p>
-          <p class="mt-7 mb-3 text-[11px] tracking-[.22em] text-taupe">PROGRAM UKLJUČUJE</p>
-          <div class="flex flex-wrap gap-2.5">
-            <template x-for="f in programi[odabran].f" :key="f">
-              <span class="rounded-full bg-cream text-ink/75 text-[13px] px-4 py-2" x-text="f"></span>
-            </template>
+    <div class="lg:col-span-8 max-w-2xl flex flex-col gap-6">
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Prvi dojam dobivate još u ordinaciji, neposredno nakon tretmana. U danima koji slijede oteklina se povlači i rezultat se smiruje u prirodan volumen koji prati vašu mimiku, a konačan izgled procjenjujemo nakon četrnaest dana.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Rezultat u pravilu traje od devet do osamnaest mjeseci, ovisno o području, gustoći materijala, metabolizmu i načinu života. Usne se resorbiraju najbrže, dok se kontura čeljusti i brade zadržava najdulje. Tretman se može ponavljati, a za obnovu je obično potrebno manje materijala nego prvi put.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Rezultat je individualan i ovisi o polazišnom stanju. Fotografije prije i poslije objavljujemo isključivo uz pisani pristanak pacijenta.</p>
+      <div class="reveal card-pop mt-4 grid sm:grid-cols-2 gap-4">
+        <figure>
+          <div class="placeholder-img rounded-[20px] h-[280px] lg:h-[380px] flex items-end p-6">
+            <figcaption class="text-[11px] tracking-[.22em] text-taupe">PRIJE</figcaption>
           </div>
-          <a href="kontakt.html#forma" class="group mt-8 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-ink border-b border-ink/40 pb-1 hover:text-taupe hover:border-taupe transition-colors">
-            UPIT ZA PROGRAM <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-          </a>
+        </figure>
+        <figure>
+          <div class="placeholder-img rounded-[20px] h-[280px] lg:h-[380px] flex items-end p-6">
+            <figcaption class="text-[11px] tracking-[.22em] text-taupe">POSLIJE · 14 DANA</figcaption>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OPORAVAK ================= -->
+<section id="oporavak" class="bg-[#FCF8F5] px-6 lg:px-12 py-20 lg:py-28" data-screen-label="Oporavak">
+  <div class="grid lg:grid-cols-12 gap-10 xl:gap-16">
+    <div class="lg:col-span-4">
+      <h2 class="reveal rise-in font-sans text-[34px] lg:text-[42px] leading-[1.12] text-ink text-balance" style="font-weight:500">Oporavak</h2>
+    </div>
+    <div class="lg:col-span-8 max-w-2xl flex flex-col gap-6">
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Tretman nema pravog perioda oporavka — postoji samo razdoblje u kojem se rezultat smiruje. Na posao i uobičajene obveze možete isti dan.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Prvih dvadeset četiri sata mjesta uboda mogu biti osjetljiva i lagano crvena, uz blagu oteklinu koju hlađenje ublažava. Kod dijela pacijenata drugog ili trećeg dana pojave se sitne modrice, koje se pokrivaju korektorom i prolaze same. Nakon sedam dana oteklina je u pravilu prošla i filer se integrirao u tkivo.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Prve dvije noći preporučujemo spavanje na leđima, dovoljno vode i redovnu zaštitu od sunca. Četrdeset osam sati izbjegavajte saunu, solarij i intenzivan trening, masažu lica i pritisak na tretirano područje te alkohol i lijekove koji razrjeđuju krv.</p>
+      <p class="reveal text-[19px] lg:text-[18px] leading-[1.85] text-ink/75 font-light">Ako oteklina raste nakon četrdeset osam sati, ako se pojavi izražena bol ili promjena boje kože, javite nam se odmah — takve su reakcije rijetke, ali ih želimo vidjeti na vrijeme. Kontrolni pregled je za dva tjedna, kada radimo i finu doradu ako je potrebna.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="bg-white px-6 lg:px-12 py-20 lg:py-28" data-screen-label="FAQ"
+         x-data="{ otvoreno: 0 }">
+  <div class="grid lg:grid-cols-12 gap-10 xl:gap-16">
+    <div class="lg:col-span-4">
+      <h2 class="reveal rise-in font-sans text-[34px] lg:text-[42px] leading-[1.12] text-ink text-balance" style="font-weight:500">Česta pitanja</h2>
+      <p class="reveal mt-6 text-[17px] text-ink/70 font-light leading-relaxed max-w-sm">
+        Nema odgovora na vaše pitanje? Napišite nam — odgovara osoba koja radi tretman.
+      </p>
+      <a href="kontakt.html#forma" class="reveal inline-flex items-center gap-2 mt-6 text-[12.5px] tracking-[.12em] text-ink border-b border-ink/50 pb-1 hover:text-taupe hover:border-taupe transition-colors">POŠALJI PITANJE →</a>
+    </div>
+    <div class="lg:col-span-8 max-w-2xl flex flex-col">
+      <div class="reveal border-t border-ink/10 last:border-b">
+        <button type="button" @click="otvoreno = otvoreno === 0 ? null : 0" class="w-full flex items-start gap-6 text-left py-6 group">
+          <span class="flex-1 min-w-0 font-sans text-[20px] lg:text-[22px] leading-snug transition-colors" style="font-weight:500" :class="otvoreno === 0 ? 'text-ink' : 'text-ink/60 group-hover:text-ink'">Boli li tretman?</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" class="shrink-0 mt-2 text-taupe transition-transform duration-300" :class="otvoreno === 0 ? 'rotate-45' : ''"><path d="M10 3v14M3 10h14"/></svg>
+        </button>
+        <div x-show="otvoreno === 0" x-collapse style="display:none">
+          <p class="pb-7 pr-8 text-[18px] text-ink/75 font-light leading-[1.85]">Osjet je kratak pritisak, a ne bol. Anestetička krema djeluje desetak minuta prije početka, a većina filera u sebi već sadrži lidokain, pa pacijenti tijekom tretmana uglavnom normalno razgovaraju.</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= LONGEVITY & WELL-AGING ================= -->
-<section id="paketi" class="bg-ink px-6 lg:px-12 py-20 lg:py-28 scroll-mt-24" data-screen-label="Longevity">
-  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
-    <div>
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#E0CEBD] mb-6">LONGEVITY &amp; WELL-AGING</p>
-      <h2 class="reveal rise-in font-sans text-[38px] lg:text-[46px] leading-[1.1] text-white text-balance max-w-2xl" style="font-weight:500">
-        Kad je cilj <span class="text-[#E0CEBD]">dugovječnost</span>
-      </h2>
-    </div>
-    <p class="reveal text-[16px] text-cream/65 font-light leading-relaxed max-w-sm shrink-0">
-      Tri razine dubine — od rane detekcije rizika do sveobuhvatnog upravljanja procesom starenja.
-    </p>
-  </div>
-
-  <div class="grid lg:grid-cols-3 gap-5">
-    <div class="reveal card-pop rounded-[28px] bg-white/[.06] p-8 lg:p-10 flex flex-col">
-      <p class="text-[11px] tracking-[.22em] text-[#E0CEBD]">LONGEVITY PAKET S</p>
-      <p class="mt-6 font-sans text-[28px] lg:text-[32px] leading-tight text-white" style="font-weight:500">Razumjeti svoje tijelo</p>
-      <p class="mt-4 text-[17px] text-cream/70 font-light leading-relaxed">
-        Za one koji žele razumjeti svoje tijelo i produljiti vitalnost kroz znanje, prevenciju i ravnotežu.
-      </p>
-      <p class="mt-5 text-[16px] text-cream/60 font-light leading-relaxed">
-        Program je usmjeren na ranu detekciju rizika i procjenu biološke dobi, uz preporuke koje podržavaju dugoročno zdravlje i snagu organizma.
-      </p>
-      <div class="mt-8 pt-8 border-t border-white/10 flex flex-col gap-3">
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Procjena biološke dobi</p>
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Rana detekcija rizika</p>
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Preporuke za 6 mjeseci</p>
+      <div class="reveal border-t border-ink/10 last:border-b" style="transition-delay:.04s">
+        <button type="button" @click="otvoreno = otvoreno === 1 ? null : 1" class="w-full flex items-start gap-6 text-left py-6 group">
+          <span class="flex-1 min-w-0 font-sans text-[20px] lg:text-[22px] leading-snug transition-colors" style="font-weight:500" :class="otvoreno === 1 ? 'text-ink' : 'text-ink/60 group-hover:text-ink'">Koliko rezultat traje?</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" class="shrink-0 mt-2 text-taupe transition-transform duration-300" :class="otvoreno === 1 ? 'rotate-45' : ''"><path d="M10 3v14M3 10h14"/></svg>
+        </button>
+        <div x-show="otvoreno === 1" x-collapse style="display:none">
+          <p class="pb-7 pr-8 text-[18px] text-ink/75 font-light leading-[1.85]">Ovisno o području i gustoći materijala, između devet i osamnaest mjeseci. Usne se resorbiraju najbrže, čeljust i brada najdulje. Nakon prvog tretmana za obnovu je obično potrebno manje materijala.</p>
+        </div>
       </div>
-      <a href="kontakt.html#forma" class="group mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-white border-b border-white/40 pb-1 self-start hover:text-[#E0CEBD] hover:border-[#E0CEBD] transition-colors">
-        UPIT ZA PROGRAM <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-      </a>
-    </div>
-
-    <div class="reveal card-pop rounded-[28px] bg-[#C0A392] p-8 lg:p-10 flex flex-col" style="transition-delay:.08s">
-      <div class="flex items-center justify-between gap-4">
-        <p class="text-[11px] tracking-[.22em] text-white">LONGEVITY PAKET L</p>
-        <span class="rounded-full bg-white/20 text-white text-[10.5px] tracking-[.16em] px-3.5 py-1.5">SVEOBUHVATNO</span>
+      <div class="reveal border-t border-ink/10 last:border-b" style="transition-delay:.08s">
+        <button type="button" @click="otvoreno = otvoreno === 2 ? null : 2" class="w-full flex items-start gap-6 text-left py-6 group">
+          <span class="flex-1 min-w-0 font-sans text-[20px] lg:text-[22px] leading-snug transition-colors" style="font-weight:500" :class="otvoreno === 2 ? 'text-ink' : 'text-ink/60 group-hover:text-ink'">Hoću li izgledati napuhnuto?</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" class="shrink-0 mt-2 text-taupe transition-transform duration-300" :class="otvoreno === 2 ? 'rotate-45' : ''"><path d="M10 3v14M3 10h14"/></svg>
+        </button>
+        <div x-show="otvoreno === 2" x-collapse style="display:none">
+          <p class="pb-7 pr-8 text-[18px] text-ink/75 font-light leading-[1.85]">Ne ako se filer dozira u malim količinama i u pravim slojevima. Naš je pristup konzervativan — po potrebi je bolje dodati na kontroli za dva tjedna nego pretjerati na prvom terminu.</p>
+        </div>
       </div>
-      <p class="mt-6 font-sans text-[28px] lg:text-[32px] leading-tight text-white" style="font-weight:500">Aktivno upravljanje starenjem</p>
-      <p class="mt-4 text-[17px] text-white/90 font-light leading-relaxed">
-        Sveobuhvatan pristup za one koji žele aktivno upravljati svojim zdravljem i procesom starenja.
-      </p>
-      <p class="mt-5 text-[16px] text-white/75 font-light leading-relaxed">
-        Program kombinira napredne metode procjene funkcionalnog stanja tijela s personaliziranim planom regenerativne i preventivne medicine — za trajnu vitalnost i jasnoću uma.
-      </p>
-      <div class="mt-8 pt-8 border-t border-white/25 flex flex-col gap-3">
-        <p class="text-[16px] text-white font-light leading-relaxed">Napredna funkcionalna procjena</p>
-        <p class="text-[16px] text-white font-light leading-relaxed">Regenerativni protokol</p>
-        <p class="text-[16px] text-white font-light leading-relaxed">Praćenje kroz cijelu godinu</p>
+      <div class="reveal border-t border-ink/10 last:border-b" style="transition-delay:.12s">
+        <button type="button" @click="otvoreno = otvoreno === 3 ? null : 3" class="w-full flex items-start gap-6 text-left py-6 group">
+          <span class="flex-1 min-w-0 font-sans text-[20px] lg:text-[22px] leading-snug transition-colors" style="font-weight:500" :class="otvoreno === 3 ? 'text-ink' : 'text-ink/60 group-hover:text-ink'">Može li se filer ukloniti?</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" class="shrink-0 mt-2 text-taupe transition-transform duration-300" :class="otvoreno === 3 ? 'rotate-45' : ''"><path d="M10 3v14M3 10h14"/></svg>
+        </button>
+        <div x-show="otvoreno === 3" x-collapse style="display:none">
+          <p class="pb-7 pr-8 text-[18px] text-ink/75 font-light leading-[1.85]">Hijaluronski fileri mogu se otopiti enzimom hijaluronidazom, obično u jednom ili dva termina. To je jedan od razloga zašto radimo isključivo s hijaluronskim materijalima.</p>
+        </div>
       </div>
-      <a href="kontakt.html#forma" class="group mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-white border-b border-white/60 pb-1 self-start hover:text-ink hover:border-ink transition-colors">
-        UPIT ZA PROGRAM <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-      </a>
-    </div>
-
-    <div class="reveal card-pop rounded-[28px] bg-white/[.06] p-8 lg:p-10 flex flex-col" style="transition-delay:.16s">
-      <p class="text-[11px] tracking-[.22em] text-[#E0CEBD]">WELL-AGING PAKET</p>
-      <p class="mt-6 font-sans text-[28px] lg:text-[32px] leading-tight text-white" style="font-weight:500">Godine svjesno i s lakoćom</p>
-      <p class="mt-4 text-[17px] text-cream/70 font-light leading-relaxed">
-        Namijenjen svima koji žele živjeti godine svjesno, uravnoteženo i s lakoćom.
-      </p>
-      <p class="mt-5 text-[16px] text-cream/60 font-light leading-relaxed">
-        Program je usmjeren na očuvanje prirodne ljepote, unutarnje snage i harmonije tijela i duha, kroz pristup koji njeguje zdravlje iznutra i izvana.
-      </p>
-      <div class="mt-8 pt-8 border-t border-white/10 flex flex-col gap-3">
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Estetika i njega kože</p>
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Ravnoteža tijela i duha</p>
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Nutritivna podrška</p>
+      <div class="reveal border-t border-ink/10 last:border-b" style="transition-delay:.16s">
+        <button type="button" @click="otvoreno = otvoreno === 4 ? null : 4" class="w-full flex items-start gap-6 text-left py-6 group">
+          <span class="flex-1 min-w-0 font-sans text-[20px] lg:text-[22px] leading-snug transition-colors" style="font-weight:500" :class="otvoreno === 4 ? 'text-ink' : 'text-ink/60 group-hover:text-ink'">Kada mogu na posao?</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" class="shrink-0 mt-2 text-taupe transition-transform duration-300" :class="otvoreno === 4 ? 'rotate-45' : ''"><path d="M10 3v14M3 10h14"/></svg>
+        </button>
+        <div x-show="otvoreno === 4" x-collapse style="display:none">
+          <p class="pb-7 pr-8 text-[18px] text-ink/75 font-light leading-[1.85]">Isti dan. Moguća je blaga oteklina i sitne modrice, pa važnije društvene ili poslovne obveze planirajte tri do četiri dana nakon tretmana.</p>
+        </div>
       </div>
-      <a href="kontakt.html#forma" class="group mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-white border-b border-white/40 pb-1 self-start hover:text-[#E0CEBD] hover:border-[#E0CEBD] transition-colors">
-        UPIT ZA PROGRAM <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= ZAKLJUČAK ================= -->
-<section class="bg-[#FCF8F5]">
-  <div class="grid lg:grid-cols-12 items-stretch">
-    <div class="lg:col-span-5 relative min-h-[44vh] lg:min-h-[64vh] overflow-hidden">
-      <img src="images/prog-02.webp" alt="Poliklinika Fidelia" width="900" height="1319" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
-    </div>
-    <div class="lg:col-span-7 px-6 lg:px-12 py-16 lg:py-24 flex flex-col justify-center">
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#AE947E] mb-6">ZAJEDNIČKI TEMELJ</p>
-      <h2 class="reveal rise-in font-sans text-[36px] lg:text-[44px] leading-[1.1] text-ink text-balance max-w-2xl" style="font-weight:500">
-        Cilj nije samo spriječiti bolest — <span class="text-[#9E7C64]">nego stvoriti životnu ravnotežu</span>
-      </h2>
-      <p class="reveal mt-7 text-[19px] lg:text-[18px] leading-[1.75] text-ink/80 font-light max-w-xl" style="transition-delay:.1s">
-        Svi programi temelje se na filozofiji personalizirane medicine, prevencije i transparentne brige o svakom pacijentu — ravnoteža u kojoj zdravlje postaje trajno stanje blagostanja.
-      </p>
-      <a href="cjenik.html" class="reveal group mt-9 inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-ink border-b border-ink/50 pb-1 self-start hover:text-taupe hover:border-taupe transition-colors" style="transition-delay:.2s">
-        CIJENE PROGRAMA <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-      </a>
+      <div class="reveal border-t border-ink/10 last:border-b" style="transition-delay:.2s">
+        <button type="button" @click="otvoreno = otvoreno === 5 ? null : 5" class="w-full flex items-start gap-6 text-left py-6 group">
+          <span class="flex-1 min-w-0 font-sans text-[20px] lg:text-[22px] leading-snug transition-colors" style="font-weight:500" :class="otvoreno === 5 ? 'text-ink' : 'text-ink/60 group-hover:text-ink'">Mogu li kombinirati filer i botoks?</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" class="shrink-0 mt-2 text-taupe transition-transform duration-300" :class="otvoreno === 5 ? 'rotate-45' : ''"><path d="M10 3v14M3 10h14"/></svg>
+        </button>
+        <div x-show="otvoreno === 5" x-collapse style="display:none">
+          <p class="pb-7 pr-8 text-[18px] text-ink/75 font-light leading-[1.85]">Da, i to je česta kombinacija — botoks umiruje mimiku, filer vraća volumen. U pravilu ih možemo raditi u istom terminu, o čemu odlučujemo na konzultaciji.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -726,7 +725,7 @@
     <nav class="flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-[.08em] font-light">
       <a href="index.html#usluge-showcase" class="hover:text-white transition">USLUGE</a>
       <a href="index.html#pristup" class="hover:text-white transition">PRISTUP</a>
-      <a href="#programi" class="hover:text-white transition">PROGRAMI</a>
+      <a href="index.html#programi-sec" class="hover:text-white transition">PROGRAMI</a>
       <a href="index.html#club" class="hover:text-white transition">CLUB</a>
       <a href="cjenik.html" class="hover:text-white transition">CJENIK</a>
       <a href="kontakt.html" class="hover:text-white transition">KONTAKT</a>
@@ -740,7 +739,7 @@
 
 <script>
   document.addEventListener('alpine:init', () => {
-    Alpine.data('programiPage', () => ({
+    Alpine.data('uslugaPage', () => ({
       init() {
         // scroll-reveal for .reveal and .card-pop elements
         const io = new IntersectionObserver((entries) => {
@@ -748,6 +747,9 @@
         }, { threshold: 0.2 });
         window.revealIO = io;
         document.querySelectorAll('.reveal, .card-pop').forEach((el) => io.observe(el));
+
+        // mega-menu program anchors live on the home page
+        window.scrollToProgram = () => { window.location.href = 'index.html#programi-sec'; };
 
         // header/utility-bar scroll state
         const updateHeroProgress = () => {

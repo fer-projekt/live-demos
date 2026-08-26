@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Personalizirani pristup zdravlju — Fidelia Poliklinika</title>
-<meta name="description" content="Personalizirani zdravstveni programi Poliklinike Fidelia — menadžerski, ženski, muški, za turiste, longevity i well-aging." />
+<title>Lorem Ipsum Dolor Sit Amet — Fidelia Poliklinika</title>
+<meta name="description" content="Testna content stranica — provjera tipografije, lista, tablica, citata i vertikalnog ritma." />
 <link rel="icon" type="image/jpeg" href="images/favicon.jpg" />
+<meta name="robots" content="noindex, nofollow" />
 
 <!-- Fonts: Cormorant Garamond ≈ Fidelia wordmark serif (primarna) · Jost (sekundarna, sans/UI) — self-hosted, vidi css/styles.css -->
 
@@ -17,7 +18,7 @@
 
 </head>
 
-<body class="bg-[#FCF8F5] antialiased" x-data="programiPage">
+<body class="bg-[#FCF8F5] antialiased">
 
 <!-- ================= UTILITY BAR ================= -->
 <div class="hidden sm:block sticky top-0 z-50 bg-ink text-cream/90 text-[12px] tracking-wide transition-transform duration-500 ease-out"
@@ -385,324 +386,173 @@
         </div>
       </template>
       <a href="kontakt.html" class="block py-4 text-[13px] tracking-[.08em] font-medium border-b border-sand/70">KONTAKT</a>
-      <a href="programi.html" class="block py-4 text-[13px] tracking-[.08em] font-medium border-b border-sand/70">PROGRAMI</a>
+      <a href="cjenik.html" class="block py-4 text-[13px] tracking-[.08em] font-medium border-b border-sand/70">CJENIK</a>
       <a href="blog.html" class="block py-4 text-[13px] tracking-[.08em] font-medium">BLOG</a>
       <a href="kontakt.html" class="mt-4 block text-center bg-ink text-white py-4 text-[12px] tracking-[.12em]">NARUČI SE</a>
     </nav>
   </aside>
 </div>
 
-<!-- ================= HERO ================= -->
-<section id="hero" class="bg-[#FCF8F5]">
-  <div class="grid lg:grid-cols-12">
+<div x-data x-init="(() => {
+       const io = new IntersectionObserver((es) => es.forEach((e) => {
+         if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+       }), { threshold: 0.15 });
+       const skeniraj = () => document.querySelectorAll('.reveal:not(.is-visible), .card-pop:not(.is-visible)').forEach((el) => io.observe(el));
+       skeniraj();
+       new MutationObserver(skeniraj).observe(document.body, { childList: true, subtree: true });
+     })()" aria-hidden="true"></div>
 
-    <div class="lg:col-span-7 px-6 lg:px-12 pt-16 pb-14 lg:pt-24 lg:pb-24 flex flex-col justify-center">
-      <nav class="hero-in flex items-center gap-2 text-[12px] text-mute font-light mb-8 overflow-x-auto no-scrollbar whitespace-nowrap" style="animation-delay:.05s" aria-label="Putanja">
-        <a href="index.html" class="hover:text-ink transition-colors">Naslovnica</a>
-        <span class="text-taupe/60">/</span>
-        <span class="text-ink">Programi</span>
-      </nav>
-      <p class="hero-in text-[14px] lg:text-[12px] font-medium lg:font-normal tracking-[.24em] text-[#AE947E] mb-7" style="animation-delay:.1s">PROGRAMI</p>
-      <h1 class="hero-in font-sans text-[46px] sm:text-[56px] xl:text-[68px] leading-[1.06] tracking-[.005em] text-ink text-balance max-w-3xl" style="font-weight:500; animation-delay:.25s">
-        Personalizirani pristup <span class="text-[#9E7C64]">zdravlju</span>
-      </h1>
-      <p class="hero-in mt-7 text-[20px] lg:text-[19px] leading-relaxed text-ink/75 font-light max-w-xl" style="animation-delay:.4s">
-        Zdravlju pristupamo cjelovito — s razumijevanjem, znanjem i pažnjom. Naša misija je očuvati vitalnost, spriječiti bolesti i podržati dugovječnost kroz individualno vođene programe.
-      </p>
-      <div class="hero-in mt-10 flex flex-wrap items-center gap-4" style="animation-delay:.55s">
-        <a href="#programi" class="group relative overflow-hidden inline-flex items-center gap-2 rounded-full bg-ink text-white text-[12.5px] tracking-[.12em] px-8 py-4 transition-colors duration-300">
-          <span class="absolute inset-0 bg-[#E0CEBD] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
-          <span class="relative group-hover:text-ink transition-colors">POGLEDAJ PROGRAME</span>
-        </a>
-        <a href="cjenik.html" class="inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-ink border-b border-ink/50 pb-1 hover:text-taupe hover:border-taupe transition-colors">CJENIK →</a>
-      </div>
-    </div>
-
-    <div class="lg:col-span-5 relative overflow-hidden min-h-[46vh] lg:min-h-[74vh]"
-         x-data="{ y: 0, tik: false }"
-         @scroll.window="
-           if (tik) return;
-           tik = true;
-           requestAnimationFrame(() => {
-             tik = false;
-             const r = $el.getBoundingClientRect();
-             const vh = window.innerHeight;
-             const p = Math.min(Math.max((vh - r.top) / (vh + r.height), 0), 1);
-             const v = Math.round((p - 0.5) * 120);
-             if (v !== y) y = v;
-           })">
-      <img src="images/prog-hero.webp" alt="Personalizirani programi Poliklinike Fidelia" width="1500" height="2250" decoding="async" fetchpriority="high"
-           class="absolute -inset-y-20 inset-x-0 w-full h-[calc(100%+160px)] object-cover will-change-transform"
-           :style="'transform: translate3d(0,' + y + 'px,0)'" />
-      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(30,25,21,.08) 0%, rgba(30,25,21,.05) 50%, rgba(30,25,21,.38) 100%)"></div>
-      <p class="absolute left-0 right-0 bottom-0 p-8 lg:p-10 font-serif italic text-[22px] lg:text-[26px] text-white/90 leading-snug max-w-sm">
-        Zdravlje nije stanje, nego proces ravnoteže.
-      </p>
-    </div>
-
-  </div>
+<!-- ================= NASLOV ================= -->
+<section class="bg-white px-6 lg:px-12 pt-14 pb-12 lg:pt-20 lg:pb-16 border-b border-ink/10">
+  <nav class="hero-in flex items-center gap-2 text-[12px] text-mute font-light mb-8 overflow-x-auto no-scrollbar whitespace-nowrap" style="animation-delay:.05s" aria-label="Putanja">
+    <a href="index.html" class="hover:text-ink transition-colors">Naslovnica</a>
+    <span class="text-taupe/60">/</span>
+    <span class="text-ink">Lorem ipsum</span>
+  </nav>
+  <h1 class="hero-in font-sans text-[40px] sm:text-[50px] xl:text-[58px] leading-[1.08] tracking-[.005em] text-ink text-balance max-w-4xl" style="font-weight:500; animation-delay:.2s">
+    Lorem Ipsum Dolor Sit Amet
+  </h1>
 </section>
 
-<!-- ================= FILOZOFIJA ================= -->
-<section class="bg-white px-6 lg:px-12 py-20 lg:py-28">
-  <div class="grid lg:grid-cols-12 gap-12 xl:gap-16">
-    <div class="lg:col-span-5">
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#AE947E] mb-6">NAŠA FILOZOFIJA</p>
-      <h2 class="reveal rise-in font-sans text-[38px] lg:text-[46px] leading-[1.1] text-ink text-balance" style="font-weight:500">
-        Suvremena medicina i <span class="text-[#9E7C64]">svjesno življenje</span>
-      </h2>
-    </div>
-    <div class="lg:col-span-7">
-      <p class="reveal text-[21px] lg:text-[20px] leading-[1.7] text-ink font-light">
-        Zato smo osmislili personalizirane zdravstvene programe koji pružaju jasnu sliku o funkcionalnom stanju organizma i stvaraju temelje za dugoročno zdravlje, snagu i mir.
-      </p>
-      <div class="reveal mt-10 grid sm:grid-cols-3 gap-8" style="transition-delay:.1s">
-        <div>
-          <p class="font-serif italic text-[20px] text-[#AE947E] mb-4">01</p>
-          <p class="font-sans font-semibold text-[18px] text-ink">Personalizacija</p>
-          <p class="mt-2 text-[16px] text-ink/70 font-light leading-relaxed">Program se gradi oko vaše svakodnevice, ne oko protokola.</p>
-        </div>
-        <div>
-          <p class="font-serif italic text-[20px] text-[#AE947E] mb-4">02</p>
-          <p class="font-sans font-semibold text-[18px] text-ink">Prevencija</p>
-          <p class="mt-2 text-[16px] text-ink/70 font-light leading-relaxed">Rano prepoznavanje disbalansa prije nego postane dijagnoza.</p>
-        </div>
-        <div>
-          <p class="font-serif italic text-[20px] text-[#AE947E] mb-4">03</p>
-          <p class="font-sans font-semibold text-[18px] text-ink">Transparentnost</p>
-          <p class="mt-2 text-[16px] text-ink/70 font-light leading-relaxed">Svaki nalaz i svaki korak objašnjeni su unaprijed.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ================= SADRŽAJ ================= -->
+<div class="bg-white px-6 lg:px-12 py-14 lg:py-20"
+     x-data="{ aktivna: 'uvod', sekcije: ['uvod','nacela','postupak','tablica','zavrsno'] }"
+     x-init="(() => {
+       const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) aktivna = e.target.id; }), { rootMargin: '-25% 0px -60% 0px' });
+       sekcije.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+     })()">
+  <div>
 
-<!-- ================= PROGRAMI ================= -->
-<section id="programi" class="bg-[#FCF8F5] px-6 lg:px-12 py-20 lg:py-28 scroll-mt-24" data-screen-label="Programi"
-         x-data="{
-           odabran: 0,
-           programi: [
-             { n: 'Menadžerski program', k: 'ZA INTENZIVAN RITAM',
-               u: 'Namijenjen osobama koje žive intenzivno, pod stresom i u stalnom ritmu obaveza.',
-               d: 'Program je usmjeren na rano prepoznavanje disbalansa uzrokovanog stresom, umorom i modernim načinom života, s ciljem da se očuva energija, fokus i vitalnost.',
-               f: ['Stres i kortizolni profil', 'Kardiometabolički rizik', 'Kvaliteta sna i regeneracija', 'Plan za putovanja i smjene'] },
-             { n: 'Program za turiste', k: 'BRZO I DISKRETNO',
-               u: 'Dizajniran za posjetitelje koji tijekom boravka u Hrvatskoj žele kvalitetnu i brzu procjenu svog zdravstvenog stanja.',
-               d: 'Program kombinira preventivu, sigurnost i udobnost, pružajući osjećaj brige — gdje god se nalazili, uz individualni pristup i diskretnu medicinsku skrb.',
-               f: ['Nalazi isti dan', 'Konzultacije na engleskom', 'Dokumentacija za matičnog liječnika', 'Termini bez čekanja'] },
-             { n: 'Ženski program', k: 'SVE ŽIVOTNE FAZE',
-               u: 'Posvećen zdravlju žene u svim životnim fazama — od hormonalne ravnoteže i reproduktivnog zdravlja, do kože, kostiju i općeg osjećaja vitalnosti.',
-               d: 'Cilj je podrška ženskom tijelu i umu kroz razumijevanje njegovih promjena, potreba i snage.',
-               f: ['Hormonalni status', 'Reproduktivno zdravlje', 'Gustoća kostiju', 'Koža i njega'] },
-             { n: 'Muški program', k: 'ENERGIJA I IZDRŽLJIVOST',
-               u: 'Namijenjen muškarcima koji žele aktivno brinuti o svom zdravlju i vitalnosti.',
-               d: 'Program se fokusira na prevenciju kardiovaskularnih, metaboličkih i hormonalnih poremećaja, s naglaskom na očuvanje energije, izdržljivosti i mentalne bistrine.',
-               f: ['Kardiovaskularni rizik', 'Metabolički profil', 'Testosteron i hormoni', 'Kondicija i snaga'] }
-           ],
-           izHasha() {
-             const m = window.location.hash.match(/^#p([1-4])$/);
-             if (m) this.odabran = Number(m[1]) - 1;
-           }
-         }"
-         x-init="izHasha()"
-         @hashchange.window="izHasha()">
-  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-    <div>
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#AE947E] mb-6">PROGRAMI PO POTREBI</p>
-      <h2 class="reveal rise-in font-sans text-[38px] lg:text-[46px] leading-[1.1] text-ink text-balance max-w-2xl" style="font-weight:500">
-        Četiri polazišne točke
-      </h2>
-    </div>
-    <p class="reveal text-[16px] text-ink/70 font-light leading-relaxed max-w-sm shrink-0">
-      Odaberite program koji vam je najbliži — konačni obim uvijek se dogovara na prvoj konzultaciji.
-    </p>
-  </div>
+    <article class="prose max-w-3xl mx-auto">
+      <section id="uvod" class="scroll-mt-[180px]"><h2 class="sr-only">Uvod</h2>
+      <p class="lede reveal">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, dok <em>ut enim ad minim veniam</em> ostaje polazište svakog daljnjeg razmatranja u ovom dokumentu.</p></section>
 
-  <div class="grid lg:grid-cols-12 gap-5">
-    <div class="lg:col-span-7 flex flex-col">
-      <template x-for="(p, i) in programi" :key="p.n">
-        <div class="reveal border-t border-ink/10 last:border-b scroll-mt-28" :id="'p' + (i + 1)" :style="'transition-delay:' + (i * 0.06) + 's'"
-             x-init="$nextTick(() => window.revealIO ? window.revealIO.observe($el) : $el.classList.add('is-visible'))">
-          <button type="button" @click="odabran = i" class="w-full flex items-start gap-6 text-left py-7 group">
-            <span class="font-serif italic text-[19px] leading-none w-9 shrink-0 pt-2 transition-colors" :class="odabran === i ? 'text-[#AE947E]' : 'text-taupe/60'" x-text="'0' + (i + 1)"></span>
-            <span class="flex-1 min-w-0">
-              <span class="block font-sans text-[24px] lg:text-[28px] leading-snug transition-colors" style="font-weight:500" :class="odabran === i ? 'text-ink' : 'text-ink/55 group-hover:text-ink'" x-text="p.n"></span>
-              <span class="block mt-2 text-[16px] text-ink/70 font-light leading-relaxed max-w-lg" x-text="p.u"></span>
-            </span>
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" class="shrink-0 mt-3 transition-transform duration-300" :class="odabran === i ? 'text-[#AE947E] translate-x-1' : 'text-taupe'"><path d="M2 8h12M10 4l4 4-4 4"/></svg>
-          </button>
-        </div>
-      </template>
-    </div>
+      <section id="nacela" class="scroll-mt-[180px]">
+        <h2 class="reveal">Duis Aute Irure Dolor</h2>
+        <p class="reveal">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, a više o tome nalazi se u <a href="o-poliklinici.html">općim odredbama</a> te u <a href="cjenik.html">pregledu usluga</a>.</p>
+        <p class="reveal">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis.</p>
 
-    <div class="lg:col-span-5">
-      <div class="reveal card-pop lg:sticky lg:top-32 rounded-[28px] bg-white p-3" style="transition-delay:.1s">
-        <div class="relative rounded-[20px] overflow-hidden h-[280px] lg:h-[340px]">
-          <img src="images/prog-01.webp" alt="Konzultacija u Poliklinici Fidelia" width="900" height="1393" loading="lazy" decoding="async" class="w-full h-full object-cover" />
-          <span class="absolute top-4 left-4 rounded-full bg-white/95 text-ink text-[11px] tracking-[.18em] px-5 py-2.5" x-text="programi[odabran].k"></span>
-        </div>
-        <div class="px-5 pt-7 pb-5">
-          <h3 class="font-sans text-[26px] lg:text-[30px] leading-tight text-ink" style="font-weight:500" x-text="programi[odabran].n"></h3>
-          <p class="mt-4 text-[17px] text-ink/75 font-light leading-relaxed" x-text="programi[odabran].d"></p>
-          <p class="mt-7 mb-3 text-[11px] tracking-[.22em] text-taupe">PROGRAM UKLJUČUJE</p>
-          <div class="flex flex-wrap gap-2.5">
-            <template x-for="f in programi[odabran].f" :key="f">
-              <span class="rounded-full bg-cream text-ink/75 text-[13px] px-4 py-2" x-text="f"></span>
-            </template>
+        <h3 class="reveal">Nemo Enim Ipsam Voluptatem</h3>
+        <p class="reveal">Quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est:</p>
+        <ul class="reveal">
+          <li>Qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit</li>
+          <li>Sed quia non numquam eius modi tempora incidunt ut labore</li>
+          <li>Et dolore magnam aliquam quaerat voluptatem, uz sljedeće:
+            <ul>
+              <li>Ut enim ad minima veniam, quis nostrum exercitationem</li>
+              <li>Nisi ut aliquid ex ea commodi consequatur</li>
+            </ul>
+          </li>
+          <li>Quis autem vel eum iure reprehenderit qui in ea voluptate</li>
+        </ul>
+        <p class="reveal"><small>Ova napomena vrijedi isključivo za primjere navedene u prethodnom odlomku i ne predstavlja iscrpan popis.</small></p>
+      </section>
+
+      <hr class="reveal" />
+
+      <section id="postupak" class="scroll-mt-[180px]">
+        <h2 class="reveal">Sed Ut Perspiciatis</h2>
+        <p class="reveal">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Postupak se u pravilu provodi u pet koraka:</p>
+        <ol class="reveal">
+          <li><strong>Itaque earum rerum.</strong> Hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</li>
+          <li><strong>Nam libero tempore.</strong> Cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</li>
+          <li><strong>Omnis voluptas assumenda.</strong> Est omnis dolor repellendus, temporibus autem quibusdam et aut officiis debitis.</li>
+          <li><strong>Ut et voluptates.</strong> Repudiandae sint et molestiae non recusandae, itaque earum rerum hic tenetur a sapiente delectus.</li>
+          <li><strong>Aut perferendis doloribus.</strong> Asperiores repellat, quo minus id quod maxime placeat facere possimus omnis voluptas.</li>
+        </ol>
+
+        <blockquote class="reveal">
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</p>
+          <footer>Marcus Tullius Cicero, <em>De finibus bonorum et malorum</em></footer>
+        </blockquote>
+
+        <h3 class="reveal">Similique Sunt In Culpa</h3>
+        <p class="reveal">Qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Vrijednost se u sustavu zapisuje kao <code>lorem-ipsum-dolor</code>, a povratna vrijednost <code>consectetur()</code> uvijek sadrži polje <code>adipiscing</code>. Za širi kontekst pogledajte <a href="blog.html">popis objava</a>.</p>
+        <pre class="reveal"><code>const lorem = {
+  ipsum: 'dolor sit amet',
+  consectetur: ['adipiscing', 'elit'],
+  tempor: 42
+};</code></pre>
+      </section>
+
+      <hr class="reveal" />
+
+      <section id="tablica" class="scroll-mt-[180px]">
+        <h2 class="reveal">Quis Autem Vel Eum</h2>
+        <p class="reveal">Iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur. Tablica je namijenjena provjeri ponašanja na užim zaslonima — na mobilnim uređajima klizi vodoravno.</p>
+        <figure class="tablica-figure reveal">
+          <div class="overflow-x-auto">
+            <table class="min-w-[560px]">
+              <thead>
+                <tr>
+                  <th>Lorem</th>
+                  <th>Ipsum</th>
+                  <th>Dolor</th>
+                  <th>Amet</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Consectetur adipiscing elit</td>
+                  <td>30–60 min</td>
+                  <td>Sed do eiusmod</td>
+                  <td>120,00 €</td>
+                </tr>
+                <tr>
+                  <td>Tempor incididunt ut labore</td>
+                  <td>45 min</td>
+                  <td>Magna aliqua</td>
+                  <td>180,00 €</td>
+                </tr>
+                <tr>
+                  <td>Ut enim ad minim veniam</td>
+                  <td>20 min</td>
+                  <td>Quis nostrud</td>
+                  <td>90,00 €</td>
+                </tr>
+                <tr>
+                  <td>Exercitation ullamco laboris</td>
+                  <td>60–90 min</td>
+                  <td>Nisi ut aliquip</td>
+                  <td>250,00 €</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <a href="kontakt.html#forma" class="group mt-8 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-ink border-b border-ink/40 pb-1 hover:text-taupe hover:border-taupe transition-colors">
-            UPIT ZA PROGRAM <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
+          <figcaption>Tablica 1 — okvirne vrijednosti, podložne izmjeni bez prethodne najave.</figcaption>
+        </figure>
+        <p class="reveal">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+      </section>
+
+      <hr class="reveal" />
+
+      <section id="zavrsno" class="scroll-mt-[180px]">
+        <h2 class="reveal">Završne Odredbe</h2>
+        <p class="reveal">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. <strong>Izmjene stupaju na snagu danom objave</strong> na ovoj stranici, bez obveze pojedinačnog obavještavanja.</p>
+        <h3 class="reveal">Kontakt</h3>
+        <p class="reveal">Za sva pitanja obratite se putem <a href="kontakt.html">kontakt obrasca</a> ili na <a href="mailto:info@skinclinic.hr">info@skinclinic.hr</a>. Odgovaramo u roku od dva radna dana.</p>
+        <p class="reveal"><small>Dokument je testne prirode i ne predstavlja pravno obvezujući tekst. Sav sadržaj je Lorem Ipsum.</small></p>
+      </section>
+    </article>
+
   </div>
-</section>
+</div>
 
-<!-- ================= LONGEVITY & WELL-AGING ================= -->
-<section id="paketi" class="bg-ink px-6 lg:px-12 py-20 lg:py-28 scroll-mt-24" data-screen-label="Longevity">
-  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
-    <div>
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#E0CEBD] mb-6">LONGEVITY &amp; WELL-AGING</p>
-      <h2 class="reveal rise-in font-sans text-[38px] lg:text-[46px] leading-[1.1] text-white text-balance max-w-2xl" style="font-weight:500">
-        Kad je cilj <span class="text-[#E0CEBD]">dugovječnost</span>
-      </h2>
-    </div>
-    <p class="reveal text-[16px] text-cream/65 font-light leading-relaxed max-w-sm shrink-0">
-      Tri razine dubine — od rane detekcije rizika do sveobuhvatnog upravljanja procesom starenja.
-    </p>
-  </div>
-
-  <div class="grid lg:grid-cols-3 gap-5">
-    <div class="reveal card-pop rounded-[28px] bg-white/[.06] p-8 lg:p-10 flex flex-col">
-      <p class="text-[11px] tracking-[.22em] text-[#E0CEBD]">LONGEVITY PAKET S</p>
-      <p class="mt-6 font-sans text-[28px] lg:text-[32px] leading-tight text-white" style="font-weight:500">Razumjeti svoje tijelo</p>
-      <p class="mt-4 text-[17px] text-cream/70 font-light leading-relaxed">
-        Za one koji žele razumjeti svoje tijelo i produljiti vitalnost kroz znanje, prevenciju i ravnotežu.
-      </p>
-      <p class="mt-5 text-[16px] text-cream/60 font-light leading-relaxed">
-        Program je usmjeren na ranu detekciju rizika i procjenu biološke dobi, uz preporuke koje podržavaju dugoročno zdravlje i snagu organizma.
-      </p>
-      <div class="mt-8 pt-8 border-t border-white/10 flex flex-col gap-3">
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Procjena biološke dobi</p>
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Rana detekcija rizika</p>
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Preporuke za 6 mjeseci</p>
-      </div>
-      <a href="kontakt.html#forma" class="group mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-white border-b border-white/40 pb-1 self-start hover:text-[#E0CEBD] hover:border-[#E0CEBD] transition-colors">
-        UPIT ZA PROGRAM <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-      </a>
-    </div>
-
-    <div class="reveal card-pop rounded-[28px] bg-[#C0A392] p-8 lg:p-10 flex flex-col" style="transition-delay:.08s">
-      <div class="flex items-center justify-between gap-4">
-        <p class="text-[11px] tracking-[.22em] text-white">LONGEVITY PAKET L</p>
-        <span class="rounded-full bg-white/20 text-white text-[10.5px] tracking-[.16em] px-3.5 py-1.5">SVEOBUHVATNO</span>
-      </div>
-      <p class="mt-6 font-sans text-[28px] lg:text-[32px] leading-tight text-white" style="font-weight:500">Aktivno upravljanje starenjem</p>
-      <p class="mt-4 text-[17px] text-white/90 font-light leading-relaxed">
-        Sveobuhvatan pristup za one koji žele aktivno upravljati svojim zdravljem i procesom starenja.
-      </p>
-      <p class="mt-5 text-[16px] text-white/75 font-light leading-relaxed">
-        Program kombinira napredne metode procjene funkcionalnog stanja tijela s personaliziranim planom regenerativne i preventivne medicine — za trajnu vitalnost i jasnoću uma.
-      </p>
-      <div class="mt-8 pt-8 border-t border-white/25 flex flex-col gap-3">
-        <p class="text-[16px] text-white font-light leading-relaxed">Napredna funkcionalna procjena</p>
-        <p class="text-[16px] text-white font-light leading-relaxed">Regenerativni protokol</p>
-        <p class="text-[16px] text-white font-light leading-relaxed">Praćenje kroz cijelu godinu</p>
-      </div>
-      <a href="kontakt.html#forma" class="group mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-white border-b border-white/60 pb-1 self-start hover:text-ink hover:border-ink transition-colors">
-        UPIT ZA PROGRAM <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-      </a>
-    </div>
-
-    <div class="reveal card-pop rounded-[28px] bg-white/[.06] p-8 lg:p-10 flex flex-col" style="transition-delay:.16s">
-      <p class="text-[11px] tracking-[.22em] text-[#E0CEBD]">WELL-AGING PAKET</p>
-      <p class="mt-6 font-sans text-[28px] lg:text-[32px] leading-tight text-white" style="font-weight:500">Godine svjesno i s lakoćom</p>
-      <p class="mt-4 text-[17px] text-cream/70 font-light leading-relaxed">
-        Namijenjen svima koji žele živjeti godine svjesno, uravnoteženo i s lakoćom.
-      </p>
-      <p class="mt-5 text-[16px] text-cream/60 font-light leading-relaxed">
-        Program je usmjeren na očuvanje prirodne ljepote, unutarnje snage i harmonije tijela i duha, kroz pristup koji njeguje zdravlje iznutra i izvana.
-      </p>
-      <div class="mt-8 pt-8 border-t border-white/10 flex flex-col gap-3">
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Estetika i njega kože</p>
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Ravnoteža tijela i duha</p>
-        <p class="text-[16px] text-cream/85 font-light leading-relaxed">Nutritivna podrška</p>
-      </div>
-      <a href="kontakt.html#forma" class="group mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold tracking-[.12em] text-white border-b border-white/40 pb-1 self-start hover:text-[#E0CEBD] hover:border-[#E0CEBD] transition-colors">
-        UPIT ZA PROGRAM <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= ZAKLJUČAK ================= -->
-<section class="bg-[#FCF8F5]">
-  <div class="grid lg:grid-cols-12 items-stretch">
-    <div class="lg:col-span-5 relative min-h-[44vh] lg:min-h-[64vh] overflow-hidden">
-      <img src="images/prog-02.webp" alt="Poliklinika Fidelia" width="900" height="1319" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
-    </div>
-    <div class="lg:col-span-7 px-6 lg:px-12 py-16 lg:py-24 flex flex-col justify-center">
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#AE947E] mb-6">ZAJEDNIČKI TEMELJ</p>
-      <h2 class="reveal rise-in font-sans text-[36px] lg:text-[44px] leading-[1.1] text-ink text-balance max-w-2xl" style="font-weight:500">
-        Cilj nije samo spriječiti bolest — <span class="text-[#9E7C64]">nego stvoriti životnu ravnotežu</span>
-      </h2>
-      <p class="reveal mt-7 text-[19px] lg:text-[18px] leading-[1.75] text-ink/80 font-light max-w-xl" style="transition-delay:.1s">
-        Svi programi temelje se na filozofiji personalizirane medicine, prevencije i transparentne brige o svakom pacijentu — ravnoteža u kojoj zdravlje postaje trajno stanje blagostanja.
-      </p>
-      <a href="cjenik.html" class="reveal group mt-9 inline-flex items-center gap-2 text-[13px] font-semibold tracking-[.12em] text-ink border-b border-ink/50 pb-1 self-start hover:text-taupe hover:border-taupe transition-colors" style="transition-delay:.2s">
-        CIJENE PROGRAMA <span class="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-
-<!-- ================= CTA PRIJE FOOTERA ================= -->
+<!-- ================= CTA ================= -->
 <section class="relative z-10 px-6 lg:px-12 py-20 lg:py-28 bg-[#C0A392] rounded-t-[40px]" data-screen-label="CTA">
   <div class="flex flex-col items-center text-center">
-    <p class="reveal text-[14px] lg:text-[12px] tracking-[.28em] text-white mb-6" style="font-weight:500">FIDELIA CLUB LONGEVITY</p>
-    <h2 class="reveal font-sans font-medium text-[40px] lg:text-[52px] leading-[1.08] text-white max-w-2xl text-balance" style="transition-delay:.1s">
-      Dugoročna skrb umjesto pojedinačnih termina
+    <p class="reveal text-[14px] lg:text-[12px] tracking-[.28em] text-white mb-6" style="font-weight:500">IMATE PITANJE?</p>
+    <h2 class="reveal font-sans font-medium text-[40px] lg:text-[52px] leading-[1.08] text-white max-w-3xl text-balance" style="transition-delay:.1s">
+      Javite nam se, tu smo
     </h2>
-    <p class="reveal mt-6 text-[17px] text-white/90 font-light leading-relaxed max-w-lg" style="transition-delay:.2s">
-      Članovi imaju prioritetne termine, kontinuirano praćenje biomarkera i vlastiti longevity plan.
-    </p>
-    <a href="#" class="reveal group mt-10 inline-flex items-center gap-3 rounded-full bg-white text-ink text-[12.5px] tracking-[.12em] pl-8 pr-3 py-3 hover:bg-sand transition-colors duration-300" style="transition-delay:.3s">
-      SAZNAJTE VIŠE
-      <span class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-      </span>
-    </a>
-  </div>
-</section>
-
-<section id="kontakt" class="relative z-10 px-6 lg:px-12 pt-10 lg:pt-12 pb-24 lg:pb-32 bg-[#C0A392]" data-screen-label="Kontakt">
-  <div class="reveal rise-in rounded-[32px] bg-cream p-8 lg:p-16 grid lg:grid-cols-2 gap-14">
-    <div>
-      <p class="reveal track-in text-[14px] lg:text-[12px] font-medium lg:font-normal text-[#9E7C64] mb-6">NARUČIVANJE</p>
-      <h2 class="reveal font-sans font-medium text-[42px] lg:text-[48px] leading-[1.08] text-ink text-balance" style="transition-delay:.1s">
-        Zakažite konzultacije <span class="text-[#9E7C64]">s povjerenjem</span>
-      </h2>
-      <p class="reveal mt-6 text-[18px] lg:text-[16px] text-mute font-light leading-relaxed max-w-md" style="transition-delay: .2s; color: #5B493A">Ostavite upit i naš tim javit će vam se s prijedlogom termina i programa.</p>
-      <div class="reveal mt-10 space-y-5 text-[17px] lg:text-[15.5px]" style="transition-delay:.3s">
-        <p class="text-ink">+385 99 333 8878 <span class="text-mute font-light text-[15px] lg:text-sm ml-2">Pon–Pet · 08:00–20:00</span></p>
-        <p class="text-ink">+385 98 712 604</p>
-        <p class="text-ink">info@skinclinic.hr <span class="text-mute font-light text-[15px] lg:text-sm ml-2">Odgovaramo unutar 24h</span></p>
-        <p class="text-ink">Spinčićeva 2c, 21000 Split</p>
-      </div>
+    <div class="reveal mt-10 flex flex-wrap items-center justify-center gap-4" style="transition-delay:.2s">
+      <a href="kontakt.html" class="group inline-flex items-center gap-3 rounded-full bg-white text-ink text-[12.5px] tracking-[.12em] pl-8 pr-3 py-3 hover:bg-sand transition-colors duration-300">
+        KONTAKTIRAJTE NAS
+        <span class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </span>
+      </a>
     </div>
-    <form class="reveal" style="transition-delay:.2s" @submit.prevent>
-      <div class="grid sm:grid-cols-2 gap-4">
-        <input placeholder="Ime" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
-        <input placeholder="Prezime" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
-        <input placeholder="Mobitel" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
-        <input type="email" placeholder="E-mail" class="w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe" />
-      </div>
-      <textarea rows="4" placeholder="Poruka" class="mt-4 w-full bg-white rounded-2xl px-5 py-4 text-sm placeholder-mute/70 focus:outline-none focus:ring-1 focus:ring-taupe resize-none"></textarea>
-      <label class="flex items-start gap-3 mt-5 text-[12.5px] text-mute font-light"><input type="checkbox" class="mt-0.5 accent-taupe" /> Suglasan/na sam s obradom podataka u skladu s politikom privatnosti.</label>
-      <button class="mt-6 w-full rounded-full bg-ink text-white text-[12.5px] tracking-[.14em] py-4 hover:bg-[#9E7C64] transition-colors">POŠALJI UPIT</button>
-    </form>
   </div>
 </section>
 
@@ -726,8 +576,8 @@
     <nav class="flex flex-wrap gap-x-8 gap-y-3 text-[13px] tracking-[.08em] font-light">
       <a href="index.html#usluge-showcase" class="hover:text-white transition">USLUGE</a>
       <a href="index.html#pristup" class="hover:text-white transition">PRISTUP</a>
-      <a href="#programi" class="hover:text-white transition">PROGRAMI</a>
-      <a href="index.html#club" class="hover:text-white transition">CLUB</a>
+      <a href="index.html#programi-sec" class="hover:text-white transition">PROGRAMI</a>
+      <a href="club.html" class="hover:text-white transition">CLUB</a>
       <a href="cjenik.html" class="hover:text-white transition">CJENIK</a>
       <a href="kontakt.html" class="hover:text-white transition">KONTAKT</a>
     </nav>
@@ -737,30 +587,6 @@
     <div class="flex gap-6"><a href="page.html" class="hover:text-white transition">Pravila privatnosti</a><a href="page.html" class="hover:text-white transition">Kolačići</a><span>Design: <a href="https://fer-projekt.com" target="_blank" rel="noopener" class="text-white hover:text-white transition">Fer Projekt</a></span></div>
   </div>
 </footer>
-
-<script>
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('programiPage', () => ({
-      init() {
-        // scroll-reveal for .reveal and .card-pop elements
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
-        }, { threshold: 0.2 });
-        window.revealIO = io;
-        document.querySelectorAll('.reveal, .card-pop').forEach((el) => io.observe(el));
-
-        // header/utility-bar scroll state
-        const updateHeroProgress = () => {
-          const p = Math.min(Math.max(window.scrollY / 220, 0), 1);
-          window.dispatchEvent(new CustomEvent('hero-progress', { detail: p }));
-        };
-        window.addEventListener('scroll', updateHeroProgress, { passive: true });
-        window.addEventListener('resize', updateHeroProgress);
-        updateHeroProgress();
-      }
-    }));
-  });
-</script>
 
 </body>
 </html>

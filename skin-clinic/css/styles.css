@@ -77,4 +77,45 @@
 .mega-link { display:block; padding:.5rem 0; font-size:14px; color:#5f544c; border-bottom:1px solid transparent; transition:color .15s, border-color .15s; }
   .mega-link:hover { color:#39322D; border-color:#E0CEBD; }
 
+  /* globalni content stilovi (rich text) */
+  .prose h2 { font-family: 'Jost', sans-serif; font-weight: 500; font-size: 32px; line-height: 1.15; letter-spacing: .005em; color: #1E1915; margin: 4rem 0 1.25rem; }
+  .prose h3 { font-family: 'Jost', sans-serif; font-weight: 500; font-size: 22px; line-height: 1.3; color: #1E1915; margin: 2.5rem 0 .75rem; }
+  .prose h2 + h3 { margin-top: 1.75rem; }
+  .prose p { font-size: 18px; line-height: 1.85; font-weight: 300; color: rgba(30,25,21,.75); margin: 0 0 1.5rem; }
+  .prose p.lede { font-size: 21px; line-height: 1.7; color: rgba(30,25,21,.85); }
+  .prose strong { font-weight: 500; color: #1E1915; }
+  .prose em { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.12em; }
+  .prose a { color: #1E1915; text-decoration: none; border-bottom: 1px solid rgba(30,25,21,.35); transition: color .25s, border-color .25s; }
+  .prose a:hover { color: #9E7C64; border-color: #9E7C64; }
+  .prose ul, .prose ol { margin: 0 0 1.75rem; padding: 0; list-style: none; counter-reset: li; }
+  .prose li { position: relative; font-size: 18px; line-height: 1.8; font-weight: 300; color: rgba(30,25,21,.75); padding-left: 2rem; margin-bottom: .75rem; }
+  .prose ul > li::before { content: ''; position: absolute; left: .4rem; top: .85em; width: 5px; height: 5px; border-radius: 999px; background: #C0A392; }
+  .prose ol > li { counter-increment: li; }
+  .prose ol > li::before { content: counter(li, decimal-leading-zero); position: absolute; left: 0; top: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: #AE947E; }
+  .prose li > ul { margin: .75rem 0 0; }
+  .prose blockquote { margin: 2.75rem 0; padding-left: 2rem; border-left: 2px solid #C0A392; }
+  .prose blockquote p { font-family: 'Jost', sans-serif; font-weight: 400; font-size: 24px; line-height: 1.45; color: #1E1915; margin-bottom: .75rem; }
+  .prose blockquote footer { font-size: 15px; font-weight: 300; color: #8A7B6D; }
+  .prose hr { border: 0; border-top: 1px solid rgba(30,25,21,.12); margin: 3.5rem 0; }
+  .prose code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88em; background: rgba(192,163,146,.16); color: #1E1915; padding: .15em .45em; border-radius: 5px; }
+  .prose pre { background: #1E1915; color: #EDE4DA; border-radius: 18px; padding: 1.5rem 1.75rem; overflow-x: auto; margin: 0 0 1.75rem; }
+  .prose pre code { background: none; color: inherit; padding: 0; font-size: 14px; line-height: 1.75; }
+  .prose small { display: block; font-size: 14px; line-height: 1.7; color: #8A7B6D; }
+  .prose figure.tablica-figure { margin: 2.5rem 0; }
+  .prose table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 17px; font-weight: 300; }
+  .prose th, .prose td { text-align: left; padding: 1rem 1.25rem; border-bottom: 1px solid rgba(30,25,21,.12); vertical-align: top; white-space: nowrap; }
+  .prose thead th { font-size: 11px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: #8A7B6D; border-bottom-color: rgba(30,25,21,.22); }
+  .prose tbody tr:last-child td { border-bottom: 0; }
+  .prose td:first-child { white-space: normal; color: #1E1915; }
+  .prose figure.tablica-figure figcaption { margin-top: .9rem; font-size: 14px; color: #8A7B6D; }
+  @media (max-width: 640px) {
+    .prose h2 { font-size: 27px; margin-top: 3rem; }
+    .prose h3 { font-size: 20px; }
+    .prose p, .prose li { font-size: 17px; }
+    .prose p.lede { font-size: 19px; }
+    .prose blockquote { padding-left: 1.25rem; margin: 2rem 0; }
+    .prose blockquote p { font-size: 21px; }
+    .prose th, .prose td { padding: .85rem 1rem; }
+  }
+
 [x-cloak]{display:none!important}
