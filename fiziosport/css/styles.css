@@ -1,0 +1,25 @@
+/* Poliklinika Fizio Sport — custom stilovi (sve ostalo je Tailwind) */
+html { scroll-behavior: smooth; }
+body { background: #FAF6EC; font-family: Figtree, system-ui, sans-serif; }
+.font-display { font-family: "Manrope", system-ui, sans-serif; letter-spacing: -0.03em; }
+
+[x-cloak] { display: none !important; }
+
+/* Scroll reveal */
+.reveal-ready [data-reveal] > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms cubic-bezier(.22,.8,.28,1), transform 600ms cubic-bezier(.22,.8,.28,1);
+}
+.reveal-ready [data-reveal].is-in > * { opacity: 1; transform: none; }
+.reveal-ready [data-reveal] > *:nth-child(2) { transition-delay: 100ms; }
+.reveal-ready [data-reveal] > *:nth-child(3) { transition-delay: 200ms; }
+.reveal-ready [data-reveal] > *:nth-child(4) { transition-delay: 300ms; }
+.reveal-ready [data-reveal] > *:nth-child(5) { transition-delay: 400ms; }
+.reveal-ready [data-reveal] > *:nth-child(6) { transition-delay: 500ms; }
+.reveal-ready [data-reveal] > *:nth-child(n+7) { transition-delay: 600ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal-ready [data-reveal] > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+}

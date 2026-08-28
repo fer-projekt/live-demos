@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poliklinika Fizio Sport Split — ortopedija, fizikalna medicina i rehabilitacija</title>
+<meta name="description" content="Poliklinika Fizio Sport, Split: ortopedski pregled, fizikalna medicina, fizikalna terapija i rehabilitacija na jednom mjestu. Vinogradska 82. Online naručivanje.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind (CDN za razvoj; za produkciju vidi README.md) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/tailwind.config.js"></script>
+
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- Alpine.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+</head>
+<body class="bg-sand-50 text-ink-700 font-sans antialiased">
+
+<div class="bg-sand-50 text-ink-700 font-sans antialiased">
+
+  <a href="#sadrzaj" class="absolute -left-[9999px] top-0 z-[80] bg-ink-900 px-5 py-3 text-sand-25 focus:left-3 focus:top-3">Preskoči na sadržaj</a>
+
+  <header class="fixed inset-x-0 top-0 z-40 bg-transparent transition-[transform,background-color] duration-300 ease-calm" x-data="{ nav: null, m: false, lastY: 0, hide: false, solid: false, onScroll() { const y = window.scrollY; this.solid = y &gt; 100; this.hide = !this.m &amp;&amp; y &gt; 500 &amp;&amp; y &gt; this.lastY; this.lastY = y; } }" x-init="onScroll(); window.addEventListener('scroll', () =&gt; onScroll(), { passive: true })" x-effect="$el.classList.toggle('-translate-y-full', hide); $el.classList.toggle('bg-ink-900', solid || m); $el.classList.toggle('bg-transparent', !(solid || m))">
+    <div class="flex min-h-[88px] items-center gap-8 px-5 sm:px-8 lg:px-14">
+      <a href="#" aria-label="Poliklinika Fizio Sport — početna" class="flex shrink-0 items-center">
+        <img src="images/logo-fiziosport.png" alt="Poliklinika Fizio Sport" class="h-[42px] w-auto brightness-0 invert">
+      </a>
+
+      <nav aria-label="Glavna navigacija" class="ml-auto hidden items-center gap-5 lg:flex xl:gap-8">
+        <div class="relative flex items-center" x-init="$el.addEventListener('mouseenter', () =&gt; (nav = 'dj')); $el.addEventListener('mouseleave', () =&gt; (nav = null))">
+          <a href="#djelatnosti" class="inline-flex items-center gap-2 border-b border-transparent py-2 text-[15px] font-medium tracking-[0.01em] text-sand-200 transition-colors duration-150 ease-calm hover:border-gold-500 hover:text-sand-25">Specijalističke djelatnosti
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-[15px] w-[15px] transition-transform duration-150 ease-calm" x-effect="$el.classList.toggle('rotate-180', nav === 'dj')" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </a>
+          <div x-cloak x-show="nav === 'dj'" class="absolute -left-5 top-[calc(100%+18px)] min-w-[340px] border border-ink-200 bg-white py-2 shadow-xl shadow-ink-900/10">
+            <a href="#djelatnosti" class="block px-6 py-3.5 no-underline transition-colors duration-150 ease-calm hover:bg-sand-50">
+              <span class="block text-[17px] font-semibold leading-tight text-ink-900">Ortopedija</span>
+              <span class="mt-1 block text-[15px] text-ink-500">Pregled, dijagnostika i plan liječenja</span>
+            </a>
+            <a href="#djelatnosti" class="block px-6 py-3.5 no-underline transition-colors duration-150 ease-calm hover:bg-sand-50">
+              <span class="block text-[17px] font-semibold leading-tight text-ink-900">Fizikalna medicina</span>
+              <span class="mt-1 block text-[15px] text-ink-500">Pregled fizijatra i procjena funkcije</span>
+            </a>
+            <a href="#djelatnosti" class="block px-6 py-3.5 no-underline transition-colors duration-150 ease-calm hover:bg-sand-50">
+              <span class="block text-[17px] font-semibold leading-tight text-ink-900">Fizikalna terapija</span>
+              <span class="mt-1 block text-[15px] text-ink-500">Terapijski program i rehabilitacija</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="relative flex items-center" x-init="$el.addEventListener('mouseenter', () =&gt; (nav = 'on')); $el.addEventListener('mouseleave', () =&gt; (nav = null))">
+          <a href="#pristup" class="inline-flex items-center gap-2 border-b border-transparent py-2 text-[15px] font-medium tracking-[0.01em] text-sand-200 transition-colors duration-150 ease-calm hover:border-gold-500 hover:text-sand-25">O nama
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-[15px] w-[15px] transition-transform duration-150 ease-calm" x-effect="$el.classList.toggle('rotate-180', nav === 'on')" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </a>
+          <div x-cloak x-show="nav === 'on'" class="absolute -left-5 top-[calc(100%+18px)] min-w-[340px] border border-ink-200 bg-white py-2 shadow-xl shadow-ink-900/10">
+            <a href="#pristup" class="block px-6 py-3.5 no-underline transition-colors duration-150 ease-calm hover:bg-sand-50">
+              <span class="block text-[17px] font-semibold leading-tight text-ink-900">O nama</span>
+              <span class="mt-1 block text-[15px] text-ink-500">Kako radimo i zašto tako</span>
+            </a>
+            <a href="#tim" class="block px-6 py-3.5 no-underline transition-colors duration-150 ease-calm hover:bg-sand-50">
+              <span class="block text-[17px] font-semibold leading-tight text-ink-900">Stručni tim</span>
+              <span class="mt-1 block text-[15px] text-ink-500">Liječnici i fizioterapeuti</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="#aktualno" class="border-b border-transparent py-2 text-[15px] font-medium tracking-[0.01em] text-sand-200 transition-colors duration-150 ease-calm hover:border-gold-500 hover:text-sand-25">Aktualno</a>
+        <a href="#kontakt" class="border-b border-transparent py-2 text-[15px] font-medium tracking-[0.01em] text-sand-200 transition-colors duration-150 ease-calm hover:border-gold-500 hover:text-sand-25">Kontakt</a>
+        <span aria-hidden="true" class="h-[22px] w-px bg-white/25"></span>
+        <div class="flex items-center gap-3">
+          <a href="tel:+38521815031" class="whitespace-nowrap text-[15px] font-medium text-sand-25 no-underline transition-colors duration-150 ease-calm hover:text-gold-300">021 815 031</a>
+          <span aria-hidden="true" class="h-[14px] w-px bg-white/25"></span>
+          <a href="tel:+385955994515" class="whitespace-nowrap text-[15px] font-medium text-sand-25 no-underline transition-colors duration-150 ease-calm hover:text-gold-300">095 599 4515</a>
+        </div>
+        <a href="https://ezdravko.hr/" class="inline-flex min-h-[48px] items-center rounded bg-gold-500 px-6 py-3 text-[15px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:bg-gold-600">Online naručivanje</a>
+      </nav>
+
+      <button type="button" x-init="$el.addEventListener('click', () =&gt; (m = !m))" aria-label="Meni" x-effect="$el.setAttribute('aria-expanded', m)" class="ml-auto inline-flex h-[52px] items-center gap-2.5 rounded border border-white/30 px-4 text-[15px] font-medium text-sand-25 lg:hidden">
+        <svg x-show="!m" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-5 w-5" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        <svg x-cloak x-show="m" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-5 w-5" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+        Meni
+      </button>
+    </div>
+
+    <nav x-cloak x-show="m" aria-label="Mobilna navigacija" class="border-t border-white/[.14] bg-ink-900 lg:hidden">
+      <div class="flex flex-col px-5 pb-6 pt-2 sm:px-10">
+        <a href="#djelatnosti" x-init="$el.addEventListener('click', () =&gt; (m = false))" class="border-b border-white/[.14] py-5 font-display text-[22px] leading-tight text-sand-25 no-underline">Specijalističke djelatnosti</a>
+        <a href="#djelatnosti" x-init="$el.addEventListener('click', () =&gt; (m = false))" class="border-b border-white/[.14] py-4 pl-6 text-[17px] text-sand-200 no-underline">Ortopedija</a>
+        <a href="#djelatnosti" x-init="$el.addEventListener('click', () =&gt; (m = false))" class="border-b border-white/[.14] py-4 pl-6 text-[17px] text-sand-200 no-underline">Fizikalna medicina</a>
+        <a href="#djelatnosti" x-init="$el.addEventListener('click', () =&gt; (m = false))" class="border-b border-white/[.14] py-4 pl-6 text-[17px] text-sand-200 no-underline">Fizikalna terapija</a>
+        <a href="#pristup" x-init="$el.addEventListener('click', () =&gt; (m = false))" class="border-b border-white/[.14] py-5 font-display text-[22px] leading-tight text-sand-25 no-underline">O nama</a>
+        <a href="#tim" x-init="$el.addEventListener('click', () =&gt; (m = false))" class="border-b border-white/[.14] py-4 pl-6 text-[17px] text-sand-200 no-underline">Stručni tim</a>
+        <a href="#aktualno" x-init="$el.addEventListener('click', () =&gt; (m = false))" class="border-b border-white/[.14] py-5 font-display text-[22px] leading-tight text-sand-25 no-underline">Aktualno</a>
+        <a href="#kontakt" x-init="$el.addEventListener('click', () =&gt; (m = false))" class="border-b border-white/[.14] py-5 font-display text-[22px] leading-tight text-sand-25 no-underline">Kontakt</a>
+        <a href="https://ezdravko.hr/" class="mt-6 inline-flex min-h-[60px] items-center justify-center rounded bg-gold-500 text-[17px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:bg-gold-600">Online naručivanje</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="sadrzaj">
+
+    <section aria-labelledby="hero-naslov" class="bg-white">
+      <div class="relative min-h-[min(100svh-88px,560px)] w-full overflow-hidden bg-ink-900 sm:min-h-[min(100svh-88px,640px)] lg:min-h-[min(84vh,860px)]">
+        <div class="absolute inset-0">
+          <img src="images/hero.png" style="object-position: 50% 18%" alt="Fizioterapeut vodi pacijenta kroz vježbu u Poliklinici Fizio Sport" class="h-full w-full object-cover">
+        </div>
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(34,31,27,.62)_0%,rgba(34,31,27,.80)_58%,rgba(34,31,27,.90)_100%)] lg:bg-[linear-gradient(100deg,rgba(34,31,27,.88)_0%,rgba(34,31,27,.76)_32%,rgba(34,31,27,.42)_58%,rgba(34,31,27,0)_80%)]"></div>
+        <div class="pointer-events-none relative flex min-h-[min(100svh-88px,560px)] items-center px-5 pb-[92px] pt-24 sm:min-h-[min(100svh-88px,640px)] sm:px-8 lg:min-h-[min(84vh,860px)] lg:px-14 lg:py-24">
+          <div class="w-full max-w-[560px] lg:max-w-[54%]" data-reveal="1">
+            <div class="text-xs font-semibold uppercase tracking-caps text-gold-300">Poliklinika · Split · od 2016.</div>
+            <h1 id="hero-naslov" class="mt-6 max-w-[22ch] font-display text-[40px] font-normal leading-[1.02] tracking-tight3 text-sand-25 sm:text-[58px] lg:mt-8 lg:text-[80px]">Ortopedija, fizikalna medicina i rehabilitacija na jednom mjestu.</h1>
+            <p class="mt-6 max-w-[52ch] text-[19px] leading-[1.55] text-sand-100 lg:mt-8">Pregled, dijagnostika i terapija vode se u istoj ustanovi — uz jedan plan liječenja i tim koji prati Vaš oporavak od prvog dana.</p>
+            <div class="pointer-events-auto mt-8 flex flex-wrap items-center gap-6 lg:mt-10">
+              <a href="https://ezdravko.hr/" class="inline-flex min-h-[62px] items-center gap-3 rounded bg-gold-500 px-8 py-4 text-[17px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:bg-gold-600">Online naručivanje</a>
+              <a href="tel:+38521815031" class="border-b border-gold-500 pb-1 text-[17px] font-semibold text-sand-25 no-underline transition-colors duration-150 ease-calm hover:text-gold-300">ili nazovite 021 815 031</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid border-t border-ink-200 lg:grid-cols-3" data-reveal="1">
+        <div class="border-b border-ink-200 px-5 py-5 sm:px-8 lg:border-b-0 lg:border-r lg:px-14">
+          <div class="text-xs font-semibold uppercase tracking-caps text-ink-400">Adresa</div>
+          <div class="mt-1.5 text-[17px] text-ink-900">Vinogradska 82, Split</div>
+        </div>
+        <div class="border-b border-ink-200 px-5 py-5 sm:px-8 lg:border-b-0 lg:border-r lg:px-14">
+          <div class="text-xs font-semibold uppercase tracking-caps text-ink-400">Radno vrijeme</div>
+          <div class="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[17px] text-ink-900">
+            <span>Pon – Pet: 08:00 – 20:00 h</span>
+            <span aria-hidden="true" class="text-ink-300">|</span>
+            <span>Subota: radna zadnja u mjesecu</span>
+          </div>
+        </div>
+        <div class="px-5 py-5 sm:px-8 lg:px-14">
+          <div class="text-xs font-semibold uppercase tracking-caps text-ink-400">Telefon</div>
+          <div class="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <a href="tel:+38521815031" class="text-[17px] font-semibold text-ink-900 no-underline hover:text-gold-700">021 815 031</a>
+            <span aria-hidden="true" class="text-ink-300">|</span>
+            <a href="tel:+385955994515" class="text-[17px] font-semibold text-ink-900 no-underline hover:text-gold-700">095 599 4515</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="djelatnosti" class="bg-sand-50">
+      <div class="grid items-start gap-8 px-5 pb-8 pt-14 sm:px-8 lg:grid-cols-[200px_1fr] lg:px-14 lg:pb-12 lg:pt-28" data-reveal="1">
+        <div class="text-xs font-semibold uppercase leading-[1.6] tracking-caps text-gold-700 lg:mt-[14px]">Specijalističke djelatnosti</div>
+        <h2 class="max-w-[26ch] font-display text-[30px] font-normal leading-[1.08] tracking-tight2 text-ink-900 lg:text-[54px]">Tri djelatnosti, jedan plan liječenja</h2>
+      </div>
+
+      <article class="grid lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="px-5 py-9 sm:px-8 lg:px-20 lg:py-[72px] xl:px-24" data-reveal="1">
+          <div class="text-[15px] font-medium leading-none text-gold-700">01</div>
+          <h3 class="mt-5 max-w-[18ch] font-display text-[30px] font-normal leading-[1.08] tracking-tight2 text-ink-900 lg:text-[54px]">Ortopedija</h3>
+          <p class="mt-6 max-w-[48ch] text-[19px] leading-[1.55] text-ink-700">Ortopedski pregled, procjena problema i dijagnostika, a nakon toga jasan plan liječenja — konzervativni ili operativni put, objašnjen razumljivim jezikom.</p>
+          <ul class="mt-8 max-w-[46ch] list-none border-b border-ink-100 p-0">
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Ortopedski pregled i procjena tegoba</span></li>
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Dijagnostika i plan daljnjeg liječenja</span></li>
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Infiltracijski postupci i biološka terapija</span></li>
+          </ul>
+          <a href="#kontakt" class="mt-8 inline-block border-b border-gold-500 pb-1 text-[17px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:text-gold-700">Pročitaj više</a>
+        </div>
+        <div class="relative min-h-[320px] bg-sand-200">
+          <div class="absolute inset-0"><img src="images/ortopedija.webp" alt="Ortopedski postupak u ordinaciji" class="h-full w-full object-cover "></div>
+        </div>
+      </article>
+
+      <article class="grid lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="relative order-2 min-h-[320px] bg-sand-200 lg:order-1">
+          <div class="absolute inset-0"><img src="images/fizikalna-medicina.webp" alt="Pregled fizijatra u poliklinici" class="h-full w-full object-cover "></div>
+        </div>
+        <div class="order-1 px-5 py-9 sm:px-8 lg:order-2 lg:px-20 lg:py-[72px] xl:px-24" data-reveal="1">
+          <div class="text-[15px] font-medium leading-none text-gold-700">02</div>
+          <h3 class="mt-5 max-w-[18ch] font-display text-[30px] font-normal leading-[1.08] tracking-tight2 text-ink-900 lg:text-[54px]">Fizikalna medicina</h3>
+          <p class="mt-6 max-w-[48ch] text-[19px] leading-[1.55] text-ink-700">Specijalistički pregled fizijatra, procjena funkcije i plan rehabilitacije nakon ozljede ili operacije — s jasnim ciljevima i rokovima.</p>
+          <ul class="mt-8 max-w-[46ch] list-none border-b border-ink-100 p-0">
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Pregled fizijatra i procjena funkcije</span></li>
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Plan rehabilitacije nakon ozljede i operacije</span></li>
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Praćenje oporavka i korekcija plana</span></li>
+          </ul>
+          <a href="#kontakt" class="mt-8 inline-block border-b border-gold-500 pb-1 text-[17px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:text-gold-700">Pročitaj više</a>
+        </div>
+      </article>
+
+      <article class="grid lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="px-5 py-9 sm:px-8 lg:px-20 lg:py-[72px] xl:px-24" data-reveal="1">
+          <div class="text-[15px] font-medium leading-none text-gold-700">03</div>
+          <h3 class="mt-5 max-w-[18ch] font-display text-[30px] font-normal leading-[1.08] tracking-tight2 text-ink-900 lg:text-[54px]">Fizikalna terapija</h3>
+          <p class="mt-6 max-w-[48ch] text-[19px] leading-[1.55] text-ink-700">Fizikalnu terapiju smatramo najvažnijom karikom u očuvanju zdravlja lokomotornog sustava. Program kreiramo nakon fizioterapijske procjene i specijalističkog pregleda, a svaki se provodi po principu 1:1 — djelujemo na uzrok, a ne samo na simptome.</p>
+          <ul class="mt-8 max-w-[46ch] list-none border-b border-ink-100 p-0">
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Kineziterapija i manualna terapija</span></li>
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Automatizirana spinalna dekompresija</span></li>
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>HILT laser i T.E.C.A.R. terapija</span></li>
+            <li class="flex items-start gap-3 border-t border-ink-100 py-3.5 text-[17px] text-ink-700"><span aria-hidden="true" class="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-gold-500"></span><span>Visokoinduktivni magnet 3 T i bezbolni udarni val</span></li>
+          </ul>
+          <a href="#kontakt" class="mt-8 inline-block border-b border-gold-500 pb-1 text-[17px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:text-gold-700">Pročitaj više</a>
+        </div>
+        <div class="relative min-h-[320px] bg-sand-200">
+          <div class="absolute inset-0"><img src="images/fizikalna-terapija.webp" alt="Fizikalna terapija i rehabilitacija" class="h-full w-full object-cover "></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="pristup" class="bg-white">
+      <div class="grid items-center gap-10 px-5 py-14 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:px-14 lg:py-32">
+        <div class="relative">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="relative aspect-[3/4] overflow-hidden rounded-[10px] bg-sand-200">
+              <img src="images/o-nama-1.webp" style="object-position: 87.5% 50%" alt="Pregled u ordinaciji" class="h-full w-full object-cover ">
+            </div>
+            <div class="relative mt-10 aspect-[3/4] overflow-hidden rounded-[10px] bg-sand-200">
+              <img src="images/o-nama-2.webp" style="object-position: 79% 50%" alt="Terapija s pacijentom" class="h-full w-full object-cover ">
+            </div>
+          </div>
+          <a href="tel:+38521815031" aria-label="Nazovite nas — 021 815 031" class="absolute left-1/2 top-1/2 grid h-[74px] w-[74px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-sand-25 no-underline shadow-[0_10px_30px_rgba(53,42,26,.16)] transition-colors duration-150 ease-calm hover:bg-gold-500">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#A57F38" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </a>
+          <div class="absolute bottom-6 left-0 flex items-baseline gap-3 rounded-[10px] bg-sand-25 px-7 py-5 shadow-[0_10px_30px_rgba(53,42,26,.14)] lg:-left-6">
+            <span class="font-display text-[40px] font-normal leading-none text-gold-700">10</span>
+            <span class="font-display text-[26px] font-normal leading-none text-gold-700">+</span>
+            <span class="text-[17px] text-ink-600">godina iskustva</span>
+          </div>
+        </div>
+
+        <div data-reveal="1">
+          <div class="text-xs font-semibold uppercase tracking-caps text-gold-700">O nama</div>
+          <h2 class="mt-5 max-w-[22ch] font-display text-[30px] font-normal leading-[1.08] tracking-tight2 text-ink-900 lg:text-[52px]">Poliklinika u kojoj Vas prati jedan tim</h2>
+          <p class="mt-6 max-w-[54ch] text-[19px] leading-[1.55] text-ink-700">Prvo razumjeti problem, pa odabrati pristup. Pregled, terapija i rehabilitacija odvijaju se pod istim krovom, pa se plan liječenja mijenja onda kad treba — bez gubitka vremena između ustanova i bez ponavljanja iste priče.</p>
+          <div class="mt-8 grid gap-x-12 sm:grid-cols-2">
+            <div class="border-t border-ink-300 py-5">
+              <h3 class="font-display text-[19px] text-ink-900">Stručan tim</h3>
+              <p class="mt-2 text-[17px] text-ink-600">Ortopedija, fizikalna medicina i fizioterapija dijele isti plan liječenja.</p>
+            </div>
+            <div class="border-t border-ink-300 py-5">
+              <h3 class="font-display text-[19px] text-ink-900">Individualan pristup</h3>
+              <p class="mt-2 text-[17px] text-ink-600">Terapija se planira za Vašu dijagnozu, godine i svakodnevne obveze.</p>
+            </div>
+            <div class="border-t border-ink-300 py-5">
+              <h3 class="font-display text-[19px] text-ink-900">Suvremene metode</h3>
+              <p class="mt-2 text-[17px] text-ink-600">Spinalna dekompresija, elektromagnetski uređaj, HILT laser, udarni val.</p>
+            </div>
+            <div class="border-t border-ink-300 py-5">
+              <h3 class="font-display text-[19px] text-ink-900">Fokus na funkciju</h3>
+              <p class="mt-2 text-[17px] text-ink-600">Cilj je pokretljivost i svakodnevni život, ne samo prekid boli.</p>
+            </div>
+          </div>
+          <div class="mt-9 flex flex-wrap items-center gap-7">
+            <a href="https://ezdravko.hr/" class="inline-flex min-h-[58px] items-center rounded bg-gold-500 px-8 py-4 text-[17px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:bg-gold-600">Naruči se</a>
+            <a href="#tim" class="border-b border-gold-500 pb-1 text-[17px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:text-gold-700">Upoznajte naš tim</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tim" class="bg-ink-900">
+      <div class="px-5 pb-12 pt-14 sm:px-8 lg:px-14 lg:pb-24 lg:pt-28">
+        <div class="grid items-baseline gap-8 border-b border-white/[.18] pb-8 lg:grid-cols-[200px_1fr] lg:pb-14">
+          <div class="text-xs font-semibold uppercase tracking-caps text-gold-300">Stručni tim</div>
+          <div>
+            <h2 class="max-w-[24ch] font-display text-[28px] font-normal leading-[1.1] tracking-tight2 text-sand-25 lg:text-[48px]">Ljudi koji vode Vaš oporavak</h2>
+            <p class="mt-4 max-w-[52ch] text-[17px] text-ink-300">Ortopedi, fizijatri i fizioterapeuti rade u istom timu i o Vašem slučaju razgovaraju međusobno — plan liječenja tako ostaje jedan, od prvog pregleda do zadnje terapije.</p>
+          </div>
+        </div>
+        <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-10" data-reveal="1">
+          <figure class="group m-0">
+            <div class="aspect-[3/4] overflow-hidden bg-ink-800">
+              <img src="images/team/frane-bukvic.webp" alt="dr. sc. Frane Bukvić" class="h-full w-full object-cover object-[center_16%] transition-transform duration-[380ms] ease-calm group-hover:scale-[1.03]">
+            </div>
+            <figcaption class="mt-4 border-t border-white/[.18] pt-4">
+              <div class="text-xs font-semibold uppercase tracking-caps text-gold-300">Ortopedija</div>
+              <div class="mt-2 font-display text-[22px] font-normal leading-tight text-sand-25">dr. sc. Frane Bukvić</div>
+              <div class="mt-1.5 text-[15px] text-ink-300">dr. med., specijalist ortopedije i traumatologije</div>
+            </figcaption>
+          </figure>
+          <figure class="group m-0">
+            <div class="aspect-[3/4] overflow-hidden bg-ink-800">
+              <img src="images/team/jurica-rakic.png" alt="dr. Jurica Rakić" class="h-full w-full object-cover object-[center_16%] transition-transform duration-[380ms] ease-calm group-hover:scale-[1.03]">
+            </div>
+            <figcaption class="mt-4 border-t border-white/[.18] pt-4">
+              <div class="text-xs font-semibold uppercase tracking-caps text-gold-300">Fizikalna medicina</div>
+              <div class="mt-2 font-display text-[22px] font-normal leading-tight text-sand-25">dr. Jurica Rakić</div>
+              <div class="mt-1.5 text-[15px] text-ink-300">dr. med., specijalist fizikalne medicine i rehabilitacije</div>
+            </figcaption>
+          </figure>
+          <figure class="group m-0">
+            <div class="aspect-[3/4] overflow-hidden bg-ink-800">
+              <img src="images/team/jelena-gabelica.jpg" alt="Jelena Gabelica" class="h-full w-full object-cover object-[center_16%] transition-transform duration-[380ms] ease-calm group-hover:scale-[1.03]">
+            </div>
+            <figcaption class="mt-4 border-t border-white/[.18] pt-4">
+              <div class="text-xs font-semibold uppercase tracking-caps text-gold-300">Fizikalna terapija</div>
+              <div class="mt-2 font-display text-[22px] font-normal leading-tight text-sand-25">Jelena Gabelica</div>
+              <div class="mt-1.5 text-[15px] text-ink-300">bacc. fizioterapije</div>
+            </figcaption>
+          </figure>
+          <figure class="group m-0">
+            <div class="aspect-[3/4] overflow-hidden bg-ink-800">
+              <img src="images/team/luka-rados.jpg" alt="Luka Radoš" class="h-full w-full object-cover object-[center_16%] transition-transform duration-[380ms] ease-calm group-hover:scale-[1.03]">
+            </div>
+            <figcaption class="mt-4 border-t border-white/[.18] pt-4">
+              <div class="text-xs font-semibold uppercase tracking-caps text-gold-300">Fizikalna terapija</div>
+              <div class="mt-2 font-display text-[22px] font-normal leading-tight text-sand-25">Luka Radoš</div>
+              <div class="mt-1.5 text-[15px] text-ink-300">bacc. fizioterapije</div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="proces-naslov" class="bg-sand-100">
+      <div class="px-5 py-12 sm:px-8 lg:px-14 lg:py-24">
+        <h2 id="proces-naslov" class="max-w-[26ch] font-display text-[24px] font-normal leading-[1.15] tracking-tight2 text-ink-900 lg:text-[36px]">Kako izgleda put pacijenta</h2>
+        <ol class="mt-8 grid list-none p-0 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4" data-reveal="1">
+          <li class="border-t-2 border-gold-500 py-5 pr-6">
+            <div class="text-[13px] font-medium leading-none text-gold-700">01</div>
+            <h3 class="mt-3 font-display text-[19px] text-ink-900">Pregled</h3>
+            <p class="mt-2 text-[15px] text-ink-600">Razgovor, klinički pregled i procjena tegoba.</p>
+          </li>
+          <li class="border-t border-ink-300 py-5 pr-6">
+            <div class="text-[13px] font-medium leading-none text-ink-400">02</div>
+            <h3 class="mt-3 font-display text-[19px] text-ink-900">Plan terapije</h3>
+            <p class="mt-2 text-[15px] text-ink-600">Odabir pristupa, s objašnjenjem što slijedi i zašto.</p>
+          </li>
+          <li class="border-t border-ink-300 py-5 pr-6">
+            <div class="text-[13px] font-medium leading-none text-ink-400">03</div>
+            <h3 class="mt-3 font-display text-[19px] text-ink-900">Terapija i rehabilitacija</h3>
+            <p class="mt-2 text-[15px] text-ink-600">Individualiziran rad uz praćenje napretka.</p>
+          </li>
+          <li class="border-t border-ink-300 py-5">
+            <div class="text-[13px] font-medium leading-none text-ink-400">04</div>
+            <h3 class="mt-3 font-display text-[19px] text-ink-900">Povratak funkciji</h3>
+            <p class="mt-2 text-[15px] text-ink-600">Pokretljivost i svakodnevni život bez ograničenja.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    
+      <section id="iskustva" class="bg-ink-900" x-data="{ i: 0, n: 5, track() { return document.querySelector('#iskustva [data-track]'); }, go(k) { const t = this.track(); this.i = (k + this.n) % this.n; if (!t) return; const target = this.i * t.clientWidth; const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; if (reduce) { t.scrollLeft = target; return; } try { t.scrollTo({ left: target, behavior: 'smooth' }); } catch (e) { t.scrollLeft = target; } setTimeout(function () { if (Math.abs(t.scrollLeft - target) > 4) t.scrollLeft = target; }, 360); }, sync() { const t = this.track(); if (t) this.i = Math.round(t.scrollLeft / t.clientWidth); } }">
+        <div class="grid overflow-hidden bg-ink-900 lg:grid-cols-2">
+          <div class="flex flex-col justify-center px-5 py-16 sm:px-10 lg:px-20 lg:py-28 xl:px-28">
+            <svg viewBox="0 0 32 24" fill="currentColor" class="h-7 w-9 text-gold-500" aria-hidden="true"><path d="M0 24V13.2C0 5.9 4.2 1.1 12 0l1.2 4.6C8.6 5.7 6.4 8 6.4 11.1h4.9V24H0zm18.8 0V13.2C18.8 5.9 23 1.1 30.8 0L32 4.6c-4.6 1.1-6.8 3.4-6.8 6.5h4.9V24H18.8z"></path></svg>
+            <div class="mt-7 overflow-hidden">
+              <div data-track="1" x-init="let t; $el.addEventListener('scroll', () =&gt; { clearTimeout(t); t = setTimeout(() =&gt; sync(), 120); }, { passive: true })" class="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+                  <blockquote class="m-0 w-full shrink-0 snap-start">
+                    <p class="m-0 max-w-[30ch] font-display text-[26px] font-normal leading-[1.32] text-sand-25 lg:text-[34px]">„Imam samo riječi pohvale za dr. Antonovskog i fizioterapeuta Luku! Oboje su izuzetni stručnjaci — profesionalni, pažljivi i uvijek posvećeni pacijentu. Osjećala sam se sigurno i u dobrim rukama. Preporučujem ih od srca svima!”</p>
+                    <footer class="mt-8 text-[15px] text-ink-300">— Aneta Budrović, Google recenzije</footer>
+                  </blockquote>
+                  <blockquote class="m-0 w-full shrink-0 snap-start">
+                    <p class="m-0 max-w-[30ch] font-display text-[26px] font-normal leading-[1.32] text-sand-25 lg:text-[34px]">„Svaki dolazak, od prvog do daljnjeg, bio je predivno iskustvo profesionalnosti, znanja, ljudskosti i svega što čovjeku treba kad je u potrebi. Djelatnici su oličenje ljudskosti, uslužnosti i dobrote. Hvala od srca!”</p>
+                    <footer class="mt-8 text-[15px] text-ink-300">— Alenka Škokić, Google recenzije</footer>
+                  </blockquote>
+                  <blockquote class="m-0 w-full shrink-0 snap-start">
+                    <p class="m-0 max-w-[30ch] font-display text-[26px] font-normal leading-[1.32] text-sand-25 lg:text-[34px]">„Doći kod vas na terapiju računa se skoro kao izlazak — dobra energija, smijeh i ekipa koja zna što radi. Hvala vam što ste me složili kad sam bila raspad sistema. Profesionalni, simpatični, uvijek spremni pomoći.”</p>
+                    <footer class="mt-8 text-[15px] text-ink-300">— Hela Gvozdenović, Google recenzije</footer>
+                  </blockquote>
+                  <blockquote class="m-0 w-full shrink-0 snap-start">
+                    <p class="m-0 max-w-[30ch] font-display text-[26px] font-normal leading-[1.32] text-sand-25 lg:text-[34px]">„Sjajna ekipa! Profesionalno, ljubazno, sve na nivou. Nakon samo jednog pregleda otklonili su bol u ruci koja je trajala tjednima.”</p>
+                    <footer class="mt-8 text-[15px] text-ink-300">— Nadica Lončar, Google recenzije</footer>
+                  </blockquote>
+                  <blockquote class="m-0 w-full shrink-0 snap-start">
+                    <p class="m-0 max-w-[30ch] font-display text-[26px] font-normal leading-[1.32] text-sand-25 lg:text-[34px]">„Profesionalni, ljubazni i — što je najvažnije — ne primaju te ako ne smatraju da ti mogu pomoći. Jednostavno, preporuka svima!”</p>
+                    <footer class="mt-8 text-[15px] text-ink-300">— Asdren Đokaj, Google recenzije</footer>
+                  </blockquote>
+              </div>
+            </div>
+            <div class="mt-10 flex flex-wrap items-center justify-between gap-6">
+              <div class="flex items-center gap-3" role="tablist" aria-label="Recenzije">
+                  <button type="button" x-init="$el.addEventListener('click', () =&gt; go(0))" aria-label="Recenzija 1" class="h-[3px] w-10 bg-white/25 transition-colors duration-150 ease-calm hover:bg-white/50" x-effect="$el.classList.toggle('bg-gold-500', i === 0); $el.classList.toggle('bg-white/25', i !== 0)"></button>
+                  <button type="button" x-init="$el.addEventListener('click', () =&gt; go(1))" aria-label="Recenzija 2" class="h-[3px] w-10 bg-white/25 transition-colors duration-150 ease-calm hover:bg-white/50" x-effect="$el.classList.toggle('bg-gold-500', i === 1); $el.classList.toggle('bg-white/25', i !== 1)"></button>
+                  <button type="button" x-init="$el.addEventListener('click', () =&gt; go(2))" aria-label="Recenzija 3" class="h-[3px] w-10 bg-white/25 transition-colors duration-150 ease-calm hover:bg-white/50" x-effect="$el.classList.toggle('bg-gold-500', i === 2); $el.classList.toggle('bg-white/25', i !== 2)"></button>
+                  <button type="button" x-init="$el.addEventListener('click', () =&gt; go(3))" aria-label="Recenzija 4" class="h-[3px] w-10 bg-white/25 transition-colors duration-150 ease-calm hover:bg-white/50" x-effect="$el.classList.toggle('bg-gold-500', i === 3); $el.classList.toggle('bg-white/25', i !== 3)"></button>
+                  <button type="button" x-init="$el.addEventListener('click', () =&gt; go(4))" aria-label="Recenzija 5" class="h-[3px] w-10 bg-white/25 transition-colors duration-150 ease-calm hover:bg-white/50" x-effect="$el.classList.toggle('bg-gold-500', i === 4); $el.classList.toggle('bg-white/25', i !== 4)"></button>
+              </div>
+              <div class="flex gap-3">
+                <button type="button" x-init="$el.addEventListener('click', () =&gt; go(i - 1))" aria-label="Prethodna recenzija" class="grid h-12 w-12 place-items-center rounded border border-white/30 text-sand-25 transition-colors duration-150 ease-calm hover:bg-white/10">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M19 12H5m6 7-7-7 7-7"></path></svg>
+                </button>
+                <button type="button" x-init="$el.addEventListener('click', () =&gt; go(i + 1))" aria-label="Sljedeća recenzija" class="grid h-12 w-12 place-items-center rounded border border-white/30 text-sand-25 transition-colors duration-150 ease-calm hover:bg-white/10">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M5 12h14m-6-7 7 7-7 7"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="relative aspect-[4/3] w-full max-w-full overflow-hidden bg-ink-900 lg:aspect-auto lg:h-full lg:min-h-full">
+            <div class="absolute inset-0 overflow-hidden"><img src="images/recenzije.webp" style="object-position: 22.2% 50%" alt="Terapija u Poliklinici Fizio Sport" class="h-full w-full object-cover "></div>
+          </div>
+        </div>
+      </section>
+    
+
+    <section id="upit" aria-labelledby="upit-naslov" class="relative overflow-hidden bg-ink-900">
+      <div class="absolute inset-0"><img src="images/kontakt.webp" alt="Prostor Poliklinike Fizio Sport" class="h-full w-full object-cover "></div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(34,31,27,.86)_0%,rgba(34,31,27,.62)_100%)] lg:bg-[linear-gradient(100deg,rgba(34,31,27,.9)_0%,rgba(34,31,27,.7)_46%,rgba(34,31,27,.34)_100%)]"></div>
+
+      <div class="pointer-events-none relative mx-auto grid max-w-[1200px] items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[1fr_440px] lg:gap-12 lg:px-14 lg:py-28">
+        <div data-reveal="1">
+          <div class="text-xs font-semibold uppercase tracking-caps text-gold-300">Kontakt</div>
+          <h2 id="upit-naslov" class="mt-6 max-w-[16ch] font-display text-[34px] font-normal leading-[1.06] tracking-tight2 text-sand-25 lg:text-[56px]">Tu smo radi Vas.</h2>
+          <p class="mt-5 max-w-[42ch] text-[19px] leading-[1.55] text-sand-100">Stručnost, individualan pristup i ugodno okruženje čine razliku. Slobodno nam se obratite!</p>
+          <div class="pointer-events-auto mt-8 flex flex-wrap items-center gap-6">
+            <a href="tel:+38521815031" class="flex items-center gap-4 no-underline">
+              <span aria-hidden="true" class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gold-500">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#221F1B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </span>
+              <span class="flex flex-col">
+                <span class="text-[13px] uppercase tracking-caps text-ink-300">Nazovite nas</span>
+                <span class="mt-0.5 text-[19px] font-semibold text-sand-25">021 815 031</span>
+              </span>
+            </a>
+            <a href="mailto:fiziosport.split@gmail.com" class="flex items-center gap-4 no-underline">
+              <span aria-hidden="true" class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gold-500">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#221F1B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3.5 6.5 8.5 6 8.5-6"></path></svg>
+              </span>
+              <span class="flex flex-col">
+                <span class="text-[13px] uppercase tracking-caps text-ink-300">Pišite nam</span>
+                <span class="mt-0.5 break-all text-[17px] font-semibold text-sand-25">fiziosport.split@gmail.com</span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <form class="pointer-events-auto rounded-[10px] bg-white p-7 shadow-[0_18px_50px_rgba(34,31,27,.28)] lg:p-9" data-reveal="1">
+          <h3 class="font-display text-[24px] font-normal leading-tight text-ink-900 lg:text-[28px]">Pošaljite upit</h3>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <label class="flex flex-col gap-2">
+              <span class="text-[13px] uppercase tracking-caps text-ink-500">Ime i prezime</span>
+              <input type="text" name="ime" required class="min-h-[52px] w-full rounded border border-ink-200 bg-sand-25 px-4 text-[17px] text-ink-900 outline-none transition-colors duration-150 ease-calm focus:border-gold-500">
+            </label>
+            <label class="flex flex-col gap-2">
+              <span class="text-[13px] uppercase tracking-caps text-ink-500">E-mail</span>
+              <input type="email" name="email" required class="min-h-[52px] w-full rounded border border-ink-200 bg-sand-25 px-4 text-[17px] text-ink-900 outline-none transition-colors duration-150 ease-calm focus:border-gold-500">
+            </label>
+          </div>
+          <label class="mt-4 flex flex-col gap-2">
+            <span class="text-[13px] uppercase tracking-caps text-ink-500">Telefon</span>
+            <input type="tel" name="telefon" class="min-h-[52px] w-full rounded border border-ink-200 bg-sand-25 px-4 text-[17px] text-ink-900 outline-none transition-colors duration-150 ease-calm focus:border-gold-500">
+          </label>
+          <label class="mt-4 flex flex-col gap-2">
+            <span class="text-[13px] uppercase tracking-caps text-ink-500">Poruka</span>
+            <textarea name="poruka" rows="4" required class="w-full resize-y rounded border border-ink-200 bg-sand-25 px-4 py-3 text-[17px] leading-[1.5] text-ink-900 outline-none transition-colors duration-150 ease-calm focus:border-gold-500"></textarea>
+          </label>
+          <button type="submit" class="mt-6 inline-flex min-h-[56px] w-full items-center justify-center gap-3 rounded bg-gold-500 px-7 text-[17px] font-semibold text-ink-900 transition-colors duration-150 ease-calm hover:bg-gold-600">Pošalji upit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-[18px] w-[18px]" aria-hidden="true"><path d="M5 12h14m-6-7 7 7-7 7"></path></svg>
+          </button>
+          <p class="mt-4 text-[15px] text-ink-500">Odgovaramo u najkraćem roku, radnim danom od 08:00 do 20:00 h.</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="aktualno" class="border-b border-ink-200 bg-sand-50">
+      <div class="px-5 py-12 sm:px-8 lg:px-14 lg:py-24">
+        <div class="text-xs font-semibold uppercase tracking-caps text-gold-700">Aktualno</div>
+        <div class="mt-4 flex flex-wrap items-end justify-between gap-6" data-reveal="1">
+          <h2 class="max-w-[26ch] font-display text-[28px] font-normal leading-[1.1] tracking-tight2 text-ink-900 lg:text-[44px]">Kratko i stručno o temama koje pacijenti najčešće pitaju</h2>
+          <a href="#aktualno" class="inline-flex items-center gap-2 pb-2 text-[15px] font-semibold text-ink-900 no-underline transition-colors duration-150 ease-calm hover:text-gold-700">Svi članci
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14m-6-7 7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-10" data-reveal="1">
+          <a href="#aktualno" class="group block no-underline">
+            <div class="relative aspect-[4/3] w-full overflow-hidden">
+              <img src="images/blog-1.webp" style="object-position: 98.5% 50%" alt="Bol u križima" class="h-full w-full object-cover transition-transform duration-[380ms] ease-calm group-hover:scale-[1.03]">
+              <div class="pointer-events-none absolute left-4 top-4 flex w-[74px] flex-col items-center bg-ink-900 px-3 py-2.5 text-center">
+                <span class="font-display text-[26px] font-normal leading-none text-sand-25">14</span>
+                <span class="mt-1 text-[13px] font-medium uppercase tracking-caps text-sand-200">lip</span>
+              </div>
+            </div>
+            <h3 class="mt-5 w-full font-display text-[22px] font-normal leading-[1.25] text-ink-900 transition-colors duration-150 ease-calm group-hover:text-gold-700 lg:text-[26px]">Bol u križima: kada je mirovanje pogreška</h3>
+            <p class="mt-3 w-full text-[15px] text-ink-600">Zašto se kod većine tegoba oporavak ubrzava kontroliranim pokretom, a ne ležanjem.</p>
+          </a>
+
+          <a href="#aktualno" class="group block no-underline">
+            <div class="relative aspect-[4/3] w-full overflow-hidden">
+              <img src="images/blog-2.webp" style="object-position: 100% 50%" alt="Rehabilitacija koljena" class="h-full w-full object-cover transition-transform duration-[380ms] ease-calm group-hover:scale-[1.03]">
+              <div class="pointer-events-none absolute left-4 top-4 flex w-[74px] flex-col items-center bg-ink-900 px-3 py-2.5 text-center">
+                <span class="font-display text-[26px] font-normal leading-none text-sand-25">02</span>
+                <span class="mt-1 text-[13px] font-medium uppercase tracking-caps text-sand-200">lip</span>
+              </div>
+            </div>
+            <h3 class="mt-5 w-full font-display text-[22px] font-normal leading-[1.25] text-ink-900 transition-colors duration-150 ease-calm group-hover:text-gold-700 lg:text-[26px]">Rehabilitacija koljena nakon operacije prednjeg križnog ligamenta</h3>
+            <p class="mt-3 w-full text-[15px] text-ink-600">Kako izgleda program po fazama i što realno očekivati u prvih šest mjeseci.</p>
+          </a>
+
+          <a href="#aktualno" class="group block no-underline">
+            <div class="relative aspect-[4/3] w-full overflow-hidden">
+              <img src="images/blog-3.webp" style="object-position: 100% 50%" alt="Terapija udarnim valom" class="h-full w-full object-cover transition-transform duration-[380ms] ease-calm group-hover:scale-[1.03]">
+              <div class="pointer-events-none absolute left-4 top-4 flex w-[74px] flex-col items-center bg-ink-900 px-3 py-2.5 text-center">
+                <span class="font-display text-[26px] font-normal leading-none text-sand-25">21</span>
+                <span class="mt-1 text-[13px] font-medium uppercase tracking-caps text-sand-200">svi</span>
+              </div>
+            </div>
+            <h3 class="mt-5 w-full font-display text-[22px] font-normal leading-[1.25] text-ink-900 transition-colors duration-150 ease-calm group-hover:text-gold-700 lg:text-[26px]">Petni trn i terapija udarnim valom: što kaže praksa</h3>
+            <p class="mt-3 w-full text-[15px] text-ink-600">Kod kojih kroničnih tendinopatija udarni val ima smisla i koliko tretmana treba.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt" class="bg-ink-900">
+      <div class="px-5 pb-10 pt-14 sm:px-8 lg:px-14 lg:pb-20 lg:pt-32">
+        <div class="grid items-end gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20" data-reveal="1">
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-caps text-gold-300">Naručivanje</div>
+            <h2 class="mt-6 max-w-[20ch] font-display text-[28px] font-normal leading-[1.1] tracking-tight2 text-sand-25 lg:text-[44px]">Vrijeme je za sljedeći korak.</h2>
+            <p class="mt-6 max-w-[44ch] text-[19px] leading-[1.55] text-ink-300">Naručite pregled online kad Vam odgovara. Ako Vam je lakše telefonom, rado ćemo Vas uputiti na pravu uslugu.</p>
+          </div>
+          <div class="flex flex-col gap-4">
+            <a href="https://ezdravko.hr/" class="inline-flex min-h-[76px] items-center justify-between gap-6 rounded bg-gold-500 px-7 py-4 text-[19px] font-semibold leading-tight text-ink-900 no-underline transition-colors duration-150 ease-calm hover:bg-gold-600">
+              Online naručivanje
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-[22px] w-[22px]" aria-hidden="true"><path d="M5 12h14m-6-7 7 7-7 7"></path></svg>
+            </a>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <a href="tel:+38521815031" class="flex min-h-[76px] flex-col justify-center gap-1.5 rounded border border-white/[.28] px-7 py-4 text-sand-25 no-underline transition-colors duration-150 ease-calm hover:bg-white/[.07]">
+                <span class="text-xs font-semibold uppercase tracking-caps text-ink-300">Telefon</span>
+                <span class="whitespace-nowrap font-display text-[22px] font-normal leading-none text-sand-25 lg:text-[26px]">021 815 031</span>
+              </a>
+              <a href="tel:+385955994515" class="flex min-h-[76px] flex-col justify-center gap-1.5 rounded border border-white/[.28] px-7 py-4 text-sand-25 no-underline transition-colors duration-150 ease-calm hover:bg-white/[.07]">
+                <span class="text-xs font-semibold uppercase tracking-caps text-ink-300">Mobitel</span>
+                <span class="whitespace-nowrap font-display text-[22px] font-normal leading-none text-sand-25 lg:text-[26px]">095 599 4515</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 border-t border-white/[.18] pt-8 lg:mt-24" data-reveal="1">
+          <img src="images/logo-fiziosport.png" alt="Poliklinika Fizio Sport" class="h-10 w-auto brightness-0 invert">
+          <p class="mt-5 max-w-[46ch] text-[15px] text-ink-300">Poliklinika za ortopediju, fizikalnu medicinu, fizikalnu terapiju i rehabilitaciju. Vinogradska 82, Split.</p>
+        </div>
+        <div class="mt-10 grid gap-8 lg:grid-cols-4 lg:gap-10" data-reveal="1">
+          <div class="py-6 pr-6">
+            <div class="text-xs font-semibold uppercase tracking-caps text-ink-400">Adresa</div>
+            <div class="mt-2 text-[17px] text-sand-50">Vinogradska 82<br>21000 Split</div>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Vinogradska+82,+21000+Split" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 border-b border-gold-500 pb-1 text-[15px] font-semibold text-sand-25 no-underline transition-colors duration-150 ease-calm hover:text-gold-300">Pogledaj na mapi
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14m-6-7 7 7-7 7"></path></svg>
+            </a>
+          </div>
+          <div class="py-6 pr-6">
+            <div class="text-xs font-semibold uppercase tracking-caps text-ink-400">Radno vrijeme</div>
+            <dl class="mt-3 grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-[17px]">
+              <dt class="text-ink-300">Pon – Pet:</dt><dd class="m-0 text-sand-50">08:00 – 20:00 h</dd>
+              <dt class="text-ink-300">Subota:</dt><dd class="m-0 text-sand-50">radna zadnja u mjesecu</dd>
+              <dt class="text-ink-300">Nedjelja:</dt><dd class="m-0 text-ink-300">ZATVORENO</dd>
+            </dl>
+          </div>
+          <div class="py-6 pr-6">
+            <div class="text-xs font-semibold uppercase tracking-caps text-ink-400">Kontakt</div>
+            <dl class="mt-3 flex flex-col gap-3 text-[17px]">
+              <div>
+                <dt class="text-[13px] uppercase tracking-caps text-ink-400">Mobitel</dt>
+                <dd class="m-0 mt-0.5"><a href="tel:+385955994515" class="text-sand-50 no-underline hover:text-gold-300">095 599 4515</a></dd>
+              </div>
+              <div>
+                <dt class="text-[13px] uppercase tracking-caps text-ink-400">Telefon</dt>
+                <dd class="m-0 mt-0.5"><a href="tel:+38521815031" class="text-sand-50 no-underline hover:text-gold-300">021 815 031</a></dd>
+              </div>
+              <div>
+                <dt class="text-[13px] uppercase tracking-caps text-ink-400">E-mail</dt>
+                <dd class="m-0 mt-0.5"><a href="mailto:fiziosport.split@gmail.com" class="break-all text-[15px] text-sand-50 no-underline hover:text-gold-300">fiziosport.split@gmail.com</a></dd>
+              </div>
+            </dl>
+          </div>
+          <div class="py-6">
+            <div class="text-xs font-semibold uppercase tracking-caps text-ink-400">Društvene mreže</div>
+            <ul class="mt-4 flex list-none gap-3 p-0">
+              <li>
+                <a href="https://www.facebook.com/fiziosportsplit/" target="_blank" rel="noopener" aria-label="Facebook" class="grid h-11 w-11 place-items-center rounded border border-white/25 text-sand-25 transition-colors duration-150 ease-calm hover:bg-white/10">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="h-[18px] w-[18px]" aria-hidden="true"><path d="M14 9h3V5.5h-3c-2.2 0-4 1.8-4 4V12H7.5v3.5H10V22h3.5v-6.5H16l.5-3.5H13.5V9.8c0-.4.3-.8.5-.8z"></path></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/fiziosport/?hl=hr" target="_blank" rel="noopener" aria-label="Instagram" class="grid h-11 w-11 place-items-center rounded border border-white/25 text-sand-25 transition-colors duration-150 ease-calm hover:bg-white/10">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-[18px] w-[18px]" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://hr.linkedin.com/in/jelena-gabelica-32b578103" target="_blank" rel="noopener" aria-label="LinkedIn" class="grid h-11 w-11 place-items-center rounded border border-white/25 text-sand-25 transition-colors duration-150 ease-calm hover:bg-white/10">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="h-[18px] w-[18px]" aria-hidden="true"><path d="M4.5 9h3v10.5h-3zM6 4.2a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM10 9h2.9v1.5c.5-.9 1.7-1.7 3.2-1.7 2.5 0 3.4 1.6 3.4 4.3v6.4h-3v-5.8c0-1.4-.5-2.2-1.7-2.2-1.1 0-1.8.8-1.8 2.2v5.8h-3z"></path></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+      <div class="h-[88px] bg-ink-900 lg:hidden" aria-hidden="true"></div>
+    
+  </main>
+
+  <footer class="border-t border-white/[.18] bg-ink-900">
+    <div class="px-5 py-6 sm:px-8 lg:px-14 lg:py-7">
+      <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-[15px] text-ink-400">
+        <span>© 2026 Poliklinika Fizio Sport</span>
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <a href="#pravila-privatnosti" class="text-ink-400 no-underline hover:text-sand-25">Pravila privatnosti</a>
+          <span aria-hidden="true" class="text-ink-500">|</span>
+          <a href="#izjava-o-kolacicima" class="text-ink-400 no-underline hover:text-sand-25">Izjava o kolačićima</a>
+          <span aria-hidden="true" class="text-ink-500">|</span>
+          <span>Dizajn by <a href="https://fer-projekt.com" target="_blank" rel="noopener" class="font-semibold text-ink-400 no-underline hover:text-sand-25">Fer Projekt</a></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+    <div class="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex justify-center px-3 pb-3 sm:px-4 sm:pb-4 lg:hidden">
+      <div class="pointer-events-auto flex max-w-full items-center gap-1.5 rounded-full bg-ink-900/95 p-1.5 shadow-[0_12px_34px_rgba(34,31,27,.34)] sm:gap-2 sm:p-2">
+        <a href="https://ezdravko.hr/" class="inline-flex min-h-[52px] shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-gold-500 px-4 text-[15px] font-semibold text-ink-900 no-underline sm:gap-2.5 sm:px-5 sm:text-[16px]">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-[19px] w-[19px]" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M3 11h18m-8 4 2 2 4-4"></path></svg>
+          Naruči se
+        </a>
+        <a href="tel:+38521815031" aria-label="Nazovite 021 815 031" class="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full border border-white/25 text-sand-25 no-underline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </a>
+        <a href="mailto:fiziosport.split@gmail.com" aria-label="Pošaljite e-mail" class="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full border border-white/25 text-sand-25 no-underline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3.5 6.5 8.5 6 8.5-6"></path></svg>
+        </a>
+      </div>
+    </div>
+  
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
