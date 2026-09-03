@@ -1,0 +1,27 @@
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Archivo', system-ui, sans-serif; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  a { color: inherit; }
+  .display { letter-spacing: -0.03em; line-height: 0.95; }
+  body { overflow-x: hidden; }
+  @media (min-width: 1024px) { .bleed-r { margin-right: calc(-1 * (100vw - 92vw) / 2); } }
+  @media (min-width: 1280px) { .bleed-r { margin-right: calc(-1 * (100vw - min(2020px, 79vw)) / 2); } }
+  .reveal { opacity:0; transform:translateY(48px); transition: opacity 1.5s cubic-bezier(.22,1,.36,1), transform 1.5s cubic-bezier(.22,1,.36,1); }
+  .reveal.is-visible { opacity:1; transform:translateY(0); }
+  @keyframes heroLine { from { opacity:0; transform: translateY(38px) } to { opacity:1; transform: none } }
+  @keyframes heroFadeUp { from { opacity:0; transform: translateY(20px) } to { opacity:1; transform: none } }
+  @keyframes floatInLeft { from { opacity:0; transform: translate3d(-140px, 60px, 0) } to { opacity:1; transform: none } }
+  @keyframes floatInRight { from { opacity:0; transform: translate3d(180px, 90px, 0) } to { opacity:1; transform: none } }
+  .hero-line { display:block; opacity:0; animation: heroLine 1.1s cubic-bezier(.22,1,.36,1) forwards; }
+  .hero-line:nth-child(1) { animation-delay:.45s }
+  .hero-line:nth-child(2) { animation-delay:.62s }
+  .hero-line:nth-child(3) { animation-delay:.79s }
+  .hero-sub { opacity:0; animation: heroFadeUp 1s cubic-bezier(.22,1,.36,1) 1s forwards; }
+  .float-in-l { opacity:0; animation: floatInLeft 1.5s cubic-bezier(.22,1,.36,1) 1.35s forwards; }
+  .float-in-r { opacity:0; animation: floatInRight 1.6s cubic-bezier(.22,1,.36,1) 1.6s forwards; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+    .hero-line, .hero-sub, .float-in-l, .float-in-r { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }

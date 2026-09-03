@@ -1,0 +1,12 @@
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Archivo', system-ui, sans-serif; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  a { color: inherit; }
+  .display { letter-spacing: -0.03em; line-height: 0.95; }
+  .reveal { opacity:0; transform:translateY(28px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+  .reveal.is-visible { opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+  }

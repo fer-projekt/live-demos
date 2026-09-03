@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="hr" xmlns:x-on="https://alpinejs.dev/x-on" xmlns:x-bind="https://alpinejs.dev/x-bind" xmlns:x-transition="https://alpinejs.dev/x-transition">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dubrovačke zidine — Društvo prijatelja dubrovačke starine</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/tailwind.config.js"></script>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body class="bg-mist text-ink antialiased" xmlns:x-on="https://alpinejs.dev/x-on" xmlns:x-bind="https://alpinejs.dev/x-bind" xmlns:x-transition="https://alpinejs.dev/x-transition">
+
+<!-- ============ HEADER ============ -->
+<header class="fixed inset-x-0 top-0 z-50 transition-[transform,background-color,color] duration-300 ease-out will-change-transform"
+        x-data="{ m:false, d:null, s:false, h:false, hide:false, ly:0, info:true }"
+        x-on:scroll.window.passive="const y = Math.max(0, window.scrollY); s = y > 80; hide = (m || d) ? false : (y > 140 && y > ly + 6 ? true : (y < ly - 6 ? false : hide)); ly = y"
+        x-bind:style="hide ? 'transform:translateY(-100%)' : 'transform:translateY(0)'"
+        x-bind:class="(s || m || d || h) ? 'bg-ink text-white' : 'bg-transparent text-white'">
+  <div x-show="info" x-collapse class="bg-moss text-white">
+    <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 py-1 flex items-center gap-4">
+      <p class="flex items-start lg:items-center gap-3 text-[13px] lg:text-[14px] leading-[1.35]">
+        <span class="grid place-items-center shrink-0 w-[18px] h-[18px] rounded-full bg-white text-moss text-[13px] font-bold mt-px lg:mt-0">!</span>
+        Zbog radova na obnovi, Tvrđava Lovrjenac zatvorena je 12. i 13. rujna. Hvala na razumijevanju.
+      </p>
+      <button type="button" x-on:click="info=false" class="ml-auto shrink-0 flex items-center h-9 px-1 text-[13px] lg:text-[14px] font-medium underline underline-offset-4 hover:opacity-70 transition-opacity">Zatvori</button>
+    </div>
+  </div>
+
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0">
+    <div class="flex items-start justify-between gap-8 pt-9 pb-6">
+
+      <a href="#" class="shrink-0 flex items-center gap-4 leading-[1.05] tracking-tight">
+        <span class="w-[54px] h-[54px] sm:w-[66px] sm:h-[66px] lg:w-[88px] lg:h-[88px] shrink-0 transition-colors duration-300 bg-white" style="-webkit-mask:url(images/logo-dpds.png) center/contain no-repeat; mask:url(images/logo-dpds.png) center/contain no-repeat" role="img" aria-label="Društvo prijatelja dubrovačke starine"></span>
+        <span class="block transition-colors duration-300 text-[11px] lg:text-[13px] font-medium uppercase leading-[1.35] tracking-[.12em] text-white">
+          Društvo prijatelja<br />dubrovačke starine
+        </span>
+      </a>
+
+      <div class="relative hidden xl:flex items-center justify-end gap-8 pt-6" x-on:mouseenter="h=true" x-on:mouseleave="h=false; d=null">
+        <nav class="flex items-center gap-5 2xl:gap-8 text-[16px] 2xl:text-[19px] font-semibold whitespace-nowrap">
+          <div class="relative" x-on:mouseenter="d='lok'">
+            <button class="flex items-center gap-2 py-1 hover:opacity-60 transition" x-bind:class="d==='lok' && 'opacity-60'">
+              Lokaliteti
+              <span class="grid place-items-center w-5 h-5 rounded-full border border-current">
+                <svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>
+              </span>
+            </button>
+          </div>
+          <a href="#" class="py-1 hover:opacity-60 transition">Pravila ponašanja</a>
+          <a href="#drustvo" class="py-1 hover:opacity-60 transition">O društvu</a>
+          <a href="#novosti" class="py-1 hover:opacity-60 transition">Novosti</a>
+          <a href="#pitanja" class="py-1 hover:opacity-60 transition">Česta pitanja</a>
+          <a href="#kontakt" class="py-1 hover:opacity-60 transition">Kontakt</a>
+          <a href="#ulaznice" class="flex items-center shrink-0 h-[46px] px-5 2xl:px-7 rounded-full bg-white text-ink text-[15px] font-semibold uppercase tracking-[.08em] hover:bg-azure hover:text-white transition-colors">Ulaznice</a>
+          <a href="#" class="flex items-center gap-1.5 py-1 hover:opacity-60 transition">
+            EN
+            <svg width="9" height="6" viewBox="0 0 9 6" fill="none" class="shrink-0"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>
+          </a>
+        </nav>
+            <div x-show="d==='lok'" x-transition.opacity.duration.150ms x-on:mouseenter="d='lok'" class="fixed left-0 right-0 -z-10 bg-white text-ink" x-bind:style="'top:' + (info ? 180 : 148) + 'px'" style="display:none">
+              <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 py-10">
+                <p class="text-[12px] uppercase tracking-[.18em] text-ink/50 mb-6">Osam lokaliteta</p>
+                <div class="grid grid-cols-3 gap-x-14">
+                <div class="flex flex-col">
+                  <a href="#lokaliteti" class="group/dd flex items-center justify-between gap-5 py-3.5 border-b border-ink/15 hover:border-ink transition-colors">
+                    <span class="flex items-center gap-4 min-w-0">
+                      <img src="images/foto-gradske-zidine.jpg" alt="Gradske zidine" class="w-14 h-14 object-cover shrink-0" />
+                      <span class="flex flex-col gap-1 min-w-0">
+                        <span class="text-[16px] font-semibold leading-tight">Gradske zidine</span>
+                        <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Dubrovnik</span>
+                      </span>
+                    </span>
+                    <span class="grid place-items-center shrink-0 w-6 h-6 rounded-full bg-ink text-white group-hover/dd:translate-x-1 transition-transform duration-300">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                  <a href="#lokaliteti" class="group/dd flex items-center justify-between gap-5 py-3.5 border-b border-ink/15 hover:border-ink transition-colors">
+                    <span class="flex items-center gap-4 min-w-0">
+                      <img src="images/foto-zapadno-predzide.jpg" alt="Zapadno predziđe" class="w-14 h-14 object-cover shrink-0" />
+                      <span class="flex flex-col gap-1 min-w-0">
+                        <span class="text-[16px] font-semibold leading-tight">Zapadno predziđe</span>
+                        <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Dubrovnik</span>
+                      </span>
+                    </span>
+                    <span class="grid place-items-center shrink-0 w-6 h-6 rounded-full bg-ink text-white group-hover/dd:translate-x-1 transition-transform duration-300">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                  <a href="#lokaliteti" class="group/dd flex items-center justify-between gap-5 py-3.5 border-b border-ink/15 hover:border-ink transition-colors">
+                    <span class="flex items-center gap-4 min-w-0">
+                      <img src="images/foto-lovrjenac.jpg" alt="Tvrđava Lovrjenac" class="w-14 h-14 object-cover shrink-0" />
+                      <span class="flex flex-col gap-1 min-w-0">
+                        <span class="text-[16px] font-semibold leading-tight">Tvrđava Lovrjenac</span>
+                        <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Dubrovnik</span>
+                      </span>
+                    </span>
+                    <span class="grid place-items-center shrink-0 w-6 h-6 rounded-full bg-ink text-white group-hover/dd:translate-x-1 transition-transform duration-300">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                </div>
+                <div class="flex flex-col">
+                  <a href="#lokaliteti" class="group/dd flex items-center justify-between gap-5 py-3.5 border-b border-ink/15 hover:border-ink transition-colors">
+                    <span class="flex items-center gap-4 min-w-0">
+                      <img src="images/foto-stonske-zidine.jpg" alt="Stonske zidine" class="w-14 h-14 object-cover shrink-0" />
+                      <span class="flex flex-col gap-1 min-w-0">
+                        <span class="text-[16px] font-semibold leading-tight">Stonske zidine</span>
+                        <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Ston</span>
+                      </span>
+                    </span>
+                    <span class="grid place-items-center shrink-0 w-6 h-6 rounded-full bg-ink text-white group-hover/dd:translate-x-1 transition-transform duration-300">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                  <a href="#lokaliteti" class="group/dd flex items-center justify-between gap-5 py-3.5 border-b border-ink/15 hover:border-ink transition-colors">
+                    <span class="flex items-center gap-4 min-w-0">
+                      <img src="images/foto-knezev-dvor-slano.jpg" alt="Knežev dvor Slano" class="w-14 h-14 object-cover shrink-0" />
+                      <span class="flex flex-col gap-1 min-w-0">
+                        <span class="text-[16px] font-semibold leading-tight">Knežev dvor Slano</span>
+                        <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Slano</span>
+                      </span>
+                    </span>
+                    <span class="grid place-items-center shrink-0 w-6 h-6 rounded-full bg-ink text-white group-hover/dd:translate-x-1 transition-transform duration-300">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                  <a href="#lokaliteti" class="group/dd flex items-center justify-between gap-5 py-3.5 border-b border-ink/15 hover:border-ink transition-colors">
+                    <span class="flex items-center gap-4 min-w-0">
+                      <img src="images/foto-sokol-grad.jpg" alt="Sokol grad" class="w-14 h-14 object-cover shrink-0" />
+                      <span class="flex flex-col gap-1 min-w-0">
+                        <span class="text-[16px] font-semibold leading-tight">Sokol grad</span>
+                        <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Konavle</span>
+                      </span>
+                    </span>
+                    <span class="grid place-items-center shrink-0 w-6 h-6 rounded-full bg-ink text-white group-hover/dd:translate-x-1 transition-transform duration-300">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                </div>
+                <div class="flex flex-col">
+                  <a href="#lokaliteti" class="group/dd flex items-center justify-between gap-5 py-3.5 border-b border-ink/15 hover:border-ink transition-colors">
+                    <span class="flex items-center gap-4 min-w-0">
+                      <img src="images/foto-knezev-dvor-pridvorje.jpg" alt="Knežev dvor Pridvorje" class="w-14 h-14 object-cover shrink-0" />
+                      <span class="flex flex-col gap-1 min-w-0">
+                        <span class="text-[16px] font-semibold leading-tight">Knežev dvor Pridvorje</span>
+                        <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Konavle</span>
+                      </span>
+                    </span>
+                    <span class="grid place-items-center shrink-0 w-6 h-6 rounded-full bg-ink text-white group-hover/dd:translate-x-1 transition-transform duration-300">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                  <a href="#lokaliteti" class="group/dd flex items-center justify-between gap-5 py-3.5 border-b border-ink/15 hover:border-ink transition-colors">
+                    <span class="flex items-center gap-4 min-w-0">
+                      <img src="images/foto-knezev-dvor-lopud.jpg" alt="Knežev dvor Lopud" class="w-14 h-14 object-cover shrink-0" />
+                      <span class="flex flex-col gap-1 min-w-0">
+                        <span class="text-[16px] font-semibold leading-tight">Knežev dvor Lopud</span>
+                        <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Otok Lopud</span>
+                      </span>
+                    </span>
+                    <span class="grid place-items-center shrink-0 w-6 h-6 rounded-full bg-ink text-white group-hover/dd:translate-x-1 transition-transform duration-300">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                    </span>
+                  </a>
+                </div>
+                </div>
+              </div>
+            </div>
+      </div>
+
+      <button class="xl:hidden shrink-0 flex items-center gap-2 h-11 px-4 border border-white/30 text-[15px] font-medium" x-on:click="m=!m">
+        <span x-text="m ? 'Zatvori' : 'Meni'">Meni</span>
+      </button>
+    </div>
+  </div>
+
+  <div x-show="m" x-collapse class="xl:hidden border-t border-white/15" style="display:none">
+    <div class="px-6 py-4 flex flex-col">
+      <a href="#lokaliteti" class="flex items-center h-[52px] text-[17px] font-medium border-b border-white/10" x-on:click="m=false">Lokaliteti</a>
+      <a href="#" class="flex items-center h-[52px] text-[17px] font-medium border-b border-white/10" x-on:click="m=false">Pravila ponašanja</a>
+      <a href="#drustvo" class="flex items-center h-[52px] text-[17px] font-medium border-b border-white/10" x-on:click="m=false">O društvu</a>
+      <a href="#novosti" class="flex items-center h-[52px] text-[17px] font-medium border-b border-white/10" x-on:click="m=false">Novosti</a>
+      <a href="#pitanja" class="flex items-center h-[52px] text-[17px] font-medium border-b border-white/10" x-on:click="m=false">Česta pitanja</a>
+      <a href="#kontakt" class="flex items-center h-[52px] text-[17px] font-medium border-b border-white/10" x-on:click="m=false">Kontakt</a>
+      <a href="#ulaznice" class="mt-4 flex items-center justify-between h-[56px] px-5 bg-gold text-ink text-[17px] font-semibold" x-on:click="m=false">
+        Kupi ulaznicu
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M11 1l5 5-5 5M0 6h15" stroke="currentColor" stroke-width="1.8"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="relative">
+  <div class="sticky top-0 h-[100svh] overflow-hidden" x-data="{ ok:false }">
+    <img src="images/foto-hero.jpg" alt="Zračni pogled na stari grad Dubrovnik" class="absolute inset-0 w-full h-full object-cover" />
+    <video src="video/hero.mp4" autoplay muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"
+           class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+           x-bind:class="ok ? 'opacity-100' : 'opacity-0'"
+           x-on:playing="ok = true; $el.playbackRate = 0.5"
+           x-on:stalled="ok = false" x-on:error="ok = false" x-on:waiting="ok = false"></video>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/25 to-black/60"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-transparent"></div>
+  </div>
+
+  <div class="relative -mt-[100svh] min-h-[100svh] lg:h-[100svh] lg:min-h-[620px] overflow-hidden" x-data="{ y:0, t:false }" x-on:scroll.window.passive="if(!t){ t=true; requestAnimationFrame(() => { y = window.scrollY; t=false }) }">
+    <!-- kolaž oblici -->
+    <div class="absolute inset-0 z-20 pointer-events-none">
+      <div class="absolute z-30 left-[44%] top-[52%] xl:left-[42%] xl:top-[56%] 2xl:left-auto 2xl:right-[430px]" x-bind:style="'transform: translate3d(0,' + (-y * 0.32) + 'px,0)'">
+      <div class="float-in-l">
+      <a href="#karta" class="pointer-events-auto hidden lg:flex w-[420px] h-[230px] scale-[0.92] xl:scale-[1.1] 2xl:scale-[1.25] origin-center flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white hover:text-rose -rotate-3 hover:-rotate-6 transition-[transform,color] duration-300"
+         style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+        <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">8 lokaliteta</span>
+        <span class="text-[14px] font-medium uppercase tracking-[.12em]">Karta i rute</span>
+      </a>
+      </div>
+      </div>
+
+      <div class="absolute z-20 -right-[300px] top-[66%] xl:-right-[240px] 2xl:-right-[180px] 2xl:top-[64%]" x-bind:style="'transform: translate3d(0,' + (-y * 0.62) + 'px,0)'">
+      <div class="float-in-r">
+      <a href="#ulaznice" class="pointer-events-auto hidden lg:flex w-[800px] h-[462px] scale-[0.8] xl:scale-[1] 2xl:scale-[1.18] origin-center flex-col items-center justify-center text-center gap-2 pl-16 pr-48 pb-20 bg-white text-azure hover:bg-white hover:text-ink -rotate-2 hover:-rotate-6 transition-[transform,color,background-color] duration-300"
+         style="clip-path: path('M46 89L216 50Q231 46 246 50L385 81Q400 85 411 75L450 41Q461 31 469 44L500 95Q508 108 523 105L646 88Q661 85 674 93L756 139Q769 146 760 159L731 203Q723 215 734 226L766 259Q776 269 763 275L675 310Q661 315 656 329L620 425Q615 439 608 425L554 321Q546 308 533 311L400 350Q385 354 371 350L246 313Q231 308 216 310L108 328Q93 330 88 316L66 245Q61 231 54 219L30 181Q23 169 24 154L30 108Q31 93 46 89Z')">
+        <span class="text-[15px] font-medium">↓</span>
+        <span class="text-[32px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Ulaznice za zidine</span>
+        <span class="text-[14px] font-medium uppercase tracking-[.12em]">Kupi online</span>
+      </a>
+      </div>
+      </div>
+
+    </div>
+
+    <div class="relative z-10 lg:h-full w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 flex flex-col lg:justify-center pt-32 lg:pt-52 pb-16 lg:pb-20">
+      <h1 class="display font-normal uppercase text-white text-[clamp(44px,7.6vw,126px)] leading-[0.92] tracking-[-0.035em] max-w-[15ch]"><span class="hero-line">Osam lokaliteta</span><span class="hero-line">pod zaštitom</span><span class="hero-line">od 1952.</span></h1>
+      <p class="hero-sub mt-8 lg:mt-10 max-w-[440px] text-[16px] lg:text-[18px] font-semibold leading-[1.5] text-white/85">Naša svrha: čuvati dubrovačke zidine, tvrđave i kneževe dvore — i otvoriti ih posjetiteljima kao živu povijest, a ne kulisu.</p>
+
+      <div class="lg:hidden mt-9 flex flex-col">
+        <div class="w-[252px] h-[138px] sm:w-[336px] sm:h-[184px]" x-bind:style="'transform: translate3d(0,' + (-y * 0.24) + 'px,0)'">
+          <a href="#karta" class="w-[420px] h-[230px] origin-top-left scale-[0.6] sm:scale-[0.8] flex flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white -rotate-3"
+             style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+            <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">8 lokaliteta</span>
+            <span class="text-[14px] font-medium uppercase tracking-[.12em]">Karta i rute</span>
+          </a>
+        </div>
+        <div class="w-[304px] h-[176px] sm:w-[464px] sm:h-[268px] -mt-4 sm:-mt-8 ml-0 sm:ml-4" x-bind:style="'transform: translate3d(0,' + (-y * 0.46) + 'px,0)'">
+          <a href="#ulaznice" class="w-[800px] h-[462px] origin-top-left scale-[0.38] sm:scale-[0.58] flex flex-col items-center justify-center text-center gap-2 px-32 pb-20 bg-white text-azure -rotate-2"
+             style="clip-path: path('M46 89L216 50Q231 46 246 50L385 81Q400 85 411 75L450 41Q461 31 469 44L500 95Q508 108 523 105L646 88Q661 85 674 93L756 139Q769 146 760 159L731 203Q723 215 734 226L766 259Q776 269 763 275L675 310Q661 315 656 329L620 425Q615 439 608 425L554 321Q546 308 533 311L400 350Q385 354 371 350L246 313Q231 308 216 310L108 328Q93 330 88 316L66 245Q61 231 54 219L30 181Q23 169 24 154L30 108Q31 93 46 89Z')">
+            <span class="text-[15px] font-medium">↓</span>
+            <span class="text-[32px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Ulaznice za zidine</span>
+            <span class="text-[14px] font-medium uppercase tracking-[.12em]">Kupi online</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative z-10 bg-white border-t border-ink/10">
+   <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 py-10 lg:py-14 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+    <h2 class="display text-[34px] lg:text-[54px] font-semibold max-w-[820px]">Dva kilometra zidina oko starog grada</h2>
+    <a href="#ulaznice" class="flex flex-col gap-2 shrink-0 group text-[17px] lg:text-[19px] font-medium lg:w-[420px]">
+      <span class="flex items-center gap-3">
+        <svg width="22" height="16" viewBox="0 0 22 16" fill="none" class="shrink-0"><path d="M1.5 1.5h19v3.2a1.8 1.8 0 0 0 0 6.6v3.2h-19v-3.2a1.8 1.8 0 0 0 0-6.6V1.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M13.6 4.2v7.6" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/></svg>
+        Ulaznice — <span class="underline decoration-2 underline-offset-4 group-hover:text-azure transition-colors">kupi online</span>
+      </span>
+      <span class="flex items-center gap-3">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="shrink-0"><circle cx="10" cy="10" r="7.3" stroke="currentColor" stroke-width="1.5"/><path d="M10 5.8V10l3 1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Danas otvoreno: 8.00 – 19.30
+      </span>
+    </a>
+   </div>
+
+  </div>
+</section>
+
+<!-- ============ KARTA ============ -->
+<section id="karta" class="bg-white text-ink">
+  <div class="border-t border-ink/30"></div>
+
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 py-14 lg:py-20">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-10 lg:mb-12">
+      <h2 class="display text-[34px] lg:text-[48px] font-semibold">Lokaliteti na karti</h2>
+      <p class="text-[16px] lg:text-[17px] text-ink lg:w-[420px]">Tri lokaliteta u starom gradu Dubrovniku i pet duž obale — od Stona do Konavala.</p>
+    </div>
+
+    <div x-data="karta()" class="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-10 lg:gap-8 items-start">
+
+     <div>
+      <nav class="flex flex-col">
+        <template x-for="(r, ri) in regions" x-bind:key="r.id">
+          <button type="button" x-on:click="region = r.id; cityOn = null"
+                  class="group relative flex items-center gap-3 min-h-[64px] py-3.5 pl-4 pr-4 text-left border-b border-ink/10 transition-colors"
+                  x-bind:class="region === r.id ? 'bg-ink text-white' : 'text-ink hover:bg-mist/60'">
+            <span class="flex-1 text-[19px] lg:text-[21px] tracking-[.01em]"
+                  x-bind:class="region === r.id ? 'font-semibold' : 'font-medium'" x-text="r.n"></span>
+            <span class="shrink-0 grid place-items-center w-6 h-6 rounded-full text-[12px] font-semibold transition-colors"
+                  x-bind:class="region === r.id ? 'bg-white text-ink' : 'bg-mist text-ink group-hover:bg-ink group-hover:text-white'" x-text="r.c"></span>
+          </button>
+        </template>
+      </nav>
+
+      <!-- pop up · desktop -->
+      <div class="hidden lg:block relative mt-8 min-h-[330px]">
+        <template x-for="p in pins" x-bind:key="'pc'+p.i">
+          <div x-show="cityOn===p.i"
+               x-transition:enter="transition ease-out duration-[350ms]"
+               x-transition:enter-start="opacity-0 translate-y-3"
+               x-transition:enter-end="opacity-100 translate-y-0"
+               x-transition:leave="transition ease-in duration-200"
+               x-transition:leave-start="opacity-100 translate-y-0"
+               x-transition:leave-end="opacity-0 translate-y-1"
+               class="group/pop absolute inset-x-0 top-0 border border-ink/12 bg-white text-ink hover:bg-ink hover:text-white hover:border-ink transition-colors duration-300" style="display:none">
+            <img x-bind:src="p.photo" x-bind:alt="p.n" class="w-full h-[150px] object-cover" />
+            <div class="p-5">
+              <p class="text-[11px] uppercase tracking-[.18em] text-ink/45 group-hover/pop:text-white/50 transition-colors duration-300" x-text="p.en"></p>
+              <h3 class="mt-1 display text-[22px] font-semibold leading-tight" x-text="p.n"></h3>
+              <p class="mt-2 text-[14px] leading-[1.5] text-ink/60 group-hover/pop:text-white/70 transition-colors duration-300" x-text="p.d"></p>
+              <p class="mt-3 flex items-center gap-2 text-[13px] font-medium text-ink/75 group-hover/pop:text-white/80 transition-colors duration-300">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="shrink-0"><path d="M6 1a3.4 3.4 0 0 1 3.4 3.4C9.4 7 6 11 6 11S2.6 7 2.6 4.4A3.4 3.4 0 0 1 6 1Z" stroke="currentColor" stroke-width="1.3"/></svg>
+                <span x-text="p.dist"></span>
+              </p>
+              <a x-bind:href="p.href" class="group/cta mt-4 h-11 px-4 inline-flex items-center justify-between gap-4 w-full bg-ink text-white group-hover/pop:bg-white group-hover/pop:text-ink text-[14px] font-semibold transition-colors duration-300">
+                Vidi više
+                <span class="grid place-items-center w-6 h-6 rounded-full bg-white text-ink group-hover/pop:bg-ink group-hover/pop:text-white transition-colors duration-300">
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2l4 4-4 4" /></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </template>
+      </div>
+     </div>
+
+      <div class="relative bleed-r">
+        <div x-show="region === 'dubrovnik'" class="relative w-full" style="container-type:inline-size">
+          <img src="images/map/city-base.png" alt="Ilustrirana karta staroga grada Dubrovnika" class="block w-full h-auto select-none" draggable="false" />
+
+          <template x-for="p in pins" x-bind:key="'ov'+p.i">
+            <img x-bind:src="p.img" alt="" aria-hidden="true"
+                 class="absolute inset-0 block w-full h-auto pointer-events-none transition-opacity duration-300"
+                 x-bind:style="'opacity:' + (cityOn===p.i ? 1 : 0)" />
+          </template>
+
+          <template x-for="s in spots" x-bind:key="'hs'+s.i">
+            <button type="button" aria-label="lokalitet" class="absolute cursor-pointer"
+                    x-bind:style="'left:'+s.l+'%;top:'+s.t+'%;width:'+s.w+'%;height:'+s.h+'%;z-index:'+s.z"
+                    x-on:mouseenter="cityOn=s.i" x-on:click="cityOn=s.i"></button>
+          </template>
+
+          <template x-for="p in pins" x-bind:key="'lb'+p.i">
+            <div class="hidden md:block absolute z-[40]" x-bind:style="'left:'+p.x+'%;top:'+p.y+'%'"
+                 x-on:mouseenter="cityOn=p.i" x-on:click="cityOn=p.i">
+              <div class="absolute whitespace-nowrap bg-ink text-white flex items-center shadow-[0_10px_30px_rgba(0,0,0,.18)] transition-opacity duration-200 cursor-default"
+                   x-bind:style="'bottom:0.05em;transform:translateX(-'+p.tail+'%);font-size:clamp(11px,1.28cqw,15px);padding:0.6em 1.35em 0.6em 0.75em;gap:0.8em'"
+                   x-bind:class="cityOn!==null && cityOn!==p.i ? 'opacity-40' : 'opacity-100'">
+                <svg viewBox="0 0 22 16" fill="none" class="shrink-0" style="width:1.55em;height:1.13em" x-bind:class="cityOn===p.i ? 'text-gold' : 'text-white'">
+                  <path d="M1 15V5l3-2 3 2 3-2 3 2 3-2 3 2v10H1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                  <path d="M1 10h18" stroke="currentColor" stroke-width="1.2"/>
+                </svg>
+                <span class="block w-px self-stretch bg-white/25"></span>
+                <span class="block leading-tight">
+                  <span class="block font-semibold uppercase tracking-[.02em]" x-text="p.n"></span>
+                  <span class="block text-white/70" style="font-size:.8em" x-text="p.en"></span>
+                </span>
+                <span class="absolute top-full bg-ink" x-bind:style="'left:'+p.tail+'%;width:1.25em;height:0.8em;transform:translateX(-50%);clip-path:polygon(0 0,100% 0,50% 100%)'"></span>
+              </div>
+            </div>
+          </template>
+
+          <template x-for="p in pins" x-bind:key="'md'+p.i">
+            <button type="button" class="md:hidden absolute w-4 h-4 rounded-full border-2 border-ink transition-colors"
+                    x-bind:style="'left:'+p.x+'%;top:'+p.y+'%;transform:translate(-50%,-50%);z-index:30'"
+                    x-bind:class="cityOn===p.i ? 'bg-gold' : 'bg-mist'"
+                    x-on:click="cityOn = cityOn===p.i ? null : p.i" x-bind:aria-label="p.n"></button>
+          </template>
+
+          <div class="md:hidden flex flex-wrap gap-2 mt-4">
+            <template x-for="p in pins" x-bind:key="'mp'+p.i">
+              <button type="button" x-on:click="cityOn = cityOn===p.i ? null : p.i"
+                      class="h-10 px-3.5 text-[13px] font-medium border transition-colors"
+                      x-bind:class="cityOn===p.i ? 'bg-ink text-white border-ink' : 'border-ink/25 text-ink'"
+                      x-text="p.n"></button>
+            </template>
+          </div>
+
+          <!-- pop up · mobile -->
+          <template x-for="p in pins" x-bind:key="'mc'+p.i">
+            <div x-show="cityOn===p.i"
+                 x-transition:enter="transition ease-out duration-[350ms]"
+                 x-transition:enter-start="opacity-0 translate-y-3"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 translate-y-1"
+                 class="lg:hidden mt-4 border border-ink/12 bg-white flex" style="display:none">
+              <img x-bind:src="p.photo" x-bind:alt="p.n" class="w-[108px] shrink-0 object-cover" />
+              <div class="p-4 min-w-0">
+                <h3 class="display text-[18px] font-semibold leading-tight" x-text="p.n"></h3>
+                <p class="mt-1 text-[13px] leading-[1.45] text-ink/60" x-text="p.d"></p>
+                <p class="mt-1.5 text-[12px] font-medium text-ink/75" x-text="p.dist"></p>
+                <a x-bind:href="p.href" class="mt-3 h-10 px-3.5 inline-flex items-center gap-2 bg-ink text-white text-[13px] font-medium">
+                  Vidi više
+                  <svg width="14" height="9" viewBox="0 0 16 10" fill="none"><path d="M10 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.6"/></svg>
+                </a>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <template x-for="r in regions.filter((v) => v.id !== 'dubrovnik')" x-bind:key="'e'+r.id">
+          <div x-show="region === r.id" class="flex flex-col gap-6">
+            <div class="grid gap-6" x-bind:class="sites.filter((v) => v.p === r.n).length > 1 ? 'sm:grid-cols-2' : 'sm:grid-cols-1 max-w-[560px]'">
+              <template x-for="s in sites.filter((v) => v.p === r.n)" x-bind:key="s.k">
+                <div class="flex flex-col justify-end">
+                  <template x-if="s.img">
+                    <div class="bg-stone overflow-hidden">
+                      <img x-bind:src="s.img" x-bind:alt="s.n" class="w-full h-[260px] lg:h-[360px] object-cover" />
+                    </div>
+                  </template>
+                  <p class="mt-4 text-[12px] uppercase tracking-[.18em] text-ink/45" x-text="r.n"></p>
+                  <h3 class="mt-1 display text-[24px] lg:text-[28px] font-semibold" x-text="s.n"></h3>
+                  <p class="mt-1.5 text-[16px] text-ink/60" x-text="s.d"></p>
+                </div>
+              </template>
+            </div>
+            <p class="text-[15px] text-ink/55" x-text="r.t"></p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MJESTA ============ -->
+<section id="lokaliteti" class="bg-ink text-white">
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 pt-24 lg:pt-40 pb-14 lg:pb-20" x-data="mjesta()">
+    <div class="grid grid-cols-12 gap-x-6 lg:gap-x-14 gap-y-10 lg:gap-y-16 lg:items-start" x-data="{ hov: null }">
+
+      <div class="col-span-12 mb-2 lg:mb-3 flex flex-wrap items-end justify-between gap-6">
+        <h2 class="reveal display text-[34px] lg:text-[48px] font-semibold">Lokaliteti</h2>
+        <p class="text-[16px] lg:text-[17px] text-white max-w-[420px]">Osam lokaliteta pod zaštitom Društva — od gradskih zidina do kneževih dvora duž obale.</p>
+      </div>
+
+      <a x-bind:href="places[0].href" x-on:mouseenter="hov=0" x-on:mouseleave="hov=null" style="transition-delay:0ms" class="reveal group col-span-12 lg:col-span-7 lg:col-start-1 relative flex flex-col p-5 lg:p-6">
+        <span aria-hidden="true" x-bind:class="(hov === null || hov === 0) ? '!scale-100 !opacity-100' : ''" class="pointer-events-none absolute inset-0 bg-[#ff462a] origin-center scale-90 opacity-0 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)]"></span>
+        <div class="relative overflow-hidden"><template x-if="places[0].img">
+          <img x-bind:src="places[0].img" x-bind:alt="places[0].n" class="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        </template><template x-if="!places[0].img">
+          <div class="w-full h-[260px] lg:h-[340px] bg-white/5 group-hover:bg-white/10 transition-colors duration-[900ms] grid place-items-center text-[12px] uppercase tracking-[.18em] text-white/40 group-hover:text-white/60 transition-colors">Fotografija u pripremi</div>
+        </template></div>
+        <span aria-hidden="true" x-bind:class="(hov === null || hov === 0) ? '!opacity-100' : ''" class="peer/blob pointer-events-auto absolute right-4 lg:right-6 top-[190px] lg:top-[265px] z-20 w-[420px] h-[230px] origin-center scale-[0.42] lg:scale-[0.5] translate-x-[140px] lg:translate-x-[135px] flex flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+          <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Book a ticket</span>
+        </span>
+        <div class="relative flex flex-col gap-4 pt-7 lg:pt-8">
+          <span class="text-[13px] uppercase tracking-[.16em] font-medium text-white/70 group-hover:text-white/75 transition-colors duration-[900ms]" x-text="places[0].k"></span>
+          <h3 class="display text-[26px] lg:text-[32px] font-semibold text-white group-hover:text-white transition-colors duration-[900ms]" x-text="places[0].n"></h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.55] text-white/80 group-hover:text-white/90 transition-colors duration-[900ms] line-clamp-4" x-text="places[0].d"></p>
+          <div class="flex items-center gap-2 text-[13px] uppercase tracking-[.14em] font-medium text-white/60 group-hover:text-white/80 transition-colors duration-[900ms]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+            <span x-text="places[0].rv"></span>
+          </div>
+          <span class="mt-2 text-white group-hover:text-white transition-[color,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2" aria-hidden="true">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 8h37M30 1l7 7-7 7" /></svg>
+          </span>
+        </div>
+      </a>
+
+      <a x-bind:href="places[1].href" x-on:mouseenter="hov=1" x-on:mouseleave="hov=null" style="transition-delay:216ms" class="reveal group col-span-12 lg:col-span-5 lg:col-start-8 relative flex flex-col p-5 lg:p-6">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[#006eb8] origin-center scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)]"></span>
+        <div class="relative overflow-hidden"><template x-if="places[1].img">
+          <img x-bind:src="places[1].img" x-bind:alt="places[1].n" class="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        </template><template x-if="!places[1].img">
+          <div class="w-full h-[260px] lg:h-[340px] bg-white/5 group-hover:bg-white/10 transition-colors duration-[900ms] grid place-items-center text-[12px] uppercase tracking-[.18em] text-white/40 group-hover:text-white/60 transition-colors">Fotografija u pripremi</div>
+        </template></div>
+        <span aria-hidden="true" class="peer/blob pointer-events-auto absolute right-4 lg:right-6 top-[190px] lg:top-[265px] z-20 w-[420px] h-[230px] origin-center scale-[0.42] lg:scale-[0.5] translate-x-[140px] lg:translate-x-[135px] flex flex-col items-center justify-center text-center gap-1 px-16 bg-white text-azure -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+          <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Book a ticket</span>
+        </span>
+        <div class="relative flex flex-col gap-4 pt-7 lg:pt-8">
+          <span class="text-[13px] uppercase tracking-[.16em] font-medium text-white/70 group-hover:text-white/75 transition-colors duration-[900ms]" x-text="places[1].k"></span>
+          <h3 class="display text-[26px] lg:text-[32px] font-semibold text-white group-hover:text-white transition-colors duration-[900ms]" x-text="places[1].n"></h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.55] text-white/80 group-hover:text-white/90 transition-colors duration-[900ms] line-clamp-4" x-text="places[1].d"></p>
+          <div class="flex items-center gap-2 text-[13px] uppercase tracking-[.14em] font-medium text-white/60 group-hover:text-white/80 transition-colors duration-[900ms]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+            <span x-text="places[1].rv"></span>
+          </div>
+          <span class="mt-2 text-white group-hover:text-white transition-[color,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2" aria-hidden="true">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 8h37M30 1l7 7-7 7" /></svg>
+          </span>
+        </div>
+      </a>
+
+      <a x-bind:href="places[2].href" x-on:mouseenter="hov=2" x-on:mouseleave="hov=null" style="transition-delay:0ms" class="reveal group col-span-12 lg:col-span-5 lg:col-start-1 relative flex flex-col p-5 lg:p-6">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[#8d41c7] origin-center scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)]"></span>
+        <div class="relative overflow-hidden"><template x-if="places[2].img">
+          <img x-bind:src="places[2].img" x-bind:alt="places[2].n" class="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        </template><template x-if="!places[2].img">
+          <div class="w-full h-[260px] lg:h-[340px] bg-white/5 group-hover:bg-white/10 transition-colors duration-[900ms] grid place-items-center text-[12px] uppercase tracking-[.18em] text-white/40 group-hover:text-white/60 transition-colors">Fotografija u pripremi</div>
+        </template></div>
+        <span aria-hidden="true" class="peer/blob pointer-events-auto absolute right-4 lg:right-6 top-[190px] lg:top-[265px] z-20 w-[420px] h-[230px] origin-center scale-[0.42] lg:scale-[0.5] translate-x-[140px] lg:translate-x-[135px] flex flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+          <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Book a ticket</span>
+        </span>
+        <div class="relative flex flex-col gap-4 pt-7 lg:pt-8">
+          <span class="text-[13px] uppercase tracking-[.16em] font-medium text-white/70 group-hover:text-white/75 transition-colors duration-[900ms]" x-text="places[2].k"></span>
+          <h3 class="display text-[26px] lg:text-[32px] font-semibold text-white group-hover:text-white transition-colors duration-[900ms]" x-text="places[2].n"></h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.55] text-white/80 group-hover:text-white/90 transition-colors duration-[900ms] line-clamp-4" x-text="places[2].d"></p>
+          <div class="flex items-center gap-2 text-[13px] uppercase tracking-[.14em] font-medium text-white/60 group-hover:text-white/80 transition-colors duration-[900ms]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+            <span x-text="places[2].rv"></span>
+          </div>
+          <span class="mt-2 text-white group-hover:text-white transition-[color,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2" aria-hidden="true">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 8h37M30 1l7 7-7 7" /></svg>
+          </span>
+        </div>
+      </a>
+
+      <a x-bind:href="places[3].href" x-on:mouseenter="hov=3" x-on:mouseleave="hov=null" style="transition-delay:216ms" class="reveal group col-span-12 lg:col-span-7 lg:col-start-6 relative flex flex-col p-5 lg:p-6">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[#05844a] origin-center scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)]"></span>
+        <div class="relative overflow-hidden"><template x-if="places[3].img">
+          <img x-bind:src="places[3].img" x-bind:alt="places[3].n" class="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        </template><template x-if="!places[3].img">
+          <div class="w-full h-[260px] lg:h-[340px] bg-white/5 group-hover:bg-white/10 transition-colors duration-[900ms] grid place-items-center text-[12px] uppercase tracking-[.18em] text-white/40 group-hover:text-white/60 transition-colors">Fotografija u pripremi</div>
+        </template></div>
+        <span aria-hidden="true" class="peer/blob pointer-events-auto absolute right-4 lg:right-6 top-[190px] lg:top-[265px] z-20 w-[420px] h-[230px] origin-center scale-[0.42] lg:scale-[0.5] translate-x-[140px] lg:translate-x-[135px] flex flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+          <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Book a ticket</span>
+        </span>
+        <div class="relative flex flex-col gap-4 pt-7 lg:pt-8">
+          <span class="text-[13px] uppercase tracking-[.16em] font-medium text-white/70 group-hover:text-white/75 transition-colors duration-[900ms]" x-text="places[3].k"></span>
+          <h3 class="display text-[26px] lg:text-[32px] font-semibold text-white group-hover:text-white transition-colors duration-[900ms]" x-text="places[3].n"></h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.55] text-white/80 group-hover:text-white/90 transition-colors duration-[900ms] line-clamp-4" x-text="places[3].d"></p>
+          <div class="flex items-center gap-2 text-[13px] uppercase tracking-[.14em] font-medium text-white/60 group-hover:text-white/80 transition-colors duration-[900ms]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+            <span x-text="places[3].rv"></span>
+          </div>
+          <span class="mt-2 text-white group-hover:text-white transition-[color,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2" aria-hidden="true">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 8h37M30 1l7 7-7 7" /></svg>
+          </span>
+        </div>
+      </a>
+
+      <a x-bind:href="places[4].href" x-on:mouseenter="hov=4" x-on:mouseleave="hov=null" style="transition-delay:0ms" class="reveal group col-span-12 lg:col-span-5 lg:col-start-1 relative flex flex-col p-5 lg:p-6">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[#0c60d3] origin-center scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)]"></span>
+        <div class="relative overflow-hidden"><template x-if="places[4].img">
+          <img x-bind:src="places[4].img" x-bind:alt="places[4].n" class="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        </template><template x-if="!places[4].img">
+          <div class="w-full h-[260px] lg:h-[340px] bg-white/5 group-hover:bg-white/10 transition-colors duration-[900ms] grid place-items-center text-[12px] uppercase tracking-[.18em] text-white/40 group-hover:text-white/60 transition-colors">Fotografija u pripremi</div>
+        </template></div>
+        <span aria-hidden="true" class="peer/blob pointer-events-auto absolute right-4 lg:right-6 top-[190px] lg:top-[265px] z-20 w-[420px] h-[230px] origin-center scale-[0.42] lg:scale-[0.5] translate-x-[140px] lg:translate-x-[135px] flex flex-col items-center justify-center text-center gap-1 px-16 bg-white text-azure -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+          <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Book a ticket</span>
+        </span>
+        <div class="relative flex flex-col gap-4 pt-7 lg:pt-8">
+          <span class="text-[13px] uppercase tracking-[.16em] font-medium text-white/70 group-hover:text-white/75 transition-colors duration-[900ms]" x-text="places[4].k"></span>
+          <h3 class="display text-[26px] lg:text-[32px] font-semibold text-white group-hover:text-white transition-colors duration-[900ms]" x-text="places[4].n"></h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.55] text-white/80 group-hover:text-white/90 transition-colors duration-[900ms] line-clamp-4" x-text="places[4].d"></p>
+          <div class="flex items-center gap-2 text-[13px] uppercase tracking-[.14em] font-medium text-white/60 group-hover:text-white/80 transition-colors duration-[900ms]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+            <span x-text="places[4].rv"></span>
+          </div>
+          <span class="mt-2 text-white group-hover:text-white transition-[color,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2" aria-hidden="true">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 8h37M30 1l7 7-7 7" /></svg>
+          </span>
+        </div>
+      </a>
+
+      <a x-bind:href="places[5].href" x-on:mouseenter="hov=5" x-on:mouseleave="hov=null" style="transition-delay:216ms" class="reveal group col-span-12 lg:col-span-6 lg:col-start-7 relative flex flex-col p-5 lg:p-6">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[#fe3749] origin-center scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)]"></span>
+        <div class="relative overflow-hidden"><template x-if="places[5].img">
+          <img x-bind:src="places[5].img" x-bind:alt="places[5].n" class="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        </template><template x-if="!places[5].img">
+          <div class="w-full h-[260px] lg:h-[340px] bg-white/5 group-hover:bg-white/10 transition-colors duration-[900ms] grid place-items-center text-[12px] uppercase tracking-[.18em] text-white/40 group-hover:text-white/60 transition-colors">Fotografija u pripremi</div>
+        </template></div>
+        <span aria-hidden="true" class="peer/blob pointer-events-auto absolute right-4 lg:right-6 top-[190px] lg:top-[265px] z-20 w-[420px] h-[230px] origin-center scale-[0.42] lg:scale-[0.5] translate-x-[140px] lg:translate-x-[135px] flex flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+          <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Book a ticket</span>
+        </span>
+        <div class="relative flex flex-col gap-4 pt-7 lg:pt-8">
+          <span class="text-[13px] uppercase tracking-[.16em] font-medium text-white/70 group-hover:text-white/75 transition-colors duration-[900ms]" x-text="places[5].k"></span>
+          <h3 class="display text-[26px] lg:text-[32px] font-semibold text-white group-hover:text-white transition-colors duration-[900ms]" x-text="places[5].n"></h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.55] text-white/80 group-hover:text-white/90 transition-colors duration-[900ms] line-clamp-4" x-text="places[5].d"></p>
+          <div class="flex items-center gap-2 text-[13px] uppercase tracking-[.14em] font-medium text-white/60 group-hover:text-white/80 transition-colors duration-[900ms]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+            <span x-text="places[5].rv"></span>
+          </div>
+          <span class="mt-2 text-white group-hover:text-white transition-[color,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2" aria-hidden="true">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 8h37M30 1l7 7-7 7" /></svg>
+          </span>
+        </div>
+      </a>
+
+      <a x-bind:href="places[6].href" x-on:mouseenter="hov=6" x-on:mouseleave="hov=null" style="transition-delay:0ms" class="reveal group col-span-12 lg:col-span-5 lg:col-start-1 relative flex flex-col p-5 lg:p-6">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[#b3195b] origin-center scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)]"></span>
+        <div class="relative overflow-hidden"><template x-if="places[6].img">
+          <img x-bind:src="places[6].img" x-bind:alt="places[6].n" class="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        </template><template x-if="!places[6].img">
+          <div class="w-full h-[260px] lg:h-[340px] bg-white/5 group-hover:bg-white/10 transition-colors duration-[900ms] grid place-items-center text-[12px] uppercase tracking-[.18em] text-white/40 group-hover:text-white/60 transition-colors">Fotografija u pripremi</div>
+        </template></div>
+        <span aria-hidden="true" class="peer/blob pointer-events-auto absolute right-4 lg:right-6 top-[190px] lg:top-[265px] z-20 w-[420px] h-[230px] origin-center scale-[0.42] lg:scale-[0.5] translate-x-[140px] lg:translate-x-[135px] flex flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+          <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Book a ticket</span>
+        </span>
+        <div class="relative flex flex-col gap-4 pt-7 lg:pt-8">
+          <span class="text-[13px] uppercase tracking-[.16em] font-medium text-white/70 group-hover:text-white/75 transition-colors duration-[900ms]" x-text="places[6].k"></span>
+          <h3 class="display text-[26px] lg:text-[32px] font-semibold text-white group-hover:text-white transition-colors duration-[900ms]" x-text="places[6].n"></h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.55] text-white/80 group-hover:text-white/90 transition-colors duration-[900ms] line-clamp-4" x-text="places[6].d"></p>
+          <div class="flex items-center gap-2 text-[13px] uppercase tracking-[.14em] font-medium text-white/60 group-hover:text-white/80 transition-colors duration-[900ms]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+            <span x-text="places[6].rv"></span>
+          </div>
+          <span class="mt-2 text-white group-hover:text-white transition-[color,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2" aria-hidden="true">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 8h37M30 1l7 7-7 7" /></svg>
+          </span>
+        </div>
+      </a>
+
+      <a x-bind:href="places[7].href" x-on:mouseenter="hov=7" x-on:mouseleave="hov=null" style="transition-delay:216ms" class="reveal group col-span-12 lg:col-span-6 lg:col-start-7 relative flex flex-col p-5 lg:p-6">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[#e0a021] origin-center scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)]"></span>
+        <div class="relative overflow-hidden"><template x-if="places[7].img">
+          <img x-bind:src="places[7].img" x-bind:alt="places[7].n" class="w-full h-[260px] lg:h-[340px] object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        </template><template x-if="!places[7].img">
+          <div class="w-full h-[260px] lg:h-[340px] bg-white/5 group-hover:bg-white/10 transition-colors duration-[900ms] grid place-items-center text-[12px] uppercase tracking-[.18em] text-white/40 group-hover:text-white/60 transition-colors">Fotografija u pripremi</div>
+        </template></div>
+        <span aria-hidden="true" class="peer/blob pointer-events-auto absolute right-4 lg:right-6 top-[190px] lg:top-[265px] z-20 w-[420px] h-[230px] origin-center scale-[0.42] lg:scale-[0.5] translate-x-[140px] lg:translate-x-[135px] flex flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+          <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Book a ticket</span>
+        </span>
+        <div class="relative flex flex-col gap-4 pt-7 lg:pt-8">
+          <span class="text-[13px] uppercase tracking-[.16em] font-medium text-white/70 group-hover:text-white/75 transition-colors duration-[900ms]" x-text="places[7].k"></span>
+          <h3 class="display text-[26px] lg:text-[32px] font-semibold text-white group-hover:text-white transition-colors duration-[900ms]" x-text="places[7].n"></h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.55] text-white/80 group-hover:text-white/90 transition-colors duration-[900ms] line-clamp-4" x-text="places[7].d"></p>
+          <div class="flex items-center gap-2 text-[13px] uppercase tracking-[.14em] font-medium text-white/60 group-hover:text-white/80 transition-colors duration-[900ms]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+            <span x-text="places[7].rv"></span>
+          </div>
+          <span class="mt-2 text-white group-hover:text-white transition-[color,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-2" aria-hidden="true">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 8h37M30 1l7 7-7 7" /></svg>
+          </span>
+        </div>
+      </a>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ O DRUŠTVU ============ -->
+<section id="drustvo" class="bg-white text-ink">
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 pt-24 lg:pt-40 pb-14 lg:pb-20">
+    <div class="grid grid-cols-12 gap-x-6 lg:gap-x-14 gap-y-8">
+      <div class="col-span-12 lg:col-span-4">
+        <span class="text-[13px] uppercase tracking-[.16em] font-medium text-ink/60">Od 1952.</span>
+        <h2 class="reveal display text-[34px] lg:text-[48px] font-semibold mt-3">O Društvu</h2>
+        <div class="mt-7 flex flex-col gap-6">
+          <a href="#drustvo" class="group/btn flex items-center justify-between gap-8 w-full max-w-[420px] px-6 py-2.5 bg-ink text-white border border-ink hover:bg-white hover:text-ink transition-colors duration-300">
+            <span class="text-[17px] font-semibold">Više o nama</span>
+            <span class="grid place-items-center w-7 h-7 rounded-full bg-white text-ink group-hover/btn:bg-ink group-hover/btn:text-white transition-colors duration-300">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 2l4 4-4 4" /></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal col-span-12 lg:col-span-8 flex flex-col gap-6 lg:pt-16" style="transition-delay:216ms">
+        <p class="text-[17px] lg:text-[19px] leading-[1.6]" style="text-wrap: pretty">Društvo prijatelja dubrovačke starine je udruga građana osnovana 12. kolovoza 1952. godine radi očuvanja, zbrinjavanja i promicanja bogate i slojevite spomeničke baštine dubrovačkog područja. A stanje kapitalnih spomenika, poput gradskih i stonskih zidina, u to vrijeme bilo je loše.</p>
+        <p class="text-[17px] lg:text-[19px] leading-[1.6] text-ink/80" style="text-wrap: pretty">Bili su zarasli i obrasli kaparama, bršljanom i smokvama, zakriti neprimjerenim zelenilom i drvećem, mjestimično su bili i nevidljivi, dok se s drevnih mira obrušavalo kamenje. Začeto ljubavlju i volonterskim radom nekolicine dubrovačkih entuzijasta, zahvaljujući vidovitosti jedne plemenite ideje, Društvo je raslo, stasalo i razvilo svoju kulturnu i društvenu ulogu.</p>
+      </div>
+      <blockquote class="reveal col-span-12 mt-6 lg:mt-10 border-t border-ink/15 pt-8 lg:pt-12">
+          <p class="display text-[24px] lg:text-[32px] font-semibold leading-[1.4]" style="text-wrap: pretty">„Mijenja se vrijeme, mijenjaju se ljudi. Društvo prijatelja dubrovačke starine s vremenom se isto mijenja, ali uvijek ostaje savjest Grada ispunjavajući svoju zadaću, ali ne bez građana Dubrovnika.“</p>
+        </blockquote>
+    </div>
+  </div>
+</section>
+
+<section id="ulaznice" class="bg-ink text-white">
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0"><div class="border-t border-white/40"></div></div>
+
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 pt-24 lg:pt-40 pb-14 lg:pb-20">
+    <div class="reveal mb-10 lg:mb-14 flex flex-col gap-4">
+      <h2 class="display text-[34px] lg:text-[48px] font-semibold">Prošećite zidinama</h2>
+      <p class="text-[16px] lg:text-[17px] text-white max-w-[560px]">Jedna ulaznica otvara zidine, Lovrjenac i Zapadno predziđe — obilazak traje oko 90 minuta.</p>
+    </div>
+    <div x-data="ulaznice()" x-init="start()" x-on:mouseenter="stop()" x-on:mouseleave="start()">
+      <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+        <div class="reveal relative z-20 lg:col-span-5 bg-[#242424] p-8 lg:p-10 flex flex-col justify-between min-h-[300px] lg:min-h-[380px]">
+          <div class="relative min-h-[190px] lg:min-h-[210px]">
+            <template x-for="(t, ti) in tickets" x-bind:key="'tk'+ti">
+              <div class="absolute inset-0 flex flex-col gap-3 transition-opacity duration-500 ease-out"
+                   x-bind:style="'opacity:' + (i===ti ? 1 : 0) + ';pointer-events:' + (i===ti ? 'auto' : 'none')">
+                <p class="text-[15px] font-medium" x-text="t.k"></p>
+                <p class="display text-[28px] lg:text-[34px] font-semibold text-gold" x-text="t.n"></p>
+                <p class="text-[15px] leading-[1.6] text-white/70 max-w-[420px]" x-text="t.d"></p>
+              </div>
+            </template>
+          </div>
+
+          <div class="mt-8 flex flex-col gap-6">
+            <div class="flex items-start gap-3">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="shrink-0 mt-0.5"><circle cx="10" cy="10" r="7.3" stroke="currentColor" stroke-width="1.5"/><path d="M10 5.8V10l3 1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span class="flex flex-col gap-1">
+                <span class="text-[13px] uppercase tracking-[.14em] text-white/60">Danas otvoreno</span>
+                <span class="text-[16px] lg:text-[17px] font-medium" x-text="tickets[i].h">8.00 – 19.30</span>
+              </span>
+            </div>
+
+            <div class="flex items-center gap-5">
+              <div class="flex items-center gap-2">
+                <button type="button" x-on:click="prev()" aria-label="Prethodna ulaznica" class="grid place-items-center w-11 h-11 border border-white/30 text-white hover:bg-white hover:text-ink transition-colors">
+                  <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M6 1L1 5l5 4M16 5H2" stroke="currentColor" stroke-width="1.6"/></svg>
+                </button>
+                <button type="button" x-on:click="next()" aria-label="Sljedeća ulaznica" class="grid place-items-center w-11 h-11 border border-white/30 text-white hover:bg-white hover:text-ink transition-colors">
+                  <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M10 1l5 4-5 4M0 5h14" stroke="currentColor" stroke-width="1.6"/></svg>
+                </button>
+              </div>
+              <div class="flex items-center gap-2">
+                <template x-for="(t, ti) in tickets" x-bind:key="'dt'+ti">
+                  <button type="button" x-on:click="go(ti)" x-bind:aria-label="t.n" class="group/dot grid place-items-center h-11 px-1">
+                    <span class="block h-px transition-all duration-300" x-bind:class="i===ti ? 'w-8 bg-white' : 'w-3 bg-white/35 group-hover/dot:bg-white/60'"></span>
+                  </button>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <a x-bind:href="tickets[i].href" class="absolute right-[-190px] bottom-6 z-30 hidden lg:flex w-[420px] h-[230px] origin-center scale-[0.72] xl:scale-[0.82] flex-col items-center justify-center text-center gap-1 px-16 bg-azure text-white -rotate-3 hover:-rotate-[10deg] hover:underline decoration-2 underline-offset-4 transition-transform duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)]" style="clip-path: path('M30 120C25 85 60 60 105 55C150 50 200 35 250 32C300 28 350 40 385 60C410 74 415 105 400 130C388 152 360 160 330 168C295 178 260 196 215 200C165 205 120 196 85 180C52 165 34 150 30 120Z')">
+            <span class="text-[30px] font-normal uppercase leading-[1.02] tracking-[-0.01em]">Kupi online</span>
+          </a>
+        </div>
+
+        <div class="reveal relative lg:col-span-7 min-h-[220px] lg:min-h-[380px] overflow-hidden" style="transition-delay:252ms">
+          <template x-for="(t, ti) in tickets" x-bind:key="'im'+ti">
+            <img x-bind:src="t.img" x-bind:alt="t.n" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700" x-bind:style="'opacity:' + (i===ti ? 1 : 0)" />
+          </template>
+          <img src="images/foto-gradske-zidine.jpg" alt="" aria-hidden="true" class="w-full h-full object-cover opacity-0" />
+        </div>
+
+        <a x-bind:href="tickets[i].href" class="lg:hidden mt-6 flex items-center justify-between gap-6 h-[60px] px-7 bg-gold text-ink text-[17px] font-semibold">Kupi online
+          <span class="grid place-items-center w-9 h-9 rounded-full bg-ink text-gold shrink-0"><svg width="15" height="11" viewBox="0 0 14 10" fill="none"><path d="M8 1l4 4-4 4M0 5h11" stroke="currentColor" stroke-width="1.7"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZANIMLJIVOSTI ============ -->
+<section id="zanimljivosti" class="bg-ink text-white">
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0"><div class="border-t border-white/40"></div></div>
+
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 pt-14 lg:pt-24 pb-14 lg:pb-20">
+    <div class="reveal mb-8 lg:mb-10 flex flex-wrap items-end justify-between gap-6">
+      <h2 class="display text-[34px] lg:text-[48px] font-semibold">Zanimljivosti</h2>
+      <a href="#zanimljivosti" class="group inline-flex items-center gap-3 text-[16px] lg:text-[18px] font-medium text-white hover:underline decoration-2 underline-offset-4">
+        <span>Sve novosti i priče</span>
+        <span class="w-7 h-7 rounded-full bg-white text-ink grid place-items-center transition-transform duration-300 group-hover:translate-x-1">
+          <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+        </span>
+      </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+
+      <a href="#" class="group md:col-span-2 lg:col-span-6 lg:sticky lg:top-28 relative block overflow-hidden min-h-[460px] lg:min-h-[calc(100svh-180px)]">
+        <img src="images/foto-gradske-zidine.jpg" alt="Zidine koje se nikad nisu predale" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+        <div class="relative h-full flex flex-col justify-end items-center text-center gap-4 p-8 lg:p-12 min-h-[460px] lg:min-h-[calc(100svh-180px)]">
+          <span class="text-[12px] uppercase tracking-[.18em] font-semibold text-white/80">Povijest</span>
+          <h3 class="display text-[28px] lg:text-[38px] font-semibold leading-[1.15] max-w-[22ch] group-hover:underline decoration-2 underline-offset-[8px]">Zidine koje se nikad nisu predale</h3>
+          <p class="text-[15px] lg:text-[16px] leading-[1.6] text-white/85 max-w-[46ch]" style="text-wrap: pretty">Dva kilometra zidina, kula i bastiona nikada nisu bila osvojena. Priča o gradnji koja je trajala četiri stoljeća i o ljudima koji su je čuvali.</p>
+        </div>
+      </a>
+
+      <div class="lg:col-span-3 flex flex-col gap-10 lg:gap-14">
+        <a href="#" style="transition-delay:0ms" class="reveal group flex flex-col gap-4">
+          <div class="overflow-hidden">
+            <img src="images/foto-lovrjenac.jpg" alt="Natpis nad vratima Lovrjenca" class="w-full h-[300px] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]" />
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-[12px] uppercase tracking-[.18em] font-semibold text-white/60">Povijest</span>
+            <h3 class="text-[19px] leading-[1.3] font-medium text-white group-hover:underline decoration-1 underline-offset-[6px]">Natpis nad vratima Lovrjenca</h3>
+            <p class="text-[14px] leading-[1.55] text-white/65" style="text-wrap: pretty">Non bene pro toto libertas venditur auro — sloboda se ne prodaje ni za sve zlato svijeta.</p>
+            <span class="text-[13px] text-white/45 mt-1">12. kolovoza 2026.</span>
+          </div>
+        </a>
+        <a href="#" style="transition-delay:198ms" class="reveal group flex flex-col gap-4">
+          <div class="overflow-hidden">
+            <img src="images/foto-sokol-grad.jpg" alt="Sokol grad u konavoskom kršu" class="w-full h-[340px] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]" />
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-[12px] uppercase tracking-[.18em] font-semibold text-white/60">Povijest</span>
+            <h3 class="text-[19px] leading-[1.3] font-medium text-white group-hover:underline decoration-1 underline-offset-[6px]">Sokol grad u konavoskom kršu</h3>
+            <p class="text-[14px] leading-[1.55] text-white/65" style="text-wrap: pretty">Tragovi utvrde sežu do ilirskog i rimskog doba, a Dubrovčani su je preuzeli 1420.</p>
+            <span class="text-[13px] text-white/45 mt-1">9. srpnja 2026.</span>
+          </div>
+        </a>
+        <a href="#" style="transition-delay:396ms" class="reveal group flex flex-col gap-4">
+          <div class="overflow-hidden">
+            <img src="images/foto-zapadno-predzide.jpg" alt="Predziđe pred vratima od Pila" class="w-full h-[260px] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]" />
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-[12px] uppercase tracking-[.18em] font-semibold text-white/60">Povijest</span>
+            <h3 class="text-[19px] leading-[1.3] font-medium text-white group-hover:underline decoration-1 underline-offset-[6px]">Predziđe pred vratima od Pila</h3>
+            <p class="text-[14px] leading-[1.55] text-white/65" style="text-wrap: pretty">Vanjski obrambeni pojas koji je čuvao najosjetljiviji ulaz u grad.</p>
+            <span class="text-[13px] text-white/45 mt-1">3. lipnja 2026.</span>
+          </div>
+        </a>
+      </div>
+      <div class="lg:col-span-3 flex flex-col gap-10 lg:gap-14">
+        <a href="#" style="transition-delay:0ms" class="reveal group flex flex-col gap-4">
+          <div class="overflow-hidden">
+            <img src="images/foto-stonske-zidine.jpg" alt="Ston: zidine i sol" class="w-full h-[340px] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]" />
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-[12px] uppercase tracking-[.18em] font-semibold text-white/60">Otkrijte</span>
+            <h3 class="text-[19px] leading-[1.3] font-medium text-white group-hover:underline decoration-1 underline-offset-[6px]">Ston: zidine i sol</h3>
+            <p class="text-[14px] leading-[1.55] text-white/65" style="text-wrap: pretty">Najdulji obrambeni sklop u Europi štitio je ono najvrjednije — solane.</p>
+            <span class="text-[13px] text-white/45 mt-1">28. srpnja 2026.</span>
+          </div>
+        </a>
+        <a href="#" style="transition-delay:198ms" class="reveal group flex flex-col gap-4">
+          <div class="overflow-hidden">
+            <img src="images/foto-knezev-dvor-pridvorje.jpg" alt="Gospodski gaj u Pridvorju" class="w-full h-[280px] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]" />
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-[12px] uppercase tracking-[.18em] font-semibold text-white/60">Obnova</span>
+            <h3 class="text-[19px] leading-[1.3] font-medium text-white group-hover:underline decoration-1 underline-offset-[6px]">Gospodski gaj u Pridvorju</h3>
+            <p class="text-[14px] leading-[1.55] text-white/65" style="text-wrap: pretty">Sjedište kneza u Konavlima, podignuto uz selo Sveti Martin.</p>
+            <span class="text-[13px] text-white/45 mt-1">21. lipnja 2026.</span>
+          </div>
+        </a>
+        <a href="#" style="transition-delay:396ms" class="reveal group flex flex-col gap-4">
+          <div class="overflow-hidden">
+            <img src="images/foto-knezev-dvor-lopud.jpg" alt="Kneževa rezidencija na Lopudu" class="w-full h-[340px] object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]" />
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-[12px] uppercase tracking-[.18em] font-semibold text-white/60">Otkrijte</span>
+            <h3 class="text-[19px] leading-[1.3] font-medium text-white group-hover:underline decoration-1 underline-offset-[6px]">Kneževa rezidencija na Lopudu</h3>
+            <p class="text-[14px] leading-[1.55] text-white/65" style="text-wrap: pretty">Od osnutka knežije 1456. do gradnje dvora prošlo je više od pola stoljeća.</p>
+            <span class="text-[13px] text-white/45 mt-1">14. svibnja 2026.</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ČESTA PITANJA ============ -->
+<section id="pitanja" class="bg-ink text-white">
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0"><div class="border-t border-white/40"></div></div>
+
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 pt-24 lg:pt-40 pb-14 lg:pb-20" x-data="{ open: null }">
+    <h2 class="reveal display text-[34px] lg:text-[48px] font-semibold mb-8 lg:mb-10">Česta pitanja</h2>
+    <div class="flex flex-col gap-2 lg:gap-3">
+        <div style="transition-delay:0ms" class="reveal group/faq bg-coal hover:bg-white transition-colors duration-[700ms]">
+          <button type="button" x-on:click="open === 0 ? open = null : open = 0" x-bind:aria-expanded="open === 0" class="w-full flex items-center justify-between gap-8 text-left px-6 lg:px-8 py-4 lg:py-5 group">
+            <span class="text-[16px] lg:text-[17px] font-medium group-hover/faq:text-ink transition-colors duration-[700ms]">Koji su načini plaćanja na blagajni?</span>
+            <span class="grid place-items-center shrink-0 text-white group-hover/faq:text-ink group-hover/faq:translate-x-2 transition-[transform,color] duration-[700ms]" x-bind:class="open === 0 ? 'rotate-90' : ''">
+              <svg width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M18 1l6 6-6 6M0 7h23" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+          </button>
+          <div x-show="open === 0" x-collapse style="display:none" class="px-6 lg:px-8 pb-5 lg:pb-6 -mt-1">
+            <p class="text-[16px] lg:text-[17px] leading-[1.6] text-white/70 group-hover/faq:text-ink/80 transition-colors duration-[700ms] max-w-[760px]" style="text-wrap: pretty">Na svim blagajnama moguće je plaćanje gotovinom te kreditnim i debitnim karticama. Ulaznice se mogu kupiti i online.</p>
+          </div>
+        </div>
+        <div style="transition-delay:126ms" class="reveal group/faq bg-coal hover:bg-white transition-colors duration-[700ms]">
+          <button type="button" x-on:click="open === 1 ? open = null : open = 1" x-bind:aria-expanded="open === 1" class="w-full flex items-center justify-between gap-8 text-left px-6 lg:px-8 py-4 lg:py-5 group">
+            <span class="text-[16px] lg:text-[17px] font-medium group-hover/faq:text-ink transition-colors duration-[700ms]">Jesu li lokaliteti otvoreni subotom, nedjeljom i praznicima?</span>
+            <span class="grid place-items-center shrink-0 text-white group-hover/faq:text-ink group-hover/faq:translate-x-2 transition-[transform,color] duration-[700ms]" x-bind:class="open === 1 ? 'rotate-90' : ''">
+              <svg width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M18 1l6 6-6 6M0 7h23" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+          </button>
+          <div x-show="open === 1" x-collapse style="display:none" class="px-6 lg:px-8 pb-5 lg:pb-6 -mt-1">
+            <p class="text-[16px] lg:text-[17px] leading-[1.6] text-white/70 group-hover/faq:text-ink/80 transition-colors duration-[700ms] max-w-[760px]" style="text-wrap: pretty">Da, lokaliteti su otvoreni svaki dan, uključujući subote, nedjelje i praznike, u okviru sezonskog radnog vremena.</p>
+          </div>
+        </div>
+        <div style="transition-delay:252ms" class="reveal group/faq bg-coal hover:bg-white transition-colors duration-[700ms]">
+          <button type="button" x-on:click="open === 2 ? open = null : open = 2" x-bind:aria-expanded="open === 2" class="w-full flex items-center justify-between gap-8 text-left px-6 lg:px-8 py-4 lg:py-5 group">
+            <span class="text-[16px] lg:text-[17px] font-medium group-hover/faq:text-ink transition-colors duration-[700ms]">Je li dopušteno fotografiranje i snimanje?</span>
+            <span class="grid place-items-center shrink-0 text-white group-hover/faq:text-ink group-hover/faq:translate-x-2 transition-[transform,color] duration-[700ms]" x-bind:class="open === 2 ? 'rotate-90' : ''">
+              <svg width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M18 1l6 6-6 6M0 7h23" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+          </button>
+          <div x-show="open === 2" x-collapse style="display:none" class="px-6 lg:px-8 pb-5 lg:pb-6 -mt-1">
+            <p class="text-[16px] lg:text-[17px] leading-[1.6] text-white/70 group-hover/faq:text-ink/80 transition-colors duration-[700ms] max-w-[760px]" style="text-wrap: pretty">Fotografiranje za osobne potrebe je dopušteno. Za profesionalna i komercijalna snimanja potrebna je prethodna dozvola Društva.</p>
+          </div>
+        </div>
+        <div style="transition-delay:378ms" class="reveal group/faq bg-coal hover:bg-white transition-colors duration-[700ms]">
+          <button type="button" x-on:click="open === 3 ? open = null : open = 3" x-bind:aria-expanded="open === 3" class="w-full flex items-center justify-between gap-8 text-left px-6 lg:px-8 py-4 lg:py-5 group">
+            <span class="text-[16px] lg:text-[17px] font-medium group-hover/faq:text-ink transition-colors duration-[700ms]">Kako mogu ostvariti studentski popust?</span>
+            <span class="grid place-items-center shrink-0 text-white group-hover/faq:text-ink group-hover/faq:translate-x-2 transition-[transform,color] duration-[700ms]" x-bind:class="open === 3 ? 'rotate-90' : ''">
+              <svg width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M18 1l6 6-6 6M0 7h23" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+          </button>
+          <div x-show="open === 3" x-collapse style="display:none" class="px-6 lg:px-8 pb-5 lg:pb-6 -mt-1">
+            <p class="text-[16px] lg:text-[17px] leading-[1.6] text-white/70 group-hover/faq:text-ink/80 transition-colors duration-[700ms] max-w-[760px]" style="text-wrap: pretty">Studentski popust ostvaruje se uz predočenje važeće studentske iskaznice na blagajni.</p>
+          </div>
+        </div>
+        <div style="transition-delay:504ms" class="reveal group/faq bg-coal hover:bg-white transition-colors duration-[700ms]">
+          <button type="button" x-on:click="open === 4 ? open = null : open = 4" x-bind:aria-expanded="open === 4" class="w-full flex items-center justify-between gap-8 text-left px-6 lg:px-8 py-4 lg:py-5 group">
+            <span class="text-[16px] lg:text-[17px] font-medium group-hover/faq:text-ink transition-colors duration-[700ms]">Postoje li popusti ili posebne olakšice za osobe s invaliditetom?</span>
+            <span class="grid place-items-center shrink-0 text-white group-hover/faq:text-ink group-hover/faq:translate-x-2 transition-[transform,color] duration-[700ms]" x-bind:class="open === 4 ? 'rotate-90' : ''">
+              <svg width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M18 1l6 6-6 6M0 7h23" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+          </button>
+          <div x-show="open === 4" x-collapse style="display:none" class="px-6 lg:px-8 pb-5 lg:pb-6 -mt-1">
+            <p class="text-[16px] lg:text-[17px] leading-[1.6] text-white/70 group-hover/faq:text-ink/80 transition-colors duration-[700ms] max-w-[760px]" style="text-wrap: pretty">Osobe s invaliditetom i njihovi pratitelji imaju pravo na popust, a dio lokaliteta ima prilagođene pristupne rute.</p>
+          </div>
+        </div>
+    </div>
+    <div class="flex justify-end mt-8">
+      <a href="#pitanja" class="group inline-flex items-center gap-3 text-[16px] font-medium">Vidi sve
+        <span class="grid place-items-center text-white group-hover/faq:text-ink group-hover/faq:translate-x-2 transition-[transform,color] duration-[700ms] group-hover:translate-x-1">
+          <svg width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M18 1l6 6-6 6M0 7h23" stroke="currentColor" stroke-width="1.8"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ============ FOOTER ============ -->
+<footer id="kontakt" class="bg-white text-ink">
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0"><div class="border-t border-ink/30"></div></div>
+
+  <div class="w-full max-w-full lg:max-w-[92vw] xl:max-w-site mx-auto px-6 lg:px-0 pt-14 lg:pt-20 pb-10 lg:pb-12">
+
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-10 lg:pb-14">
+      <div class="flex items-center gap-6">
+        <img src="images/logo-dpds-footer.png" alt="Društvo prijatelja dubrovačke starine" class="w-[104px] h-[104px] lg:w-[124px] lg:h-[124px] object-contain shrink-0" />
+        <p class="display text-[26px] lg:text-[38px] font-semibold leading-[1.05] max-w-[16ch]">Društvo prijatelja dubrovačke starine</p>
+      </div>
+      <p class="text-[16px] lg:text-[17px] leading-[1.55] text-ink/60 lg:text-right lg:max-w-[340px]">Čuvamo devet lokaliteta dubrovačkoga područja od 1952. godine.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-y-10 gap-x-8 pt-10 lg:pt-12 border-t border-ink/20">
+
+      <div class="lg:col-span-3 flex flex-col gap-5">
+        <p class="text-[13px] uppercase tracking-[.16em] font-medium text-ink/50">Adresa</p>
+        <div class="flex flex-col gap-1 text-[16px] leading-[1.6]">
+          <p>Gundulićeva poljana 2</p>
+          <p>20000 Dubrovnik, Hrvatska</p>
+        </div>
+        <div class="flex flex-col gap-1 text-[15px] leading-[1.6] text-ink/60">
+          <p>OIB: 68697988356</p>
+          <p>MB: 03305031</p>
+        </div>
+      </div>
+
+      <div class="sm:col-span-2 lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-y-8 gap-x-8 lg:border-l lg:border-ink/20 lg:pl-10">
+        <div class="flex flex-col gap-2">
+          <p class="text-[13px] uppercase tracking-[.16em] font-medium text-ink/50">Medijski upiti</p>
+          <a href="mailto:press@dpds.hr" class="text-[16px] underline decoration-ink/25 underline-offset-4 hover:decoration-azure hover:text-azure transition-colors">press@dpds.hr</a>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-[13px] uppercase tracking-[.16em] font-medium text-ink/50">Najam lokaliteta</p>
+          <a href="mailto:nasabastinadoo@gmail.com" class="text-[16px] underline decoration-ink/25 underline-offset-4 hover:decoration-azure hover:text-azure transition-colors break-all">nasabastinadoo@gmail.com</a>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-[13px] uppercase tracking-[.16em] font-medium text-ink/50">Reklamacije</p>
+          <a href="mailto:dpds@dpds.hr" class="text-[16px] underline decoration-ink/25 underline-offset-4 hover:decoration-azure hover:text-azure transition-colors">dpds@dpds.hr</a>
+        </div>
+      </div>
+
+      <div class="sm:col-span-2 lg:col-span-3 flex flex-col gap-6 lg:border-l lg:border-ink/20 lg:pl-10">
+        <p class="text-[13px] uppercase tracking-[.16em] font-medium text-ink/50">Pratite nas</p>
+        <div class="flex items-center gap-3">
+        <a href="#" aria-label="Instagram" class="grid place-items-center w-11 h-11 border border-ink/20 text-ink hover:bg-ink hover:text-white hover:border-ink transition-colors duration-300"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg></a>
+        <a href="#" aria-label="Facebook" class="grid place-items-center w-11 h-11 border border-ink/20 text-ink hover:bg-ink hover:text-white hover:border-ink transition-colors duration-300"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.5l.5-3h-3V9c0-.9.3-1.5 1.6-1.5H17V4.8C16.6 4.7 15.6 4.6 14.5 4.6 12 4.6 10.5 6 10.5 8.6V11H8v3h2.5v7h3z" /></svg></a>
+        <a href="#" aria-label="YouTube" class="grid place-items-center w-11 h-11 border border-ink/20 text-ink hover:bg-ink hover:text-white hover:border-ink transition-colors duration-300"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2c-.2-1-1-1.7-2-1.9C17.9 5 12 5 12 5s-5.9 0-7.6.3c-1 .2-1.8.9-2 1.9C2 8.9 2 12 2 12s0 3.1.4 4.8c.2 1 1 1.7 2 1.9C6.1 19 12 19 12 19s5.9 0 7.6-.3c1-.2 1.8-.9 2-1.9.4-1.7.4-4.8.4-4.8s0-3.1-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z" /></svg></a>
+        </div>
+        <div class="flex flex-col gap-2 text-[15px]">
+          <a href="#" class="hover:text-azure transition-colors">Pravila privatnosti</a>
+          <a href="#" class="hover:text-azure transition-colors">Izjava o kolačićima</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 lg:mt-16 pt-6 border-t border-ink/15 flex flex-wrap items-center justify-between gap-x-10 gap-y-3 text-[14px] text-ink/60">
+      <p>Copyright © 2026 · Sva prava pridržana · DPDS</p>
+      <p>Web izrada <a href="#" class="text-ink hover:text-azure transition-colors">Fer projekt</a></p>
+    </div>
+  </div>
+</footer>
+
+
+<script src="js/app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</body>
+</html>
