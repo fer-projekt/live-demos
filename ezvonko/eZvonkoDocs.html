@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="hr" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eZvonko — što naš AI asistent sve može (izvorni dokument za web)</title>
+<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+<script>tailwind.config = { darkMode: 'class' }</script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>[x-cloak]{display:none!important}</style>
+</head>
+
+<body
+    x-data="{
+        q: '',
+        nav: window.innerWidth >= 1024,   // na mobitelu meni starta zatvoren
+        dark: (localStorage.getItem('ez-theme') ?? 'dark') === 'dark',
+        index: {},
+        init() {
+            this.$watch('dark', v => { localStorage.setItem('ez-theme', v ? 'dark' : 'light'); document.documentElement.classList.toggle('dark', v) });
+            document.documentElement.classList.toggle('dark', this.dark);
+            window.addEventListener('resize', () => { if (window.innerWidth >= 1024) this.nav = true });
+            // Pretraga ide po naslovu poglavlja I po cijelom tekstu te sekcije, pa
+            // upit kalendar nade i poglavlje koje se zove Rezervacija termina.
+            document.querySelectorAll('aside nav a[href^=\'#\']').forEach(a => {
+                const s = document.querySelector(a.getAttribute('href'));
+                this.index[a.getAttribute('href')] = (a.textContent + ' ' + (s ? s.textContent : '')).toLowerCase();
+            });
+        },
+        hit(el) {
+            if (!this.q) return true;
+            const needle = this.q.toLowerCase();
+            return [...el.querySelectorAll('a[href^=\'#\']')].some(a => (this.index[a.getAttribute('href')] || '').includes(needle));
+        },
+        get results() { return this.q ? [...document.querySelectorAll('aside nav li')].filter(li => this.hit(li)).length : -1 }
+    }"
+    class="bg-zinc-50 text-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 antialiased">
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="sticky top-0 z-40 border-b border-zinc-200 bg-zinc-50/90 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/90">
+    <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6">
+        <button @click="nav = !nav" class="rounded-lg border border-zinc-300 p-2 text-zinc-500 hover:text-zinc-900 lg:hidden dark:border-zinc-700 dark:hover:text-white" aria-label="Meni">
+            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+        </button>
+
+        <a href="#pregled" class="flex items-center gap-2.5 shrink-0">
+            <span class="grid size-9 place-items-center rounded-xl bg-orange-500 font-bold text-white">eZ</span>
+            <span class="leading-tight">
+                <span class="block font-semibold text-zinc-900 dark:text-white">eZvonko</span>
+                <span class="block text-[11px] uppercase tracking-wider text-zinc-500">Dokumentacija asistenta</span>
+            </span>
+        </a>
+
+        <div class="ml-auto flex items-center gap-2">
+            <label class="relative hidden sm:block">
+                <svg class="pointer-events-none absolute left-2.5 top-2.5 size-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+                <input x-model="q" type="search" placeholder="Filtriraj poglavlja…"
+                    class="w-48 rounded-lg border border-zinc-300 bg-white py-2 pl-8 pr-3 text-sm placeholder:text-zinc-400 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 lg:w-64 dark:border-zinc-700 dark:bg-zinc-900">
+            </label>
+            <button @click="dark = !dark" class="rounded-lg border border-zinc-300 p-2 text-zinc-500 hover:text-zinc-900 dark:border-zinc-700 dark:hover:text-white" aria-label="Tema">
+                <svg x-show="!dark" class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19" stroke-linecap="round"/></svg>
+                <svg x-show="dark" x-cloak class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="mx-auto flex max-w-7xl gap-8 px-4 sm:px-6">
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside x-show="nav" x-cloak
+    class="fixed inset-x-0 bottom-0 top-[61px] z-30 overflow-y-auto border-r border-zinc-200 bg-zinc-50 p-5 lg:sticky lg:top-[61px] lg:z-auto lg:block lg:h-[calc(100vh-61px)] lg:w-72 lg:shrink-0 lg:bg-transparent lg:p-0 lg:pt-8 dark:border-zinc-800 dark:bg-zinc-950 lg:dark:bg-transparent">
+    <nav class="space-y-6 text-sm">
+
+        <div x-show="hit($el)">
+            <p class="mb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Osnovno</p>
+            <ul class="space-y-0.5 border-l border-zinc-200 dark:border-zinc-800">
+                <li x-show="hit($el)"><a href="#pregled" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Što je eZvonko</a></li>
+                <li x-show="hit($el)"><a href="#kako-radi" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Kako radi u 4 koraka</a></li>
+                <li x-show="hit($el)"><a href="#agent" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">AI agent, ne chatbot</a></li>
+                <li x-show="hit($el)"><a href="#kanali" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Kanali: web, e-mail, WhatsApp</a></li>
+            </ul>
+        </div>
+
+        <div x-show="hit($el)">
+            <p class="mb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Web asistent (widget)</p>
+            <ul class="space-y-0.5 border-l border-zinc-200 dark:border-zinc-800">
+                <li x-show="hit($el)"><a href="#izgled" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Izgled i osjećaj</a></li>
+                <li x-show="hit($el)"><a href="#triggeri" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Kad se sam pojavi (triggeri)</a></li>
+                <li x-show="hit($el)"><a href="#koraci" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Vođeni koraci (gumbi)</a></li>
+                <li x-show="hit($el)"><a href="#forme" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Forme u razgovoru</a></li>
+                <li x-show="hit($el)"><a href="#gumbi" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Plutajući CTA gumbi</a></li>
+                <li x-show="hit($el)"><a href="#kalendar" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Rezervacija termina</a></li>
+                <li x-show="hit($el)"><a href="#glas" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Glas i pristupačnost</a></li>
+            </ul>
+        </div>
+
+        <div x-show="hit($el)">
+            <p class="mb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Pamet asistenta</p>
+            <ul class="space-y-0.5 border-l border-zinc-200 dark:border-zinc-800">
+                <li x-show="hit($el)"><a href="#znanje" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Baza znanja</a></li>
+                <li x-show="hit($el)"><a href="#odgovori" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Kako odgovara</a></li>
+                <li x-show="hit($el)"><a href="#jezici" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Jezici</a></li>
+                <li x-show="hit($el)"><a href="#instant" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Standardni (instant) odgovori</a></li>
+                <li x-show="hit($el)"><a href="#namjere" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Prepoznavanje namjere</a></li>
+                <li x-show="hit($el)"><a href="#leadovi" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Leadovi i integracije</a></li>
+            </ul>
+        </div>
+
+        <div x-show="hit($el)">
+            <p class="mb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Vaša kontrolna ploča</p>
+            <ul class="space-y-0.5 border-l border-zinc-200 dark:border-zinc-800">
+                <li x-show="hit($el)"><a href="#portal" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Klijentski portal</a></li>
+                <li x-show="hit($el)"><a href="#analitika" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Analitika i izvještaji</a></li>
+            </ul>
+        </div>
+
+        <div x-show="hit($el)">
+            <p class="mb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Povjerenje</p>
+            <ul class="space-y-0.5 border-l border-zinc-200 dark:border-zinc-800">
+                <li x-show="hit($el)"><a href="#sigurnost" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Sigurnost</a></li>
+                <li x-show="hit($el)"><a href="#privatnost" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Privatnost i GDPR</a></li>
+                <li x-show="hit($el)"><a href="#granice" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Što asistent NE radi</a></li>
+            </ul>
+        </div>
+
+        <div x-show="hit($el)">
+            <p class="mb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Praktično</p>
+            <ul class="space-y-0.5 border-l border-zinc-200 dark:border-zinc-800">
+                <li x-show="hit($el)"><a href="#limiti" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Limiti i kvote</a></li>
+                <li x-show="hit($el)"><a href="#ugradnja" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Ugradnja na stranicu</a></li>
+                <li x-show="hit($el)"><a href="#pokretanje" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Kako krećemo</a></li>
+                <li x-show="hit($el)"><a href="#za-web" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Materijal za web stranicu</a></li>
+                <li x-show="hit($el)"><a href="#pojmovnik" @click="if(window.innerWidth<1024) nav=false" class="-ml-px block border-l-2 border-transparent py-1.5 pl-3 hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400">Pojmovnik</a></li>
+            </ul>
+        </div>
+
+        <p x-show="results === 0" x-cloak class="rounded-lg border border-dashed border-zinc-300 px-3 py-4 text-center text-xs text-zinc-500 dark:border-zinc-700">
+            Nema poglavlja za <span class="font-medium text-zinc-900 dark:text-white" x-text="'„' + q + '”'"></span>.
+            <button @click="q = ''" class="mt-1 block w-full text-orange-600 hover:underline dark:text-orange-400">Očisti filter</button>
+        </p>
+    </nav>
+</aside>
+
+<!-- ══════════════ CONTENT ══════════════ -->
+<main class="min-w-0 flex-1 py-10 lg:py-14">
+
+<!-- ─────────── 1. PREGLED ─────────── -->
+<section id="pregled" class="scroll-mt-24">
+    <p class="text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">Izvorni dokument</p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-white">eZvonko — što naš AI asistent sve može</h1>
+    <p class="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+        Ovaj dokument popisuje <strong class="text-zinc-900 dark:text-white">sve funkcionalnosti eZvonka onako kako ih vidi klijent</strong> —
+        što dobiva, što može sam mijenjati, koji su limiti i kako je riješena sigurnost i privatnost.
+        Namijenjen je kao izvor teksta i strukture za izradu web stranice eZvonka.
+    </p>
+
+    <div class="mt-8 rounded-2xl border border-orange-200 bg-orange-50 p-6 dark:border-orange-500/25 dark:bg-orange-500/5">
+        <h2 class="text-base font-semibold text-orange-900 dark:text-orange-200">U jednoj rečenici</h2>
+        <p class="mt-2 text-zinc-700 dark:text-zinc-300">
+            eZvonko je AI asistent koji <strong>uči isključivo iz vaših materijala</strong> — web stranice, cjenika, dokumenata —
+            pa 24/7 odgovara posjetiteljima na web chatu, e-mailu i WhatsAppu, sam prepoznaje ozbiljne upite,
+            skuplja kontakte i sve to slaže u kontrolnu ploču u kojoj vidite što ljudi zapravo pitaju.
+        </p>
+    </div>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl font-bold text-zinc-900 dark:text-white">24/7</div>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Odgovara i u 23 h, i u nedjelju, i za praznik — bez čekanja u telefonskoj vrsti.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl font-bold text-zinc-900 dark:text-white">0 izmišljanja</div>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Odgovara samo iz vaše baze znanja. Kad podatak ne postoji, kaže to i uputi na kontakt.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="text-2xl font-bold text-zinc-900 dark:text-white">1 linija koda</div>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Zalijepite jedan <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">&lt;script&gt;</code> tag u svoju web stranicu i asistent se pojavi na njoj. Ništa se ne instalira u vaš sustav.</p>
+        </div>
+    </div>
+
+    <h2 class="mt-12 text-xl font-semibold text-zinc-900 dark:text-white">Za koga je</h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Poliklinike i ordinacije</strong><br><span class="text-zinc-500">usluge, cjenik, radno vrijeme, naručivanje termina</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Gradovi, općine, županije</strong><br><span class="text-zinc-500">obrasci, nadležnosti, natječaji, komunalno</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Hoteli i turizam</strong><br><span class="text-zinc-500">smještaj, sadržaji, uvjeti, upiti gostiju na 5 jezika</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Webshopovi</strong><br><span class="text-zinc-500">proizvodi, dostupnost, dostava, povrat</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Turističke zajednice i muzeji</strong><br><span class="text-zinc-500">program, cijene ulaznica, kako doći, događanja</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Uslužne tvrtke i agencije</strong><br><span class="text-zinc-500">ponude, reference, prikupljanje upita i leadova</span></div>
+    </div>
+
+    <div class="mt-8 rounded-xl border border-zinc-200 bg-white p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+        <p class="font-medium text-zinc-900 dark:text-white">Legenda oznaka u dokumentu</p>
+        <div class="mt-3 flex flex-wrap gap-2">
+            <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+            <span class="rounded-full bg-sky-100 px-2.5 py-1 text-xs font-medium text-sky-800 dark:bg-sky-500/15 dark:text-sky-300">Postavlja Fer Projekt</span>
+            <span class="rounded-full bg-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">Opcionalno</span>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── 2. KAKO RADI ─────────── -->
+<section id="kako-radi" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Kako radi u 4 koraka</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">Od „imamo web stranicu" do „asistent radi na sajtu" — bez ijedne intervencije u vaš CMS.</p>
+
+    <ol class="mt-8 space-y-4">
+        <li class="flex gap-4 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-orange-500 text-sm font-bold text-white">1</span>
+            <div>
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Skeniramo vaše znanje</h3>
+                <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                    Automatski pročitamo cijelu vašu web stranicu (svaka podstranica, cjenik, obrasci za preuzimanje),
+                    a vi po želji dodate i dokumente kojih nema na webu — PDF cjenike, interne upute, uvjete poslovanja.
+                    Sve se pretvara u bazu znanja koju asistent smije koristiti.
+                </p>
+            </div>
+        </li>
+        <li class="flex gap-4 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-orange-500 text-sm font-bold text-white">2</span>
+            <div>
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Postavljamo osobnost asistenta</h3>
+                <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                    Ime, uloga, ton komunikacije, službeni kontakt podaci i vaša posebna pravila
+                    („ne spominji konkurenciju", „za hitno uputi na telefon", „obraćaj se s Vi").
+                    Ovo kasnije mijenjate sami, bilo kada, bez nas.
+                </p>
+            </div>
+        </li>
+        <li class="flex gap-4 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-orange-500 text-sm font-bold text-white">3</span>
+            <div>
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Ugrađujete jednu liniju koda</h3>
+                <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                    Dobijete <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">&lt;script&gt;</code> tag koji zalijepite u svoj web
+                    Bilo gdje gdje možete dodati HTML: polje za skripte u WordPressu ili Joomli, tema u Shopifyu,
+                    ili ručno u kod stranice. Asistent se pojavi u kutu i odmah radi.
+                    Radi samo na domenama koje ste odobrili.
+                </p>
+            </div>
+        </li>
+        <li class="flex gap-4 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-orange-500 text-sm font-bold text-white">4</span>
+            <div>
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Gledate rezultate i dotjerujete</h3>
+                <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                    U portalu vidite svaki razgovor, što je asistent znao a što nije, koga treba pozvati natrag
+                    i u koje doba dana vas ljudi najviše pitaju. Iz toga izlazi lista tema za koje vrijedi dodati
+                    novi dokument — asistent postaje bolji svakim mjesecom.
+                </p>
+            </div>
+        </li>
+    </ol>
+
+    <p class="mt-6 text-sm text-zinc-500">
+        Tipično vrijeme od dogovora do asistenta na webu: <strong class="text-zinc-900 dark:text-white">nekoliko radnih dana</strong>,
+        ovisno o veličini stranice i broju dokumenata.
+    </p>
+</section>
+
+<!-- ─────────── 2b. AI AGENT ─────────── -->
+<section id="agent" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <p class="text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">Pozicioniranje</p>
+    <h2 class="mt-2 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">AI agent, ne samo chatbot</h2>
+    <p class="mt-3 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Razlika u jednoj rečenici: <strong class="text-zinc-900 dark:text-white">chatbot odgovara na pitanja, a agent ima zadatak</strong> —
+        pa sam odlučuje kako će ga izvršiti, koristi alate, poduzima radnje i provjerava je li uspio.
+        eZvonko je agent, i to je moguće pokazati na konkretnim stvarima, ne samo tvrditi.
+    </p>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-zinc-100/60 p-5 dark:border-zinc-800 dark:bg-zinc-900/60">
+            <p class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Klasični chatbot</p>
+            <ul class="mt-3 space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+                <li>• Unaprijed napisana stabla pitanja i odgovora</li>
+                <li>• „Nisam razumio, odaberite jednu od opcija"</li>
+                <li>• Odgovori i tu prestaje</li>
+                <li>• Jedan kanal, jedan scenarij</li>
+                <li>• Kad ne zna, prebacuje na kontakt formu</li>
+            </ul>
+        </div>
+        <div class="rounded-xl border-2 border-orange-300 bg-white p-5 dark:border-orange-500/40 dark:bg-zinc-900">
+            <p class="text-xs font-semibold uppercase tracking-wider text-orange-600 dark:text-orange-400">eZvonko kao agent</p>
+            <ul class="mt-3 space-y-1.5 text-sm text-zinc-700 dark:text-zinc-300">
+                <li>• Sam bira kako će doći do odgovora</li>
+                <li>• Razumije slobodno napisano pitanje, na bilo kojem jeziku</li>
+                <li>• Odgovor je samo prvi korak — zatim <strong>djeluje</strong></li>
+                <li>• Tri kanala, jedna pamet, iste upute</li>
+                <li>• Kad ne zna, prizna, uputi na kontakt i <strong>otvori put do leada</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 class="mt-12 text-lg font-semibold text-zinc-900 dark:text-white">Četiri stvari koje ga čine agentom</h3>
+
+    <div class="mt-4 space-y-4">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-start gap-3">
+                <span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg bg-orange-500 text-xs font-bold text-white">1</span>
+                <div>
+                    <h4 class="font-semibold text-zinc-900 dark:text-white">Sam odlučuje o koracima</h4>
+                    <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                        Nema unaprijed nacrtanog toka. Za svako pitanje agent sam odlučuje što mu treba:
+                        hoće li pretražiti bazu znanja, popisati koje dokumente ima, otvoriti jedan dokument i pročitati ga,
+                        ili ponuditi kalendar. Ako prva pretraga ne nađe podatak, <strong>sam formulira drugačiji upit</strong> i traži ponovno.
+                        Za jedan odgovor smije napraviti do pet takvih koraka u nizu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-start gap-3">
+                <span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg bg-orange-500 text-xs font-bold text-white">2</span>
+                <div>
+                    <h4 class="font-semibold text-zinc-900 dark:text-white">Ima alate, ne samo riječi</h4>
+                    <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                        Agent raspolaže konkretnim alatima i sam bira koji će upotrijebiti:
+                    </p>
+                    <div class="mt-3 grid gap-2 sm:grid-cols-2">
+                        <div class="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-700 dark:bg-zinc-800"><strong class="text-zinc-900 dark:text-white">Pretraži bazu znanja</strong> — nađe relevantne dijelove stranica i dokumenata</div>
+                        <div class="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-700 dark:bg-zinc-800"><strong class="text-zinc-900 dark:text-white">Popiši dokumente</strong> — „koje obrasce imate?"</div>
+                        <div class="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-700 dark:bg-zinc-800"><strong class="text-zinc-900 dark:text-white">Pogledaj detalje dokumenta</strong> — naziv, vrsta, link za preuzimanje</div>
+                        <div class="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-700 dark:bg-zinc-800"><strong class="text-zinc-900 dark:text-white">Pročitaj sadržaj dokumenta</strong> — „što mi treba za ovaj obrazac?"</div>
+                        <div class="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-700 dark:bg-zinc-800"><strong class="text-zinc-900 dark:text-white">Otvori kalendar</strong> — kad procijeni da posjetitelj želi termin</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-start gap-3">
+                <span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg bg-orange-500 text-xs font-bold text-white">3</span>
+                <div>
+                    <h4 class="font-semibold text-zinc-900 dark:text-white">Poduzima radnje, ne samo priča</h4>
+                    <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                        Ovo je granica koju obični chatbot ne prelazi. Iz jednog razgovora agent može:
+                    </p>
+                    <ul class="mt-2 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
+                        <li class="flex gap-2"><span class="text-orange-500">→</span> otvoriti pravu formu u pravom trenutku i primiti upit</li>
+                        <li class="flex gap-2"><span class="text-orange-500">→</span> otvoriti kalendar i zabilježiti da je termin rezerviran</li>
+                        <li class="flex gap-2"><span class="text-orange-500">→</span> prepoznati i izvući kontakt koji je posjetitelj usput napisao</li>
+                        <li class="flex gap-2"><span class="text-orange-500">→</span> upisati novi red u <strong>vašu Google tablicu</strong> ili poslati podatke u <strong>vaš CRM</strong></li>
+                        <li class="flex gap-2"><span class="text-orange-500">→</span> poslati e-mail obavijest pravoj osobi u vašem timu</li>
+                        <li class="flex gap-2"><span class="text-orange-500">→</span> označiti razgovor kao eskaliran i staviti ga na vrh vaše liste</li>
+                        <li class="flex gap-2"><span class="text-orange-500">→</span> sastaviti i <strong>poslati odgovor na e-mail</strong> koji vam je stigao u inbox</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-start gap-3">
+                <span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg bg-orange-500 text-xs font-bold text-white">4</span>
+                <div>
+                    <h4 class="font-semibold text-zinc-900 dark:text-white">Radi i kad nitko ne gleda</h4>
+                    <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                        Chatbot postoji samo dok je netko u chatu. Agent ima vlastite petlje koje se same pokreću
+                        i rade posao bez ijednog klika s vaše strane:
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-4 overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-700">
+                <table class="w-full min-w-[640px] text-sm">
+                    <thead class="bg-zinc-100 text-left dark:bg-zinc-800"><tr>
+                        <th class="px-4 py-2.5 font-semibold text-zinc-900 dark:text-white">Petlja</th>
+                        <th class="px-4 py-2.5 font-semibold text-zinc-900 dark:text-white">Kad se pokreće</th>
+                        <th class="px-4 py-2.5 font-semibold text-zinc-900 dark:text-white">Što radi sam</th>
+                    </tr></thead>
+                    <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-700 dark:bg-zinc-900">
+                        <tr><td class="px-4 py-2.5 font-medium text-zinc-900 dark:text-white">E-mail asistent</td><td class="px-4 py-2.5 text-zinc-500">svake minute</td><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Provjeri inbox, pročita novi upit, sastavi odgovor iz baze znanja i pošalje ga.</td></tr>
+                        <tr><td class="px-4 py-2.5 font-medium text-zinc-900 dark:text-white">Analiza razgovora</td><td class="px-4 py-2.5 text-zinc-500">svakih 5 min</td><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Uzme razgovore koji su utihnuli, razvrsta ih, izvuče kontakt, označi eskalaciju i „nije znao", zatvori ih.</td></tr>
+                        <tr><td class="px-4 py-2.5 font-medium text-zinc-900 dark:text-white">Osvježavanje znanja</td><td class="px-4 py-2.5 text-zinc-500">po rasporedu</td><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Ponovno pročita vašu stranicu, obradi samo ono što se promijenilo i osvježi bazu znanja.</td></tr>
+                        <tr><td class="px-4 py-2.5 font-medium text-zinc-900 dark:text-white">Dostava leadova</td><td class="px-4 py-2.5 text-zinc-500">odmah po nastanku</td><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Upiše kontakt u tablicu ili CRM. Ako servis u tom trenutku ne odgovara, pokuša ponovno.</td></tr>
+                        <tr><td class="px-4 py-2.5 font-medium text-zinc-900 dark:text-white">WhatsApp</td><td class="px-4 py-2.5 text-zinc-500">odmah / 6 h</td><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Obradi dolaznu poruku istog trenutka; predloške za kampanje sinkronizira svakih 6 sati.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-12 text-lg font-semibold text-zinc-900 dark:text-white">Nije jedan agent — nego tim specijalista</h3>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Iza jednog razgovora radi više odvojenih agenata. Svaki ima svoj zadatak, svoje upute i svoju „težinu" —
+        brzi i jeftini rade brze provjere, snažniji rade ono što traži razmišljanje.
+    </p>
+    <div class="mt-4 grid gap-4 lg:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Agent za razgovor</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Vodi razgovor, koristi alate, gradi odgovor iz vaše baze znanja. Ima svoju verziju za web chat,
+                za e-mail (formalnije i duže) i za WhatsApp (kratko i mobilno).
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Agent za analizu</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Pročita gotov razgovor i vrati <strong>strukturiran nalaz</strong>: vrsta upita, hitnost,
+                pouzdanost procjene, je li bilo eskalacije, je li ostalo bez odgovora i koji je kontakt izvučen.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Agent za ton</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Vrlo brza provjera pojedine poruke — je li vulgarna, prijeteća ili ljutita — da se ozbiljna
+                situacija prepozna <em>u trenutku</em>, a ne tek na kraju razgovora.
+            </p>
+        </div>
+    </div>
+    <p class="mt-4 text-sm text-zinc-500">
+        Bonus otpornosti: agent nije vezan na jednog dobavljača AI-ja. Ako primarni model bude preopterećen,
+        <strong class="text-zinc-900 dark:text-white">prebacuje se na rezervnog kod drugog dobavljača</strong> usred rada —
+        posjetitelj to ne vidi.
+    </p>
+
+    <h3 class="mt-12 text-lg font-semibold text-zinc-900 dark:text-white">Agent s ogradama — i to je namjerno</h3>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        „AI agent" danas često znači <em>agent koji smije sve</em>. Naš namjerno ne smije.
+        Prostor u kojem djeluje je jasno ograđen, jer asistent koji nastupa u ime vaše firme pred pacijentima,
+        građanima i kupcima ne smije improvizirati.
+    </p>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Nema pristup internetu — <strong>samo vaša baza znanja</strong></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Ne izvršava kod i ne poziva proizvoljne servise</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Ne poduzima nepovratne radnje — ne plaća, ne kupuje, ne briše</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Ne potvrđuje rezervacije ni cijene u ime firme</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Piše samo na odredišta koja ste vi odredili</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Ne može promijeniti vlastite sigurnosne upute</div>
+    </div>
+    <div class="mt-4 rounded-xl border border-orange-200 bg-orange-50 p-5 text-sm dark:border-orange-500/25 dark:bg-orange-500/5">
+        <p class="text-zinc-700 dark:text-zinc-300">
+            <strong class="text-orange-900 dark:text-orange-200">Za posao je ograđenost prednost, ne nedostatak.</strong>
+            Agent koji može poduzeti bilo što je agent kojem morate gledati preko ramena.
+            eZvonko ima točno onoliko slobode koliko treba da posao bude obavljen — i ni gram više.
+            Detalji su u poglavljima <a href="#sigurnost" class="underline">Sigurnost</a> i
+            <a href="#granice" class="underline">Što asistent NE radi</a>.
+        </p>
+    </div>
+
+    <h3 class="mt-12 text-lg font-semibold text-zinc-900 dark:text-white">Što od toga klijent zapravo dobiva</h3>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Rutina prestaje biti vaš posao</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Ista pitanja o cjeniku, radnom vremenu i uvjetima rješavaju se sama, 24 sata dnevno, na sva tri kanala.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Posao ne staje na odgovoru</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Razgovor završava upisanim kontaktom u vašoj tablici i obavijesti u pravom inboxu — ne u praznom chatu koji nitko nije vidio.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Dobijete uređenu listu, ne hrpu logova</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Koga pozvati, tko je bio ljut i što dodati u bazu znanja — sve razvrstano bez da je ijedan čovjek čitao razgovore.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Postaje bolji sam od sebe</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Lista „što nije znao" i standardni odgovori zatvaraju petlju: svaki mjesec pokriva veći dio pitanja nego prethodni.</p>
+        </div>
+    </div>
+
+    <div class="mt-8 rounded-xl border border-sky-200 bg-sky-50 p-5 text-sm dark:border-sky-500/25 dark:bg-sky-500/5">
+        <p class="font-medium text-sky-900 dark:text-sky-200">Napomena za web stranicu</p>
+        <p class="mt-1 text-zinc-700 dark:text-zinc-300">
+            Riječ „AI agent" je 2026. istrošena — svi je koriste, pa sama po sebi ne prodaje.
+            Zato na stranici <strong>ne treba ponavljati tvrdnju, nego pokazati radnju</strong>:
+            animirani razgovor u kojem posjetitelj pita cijenu, agent pretraži cjenik, odgovori, ponudi formu,
+            i onda se pokaže kako taj isti kontakt pada u Google tablicu.
+            Jedna takva animacija vrijedi više od cijelog ovog poglavlja.
+        </p>
+    </div>
+</section>
+
+<!-- ─────────── 3. KANALI ─────────── -->
+<section id="kanali" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Kanali: gdje sve asistent živi</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Ista baza znanja, ista osobnost, isti kontakt podaci — samo drugo mjesto gdje korisnik piše.
+        Postavke asistenta uređujete jednom i vrijede za sve kanale.
+    </p>
+
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+        <div class="rounded-xl border-2 border-orange-200 bg-white p-5 dark:border-orange-500/30 dark:bg-zinc-900">
+            <div class="flex items-center gap-2">
+                <span class="rounded-lg bg-orange-100 p-2 text-orange-600 dark:bg-orange-500/15 dark:text-orange-400">
+                    <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Web chat (widget)</h3>
+                <span class="ml-auto rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-orange-700 dark:bg-orange-500/15 dark:text-orange-300">Glavni</span>
+            </div>
+            <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+                Chat na vašoj web stranici. Najbogatiji kanal: vođeni koraci, forme u razgovoru,
+                CTA gumbi, rezervacija termina, glasovni unos, čitanje odgovora naglas.
+            </p>
+            <ul class="mt-3 space-y-1 text-sm text-zinc-500">
+                <li>• odgovor se piše u stvarnom vremenu (streaming)</li>
+                <li>• razgovor se nastavlja kroz navigaciju stranicom</li>
+                <li>• potpuno u vašim bojama i fontu</li>
+            </ul>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-center gap-2">
+                <span class="rounded-lg bg-sky-100 p-2 text-sky-600 dark:bg-sky-500/15 dark:text-sky-400">
+                    <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6" stroke-linecap="round"/></svg>
+                </span>
+                <h3 class="font-semibold text-zinc-900 dark:text-white">E-mail asistent</h3>
+            </div>
+            <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+                Dobijete adresu tipa <em>ai-asistent@vasadomena.hr</em>. Asistent sam čita inbox,
+                odgovara na upite iz baze znanja i cijeli thread vodi u portal.
+            </p>
+            <ul class="mt-3 space-y-1 text-sm text-zinc-500">
+                <li>• provjera inboxa svake 1–60 min (vi birate)</li>
+                <li>• formalniji, duži i strukturiraniji stil od chata</li>
+                <li>• radi s vašim postojećim IMAP/SMTP-om</li>
+                <li>• adresu i lozinke uređujete sami u portalu</li>
+            </ul>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-center gap-2">
+                <span class="rounded-lg bg-emerald-100 p-2 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
+                    <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.2-5.6A8.4 8.4 0 1 1 21 11.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <h3 class="font-semibold text-zinc-900 dark:text-white">WhatsApp</h3>
+            </div>
+            <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+                Vaš poslovni WhatsApp broj s AI asistentom. Odgovori su kratki i mobilni —
+                bez formatiranja, 2–3 rečenice, linkovi u zasebnom redu.
+            </p>
+            <ul class="mt-3 space-y-1 text-sm text-zinc-500">
+                <li>• službeni WhatsApp Business API</li>
+                <li>• marketing kampanje po odobrenim predlošcima</li>
+                <li>• publike (audiences) i poštivanje odjave</li>
+                <li>• statusi poslano / dostavljeno / pročitano</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-zinc-200 bg-zinc-100/60 p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+        <p><strong class="text-zinc-900 dark:text-white">Bonus kanal — demo stranica.</strong>
+        Za prezentacije i interno testiranje dobijete javni link (npr. <code class="rounded bg-zinc-200 px-1 text-xs dark:bg-zinc-800">/demo/vasa-firma</code>)
+        na kojem asistent radi „preko" snimke vaše stranice. Idealno za pokazivanje kolegama ili upravi prije nego što ide na produkciju.</p>
+    </div>
+</section>
+
+<!-- ─────────── 4. IZGLED ─────────── -->
+<section id="izgled" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Izgled i osjećaj</h2>
+        <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+    </div>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Widget nije „tuđa kutija na vašem sajtu" — poprima vaš brend. Sve niže mijenjate sami u portalu,
+        promjena je vidljiva na webu odmah nakon spremanja, bez ponovne ugradnje koda.
+    </p>
+
+    <div class="mt-8 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+        <table class="w-full min-w-[720px] text-sm">
+            <thead class="bg-zinc-100 text-left dark:bg-zinc-900">
+                <tr>
+                    <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Postavka</th>
+                    <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Što radi</th>
+                    <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Opcije</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-950">
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Primarna boja</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Boja launcher gumba, korisničkih poruka i akcenata.</td><td class="px-4 py-3 text-zinc-500">bilo koji HEX</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Sekundarna (accent) boja</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Linkovi, fokus polja, hover. Prazno = koristi primarnu.</td><td class="px-4 py-3 text-zinc-500">HEX, opcionalno</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Stil prikaza</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Klasični okrugli gumb u kutu ili puna traka uz dno stranice. <strong>Desktop i mobitel mogu biti različiti</strong> (granica 768 px).</td><td class="px-4 py-3 text-zinc-500">Bubble / Bottom bar</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Pozicija</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Kut u kojem stoji launcher (vrijedi za Bubble mod).</td><td class="px-4 py-3 text-zinc-500">dolje desno / dolje lijevo</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Tekst na gumbu</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Npr. „Chat", „Pitajte nas", „Info".</td><td class="px-4 py-3 text-zinc-500">slobodan tekst</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Naslov i podnaslov</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Zaglavlje chata — npr. „Asistent dr. Ivić" / „Naručivanje i cjenik".</td><td class="px-4 py-3 text-zinc-500">slobodan tekst</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Pozdravna poruka</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Prva poruka asistenta pri otvaranju razgovora.</td><td class="px-4 py-3 text-zinc-500">slobodan tekst</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Placeholder unosa</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Tekst u polju za pisanje; u bar modu služi i kao poziv na akciju.</td><td class="px-4 py-3 text-zinc-500">slobodan tekst</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Logo / avatar</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Slika u zaglavlju chata; klik na nju vodi na vaš web.</td><td class="px-4 py-3 text-zinc-500">URL slike + link</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Avatar na chat gumbu</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Zasebna okrugla slika na samom launcheru (npr. lice asistentice) umjesto chat ikone.</td><td class="px-4 py-3 text-zinc-500">upload PNG/JPG/GIF/WebP, do 2 MB</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Font</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Preuzmite tipografiju svoje stranice.</td><td class="px-4 py-3 text-zinc-500">CSS font-family, opcionalno</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Z-index</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Ako vaš „sticky" header mora ići preko otvorenog chata — riješi se ovdje, bez diranja CSS-a stranice.</td><td class="px-4 py-3 text-zinc-500">0 = iznad svega</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Telefon u zaglavlju</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Ikona slušalice u chatu — jedan klik i mobilni korisnik vas zove.</td><td class="px-4 py-3 text-zinc-500">iz kontakt podataka asistenta</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">„Powered by" pločica</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Diskretna oznaka na dnu chata. Može se ugasiti (white-label).</td><td class="px-4 py-3 text-zinc-500">uklj./isklj. po widgetu</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Plutajuće CTA poruke (callout)</h3>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Male poruke koje same „isplivaju" uz chat gumb i pozivaju posjetitelja da klikne.
+        Upišete više rečenica (jedna po redu, do 200 znakova) i birate kako se prikazuju:
+    </p>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Random</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Na svakom učitavanju stranice pojavi se jedna nasumična poruka. Mirnije, manje nametljivo.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Typing rotation</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Poruke se izmjenjuju s efektom pisanja. Primjetnije — dobro za akcije i kampanje.</p>
+        </div>
+    </div>
+    <p class="mt-3 text-sm text-zinc-500">Podesivo: odgoda prije prve poruke (npr. 5 s) i koliko se svaka drži prije zamjene. U bar modu poruke rotiraju u samom polju za unos.</p>
+
+    <div class="mt-8 rounded-xl border border-zinc-200 bg-zinc-100/60 p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+        <p class="font-medium text-zinc-900 dark:text-white">Tehnička sitnica koja rješava velik problem</p>
+        <p class="mt-1 text-zinc-600 dark:text-zinc-400">
+            Widget je izoliran u <em>Shadow DOM</em>-u — vaš CSS ne može pokvariti chat, a chat ne može pokvariti vašu stranicu.
+            Skripta se učitava asinkrono, pa ne usporava učitavanje sajta ni PageSpeed ocjenu.
+        </p>
+    </div>
+</section>
+
+<!-- ─────────── 5. TRIGGERI ─────────── -->
+<section id="triggeri" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Kad se asistent sam pojavi</h2>
+        <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+    </div>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Proaktivni triggeri — načini da chat sam privuče pažnju umjesto da čeka klik.
+        Svi su neobavezni; možete ih ostaviti isključene i pustiti da posjetitelj sam otvori chat.
+    </p>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Auto-otvaranje nakon X sekundi</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Chat se otvori sam nakon zadanog vremena na stranici. 0 = nikad.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Exit intent</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Otvori se kad korisnik krene mišem prema zatvaranju taba — posljednja šansa da zadržite upit. Radi na desktopu.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Nakon skrolanja X %</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Npr. na 60 % stranice — znak da korisnik zapravo čita, pa mu je pomoć dobrodošla.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">URL filter</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Proaktivni triggeri rade <strong>samo</strong> na stranicama koje navedete (npr. <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">/cjenik</code>, <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">*/proizvodi*</code>). Prazno = svugdje.</p>
+        </div>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm dark:border-amber-500/25 dark:bg-amber-500/5">
+        <p class="font-medium text-amber-900 dark:text-amber-200">Ne živciramo posjetitelja</p>
+        <ul class="mt-2 space-y-1 text-zinc-700 dark:text-zinc-300">
+            <li>• Ako korisnik <strong>ručno zatvori</strong> chat, proaktivni triggeri se gase do kraja te sesije u pregledniku — ne skače mu ponovno u lice.</li>
+            <li>• Započeti razgovor <strong>preživi navigaciju</strong> kroz stranicu: korisnik prelistava sajt, chat pamti kontekst.</li>
+            <li>• „Novi razgovor" resetira sve i preživi prelazak na drugu stranicu.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ─────────── 6. KORACI ─────────── -->
+<section id="koraci" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Vođeni koraci — gumbi za najčešća pitanja</h2>
+        <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+    </div>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Većina posjetitelja ne zna što bi pitala AI-ja. Zato na otvaranju chata mogu dobiti
+        do 3 gumba s vašim najčešćim temama — jedan klik i dobiju odgovor, bez pisanja.
+    </p>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+        <div>
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Kako to radi</h3>
+            <ul class="mt-3 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                <li class="flex gap-2"><span class="text-orange-500">1.</span> Posjetitelj vidi gumbe (npr. „🦷 Cjenik i akcije", „📅 Naručivanje", „📍 Kako do nas").</li>
+                <li class="flex gap-2"><span class="text-orange-500">2.</span> Klikne — asistent dobije <em>vašu skrivenu instrukciju</em> uz taj gumb i odgovori.</li>
+                <li class="flex gap-2"><span class="text-orange-500">3.</span> Ako gumb ima pod-korake, oni se pojave nakon odgovora → posjetitelj se spušta dublje u temu.</li>
+                <li class="flex gap-2"><span class="text-orange-500">4.</span> Posjetitelj i dalje može slobodno tipkati (to se može i isključiti, za strogo vođeni tok).</li>
+            </ul>
+            <p class="mt-4 text-sm text-zinc-500">
+                Instrukcija je skrivena — korisnik vidi samo lijepu labelu gumba, a asistent iza kulisa dobije precizan upit
+                („Pokaži cjenik implantata iz baze znanja i ponudi besplatni prvi pregled").
+            </p>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Primjer strukture</p>
+            <div class="mt-3 space-y-2 text-sm">
+                <div class="rounded-lg bg-zinc-100 px-3 py-2 dark:bg-zinc-800">🌐 Web stranica ili shop</div>
+                <div class="ml-6 space-y-2 border-l-2 border-orange-300 pl-3 dark:border-orange-500/40">
+                    <div class="rounded-lg bg-zinc-100 px-3 py-2 dark:bg-zinc-800">Web stranica po mjeri</div>
+                    <div class="rounded-lg bg-zinc-100 px-3 py-2 dark:bg-zinc-800">Web shop (e-commerce)</div>
+                    <div class="rounded-lg bg-zinc-100 px-3 py-2 dark:bg-zinc-800">Paket FER BASIC</div>
+                </div>
+                <div class="rounded-lg bg-zinc-100 px-3 py-2 dark:bg-zinc-800">🤖 AI asistent (chatbot)</div>
+                <div class="rounded-lg bg-zinc-100 px-3 py-2 dark:bg-zinc-800">📈 SEO i AI optimizacija</div>
+            </div>
+            <p class="mt-4 text-xs text-zinc-500">Limit: do <strong>3 gumba po razini</strong>, do <strong>5 razina</strong> u dubinu.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── 7. FORME ─────────── -->
+<section id="forme" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Forme unutar razgovora</h2>
+        <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+    </div>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Najvrjedniji dio asistenta: chat ne samo da odgovara, nego u pravom trenutku otvori kratak obrazac
+        i pretvori razgovor u konkretan upit s imenom, mailom i telefonom.
+        Forma se otvara <strong>unutar chata</strong>, ne kao pop-up i ne vodi korisnika na drugu stranicu.
+    </p>
+
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">1 · Kad se pojavi</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Na <strong>ključne riječi</strong> (do 10 po formi). Napiše li posjetitelj „ponuda", „koliko košta", „termin" — forma se pojavi odmah.</p>
+            <p class="mt-2 text-xs text-zinc-500">Prepoznavanje je tolerantno: ne razlikuje velika/mala slova, ignorira č/ć/š/ž/đ i hvata deklinacije („termin" hvata i „termina", „termine").</p>
+            <p class="mt-2 text-xs text-emerald-700 dark:text-emerald-400">Forma se otvara <strong>istog trenutka</strong> — posjetitelj ne čeka da mu asistent prvo odgovori.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">2 · Što sadrži</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Vi definirate polja: naslov, opis, tekst gumba i poruku nakon predaje.</p>
+            <p class="mt-2 text-xs text-zinc-500">Tipovi polja: tekst, e-mail, telefon, veći tekst (textarea), padajući odabir, datum, vrijeme. Svako polje može biti obavezno ili ne, i imati placeholder.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">3 · Što se dogodi nakon</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Podaci padnu u razgovor u portalu, po želji idu na e-mail i u Google tablicu ili CRM.</p>
+            <p class="mt-2 text-xs text-zinc-500">Polja s ključevima <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">name</code>, <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">email</code>, <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">phone</code>, <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">company</code>, <code class="rounded bg-zinc-100 px-1 dark:bg-zinc-800">role</code> automatski se mapiraju u kontakt zapis.</p>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Privola i newsletter</h3>
+    <div class="mt-3 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">GDPR privola</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Obavezna kvačica s vašim tekstom privole. Bez nje se forma <strong>ne može poslati</strong>. Vrijeme davanja privole se bilježi.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Newsletter opt-in</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Zasebna, neobavezna kvačica („Želim primati novosti i ponude") — čist i zakonski ispravan način prikupljanja liste.</p>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Predlošci za brz start</h3>
+    <div class="mt-3 flex flex-wrap gap-2 text-sm">
+        <span class="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 dark:border-zinc-800 dark:bg-zinc-900">Zatraži ponudu</span>
+        <span class="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 dark:border-zinc-800 dark:bg-zinc-900">Naručite termin</span>
+        <span class="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 dark:border-zinc-800 dark:bg-zinc-900">Newsletter</span>
+        <span class="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 dark:border-zinc-800 dark:bg-zinc-900">Hitan upit</span>
+        <span class="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 dark:border-zinc-800 dark:bg-zinc-900">Prazna forma</span>
+    </div>
+    <p class="mt-3 text-sm text-zinc-500">
+        Broj formi nije ograničen — svaka može imati svoje ključne riječi, svoju e-mail adresu za obavijesti,
+        svoju „vrstu upita" (prodaja / podrška / pritužba / pitanje / ostalo) i može se privremeno pauzirati bez brisanja.
+    </p>
+</section>
+
+<!-- ─────────── 8. GUMBI ─────────── -->
+<section id="gumbi" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Plutajući CTA gumbi</h2>
+        <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+        <span class="rounded-full bg-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">Opcionalno</span>
+    </div>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Male „pilule" iznad chat gumba ili na vrhu razgovora — npr. <em>🚀 Zatraži ponudu</em>, <em>📅 Naruči termin</em>, <em>🔔 Newsletter</em>.
+        Služe da posjetitelj ne mora ni pisati: klik → otvori se forma, ili krene razgovor s pripremljenom porukom.
+    </p>
+
+    <div class="mt-8 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+        <table class="w-full min-w-[640px] text-sm">
+            <thead class="bg-zinc-100 text-left dark:bg-zinc-900"><tr>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Kontrola</th>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Objašnjenje</th>
+            </tr></thead>
+            <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-950">
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Tekst, ikona, boja</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Emoji ili ikona; boja se može razlikovati od primarne (npr. crveni „Hitno").</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Akcija na klik</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Otvori određenu formu <em>ili</em> pokreni razgovor s unaprijed napisanom porukom.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Pozicija</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Iznad launcher gumba (vidljivo i dok je chat zatvoren) ili unutar chata na vrhu.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Odgoda</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Pojavi se nakon X sekundi na stranici (npr. 8 s — kad je jasno da posjetitelj razgledava).</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Nakon N poruka</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Pojavi se tek kad razgovor „sazrije" — npr. nakon 3 poruke ponudi formu za ponudu.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Auto-skrivanje</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Nestane nakon X sekundi da ne zatrpava ekran.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">URL pravila</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Prikaži samo na određenim stranicama i/ili sakrij na drugima (npr. nikad na <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">/checkout</code>).</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Redoslijed i pauza</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Poredak prikaza; svaki gumb može se pauzirati bez brisanja.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ─────────── 9. KALENDAR ─────────── -->
+<section id="kalendar" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Rezervacija termina u chatu</h2>
+        <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+        <span class="rounded-full bg-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">Opcionalno</span>
+    </div>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Ako koristite <strong>Calendly</strong> ili <strong>Cal.com</strong>, kalendar se otvara <em>unutar</em> chata.
+        Posjetitelj ne izlazi sa vaše stranice, ne traži „Kontakt" u meniju — odabere termin i gotovo.
+    </p>
+
+    <h3 class="mt-8 text-lg font-semibold text-zinc-900 dark:text-white">Tri načina prikaza</h3>
+    <div class="mt-3 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Na ključnu riječ</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Napiše „termin", „konzultacije", „kada možete" → kalendar se odmah pojavi.</p>
+            <p class="mt-2 text-xs text-emerald-700 dark:text-emerald-400">Kalendar je tu <strong>istog trenutka</strong>. Do 10 ključnih riječi, deklinacije se hvataju same.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Uvijek</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Kalendar je odmah tu, pri otvaranju razgovora. Za usluge gdje je rezervacija glavni cilj.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Kad AI procijeni</p>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Asistent sam odluči da posjetitelj želi termin, napiše rečenicu i ponudi kalendar.</p>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Detalji koje je važno znati</h3>
+    <ul class="mt-3 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+        <li class="flex gap-2"><span class="text-orange-500">→</span> Na desktopu je kalendar <strong>kartica u nizu razgovora</strong>, s opcijom „Povećaj"; na mobitelu preuzima cijeli ekran radi upotrebljivosti.</li>
+        <li class="flex gap-2"><span class="text-orange-500">→</span> Kalendar se <strong>nikad ne učitava direktno s Calendlyja u vašu stranicu</strong> — ide kroz našu posredničku stranicu, pa Calendly ne vidi s koje vaše stranice posjetitelj dolazi.</li>
+        <li class="flex gap-2"><span class="text-orange-500">→</span> Kad posjetitelj rezervira, u razgovoru ostaje zabilježeno da je termin rezerviran i kada, plus poruka „Termin je rezerviran. Potvrdu ste dobili e-mailom."</li>
+        <li class="flex gap-2"><span class="text-orange-500">→</span> Rezervacija može automatski upisati red u vašu Google tablicu ili poslati podatke u CRM (vidi <a href="#leadovi" class="text-orange-600 underline dark:text-orange-400">Leadovi</a>).</li>
+        <li class="flex gap-2"><span class="text-orange-500">→</span> Podesivo: naslov kartice, uvodna poruka asistenta, visina kalendara, skrivanje Calendly opisa (radi uštede prostora).</li>
+        <li class="flex gap-2"><span class="text-amber-500">!</span> <strong>Ograničenje:</strong> Calendly svojim besplatnim ugradbenim kalendarom ne javlja natrag <em>točan datum i vrijeme</em> odabranog termina. Bilježimo činjenicu i vrijeme rezervacije; za točan datum termina u tablici potreban je Calendly API (njihov plaćeni plan).</li>
+    </ul>
+</section>
+
+<!-- ─────────── 10. GLAS ─────────── -->
+<section id="glas" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Glas i pristupačnost</h2>
+        <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+    </div>
+
+    <div class="mt-8 grid gap-5 lg:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">🎙 Govorni unos</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Klik na mikrofon i posjetitelj <strong>izgovori</strong> pitanje — tekst se piše u polje dok govori.
+                Ponovni klik zaustavlja snimanje. Neprocjenjivo za starije korisnike i za one na mobitelu u pokretu.
+            </p>
+            <p class="mt-2 text-xs text-zinc-500">Prepoznavanje govora obavlja sam preglednik posjetitelja (Chrome, Edge, Safari) — audio ne prolazi kroz naše servere.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">🔊 Čitanje odgovora naglas</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Svaki odgovor ima gumb za slušanje. Čitanje obavlja <strong>sam preglednik posjetitelja</strong>
+                svojom ugrađenom sintezom govora — mi mu pripremimo tekst i kažemo na kojem je jeziku,
+                pa hrvatski odgovor bude pročitan hrvatskim glasom, a njemački njemačkim.
+            </p>
+            <p class="mt-2 text-xs text-zinc-500">Naš dio posla: iz teksta izbacimo linkove, adrese i formatiranje da se ne čitaju naglas, i prepoznamo jezik odgovora. Kvaliteta glasa ovisi o pregledniku i uređaju posjetitelja; ako uređaj nema glas za taj jezik, čita ga svojim zadanim.</p>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Ostale sitnice koje se osjete u upotrebi</h3>
+    <div class="mt-3 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Odgovor se <strong>piše u stvarnom vremenu</strong>, kao da netko tipka — nema praznog čekanja.</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Odgovori su lijepo formatirani: naslovi, liste, <strong>bold</strong>, tablice i klikabilni linkovi.</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Gumb za <strong>kopiranje</strong> odgovora — korisnik lako spremi cjenik ili adresu.</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Palac gore / palac dolje na svaki odgovor — ocjene vidite u analitici.</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Na iPhoneu se chat ispravno ponaša kad iskoči tipkovnica (bez „skakanja" ekrana).</div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">Ako veza pukne, odgovor se ipak spremi — vidjet ćete ga u portalu.</div>
+    </div>
+</section>
+
+<!-- ─────────── 11. ZNANJE ─────────── -->
+<section id="znanje" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Baza znanja — odakle asistent zna</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Asistent nema „opće znanje s interneta" o vašoj firmi. Zna <strong>samo ono što mu date</strong>.
+        To je i najveća prednost: nema izmišljanja, nema tuđih cijena, nema zastarjelih informacija s foruma.
+    </p>
+
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-center gap-2">
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Vaša web stranica</h3>
+                <span class="rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">Mi</span>
+            </div>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Automatski prolazimo kroz cijelu stranicu i vadimo tekst svake podstranice — usluge, cjenik,
+                radno vrijeme, novosti, obrasce za preuzimanje.
+            </p>
+            <ul class="mt-2 space-y-1 text-xs text-zinc-500">
+                <li>• radi na WordPressu, Joomli, Shopifyu, custom sajtovima</li>
+                <li>• vadi samo sadržaj, izbacuje menije, footere i kolačić-bannere</li>
+                <li>• hvata i linkove na PDF-ove i obrasce</li>
+            </ul>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-center gap-2">
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Vaši dokumenti</h3>
+                <span class="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">Vi</span>
+            </div>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Sami učitavate ono čega nema na webu: PDF cjenike, uvjete poslovanja, interne upute,
+                popise, tablice.
+            </p>
+            <ul class="mt-2 space-y-1 text-xs text-zinc-500">
+                <li>• PDF, DOCX, TXT, MD, JSON, CSV</li>
+                <li>• u portalu vidite koliko ste kvote iskoristili</li>
+                <li>• dokument koji obrišete asistent trenutno prestaje koristiti</li>
+            </ul>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-center gap-2">
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Strukturirani podaci</h3>
+                <span class="rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">Mi</span>
+            </div>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Za webshopove i kataloge vadimo podatke po polju — naziv, cijena, dostupnost, šifra,
+                specifikacija — pa asistent može precizno odgovoriti „koliko košta X".
+            </p>
+            <ul class="mt-2 space-y-1 text-xs text-zinc-500">
+                <li>• za sajtove s tisućama proizvoda</li>
+                <li>• osvježava se po rasporedu</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Održavanje bez vašeg rada</h3>
+    <div class="mt-3 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+        <table class="w-full min-w-[680px] text-sm">
+            <thead class="bg-zinc-100 text-left dark:bg-zinc-900"><tr>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Mogućnost</th>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Što znači za vas</th>
+            </tr></thead>
+            <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-950">
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Automatsko osvježavanje</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Stranica se ponovno skenira po rasporedu — dnevno, tjedno ili mjesečno, u vrijeme koje odaberemo. Objavite novu cijenu, asistent je zna sam.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Pametno skeniranje</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Ponovno se obrađuju samo stranice koje su se promijenile — brzo i bez „rušenja" baze znanja.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Osvježi jednu stranicu</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Promijenili ste samo cjenik? U portalu kliknete „Ponovno skeniraj" na tom redu i za nekoliko sekundi je ažurno.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Isključivanje stranica</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Stare akcije, blog, pravila o kolačićima — sve što ne želite u odgovorima isključite jednim klikom. Može i cijela sekcija (npr. <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">/blog/*</code>). Izuzeće se pamti po adresi pa <strong>preživi ponovno skeniranje</strong>.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Pregled sadržaja</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Za svaku stranicu i dokument u portalu možete vidjeti <em>točno što</em> asistent iz njih čita.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ─────────── 12. KAKO ODGOVARA ─────────── -->
+<section id="odgovori" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Kako asistent odgovara</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Iza svakog odgovora stoji set pravila koji je jednak za sve klijente i koji korisnik ne može „nagovoriti" da se promijeni.
+        Ovo je razlika između ozbiljnog poslovnog asistenta i ChatGPT-a zalijepljenog na sajt.
+    </p>
+
+    <div class="mt-8 space-y-4">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Uvijek pretraži prije nego odgovori</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Za svako pitanje asistent prvo pretraži vašu bazu znanja i odgovor gradi <strong>iz nađenog sadržaja</strong>.
+                Dopuštene su najviše 2 pretrage po odgovoru — ako ni druga ne nađe podatak, ne izmišlja treću rundu nego prelazi na scenarij „nemam podatak".
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Nikad ne završi s „ne znam"</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Kad baza znanja nema traženi podatak, odgovor ide u ovom nizu:</p>
+            <ol class="mt-2 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
+                <li><span class="font-medium text-zinc-900 dark:text-white">1.</span> Kaže što o toj temi <em>ima</em> („usluga postoji, radimo implantate, opći uvjeti su…").</li>
+                <li><span class="font-medium text-zinc-900 dark:text-white">2.</span> Jasno navede što točno ne zna („točan iznos trenutnog popusta nemam").</li>
+                <li><span class="font-medium text-zinc-900 dark:text-white">3.</span> Da <strong>vaš telefon i e-mail</strong>.</li>
+                <li><span class="font-medium text-zinc-900 dark:text-white">4.</span> Pozove korisnika da tu, u chatu, ostavi ime i kontakt pa da mu se vaš tim javi.</li>
+            </ol>
+            <p class="mt-2 text-xs text-emerald-700 dark:text-emerald-400">Rezultat: „ne znam" postaje lead, a ne izgubljen posjetitelj.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Nikad izmišljeni link</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Asistent smije koristiti <strong>samo adrese koje je stvarno našao</strong> u vašoj bazi znanja.
+                Ne slaže URL „po logici", ne pogađa. Ako nema link, ne stavlja link.
+                Zabranjeno mu je i „kontaktirajte nas" bez konkretnog telefona ili maila.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Zna koji je danas dan</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                U svaki razgovor ulazi točan datum, dan tjedna i vrijeme (CET/CEST) — pa na „radite li sada?"
+                ili „jeste li otvoreni u nedjelju?" odgovara ispravno, uspoređujući s vašim radnim vremenom.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Prilagođen kanalu</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Isti asistent piše <strong>drukčije</strong> ovisno o mjestu: chat = razgovorno s listama i linkovima,
+                WhatsApp = 2–3 rečenice bez formatiranja, e-mail = formalno, strukturirano i duže, s pozdravom i potpisom.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Vaša pravila iznad svega (osim sigurnosnih)</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                U portalu dodajete svoje instrukcije — „ne spominji konkurenciju", „uvijek predloži termin",
+                „za hitno uputi na telefon", „koristi Vi". Asistent ih poštuje u svakom odgovoru, na svim kanalima.
+            </p>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Što asistent može „raditi", a ne samo pričati</h3>
+    <div class="mt-3 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Pretraži bazu znanja</strong><br><span class="text-zinc-500">nađe relevantne dijelove stranica i dokumenata</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Popiše dokumente</strong><br><span class="text-zinc-500">„koje obrasce imate?" → lista s linkovima za preuzimanje</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Pročita dokument</strong><br><span class="text-zinc-500">„što mi treba za ovaj obrazac?" → čita sadržaj i objasni po točkama</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Otvori kalendar</strong><br><span class="text-zinc-500">kad procijeni da posjetitelj želi termin (ako je kalendar uključen)</span></div>
+    </div>
+</section>
+
+<!-- ─────────── 13. JEZICI ─────────── -->
+<section id="jezici" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Jezici — bez ikakvog dodatnog posla</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Asistent <strong>odgovara na jeziku na kojem je posjetitelj napisao poruku</strong>.
+        Njemački gost piše njemački → dobiva njemački odgovor. Talijan → talijanski. Nejasno → hrvatski.
+    </p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Baza znanja ostaje na hrvatskom</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">
+                Ne morate prevoditi stranicu ni dokumente. Asistent sadržaj prevodi u trenutku odgovora,
+                a <strong>brojeve, cijene, nazive i kontakte prenosi točno</strong> — bez „kreativnog" prevođenja.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">I čitanje naglas slijedi jezik</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">
+                Ako odgovor ide na njemačkom, čitanje naglas koristi njemački glas.
+                Na višejezičnim sajtovima widget uzima jezik iz same stranice.
+            </p>
+        </div>
+    </div>
+    <p class="mt-4 text-sm text-zinc-500">Provjereno u praksi na hrvatskom, engleskom, njemačkom, talijanskom i slovenskom; model podržava i ostale veće jezike.</p>
+</section>
+
+<!-- ─────────── 14. INSTANT ODGOVORI ─────────── -->
+<section id="instant" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Standardni (instant) odgovori</h2>
+        <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Klijent mijenja sam</span>
+    </div>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Isto pitanje dolazi stotinu puta („koje je radno vrijeme?", „imate li cjenik?").
+        Umjesto da ga asistent svaki put iznova generira, prvi odgovor se <strong>zapamti kao standardni</strong> —
+        sljedeći posjetitelj ga dobije <strong>istog trenutka, bez čekanja</strong>.
+    </p>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Puni se sam</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Prvi odgovor asistenta na neko od početnih pitanja automatski postaje standardni.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Vi ga možete pregaziti</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">U bilo kojem razgovoru kliknete „Postavi kao standardni odgovor" na odgovor koji vam se čini najboljim — vaš odabir ima prednost.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Sam se briše kad zastari</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Promijeni li se baza znanja, automatski spremljeni odgovori se povuku i generiraju iznova. Vaši kurirani ostaju.</p>
+        </div>
+    </div>
+    <p class="mt-4 text-sm text-zinc-500">
+        U portalu vidite listu standardnih odgovora, jesu li automatski ili vaš odabir, i <strong>koliko su puta posluženi</strong>.
+        Praktična korist: na najčešća pitanja posjetitelj dobije provjeren odgovor bez ijedne sekunde čekanja.
+    </p>
+</section>
+
+<!-- ─────────── 15. NAMJERE ─────────── -->
+<section id="namjere" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Prepoznavanje namjere — asistent kao filter</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Nakon svakog razgovora AI ga pročita još jednom i razvrsta. Vi ne čitate 300 razgovora —
+        vi otvorite samo one koji nešto znače. Ovo je dio koji od chatbota pravi poslovni alat.
+    </p>
+
+    <div class="mt-8 grid gap-5 lg:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Zašto su vas kontaktirali</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Svaki razgovor dobiva jednu od oznaka:</p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                <span class="rounded-full bg-emerald-100 px-2.5 py-1 font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">Prodaja</span>
+                <span class="rounded-full bg-sky-100 px-2.5 py-1 font-medium text-sky-800 dark:bg-sky-500/15 dark:text-sky-300">Podrška</span>
+                <span class="rounded-full bg-rose-100 px-2.5 py-1 font-medium text-rose-800 dark:bg-rose-500/15 dark:text-rose-300">Pritužba</span>
+                <span class="rounded-full bg-zinc-200 px-2.5 py-1 font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">Pitanje</span>
+                <span class="rounded-full bg-zinc-200 px-2.5 py-1 font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">Ostalo</span>
+            </div>
+            <p class="mt-3 text-xs text-zinc-500">
+                Rast „Pritužbi" je rani signal problema. Puno „Prodaje" je prilika koju treba pokriti ljudima.
+                Uz oznaku ide i <strong>pouzdanost procjene</strong> (npr. 90 %).
+            </p>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Koliko je hitno</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Procjena hitnosti: <strong>niska</strong> / <strong>srednja</strong> / <strong>visoka</strong>.</p>
+            <p class="mt-2 text-xs text-zinc-500">
+                Visoka = korisnik izričito traži brz odgovor, prijavljuje da nešto ne radi, ili je uzrujan.
+                Možete postaviti da e-mail obavijest dobijete <em>samo</em> za razgovore od zadane hitnosti gore.
+            </p>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Eskalacija — ljuti korisnici</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Asistent prepoznaje stvarnu neprijateljsku poruku i označi razgovor:</p>
+            <ul class="mt-2 space-y-1 text-xs text-zinc-500">
+                <li>• <strong>Vulgarno</strong> — vrijeđanje, psovke</li>
+                <li>• <strong>Prijetnja</strong> — prijetnja tužbom, prijavom, fizička prijetnja</li>
+                <li>• <strong>Ljutnja</strong> — jasno agresivan ili vrlo nezadovoljan korisnik</li>
+                <li>• <strong>Uredno</strong> — normalna, neutralna ili pozitivna komunikacija</li>
+            </ul>
+            <p class="mt-2 text-xs text-zinc-500">Pazi na kontekst: pitanje o sudu, policiji ili zakonu <em>nije</em> prijetnja — samo stvarna hostilnost prema vama.</p>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">„Ovo asistent nije znao"</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Kad odgovor nije bio u bazi znanja, razgovor se označi. U analitici dobijete
+                <strong>konkretan popis pitanja bez odgovora</strong>.
+            </p>
+            <p class="mt-2 text-xs text-emerald-700 dark:text-emerald-400">
+                To je vaša lista zadataka: za te teme dodajte dokument i asistent sljedeći put zna. Sustav se sam poboljšava.
+            </p>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Vađenje kontakta iz razgovora</h3>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Ako je posjetitelj usred razgovora napisao „ja sam Ana Horvat, 098 123 456" — asistent to prepozna i
+        upiše kao kontakt uz razgovor. Polja: <strong>ime, e-mail, telefon, firma, funkcija</strong>.
+    </p>
+    <div class="mt-4 rounded-xl border border-sky-200 bg-sky-50 p-5 text-sm dark:border-sky-500/25 dark:bg-sky-500/5">
+        <p class="font-medium text-sky-900 dark:text-sky-200">Strogo pravilo: bez nagađanja</p>
+        <p class="mt-1 text-zinc-700 dark:text-zinc-300">
+            Vadi se <strong>samo ono što je korisnik doslovno napisao</strong>. Prazno polje je bolje od izmišljenog.
+            Nema „vjerojatno se zove…", nema pogađanja firme po domeni maila.
+        </p>
+    </div>
+</section>
+
+<!-- ─────────── 16. LEADOVI ─────────── -->
+<section id="leadovi" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Leadovi: gdje završavaju podaci</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Podatak koji ostane u chatu, a nitko ga ne vidi, ne vrijedi ništa.
+        eZvonko svaki prikupljeni kontakt može poslati na više mjesta odjednom.
+    </p>
+
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">1 · Portal</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Uvijek. Kontakt i cijeli razgovor su u kartici razgovora, s filtrom „Potencijalni".</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">2 · E-mail obavijest</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Na adresu kanala ili posebnu adresu <em>po formi</em> (npr. ponude → prodaja@, kvarovi → podrska@).
+            </p>
+            <p class="mt-2 text-xs text-zinc-500">Može se ograničiti na razgovore od određene hitnosti gore. Cijeli e-mail kanal obavijesti može se ugasiti jednim prekidačem.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">3 · Google tablica / CRM</h3>
+            <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Novi red u <strong>vašoj Google tablici</strong> u trenutku predaje — ili poziv na
+                <strong>webhook</strong> (Zapier, Make, vaš CRM).
+            </p>
+            <p class="mt-2 text-xs text-zinc-500">Postavlja Fer Projekt jednom, po klijentu.</p>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Kada se upisuje</h3>
+    <div class="mt-3 grid gap-3 sm:grid-cols-3 text-sm">
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Predaja forme</strong><br><span class="text-zinc-500">posjetitelj poslao obrazac u chatu</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">AI prepoznao kontakt</strong><br><span class="text-zinc-500">korisnik ostavio mail/telefon usred razgovora</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Rezervacija termina</strong><br><span class="text-zinc-500">posjetitelj rezervirao u kalendaru</span></div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Što sve može ući u stupce tablice</h3>
+    <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Stupce sami definirate i poredate; svaki stupac veže se na jedan izvor podatka:</p>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Polja formi</p>
+            <p class="mt-1 text-xs text-zinc-500">Bilo koje polje bilo koje vaše forme.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Kontakt</p>
+            <p class="mt-1 text-xs text-zinc-500">Ime, e-mail, telefon, firma, funkcija.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Razgovor</p>
+            <p class="mt-1 text-xs text-zinc-500">ID sesije, ID razgovora, <strong>link na razgovor u portalu</strong>, prepoznata namjera.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Meta</p>
+            <p class="mt-1 text-xs text-zinc-500">Datum upita, naziv forme, <strong>stranica s koje je poslano</strong>, newsletter Da/Ne, vrijeme privole, naziv projekta.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Termin (Calendly)</p>
+            <p class="mt-1 text-xs text-zinc-500">Vrsta termina, ime i e-mail iz rezervacije, link za otkazivanje.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Statični tekst</p>
+            <p class="mt-1 text-xs text-zinc-500">Fiksna vrijednost, npr. izvor „Web chat" ili naziv kampanje.</p>
+        </div>
+    </div>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-zinc-100/60 p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+            <p class="font-medium text-zinc-900 dark:text-white">Dnevnik dostave</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Za svaki lead vidi se je li upis u tablicu/CRM uspio. Ako Google padne, upis se ponavlja — podatak se ne gubi.</p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-zinc-100/60 p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+            <p class="font-medium text-zinc-900 dark:text-white">Privola kao uvjet</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Odredište se može postaviti da <strong>upisuje samo kontakte koji su dali privolu</strong> — čisto s GDPR strane.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── 17. PORTAL ─────────── -->
+<section id="portal" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Klijentski portal — vaša kontrolna ploča</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Svaki klijent ima vlastiti pristup. Vidi <strong>samo svoje</strong> podatke, razgovore i dokumente.
+        Portal je na hrvatskom, radi na mobitelu i ima svjetlu i tamnu temu.
+    </p>
+
+    <div class="mt-8 space-y-4" x-data="{ open: 'dash' }">
+
+        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <button @click="open = open === 'dash' ? '' : 'dash'" class="flex w-full items-center justify-between gap-3 px-5 py-4 text-left">
+                <span class="font-semibold text-zinc-900 dark:text-white">📊 Dashboard</span>
+                <span class="text-xs text-zinc-400">pregled u 5 sekundi</span>
+            </button>
+            <div x-show="open === 'dash'" x-collapse class="border-t border-zinc-100 px-5 py-4 text-sm dark:border-zinc-800">
+                <ul class="space-y-1.5 text-zinc-600 dark:text-zinc-400">
+                    <li>• Status svakog kanala (web chat, e-mail, WhatsApp) — aktivan ili pauziran</li>
+                    <li>• Ukupno razgovora, poruke danas i ukupno</li>
+                    <li>• <strong>Broj AI upita ovaj mjesec</strong> u odnosu na kvotu, s trakom napretka</li>
+                    <li>• Upozorenja koja se klikom otvaraju u filtriranu listu: „X bez odgovora u bazi", „X čeka akciju", „X eskaliranih"</li>
+                    <li>• 5 najnovijih razgovora s brojem poruka i vremenom</li>
+                    <li>• Poruke po kanalu za tekući mjesec</li>
+                    <li>• <strong>Export razgovora</strong> i <strong>Export izvještaja</strong> (30 / 90 dana / sve) u CSV — otvara se u Excelu</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <button @click="open = open === 'conv' ? '' : 'conv'" class="flex w-full items-center justify-between gap-3 px-5 py-4 text-left">
+                <span class="font-semibold text-zinc-900 dark:text-white">💬 Razgovori</span>
+                <span class="text-xs text-zinc-400">svaki razgovor, od prve do zadnje poruke</span>
+            </button>
+            <div x-show="open === 'conv'" x-collapse class="border-t border-zinc-100 px-5 py-4 text-sm dark:border-zinc-800">
+                <p class="font-medium text-zinc-900 dark:text-white">Lista</p>
+                <ul class="mt-1 space-y-1.5 text-zinc-600 dark:text-zinc-400">
+                    <li>• Kartice po kanalu (Svi / AI Chatbot / E-mail / WhatsApp)</li>
+                    <li>• Pretraga po imenu ili kontaktu</li>
+                    <li>• Filtri: <em>Sve · Aktivne · Završene · Bez odgovora u bazi · Eskalirano · Čeka akciju · Potencijalni</em></li>
+                </ul>
+                <p class="mt-4 font-medium text-zinc-900 dark:text-white">Pojedini razgovor</p>
+                <ul class="mt-1 space-y-1.5 text-zinc-600 dark:text-zinc-400">
+                    <li>• Cijeli tok poruka s vremenima i <strong>vremenom odgovora</strong> asistenta (npr. 5,2 s)</li>
+                    <li>• Kartica „AI Analiza": vrsta upita, hitnost, pouzdanost</li>
+                    <li>• Izvučeni kontakt podaci</li>
+                    <li>• Prekidač <strong>„Označi za follow-up"</strong> — vaša interna lista „treba pozvati"</li>
+                    <li>• Na svakom odgovoru: palac gore / dolje i <strong>„Postavi kao standardni odgovor"</strong></li>
+                    <li>• Arhiviranje razgovora</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <button @click="open = open === 'ai' ? '' : 'ai'" class="flex w-full items-center justify-between gap-3 px-5 py-4 text-left">
+                <span class="font-semibold text-zinc-900 dark:text-white">🤖 AI Asistent</span>
+                <span class="text-xs text-zinc-400">osobnost, pravila, kontakt</span>
+            </button>
+            <div x-show="open === 'ai'" x-collapse class="border-t border-zinc-100 px-5 py-4 text-sm dark:border-zinc-800">
+                <ul class="space-y-1.5 text-zinc-600 dark:text-zinc-400">
+                    <li>• <strong>Dodatne instrukcije</strong> — vaša pravila slobodnim tekstom, s gotovim predlošcima na klik</li>
+                    <li>• <strong>Stil komunikacije</strong> — ime asistenta, uloga, naziv tvrtke, ton (5 tonova: profesionalan i prijateljski, formalan i stručan, opušten, entuzijastičan, smiren i podržavajući)</li>
+                    <li>• <strong>Poziv na akciju (CTA)</strong> — tekst koji asistent povremeno doda na kraj odgovora; može se ugasiti</li>
+                    <li>• <strong>Kontakt podaci</strong> — telefon, e-mail, kontakt stranica, adresa, radno vrijeme. Ovo asistent koristi kad korisnik traži kontakt ili kad nema odgovor</li>
+                    <li>• <strong>Standardni odgovori</strong> — lista, tko ih je postavio i koliko su puta posluženi</li>
+                </ul>
+                <p class="mt-3 text-xs text-zinc-500">Promjene vrijede za sve kanale odjednom — ne treba ih ponavljati po kanalu.</p>
+            </div>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <button @click="open = open === 'doc' ? '' : 'doc'" class="flex w-full items-center justify-between gap-3 px-5 py-4 text-left">
+                <span class="font-semibold text-zinc-900 dark:text-white">📄 Dokumenti</span>
+                <span class="text-xs text-zinc-400">baza znanja pod vašom kontrolom</span>
+            </button>
+            <div x-show="open === 'doc'" x-collapse class="border-t border-zinc-100 px-5 py-4 text-sm dark:border-zinc-800">
+                <ul class="space-y-1.5 text-zinc-600 dark:text-zinc-400">
+                    <li>• Učitavanje vlastitih dokumenata, s prikazom iskorištenosti kvote i dozvoljenih tipova</li>
+                    <li>• Tablica svega u bazi znanja: naziv, izvor (Upload / Crawl), projekt, status, datum</li>
+                    <li>• Filtri po izvoru i statusu (Embeddano / Pending / Neuspjelo) + pretraga po nazivu i URL-u</li>
+                    <li>• <strong>Pregled</strong> — vidite točno što asistent čita iz te stranice</li>
+                    <li>• <strong>Ponovno skeniraj ovu stranicu</strong> — ažuriranje jedne stranice u nekoliko sekundi</li>
+                    <li>• <strong>Isključeno iz AI odgovora</strong> — pojedina stranica ili cijela sekcija (<code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">/blog/*</code>), s opcijom „više ni ne skeniraj"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <button @click="open = open === 'wid' ? '' : 'wid'" class="flex w-full items-center justify-between gap-3 px-5 py-4 text-left">
+                <span class="font-semibold text-zinc-900 dark:text-white">🧩 Widgeti</span>
+                <span class="text-xs text-zinc-400">izgled i ponašanje chata</span>
+            </button>
+            <div x-show="open === 'wid'" x-collapse class="border-t border-zinc-100 px-5 py-4 text-sm dark:border-zinc-800">
+                <p class="text-zinc-600 dark:text-zinc-400">Uređivač widgeta ima kartice:</p>
+                <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Izgled</span>
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Triggeri</span>
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Koraci</span>
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Forme</span>
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Gumbi</span>
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Kalendar</span>
+                    <span class="rounded-lg border border-sky-200 bg-sky-50 px-2.5 py-1 text-sky-700 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-300">Integracije *</span>
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Status **</span>
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Statistika **</span>
+                    <span class="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1 dark:border-zinc-700 dark:bg-zinc-800">Embed kod **</span>
+                </div>
+                <p class="mt-3 text-xs text-zinc-500">* upravlja Fer Projekt (tamo se upisuju odredišta vaših podataka) &nbsp;·&nbsp; ** otvaramo na zahtjev, po klijentu</p>
+                <p class="mt-3 text-zinc-600 dark:text-zinc-400"><strong>Statistika widgeta</strong> (zadnjih 30 dana): koliko je puta widget prikazan, koliko puta otvoren, koliko je razgovora započeto, plus stopa otvaranja i graf po danima.</p>
+            </div>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <button @click="open = open === 'ch' ? '' : 'ch'" class="flex w-full items-center justify-between gap-3 px-5 py-4 text-left">
+                <span class="font-semibold text-zinc-900 dark:text-white">📡 Kanali, Postavke, Marketing</span>
+                <span class="text-xs text-zinc-400">račun i distribucija</span>
+            </button>
+            <div x-show="open === 'ch'" x-collapse class="border-t border-zinc-100 px-5 py-4 text-sm dark:border-zinc-800">
+                <ul class="space-y-1.5 text-zinc-600 dark:text-zinc-400">
+                    <li>• <strong>Kanali</strong> — pregled svih kanala i statusa. E-mail kanal uređujete sami: adresa, ime pošiljatelja, SMTP i IMAP podaci, gumbi „Testiraj SMTP / IMAP", frekvencija provjere inboxa (1–60 min), vrijeme zadnje provjere</li>
+                    <li>• <strong>Postavke</strong> — vaš profil (ime, naziv tvrtke, telefon), promjena lozinke, tema portala (svjetla / tamna / sistemska)</li>
+                    <li>• <strong>Marketing</strong> <span class="rounded bg-zinc-200 px-1.5 text-[10px] uppercase dark:bg-zinc-800">opcionalno</span> — WhatsApp kampanje po odobrenim predlošcima, publike (audiences), statusi poslano / dostavljeno / pročitano / neuspjelo, automatsko preskakanje odjavljenih kontakata</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-5 text-sm dark:border-emerald-500/25 dark:bg-emerald-500/5">
+        <p class="font-medium text-emerald-900 dark:text-emerald-200">Portal je namjerno „čist"</p>
+        <p class="mt-1 text-zinc-700 dark:text-zinc-300">
+            U portalu nema tehničkog žargona, nema modela, tokena ni internih troškova — samo ono što vam koristi:
+            razgovori, ljudi, teme i broj AI upita u odnosu na vašu kvotu.
+        </p>
+    </div>
+</section>
+
+<!-- ─────────── 18. ANALITIKA ─────────── -->
+<section id="analitika" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Analitika i izvještaji</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Period 7 / 30 / 90 dana, po pojedinom kanalu ili svi zajedno. Svaka brojka ima objašnjenje na klik
+        („Što znače podaci?") pa ne treba nikakva obuka.
+    </p>
+
+    <div class="mt-8 grid gap-5 lg:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Pregled</h3>
+            <dl class="mt-3 space-y-2 text-sm">
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Razgovori</dt><dd class="text-zinc-500">Koliko je ljudi započelo razgovor u periodu.</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Poruke</dt><dd class="text-zinc-500">Ukupan broj poruka koje su vam korisnici poslali.</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Broj AI upita (interakcija)</dt><dd class="text-zinc-500">Ukupan broj obrada asistenta ovaj mjesec (odgovori, prepoznavanje teme i pretraga baze znanja).</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Novi potencijalni korisnici</dt><dd class="text-zinc-500">Korisnici koji su ostavili e-mail ili telefon.</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Aktivni razgovori</dt><dd class="text-zinc-500">Trenutno otvoreni razgovori koji još traju.</dd></div>
+            </dl>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Treba vašu pažnju</h3>
+            <dl class="mt-3 space-y-2 text-sm">
+                <div><dt class="font-medium text-rose-700 dark:text-rose-400">Ljuti korisnici</dt><dd class="text-zinc-500">Razgovori u kojima je korisnik bio ljut, vulgaran ili prijeteći.</dd></div>
+                <div><dt class="font-medium text-orange-700 dark:text-orange-400">Za reakciju</dt><dd class="text-zinc-500">Razgovori koje treba ručno pregledati ili kontaktirati korisnika.</dd></div>
+                <div><dt class="font-medium text-amber-700 dark:text-amber-400">Što asistent nije znao</dt><dd class="text-zinc-500">Razgovori u kojima nije pronašao odgovor u vašim dokumentima.</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Tehnička pouzdanost</dt><dd class="text-zinc-500">Postotak odgovora koje je asistent isporučio bez tehničke greške.</dd></div>
+            </dl>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Promet</h3>
+            <dl class="mt-3 space-y-2 text-sm">
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Poruke po danu</dt><dd class="text-zinc-500">Pokazuje raste li ili pada broj kontakata. Nagli pad može značiti da je nešto stalo.</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Aktivnost po dobu dana</dt><dd class="text-zinc-500">U koje doba dana vas ljudi najviše pitaju — korisno za odluku o radnom vremenu i smjenama.</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Po kanalu</dt><dd class="text-zinc-500">Brojevi razbijeni po mjestu odakle korisnici pišu (web, WhatsApp, e-mail).</dd></div>
+            </dl>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Zadovoljstvo i teme</h3>
+            <dl class="mt-3 space-y-2 text-sm">
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Ocjene odgovora</dt><dd class="text-zinc-500">Palac gore / dolje, udio pozitivnih i <strong>popis konkretnih odgovora s palcem dolje</strong>, s linkom na razgovor.</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Zašto vas kontaktiraju</dt><dd class="text-zinc-500">Raspodjela: Prodaja / Podrška / Pritužba / Pitanje / Ostalo.</dd></div>
+                <div><dt class="font-medium text-zinc-900 dark:text-white">Pitanja bez odgovora</dt><dd class="text-zinc-500">Popis zadnjih pitanja na koja asistent nije znao — teme za nove dokumente.</dd></div>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-zinc-200 bg-zinc-100/60 p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+        <p class="font-medium text-zinc-900 dark:text-white">Izvoz podataka je vaš</p>
+        <p class="mt-1 text-zinc-600 dark:text-zinc-400">
+            Dva CSV izvoza u jednom kliku: <strong>svi razgovori</strong> (za arhivu ili vlastitu analizu) i
+            <strong>zbirni izvještaj</strong> (za sastanak ili upravu). Period 30 / 90 dana ili sve od početka.
+        </p>
+    </div>
+</section>
+
+<!-- ─────────── 19. SIGURNOST ─────────── -->
+<section id="sigurnost" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <div class="flex flex-wrap items-center gap-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Sigurnost</h2>
+        <span class="rounded-full bg-sky-100 px-2.5 py-1 text-xs font-medium text-sky-800 dark:bg-sky-500/15 dark:text-sky-300">Postavlja Fer Projekt</span>
+    </div>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Javno dostupan chat je javno dostupan chat — netko će ga probati zloupotrijebiti.
+        Zato je zaštita ugrađena u više slojeva i uključena po zadanom, bez vašeg angažmana.
+    </p>
+
+    <h3 class="mt-8 text-lg font-semibold text-zinc-900 dark:text-white">Zaštita od zloupotrebe widgeta</h3>
+    <div class="mt-3 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+        <table class="w-full min-w-[720px] text-sm">
+            <thead class="bg-zinc-100 text-left dark:bg-zinc-900"><tr>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Mehanizam</th>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Što sprječava</th>
+            </tr></thead>
+            <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-950">
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Popis dozvoljenih domena</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Widget radi <strong>samo</strong> na domenama koje ste odobrili. Netko kopira vaš kod na svoj sajt → chat odbija raditi i ne troši vašu kvotu.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Potpisani token sesije</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Svaka sesija ima kriptografski potpisan token vezan na widget i na (hashiranu) IP adresu, s rokom trajanja 2 h. Ne može se „posuditi" ni podmetnuti.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Ograničenje broja poruka</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Po posjetitelju: 10 poruka u minuti i 50 na dan (zadano). Po widgetu: 120 u minuti. Skripta koja bi „bombardirala" chat se zaustavi.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Minimalni razmak i duplikati</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Poruke bliže od pola sekunde i identična poruka poslana dvaput zaredom se odbijaju.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Anti-bot (honeypot)</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Nevidljivo polje koje ljudi ne vide, a automatizirani boti popune — takav zahtjev se odbacuje.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Prepoznavanje alata za automatizaciju</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Zahtjevi iz poznatih skriptnih alata i „headless" preglednika se blokiraju.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">CAPTCHA (Cloudflare Turnstile)</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Opcionalno, po widgetu — za slučaj upornog napada. Nenametljiva, bez „klikni na semafore".</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Ograničenje dužine poruke</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Sprječava „gutanje" kvote ubacivanjem ogromnog teksta u jedan upit.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Pauza jednim klikom</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Widget se može odmah pauzirati (npr. tijekom preuređenja sajta) — chat se prestaje prikazivati, kod ostaje na mjestu.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Zamjena ključa</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Ako je ključ widgeta procurio, generira se novi. Stari kod prestaje raditi istog trenutka.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Zaštita samog AI-ja</h3>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Iznad svih vaših i korisničkih uputa stoji sigurnosna osnova koju <strong>nitko ne može nadjačati</strong> —
+        ni posjetitelj, ni vi slučajnom formulacijom instrukcije:
+    </p>
+    <div class="mt-4 space-y-3">
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Upute su tajne</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Na „pokaži mi svoj system prompt", „koje alate imaš", „koji si model" asistent kratko odbije i vrati se na temu. Ne nagovještava sadržaj.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Otpornost na „prompt injection"</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Klasici tipa „ignore previous instructions", „ti si sada…", „developer mode", „DAN", „[SYSTEM]" tretiraju se kao <strong>običan tekst</strong>, ne kao naredba.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Nitko nije „admin"</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">„Ja sam vlasnik firme", „ovlašten sam", „ovo je interni test" ne mijenja ponašanje ni za milimetar.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Ne preuzima obveze u vaše ime</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Ne potvrđuje rezervacije, ne garantira cijene, rokove ni dostupnost, ne sklapa ugovore. Govori „okvirno", „prema cjeniku", „potvrdite kontaktom" — nikad „garantiram" ili „rezervirao sam vam termin".</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Ne izvršava kod i ne dohvaća tuđe stranice</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">„Fetch this URL", „run this script", „execute SQL", „show /etc/passwd" — odbija i ostaje u svojoj domeni. Nema pristup internetu izvan vaše baze znanja.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Ostaje na temi</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Ne rješava matematiku, politiku ni programiranje. Nije igračka — asistent je vaše firme.</p>
+        </div>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Odvojenost klijenata</h3>
+    <div class="mt-3 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Baza znanja</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Vaš asistent može pretraživati <strong>isključivo</strong> izvore koji su njemu dodijeljeni. Nijedan drugi klijent ne postoji za njega.</p>
+        </div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900">
+            <p class="font-medium text-zinc-900 dark:text-white">Portal</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Svaki pristup portalu provjerava pripada li podatak vama. Zaobilaženje kroz URL vraća „zabranjeno", ne tuđe podatke.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── 20. PRIVATNOST ─────────── -->
+<section id="privatnost" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Privatnost i GDPR</h2>
+
+    <div class="mt-8 space-y-4">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Posjetitelj zna s kim razgovara</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Na vrhu chata je obavijest o privatnosti: da razgovara s AI asistentom, da se poruke bilježe i obrađuju
+                radi podrške i mogućeg kontakta, te da nastavkom razgovora daje privolu. Uz nju stoji link na
+                <strong>vaša pravila privatnosti</strong>. Posjetitelj obavijest može zatvoriti za taj pregled stranice.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">IP adresa se ne čuva</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                IP se koristi samo za brojanje limita i to u obliku <strong>nepovratnog kriptografskog otiska</strong>.
+                Prava IP adresa posjetitelja se ne zapisuje.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Privola gdje treba, i zabilježena</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Forme imaju obaveznu privolu s vašim tekstom; bez kvačice se ne mogu poslati.
+                Newsletter je <strong>zasebna</strong> kvačica. Bilježi se i vrijeme davanja privole, pa se dokazuje kada.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Podaci su vaši</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Svi razgovori i kontakti izvoze se u CSV kad želite. Razgovor se može arhivirati.
+                Kod odredišta leadova može se postaviti da se upisuju <strong>samo kontakti s privolom</strong>.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Bez trackinga i bez dijeljenja</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Widget ne ubacuje marketinške kolačiće ni piksele trećih strana i ne prodaje podatke.
+                Lokalno spremište preglednika koristi se samo tehnički — ID sesije razgovora i je li posjetitelj zatvorio chat.
+                Kalendar ide kroz našu posredničku stranicu, pa Calendly ne vidi s koje vaše stranice posjetitelj dolazi.
+                Govorni unos ide kroz preglednik posjetitelja i njegov ugrađeni sustav za prepoznavanje govora — ne kroz naše servere.
+            </p>
+        </div>
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">WhatsApp marketing po pravilima</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Samo službeni WhatsApp Business API i odobreni predlošci. Kontakti koji su se odjavili
+                automatski se preskaču pri slanju kampanje.
+            </p>
+        </div>
+    </div>
+    <p class="mt-4 text-sm text-zinc-500">
+        Pristupi portalu su osobni, sa zaštićenom lozinkom; SMTP i IMAP lozinke e-mail kanala čuvaju se šifrirano.
+    </p>
+</section>
+
+<!-- ─────────── 21. GRANICE ─────────── -->
+<section id="granice" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Što asistent NE radi</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Ovo je jednako važno kao lista funkcija — jer objašnjava zašto se asistentu može vjerovati pred klijentima,
+        pacijentima i građanima.
+    </p>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-rose-200 bg-rose-50/60 p-5 text-sm dark:border-rose-500/25 dark:bg-rose-500/5">
+            <p class="font-medium text-rose-900 dark:text-rose-200">Ne izmišlja</p>
+            <p class="mt-1 text-zinc-700 dark:text-zinc-300">Ne pogađa cijene, rokove, uvjete ni linkove. Nema podatka → kaže da ga nema i uputi na kontakt.</p>
+        </div>
+        <div class="rounded-xl border border-rose-200 bg-rose-50/60 p-5 text-sm dark:border-rose-500/25 dark:bg-rose-500/5">
+            <p class="font-medium text-rose-900 dark:text-rose-200">Ne obećava u vaše ime</p>
+            <p class="mt-1 text-zinc-700 dark:text-zinc-300">Ne potvrđuje rezervacije, ne garantira dostupnost, ne sklapa ugovore ni popuste.</p>
+        </div>
+        <div class="rounded-xl border border-rose-200 bg-rose-50/60 p-5 text-sm dark:border-rose-500/25 dark:bg-rose-500/5">
+            <p class="font-medium text-rose-900 dark:text-rose-200">Ne daje dijagnoze ni pravne savjete</p>
+            <p class="mt-1 text-zinc-700 dark:text-zinc-300">Za zdravstvo, pravo i sl. postavljamo izričite granice: informira o uslugama i uputi na stručnu osobu.</p>
+        </div>
+        <div class="rounded-xl border border-rose-200 bg-rose-50/60 p-5 text-sm dark:border-rose-500/25 dark:bg-rose-500/5">
+            <p class="font-medium text-rose-900 dark:text-rose-200">Ne odgovara na sve i svašta</p>
+            <p class="mt-1 text-zinc-700 dark:text-zinc-300">Nije opći chatbot: bez matematike, politike, programiranja i zabave na račun vašeg brenda.</p>
+        </div>
+        <div class="rounded-xl border border-rose-200 bg-rose-50/60 p-5 text-sm dark:border-rose-500/25 dark:bg-rose-500/5">
+            <p class="font-medium text-rose-900 dark:text-rose-200">Ne pretražuje internet</p>
+            <p class="mt-1 text-zinc-700 dark:text-zinc-300">Nema web-search. Baza znanja su isključivo vaši materijali — nikad tuđi cjenik ni forum.</p>
+        </div>
+        <div class="rounded-xl border border-rose-200 bg-rose-50/60 p-5 text-sm dark:border-rose-500/25 dark:bg-rose-500/5">
+            <p class="font-medium text-rose-900 dark:text-rose-200">Ne zamjenjuje čovjeka</p>
+            <p class="mt-1 text-zinc-700 dark:text-zinc-300">Preuzima rutinu i skuplja upite. Ozbiljne stvari eskalira vama — s oznakom hitnosti i kontaktom.</p>
+        </div>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-zinc-200 bg-zinc-100/60 p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+        <p class="font-medium text-zinc-900 dark:text-white">Poštena napomena o tehnologiji</p>
+        <p class="mt-1 text-zinc-600 dark:text-zinc-400">
+            Asistent radi na jezičnim modelima. Uz sve gornje mjere, kod složenih ili nejasno formuliranih pitanja
+            odgovor može biti nepotpun. Zato postoje ocjene odgovora, popis „što asistent nije znao" i standardni odgovori —
+            svaki je alat za to da asistent svaki mjesec bude bolji.
+        </p>
+    </div>
+</section>
+
+<!-- ─────────── 22. LIMITI ─────────── -->
+<section id="limiti" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Limiti i kvote</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Svi limiti su <strong>podesivi po klijentu</strong> — dolje su tehnički zadane vrijednosti.
+        Ovo je i lista „ručica" iz kojih se kasnije oblikuju komercijalni paketi.
+    </p>
+
+    <h3 class="mt-8 text-lg font-semibold text-zinc-900 dark:text-white">Kvote koje klijent vidi u portalu</h3>
+    <div class="mt-3 overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+        <table class="w-full min-w-[700px] text-sm">
+            <thead class="bg-zinc-100 text-left dark:bg-zinc-900"><tr>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Kvota</th>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Značenje</th>
+                <th class="px-4 py-3 font-semibold text-zinc-900 dark:text-white">Kad se dosegne</th>
+            </tr></thead>
+            <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-950">
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Mjesečni broj AI upita</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Broj obrada asistenta u mjesecu (odgovori, prepoznavanje teme, pretrage baze znanja). Vidljiv s trakom napretka.</td><td class="px-4 py-3 text-zinc-500">Chat javi „Mjesečna kvota AI upita je iskorištena" i pristojno se zaključa.</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Dnevni / mjesečni limit poruka kanala</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Ukupan kapacitet kanala za sve posjetitelje.</td><td class="px-4 py-3 text-zinc-500">„Kapacitet asistenta je trenutno popunjen."</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Dnevni limit po posjetitelju</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Zaštita od jednog korisnika koji „pojede" cijeli dan.</td><td class="px-4 py-3 text-zinc-500">„Dosegnut je vaš dnevni limit poruka. Pokušajte sutra."</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">Broj dokumenata</td><td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Vaši vlastiti uploadi. Stranice skenirane s weba se ne broje.</td><td class="px-4 py-3 text-zinc-500">Upload se odbije s jasnom porukom; kvota se povisuje na zahtjev.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Tehnički zadane vrijednosti</h3>
+    <div class="mt-3 grid gap-4 lg:grid-cols-2">
+        <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
+            <div class="bg-zinc-100 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:bg-zinc-900">Widget</div>
+            <table class="w-full text-sm">
+                <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-950">
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Poruka, max znakova</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">2 000</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Minimalni razmak između poruka</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">0,5 s</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Po posjetitelju (IP), po minuti</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">10</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Po posjetitelju (IP), po danu</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">50</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Po widgetu, po minuti (burst)</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">120</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Trajanje sesije</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">2 h</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Widgeta po klijentu</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">5</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Avatar na launcheru, max</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">2 MB</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
+            <div class="bg-zinc-100 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:bg-zinc-900">Sadržaj i konfiguracija</div>
+            <table class="w-full text-sm">
+                <tbody class="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-950">
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Dokumenata (uploadi)</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">50</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Veličina datoteke</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">10 MB</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Ukupno po jednom uploadu</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">50 MB</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Uploada po satu</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">30</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Vođeni koraci</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">3 × 5 razina</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Ključnih riječi po formi / kalendaru</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">10</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">CTA poruka, max znakova</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">200</td></tr>
+                    <tr><td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">Provjera e-mail inboxa</td><td class="px-4 py-2.5 text-right font-medium text-zinc-900 dark:text-white">1–60 min</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm dark:border-amber-500/25 dark:bg-amber-500/5">
+        <p class="font-medium text-amber-900 dark:text-amber-200">Napomena za izradu web stranice</p>
+        <p class="mt-1 text-zinc-700 dark:text-zinc-300">
+            Sustav <strong>trenutno ne sadrži paket/pretplatnički model</strong> (nema tarifa, obračuna prekoračenja ni
+            samostalne registracije). Svi limiti se postavljaju ručno po klijentu. Ako web stranica treba tablicu paketa
+            (kao kod konkurencije), pakete definira uprava komercijalno, a mi ih tehnički „preslikamo" u gornje limite:
+            mjesečni AI upiti + broj dokumenata + broj kanala + broj widgeta + integracije.
+        </p>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-zinc-200 bg-zinc-100/60 p-5 text-sm dark:border-zinc-800 dark:bg-zinc-900/60">
+        <p class="font-medium text-zinc-900 dark:text-white">Kad se limit dosegne, chat se ponaša pristojno</p>
+        <p class="mt-1 text-zinc-600 dark:text-zinc-400">
+            Nema bijelog ekrana ni tehničke greške. Posjetitelj dobije jasnu poruku o tome što se dogodilo
+            (i je li stvar u njemu ili u kapacitetu), a polje za unos se zaključa umjesto da ga pušta da piše u prazno.
+            Svaka poruka je na hrvatskom i bez tehničkih šifri.
+        </p>
+    </div>
+</section>
+
+<!-- ─────────── 23. UGRADNJA ─────────── -->
+<section id="ugradnja" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Ugradnja na stranicu</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Nema plugina, nema pristupa vašem serveru, nema izmjena u bazi vaše stranice.
+        Dvije varijante, ovisno o tome želite li chat u kutu ili unutar vašeg dizajna.
+    </p>
+
+    <div class="mt-8 space-y-5" x-data="{ copied: '' }">
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex flex-wrap items-center gap-2">
+                <h3 class="font-semibold text-zinc-900 dark:text-white">A · Plutajući gumb (zadano)</h3>
+                <span class="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-orange-700 dark:bg-orange-500/15 dark:text-orange-300">Preporučeno</span>
+            </div>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Jedna linija u <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">&lt;head&gt;</code> ili prije <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">&lt;/body&gt;</code>. Chat se pojavi u kutu na svakoj stranici sajta.</p>
+            <div class="relative mt-3">
+                <pre class="overflow-x-auto rounded-lg bg-zinc-900 p-4 text-xs text-zinc-100"><code id="snip1">&lt;script async src="https://pitaj.fer-projekt.com/widget/VAS_KLJUC.js"&gt;&lt;/script&gt;</code></pre>
+                <button @click="navigator.clipboard.writeText(document.getElementById('snip1').textContent); copied='1'; setTimeout(() => copied='', 1500)"
+                    class="absolute right-2 top-2 rounded-md bg-zinc-800 px-2 py-1 text-xs text-zinc-200 hover:bg-zinc-700">
+                    <span x-show="copied !== '1'">Kopiraj</span><span x-show="copied === '1'" x-cloak class="text-emerald-400">Kopirano</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">B · Inline — u vaš vlastiti okvir</h3>
+            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                Napravite svoj <code class="rounded bg-zinc-100 px-1 text-xs dark:bg-zinc-800">&lt;div&gt;</code> gdje želite (u headeru, u sekciji na naslovnici, u sidebaru)
+                i chat se renderira <strong>unutar njega</strong> — bez launchera, uvijek otvoren. Vi birate veličinu i poziciju kutije.
+                Jedan inline chat po stranici.
+            </p>
+            <div class="relative mt-3">
+                <pre class="overflow-x-auto rounded-lg bg-zinc-900 p-4 text-xs text-zinc-100"><code id="snip2">&lt;div data-aura-widget="VAS_KLJUC" style="width:100%;max-width:420px;height:600px"&gt;&lt;/div&gt;
+&lt;script async src="https://pitaj.fer-projekt.com/widget/VAS_KLJUC.js"&gt;&lt;/script&gt;</code></pre>
+                <button @click="navigator.clipboard.writeText(document.getElementById('snip2').textContent); copied='2'; setTimeout(() => copied='', 1500)"
+                    class="absolute right-2 top-2 rounded-md bg-zinc-800 px-2 py-1 text-xs text-zinc-200 hover:bg-zinc-700">
+                    <span x-show="copied !== '2'">Kopiraj</span><span x-show="copied === '2'" x-cloak class="text-emerald-400">Kopirano</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Ne usporava sajt</strong><br><span class="text-zinc-500">Skripta je asinkrona, izolirana u Shadow DOM-u i ne dira vaš CSS ni JS.</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Ne instalira se ništa</strong><br><span class="text-zinc-500">Nema plugina za WordPress ni modula za Joomlu. Kod samo pokazuje na asistenta koji radi na našem serveru — sve što vaša stranica treba je mjesto gdje se može dodati HTML.</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Promjene bez novog koda</strong><br><span class="text-zinc-500">Boje, tekstovi, forme i gumbi mijenjaju se u portalu; kod na sajtu ostaje isti.</span></div>
+        <div class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">Domene pod kontrolom</strong><br><span class="text-zinc-500">Uz kod ide popis odobrenih domena — nigdje drugdje widget ne radi.</span></div>
+    </div>
+</section>
+
+<!-- ─────────── 24. POKRETANJE ─────────── -->
+<section id="pokretanje" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Kako krećemo</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">Što nam treba od vas i što dobijete natrag.</p>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+        <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Što nam treba od vas</h3>
+            <ul class="mt-3 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                <li class="flex gap-2"><span class="text-orange-500">1.</span> Adresa vaše web stranice</li>
+                <li class="flex gap-2"><span class="text-orange-500">2.</span> Kontakt osoba i e-mail za pristup portalu</li>
+                <li class="flex gap-2"><span class="text-orange-500">3.</span> Službeni kontakt podaci koje asistent smije davati (telefon, e-mail, adresa, radno vrijeme)</li>
+                <li class="flex gap-2"><span class="text-orange-500">4.</span> Dokumenti kojih nema na webu — cjenici, uvjeti, obrasci <span class="text-zinc-400">(opcionalno, može i kasnije)</span></li>
+                <li class="flex gap-2"><span class="text-orange-500">5.</span> Vaša posebna pravila („ne spominji…", „uvijek predloži…") <span class="text-zinc-400">(opcionalno)</span></li>
+                <li class="flex gap-2"><span class="text-orange-500">6.</span> Ako želite kalendar: link vašeg Calendly / Cal.com tipa sastanka</li>
+                <li class="flex gap-2"><span class="text-orange-500">7.</span> Ako želite leadove u tablicu: link Google tablice (dijelite je s našim servisnim računom)</li>
+            </ul>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <h3 class="font-semibold text-zinc-900 dark:text-white">Što dobijete</h3>
+            <ul class="mt-3 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                <li class="flex gap-2"><span class="text-emerald-500">✓</span> Bazu znanja izgrađenu iz vaše stranice i dokumenata</li>
+                <li class="flex gap-2"><span class="text-emerald-500">✓</span> Asistenta s vašim imenom, tonom i bojama</li>
+                <li class="flex gap-2"><span class="text-emerald-500">✓</span> Pristup klijentskom portalu</li>
+                <li class="flex gap-2"><span class="text-emerald-500">✓</span> Demo link za pokazivanje kolegama prije objave</li>
+                <li class="flex gap-2"><span class="text-emerald-500">✓</span> Embed kod za ugradnju (i pomoć pri ugradnji, ako treba)</li>
+                <li class="flex gap-2"><span class="text-emerald-500">✓</span> Pripremljene forme i vođene korake za vašu branšu</li>
+                <li class="flex gap-2"><span class="text-emerald-500">✓</span> Automatsko osvježavanje baze znanja po rasporedu</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-8 rounded-xl border border-zinc-200 bg-zinc-100/60 p-6 dark:border-zinc-800 dark:bg-zinc-900/60">
+        <h3 class="font-semibold text-zinc-900 dark:text-white">Prvih 30 dana — što preporučamo</h3>
+        <ol class="mt-3 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <li><strong class="text-zinc-900 dark:text-white">1. tjedan:</strong> asistent radi, vi jednom dnevno pogledate razgovore. Cilj: uhvatiti ton i vidjeti što ljudi zapravo pitaju.</li>
+            <li><strong class="text-zinc-900 dark:text-white">2. tjedan:</strong> pogledate „Što asistent nije znao" i dodate 2–3 dokumenta za te teme.</li>
+            <li><strong class="text-zinc-900 dark:text-white">3. tjedan:</strong> složite forme i CTA gumbe prema temama koje najviše donose upite.</li>
+            <li><strong class="text-zinc-900 dark:text-white">4. tjedan:</strong> pogledate „Aktivnost po dobu dana" i „Zašto vas kontaktiraju" — to je input za organizaciju posla, ne samo za chat.</li>
+        </ol>
+    </div>
+</section>
+
+<!-- ─────────── 25. ZA WEB ─────────── -->
+<section id="za-web" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Materijal za web stranicu eZvonka</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">
+        Predložena struktura landing stranice i gotove poruke, izvedene iz stvarnih funkcionalnosti gore.
+        Referentne stranice (mojagent.net, komunalai.hr) rade po sličnoj logici: hero → demo razgovor →
+        rješenja po branši → funkcije → paketi → povjerenje → kontakt.
+    </p>
+
+    <h3 class="mt-8 text-lg font-semibold text-zinc-900 dark:text-white">Predložena struktura stranice</h3>
+    <ol class="mt-3 space-y-3">
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">1 · Hero</strong> — naslov + podnaslov + 2 CTA („Zatraži demo", „Vidi kako radi"). Uz to <em>živi eZvonko widget na samoj stranici</em> — najbolji dokaz proizvoda je proizvod.</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">2 · Demo razgovor</strong> — animirani primjer razgovora (pacijent pita cijenu → asistent odgovori → otvori formu). Idealno u 2–3 jezika za dokaz višejezičnosti.</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">3 · Za koga</strong> — kartice po branši (poliklinike, gradovi i općine, hoteli, webshopovi, TZ i muzeji, uslužne tvrtke), svaka s 3 konkretna primjera pitanja.</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">4 · Kako radi u 4 koraka</strong> — preslikati sekciju iz ovog dokumenta.</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">5 · Kanali</strong> — web chat / e-mail / WhatsApp, s naglaskom „jedna baza znanja, tri kanala".</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">6 · Funkcije</strong> — mreža kartica: vođeni koraci, forme u chatu, CTA gumbi, rezervacija termina, glasovni unos, čitanje naglas, višejezičnost, instant odgovori, leadovi u tablicu.</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">7 · Ne samo chatbot — nego uvid</strong> — screenshot portala (dashboard + analitika). Ovo je najjača diferencijacija prema „ubaci ChatGPT na sajt" konkurenciji.</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">8 · Sigurnost i GDPR</strong> — kratke tvrdnje s ikonama; detalji u zasebnoj podstranici.</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">9 · Paketi</strong> — tablica (definira uprava; tehničke ručice u sekciji <a href="#limiti" class="text-orange-600 underline dark:text-orange-400">Limiti</a>).</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">10 · Reference i FAQ</strong> — postojeći demo projekti kao reference + FAQ iz sekcije „Što asistent NE radi".</li>
+        <li class="rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900"><strong class="text-zinc-900 dark:text-white">11 · Kontakt</strong> — forma + telefon, uz eZvonka koji je nudi sam u chatu.</li>
+    </ol>
+
+    <h3 class="mt-10 text-lg font-semibold text-zinc-900 dark:text-white">Gotove poruke (naslovi i podnaslovi)</h3>
+    <div class="mt-3 space-y-3">
+        <div class="rounded-lg border-l-4 border-orange-500 bg-white p-4 text-sm dark:bg-zinc-900">
+            <p class="font-semibold text-zinc-900 dark:text-white">„Vaš asistent koji zna samo vaše odgovore."</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">eZvonko uči iz vaše stranice i vaših dokumenata. Bez izmišljanja, bez tuđih cijena, 24 sata na dan.</p>
+        </div>
+        <div class="rounded-lg border-l-4 border-orange-500 bg-white p-4 text-sm dark:bg-zinc-900">
+            <p class="font-semibold text-zinc-900 dark:text-white">„Kad ne zna odgovor, ne izgubi klijenta."</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Kaže što ima, prizna što nema, da vaš telefon i ponudi da vam ostavi kontakt. Svaki „ne znam" postaje upit.</p>
+        </div>
+        <div class="rounded-lg border-l-4 border-orange-500 bg-white p-4 text-sm dark:bg-zinc-900">
+            <p class="font-semibold text-zinc-900 dark:text-white">„Njemački gost, njemački odgovor."</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Odgovara na jeziku posjetitelja, a vaša baza znanja ostaje na hrvatskom. Bez prevođenja stranice.</p>
+        </div>
+        <div class="rounded-lg border-l-4 border-orange-500 bg-white p-4 text-sm dark:bg-zinc-900">
+            <p class="font-semibold text-zinc-900 dark:text-white">„Ne mjerite klikove. Mjerite pitanja."</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Portal vam pokazuje što ljudi zapravo pitaju, u koje doba, i na što asistent nije znao odgovoriti.</p>
+        </div>
+        <div class="rounded-lg border-l-4 border-orange-500 bg-white p-4 text-sm dark:bg-zinc-900">
+            <p class="font-semibold text-zinc-900 dark:text-white">„Jedna linija koda. Nikakav plugin."</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Ništa se ne instalira u vaš sustav. Kod se samo zalijepi u stranicu — ne usporava je i ne dira vaš dizajn.</p>
+        </div>
+        <div class="rounded-lg border-l-4 border-orange-500 bg-white p-4 text-sm dark:bg-zinc-900">
+            <p class="font-semibold text-zinc-900 dark:text-white">„Razgovor koji završi upitom, a ne u prazno."</p>
+            <p class="mt-1 text-zinc-600 dark:text-zinc-400">Forme u chatu, CTA gumbi i rezervacija termina — kontakt završi u vašem mailu i vašoj tablici.</p>
+        </div>
+    </div>
+
+    <div class="mt-8 rounded-xl border border-sky-200 bg-sky-50 p-5 text-sm dark:border-sky-500/25 dark:bg-sky-500/5">
+        <p class="font-medium text-sky-900 dark:text-sky-200">Što još treba odlučiti prije izrade stranice</p>
+        <ul class="mt-2 space-y-1 text-zinc-700 dark:text-zinc-300">
+            <li>• <strong>Paketi i cijene</strong> — proizvod ih tehnički ne poznaje; treba komercijalna odluka pa ih mapiramo u limite.</li>
+            <li>• <strong>Samostalna registracija</strong> — trenutno klijente otvara Fer Projekt. Ako web treba „Registriraj se besplatno" gumb, to je novi razvoj.</li>
+            <li>• <strong>Certifikati i SLA</strong> — konkurencija se hvali ISO-om i SLA %; ako ih želimo isticati, treba ih formalno imati.</li>
+            <li>• <strong>Naziv i vizual eZvonka</strong> — ime nije u proizvodu; treba odlučiti ide li kao brend proizvoda ili kao lik/maskota (i onda ga staviti kao avatar na launcher, što widget podržava).</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ─────────── 26. POJMOVNIK ─────────── -->
+<section id="pojmovnik" class="mt-16 scroll-mt-24 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+    <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Pojmovnik</h2>
+    <p class="mt-2 max-w-3xl text-zinc-600 dark:text-zinc-400">Kako se koji pojam zove u portalu i što znači običnim jezikom.</p>
+
+    <dl class="mt-8 divide-y divide-zinc-200 overflow-hidden rounded-xl border border-zinc-200 bg-white dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900">
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Widget</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Chat na vašoj web stranici. Jedan klijent može imati više widgeta (npr. glavni sajt i landing stranica).</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Kanal</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Mjesto na kojem asistent razgovara: web chat, e-mail ili WhatsApp.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Baza znanja</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Sve iz čega asistent smije odgovarati: stranice vašeg sajta + vaši dokumenti.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Embeddano</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Status dokumenta koji je obrađen i spreman za pretragu. „Pending" = u obradi, „Neuspjelo" = treba pogledati.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Crawl</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Automatsko čitanje vaše web stranice. Sve što je „Crawl" došlo je sa sajta, „Upload" ste dodali vi.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Broj AI upita (interakcija)</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Koliko je puta asistent nešto obradio ovaj mjesec — odgovor, pretraga baze znanja ili prepoznavanje teme razgovora.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Impression</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Widget je prikazan posjetitelju (bez obzira je li kliknuo).</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Eskalirano</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Razgovor u kojem je korisnik bio ljut, vulgaran ili prijeteći. Vrijedi ga pogledati.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Bez odgovora u bazi</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Asistent nije našao podatak u vašim materijalima. Kandidat za novi dokument.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Čeka akciju / Follow-up</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Vi ste razgovor označili kao „treba se javiti". Vaša interna lista poziva.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Standardni odgovor</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Zapamćen odgovor na često početno pitanje — stiže istog trenutka, bez čekanja.</dd></div>
+        <div class="px-5 py-4"><dt class="font-medium text-zinc-900 dark:text-white">Widget key</dt><dd class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">Javni identifikator vašeg widgeta u embed kodu. Nije lozinka, ali radi samo s vaših odobrenih domena.</dd></div>
+    </dl>
+</section>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer class="mt-20 border-t border-zinc-200 pt-8 pb-16 text-sm text-zinc-500 dark:border-zinc-800">
+    <p><strong class="text-zinc-900 dark:text-white">eZvonko</strong> — interni izvorni dokument za izradu web stranice.</p>
+    <p class="mt-1">Sadržaj je popis stvarno implementiranih funkcionalnosti platforme; sve navedene zadane vrijednosti su podesive po klijentu.</p>
+    <p class="mt-3">Fer Projekt d.o.o. · <a href="mailto:info@fer-projekt.com" class="text-orange-600 hover:underline dark:text-orange-400">info@fer-projekt.com</a></p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

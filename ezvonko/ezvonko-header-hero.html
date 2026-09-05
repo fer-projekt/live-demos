@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>eZvonko — AI asistent za komunikaciju s korisnicima</title>
+  <meta name="description" content="eZvonko odgovara korisnicima na webu, telefonu, WhatsAppu i e-mailu." />
+  <style>
+    :root{
+      --bg:#0b0b0d;
+      --panel:#141418;
+      --line:#27272d;
+      --text:#f5f5f7;
+      --muted:#a1a1aa;
+      --orange:#f97316;
+      --orange-2:#fb923c;
+      --white:#fff;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(800px 400px at 72% 18%, rgba(249,115,22,.13), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(calc(100% - 40px),var(--max));margin:auto}
+
+    /* HEADER */
+    header{
+      position:sticky;top:0;z-index:20;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:rgba(11,11,13,.82);
+      backdrop-filter:blur(18px);
+    }
+    .nav{
+      height:74px;
+      display:flex;
+      align-items:center;
+      gap:28px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      font-weight:800;font-size:20px;letter-spacing:-.03em;
+    }
+    .brand-mark{
+      width:36px;height:36px;border-radius:11px;
+      display:grid;place-items:center;
+      background:var(--orange);color:white;
+      font-size:14px;
+      box-shadow:0 8px 28px rgba(249,115,22,.25);
+    }
+    .menu{display:flex;align-items:center;gap:6px;margin-left:20px}
+    .nav-item{position:relative}
+    .nav-link{
+      display:flex;align-items:center;gap:5px;
+      padding:10px 11px;border-radius:9px;
+      color:#d4d4d8;font-size:14px;font-weight:600;
+    }
+    .nav-link:hover{background:#18181c;color:white}
+    .chev{font-size:10px;color:#71717a}
+    .dropdown{
+      position:absolute;top:48px;left:0;
+      width:310px;padding:10px;
+      border:1px solid var(--line);
+      border-radius:16px;background:#111115;
+      box-shadow:0 24px 60px rgba(0,0,0,.4);
+      opacity:0;visibility:hidden;transform:translateY(-5px);
+      transition:.16s ease;
+    }
+    .nav-item:hover .dropdown{opacity:1;visibility:visible;transform:none}
+    .drop-link{
+      display:block;padding:11px 12px;border-radius:10px;
+    }
+    .drop-link:hover{background:#1a1a20}
+    .drop-title{font-weight:700;font-size:14px}
+    .drop-desc{margin-top:3px;color:var(--muted);font-size:12px;line-height:1.35}
+    .voice-link{
+      border:1px solid rgba(249,115,22,.28);
+      background:rgba(249,115,22,.07);
+    }
+    .badge{
+      display:inline-flex;margin-left:7px;
+      padding:2px 6px;border-radius:999px;
+      background:var(--orange);color:#fff;
+      font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+    }
+    .actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+    .login{font-size:14px;color:#d4d4d8;padding:10px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-height:42px;padding:0 17px;border-radius:10px;
+      font-size:14px;font-weight:800;
+    }
+    .btn-primary{background:var(--orange);color:white}
+    .btn-primary:hover{background:var(--orange-2)}
+    .btn-secondary{
+      border:1px solid #35353c;background:#151519;color:#f4f4f5;
+    }
+
+    /* HERO */
+    .hero{
+      min-height:720px;
+      display:grid;
+      grid-template-columns:1.04fr .96fr;
+      align-items:center;
+      gap:64px;
+      padding:72px 0 92px;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      color:#fdba74;font-weight:800;font-size:12px;
+      letter-spacing:.09em;text-transform:uppercase;
+    }
+    .dot{
+      width:7px;height:7px;border-radius:50%;
+      background:var(--orange);
+      box-shadow:0 0 0 6px rgba(249,115,22,.1);
+    }
+    h1{
+      margin:18px 0 22px;
+      max-width:760px;
+      font-size:clamp(46px,6vw,76px);
+      line-height:.98;
+      letter-spacing:-.055em;
+    }
+    .accent{color:#fb923c}
+    .lead{
+      max-width:650px;
+      margin:0;
+      color:#b7b7c0;
+      font-size:19px;line-height:1.65;
+    }
+    .hero-actions{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
+    .proof{
+      display:flex;gap:18px;flex-wrap:wrap;
+      margin-top:30px;color:#8f8f99;font-size:12px;
+    }
+    .proof span{display:flex;align-items:center;gap:6px}
+    .check{color:#4ade80}
+
+    /* Product visual */
+    .visual{
+      position:relative;
+      min-height:500px;
+      display:grid;place-items:center;
+    }
+    .glow{
+      position:absolute;width:380px;height:380px;border-radius:50%;
+      background:rgba(249,115,22,.11);
+      filter:blur(65px);
+    }
+    .product-card{
+      position:relative;
+      width:min(100%,480px);
+      padding:20px;
+      border:1px solid #303038;
+      border-radius:24px;
+      background:linear-gradient(180deg,rgba(25,25,31,.96),rgba(15,15,18,.98));
+      box-shadow:0 35px 90px rgba(0,0,0,.44);
+    }
+    .card-top{
+      display:flex;align-items:center;justify-content:space-between;
+      padding-bottom:16px;border-bottom:1px solid #29292f;
+    }
+    .assistant{display:flex;align-items:center;gap:11px}
+    .avatar{
+      width:42px;height:42px;border-radius:13px;
+      background:var(--orange);display:grid;place-items:center;font-weight:900;
+    }
+    .status{font-size:12px;color:#86efac;margin-top:2px}
+    .voice-pill{
+      display:flex;align-items:center;gap:7px;
+      border:1px solid rgba(249,115,22,.28);
+      background:rgba(249,115,22,.08);
+      color:#fdba74;padding:8px 10px;border-radius:999px;
+      font-size:11px;font-weight:800;
+    }
+    .call{
+      margin-top:17px;padding:18px;border-radius:17px;
+      background:#0f0f12;border:1px solid #28282e;
+    }
+    .call-label{font-size:11px;color:#71717a;text-transform:uppercase;letter-spacing:.08em}
+    .call-title{font-size:18px;font-weight:800;margin-top:7px}
+    .wave{
+      display:flex;align-items:center;gap:4px;height:44px;margin:17px 0;
+    }
+    .wave i{
+      display:block;width:4px;border-radius:8px;
+      background:linear-gradient(var(--orange-2),var(--orange));
+    }
+    .wave i:nth-child(1){height:12px}.wave i:nth-child(2){height:23px}
+    .wave i:nth-child(3){height:34px}.wave i:nth-child(4){height:19px}
+    .wave i:nth-child(5){height:39px}.wave i:nth-child(6){height:28px}
+    .wave i:nth-child(7){height:16px}.wave i:nth-child(8){height:31px}
+    .wave i:nth-child(9){height:21px}.wave i:nth-child(10){height:37px}
+    .transcript{
+      color:#c7c7cf;font-size:14px;line-height:1.55;
+      padding:13px 14px;border-radius:12px;background:#18181d;
+    }
+    .transcript strong{color:white}
+    .channels{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:8px;margin-top:12px;
+    }
+    .channel{
+      padding:10px 8px;text-align:center;border-radius:10px;
+      border:1px solid #28282e;color:#a1a1aa;font-size:11px;
+    }
+    .channel.voice{color:#fdba74;border-color:rgba(249,115,22,.35);background:rgba(249,115,22,.07)}
+
+    .mobile-toggle{display:none;margin-left:auto;background:none;border:0;color:white;font-size:25px}
+
+    @media (max-width:900px){
+      .menu,.actions .login{display:none}
+      .mobile-toggle{display:block}
+      .actions{margin-left:0}
+      .hero{grid-template-columns:1fr;gap:28px;padding-top:54px}
+      .visual{min-height:430px}
+    }
+    @media (max-width:560px){
+      .wrap{width:min(calc(100% - 28px),var(--max))}
+      .actions .btn-primary{display:none}
+      h1{font-size:46px}
+      .lead{font-size:17px}
+      .hero{padding-bottom:60px}
+      .channels{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#">
+      <span class="brand-mark">eZ</span>
+      <span>eZvonko</span>
+    </a>
+
+    <nav class="menu" aria-label="Glavna navigacija">
+      <div class="nav-item">
+        <a class="nav-link" href="/ai-asistent">eZvonko <span class="chev">▼</span></a>
+        <div class="dropdown">
+          <a class="drop-link" href="/ai-asistent">
+            <div class="drop-title">Pregled eZvonka</div>
+            <div class="drop-desc">Što eZvonko radi i kako povezuje sve kanale.</div>
+          </a>
+          <a class="drop-link" href="/web-ai-asistent">
+            <div class="drop-title">Web AI asistent</div>
+            <div class="drop-desc">AI asistent za vašu web stranicu.</div>
+          </a>
+          <a class="drop-link voice-link" href="/voice-ai-asistent">
+            <div class="drop-title">Voice AI asistent <span class="badge">Istaknuto</span></div>
+            <div class="drop-desc">AI koji se javlja na telefon i razgovara s korisnicima.</div>
+          </a>
+          <a class="drop-link" href="/kanali">
+            <div class="drop-title">WhatsApp i E-mail</div>
+            <div class="drop-desc">Dodatni kanali iste asistentske logike.</div>
+          </a>
+          <a class="drop-link" href="/portal-integracije">
+            <div class="drop-title">Portal i integracije</div>
+            <div class="drop-desc">Razgovori, leadovi, analitika i povezivanja.</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a class="nav-link" href="/primjene">Primjene <span class="chev">▼</span></a>
+        <div class="dropdown">
+          <a class="drop-link" href="/primjene/korisnicka-podrska"><div class="drop-title">Korisnička podrška</div></a>
+          <a class="drop-link" href="/primjene/prodaja-leadovi"><div class="drop-title">Prodaja i leadovi</div></a>
+          <a class="drop-link" href="/primjene/rezervacije"><div class="drop-title">Rezervacije i naručivanje</div></a>
+          <a class="drop-link" href="/primjene/zdravstvo"><div class="drop-title">Zdravstvo</div></a>
+          <a class="drop-link" href="/primjene/javni-sektor"><div class="drop-title">Javni sektor</div></a>
+          <a class="drop-link" href="/primjene/turizam"><div class="drop-title">Hoteli i turizam</div></a>
+        </div>
+      </div>
+
+      <a class="nav-link" href="/kako-radi">Kako radi</a>
+      <a class="nav-link" href="/sigurnost">Sigurnost</a>
+      <a class="nav-link" href="/cijene">Cijene</a>
+    </nav>
+
+    <div class="actions">
+      <a class="login" href="/portal">Prijava</a>
+      <a class="btn btn-primary" href="/demo">Zatraži demo</a>
+    </div>
+
+    <button class="mobile-toggle" aria-label="Otvori meni">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> AI asistent za vaše korisnike</div>
+
+      <h1>
+        Jedan AI asistent.<br>
+        <span class="accent">Svaki razgovor.</span>
+      </h1>
+
+      <p class="lead">
+        eZvonko odgovara korisnicima na webu, telefonu, WhatsAppu i e-mailu.
+        Uči iz vaših sadržaja, dostupan je 24/7 i razgovore pretvara u konkretne upite i akcije.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/demo">Zatraži demo</a>
+        <a class="btn btn-secondary" href="/voice-ai-asistent">Upoznaj Voice AI →</a>
+      </div>
+
+      <div class="proof">
+        <span><b class="check">✓</b> Vaša baza znanja</span>
+        <span><b class="check">✓</b> Više kanala</span>
+        <span><b class="check">✓</b> Portal i analitika</span>
+      </div>
+    </div>
+
+    <div class="visual">
+      <div class="glow"></div>
+      <div class="product-card">
+        <div class="card-top">
+          <div class="assistant">
+            <div class="avatar">eZ</div>
+            <div>
+              <strong>eZvonko</strong>
+              <div class="status">● dostupan 24/7</div>
+            </div>
+          </div>
+          <div class="voice-pill">☎ Voice AI</div>
+        </div>
+
+        <div class="call">
+          <div class="call-label">Dolazni poziv</div>
+          <div class="call-title">eZvonko razgovara s korisnikom</div>
+
+          <div class="wave">
+            <i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+
+          <div class="transcript">
+            <strong>Korisnik:</strong> “Zanima me cijena i mogu li rezervirati termin?”<br><br>
+            <strong>eZvonko:</strong> “Naravno. Mogu vam odmah pomoći s informacijama i sljedećim korakom.”
+          </div>
+        </div>
+
+        <div class="channels">
+          <div class="channel">💬 Web</div>
+          <div class="channel voice">☎ Voice</div>
+          <div class="channel">◉ WhatsApp</div>
+          <div class="channel">✉ E-mail</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>
