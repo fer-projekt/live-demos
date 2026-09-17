@@ -30,26 +30,22 @@
           display: ['Oxygen', 'sans-serif'],
           sans: ['Inter', 'system-ui', 'sans-serif']
         },
-        maxWidth: { shell: '1280px' },
+        maxWidth: { shell: '1360px' },
         spacing: { '18': '4.5rem', '22': '5.5rem', '30': '7.5rem' }
       }
     }
   }
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <style>
   html { scroll-behavior: smooth; }
   body { margin: 0; background: #ffffff; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   ::placeholder { color: #9aa2b8; }
-  /* Scroll reveal: jednostavan opacity plus pomak */
   [x-cloak] { display: none !important; }
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 760ms cubic-bezier(.22,.61,.36,1), transform 760ms cubic-bezier(.22,.61,.36,1); }
-  .reveal.is-in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .reveal { opacity: 1; transform: none; transition: none; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
 </style>
 </head>
@@ -106,13 +102,13 @@
   <!-- Hero -->
   <section class="bg-white">
     <div class="mx-auto max-w-shell px-5 sm:px-8 lg:px-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-14 sm:py-20 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-14 sm:py-20 lg:pt-[90px] lg:pb-[100px]">
         <div>
           <div class="flex items-center gap-3 mb-6">
             <span class="w-[7px] h-[7px] bg-rose rounded-full"></span>
             <span class="text-navy text-xs font-semibold tracking-[0.18em] uppercase">Strateško savjetovanje · Zadar</span>
           </div>
-          <h1 class="font-display font-normal text-navy text-4xl sm:text-5xl lg:text-6xl leading-[1.06] tracking-[-0.022em] m-0 max-w-[18ch] text-pretty">Savjetovanje koje se mjeri rezultatima</h1>
+          <h1 class="font-display font-normal text-navy text-[clamp(38px,4.4vw,64px)] leading-[1.06] tracking-[-0.022em] m-0 max-w-[18ch] text-pretty">Savjetovanje koje se mjeri rezultatima</h1>
           <p class="mt-6 max-w-[48ch] text-ink text-[17px] leading-[1.7] text-pretty">Vodimo mala i srednja poduzeća kroz odluke o rastu, organizaciji i profitabilnosti — od analize stanja do provedbe u praksi.</p>
           <div class="mt-9 flex">
             <a href="#kontakt" class="inline-flex items-center gap-3 bg-navy hover:bg-rose text-white text-[15px] font-semibold px-8 py-4 rounded-full transition-colors">Zatražite konzultaciju<span class="text-[17px]" aria-hidden="true">→</span></a>
@@ -128,11 +124,11 @@
   <!-- O nama -->
   <section id="o-nama" class="pt-16 sm:pt-24 lg:pt-30">
     <div class="mx-auto max-w-shell px-5 sm:px-8 lg:px-10">
-      <div class="flex items-center gap-3 mb-7 reveal" x-intersect.once="$el.classList.add('is-in')">
+      <div class="flex items-center gap-3 mb-7 ">
         <span class="w-[7px] h-[7px] bg-rose rounded-full"></span>
         <span class="text-navy text-xs font-semibold tracking-[0.18em] uppercase">O nama</span>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start reveal" x-intersect.once="$el.classList.add('is-in')">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start ">
         <h2 class="font-display font-normal text-navy text-3xl sm:text-4xl lg:text-5xl leading-[1.12] tracking-[-0.02em] m-0 text-pretty">Uz hrvatske poduzetnike od 2009. godine</h2>
         <div>
           <p class="m-0 mb-5 text-[16.5px] leading-[1.75] text-ink text-pretty">Horvat Consulting osnovan je u Zadru kao vizija jednog čovjeka s ciljem da vlasnicima poduzeća daje jasne odgovore, a ne opširne studije. Danas nas je četvero, a rad nam je i dalje jednako konkretan: razumijemo brojke, ulazimo u operativu i ostajemo na projektu do provedbe.</p>
@@ -146,21 +142,21 @@
   </section>
 
   <!-- Usluge -->
-  <section id="usluge" class="py-16 sm:py-24 lg:py-30 bg-mist">
+  <section id="usluge" class="py-16 sm:py-24 lg:pt-[110px] lg:pb-30 bg-mist">
     <div class="mx-auto max-w-shell px-5 sm:px-8 lg:px-10">
-      <div class="flex items-center gap-3 mb-7 reveal" x-intersect.once="$el.classList.add('is-in')">
+      <div class="flex items-center gap-3 mb-7 ">
         <span class="w-[7px] h-[7px] bg-rose rounded-full"></span>
         <span class="text-navy text-xs font-semibold tracking-[0.18em] uppercase">Naše usluge</span>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end mb-12 lg:mb-16 reveal" x-intersect.once="$el.classList.add('is-in')">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end mb-12 lg:mb-16 ">
         <h2 class="font-display font-normal text-navy text-3xl sm:text-4xl lg:text-5xl leading-[1.12] tracking-[-0.02em] m-0 text-pretty">Šest područja u kojima radimo svakodnevno</h2>
         <p class="m-0 text-base leading-[1.7] text-ink text-pretty">Usluge kombiniramo prema stvarnoj potrebi — najčešće kroz godišnji angažman koji pokriva strategiju, organizaciju i praćenje rezultata.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
 
         <!-- Kartica 01 -->
-        <article class="reveal bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]" x-intersect.once="$el.classList.add('is-in')">
+        <article class="bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]">
           <div class="flex items-center justify-between mb-7">
             <span class="inline-flex items-center justify-center w-[38px] h-[38px] bg-blush text-navy text-[13px] font-bold tracking-[0.04em]">01</span>
             <span class="w-[22px] h-0.5 bg-navy"></span>
@@ -170,7 +166,7 @@
         </article>
 
         <!-- Kartica 02 -->
-        <article class="reveal bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]" x-intersect.once="$el.classList.add('is-in')">
+        <article class="bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]">
           <div class="flex items-center justify-between mb-7">
             <span class="inline-flex items-center justify-center w-[38px] h-[38px] bg-blush text-navy text-[13px] font-bold tracking-[0.04em]">02</span>
             <span class="w-[22px] h-0.5 bg-navy"></span>
@@ -180,7 +176,7 @@
         </article>
 
         <!-- Kartica 03 -->
-        <article class="reveal bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]" x-intersect.once="$el.classList.add('is-in')">
+        <article class="bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]">
           <div class="flex items-center justify-between mb-7">
             <span class="inline-flex items-center justify-center w-[38px] h-[38px] bg-blush text-navy text-[13px] font-bold tracking-[0.04em]">03</span>
             <span class="w-[22px] h-0.5 bg-navy"></span>
@@ -190,7 +186,7 @@
         </article>
 
         <!-- Kartica 04 -->
-        <article class="reveal bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]" x-intersect.once="$el.classList.add('is-in')">
+        <article class="bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]">
           <div class="flex items-center justify-between mb-7">
             <span class="inline-flex items-center justify-center w-[38px] h-[38px] bg-blush text-navy text-[13px] font-bold tracking-[0.04em]">04</span>
             <span class="w-[22px] h-0.5 bg-navy"></span>
@@ -200,7 +196,7 @@
         </article>
 
         <!-- Kartica 05 -->
-        <article class="reveal bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]" x-intersect.once="$el.classList.add('is-in')">
+        <article class="bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]">
           <div class="flex items-center justify-between mb-7">
             <span class="inline-flex items-center justify-center w-[38px] h-[38px] bg-blush text-navy text-[13px] font-bold tracking-[0.04em]">05</span>
             <span class="w-[22px] h-0.5 bg-navy"></span>
@@ -210,7 +206,7 @@
         </article>
 
         <!-- Kartica 06 -->
-        <article class="reveal bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]" x-intersect.once="$el.classList.add('is-in')">
+        <article class="bg-white px-8 pt-8 pb-9 flex flex-col min-h-[18rem] shadow-[0_1px_2px_rgba(27,46,99,0.05)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(27,46,99,0.12)]">
           <div class="flex items-center justify-between mb-7">
             <span class="inline-flex items-center justify-center w-[38px] h-[38px] bg-blush text-navy text-[13px] font-bold tracking-[0.04em]">06</span>
             <span class="w-[22px] h-0.5 bg-navy"></span>
@@ -220,7 +216,7 @@
         </article>
 
         <!-- Široka slika uz kartice -->
-        <div class="md:col-span-2 lg:col-span-3 h-56 sm:h-72 lg:h-[21rem]">
+        <div class="md:col-span-2 lg:col-span-3 xl:col-span-2 h-56 sm:h-72 lg:h-[21rem]">
           <img src="img/horvat-v1/04.jpg" alt="Savjetnici u razgovoru s klijentom" loading="lazy" class="w-full h-full object-cover block">
         </div>
       </div>
@@ -230,38 +226,38 @@
   <!-- Naš tim -->
   <section id="tim" class="py-16 sm:py-24 lg:py-30 bg-navy">
     <div class="mx-auto max-w-shell px-5 sm:px-8 lg:px-10">
-      <div class="flex items-center gap-3 mb-7 reveal" x-intersect.once="$el.classList.add('is-in')">
+      <div class="flex items-center gap-3 mb-7 ">
         <span class="w-[7px] h-[7px] bg-rose rounded-full"></span>
         <span class="text-white text-xs font-semibold tracking-[0.18em] uppercase">Naš tim</span>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end mb-12 lg:mb-14 reveal" x-intersect.once="$el.classList.add('is-in')">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end mb-12 lg:mb-14 ">
         <h2 class="font-display font-normal text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.12] tracking-[-0.02em] m-0 text-pretty">Ljudi koji vode vaš projekt</h2>
         <p class="m-0 text-base leading-[1.7] text-pale text-pretty">Kod nas nema prodajnog i izvedbenog tima — savjetnik s kojim dogovorite posao vodi ga i do kraja.</p>
       </div>
 
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
-        <div class="reveal" x-intersect.once="$el.classList.add('is-in')">
+        <div>
           <div class="aspect-[4/5]"><img src="img/horvat-v1/09.jpg" alt="Marko Horvat, CEO i osnivač" loading="lazy" class="w-full h-full object-cover block"></div>
           <div class="pt-5 px-1">
             <h3 class="font-display font-bold text-[19px] text-white m-0">Marko Horvat</h3>
             <div class="mt-2.5 flex items-center gap-2.5"><span class="w-[18px] h-0.5 bg-rose flex-none"></span><span class="text-sm text-steel">CEO i osnivač</span></div>
           </div>
         </div>
-        <div class="reveal" x-intersect.once="$el.classList.add('is-in')">
+        <div>
           <div class="aspect-[4/5]"><img src="img/horvat-v1/10.jpg" alt="Ivanka Tudor, viša savjetnica" loading="lazy" class="w-full h-full object-cover block"></div>
           <div class="pt-5 px-1">
             <h3 class="font-display font-bold text-[19px] text-white m-0">Ivanka Tudor</h3>
             <div class="mt-2.5 flex items-center gap-2.5"><span class="w-[18px] h-0.5 bg-rose flex-none"></span><span class="text-sm text-steel">Viša savjetnica</span></div>
           </div>
         </div>
-        <div class="reveal" x-intersect.once="$el.classList.add('is-in')">
+        <div>
           <div class="aspect-[4/5]"><img src="img/horvat-v1/07.jpg" alt="Goran Salazar, viši menadžer" loading="lazy" class="w-full h-full object-cover block"></div>
           <div class="pt-5 px-1">
             <h3 class="font-display font-bold text-[19px] text-white m-0">Goran Salazar</h3>
             <div class="mt-2.5 flex items-center gap-2.5"><span class="w-[18px] h-0.5 bg-rose flex-none"></span><span class="text-sm text-steel">Viši menadžer</span></div>
           </div>
         </div>
-        <div class="reveal" x-intersect.once="$el.classList.add('is-in')">
+        <div>
           <div class="aspect-[4/5]"><img src="img/horvat-v1/13.jpg" alt="Nadia Perić, savjetnica za strategiju" loading="lazy" class="w-full h-full object-cover block"></div>
           <div class="pt-5 px-1">
             <h3 class="font-display font-bold text-[19px] text-white m-0">Nadia Perić</h3>
@@ -275,17 +271,17 @@
   <!-- Galerija -->
   <section id="galerija" class="pt-16 sm:pt-24 lg:pt-30 pb-20 sm:pb-28 lg:pb-40">
     <div class="mx-auto max-w-shell px-5 sm:px-8 lg:px-10 mb-10 lg:mb-14">
-      <div class="flex items-center gap-3 mb-7 reveal" x-intersect.once="$el.classList.add('is-in')">
+      <div class="flex items-center gap-3 mb-7 ">
         <span class="w-[7px] h-[7px] bg-rose rounded-full"></span>
         <span class="text-navy text-xs font-semibold tracking-[0.18em] uppercase">Galerija</span>
       </div>
-      <h2 class="font-display font-normal text-navy text-3xl sm:text-4xl lg:text-5xl leading-[1.12] tracking-[-0.02em] m-0 text-pretty reveal" x-intersect.once="$el.classList.add('is-in')">Ured, radne sesije i projekti koje smo vodili</h2>
+      <h2 class="font-display font-normal text-navy text-3xl sm:text-4xl lg:text-5xl leading-[1.12] tracking-[-0.02em] m-0 text-pretty ">Ured, radne sesije i projekti koje smo vodili</h2>
     </div>
     <div class="mx-auto max-w-shell px-5 sm:px-8 lg:px-10 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
-      <div class="aspect-[4/5] bg-mist reveal" x-intersect.once="$el.classList.add('is-in')"><img src="img/horvat-v1/02.jpg" alt="Radna sesija u uredu" loading="lazy" class="w-full h-full object-cover block"></div>
-      <div class="aspect-[4/5] bg-mist reveal" x-intersect.once="$el.classList.add('is-in')"><img src="img/horvat-v1/12.jpg" alt="Analiza poslovnih pokazatelja" loading="lazy" class="w-full h-full object-cover block"></div>
-      <div class="aspect-[4/5] bg-mist reveal" x-intersect.once="$el.classList.add('is-in')"><img src="img/horvat-v1/03.jpg" alt="Sastanak s klijentom" loading="lazy" class="w-full h-full object-cover block"></div>
-      <div class="aspect-[4/5] bg-mist relative reveal" x-intersect.once="$el.classList.add('is-in')">
+      <div class="aspect-[4/5] bg-mist "><img src="img/horvat-v1/02.jpg" alt="Radna sesija u uredu" loading="lazy" class="w-full h-full object-cover block"></div>
+      <div class="aspect-[4/5] bg-mist "><img src="img/horvat-v1/12.jpg" alt="Analiza poslovnih pokazatelja" loading="lazy" class="w-full h-full object-cover block"></div>
+      <div class="aspect-[4/5] bg-mist "><img src="img/horvat-v1/03.jpg" alt="Sastanak s klijentom" loading="lazy" class="w-full h-full object-cover block"></div>
+      <div class="aspect-[4/5] bg-mist relative ">
         <img src="img/horvat-v1/08.jpg" alt="Prostor ureda Horvat Consultinga" loading="lazy" class="w-full h-full object-cover block">
         <div class="absolute right-0 bottom-0 bg-black/55 text-white font-display font-bold text-[16.5px] tracking-[-0.01em] px-4 py-2.5">+5</div>
       </div>
@@ -293,7 +289,7 @@
   </section>
 
   <!-- Lokacija i kontakt -->
-  <section id="kontakt" class="py-16 sm:py-24 lg:py-30 bg-mist">
+  <section id="kontakt" class="py-16 sm:py-24 lg:pt-[110px] lg:pb-30 bg-mist">
     <div class="mx-auto max-w-shell px-5 sm:px-8 lg:px-10">
       <div class="flex items-center gap-3 mb-7">
         <span class="w-[7px] h-[7px] bg-rose rounded-full"></span>
