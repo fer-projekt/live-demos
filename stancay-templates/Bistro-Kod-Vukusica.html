@@ -141,22 +141,15 @@
 <header x-data="{ open: false }" class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-[#ece5d8]">
   <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10 py-3 flex items-center justify-between gap-6">
     <a href="#hero" class="block shrink-0" aria-label="Bistro Kod Vukušića, početna">
-      <svg viewBox="0 0 264 52" class="h-11 sm:h-[52px] w-auto block text-deep" role="img" aria-label="Bistro Kod Vukušića">
-        <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
-          <path d="M14 26c9-12 22-16 33-11 5 2 9 6 11 11-2 5-6 9-11 11-11 5-24 1-33-11Z"></path>
-          <path d="M14 26 4 18v16l10-8Z"></path>
-        </g>
-        <circle cx="45" cy="22" r="2.2" fill="currentColor"></circle>
-        <text x="70" y="21" font-family="Karla, system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="3.2" fill="currentColor">BISTRO</text>
-        <text x="70" y="45" font-family="Lora, Georgia, serif" font-size="26" font-weight="600" fill="currentColor" textLength="186" lengthAdjust="spacingAndGlyphs">Kod Vukušića</text>
-      </svg>
+      <img src="img/bistro-vukusica/logo.png" alt="Bistro Kod Vukušića" class="h-11 sm:h-[54px] w-auto block">
     </a>
 
     <nav aria-label="Glavna navigacija" class="hidden md:flex flex-wrap items-center gap-7 lg:gap-[30px] text-base font-medium">
       <a href="#hero" class="text-coral py-2 hover:text-coraldark">Početna</a>
       <a href="#ponuda" class="text-ink py-2 hover:text-coral">Ponuda</a>
       <a href="#o-nama" class="text-ink py-2 hover:text-coral">O nama</a>
-      <a href="#galerija" class="text-ink py-2 hover:text-coral">Galerija</a>
+      <a href="#jelovnik" class="text-ink py-2 hover:text-coral">Jelovnik</a>
+        <a href="#galerija" class="text-ink py-2 hover:text-coral">Galerija</a>
       <a href="#kontakt" class="text-ink py-2 hover:text-coral">Kontakt</a>
     </nav>
 
@@ -177,7 +170,8 @@
       <a href="#hero" class="py-3 min-h-[44px] flex items-center text-coral font-medium">Početna</a>
       <a href="#ponuda" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">Ponuda</a>
       <a href="#o-nama" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">O nama</a>
-      <a href="#galerija" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">Galerija</a>
+      <a href="#jelovnik" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">Jelovnik</a>
+        <a href="#galerija" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">Galerija</a>
       <a href="#kontakt" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">Kontakt</a>
       <a href="tel:+38512404340" class="mt-3 mb-2 inline-flex items-center justify-center min-h-[44px] bg-coral text-white font-semibold text-[15px] px-6 py-3 rounded-full">Nazovite 01 2404 340</a>
     </div>
@@ -257,6 +251,28 @@
             <p class="text-[15px] leading-[1.7] text-muted">Kolač uz kavu na kraju, iz vlastite kuhinje.</p>
           </article>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Jelovnik. Sadrzaj se dodaje kad ga klijent dostavi: popis stavki ili poveznica na PDF. -->
+  <section id="jelovnik" class="bg-white py-16 sm:py-20 lg:py-[88px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex items-center gap-5 mb-3">
+        <h2 class="font-display text-[30px] sm:text-[38px] lg:text-[46px] text-deep m-0">Jelovnik</h2>
+        <span class="hidden sm:block h-px flex-1 bg-current opacity-20"></span>
+        <span class="text-[11px] tracking-[0.18em] border border-coral text-coral rounded-full px-4 py-1.5 whitespace-nowrap">JELOVNIK</span>
+      </div>
+      <p class="text-body text-[16.5px] leading-[1.75] max-w-[62ch] mb-8">Dnevna ponuda, riba i jela s roštilja. Jelovnik postavljamo ovdje čim ga dobijemo. Do tada nazovite i recći ćemo što je danas u ponudi, jer se gotova jela i riba mijenjaju svaki dan.</p>
+
+      <div class="bg-sand border-line border rounded-[14px] px-6 sm:px-10 py-10 sm:py-14 text-center">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 opacity-45" aria-hidden="true">
+          <path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path>
+        </svg>
+        <p class="font-display text-deep text-[19px] sm:text-[21px] m-0 mb-2">Jelovnik je u pripremi</p>
+        <p class="text-body text-[15.5px] leading-[1.7] max-w-[46ch] mx-auto m-0 mb-7">Za trenutne cijene i ponudu najbrže je nazvati.</p>
+        <a href="tel:+38512404340" class="inline-flex items-center justify-center min-h-[48px] bg-deep hover:bg-coral text-white font-display font-semibold text-[15.5px] px-7 rounded-full transition-colors">Nazovite 01 2404 340</a>
       </div>
     </div>
   </section>
@@ -420,15 +436,7 @@
 <footer id="footer" class="bg-deep text-[#c3d2da] pt-14">
   <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-11">
     <div>
-      <svg viewBox="0 0 264 52" class="h-11 w-auto block mb-[18px] text-shell" role="img" aria-label="Bistro Kod Vukušića">
-        <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
-          <path d="M14 26c9-12 22-16 33-11 5 2 9 6 11 11-2 5-6 9-11 11-11 5-24 1-33-11Z"></path>
-          <path d="M14 26 4 18v16l10-8Z"></path>
-        </g>
-        <circle cx="45" cy="22" r="2.2" fill="currentColor"></circle>
-        <text x="70" y="21" font-family="Karla, system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="3.2" fill="currentColor">BISTRO</text>
-        <text x="70" y="45" font-family="Lora, Georgia, serif" font-size="26" font-weight="600" fill="currentColor" textLength="186" lengthAdjust="spacingAndGlyphs">Kod Vukušića</text>
-      </svg>
+      <img src="img/bistro-vukusica/logo-svijetli.png" alt="Bistro Kod Vukušića" class="h-12 w-auto block">
       <p class="text-[15px] leading-[1.7]">Bistro na Žitnjaku u kojem se jede kao u konobi na moru. Riba, peka, roštilj i dnevni gablec, radnim danom.</p>
     </div>
     <div>
@@ -447,6 +455,7 @@
       <nav aria-label="Navigacija u podnožju" class="grid gap-2.5 text-[15px]">
         <a href="#hero" class="text-[#c3d2da] hover:text-white py-1">Početna</a>
         <a href="#o-nama" class="text-[#c3d2da] hover:text-white py-1">O nama</a>
+        <a href="#jelovnik" class="text-[#c3d2da] hover:text-white py-1">Jelovnik</a>
         <a href="#galerija" class="text-[#c3d2da] hover:text-white py-1">Galerija</a>
         <a href="#kontakt" class="text-[#c3d2da] hover:text-white py-1">Kontakt</a>
         <a href="https://www.facebook.com/kodVukusica/" rel="noopener" target="_blank" class="text-[#c3d2da] hover:text-white py-1">Facebook stranica</a>
@@ -463,6 +472,37 @@
     </div>
   </div>
   <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+    <!-- Impresum. Podaci iz sudskog ili obrtnog registra i IBAN.
+         Kandidat pronaden u javnim izvorima (Fina Info.BIZ):
+           KALUN, obrt za ugostiteljstvo, vl. Drazan Vukusic, Slavonska avenija 22D,
+           MBO 97273694, djelatnost 5630. Djelatnost 5630 je usluzivanje pica, a ne
+           restoran, pa OVO TREBA POTVRDITI s vlasnikom prije objave. Ne upisivati
+           dok se ne potvrdi.
+         OIB, MB i IBAN NISU popunjeni jer nisu potvrdeni. Ne izmisljati ih:
+         netocan IBAN na stranici ugostitelja je ozbiljna greska.
+         Kad se podaci dobiju, zamijeniti crtice u span.impresum-vrijednost. -->
+    <div class="border-t border-[#2a4a5c] pt-6 pb-1">
+      <h2 class="text-[11.5px] font-semibold tracking-[0.16em] uppercase text-[#c3d2da] mb-4">Impresum</h2>
+      <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-3 text-[13.5px] leading-[1.6] m-0">
+        <div>
+          <dt class="text-[#9db0bb]">Nositelj djelatnosti</dt>
+          <dd class="text-[#c3d2da] m-0 impresum-vrijednost">&ndash;</dd>
+        </div>
+        <div>
+          <dt class="text-[#9db0bb]">OIB</dt>
+          <dd class="text-[#c3d2da] m-0 impresum-vrijednost">&ndash;</dd>
+        </div>
+        <div>
+          <dt class="text-[#9db0bb]">Matični broj</dt>
+          <dd class="text-[#c3d2da] m-0 impresum-vrijednost">&ndash;</dd>
+        </div>
+        <div>
+          <dt class="text-[#9db0bb]">IBAN</dt>
+          <dd class="text-[#c3d2da] m-0 impresum-vrijednost">&ndash;</dd>
+        </div>
+      </dl>
+    </div>
+
     <div class="border-t border-[#2a4a5c] pt-[22px] pb-7 flex flex-wrap gap-x-[22px] gap-y-2.5 justify-between text-sm text-[#9db0bb]">
       <span class="text-[#c3d2da]">© 2026 Bistro Kod Vukušića. Sva prava pridržana.&nbsp;  |&nbsp; &nbsp;Izrada web stranice Fer projekt</span>
       <span class="flex flex-wrap gap-[18px]">

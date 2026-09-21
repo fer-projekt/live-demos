@@ -145,23 +145,14 @@
     <div class="flex items-center justify-between gap-6 py-3 sm:py-3.5">
       <a href="#hero" class="block flex-none text-oak" aria-label="Pivnica, početna">
         <!-- Wordmark: glineni vrč s pjenom, ime lokala u Bitteru -->
-        <svg viewBox="0 0 190 56" class="h-10 sm:h-[52px] w-auto block" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false">
-          <g fill="currentColor">
-            <circle cx="13" cy="15" r="6"></circle>
-            <circle cx="21" cy="12" r="7"></circle>
-            <circle cx="29" cy="15" r="6"></circle>
-            <rect x="6" y="14" width="28" height="7" rx="3"></rect>
-            <path d="M8 19h26v25a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5V19z"></path>
-            <path d="M35 26h5a9 9 0 0 1 0 18h-5v-5h4.5a4 4 0 1 0 0-8H35v-5z"></path>
-          </g>
-          <text x="60" y="39" textLength="122" lengthAdjust="spacingAndGlyphs" font-family="Bitter, Georgia, serif" font-weight="700" font-size="31" fill="currentColor">Pivnica</text>
-        </svg>
+        <img src="img/pivnica/logo.png" alt="Pivnica, Zagreb" class="h-11 sm:h-[54px] w-auto block">
       </a>
 
       <nav class="hidden md:flex flex-wrap items-center gap-6 lg:gap-[30px] text-base font-medium" aria-label="Glavna navigacija">
         <a href="#hero" class="text-[#8f5e12] hover:text-oak">Početna</a>
         <a href="#ponuda" class="text-oak hover:text-[#8f5e12]">Ponuda</a>
         <a href="#o-nama" class="text-oak hover:text-[#8f5e12]">O nama</a>
+        <a href="#cjenik" class="text-oak hover:text-[#8f5e12]">Cjenik</a>
         <a href="#galerija" class="text-oak hover:text-[#8f5e12]">Galerija</a>
         <a href="#kontakt" class="text-oak hover:text-[#8f5e12]">Kontakt</a>
       </nav>
@@ -181,6 +172,7 @@
         <a href="#hero" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-[#8f5e12] hover:bg-foam">Početna</a>
         <a href="#ponuda" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">Ponuda</a>
         <a href="#o-nama" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">O nama</a>
+        <a href="#cjenik" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">Cjenik</a>
         <a href="#galerija" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">Galerija</a>
         <a href="#kontakt" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">Kontakt</a>
         <a href="#kontakt" @click="open = false" class="mt-2 inline-flex items-center justify-center min-h-[44px] bg-amber hover:bg-oak text-stout hover:text-cream font-display font-semibold text-[15px] px-6 py-3 rounded-full transition-colors">Javite nam se</a>
@@ -270,6 +262,28 @@
             <p class="text-[15px] leading-[1.7] text-[#6b5d4e] m-0">Kava, sokovi i bezalkoholno za one koji su danas za volanom.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Cjenik. Sadrzaj se dodaje kad ga klijent dostavi: popis stavki ili poveznica na PDF. -->
+  <section id="cjenik" class="bg-cream py-16 sm:py-20 lg:py-[88px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex items-center gap-5 mb-3">
+        <h2 class="font-display text-[30px] sm:text-[38px] lg:text-[46px] text-oak m-0">Cjenik</h2>
+        <span class="hidden sm:block h-px flex-1 bg-current opacity-20"></span>
+        <span class="text-[11px] tracking-[0.18em] border border-moss text-moss rounded-full px-4 py-1.5 whitespace-nowrap">CJENIK</span>
+      </div>
+      <p class="text-[#6b5d4e] text-[16.5px] leading-[1.75] max-w-[62ch] mb-8">Piva, kava i sve ostalo iza šanka. Cjenik postavljamo ovdje čim ga dobijemo. Do tada javite se na telefon, rado ćemo reći što je danas na točioniku i po kojoj cijeni.</p>
+
+      <div class="bg-foam border-[#e6ddcc] border rounded-[14px] px-6 sm:px-10 py-10 sm:py-14 text-center">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 opacity-45" aria-hidden="true">
+          <path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path>
+        </svg>
+        <p class="font-display text-oak text-[19px] sm:text-[21px] m-0 mb-2">Cjenik je u pripremi</p>
+        <p class="text-[#6b5d4e] text-[15.5px] leading-[1.7] max-w-[46ch] mx-auto m-0 mb-7">Za trenutne cijene i ponudu najbrže je nazvati.</p>
+        <a href="tel:+38515510192" class="inline-flex items-center justify-center min-h-[48px] bg-amber hover:bg-oak text-stout hover:text-cream font-display font-semibold text-[15.5px] px-7 rounded-full transition-colors">Nazovite 01 5510 192</a>
       </div>
     </div>
   </section>
@@ -426,17 +440,7 @@
   <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pb-10 lg:pb-11">
       <div>
-        <svg viewBox="0 0 190 56" class="h-11 w-auto block mb-[18px] text-cream" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Pivnica">
-          <g fill="currentColor">
-            <circle cx="13" cy="15" r="6"></circle>
-            <circle cx="21" cy="12" r="7"></circle>
-            <circle cx="29" cy="15" r="6"></circle>
-            <rect x="6" y="14" width="28" height="7" rx="3"></rect>
-            <path d="M8 19h26v25a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5V19z"></path>
-            <path d="M35 26h5a9 9 0 0 1 0 18h-5v-5h4.5a4 4 0 1 0 0-8H35v-5z"></path>
-          </g>
-          <text x="60" y="39" textLength="122" lengthAdjust="spacingAndGlyphs" font-family="Bitter, Georgia, serif" font-weight="700" font-size="31" fill="currentColor">Pivnica</text>
-        </svg>
+        <img src="img/pivnica/logo-svijetli.png" alt="Pivnica, Zagreb" class="h-12 w-auto block">
         <p class="text-[15px] leading-[1.7] mb-5">Susjedska pivnica u zagrebačkim Ravnicama. Točena bavarska piva, terasa pod drvećem i mjesto na kojem se ostaje duže nego što se planiralo.</p>
         <div class="flex items-center gap-3">
           <a href="https://www.facebook.com/Pivnica" rel="noopener" target="_blank" aria-label="Pivnica na Facebooku" class="w-11 h-11 rounded-full bg-[#3b2a1c] flex items-center justify-center text-[#d8cbb8] hover:text-cream hover:bg-amber transition-colors">
@@ -466,7 +470,8 @@
           <a href="#hero" class="text-[#d8cbb8] hover:text-cream">Početna</a>
           <a href="#ponuda" class="text-[#d8cbb8] hover:text-cream">Ponuda</a>
           <a href="#o-nama" class="text-[#d8cbb8] hover:text-cream">O nama</a>
-          <a href="#galerija" class="text-[#d8cbb8] hover:text-cream">Galerija</a>
+          <a href="#cjenik" class="text-[#d8cbb8] hover:text-cream">Cjenik</a>
+        <a href="#galerija" class="text-[#d8cbb8] hover:text-cream">Galerija</a>
           <a href="#kontakt" class="text-[#d8cbb8] hover:text-cream">Kontakt</a>
         </nav>
       </div>
@@ -480,6 +485,35 @@
           <span>Pon do Sub: 08:00 do 24:00<br>Ned: 12:00 do 23:00</span>
         </div>
       </div>
+    </div>
+
+    <!-- Impresum. Podaci iz sudskog ili obrtnog registra i IBAN.
+         Za lokal Pivnica na adresi Radauseva 9 nije pronaden javni zapis
+           o nositelju djelatnosti. Provjeriti u Obrtnom registru ili sudskom
+           registru pa upisati tocne podatke.
+         OIB, MB i IBAN NISU popunjeni jer nisu potvrdeni. Ne izmisljati ih:
+         netocan IBAN na stranici ugostitelja je ozbiljna greska.
+         Kad se podaci dobiju, zamijeniti crtice u span.impresum-vrijednost. -->
+    <div class="border-t border-[#4a3728] pt-6 pb-1">
+      <h2 class="text-[11.5px] font-semibold tracking-[0.16em] uppercase text-[#d8cbb8] mb-4">Impresum</h2>
+      <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-3 text-[13.5px] leading-[1.6] m-0">
+        <div>
+          <dt class="text-[#a3927d]">Nositelj djelatnosti</dt>
+          <dd class="text-[#d8cbb8] m-0 impresum-vrijednost">&ndash;</dd>
+        </div>
+        <div>
+          <dt class="text-[#a3927d]">OIB</dt>
+          <dd class="text-[#d8cbb8] m-0 impresum-vrijednost">&ndash;</dd>
+        </div>
+        <div>
+          <dt class="text-[#a3927d]">Matični broj</dt>
+          <dd class="text-[#d8cbb8] m-0 impresum-vrijednost">&ndash;</dd>
+        </div>
+        <div>
+          <dt class="text-[#a3927d]">IBAN</dt>
+          <dd class="text-[#d8cbb8] m-0 impresum-vrijednost">&ndash;</dd>
+        </div>
+      </dl>
     </div>
 
     <div class="border-t border-[#4a3728] py-6 sm:py-[22px] pb-7 flex flex-wrap gap-y-2.5 gap-x-6 justify-between text-sm text-[#a3927d]">
