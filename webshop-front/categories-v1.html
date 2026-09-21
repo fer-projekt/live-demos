@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategorije - Verzija A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-primary: #2563eb;
+            --color-dark: #111827;
+            --color-muted: #6b7280;
+            --color-light: #f9fafb;
+            --font-heading: 'Google Sans', sans-serif;
+            --font-body: 'Google Sans Text', 'Google Sans', sans-serif;
+        }
+        body { font-family: var(--font-body); }
+    </style>
+</head>
+<body class="bg-white p-8">
+
+    <h3 class="text-sm font-bold text-primary mb-6 uppercase tracking-wider">Verzija A — Minimalistički krug (example4 stil)</h3>
+
+    <div class="max-w-[1320px] mx-auto">
+        <div class="flex items-center justify-between mb-10">
+            <h2 style="font-family: var(--font-heading);" class="font-bold text-2xl text-dark">Istražite kategorije</h2>
+            <a href="#" class="text-sm font-medium text-primary hover:underline">Pogledaj sve</a>
+        </div>
+
+        <div class="grid grid-cols-4 lg:grid-cols-8 gap-8">
+            <a href="#" class="group flex flex-col items-center gap-4">
+                <div class="w-24 h-24 rounded-full bg-[#f5f5f7] overflow-hidden">
+                    <img src="https://picsum.photos/seed/catA0/200/200" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-medium text-dark group-hover:text-primary transition-colors duration-200">Elektronika</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center gap-4">
+                <div class="w-24 h-24 rounded-full bg-[#f5f5f7] overflow-hidden">
+                    <img src="https://picsum.photos/seed/catA1/200/200" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-medium text-dark group-hover:text-primary transition-colors duration-200">Odjeća</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center gap-4">
+                <div class="w-24 h-24 rounded-full bg-[#f5f5f7] overflow-hidden">
+                    <img src="https://picsum.photos/seed/catA2/200/200" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-medium text-dark group-hover:text-primary transition-colors duration-200">Obuća</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center gap-4">
+                <div class="w-24 h-24 rounded-full bg-[#f5f5f7] overflow-hidden">
+                    <img src="https://picsum.photos/seed/catA3/200/200" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-medium text-dark group-hover:text-primary transition-colors duration-200">Kuća i vrt</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center gap-4">
+                <div class="w-24 h-24 rounded-full bg-[#f5f5f7] overflow-hidden">
+                    <img src="https://picsum.photos/seed/catA4/200/200" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-medium text-dark group-hover:text-primary transition-colors duration-200">Sport</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center gap-4">
+                <div class="w-24 h-24 rounded-full bg-[#f5f5f7] overflow-hidden">
+                    <img src="https://picsum.photos/seed/catA5/200/200" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-medium text-dark group-hover:text-primary transition-colors duration-200">Ljepota</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center gap-4">
+                <div class="w-24 h-24 rounded-full bg-[#f5f5f7] overflow-hidden">
+                    <img src="https://picsum.photos/seed/catA6/200/200" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-medium text-dark group-hover:text-primary transition-colors duration-200">Igračke</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center gap-4">
+                <div class="w-24 h-24 rounded-full bg-[#f5f5f7] overflow-hidden">
+                    <img src="https://picsum.photos/seed/catA7/200/200" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-medium text-dark group-hover:text-primary transition-colors duration-200">Knjige</span>
+            </a>
+        </div>
+    </div>
+
+    <hr class="my-16 border-gray-100">
+
+    <h3 class="text-sm font-bold text-primary mb-6 uppercase tracking-wider">Verzija B — Velike kartice s overlay (example5 stil)</h3>
+
+    <div class="max-w-[1320px] mx-auto">
+        <div class="flex items-center justify-between mb-10">
+            <h2 style="font-family: var(--font-heading);" class="font-bold text-2xl text-dark">Popularne kategorije</h2>
+            <a href="#" class="text-sm font-medium text-primary hover:underline">Pogledaj sve</a>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-5">
+            <a href="#" class="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <img src="https://picsum.photos/seed/catB0/400/500" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <span class="text-white font-bold text-lg" style="font-family: var(--font-heading);">Elektronika</span>
+                    <p class="text-white/60 text-xs mt-0.5">240+ proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <img src="https://picsum.photos/seed/catB1/400/500" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <span class="text-white font-bold text-lg" style="font-family: var(--font-heading);">Odjeća</span>
+                    <p class="text-white/60 text-xs mt-0.5">180+ proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <img src="https://picsum.photos/seed/catB2/400/500" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <span class="text-white font-bold text-lg" style="font-family: var(--font-heading);">Obuća</span>
+                    <p class="text-white/60 text-xs mt-0.5">95+ proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <img src="https://picsum.photos/seed/catB3/400/500" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <span class="text-white font-bold text-lg" style="font-family: var(--font-heading);">Sport</span>
+                    <p class="text-white/60 text-xs mt-0.5">120+ proizvoda</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-5 mt-5">
+            <a href="#" class="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <img src="https://picsum.photos/seed/catB4/400/500" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <span class="text-white font-bold text-lg" style="font-family: var(--font-heading);">Kuća i vrt</span>
+                    <p class="text-white/60 text-xs mt-0.5">200+ proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <img src="https://picsum.photos/seed/catB5/400/500" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <span class="text-white font-bold text-lg" style="font-family: var(--font-heading);">Ljepota</span>
+                    <p class="text-white/60 text-xs mt-0.5">150+ proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <img src="https://picsum.photos/seed/catB6/400/500" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <span class="text-white font-bold text-lg" style="font-family: var(--font-heading);">Igračke</span>
+                    <p class="text-white/60 text-xs mt-0.5">85+ proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                <img src="https://picsum.photos/seed/catB7/400/500" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5">
+                    <span class="text-white font-bold text-lg" style="font-family: var(--font-heading);">Knjige</span>
+                    <p class="text-white/60 text-xs mt-0.5">300+ proizvoda</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <hr class="my-16 border-gray-100">
+
+    <h3 class="text-sm font-bold text-primary mb-6 uppercase tracking-wider">Verzija C — Horizontalne kartice sa slikom i info</h3>
+
+    <div class="max-w-[1320px] mx-auto">
+        <div class="flex items-center justify-between mb-10">
+            <h2 style="font-family: var(--font-heading);" class="font-bold text-2xl text-dark">Kupujte po kategorijama</h2>
+            <a href="#" class="text-sm font-medium text-primary hover:underline">Pogledaj sve</a>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="#" class="group flex items-center gap-4 bg-[#f8f8fa] rounded-2xl p-4 hover:bg-[#f0f0f5] transition-colors duration-200">
+                <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src="https://picsum.photos/seed/catC0/200/200" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-base font-bold text-dark" style="font-family: var(--font-heading);">Elektronika</span>
+                    <p class="text-xs text-gray-400 mt-0.5">240 proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group flex items-center gap-4 bg-[#f8f8fa] rounded-2xl p-4 hover:bg-[#f0f0f5] transition-colors duration-200">
+                <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src="https://picsum.photos/seed/catC1/200/200" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-base font-bold text-dark" style="font-family: var(--font-heading);">Odjeća</span>
+                    <p class="text-xs text-gray-400 mt-0.5">180 proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group flex items-center gap-4 bg-[#f8f8fa] rounded-2xl p-4 hover:bg-[#f0f0f5] transition-colors duration-200">
+                <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src="https://picsum.photos/seed/catC2/200/200" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-base font-bold text-dark" style="font-family: var(--font-heading);">Obuća</span>
+                    <p class="text-xs text-gray-400 mt-0.5">95 proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group flex items-center gap-4 bg-[#f8f8fa] rounded-2xl p-4 hover:bg-[#f0f0f5] transition-colors duration-200">
+                <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src="https://picsum.photos/seed/catC3/200/200" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-base font-bold text-dark" style="font-family: var(--font-heading);">Kuća i vrt</span>
+                    <p class="text-xs text-gray-400 mt-0.5">200 proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group flex items-center gap-4 bg-[#f8f8fa] rounded-2xl p-4 hover:bg-[#f0f0f5] transition-colors duration-200">
+                <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src="https://picsum.photos/seed/catC4/200/200" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-base font-bold text-dark" style="font-family: var(--font-heading);">Sport</span>
+                    <p class="text-xs text-gray-400 mt-0.5">120 proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group flex items-center gap-4 bg-[#f8f8fa] rounded-2xl p-4 hover:bg-[#f0f0f5] transition-colors duration-200">
+                <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src="https://picsum.photos/seed/catC5/200/200" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-base font-bold text-dark" style="font-family: var(--font-heading);">Ljepota</span>
+                    <p class="text-xs text-gray-400 mt-0.5">150 proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group flex items-center gap-4 bg-[#f8f8fa] rounded-2xl p-4 hover:bg-[#f0f0f5] transition-colors duration-200">
+                <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src="https://picsum.photos/seed/catC6/200/200" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-base font-bold text-dark" style="font-family: var(--font-heading);">Igračke</span>
+                    <p class="text-xs text-gray-400 mt-0.5">85 proizvoda</p>
+                </div>
+            </a>
+            <a href="#" class="group flex items-center gap-4 bg-[#f8f8fa] rounded-2xl p-4 hover:bg-[#f0f0f5] transition-colors duration-200">
+                <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                    <img src="https://picsum.photos/seed/catC7/200/200" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-base font-bold text-dark" style="font-family: var(--font-heading);">Knjige</span>
+                    <p class="text-xs text-gray-400 mt-0.5">300 proizvoda</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
