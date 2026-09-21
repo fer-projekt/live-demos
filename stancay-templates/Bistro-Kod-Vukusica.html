@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bistro Kod Vukušića, Zagreb | Riba, roštilj i dnevni gablec</title>
+<meta name="description" content="Bistro na Žitnjaku, Slavonska avenija 22D. Svježa jadranska riba, jela ispod peke, roštilj i dnevni gableci. Otvoreno radnim danom od 10 do 17.">
+
+<!--
+  ============================================================
+  PODRIJETLO PODATAKA, provjeriti prije slanja klijentu
+  ============================================================
+
+  PROVJERENO (Google Maps profil lokala, portali revieweuro i restaurantguru,
+  clanak portala plavakamenica.hr), stanje na dan 21.09.2026:
+    - naziv lokala: Bistro Kod Vukusica
+    - adresa: Slavonska avenija 22D, 10000 Zagreb, Zitnjak
+    - telefon: 01 2404 340
+    - radno vrijeme: pon do pet 10:00 do 17:00
+    - Google ocjena 4,8, Tripadvisor 4,7
+    - lokacija u industrijskoj zoni, iza Coca Colinog pogona
+    - gosti su ljudi iz okolnih ureda i hala, plus stalni gosti
+    - dnevni gableci, gotova jela, brz rucak u tridesetak minuta
+    - rostilj, odresci i kotleti, lesade, jela ispod peke
+    - svjeza bijela i plava jadranska riba, skampi, hobotnica
+    - spominjana jela: janjetina i teletina ispod peke, brodet, crni rizot,
+      salata od hobotnice, pohane sardele, marinirani incuni, dimljene kozice,
+      peceni zubac, grdobina, teleci ragu s pljukancima, medenjak
+    - velike porcije, pristupacna cijena, svjeze namirnice
+
+  IZMISLJENO ILI NEPOTVRDENO, treba zamijeniti ili potvrditi:
+    - e-mail info@kodvukusica.hr je PRIJEDLOG, prava adresa nije javno poznata
+    - "vikendom zatvoreno" je zakljucak iz radnog vremena pon do pet,
+      nije izrijekom potvrdeno kod klijenta
+    - lokal ima Instagram @kodvukusica (1774 pratitelja) i Facebook stranicu
+      s profesionalnim fotografijama jela i vlasnika. Instagram je tijekom
+      izrade ogranicavao automatsko preuzimanje na 240px, pa slike nisu
+      ugradene. Pokusati ponovno ili ih preuzeti rucno.
+    - sve fotografije su placeholderi
+    - "Pravila privatnosti" i "Izjava o kolacicima" u podnozju vode na #footer,
+      dakle nikamo. Ili napraviti te stranice ili maknuti poveznice.
+    - tekstovi u sekciji O nama pisani su na temelju clanka i recenzija,
+      nisu izjave vlasnika. Dati klijentu na odobrenje.
+    - clanci o lokalu njegovu lokaciju opisuju kao neuglednu. To je novinarski
+      ton koji na vlastitoj stranici klijenta ne stoji, pa je tekst pisan tako
+      da industrijsku zonu spominje neutralno, bez omalovazavanja adrese.
+
+  CIJENE SE NIGDJE NE NAVODE: svi dostupni podaci bili su u kunama i zastarjeli.
+  NIGDJE NE STOJI: godina osnutka, ime vlasnika, broj zaposlenih, nagrade,
+  OIB ni podaci o tvrtki, jer ti podaci nisu bili dostupni.
+-->
+
+<!--
+  Bistro Kod Vukušića, Zagreb. Jedna samostalna HTML datoteka.
+
+  SLIKE: umjesto fotografija stoje placeholder blokovi u brand bojama.
+  Kad stignu prave fotografije, unutar istog roditelja zamijenite cijeli blok
+      <div class="ph ..." role="img" aria-label="..."><span>...</span></div>
+  s   <img src="img/bistro-vukusica/01.jpg" alt="..." class="w-full h-full object-cover">
+  i zadržite klase za veličinu i zaobljenje koje blok ima (npr. h-64 sm:h-80
+  lg:h-[470px], rounded-[14px]), da se raspored ne pomakne.
+
+  E-MAIL: info@kodvukusica.hr je prijedlog, prava adresa nije javno poznata.
+  Zamijenite je pravom adresom na sva četiri mjesta: gornja traka, kartica u
+  kontaktu, obrazac i podnožje.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          deep: '#123244',
+          sea: '#1c5670',
+          coral: '#b5342b',
+          coraldark: '#8f2620',
+          sand: '#f7f2e9',
+          shell: '#fbf8f3',
+          ink: '#41474b',
+          body: '#525a5e',
+          muted: '#646c70',
+          line: '#e2dcd0',
+          line2: '#d8d0c0'
+        },
+        fontFamily: {
+          display: ['Lora', 'Georgia', 'serif'],
+          sans: ['Karla', 'system-ui', 'sans-serif']
+        },
+        maxWidth: { content: '1320px' }
+      }
+    }
+  }
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<style>
+  html, body { margin: 0; padding: 0; background: #fff; overflow-x: hidden; }
+  ::selection { background: #dbe6ec; }
+  [x-cloak] { display: none !important; }
+  /* Placeholder umjesto fotografije, u brand bojama */
+  .ph { position: relative; display: flex; align-items: center; justify-content: center;
+        overflow: hidden; background:
+        repeating-linear-gradient(135deg, #e8eef1 0 12px, #dde7ec 12px 24px); }
+  .ph span { position: relative; z-index: 1; font-size: 12px; letter-spacing: .14em;
+             text-transform: uppercase; font-weight: 600; color: #123244;
+             background: #fbf8f3; padding: 8px 14px; border-radius: 999px;
+             text-align: center; max-width: 85%; }
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+  }
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+
+<body class="font-sans text-[16px] leading-relaxed text-ink bg-white">
+
+<!-- Gornja traka: kontakt i radno vrijeme -->
+<div class="hidden sm:block border-b border-line bg-white">
+  <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10 py-3 flex flex-wrap items-center justify-end gap-x-8 gap-y-3 text-sm text-muted">
+    <a href="mailto:info@kodvukusica.hr" class="hover:text-coral">info@kodvukusica.hr</a>
+    <span class="text-line2" aria-hidden="true">|</span>
+    <span>Pon do Pet 10:00 do 17:00 · Vikendom zatvoreno</span>
+    <span class="flex items-center gap-3 pl-2">
+      <span class="w-[38px] h-[38px] shrink-0 rounded-full bg-coral flex items-center justify-center">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      </span>
+      <span class="grid leading-tight">
+        <span class="text-[12.5px] text-[#7d858a]">Nazovite nas</span>
+        <a href="tel:+38512404340" class="font-display text-[15px] text-ink hover:text-coral">01 2404 340</a>
+      </span>
+    </span>
+  </div>
+</div>
+
+<!-- Zaglavlje s navigacijom -->
+<header x-data="{ open: false }" class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-[#ece5d8]">
+  <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10 py-3 flex items-center justify-between gap-6">
+    <a href="#hero" class="block shrink-0" aria-label="Bistro Kod Vukušića, početna">
+      <svg viewBox="0 0 264 52" class="h-11 sm:h-[52px] w-auto block text-deep" role="img" aria-label="Bistro Kod Vukušića">
+        <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M14 26c9-12 22-16 33-11 5 2 9 6 11 11-2 5-6 9-11 11-11 5-24 1-33-11Z"></path>
+          <path d="M14 26 4 18v16l10-8Z"></path>
+        </g>
+        <circle cx="45" cy="22" r="2.2" fill="currentColor"></circle>
+        <text x="70" y="21" font-family="Karla, system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="3.2" fill="currentColor">BISTRO</text>
+        <text x="70" y="45" font-family="Lora, Georgia, serif" font-size="26" font-weight="600" fill="currentColor" textLength="186" lengthAdjust="spacingAndGlyphs">Kod Vukušića</text>
+      </svg>
+    </a>
+
+    <nav aria-label="Glavna navigacija" class="hidden md:flex flex-wrap items-center gap-7 lg:gap-[30px] text-base font-medium">
+      <a href="#hero" class="text-coral py-2 hover:text-coraldark">Početna</a>
+      <a href="#ponuda" class="text-ink py-2 hover:text-coral">Ponuda</a>
+      <a href="#o-nama" class="text-ink py-2 hover:text-coral">O nama</a>
+      <a href="#galerija" class="text-ink py-2 hover:text-coral">Galerija</a>
+      <a href="#kontakt" class="text-ink py-2 hover:text-coral">Kontakt</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="#kontakt" class="hidden sm:inline-flex items-center justify-center min-h-[44px] bg-coral text-white font-semibold text-[15px] px-6 py-3 rounded-full whitespace-nowrap hover:bg-coraldark">Rezervirajte stol</a>
+      <button type="button" @click="open = !open" :aria-expanded="open ? 'true' : 'false'" aria-controls="mobilni-izbornik" aria-label="Otvori izbornik"
+              class="md:hidden w-11 h-11 shrink-0 rounded-full border border-line2 flex items-center justify-center text-coral">
+        <svg x-show="!open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg>
+        <svg x-show="open" x-cloak width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobilni izbornik -->
+  <nav id="mobilni-izbornik" x-show="open" x-cloak @click="open = false" aria-label="Mobilna navigacija"
+       class="md:hidden border-t border-line bg-white">
+    <div class="mx-auto max-w-content px-5 sm:px-8 py-3 grid">
+      <a href="#hero" class="py-3 min-h-[44px] flex items-center text-coral font-medium">Početna</a>
+      <a href="#ponuda" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">Ponuda</a>
+      <a href="#o-nama" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">O nama</a>
+      <a href="#galerija" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">Galerija</a>
+      <a href="#kontakt" class="py-3 min-h-[44px] flex items-center text-ink font-medium border-t border-line">Kontakt</a>
+      <a href="tel:+38512404340" class="mt-3 mb-2 inline-flex items-center justify-center min-h-[44px] bg-coral text-white font-semibold text-[15px] px-6 py-3 rounded-full">Nazovite 01 2404 340</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section id="hero" class="bg-white pt-10 pb-16 sm:pb-20 lg:pb-[72px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10 grid grid-cols-1 lg:grid-cols-[minmax(240px,1fr)_minmax(0,650px)] gap-12 lg:gap-[100px] items-center">
+      <div>
+        <p class="font-display uppercase tracking-[0.2em] text-[12.5px] text-coral mb-5">Bistro na Žitnjaku, Zagreb</p>
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-[60px] leading-[1.08] text-deep mb-6 text-pretty">Svježa jadranska riba<br><span class="text-coral">usred Slavonske Avenije</span></h1>
+        <p class="text-[17.5px] leading-[1.75] text-body max-w-[560px] mb-8">Bistro na Žitnjaku u kojem se jede kao u konobi na moru. Dnevni gableci, roštilj i riba koja stigne svježa, radnim danom od 10 do 17.</p>
+        <div class="flex items-center gap-2.5">
+          <a href="tel:+38512404340" class="inline-flex items-center justify-center min-h-[52px] bg-coral text-white font-semibold text-[16.5px] px-8 py-4 rounded-full hover:bg-coraldark">Nazovite i rezervirajte</a>
+          <a href="#kontakt" aria-label="Prijeđite na kontakt" class="w-[52px] h-[52px] shrink-0 rounded-full bg-sand flex items-center justify-center hover:bg-[#ecdfc9]">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b5342b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="w-full h-64 sm:h-80 lg:h-[470px] rounded-[14px] overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/riba-umak.jpg" alt="Pečena riba na tanjuru preljevena umakom" class="w-full h-full object-cover block"></div>
+        <div class="mt-4 lg:mt-0 lg:absolute lg:-left-14 lg:bottom-5 lg:max-w-[265px] border border-line rounded-xl px-5 py-[18px] shadow-[0_24px_50px_-30px_rgba(18,50,68,0.45)] bg-sand">
+          <p class="font-display text-base text-deep mb-1.5">Ocjena gostiju</p>
+          <p class="text-[14.5px] leading-relaxed text-muted">4,8 na Google recenzijama i 4,7 na Tripadvisoru.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ponuda -->
+  <section id="ponuda" class="bg-sand py-16 sm:py-20 lg:py-[88px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-wrap items-center gap-x-7 gap-y-4 mb-5">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-[44px] leading-[1.12] text-deep">Što se jede kod nas</h2>
+        <span class="flex-1 min-w-[60px] h-px bg-line2" aria-hidden="true"></span>
+        <span class="font-display text-[13px] tracking-[0.14em] uppercase text-coral border border-line2 rounded-full px-5 py-2 bg-white">Ponuda</span>
+      </div>
+      <p class="font-display text-2xl lg:text-[26px] leading-[1.35] text-sea max-w-[700px] mb-3.5">Riba, roštilj, peka i dnevni gablec</p>
+      <p class="text-[17px] leading-[1.75] text-body max-w-[1100px] mb-10">Kuha se svaki dan iznova. Riba se bira prema tome što je tog jutra stiglo, meso ide na žar ili pod peku, a uz to stoji dnevna ponuda gotovih jela. Cijena prema dnevnoj ponudi.</p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-[22px] items-stretch">
+        <div class="w-full h-64 sm:h-80 lg:h-full lg:min-h-[420px] rounded-[14px] overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/gulas-palenta.jpg" alt="Gulaš s palentom u dubokom tanjuru" loading="lazy" class="w-full h-full object-cover block"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
+          <article class="bg-white border border-line rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-2.5 hover:border-coral">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-coral">01</span>
+            <h3 class="font-display text-[21px] leading-tight text-deep">Dnevni gablec</h3>
+            <p class="text-[15px] leading-[1.7] text-muted">Gotova jela koja se mijenjaju svaki dan. Juha, glavno i salata, taman za pauzu od pola sata.</p>
+          </article>
+          <article class="bg-white border border-line rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-2.5 hover:border-coral">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-coral">02</span>
+            <h3 class="font-display text-[21px] leading-tight text-deep">Svježa jadranska riba</h3>
+            <p class="text-[15px] leading-[1.7] text-muted">Bijela i plava riba, škampi i hobotnica. Bira se prema tome što je taj dan stiglo, pa se peče ili lešaje.</p>
+          </article>
+          <article class="bg-white border border-line rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-2.5 hover:border-coral">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-coral">03</span>
+            <h3 class="font-display text-[21px] leading-tight text-deep">Ispod peke</h3>
+            <p class="text-[15px] leading-[1.7] text-muted">Janjetina i teletina ispod peke s krumpirom, onako kako peka traži, polako.</p>
+          </article>
+          <article class="bg-white border border-line rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-2.5 hover:border-coral">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-coral">04</span>
+            <h3 class="font-display text-[21px] leading-tight text-deep">S roštilja</h3>
+            <p class="text-[15px] leading-[1.7] text-muted">Odresci i kotleti s pravog žara, uz priloge koji nisu naknadna misao.</p>
+          </article>
+          <article class="bg-white border border-line rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-2.5 hover:border-coral">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-coral">05</span>
+            <h3 class="font-display text-[21px] leading-tight text-deep">Iz lonca</h3>
+            <p class="text-[15px] leading-[1.7] text-muted">Brodet, gulaš i jela koja se dugo krčkaju. Ono po čemu se vidi kuha li netko ozbiljno.</p>
+          </article>
+          <article class="bg-white border border-line rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-2.5 hover:border-coral">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-coral">06</span>
+            <h3 class="font-display text-[21px] leading-tight text-deep">Domaći kolači</h3>
+            <p class="text-[15px] leading-[1.7] text-muted">Kolač uz kavu na kraju, iz vlastite kuhinje.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O nama -->
+  <section id="o-nama" class="bg-white py-16 sm:py-20 lg:py-[92px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-wrap items-center gap-x-7 gap-y-4 mb-8 lg:mb-11">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-[44px] leading-[1.12] text-deep">Konoba usred Žitnjaka</h2>
+        <span class="flex-1 min-w-[60px] h-px bg-line" aria-hidden="true"></span>
+        <span class="font-display text-[13px] tracking-[0.14em] uppercase text-coral border border-line rounded-full px-5 py-2">Tko smo</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-11 items-center">
+        <div class="relative pb-0 lg:pb-[58px]">
+          <div class="w-full h-64 sm:h-80 lg:h-[420px] rounded-[14px] overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/braca-vukusic.jpg" alt="Braća Vukušić ispred bistroa" loading="lazy" class="w-full h-full object-cover object-[center_22%] block"></div>
+          <div class="mt-4 lg:mt-0 w-full lg:w-[250px] h-40 lg:h-[190px] rounded-[14px] overflow-hidden lg:absolute lg:right-3 lg:bottom-0 lg:border-[6px] lg:border-white lg:shadow-[0_24px_50px_-30px_rgba(18,50,68,0.5)]">
+            <div class="w-full h-full overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/interijer-cigla.jpg" alt="Unutrašnjost bistroa s ciglenim zidom" loading="lazy" class="w-full h-full object-cover block"></div>
+          </div>
+        </div>
+
+        <div class="rounded-[14px] bg-white px-0 sm:px-8 py-2 sm:py-9 lg:h-[420px]">
+          <h3 class="font-display text-2xl sm:text-3xl lg:text-[30px] leading-[1.22] text-deep mb-[18px]">Konoba među halama</h3>
+          <p class="text-[16.5px] leading-[1.8] text-body mb-4">Bistro je na Žitnjaku, uz Slavonsku aveniju, nadomak Coca Colinog pogona, među halama i uredima. Mjesto na kojem se, kad sjednete za stol, zaboravi da je vani industrijska zona.</p>
+          <p class="text-[16.5px] leading-[1.8] text-body mb-4">Za stolovima su ljudi iz okolnih ureda i hala koji su svratili na brz ručak, a uz njih i gosti koji dolaze namjerno, jer znaju što ih čeka.</p>
+          <p class="text-[16.5px] leading-[1.8] text-body mb-7">Kuha se od svježih namirnica, riba se bira istog dana, porcije su velike, a cijena ostaje poštena.</p>
+          <a href="#kontakt" class="inline-flex items-center justify-center min-h-[44px] bg-deep text-white font-semibold text-base px-[30px] py-3.5 rounded-full hover:bg-coral">Rezervirajte stol</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerija -->
+  <section id="galerija" class="bg-sand py-16 sm:py-20 lg:py-[88px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-wrap items-center gap-x-7 gap-y-4 mb-5">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-[44px] leading-[1.12] text-deep">S našeg tanjura</h2>
+        <span class="flex-1 min-w-[60px] h-px bg-line2" aria-hidden="true"></span>
+        <span class="font-display text-[13px] tracking-[0.14em] uppercase text-coral border border-line2 rounded-full px-5 py-2 bg-white">Galerija</span>
+      </div>
+      <p class="text-[17px] leading-[1.75] text-body max-w-[620px] mb-9">Nekoliko kadrova s tanjura i iz bistroa: riba, peka, roštilj i ono što se krčka u loncu.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 auto-rows-[92px] sm:auto-rows-[120px] lg:auto-rows-[160px] grid-flow-dense gap-3.5">
+        <div class="col-span-2 row-span-2 w-full h-full rounded-xl overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/riba-skamp.jpg" alt="Pečena riba i škamp s povrćem na tanjuru" loading="lazy" class="w-full h-full object-cover block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/varivo.jpg" alt="Varivo s povrćem u tanjuru" loading="lazy" class="w-full h-full object-cover block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/deserti-dva.jpg" alt="Dva deserta posluzena na bijelim tanjurima" loading="lazy" class="w-full h-full object-cover block"></div>
+        <div class="row-span-2 w-full h-full rounded-xl overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/terasa-natpis.jpg" alt="Natkrivena terasa bistroa s postavljenim stolovima" loading="lazy" class="w-full h-full object-cover block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/desert-visnje.jpg" alt="Desert s višnjama i sladoledom" loading="lazy" class="w-full h-full object-cover block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/desert-flan.jpg" alt="Puding sa šlagom i metvicom" loading="lazy" class="w-full h-full object-cover block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#e8eef1]"><img src="img/bistro-vukusica/terasa-cvijece.jpg" alt="Stolovi na terasi uz cvijeće" loading="lazy" class="w-full h-full object-cover block"></div>
+        <div class="rounded-xl bg-coral flex items-center justify-center">
+          <span class="font-display text-[22px] text-white">Dobar tek</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lokacija i kontakt -->
+  <section id="kontakt" class="bg-white py-16 sm:py-20 lg:py-[92px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-wrap items-center gap-x-7 gap-y-4 mb-8 lg:mb-10">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-[44px] leading-[1.12] text-deep">Nađite nas na Žitnjaku</h2>
+        <span class="flex-1 min-w-[60px] h-px bg-line" aria-hidden="true"></span>
+        <span class="font-display text-[13px] tracking-[0.14em] uppercase text-coral border border-line rounded-full px-5 py-2">Javite se</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-[26px] items-start">
+
+        <!-- Obrazac za rezervaciju stola -->
+        <div class="bg-sand rounded-[14px] px-5 sm:px-8 py-8">
+          <h3 class="font-display text-2xl lg:text-[25px] text-deep mb-2">Rezervirajte stol</h3>
+          <p class="text-[15px] leading-[1.7] text-muted mb-5">Za veće društvo i za peku nam se javite telefonom, pa dogovorimo termin.</p>
+          <form x-data="{ sent: false }" @submit.prevent="sent = true" class="grid gap-[13px]">
+            <div>
+              <label for="ime" class="block text-sm text-body mb-1.5">Ime i prezime</label>
+              <input id="ime" name="ime" type="text" placeholder="Ime i prezime" class="w-full min-h-[48px] text-[15.5px] px-4 py-3.5 border border-line2 rounded-[10px] bg-white text-ink focus:outline-none focus:border-coral">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-[13px]">
+              <div>
+                <label for="telefon" class="block text-sm text-body mb-1.5">Telefon</label>
+                <input id="telefon" name="telefon" type="tel" placeholder="Telefon" class="w-full min-h-[48px] text-[15.5px] px-4 py-3.5 border border-line2 rounded-[10px] bg-white text-ink focus:outline-none focus:border-coral">
+              </div>
+              <div>
+                <label for="email" class="block text-sm text-body mb-1.5">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="E-mail" class="w-full min-h-[48px] text-[15.5px] px-4 py-3.5 border border-line2 rounded-[10px] bg-white text-ink focus:outline-none focus:border-coral">
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-[13px]">
+              <div>
+                <label for="osobe" class="block text-sm text-body mb-1.5">Broj osoba</label>
+                <select id="osobe" name="osobe" class="w-full min-h-[48px] text-[15.5px] px-4 py-3.5 border border-line2 rounded-[10px] bg-white text-muted focus:outline-none focus:border-coral">
+                  <option>Odaberite broj osoba</option>
+                  <option>1 osoba</option>
+                  <option>2 osobe</option>
+                  <option>3 osobe</option>
+                  <option>4 osobe</option>
+                  <option>5 osoba</option>
+                  <option>6 osoba</option>
+                  <option>Više od 6 osoba</option>
+                </select>
+              </div>
+              <div>
+                <label for="termin" class="block text-sm text-body mb-1.5">Datum i vrijeme</label>
+                <input id="termin" name="termin" type="text" placeholder="npr. 14. svibnja u 12:30" class="w-full min-h-[48px] text-[15.5px] px-4 py-3.5 border border-line2 rounded-[10px] bg-white text-ink focus:outline-none focus:border-coral">
+              </div>
+            </div>
+            <div>
+              <label for="poruka" class="block text-sm text-body mb-1.5">Poruka</label>
+              <textarea id="poruka" name="poruka" rows="4" placeholder="Poruka" class="w-full text-[15.5px] px-4 py-3.5 border border-line2 rounded-[10px] bg-white text-ink resize-y focus:outline-none focus:border-coral"></textarea>
+            </div>
+            <label for="privola" class="flex gap-3 items-start text-sm leading-relaxed text-body cursor-pointer mt-1 mb-0.5">
+              <input id="privola" name="privola" type="checkbox" class="w-[17px] h-[17px] mt-1 shrink-0 accent-coral">
+              <span>Slanjem obrasca dajem privolu da se moji podaci koriste isključivo za odgovor na ovaj upit, u skladu s <a href="#footer" class="text-sea underline hover:text-deep">pravilima privatnosti</a>.</span>
+            </label>
+            <button type="submit" class="min-h-[52px] font-semibold text-[16.5px] bg-coral text-white border-0 px-4 py-4 rounded-full cursor-pointer hover:bg-coraldark"
+                    x-text="sent ? 'Upit poslan, javljamo se uskoro' : 'Pošaljite upit'">Pošaljite upit</button>
+            <p x-show="sent" x-cloak role="status" class="text-[15px] text-sea">Hvala na upitu, javljamo se uskoro.</p>
+          </form>
+        </div>
+
+        <!-- Lokacija i podaci -->
+        <div class="grid gap-[22px]">
+          <!-- Google karta, embed bez API kljuca. Za drugu lokaciju promijeniti q u src. -->
+          <div class="h-64 sm:h-80 lg:h-[328px] rounded-[14px] overflow-hidden bg-[#e8eef1]">
+            <iframe
+              src="https://www.google.com/maps?q=Bistro+Kod+Vuku%C5%A1i%C4%87a,+Slavonska+avenija+22D,+10000+Zagreb&amp;hl=hr&amp;z=16&amp;output=embed"
+              title="Karta s lokacijom Bistroa Kod Vukušića, Slavonska avenija 22D, Zagreb"
+              width="100%" height="100%" style="border:0; display:block"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-white border border-line rounded-xl p-[22px]">
+              <p class="font-display text-[14.5px] text-coral mb-2">Adresa</p>
+              <address class="not-italic text-[15px] leading-[1.65] text-body">Slavonska avenija 22D<br>10000 Zagreb, Žitnjak</address>
+            </div>
+            <div class="bg-white border border-line rounded-xl p-[22px]">
+              <p class="font-display text-[14.5px] text-coral mb-2">Telefon</p>
+              <p class="text-[15px] leading-[1.65] text-body"><a href="tel:+38512404340" class="hover:text-sea">01 2404 340</a><br><a href="tel:+38512404340" class="hover:text-sea">+385 1 2404 340</a></p>
+            </div>
+            <div class="bg-white border border-line rounded-xl p-[22px] sm:col-span-2">
+              <p class="font-display text-[14.5px] text-coral mb-2">E-mail</p>
+              <!-- Prijedlog adrese, zamijeniti pravom kad je klijent potvrdi -->
+              <p class="text-[15px] leading-[1.65] text-body"><a href="mailto:info@kodvukusica.hr" class="hover:text-sea">info@kodvukusica.hr</a></p>
+            </div>
+            <div class="bg-white border border-line rounded-xl p-[22px] sm:col-span-2">
+              <p class="font-display text-[14.5px] text-coral mb-2">Radno vrijeme</p>
+              <p class="text-[15px] leading-[1.65] text-body">Pon do Pet: 10:00 do 17:00<span class="hidden sm:inline">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><br class="sm:hidden">Subota: zatvoreno<span class="hidden sm:inline">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><br class="sm:hidden">Nedjelja: zatvoreno</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Podnožje -->
+<footer id="footer" class="bg-deep text-[#c3d2da] pt-14">
+  <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-11">
+    <div>
+      <svg viewBox="0 0 264 52" class="h-11 w-auto block mb-[18px] text-shell" role="img" aria-label="Bistro Kod Vukušića">
+        <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M14 26c9-12 22-16 33-11 5 2 9 6 11 11-2 5-6 9-11 11-11 5-24 1-33-11Z"></path>
+          <path d="M14 26 4 18v16l10-8Z"></path>
+        </g>
+        <circle cx="45" cy="22" r="2.2" fill="currentColor"></circle>
+        <text x="70" y="21" font-family="Karla, system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="3.2" fill="currentColor">BISTRO</text>
+        <text x="70" y="45" font-family="Lora, Georgia, serif" font-size="26" font-weight="600" fill="currentColor" textLength="186" lengthAdjust="spacingAndGlyphs">Kod Vukušića</text>
+      </svg>
+      <p class="text-[15px] leading-[1.7]">Bistro na Žitnjaku u kojem se jede kao u konobi na moru. Riba, peka, roštilj i dnevni gablec, radnim danom.</p>
+    </div>
+    <div>
+      <p class="font-display text-base text-white mb-4">Ponuda</p>
+      <nav aria-label="Ponuda" class="grid gap-2.5 text-[15px]">
+        <a href="#ponuda" class="text-[#c3d2da] hover:text-white py-1">Dnevni gablec</a>
+        <a href="#ponuda" class="text-[#c3d2da] hover:text-white py-1">Svježa jadranska riba</a>
+        <a href="#ponuda" class="text-[#c3d2da] hover:text-white py-1">Ispod peke</a>
+        <a href="#ponuda" class="text-[#c3d2da] hover:text-white py-1">S roštilja</a>
+        <a href="#ponuda" class="text-[#c3d2da] hover:text-white py-1">Iz lonca</a>
+        <a href="#ponuda" class="text-[#c3d2da] hover:text-white py-1">Domaći kolači</a>
+      </nav>
+    </div>
+    <div>
+      <p class="font-display text-base text-white mb-4">Bistro</p>
+      <nav aria-label="Navigacija u podnožju" class="grid gap-2.5 text-[15px]">
+        <a href="#hero" class="text-[#c3d2da] hover:text-white py-1">Početna</a>
+        <a href="#o-nama" class="text-[#c3d2da] hover:text-white py-1">O nama</a>
+        <a href="#galerija" class="text-[#c3d2da] hover:text-white py-1">Galerija</a>
+        <a href="#kontakt" class="text-[#c3d2da] hover:text-white py-1">Kontakt</a>
+        <a href="https://www.facebook.com/kodVukusica/" rel="noopener" target="_blank" class="text-[#c3d2da] hover:text-white py-1">Facebook stranica</a>
+      </nav>
+    </div>
+    <div>
+      <p class="font-display text-base text-white mb-4">Kontakt</p>
+      <div class="grid gap-2 text-[15px] leading-relaxed">
+        <address class="not-italic">Slavonska avenija 22D<br>10000 Zagreb, Žitnjak</address>
+        <a href="tel:+38512404340" class="text-[#c3d2da] hover:text-white">01 2404 340</a>
+        <a href="mailto:info@kodvukusica.hr" class="text-[#c3d2da] hover:text-white">info@kodvukusica.hr</a>
+        <span>Pon do Pet: 10:00 do 17:00<br>Subota i nedjelja: zatvoreno</span>
+      </div>
+    </div>
+  </div>
+  <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+    <div class="border-t border-[#2a4a5c] pt-[22px] pb-7 flex flex-wrap gap-x-[22px] gap-y-2.5 justify-between text-sm text-[#9db0bb]">
+      <span class="text-[#c3d2da]">© 2026 Bistro Kod Vukušića. Sva prava pridržana.&nbsp;  |&nbsp; &nbsp;Izrada web stranice Fer projekt</span>
+      <span class="flex flex-wrap gap-[18px]">
+        <a href="#footer" class="text-[#c3d2da] hover:text-white">Pravila privatnosti</a>
+        <a href="#footer" class="text-[#c3d2da] hover:text-white">Izjava o kolačićima</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Galerija, povecavanje slike. Radi bez biblioteka, na sve slike u #galerija. -->
+<div id="lb" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/90 p-4" role="dialog" aria-modal="true" aria-label="Pregled fotografije">
+  <button id="lb-close" type="button" aria-label="Zatvorite pregled"
+          class="absolute right-3 top-3 sm:right-5 sm:top-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button id="lb-prev" type="button" aria-label="Prethodna fotografija"
+          class="absolute left-2 sm:left-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button id="lb-next" type="button" aria-label="Sljedeća fotografija"
+          class="absolute right-2 sm:right-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <figure class="m-0 flex max-h-full max-w-5xl flex-col items-center gap-3">
+    <img id="lb-img" alt="" class="max-h-[78vh] w-auto max-w-full rounded-lg object-contain">
+    <figcaption id="lb-cap" class="text-center text-sm text-white/80"></figcaption>
+  </figure>
+</div>
+
+<script>
+(function () {
+  var gal = document.getElementById('galerija');
+  if (!gal) return;
+  var slike = Array.prototype.slice.call(gal.querySelectorAll('img'));
+  if (!slike.length) return;
+
+  var lb = document.getElementById('lb'),
+      lbImg = document.getElementById('lb-img'),
+      lbCap = document.getElementById('lb-cap'),
+      btnClose = document.getElementById('lb-close'),
+      btnPrev = document.getElementById('lb-prev'),
+      btnNext = document.getElementById('lb-next'),
+      i = 0, zadnjiFokus = null;
+
+  slike.forEach(function (img, n) {
+    var okvir = img.parentElement;
+    okvir.setAttribute('role', 'button');
+    okvir.setAttribute('tabindex', '0');
+    okvir.setAttribute('aria-label', 'Povećajte fotografiju: ' + (img.alt || 'fotografija'));
+    okvir.classList.add('cursor-zoom-in');
+    okvir.addEventListener('click', function () { otvori(n); });
+    okvir.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); otvori(n); }
+    });
+  });
+
+  function prikazi(n) {
+    i = (n + slike.length) % slike.length;
+    lbImg.src = slike[i].currentSrc || slike[i].src;
+    lbImg.alt = slike[i].alt || '';
+    lbCap.textContent = (slike[i].alt || '') + '  (' + (i + 1) + '/' + slike.length + ')';
+  }
+  function otvori(n) {
+    zadnjiFokus = document.activeElement;
+    prikazi(n);
+    lb.classList.remove('hidden');
+    lb.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    btnClose.focus();
+  }
+  function zatvori() {
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+    document.body.style.overflow = '';
+    lbImg.removeAttribute('src');
+    if (zadnjiFokus) zadnjiFokus.focus();
+  }
+
+  btnClose.addEventListener('click', zatvori);
+  btnPrev.addEventListener('click', function () { prikazi(i - 1); });
+  btnNext.addEventListener('click', function () { prikazi(i + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) zatvori(); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.classList.contains('hidden')) return;
+    if (e.key === 'Escape') zatvori();
+    else if (e.key === 'ArrowLeft') prikazi(i - 1);
+    else if (e.key === 'ArrowRight') prikazi(i + 1);
+    else if (e.key === 'Tab') {
+      var f = [btnClose, btnPrev, btnNext],
+          k = f.indexOf(document.activeElement),
+          smjer = e.shiftKey ? -1 : 1;
+      e.preventDefault();
+      f[(k + smjer + f.length) % f.length].focus();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

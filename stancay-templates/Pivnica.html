@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pivnica Ravnice, Zagreb | Njemačko točeno pivo i terasa</title>
+<meta name="description" content="Susjedska pivnica u Radauševoj 9 u zagrebačkim Ravnicama. Točeni Hacker-Pschorr Kellerbier i bavarska piva, terasa pod drvećem, psi dobrodošli. Otvoreno svaki dan.">
+
+<!--
+  ============================================================
+  PODRIJETLO PODATAKA, provjeriti prije slanja klijentu
+  ============================================================
+
+  PROVJERENO (Google Maps profil lokala, portal revieweuro, fotografije
+  s RestaurantGurua), stanje na dan 21.09.2026:
+    - naziv lokala: Pivnica
+    - adresa: Radauseva ul. 9, 10000 Zagreb, kvart Ravnice
+    - telefon: 01 5510 192
+    - radno vrijeme: pon do sub 08:00 do 24:00, ned 12:00 do 23:00
+    - Google ocjena 4,6
+    - njemacka tocena piva, na fotografijama vidljivi Paulaner i Schofferhofer
+    - glineni vrcevi s utisnutim imenom lokala
+    - cvarci, kikiriki i slane grickalice uz pivo
+    - toplo jelo iz glinene posude (grah, gulas)
+    - kava
+    - natkrivena terasa s drvenim stolovima pod drvecem
+    - psi dobrodosli, ima parking
+    - saljive ploce o pivu na zidu
+    - iz recenzija: ugodna atmosfera, ljubazna posluga, postene cijene
+
+  IZMISLJENO ILI NEPOTVRDENO, treba zamijeniti ili potvrditi:
+    - e-mail info@pivnica-ravnice.hr je PRIJEDLOG, prava adresa nije javno poznata
+    - poveznica na Facebook vodi na facebook.com jer tocan profil nije pronaden
+    - "perece" u ponudi: navode se u opisu lokala, ali nisu potvrdene fotografijom
+    - sve fotografije su placeholderi
+    - "Pravila privatnosti" i "Izjava o kolacicima" u podnozju vode na #footer,
+      dakle nikamo. Ili napraviti te stranice ili maknuti poveznice.
+    - tekstovi u sekciji O nama su opis ugodaja pisan na temelju recenzija i
+      fotografija, nisu izjave vlasnika. Dati klijentu na odobrenje.
+
+  NIGDJE NE STOJI: godina osnutka, ime vlasnika, broj zaposlenih, nagrade,
+  cijene, OIB ni podaci o tvrtki, jer ti podaci nisu bili dostupni.
+-->
+
+<!--
+  PIVNICA, ZAGREB. Samostalna HTML stranica (Tailwind Play CDN + Alpine).
+
+  ZAMJENA PLACEHOLDERA PRAVOM FOTOGRAFIJOM
+  Svaki blok oblika
+      <div class="ph ...klase..." role="img" aria-label="..."><span>...</span></div>
+  zamijenite s
+      <img src="img/pivnica/01.jpg" alt="Opis prizora" class="w-full h-full object-cover">
+  unutar istog roditeljskog elementa. Klase za visinu i zaobljenje (h-64, sm:h-80,
+  lg:h-[470px], rounded-[14px]) prebacite s placeholdera na <img>, pa se raspored
+  nece pomaknuti. Redoslijed slika: 01 hero, 02 ponuda, 03 i 04 o nama,
+  05 do 11 galerija, 12 karta.
+
+  PRIJE OBJAVE TREBA ZAMIJENITI
+  1. E-mail info@pivnica-ravnice.hr je prijedlog, upisati pravu adresu.
+  2. Poveznica na Facebook vodi na facebook.com, upisati pravu stranicu lokala.
+  3. Placeholder karte zamijeniti ugradnjom Google karte ili slikom lokacije.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          stout: '#241a12',
+          oak:   '#3b2a1c',
+          amber: '#c98a21',
+          foam:  '#f6efe2',
+          cream: '#fbf7f0',
+          moss:  '#4a5a3f',
+          ink:   '#4a4038',
+          line:  '#e6ddcc'
+        },
+        fontFamily: {
+          display: ['Bitter', 'serif'],
+          sans: ['Mukta', 'system-ui', 'sans-serif']
+        },
+        maxWidth: { content: '1320px' }
+      }
+    }
+  }
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<style>
+  html, body { margin: 0; padding: 0; background: #fbf7f0; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { overflow-x: hidden; }
+  a { color: #8f5e12; text-decoration: none; }
+  ::selection { background: #f0dfba; }
+  input, select, textarea { font-family: 'Mukta', sans-serif; }
+  [x-cloak] { display: none !important; }
+
+  /* Placeholder umjesto fotografije, u brand bojama */
+  .ph { position: relative; display: flex; align-items: center; justify-content: center;
+        overflow: hidden; background:
+        repeating-linear-gradient(135deg, #efe4d0 0 12px, #e7d9bf 12px 24px); }
+  .ph span { position: relative; z-index: 1; font-size: 12px; letter-spacing: .14em;
+             text-transform: uppercase; font-weight: 600; color: #241a12;
+             background: #fbf7f0; padding: 8px 14px; border-radius: 999px;
+             text-align: center; max-width: 85%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+
+<body class="font-sans text-[16px] leading-relaxed text-ink bg-cream">
+
+<!-- Top bar: kontakt i radno vrijeme -->
+<div class="border-b border-line bg-cream">
+  <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+    <div class="flex flex-wrap items-center justify-center md:justify-end gap-x-6 lg:gap-x-8 gap-y-3 py-3 text-[13.5px] sm:text-sm text-[#6b5d4e]">
+      <!-- Prijedlog adrese, zamijeniti pravom -->
+      <a href="mailto:info@pivnica-ravnice.hr" class="text-[#6b5d4e] hover:text-[#8f5e12]">info@pivnica-ravnice.hr</a>
+      <span class="hidden md:inline text-[#cbbda6]" aria-hidden="true">|</span>
+      <span class="text-center">Pon do Sub 08:00 do 24:00 &middot; Ned 12:00 do 23:00</span>
+      <a href="tel:+38515510192" class="flex items-center gap-3 md:pl-2 min-h-[44px]">
+        <span class="w-[38px] h-[38px] rounded-full bg-amber flex items-center justify-center flex-none">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#241a12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </span>
+        <span class="grid leading-[1.3]">
+          <span class="text-[12.5px] text-[#7d6e5d]">Nazovite nas</span>
+          <span class="font-display text-[15px] text-oak">01 5510 192</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Header: logo, navigacija, CTA -->
+<header x-data="{ open: false }" class="sticky top-0 z-30 bg-cream/95 backdrop-blur border-b border-line">
+  <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+    <div class="flex items-center justify-between gap-6 py-3 sm:py-3.5">
+      <a href="#hero" class="block flex-none text-oak" aria-label="Pivnica, početna">
+        <!-- Wordmark: glineni vrč s pjenom, ime lokala u Bitteru -->
+        <svg viewBox="0 0 190 56" class="h-10 sm:h-[52px] w-auto block" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false">
+          <g fill="currentColor">
+            <circle cx="13" cy="15" r="6"></circle>
+            <circle cx="21" cy="12" r="7"></circle>
+            <circle cx="29" cy="15" r="6"></circle>
+            <rect x="6" y="14" width="28" height="7" rx="3"></rect>
+            <path d="M8 19h26v25a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5V19z"></path>
+            <path d="M35 26h5a9 9 0 0 1 0 18h-5v-5h4.5a4 4 0 1 0 0-8H35v-5z"></path>
+          </g>
+          <text x="60" y="39" textLength="122" lengthAdjust="spacingAndGlyphs" font-family="Bitter, Georgia, serif" font-weight="700" font-size="31" fill="currentColor">Pivnica</text>
+        </svg>
+      </a>
+
+      <nav class="hidden md:flex flex-wrap items-center gap-6 lg:gap-[30px] text-base font-medium" aria-label="Glavna navigacija">
+        <a href="#hero" class="text-[#8f5e12] hover:text-oak">Početna</a>
+        <a href="#ponuda" class="text-oak hover:text-[#8f5e12]">Ponuda</a>
+        <a href="#o-nama" class="text-oak hover:text-[#8f5e12]">O nama</a>
+        <a href="#galerija" class="text-oak hover:text-[#8f5e12]">Galerija</a>
+        <a href="#kontakt" class="text-oak hover:text-[#8f5e12]">Kontakt</a>
+      </nav>
+
+      <a href="#kontakt" class="hidden md:inline-flex items-center justify-center min-h-[44px] bg-amber hover:bg-oak text-stout hover:text-cream font-display font-semibold text-[15px] px-6 py-3 rounded-full whitespace-nowrap transition-colors">Javite nam se</a>
+
+      <button type="button" @click="open = !open" :aria-expanded="open ? 'true' : 'false'" aria-controls="mobilni-izbornik" aria-label="Otvori izbornik"
+              class="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-1 rounded-lg text-oak hover:bg-foam transition-colors">
+        <svg x-show="!open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg>
+        <svg x-show="open" x-cloak width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <!-- Otklopivi izbornik za mobitel -->
+    <nav id="mobilni-izbornik" x-show="open" x-cloak x-transition.opacity class="md:hidden pb-4" aria-label="Izbornik za mobilne uređaje">
+      <div class="grid gap-1 text-base font-medium border-t border-line pt-3">
+        <a href="#hero" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-[#8f5e12] hover:bg-foam">Početna</a>
+        <a href="#ponuda" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">Ponuda</a>
+        <a href="#o-nama" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">O nama</a>
+        <a href="#galerija" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">Galerija</a>
+        <a href="#kontakt" @click="open = false" class="flex items-center min-h-[44px] px-2 rounded-lg text-oak hover:bg-foam">Kontakt</a>
+        <a href="#kontakt" @click="open = false" class="mt-2 inline-flex items-center justify-center min-h-[44px] bg-amber hover:bg-oak text-stout hover:text-cream font-display font-semibold text-[15px] px-6 py-3 rounded-full transition-colors">Javite nam se</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section id="hero" class="bg-cream py-10 sm:py-14 lg:pt-10 lg:pb-[72px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(240px,1fr)_minmax(0,650px)] gap-10 lg:gap-16 xl:gap-[100px] items-center">
+        <div>
+          <p class="font-display uppercase tracking-[0.2em] text-[12.5px] text-[#8f5e12] mb-5">Pivnica u Ravnicama, Zagreb</p>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.08] text-oak mb-6 [text-wrap:pretty]">Pivo u glinenom vrču,<br><span class="text-[#a0690f]">pod drvećem</span></h1>
+          <p class="text-[17px] sm:text-[17.5px] leading-[1.75] text-ink max-w-[560px] mb-8">Točeni Hacker-Pschorr Kellerbier i ostala bavarska piva, uz terasu na kojoj se ostaje duže nego što se planiralo. Radauševa 9 u Ravnicama.</p>
+          <div class="flex items-center gap-2.5">
+            <a href="tel:+38515510192" class="inline-flex items-center justify-center min-h-[52px] bg-amber hover:bg-oak text-stout hover:text-cream font-display font-semibold text-base sm:text-[16.5px] px-7 sm:px-[34px] py-4 rounded-full transition-colors">Nazovite nas</a>
+            <a href="#kontakt" aria-label="Prijeđite na kontakt" class="w-[52px] h-[52px] rounded-full bg-foam hover:bg-[#ecdfc6] flex items-center justify-center flex-none transition-colors">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8f5e12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="relative lg:pl-8">
+          <div class="w-full h-64 sm:h-80 lg:h-[470px] rounded-[14px] overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/01.jpg" alt="Bakreni točionik s utisnutim logom Pivnice i pipama za bavarska piva" class="w-full h-full object-cover object-center block"></div>
+          <div class="mt-4 sm:mt-0 sm:absolute sm:left-4 lg:-left-[55px] sm:bottom-5 sm:max-w-[265px] border border-line rounded-xl px-5 py-[18px] shadow-[0_24px_50px_-30px_rgba(36,26,18,0.55)] bg-foam">
+            <p class="font-display font-semibold text-base text-oak mb-1.5">4,6 na Googleu</p>
+            <p class="text-[14.5px] leading-[1.6] text-[#6b5d4e] m-0">Otvoreno svaki dan. Radnim danom i subotom od osam ujutro do ponoći.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ponuda -->
+  <section id="ponuda" class="bg-foam py-16 sm:py-20 lg:py-[88px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-wrap items-center gap-y-[18px] gap-x-7 mb-5">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-[44px] leading-[1.12] text-oak m-0">Zbog čega se navraća</h2>
+        <span class="hidden sm:block flex-1 min-w-[60px] h-px bg-[#d9cdb6]" aria-hidden="true"></span>
+        <span class="font-display text-[13px] tracking-[0.14em] uppercase text-moss border border-[#d9cdb6] rounded-full px-5 py-2 bg-cream">Ponuda</span>
+      </div>
+      <p class="font-display text-[22px] sm:text-[26px] leading-[1.35] text-[#8f5e12] mb-3.5 max-w-[700px]">Pivo iz bačve, nešto slano uz njega i stol na kojem ima mjesta</p>
+      <p class="text-[17px] leading-[1.75] text-ink max-w-[1100px] mb-10">Ne izmišljamo ništa novo. Točimo bavarska piva, uz njih idu čvarci i sitno slano, a petkom znaju biti kokteli i glazba. Kavu i bezalkoholno imamo za one koji su danas za volanom.</p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-[22px] items-stretch">
+        <div class="w-full h-64 sm:h-80 lg:h-full lg:min-h-[420px] rounded-[14px] overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/06.jpg" alt="Točenje Hacker-Pschorr piva u čašu" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
+          <!-- Ponuda 1 -->
+          <div class="bg-cream border border-line hover:border-amber rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-[9px] transition-colors">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-[#8f5e12]">01</span>
+            <h3 class="font-display text-[21px] text-oak m-0 leading-[1.25]">Njemačko točeno pivo</h3>
+            <p class="text-[15px] leading-[1.7] text-[#6b5d4e] m-0">Hacker-Pschorr Kellerbier, Paulaner, Erdinger i ostala bavarska piva iz bačve, natočena kako treba.</p>
+          </div>
+          <!-- Ponuda 2 -->
+          <div class="bg-cream border border-line hover:border-amber rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-[9px] transition-colors">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-[#8f5e12]">02</span>
+            <h3 class="font-display text-[21px] text-oak m-0 leading-[1.25]">Glineni vrč</h3>
+            <p class="text-[15px] leading-[1.7] text-[#6b5d4e] m-0">Naš zaštitni znak. Vrč s utisnutim imenom pivnice drži pivo hladnim do zadnjeg gutljaja.</p>
+          </div>
+          <!-- Ponuda 3 -->
+          <div class="bg-cream border border-line hover:border-amber rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-[9px] transition-colors">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-[#8f5e12]">03</span>
+            <h3 class="font-display text-[21px] text-oak m-0 leading-[1.25]">Čvarci i grickalice</h3>
+            <p class="text-[15px] leading-[1.7] text-[#6b5d4e] m-0">Čvarci, kikiriki i sitno slano uz pivo. Točno onoliko koliko treba da se naruči još jedno.</p>
+          </div>
+          <!-- Ponuda 4 -->
+          <div class="bg-cream border border-line hover:border-amber rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-[9px] transition-colors">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-[#8f5e12]">04</span>
+            <h3 class="font-display text-[21px] text-oak m-0 leading-[1.25]">Gablec iz lonca</h3>
+            <p class="text-[15px] leading-[1.7] text-[#6b5d4e] m-0">Grah, gulaš i topla jela iz glinene posude. Kuha se dok ima, bez najave i bez menija.</p>
+          </div>
+          <!-- Ponuda 5 -->
+          <div class="bg-cream border border-line hover:border-amber rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-[9px] transition-colors">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-[#8f5e12]">05</span>
+            <h3 class="font-display text-[21px] text-oak m-0 leading-[1.25]">Terasa pod drvećem</h3>
+            <p class="text-[15px] leading-[1.7] text-[#6b5d4e] m-0">Natkrivena terasa s punim drvenim stolovima, hlad ljeti i zaklon u međuvremenu. Psi su dobrodošli, ima parking.</p>
+          </div>
+          <!-- Ponuda 6 -->
+          <div class="bg-cream border border-line hover:border-amber rounded-xl px-6 pt-6 pb-[22px] flex flex-col gap-[9px] transition-colors">
+            <span class="font-display text-[11.5px] tracking-[0.16em] uppercase text-[#8f5e12]">06</span>
+            <h3 class="font-display text-[21px] text-oak m-0 leading-[1.25]">Kava i bezalkoholno</h3>
+            <p class="text-[15px] leading-[1.7] text-[#6b5d4e] m-0">Kava, sokovi i bezalkoholno za one koji su danas za volanom.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O nama -->
+  <section id="o-nama" class="bg-cream py-16 sm:py-20 lg:py-[92px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-wrap items-center gap-y-[18px] gap-x-7 mb-8 lg:mb-11">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-[44px] leading-[1.12] text-oak m-0 [text-wrap:balance]">Pivnica kakva je nekad bila u svakom kvartu</h2>
+        <span class="hidden sm:block flex-1 min-w-[60px] h-px bg-line" aria-hidden="true"></span>
+        <span class="font-display text-[13px] tracking-[0.14em] uppercase text-moss border border-line rounded-full px-5 py-2">O nama</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-11 items-center">
+        <div class="relative pb-0 lg:pb-[58px]">
+          <div class="w-full h-64 sm:h-80 lg:h-[420px] rounded-[14px] overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/07.jpg" alt="Gosti sjede na travi ispred pivnice, uz njih pas" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+          <div class="mt-4 lg:mt-0 w-full lg:w-[250px] h-48 lg:h-[190px] rounded-[14px] lg:absolute lg:right-3 lg:bottom-0 lg:border-[6px] lg:border-cream shadow-[0_24px_50px_-30px_rgba(36,26,18,0.6)] overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/04.jpg" alt="Priprema pića, majica s logom Pivnice" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+        </div>
+
+        <div class="rounded-[14px] px-0 sm:px-[34px] py-0 sm:py-[38px] bg-cream">
+          <h3 class="font-display text-2xl sm:text-3xl leading-[1.22] text-oak mb-[18px]">Dođe se na jedno, ostane se na tri</h3>
+          <p class="text-[16.5px] leading-[1.8] text-ink mb-4">Pivnica je susjedski lokal u zagrebačkim Ravnicama. Dolazi se poslije posla na jedno pivo, sjedne se za drveni stol i onda nekako ispadne treće, jer nitko nikoga ne tjera i nitko ne gleda na sat. Ljudi se poznaju, posluga je ljubazna, a cijene su ostale poštene.</p>
+          <p class="text-[16.5px] leading-[1.8] text-ink mb-[26px]">Pivo ide iz bačve, a na šanku su Hacker-Pschorr, Paulaner i Erdinger. Za Oktoberfest se toči Paulaner Oktoberfest Bier, uz kobase i bavarsku glazbu. Ljeti se sjedi na velikoj natkrivenoj terasi pod drvećem, zimi u toplom kutku unutra. Psi su dobrodošli, ima parking, a ploče na zidu o pivu govore ozbiljnije nego mi.</p>
+          <a href="#kontakt" class="inline-flex items-center justify-center min-h-[44px] bg-oak hover:bg-amber text-cream hover:text-stout font-display font-semibold text-base px-[30px] py-3.5 rounded-full transition-colors">Javite nam se</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerija -->
+  <section id="galerija" class="bg-foam py-16 sm:py-20 lg:py-[88px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-wrap items-center gap-y-[18px] gap-x-7 mb-5">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-[44px] leading-[1.12] text-oak m-0">Kod nas</h2>
+        <span class="hidden sm:block flex-1 min-w-[60px] h-px bg-[#d9cdb6]" aria-hidden="true"></span>
+        <span class="font-display text-[13px] tracking-[0.14em] uppercase text-moss border border-[#d9cdb6] rounded-full px-5 py-2 bg-cream">Galerija</span>
+      </div>
+      <p class="text-[17px] leading-[1.75] text-ink max-w-[1100px] mb-9">Terasa, šank i ono što dolazi na stol. Kadrovi govore dosta, ali najbolje je ipak svratiti i sjesti.</p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 auto-rows-[clamp(92px,26vw,160px)] md:auto-rows-[clamp(92px,12vw,160px)] grid-flow-dense gap-3 sm:gap-3.5">
+        <div class="col-span-2 row-span-2 w-full h-full rounded-xl overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/05.jpg" alt="Koktel, boca Münchner Hell piva i čaša na stolu terase" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/12.jpg" alt="Erdinger čaše i boce bavarskih piva na stolu" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/02.jpg" alt="Detalj bakrenog točionika s logom Pivnice" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+        <div class="row-span-2 w-full h-full rounded-xl overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/08.jpg" alt="Pipe za Estrella Galicia i Hacker-Pschorr Oktoberfest Bier" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/09.jpg" alt="Otvaranje boce piva za stolom na terasi" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/11.jpg" alt="Drvena košarica s dnevnim novinama u lokalu" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+        <div class="w-full h-full rounded-xl overflow-hidden bg-[#efe4d0]"><img src="img/pivnica/03.jpg" alt="Plakat za Oktoberfest u Pivnici" loading="lazy" class="w-full h-full object-cover object-center block"></div>
+        <div class="rounded-xl bg-amber flex items-center justify-center">
+          <span class="font-display font-semibold text-[22px] text-stout">Živjeli</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lokacija i kontakt -->
+  <section id="kontakt" class="bg-cream py-16 sm:py-20 lg:py-[92px]">
+    <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-wrap items-center gap-y-[18px] gap-x-7 mb-8 lg:mb-10">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-[44px] leading-[1.12] text-oak m-0">Svratite na jedno</h2>
+        <span class="hidden sm:block flex-1 min-w-[60px] h-px bg-line" aria-hidden="true"></span>
+        <span class="font-display text-[13px] tracking-[0.14em] uppercase text-moss border border-line rounded-full px-5 py-2">Kontakt</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-[26px] items-start">
+
+        <!-- Kontakt obrazac -->
+        <div x-data="{ sent: false }" class="bg-foam rounded-[14px] px-5 sm:px-8 py-8 sm:py-[34px]">
+          <h3 class="font-display text-[22px] sm:text-[25px] text-oak mb-5">Pišite nam</h3>
+          <p class="text-[15px] leading-[1.7] text-[#6b5d4e] mb-5">Za veće društvo, najavu dolaska ili bilo kakvo pitanje. Na pivo se ne treba najaviti, samo dođite.</p>
+
+          <form class="grid gap-[13px]" @submit.prevent="sent = true">
+            <div>
+              <label for="ime" class="block text-sm text-[#6b5d4e] mb-1.5">Ime i prezime</label>
+              <input id="ime" name="ime" type="text" placeholder="Ime i prezime" required
+                     class="text-[15.5px] min-h-[48px] px-4 py-3.5 border border-[#d9cdb6] rounded-[10px] bg-cream text-ink w-full focus:outline-none focus:border-amber">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-[13px]">
+              <div>
+                <label for="telefon" class="block text-sm text-[#6b5d4e] mb-1.5">Telefon</label>
+                <input id="telefon" name="telefon" type="tel" placeholder="Telefon"
+                       class="text-[15.5px] min-h-[48px] px-4 py-3.5 border border-[#d9cdb6] rounded-[10px] bg-cream text-ink w-full focus:outline-none focus:border-amber">
+              </div>
+              <div>
+                <label for="email" class="block text-sm text-[#6b5d4e] mb-1.5">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="E-mail"
+                       class="text-[15.5px] min-h-[48px] px-4 py-3.5 border border-[#d9cdb6] rounded-[10px] bg-cream text-ink w-full focus:outline-none focus:border-amber">
+              </div>
+            </div>
+
+            <div>
+              <label for="poruka" class="block text-sm text-[#6b5d4e] mb-1.5">Poruka</label>
+              <textarea id="poruka" name="poruka" rows="5" placeholder="Vaše pitanje ili poruka"
+                        class="text-[15.5px] px-4 py-3.5 border border-[#d9cdb6] rounded-[10px] bg-cream text-ink w-full resize-y focus:outline-none focus:border-amber"></textarea>
+            </div>
+
+            <label for="privola" class="flex gap-[11px] items-start text-sm leading-[1.6] text-[#6b5d4e] cursor-pointer mt-1 mb-0.5">
+              <input id="privola" name="privola" type="checkbox" required class="w-[17px] h-[17px] mt-[3px] accent-amber flex-none">
+              <span>Slanjem obrasca dajem privolu da se moji podaci koriste isključivo za odgovor na ovaj upit, u skladu s <a href="#footer" class="underline">pravilima privatnosti</a>.</span>
+            </label>
+
+            <button type="submit"
+                    class="font-display font-semibold text-base sm:text-[16.5px] min-h-[52px] bg-amber hover:bg-oak text-stout hover:text-cream border-0 px-5 py-4 rounded-full cursor-pointer transition-colors"
+                    x-text="sent ? 'Upit poslan, javljamo se uskoro' : 'Pošaljite upit'">Pošaljite upit</button>
+
+            <p x-show="sent" x-cloak x-transition class="text-[15px] leading-[1.7] text-[#8f5e12] m-0" role="status">Hvala na poruci. Javimo se na broj ili e-mail koji ste ostavili.</p>
+          </form>
+        </div>
+
+        <!-- Karta i kontakt podaci -->
+        <div class="grid gap-[22px]">
+          <div class="relative">
+            <!-- Zamijeniti ugradnjom Google karte za Radauševu 9 -->
+            <!-- Google karta, embed bez API kljuca. Za drugu lokaciju promijeniti q u src. -->
+          <div class="w-full h-56 sm:h-72 lg:h-[328px] rounded-[14px] overflow-hidden bg-[#efe4d0]">
+            <iframe
+              src="https://www.google.com/maps?q=Pivnica,+Radau%C5%A1eva+ulica+9,+10000+Zagreb&amp;hl=hr&amp;z=16&amp;output=embed"
+              title="Karta s lokacijom Pivnice, Radauševa ulica 9, Zagreb"
+              width="100%" height="100%" style="border:0; display:block"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-cream border border-line rounded-xl p-[22px]">
+              <p class="font-display font-semibold text-[14.5px] text-[#8f5e12] mb-2">Adresa</p>
+              <address class="not-italic text-[15px] leading-[1.65] text-ink m-0">Radauševa ulica 9<br>10000 Zagreb, Ravnice</address>
+            </div>
+            <div class="bg-cream border border-line rounded-xl p-[22px]">
+              <p class="font-display font-semibold text-[14.5px] text-[#8f5e12] mb-2">Telefon</p>
+              <p class="text-[15px] leading-[1.65] text-ink m-0"><a href="tel:+38515510192" class="text-ink hover:text-[#8f5e12]">01 5510 192</a><br><span class="text-[#7d6e5d]">+385 1 5510 192</span></p>
+            </div>
+            <div class="bg-cream border border-line rounded-xl p-[22px] sm:col-span-2">
+              <p class="font-display font-semibold text-[14.5px] text-[#8f5e12] mb-2">E-mail</p>
+              <!-- Prijedlog adrese, zamijeniti pravom -->
+              <p class="text-[15px] leading-[1.65] text-ink m-0"><a href="mailto:info@pivnica-ravnice.hr" class="text-ink hover:text-[#8f5e12]">info@pivnica-ravnice.hr</a></p>
+            </div>
+            <div class="bg-cream border border-line rounded-xl p-[22px] sm:col-span-2">
+              <p class="font-display font-semibold text-[14.5px] text-[#8f5e12] mb-2">Radno vrijeme</p>
+              <p class="text-[15px] leading-[1.65] text-ink m-0">Pon do Sub: 08:00 do 24:00 &nbsp; &nbsp; &nbsp; &nbsp; Ned: 12:00 do 23:00</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer id="footer" class="bg-stout text-[#d8cbb8] pt-14 sm:pt-16 lg:pt-[60px]">
+  <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pb-10 lg:pb-11">
+      <div>
+        <svg viewBox="0 0 190 56" class="h-11 w-auto block mb-[18px] text-cream" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Pivnica">
+          <g fill="currentColor">
+            <circle cx="13" cy="15" r="6"></circle>
+            <circle cx="21" cy="12" r="7"></circle>
+            <circle cx="29" cy="15" r="6"></circle>
+            <rect x="6" y="14" width="28" height="7" rx="3"></rect>
+            <path d="M8 19h26v25a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5V19z"></path>
+            <path d="M35 26h5a9 9 0 0 1 0 18h-5v-5h4.5a4 4 0 1 0 0-8H35v-5z"></path>
+          </g>
+          <text x="60" y="39" textLength="122" lengthAdjust="spacingAndGlyphs" font-family="Bitter, Georgia, serif" font-weight="700" font-size="31" fill="currentColor">Pivnica</text>
+        </svg>
+        <p class="text-[15px] leading-[1.7] mb-5">Susjedska pivnica u zagrebačkim Ravnicama. Točena bavarska piva, terasa pod drvećem i mjesto na kojem se ostaje duže nego što se planiralo.</p>
+        <div class="flex items-center gap-3">
+          <a href="https://www.facebook.com/Pivnica" rel="noopener" target="_blank" aria-label="Pivnica na Facebooku" class="w-11 h-11 rounded-full bg-[#3b2a1c] flex items-center justify-center text-[#d8cbb8] hover:text-cream hover:bg-amber transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"></path></svg>
+          </a>
+          <a href="https://www.instagram.com/pivnicabecher/" rel="noopener" target="_blank" aria-label="Pivnica na Instagramu" class="w-11 h-11 rounded-full bg-[#3b2a1c] flex items-center justify-center text-[#d8cbb8] hover:text-cream hover:bg-amber transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-display font-semibold text-base text-cream mb-4">Ponuda</p>
+        <div class="grid gap-[9px] text-[15px] leading-[1.6]">
+          <span>Njemačko točeno pivo</span>
+          <span>Pivo u glinenom vrču</span>
+          <span>Čvarci i grickalice</span>
+          <span>Gablec iz lonca</span>
+          <span>Terasa pod drvećem</span>
+          <span>Kava i bezalkoholno</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="font-display font-semibold text-base text-cream mb-4">Lokal</p>
+        <nav class="grid gap-2.5 text-[15px]" aria-label="Navigacija u podnožju">
+          <a href="#hero" class="text-[#d8cbb8] hover:text-cream">Početna</a>
+          <a href="#ponuda" class="text-[#d8cbb8] hover:text-cream">Ponuda</a>
+          <a href="#o-nama" class="text-[#d8cbb8] hover:text-cream">O nama</a>
+          <a href="#galerija" class="text-[#d8cbb8] hover:text-cream">Galerija</a>
+          <a href="#kontakt" class="text-[#d8cbb8] hover:text-cream">Kontakt</a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="font-display font-semibold text-base text-cream mb-4">Gdje smo i kada</p>
+        <div class="grid gap-[9px] text-[15px] leading-[1.6]">
+          <address class="not-italic">Radauševa ulica 9<br>10000 Zagreb, Ravnice</address>
+          <a href="tel:+38515510192" class="text-[#d8cbb8] hover:text-cream">01 5510 192</a>
+          <a href="mailto:info@pivnica-ravnice.hr" class="text-[#d8cbb8] hover:text-cream">info@pivnica-ravnice.hr</a>
+          <span>Pon do Sub: 08:00 do 24:00<br>Ned: 12:00 do 23:00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-[#4a3728] py-6 sm:py-[22px] pb-7 flex flex-wrap gap-y-2.5 gap-x-6 justify-between text-sm text-[#a3927d]">
+      <span class="text-[#d8cbb8]">© 2026 Pivnica, Zagreb. Sva prava pridržana. &nbsp; | &nbsp; Izrada web stranice Fer projekt</span>
+      <span class="flex flex-wrap gap-[18px]">
+        <a href="#footer" class="text-[#d8cbb8] hover:text-cream">Pravila privatnosti</a>
+        <a href="#footer" class="text-[#d8cbb8] hover:text-cream">Izjava o kolačićima</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Galerija, povecavanje slike. Radi bez biblioteka, na sve slike u #galerija. -->
+<div id="lb" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/90 p-4" role="dialog" aria-modal="true" aria-label="Pregled fotografije">
+  <button id="lb-close" type="button" aria-label="Zatvorite pregled"
+          class="absolute right-3 top-3 sm:right-5 sm:top-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button id="lb-prev" type="button" aria-label="Prethodna fotografija"
+          class="absolute left-2 sm:left-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button id="lb-next" type="button" aria-label="Sljedeća fotografija"
+          class="absolute right-2 sm:right-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <figure class="m-0 flex max-h-full max-w-5xl flex-col items-center gap-3">
+    <img id="lb-img" alt="" class="max-h-[78vh] w-auto max-w-full rounded-lg object-contain">
+    <figcaption id="lb-cap" class="text-center text-sm text-white/80"></figcaption>
+  </figure>
+</div>
+
+<script>
+(function () {
+  var gal = document.getElementById('galerija');
+  if (!gal) return;
+  var slike = Array.prototype.slice.call(gal.querySelectorAll('img'));
+  if (!slike.length) return;
+
+  var lb = document.getElementById('lb'),
+      lbImg = document.getElementById('lb-img'),
+      lbCap = document.getElementById('lb-cap'),
+      btnClose = document.getElementById('lb-close'),
+      btnPrev = document.getElementById('lb-prev'),
+      btnNext = document.getElementById('lb-next'),
+      i = 0, zadnjiFokus = null;
+
+  slike.forEach(function (img, n) {
+    var okvir = img.parentElement;
+    okvir.setAttribute('role', 'button');
+    okvir.setAttribute('tabindex', '0');
+    okvir.setAttribute('aria-label', 'Povećajte fotografiju: ' + (img.alt || 'fotografija'));
+    okvir.classList.add('cursor-zoom-in');
+    okvir.addEventListener('click', function () { otvori(n); });
+    okvir.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); otvori(n); }
+    });
+  });
+
+  function prikazi(n) {
+    i = (n + slike.length) % slike.length;
+    lbImg.src = slike[i].currentSrc || slike[i].src;
+    lbImg.alt = slike[i].alt || '';
+    lbCap.textContent = (slike[i].alt || '') + '  (' + (i + 1) + '/' + slike.length + ')';
+  }
+  function otvori(n) {
+    zadnjiFokus = document.activeElement;
+    prikazi(n);
+    lb.classList.remove('hidden');
+    lb.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    btnClose.focus();
+  }
+  function zatvori() {
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+    document.body.style.overflow = '';
+    lbImg.removeAttribute('src');
+    if (zadnjiFokus) zadnjiFokus.focus();
+  }
+
+  btnClose.addEventListener('click', zatvori);
+  btnPrev.addEventListener('click', function () { prikazi(i - 1); });
+  btnNext.addEventListener('click', function () { prikazi(i + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) zatvori(); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.classList.contains('hidden')) return;
+    if (e.key === 'Escape') zatvori();
+    else if (e.key === 'ArrowLeft') prikazi(i - 1);
+    else if (e.key === 'ArrowRight') prikazi(i + 1);
+    else if (e.key === 'Tab') {
+      var f = [btnClose, btnPrev, btnNext],
+          k = f.indexOf(document.activeElement),
+          smjer = e.shiftKey ? -1 : 1;
+      e.preventDefault();
+      f[(k + smjer + f.length) % f.length].focus();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

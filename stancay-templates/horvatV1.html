@@ -380,5 +380,95 @@
   </div>
 </footer>
 
+
+<!-- Galerija, povecavanje slike. Radi bez biblioteka, na sve slike u #galerija. -->
+<div id="lb" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/90 p-4" role="dialog" aria-modal="true" aria-label="Pregled fotografije">
+  <button id="lb-close" type="button" aria-label="Zatvorite pregled"
+          class="absolute right-3 top-3 sm:right-5 sm:top-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button id="lb-prev" type="button" aria-label="Prethodna fotografija"
+          class="absolute left-2 sm:left-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button id="lb-next" type="button" aria-label="Sljedeća fotografija"
+          class="absolute right-2 sm:right-5 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <figure class="m-0 flex max-h-full max-w-5xl flex-col items-center gap-3">
+    <img id="lb-img" alt="" class="max-h-[78vh] w-auto max-w-full rounded-lg object-contain">
+    <figcaption id="lb-cap" class="text-center text-sm text-white/80"></figcaption>
+  </figure>
+</div>
+
+<script>
+(function () {
+  var gal = document.getElementById('galerija');
+  if (!gal) return;
+  var slike = Array.prototype.slice.call(gal.querySelectorAll('img'));
+  if (!slike.length) return;
+
+  var lb = document.getElementById('lb'),
+      lbImg = document.getElementById('lb-img'),
+      lbCap = document.getElementById('lb-cap'),
+      btnClose = document.getElementById('lb-close'),
+      btnPrev = document.getElementById('lb-prev'),
+      btnNext = document.getElementById('lb-next'),
+      i = 0, zadnjiFokus = null;
+
+  slike.forEach(function (img, n) {
+    var okvir = img.parentElement;
+    okvir.setAttribute('role', 'button');
+    okvir.setAttribute('tabindex', '0');
+    okvir.setAttribute('aria-label', 'Povećajte fotografiju: ' + (img.alt || 'fotografija'));
+    okvir.classList.add('cursor-zoom-in');
+    okvir.addEventListener('click', function () { otvori(n); });
+    okvir.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); otvori(n); }
+    });
+  });
+
+  function prikazi(n) {
+    i = (n + slike.length) % slike.length;
+    lbImg.src = slike[i].currentSrc || slike[i].src;
+    lbImg.alt = slike[i].alt || '';
+    lbCap.textContent = (slike[i].alt || '') + '  (' + (i + 1) + '/' + slike.length + ')';
+  }
+  function otvori(n) {
+    zadnjiFokus = document.activeElement;
+    prikazi(n);
+    lb.classList.remove('hidden');
+    lb.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    btnClose.focus();
+  }
+  function zatvori() {
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+    document.body.style.overflow = '';
+    lbImg.removeAttribute('src');
+    if (zadnjiFokus) zadnjiFokus.focus();
+  }
+
+  btnClose.addEventListener('click', zatvori);
+  btnPrev.addEventListener('click', function () { prikazi(i - 1); });
+  btnNext.addEventListener('click', function () { prikazi(i + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) zatvori(); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.classList.contains('hidden')) return;
+    if (e.key === 'Escape') zatvori();
+    else if (e.key === 'ArrowLeft') prikazi(i - 1);
+    else if (e.key === 'ArrowRight') prikazi(i + 1);
+    else if (e.key === 'Tab') {
+      var f = [btnClose, btnPrev, btnNext],
+          k = f.indexOf(document.activeElement),
+          smjer = e.shiftKey ? -1 : 1;
+      e.preventDefault();
+      f[(k + smjer + f.length) % f.length].focus();
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
