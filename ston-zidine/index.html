@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="hr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stonske zidine — interaktivna 3D maketa</title><style>html,body{margin:0;padding:0;background:#ecefe5}body{max-width:1280px;margin:auto;padding:20px}@media(max-width:600px){body{padding:0}}</style></head><body>
+<div id="ston-diorama">
+  <header class="ston-header">
+    <div><span class="ston-eyebrow">PELJEŠAC · HRVATSKA</span><h1>Stonske zidine<span>3D maketa</span></h1></div>
+    <div class="ston-status"><span></span> Interaktivni model</div>
+  </header>
+  <div class="ston-toolbar" aria-label="Pogled na model">
+    <div class="ston-views">
+      <button type="button" data-view="all" aria-pressed="true">Cijeli model</button>
+      <button type="button" data-view="castle" aria-pressed="false">Veliki Kaštio</button>
+      <button type="button" data-view="top" aria-pressed="false">Tlocrt</button>
+    </div>
+    <div class="ston-options">
+      <button type="button" data-action="labels" aria-pressed="true">Oznake</button>
+      <button type="button" data-action="rotate" aria-pressed="false">Auto-rotacija</button>
+    </div>
+  </div>
+  <div class="ston-stage">
+    <canvas aria-label="Interaktivna 3D maketa Stonskih zidina, triju tvrđava, Stona, Malog Stona i solane. Povucite za rotaciju i koristite kotačić ili dva prsta za zumiranje." role="img">Vaš preglednik ne podržava Canvas. Otvorite datoteku u novijem pregledniku.</canvas>
+    <canvas class="ston-overlay" aria-hidden="true"></canvas>
+    <div class="ston-labels" aria-label="Mjesta na modelu"></div>
+    <div class="ston-scene-tag">STILIZIRANA REKONSTRUKCIJA</div>
+    <div class="ston-zoom"><button type="button" data-action="plus" aria-label="Približi">+</button><button type="button" data-action="minus" aria-label="Udalji">−</button></div>
+  </div>
+  <div class="ston-place-picker"><label for="ston-visit-place">Mjesta i pogledi</label><select id="ston-visit-place" aria-label="Odaberi naselje, tvrđavu, kulu ili pogled"><option value="all">Cijeli model</option><option value="top">Tlocrt</option></select></div>
+  <footer class="ston-footer">
+    <div class="ston-hint">Povuci za rotaciju · Kotačić / dva prsta za zum</div>
+    <a class="ston-buy" href="https://shop.citywallsdubrovnik.hr/hr/webshop?location=4bd1f385-3e0c-4320-ba33-e7e02b193d76" target="_blank" rel="noopener noreferrer">Kupi ulaznicu za Stonske zidine ↗</a>
+    <button type="button" data-action="obj">Preuzmi 3D model (.obj) <span aria-hidden="true">↗</span></button>
+  </footer>
+  <p class="ston-caption" aria-live="polite">Stilizirana maketa bez jedinstvenog mjerila. Položaji oznaka su okvirni.</p>
+</div>
+<style>
+#ston-diorama{color-scheme:light dark;--ston-bg:light-dark(#f4f2e9,#222b2b);--ston-fg:light-dark(#203b38,#edece3);--ston-muted:light-dark(#62736b,#afbdb4);--ston-line:light-dark(#d3d9ce,#465453);--ston-button:light-dark(#e7ebe2,#354542);--ston-active:light-dark(#24483f,#ceded2);--ston-active-text:light-dark(#f8f7ed,#203b38);--ston-label:light-dark(#fffff7,#30423e);--ston-scene:light-dark(#e9ede4,#30403b);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--ston-bg);color:var(--ston-fg);width:100%;overflow:hidden;border-radius:16px;box-sizing:border-box}
+#ston-diorama *{box-sizing:border-box}
+#ston-diorama .ston-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 30px 18px}
+#ston-diorama .ston-eyebrow{font-size:11px;letter-spacing:.2em;color:var(--ston-muted);font-weight:500}
+#ston-diorama h1{font-family:Georgia,"Times New Roman",serif;font-size:37px;line-height:1.15;letter-spacing:-1.5px;font-weight:400;margin:8px 0 0}
+#ston-diorama h1 span{display:inline-block;font-family:inherit;font-size:17px;letter-spacing:0;color:var(--ston-muted);margin-left:15px}
+#ston-diorama .ston-status{font-size:12px;color:var(--ston-muted);white-space:nowrap;display:flex;align-items:center;gap:7px}
+#ston-diorama .ston-status>span{width:6px;height:6px;background:var(--ston-active);border-radius:50%}
+#ston-diorama button{font-family:inherit;color:inherit;cursor:pointer;font-size:12px;font-weight:500;border:1px solid var(--ston-line);background:transparent;border-radius:7px;min-height:36px;padding:8px 12px;transition:background .15s,color .15s}
+#ston-diorama button:hover{background:var(--ston-button)}
+#ston-diorama button[aria-pressed="true"]{background:var(--ston-active);border-color:var(--ston-active);color:var(--ston-active-text)}
+#ston-diorama .ston-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 30px 10px;flex-wrap:wrap}
+#ston-diorama .ston-views,#ston-diorama .ston-options{display:flex;gap:6px;flex-wrap:wrap}
+#ston-diorama .ston-stage{position:relative;background:radial-gradient(ellipse at 50% 42%,var(--ston-bg) 0%,var(--ston-scene) 85%);height:480px;overflow:hidden}
+#ston-diorama canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+#ston-diorama canvas.ston-overlay{position:absolute;inset:0;pointer-events:none}
+#ston-diorama canvas:active{cursor:grabbing}
+#ston-diorama .ston-labels{position:absolute;inset:0;pointer-events:none}
+#ston-diorama .ston-labels button{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;white-space:nowrap;background:var(--ston-label);border:0;box-shadow:0 2px 12px #203b381a;font-size:11px;min-height:27px;padding:6px 9px;border-radius:5px}
+#ston-diorama .ston-labels button::after{content:"";position:absolute;left:50%;bottom:-14px;height:14px;width:1px;background:var(--ston-muted)}
+#ston-diorama .ston-labels button:hover{background:var(--ston-active);color:var(--ston-active-text)}
+#ston-diorama .ston-labels button::after{display:none}
+#ston-diorama .ston-labels button[aria-pressed="true"]{background:var(--ston-active);color:var(--ston-active-text)}
+#ston-diorama .ston-labels button.ston-number{padding:0;width:28px;min-height:28px;border-radius:50%;transform:translate(-50%,-50%)}
+#ston-diorama .ston-place-picker{display:flex;align-items:center;gap:12px;padding:13px 30px 0;flex-wrap:wrap;font-size:12px;color:var(--ston-muted)}
+#ston-diorama .ston-place-picker select{font-family:inherit;font-size:12px;background:var(--ston-label);color:var(--ston-fg);border:1px solid var(--ston-line);border-radius:7px;padding:8px 10px;min-height:36px;max-width:100%;flex:1;max-width:310px}
+@media(max-width:600px){#ston-diorama .ston-place-picker{padding:12px 17px 0;gap:8px}#ston-diorama .ston-place-picker select{font-size:16px;min-height:44px}}
+#ston-diorama .ston-scene-tag{position:absolute;left:30px;bottom:17px;color:var(--ston-muted);font-size:10px;letter-spacing:.13em;pointer-events:none}
+#ston-diorama .ston-zoom{position:absolute;right:26px;bottom:14px;display:flex;gap:6px}
+#ston-diorama .ston-zoom button{background:var(--ston-label);font-size:20px;width:36px;padding:0}
+#ston-diorama .ston-footer{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 30px 0;flex-wrap:wrap}
+#ston-diorama .ston-buy{font-family:inherit;font-size:12px;font-weight:500;text-decoration:none;background:var(--ston-active);color:var(--ston-active-text);border-radius:7px;padding:10px 13px;min-height:38px;display:inline-flex;align-items:center}
+#ston-diorama .ston-hint{color:var(--ston-muted);font-size:11px}
+#ston-diorama .ston-footer button{border:0;padding:6px 0;text-align:right;min-height:30px}
+#ston-diorama .ston-footer button span{margin-left:7px}
+#ston-diorama .ston-caption{margin:9px 30px 22px;color:var(--ston-muted);font-size:11px;line-height:1.5}
+@media(max-width:600px){#ston-diorama .ston-header{padding:21px 17px 15px}#ston-diorama h1{font-size:30px}#ston-diorama h1 span{font-size:14px;margin-left:10px}#ston-diorama .ston-status{display:none}#ston-diorama .ston-toolbar{padding:0 17px 10px;gap:8px}#ston-diorama .ston-stage{height:410px}#ston-diorama .ston-footer{padding:12px 17px 0;align-items:flex-start;flex-wrap:wrap;gap:5px}#ston-diorama .ston-caption{margin:7px 17px 18px}#ston-diorama .ston-scene-tag{left:17px;font-size:9px;max-width:220px}#ston-diorama .ston-zoom{right:16px}#ston-diorama button{min-height:40px}#ston-diorama .ston-labels button{font-size:11px;min-height:30px}}
+@media(prefers-reduced-motion:reduce){#ston-diorama button{transition:none}}
+</style>
+<script>
+(()=>{
+ 'use strict';
+ const root=document.getElementById('ston-diorama');
+ const canvas=root.querySelector('canvas'),overlay=root.querySelector('.ston-overlay'),ctx=overlay.getContext('2d'),stage=root.querySelector('.ston-stage'),labelsBox=root.querySelector('.ston-labels'),caption=root.querySelector('.ston-caption');
+ const gl=canvas.getContext('webgl',{alpha:true,antialias:true,depth:true,preserveDrawingBuffer:false});
+ const surface=gl?null:canvas.getContext('2d');
+ if(!ctx){caption.textContent='Za prikaz makete otvorite datoteku u pregledniku koji podržava Canvas.';return;}
+ const faces=[],clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),TAU=Math.PI*2;
+ let seed=1633;const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+ const colors={stone:[196,184,157],pale:[218,205,178],darkstone:[161,153,127],roof:[164,83,52],roof2:[181,104,65],ground:[145,151,107],path:[197,187,151],sea:[95,161,161],pool:[137,182,169],white:[224,217,191],tree:[82,115,77],wood:[108,89,60],shadow:[87,104,82]};
+ function terrain(x,z){
+   const hill=79*Math.exp(-(((x+58)/69)**2+((z+43)/55)**2));
+   const ridge=30*Math.exp(-(((x-33)/77)**2+((z+52)/32)**2));
+   const townFlatten=clamp((49-z)/22,0,1);
+   const coast=clamp((109-z)/17,0,1)*clamp((z+117+5*Math.sin(x*.026))/18,0,1);
+   return coast*(1.9+(hill+ridge)*townFlatten);
+ }
+ function cross(a,b){return[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+ function sub(a,b){return[a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+ function face(p,c,category='architecture',material='plain',twoSided=false){
+   // Subdivide broad surfaces so depth sorting preserves buildings and terrain on both shores.
+   if(p.length===4){
+     const w=Math.hypot(...sub(p[1],p[0])),h=Math.hypot(...sub(p[3],p[0]));
+     if(Math.max(w,h)>20){
+       const nx=Math.ceil(w/12),ny=Math.ceil(h/12),point=(u,v)=>p[0].map((a,i)=>a*(1-u)*(1-v)+p[1][i]*u*(1-v)+p[2][i]*u*v+p[3][i]*(1-u)*v);
+       for(let i=0;i<nx;i++)for(let j=0;j<ny;j++)face([point(i/nx,j/ny),point((i+1)/nx,j/ny),point((i+1)/nx,(j+1)/ny),point(i/nx,(j+1)/ny)],c,category,material,twoSided);
+       return;
+     }
+   }
+   let n=cross(sub(p[1],p[0]),sub(p[2],p[0])),len=Math.hypot(...n);if(len<.000001)return;n=n.map(v=>v/len);
+   const illumination=.72+.28*Math.max(0,n[0]*-.42+n[1]*.82+n[2]*.38);
+   const variation=.97+rnd()*.06;
+   faces.push({p,n,c:c.map(v=>Math.round(clamp(v*illumination*variation,0,255))),category,material,twoSided});
+ }
+ function quad(a,b,c,d,color,cat,material){face([a,b,c,d],color,cat,material);}
+ function box(x,y,z,w,h,d,color=colors.stone,angle=0,category='architecture',material='plain'){
+   const ca=Math.cos(angle),sa=Math.sin(angle),p=[];
+   for(let yy of [y,y+h])for(let zz of [-d/2,d/2])for(let xx of [-w/2,w/2])p.push([x+xx*ca-zz*sa,yy,z+xx*sa+zz*ca]);
+   for(let ids of [[0,2,3,1],[4,5,7,6],[0,1,5,4],[2,6,7,3],[0,4,6,2],[1,3,7,5]])face(ids.map(i=>p[i]).reverse(),color,category,material);
+ }
+ function cylinder(x,y,z,r,h,color=colors.stone,segments=14,category='architecture',rTop=r){
+   const top=[],bottom=[];
+   for(let i=0;i<segments;i++){const a=i*TAU/segments;bottom.push([x+Math.cos(a)*r,y,z+Math.sin(a)*r]);top.push([x+Math.cos(a)*rTop,y+h,z+Math.sin(a)*rTop]);}
+   for(let i=0;i<segments;i++){const j=(i+1)%segments;quad(bottom[i],top[i],top[j],bottom[j],color,category,'stone');}
+   face([...top].reverse(),color,category);face(bottom,color,category);
+ }
+ function roof(x,y,z,w,d,h,angle=0){
+   const ca=Math.cos(angle),sa=Math.sin(angle),p=(a,b,c)=>[x+a*ca-c*sa,y+b,z+a*sa+c*ca];
+   const a=p(-w/2,0,-d/2),b=p(w/2,0,-d/2),c=p(w/2,0,d/2),d1=p(-w/2,0,d/2),e=p(-w/2,h,0),f=p(w/2,h,0);
+   face([a,e,f,b],colors.roof,'town');face([d1,c,f,e],colors.roof2,'town');face([a,d1,e],colors.pale,'town');face([b,f,c],colors.pale,'town');
+ }
+ function merlons(x,y,z,w,d,angle=0,size=1.25,step=2.5){
+   const ca=Math.cos(angle),sa=Math.sin(angle),p=(xx,zz)=>[x+xx*ca-zz*sa,z+xx*sa+zz*ca];
+   for(let side of [-1,1])for(let xx=-w/2+.7;xx<w/2;xx+=step){const a=p(xx,side*d/2);box(a[0],y,a[1],size,1.25,1.1,colors.pale,angle,'architecture','stone');}
+   if(d>4)for(let side of [-1,1])for(let zz=-d/2+2;zz<d/2-1;zz+=step){const a=p(side*w/2,zz);box(a[0],y,a[1],1.1,1.25,size,colors.pale,angle,'architecture','stone');}
+ }
+ function squareTower(x,z,w=6,h=11,angle=0){const y=terrain(x,z)-.3;box(x,y,z,w,h,w,colors.stone,angle,'architecture','stone');box(x,y+h-.3,z,w+.8,.6,w+.8,colors.pale,angle);merlons(x,y+h+.3,z,w,w,angle,1.15,2.35);}
+ function wallSegment(a,b,h=5.2,t=2.3,crenels=true){
+   const dx=b[0]-a[0],dz=b[1]-a[1],length=Math.hypot(dx,dz),angle=Math.atan2(dz,dx),num=Math.ceil(length/5);
+   for(let i=0;i<num;i++){
+     const u=i/num,v=(i+1)/num,x=a[0]+dx*(u+v)/2,z=a[1]+dz*(u+v)/2,y1=terrain(a[0]+dx*u,a[1]+dz*u)-.45,y2=terrain(a[0]+dx*v,a[1]+dz*v)-.45;
+     const nx=-Math.sin(angle)*t/2,nz=Math.cos(angle)*t/2;
+     const l1=[a[0]+dx*u+nx,y1,a[1]+dz*u+nz],r1=[a[0]+dx*u-nx,y1,a[1]+dz*u-nz],l2=[a[0]+dx*v+nx,y2,a[1]+dz*v+nz],r2=[a[0]+dx*v-nx,y2,a[1]+dz*v-nz];
+     const top=p=>[p[0],p[1]+h,p[2]];
+     face([l1,l2,top(l2),top(l1)],colors.stone,'architecture','stone');face([r1,top(r1),top(r2),r2],colors.stone,'architecture','stone');face([top(l1),top(l2),top(r2),top(r1)],colors.pale);
+     face([l1,top(l1),top(r1),r1],colors.stone);face([l2,r2,top(r2),top(l2)],colors.stone);
+     const len=length/num;
+     // Low parapets frame the elevated walkway; merlons repeat along the outer edge.
+     for(let side of [-1,1])box(x+nx*side*.77,(y1+y2)/2+h-.15,z+nz*side*.77,len+.05,.9,.48,colors.pale,angle);
+     if(crenels)for(let j=0;j<len;j+=2.5){const u2=(i+(j+.6)/len)/num,xx=a[0]+dx*u2,zz=a[1]+dz*u2;box(xx+nx*.78,terrain(xx,zz)+h+.25,zz+nz*.78,1.25,1.05,.7,colors.pale,angle,'architecture','stone');}
+   }
+ }
+ function wallPath(points,h=5.2,t=2.3,towerSpacing=37){
+   for(let i=0;i<points.length-1;i++){
+     const a=points[i],b=points[i+1];wallSegment(a,b,h,t);const len=Math.hypot(b[0]-a[0],b[1]-a[1]);
+     for(let k=towerSpacing;k<len-8;k+=towerSpacing){const u=k/len;squareTower(a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,5.5,h+4,Math.atan2(b[1]-a[1],b[0]-a[0]));}
+   }
+   for(let i=0;i<points.length-1;i++)squareTower(points[i][0],points[i][1],6,h+4);
+ }
+ // Miniature base and the water of the two bays.
+ box(0,-10,0,340,9.9,272,[112,134,125],0,'landscape');
+ // The top is supplied by the continuous land/water grid below.
+ for(let i=faces.length-1;i>=0;i--)if(faces[i].n[1]>.99)faces.splice(i,1);
+ const gx=52,gz=42;
+ for(let ix=0;ix<gx;ix++)for(let iz=0;iz<gz;iz++){
+   const x=-170+ix*340/gx,z=-136+iz*272/gz,x2=x+340/gx,z2=z+272/gz;
+   const p=[[x,Math.max(.12,terrain(x,z)),z],[x,Math.max(.12,terrain(x,z2)),z2],[x2,Math.max(.12,terrain(x2,z2)),z2],[x2,Math.max(.12,terrain(x2,z)),z]];
+   const h=terrain((x+x2)/2,(z+z2)/2);
+   const v=rnd(),color=h<.3?colors.sea:h>20?[142+v*15,150+v*12,105+v*12]:[177+v*12,179+v*9,134+v*9];
+   face([p[0],p[1],p[2]],color,'landscape');face([p[0],p[2],p[3]],color,'landscape');
+ }
+ // Main town enclosure and the two branches across the hill toward Mali Ston.
+ const enclosure=[[-126,80],[-135,22],[-78,-67],[-14,17],[-14,80],[-126,80]];
+ wallPath(enclosure,5.5,2.4,33);
+ wallPath([[-14,17],[17,-24],[59,-48],[96,-67],[127,-80]],5.6,2.4,32);
+ wallPath([[-78,-67],[-30,-85],[28,-84],[81,-84],[127,-80]],4.6,2.2,34);
+ // Ston: the orthogonal street grid and red roofed stone houses.
+ box(-72,1.82,48,100,.12,51,colors.path,0,'town');
+ function house(x,z,w,d,h,angle=0){const y=terrain(x,z)+.05;box(x,y,z,w,h,d,colors.pale,angle,'town','stone');roof(x,y+h,z,w+.8,d+.8,2.25,angle);
+   if(!angle){for(let side of [-1,1])for(let k=-1;k<=1;k++){const xx=x+k*w*.25;box(xx,y+h*.55,z+side*(d/2+.035),.68,1.15,.07,[82,99,84],0,'town');}}
+ }
+ for(let i=0;i<7;i++)for(let j=0;j<4;j++){
+   const x=-114+i*13.7,z=31+j*12;if((i===4&&j===1)||(i===5&&j===1))continue;
+   house(x,z,7.5+rnd()*2.5,7.2+rnd()*1.8,5.8+rnd()*2.5);
+ }
+ // Small church and a bell tower at the central square.
+ house(-50,42,16,9,8.8);box(-61,1.9,42,4,15,4,colors.pale,0,'town','stone');roof(-61,16.9,42,5,5,3.8);box(-61,13.2,44.05,1.6,2.6,.09,[81,94,79],0,'town');
+ // Veliki Kaštio: open courtyard, thick curtain walls and three rounded bastions.
+ const castleX=-76,castleZ=87,cy=terrain(castleX,castleZ);
+ box(castleX,cy,castleZ,48,.5,33,colors.path);
+ box(castleX-23,cy,castleZ,3.4,12.5,35,colors.stone,0,'architecture','stone');
+ box(castleX+23,cy,castleZ,3.4,12.5,35,colors.stone,0,'architecture','stone');
+ box(castleX,cy,castleZ-16,45,12.5,3.4,colors.stone,0,'architecture','stone');
+ box(castleX-14,cy,castleZ+16,18,12.5,3.5,colors.stone,0,'architecture','stone');
+ box(castleX+14,cy,castleZ+16,18,12.5,3.5,colors.stone,0,'architecture','stone');
+ box(castleX,cy+7.2,castleZ+16,10,5.3,3.5,colors.stone,0,'architecture','stone');
+ for(let x of [castleX-23,castleX+23])merlons(x,cy+12.5,castleZ,3.2,33);
+ for(let z of [castleZ-16,castleZ+16])merlons(castleX,cy+12.5,z,46,3.2);
+ for(let a of [[castleX-23,castleZ+15,7.4],[castleX+23,castleZ+15,7.4],[castleX+23,castleZ-16,6.2]]){
+   cylinder(a[0],cy-.25,a[1],a[2],13,colors.stone,20);cylinder(a[0],cy+12.7,a[1],a[2]+.5,.8,colors.pale,20);
+   for(let k=0;k<15;k++){const q=k*TAU/15;box(a[0]+Math.cos(q)*a[2],cy+13.5,a[1]+Math.sin(q)*a[2],1.45,1.25,1,colors.pale,q+Math.PI/2);}
+ }
+ squareTower(castleX-21,castleZ-13,10,18);
+ house(castleX-12,castleZ-9,16,8,7.5);
+ // Stone arch over the open gate.
+ for(let i=0;i<12;i++){
+   const a=i*Math.PI/12,b=(i+1)*Math.PI/12,r=3.3,R=4.4,z=castleZ+18;
+   quad([castleX+Math.cos(a)*r,cy+3.7+Math.sin(a)*r,z],[castleX+Math.cos(b)*r,cy+3.7+Math.sin(b)*r,z],[castleX+Math.cos(b)*R,cy+3.7+Math.sin(b)*R,z],[castleX+Math.cos(a)*R,cy+3.7+Math.sin(a)*R,z],colors.pale);
+ }
+ // Podzvizd, on the high western part of the hill.
+ const px=-78,pz=-67,py=terrain(px,pz);
+ cylinder(px,py-.7,pz,9.5,9.2,colors.stone,18);cylinder(px,py+8.5,pz,10,.5,colors.pale,18);
+ cylinder(px,py+9,pz,7.1,.1,colors.darkstone,18);
+ for(let i=0;i<16;i++){const a=i*TAU/16;box(px+Math.cos(a)*9,py+9,pz+Math.sin(a)*9,1.4,1.4,1.15,colors.pale,a+Math.PI/2);}
+ squareTower(px+4,pz-3,6,13);
+ // Koruna: four crown-like towers above the port of Mali Ston.
+ const kx=127,kz=-82,ky=terrain(kx,kz);
+ box(kx,ky,kz,34,.4,23,colors.path);
+ box(kx,ky,kz-11,34,8,2.3,colors.stone,0,'architecture','stone');box(kx,ky,kz+11,34,8,2.3,colors.stone,0,'architecture','stone');
+ box(kx-16,ky,kz,2.3,8,22,colors.stone,0,'architecture','stone');box(kx+16,ky,kz,2.3,8,22,colors.stone,0,'architecture','stone');
+ merlons(kx,ky+8,kz,32,22,0,1.3,2.8);
+ for(let i of [-1,1])for(let j of [-1,1])squareTower(kx+i*16,kz+j*11,6.8,12.5);
+ for(let i=0;i<5;i++)for(let j=0;j<2;j++)house(105+i*10,-103-j*8,6.3,5.3,4+rnd()*2);
+ box(130,.5,-124,27,1,4,colors.path,0,'town');box(143,.5,-115,4,1,20,colors.path,0,'town');
+ // Rectangular evaporation basins of the Ston saltworks.
+ for(let i=0;i<6;i++)for(let j=0;j<5;j++){
+   const x=16+i*21,z=38+j*12.6,y=terrain(x,z)+.15;
+   box(x,y,z,20.1,.25,11.7,colors.path,0,'landscape');
+   box(x,y+.28,z,18.1,.09,9.7,j===4&&i<3?[209,207,178]:[125+rnd()*20,170+rnd()*16,158+rnd()*16],0,'landscape');
+ }
+ box(70,1.9,102,143,.2,2,colors.path,0,'landscape');
+ // Low Mediterranean vegetation, leaving the defensive walls legible.
+ for(let i=0;i<180;i++){
+   const x=-156+rnd()*309,z=-99+rnd()*130,y=terrain(x,z);
+   if(y<8||y>69)continue;
+   const blocked=faces.some(f=>f.category==='architecture'&&Math.abs(f.p[0][0]-x)<5&&Math.abs(f.p[0][2]-z)<5);if(blocked)continue;
+   const r=1.4+rnd()*1.9;
+   cylinder(x,y,z,.34,2.1,colors.wood,5,'vegetation');cylinder(x,y+1,z,r,3.6+rnd()*2,colors.tree,7,'vegetation',.1);
+ }
+ // A few calm lines on the sea and tiny boats in Mali Ston harbour.
+ for(let i=0;i<30;i++){const x=-155+rnd()*305,z=(i%2?-1:1)*(117+rnd()*12);box(x,.18,z,5+rnd()*8,.015,.18,[132,185,179],0,'landscape');}
+ for(let x of [112,124,150]){box(x,.9,-124,3.3,1,7.2,[233,223,190],.08,'town');box(x,1.91,-124,1.8,.35,4,[136,112,77],.08,'town');}
+ const places=[
+   {name:'Veliki Kaštio',p:[castleX,cy+17,castleZ],view:'castle',description:'Veliki Kaštio — izdvojena tvrđava uz Ston; može se razgledati zasebno.'},
+   {name:'Podzvizd',p:[px,py+14,pz],view:'podzvizd',description:'Podzvizd — utvrda u gornjem dijelu obrambenog sustava.'},
+   {name:'Koruna',p:[kx,ky+15,kz],view:'koruna',description:'Koruna — tvrđava kod Malog Stona; u njezinoj blizini je ulaz B na zidine.'},
+   {name:'Solana',p:[80,4,66],view:'salt',description:'Stonska solana — prepoznatljivi bazeni uz naselje Ston.'},
+   {name:'Ston',p:[-72,terrain(-72,48)+11,48],view:'ston-town',description:'Ston — plansko naselje uz zidine i solanu.'},
+   {name:'Mali Ston',p:[124,terrain(124,-103)+9,-103],view:'mali-ston',description:'Mali Ston — naselje uz tvrđavu Korunu i malu luku.'},
+   {name:'Arcimun',x:-126,z:80,number:1,description:'Arcimun — kula kojoj se prilazi sa zapadnog ulaza A.'},
+   {name:'Sokolić',x:-135,z:22,number:2,description:'Sokolić — kula na stonskom dijelu obilaska, nakon Arcimuna.'},
+   {name:'Stoviš',x:-99.4,z:-33.6,number:3,description:'Stoviš — kula navedena na ruti između Sokolića i kule Nad vodom.'},
+   {name:'Nad vodom',x:-38.1,z:-14.6,number:4,description:'Nad vodom — kula na stonskoj ruti obilaska, prije Barabanate.'},
+   {name:'Barabanata',x:-14,z:17,number:5,description:'Barabanata — kula kod izlaza C; ovdje se spajaju opisani obilazak Stona i put od Malog Stona.'},
+   {name:'Ulaz A · Ston',p:[-130,terrain(-130,69)+2,69],view:'entry-a',symbol:'A',description:'Ulaz A — zapadni pristup na predziđe prema Arcimunu i stonskom dijelu obilaska.'},
+   {name:'Ulaz B · Mali Ston',p:[145,terrain(145,-88)+2,-88],view:'entry-b',symbol:'B',description:'Ulaz B — pristup kod tvrđave Korune u Malom Stonu; odavde se obilazi Veliki zid prema Barabanati.'},
+   {name:'Izlaz C · Barabanata',p:[-11,terrain(-11,25)+2,25],view:'exit-c',symbol:'C',description:'Izlaz C — izlaz kod kule Barabanate, gdje završavaju opisani obilazak Stona i put od Malog Stona.'},
+   {name:'Veliki zid',p:[59,terrain(59,-48)+7,-48],view:'great-wall',description:'Veliki zid — potez obrambenog sustava između Stona i Malog Stona, s kulama uz rutu obilaska.'}
+ ];
+ const placePicker=root.querySelector('#ston-visit-place');
+ let selectedPlace=null;
+ for(let place of places){
+   if(!place.p){place.p=[place.x,terrain(place.x,place.z)+10.5,place.z];place.view='visit-'+place.number;}
+   const b=document.createElement('button');b.type='button';b.textContent=place.name;b.setAttribute('aria-label','Pogled izbliza: '+place.name);b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>setView(place.view));labelsBox.appendChild(b);place.el=b;
+   const option=document.createElement('option');option.value=place.view;option.textContent=(place.number?place.number+' · ':'')+place.name;placePicker.appendChild(option);
+ }
+ placePicker.addEventListener('change',()=>{if(placePicker.value)setView(placePicker.value);});
+ let width=800,height=480,dpr=1,frame=0,auto=false,showLabels=true,lastTime=0;
+ const camera={yaw:-.48,pitch:.60,zoom:1,target:[0,27,0]};
+ let targetCamera=null;
+ let gpu=null,raster=null;
+ function initializeGPU(){
+   if(!gl)return;
+   const vertex=`attribute vec3 aPosition;attribute vec3 aColor;attribute vec3 aNormal;attribute float aStone;uniform vec3 uTarget;uniform vec4 uCamera;uniform vec2 uScale;varying mediump vec3 vColor;varying mediump vec3 vWorld;varying mediump vec3 vNormal;varying mediump float vStone;
+   void main(){vec3 p=aPosition-uTarget;float cy=uCamera.x,sy=uCamera.y,cp=uCamera.z,sp=uCamera.w;vec2 xy=vec2(cy*p.x-sy*p.z,-sy*sp*p.x+cp*p.y-cy*sp*p.z);float depth=sy*cp*p.x+sp*p.y+cy*cp*p.z;gl_Position=vec4(xy*uScale,-depth/550.0,1.0);vColor=aColor;vWorld=aPosition;vNormal=aNormal;vStone=aStone;}`;
+   const fragment=`precision mediump float;varying mediump vec3 vColor;varying mediump vec3 vWorld;varying mediump vec3 vNormal;varying mediump float vStone;uniform float uZoom;
+   void main(){vec3 color=vColor;if(vStone>0.5&&abs(vNormal.y)<0.3&&uZoom>1.75){float row=floor(vWorld.y/1.35);float level=fract(vWorld.y/1.35);vec3 tangent=vec3(-vNormal.z,0.0,vNormal.x);float seam=fract((dot(vWorld,tangent)+mod(row,2.0)*1.8)/3.6);float mortar=(1.0-step(0.035,level))+(1.0-step(0.013,seam));color*=1.0-min(1.0,mortar)*0.12;}gl_FragColor=vec4(color,1.0);}`;
+   function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
+   const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+   const data=[];for(let f of faces)for(let i=1;i<f.p.length-1;i++)for(let p of [f.p[0],f.p[i],f.p[i+1]])data.push(...p,...f.c.map(v=>v/255),...f.n,f.material==='stone'?1:0);
+   const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);
+   for(let [name,size,offset] of [['aPosition',3,0],['aColor',3,3],['aNormal',3,6],['aStone',1,9]]){const loc=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,40,offset*4);}
+   gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(0,0,0,0);
+   gpu={program,count:data.length/10,target:gl.getUniformLocation(program,'uTarget'),camera:gl.getUniformLocation(program,'uCamera'),scale:gl.getUniformLocation(program,'uScale'),zoom:gl.getUniformLocation(program,'uZoom')};
+ }
+ initializeGPU();
+ function renderModel(){
+   if(gl){
+     gl.viewport(0,0,canvas.width,canvas.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(gpu.program);
+     const scale=Math.min(width/460,height/295)*camera.zoom;
+     gl.uniform3fv(gpu.target,camera.target);gl.uniform4f(gpu.camera,Math.cos(camera.yaw),Math.sin(camera.yaw),Math.cos(camera.pitch),Math.sin(camera.pitch));gl.uniform2f(gpu.scale,2*scale/width,2*scale/height);gl.uniform1f(gpu.zoom,camera.zoom);gl.drawArrays(gl.TRIANGLES,0,gpu.count);return;
+   }
+   // Exact per-pixel depth fallback for browsers without WebGL.
+   // A polygon's average depth cannot resolve intersecting terrain, walls or foliage.
+   const w=Math.round(width),h=Math.round(height);
+   if(!raster||raster.w!==w||raster.h!==h)raster={w,h,image:surface.createImageData(w,h),depth:new Float32Array(w*h)};
+   const pixels=raster.image.data,depths=raster.depth;pixels.fill(0);depths.fill(-Infinity);
+   for(let f of faces){const pts=f.p.map(project);
+     for(let k=1;k<pts.length-1;k++){
+       const a=pts[0],b=pts[k],c=pts[k+1],area=(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);if(Math.abs(area)<.00001)continue;
+       const x0=Math.max(0,Math.floor(Math.min(a[0],b[0],c[0]))),x1=Math.min(w-1,Math.ceil(Math.max(a[0],b[0],c[0]))),y0=Math.max(0,Math.floor(Math.min(a[1],b[1],c[1]))),y1=Math.min(h-1,Math.ceil(Math.max(a[1],b[1],c[1])));if(x0>x1||y0>y1)continue;
+       const dx0=(b[1]-c[1])/area,dy0=(c[0]-b[0])/area,dx1=(c[1]-a[1])/area,dy1=(a[0]-c[0])/area;
+       let row0=(dx0*(x0+.5)+dy0*(y0+.5)+(b[0]*c[1]-c[0]*b[1])/area),row1=(dx1*(x0+.5)+dy1*(y0+.5)+(c[0]*a[1]-a[0]*c[1])/area);
+       for(let y=y0;y<=y1;y++,row0+=dy0,row1+=dy1){let wa=row0,wb=row1;
+         for(let x=x0;x<=x1;x++,wa+=dx0,wb+=dx1){const wc=1-wa-wb;if(wa<-.00001||wb<-.00001||wc<-.00001)continue;const depth=wa*a[2]+wb*b[2]+wc*c[2],index=y*w+x;if(depth<depths[index])continue;depths[index]=depth;const pi=index*4;pixels[pi]=f.c[0];pixels[pi+1]=f.c[1];pixels[pi+2]=f.c[2];pixels[pi+3]=255;}
+       }
+     }
+   }
+   surface.putImageData(raster.image,0,0);
+ }
+ function project(p){const x=p[0]-camera.target[0],y=p[1]-camera.target[1],z=p[2]-camera.target[2],c=Math.cos(camera.yaw),s=Math.sin(camera.yaw),cp=Math.cos(camera.pitch),sp=Math.sin(camera.pitch),scale=Math.min(width/460,height/295)*camera.zoom;
+   return[width/2+scale*(c*x-s*z),height*.5-scale*(-s*sp*x+cp*y-c*sp*z),s*cp*x+sp*y+c*cp*z];
+ }
+ function requestDraw(){if(!frame)frame=requestAnimationFrame(draw);}
+ function blendPoint(a,b,u){return[a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u];}
+ function masonry(points){
+   if(points.length!==4)return;let a=points[0],b=points[1],c=points[2],d=points[3];
+   // Grid lies in the plane of the visible stone face.
+   if(Math.hypot(a[0]-b[0],a[1]-b[1])<9)return;
+   ctx.strokeStyle='rgba(91,88,66,.20)';ctx.lineWidth=.55;
+   ctx.beginPath();for(let i=1;i<6;i++){const u=i/6,p=blendPoint(a,b,u),q=blendPoint(d,c,u);ctx.moveTo(...p);ctx.lineTo(...q);}ctx.stroke();
+ }
+ function draw(time){
+   frame=0;const elapsed=Math.min(40,time-(lastTime||time));lastTime=time;
+   if(auto)camera.yaw+=elapsed*.00017;
+   if(targetCamera){const t=targetCamera,rate=.20;camera.yaw+=(t.yaw-camera.yaw)*rate;camera.pitch+=(t.pitch-camera.pitch)*rate;camera.zoom+=(t.zoom-camera.zoom)*rate;for(let i=0;i<3;i++)camera.target[i]+=(t.target[i]-camera.target[i])*rate;
+     if(Math.abs(camera.zoom-t.zoom)+Math.abs(camera.pitch-t.pitch)+Math.abs(camera.yaw-t.yaw)+Math.hypot(...camera.target.map((v,i)=>v-t.target[i]))<.018){Object.assign(camera,{yaw:t.yaw,pitch:t.pitch,zoom:t.zoom,target:[...t.target]});targetCamera=null;}
+   }
+   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
+   renderModel();
+   const placed=[];
+   for(let place of [...places].sort((a,b)=>(b===selectedPlace?1:0)-(a===selectedPlace?1:0))){
+     const p=project(place.p),el=place.el,compact=Boolean(place.symbol)||(width<620&&Boolean(place.number));
+     el.className=compact?'ston-number':'';el.textContent=compact?String(place.symbol||place.number):place.name;
+     const ww=compact?28:(el.offsetWidth||Math.max(70,place.name.length*6+18)),hh=compact?28:(el.offsetHeight||28);
+     const inFrame=showLabels&&p[0]>12&&p[0]<width-12&&p[1]>16&&p[1]<height-42;
+     if(!inFrame){el.hidden=true;continue;}
+     let xx=clamp(p[0],ww/2+9,width-ww/2-9),yy=clamp(p[1]-12,hh+10,height-48),found=false;
+     const offsets=compact?[[0,0],[30,0],[-30,0],[0,-32],[0,32]]:[[0,0],[0,-36],[0,36],[-58,-17],[58,-17],[0,-72],[0,72],[-80,-50],[80,-50]];
+     for(let [dx,dy] of offsets){const tx=clamp(xx+dx,ww/2+9,width-ww/2-9),ty=clamp(yy+dy,hh+10,height-48);const rect={left:tx-ww/2,right:tx+ww/2,top:ty-(compact?hh/2:hh),bottom:ty+(compact?hh/2:0)};
+       if(!placed.some(r=>rect.left<r.right+5&&rect.right>r.left-5&&rect.top<r.bottom+5&&rect.bottom>r.top-5)){xx=tx;yy=ty;placed.push(rect);found=true;break;}
+     }
+     el.hidden=!inFrame||!found;el.style.left=xx+'px';el.style.top=yy+'px';
+     if(!el.hidden){ctx.strokeStyle='rgba(67,85,65,.65)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(xx,compact?yy:yy-1);ctx.stroke();ctx.fillStyle='rgb(55,77,58)';ctx.beginPath();ctx.ellipse(p[0],p[1],2.1,2.1,0,0,TAU);ctx.fill();}
+   }
+   if(auto||targetCamera)requestDraw();
+ }
+ function resize(){width=Math.max(280,stage.clientWidth);height=stage.clientHeight;dpr=gl?Math.min(window.devicePixelRatio||1,2):1;canvas.width=overlay.width=Math.round(width*dpr);canvas.height=overlay.height=Math.round(height*dpr);requestDraw();}
+ new ResizeObserver(resize).observe(stage);resize();
+ function setView(name){
+   auto=false;root.querySelector('[data-action="rotate"]').setAttribute('aria-pressed','false');
+   const views={all:{yaw:-.48,pitch:.60,zoom:1,target:[0,27,0]},top:{yaw:0,pitch:1.54,zoom:1.06,target:[0,0,0]},castle:{yaw:-.40,pitch:.54,zoom:3.8,target:[castleX,cy+6,castleZ]},podzvizd:{yaw:-.48,pitch:.60,zoom:4.4,target:[px,py+6,pz]},koruna:{yaw:.44,pitch:.59,zoom:4.2,target:[kx,ky+4,kz]},salt:{yaw:-.3,pitch:.95,zoom:2.3,target:[69,4,66]}};
+   selectedPlace=places.find(p=>p.view===name)||null;placePicker.value=selectedPlace?selectedPlace.view:name;
+   for(let p of places)p.el.setAttribute('aria-pressed',String(p===selectedPlace));
+   if(selectedPlace&&selectedPlace.number)views[name]={yaw:-.48,pitch:.64,zoom:3.2,target:[selectedPlace.p[0],selectedPlace.p[1]-5,selectedPlace.p[2]]};
+   if(name==='ston-town')views[name]={yaw:-.48,pitch:.68,zoom:2.6,target:[-72,6,48]};
+   if(name==='mali-ston')views[name]={yaw:.20,pitch:.75,zoom:3.4,target:[124,5,-97]};
+   if(selectedPlace&&!views[name])views[name]={yaw:-.48,pitch:.68,zoom:name==='great-wall'?2.1:3.2,target:[selectedPlace.p[0],selectedPlace.p[1]+2,selectedPlace.p[2]]};
+   targetCamera=views[name]||views.all;
+   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){Object.assign(camera,JSON.parse(JSON.stringify(targetCamera)));targetCamera=null;}
+   for(let b of root.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',String(b.dataset.view===name));
+   caption.textContent=selectedPlace?selectedPlace.description+' Položaj u maketi je okviran.':name==='top'?'Tlocrt s okvirnim oznakama; model nema jedinstveno stvarno mjerilo.':'Stilizirana maketa bez jedinstvenog mjerila. Položaji oznaka su okvirni.';
+   requestDraw();
+ }
+ for(let b of root.querySelectorAll('[data-view]'))b.addEventListener('click',()=>setView(b.dataset.view));
+ function zoom(factor){targetCamera=null;camera.zoom=clamp(camera.zoom*factor,.6,7);requestDraw();}
+ for(let b of root.querySelectorAll('[data-action]'))b.addEventListener('click',()=>{
+   switch(b.dataset.action){case'labels':showLabels=!showLabels;b.setAttribute('aria-pressed',String(showLabels));requestDraw();break;case'rotate':auto=!auto;targetCamera=null;b.setAttribute('aria-pressed',String(auto));requestDraw();break;case'plus':zoom(1.2);break;case'minus':zoom(1/1.2);break;case'obj':exportOBJ();break;}
+ });
+ canvas.addEventListener('wheel',e=>{e.preventDefault();zoom(Math.exp(-clamp(e.deltaY,-200,200)*.0015));},{passive:false});
+ const pointers=new Map();let pinchDistance=0;
+ canvas.addEventListener('pointerdown',e=>{targetCamera=null;auto=false;root.querySelector('[data-action="rotate"]').setAttribute('aria-pressed','false');canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});pinchDistance=0;});
+ canvas.addEventListener('pointermove',e=>{
+   if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+   if(pointers.size===1){camera.yaw-=(e.clientX-old.x)*.007;camera.pitch=clamp(camera.pitch+(e.clientY-old.y)*.006,.13,1.54);}
+   else if(pointers.size>=2){const [a,b]=[...pointers.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(pinchDistance>0)camera.zoom=clamp(camera.zoom*d/pinchDistance,.6,7);pinchDistance=d;}
+   requestDraw();
+ });
+ for(let event of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(event,e=>{pointers.delete(e.pointerId);pinchDistance=0;});
+ // Standard Wavefront OBJ: independently editable polygon meshes with named groups.
+ function exportOBJ(){let lines=['# Stonske zidine - stilizirana 3D maketa','# Priblizne proporcije. Y je vertikalna os. Jedinice su proizvoljne.','# Autor: model izrađen u ovom razgovoru.'],index=1,current='';
+   for(let f of faces){if(f.category!==current){current=f.category;lines.push('g '+current);}for(let p of f.p)lines.push('v '+p.map(x=>x.toFixed(4)).join(' '));lines.push('f '+f.p.map((_,i)=>index+i).join(' '));index+=f.p.length;}
+   const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='stonske-zidine.obj';root.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+   caption.textContent='OBJ je izvezen. U Blenderu odaberite File → Import → Wavefront (.obj). Boje nisu uključene u OBJ.';
+ }
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){auto=false;root.querySelector('[data-action="rotate"]').setAttribute('aria-pressed','false');}});
+ // Geometry uses a local, schematic coordinate system rather than surveyed GIS data.
+ // Reference: TZO Ston / DPDS, Stonske zidine brochure (map, fortifications, town grid).
+ // https://www.ston.hr/docs/edit/ckfinder/userfiles/files/Brosura%20-%20Stonske%20zidine_HRV%20LOW.pdf
+ // Visitor tower names and sequence: https://www.ston.hr/?u=stonske-zidine/hr/st/58/63
+ // Tower pins are schematic placements on the existing miniature, not surveyed locations.
+})();
+</script>
+
+</body></html>
