@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Omnia Medicus – wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Mulish:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--mauve:#8E7378;--mauve-d:#6F565B;--beige:#BFB5A6;--bg:#F4F2EE;--ink:#2B2B2B;--body:#515151;--muted:#6B6B6B;--pink:#D98BA0;--line:#E2DDD5;--white:#fff;
+--s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:40px;--s6:48px;--s8:64px;--s10:80px;--r:0 0 80px 0;--max:1200px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Mulish',sans-serif;font-weight:400;font-size:16px;line-height:1.6;color:var(--body);background:#E9E6E0;overflow-x:hidden}
+h1,h2,h3,h4,.btn,.logo,nav a,nav button,.stat b{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--ink);margin:0}
+h1{font-size:clamp(32px,4.4vw,56px);line-height:1.1;letter-spacing:-.01em}
+h2{font-size:clamp(26px,3vw,36px);line-height:1.2}
+h3{font-size:20px;line-height:1.3}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--s3)}
+.sec{padding:var(--s10) 0;position:relative}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s3);margin-bottom:var(--s5);flex-wrap:wrap}
+.sec-head p{margin-top:var(--s1);max-width:560px}
+.eyebrow{font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--mauve-d);margin-bottom:var(--s2)}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:var(--s1);padding:14px 24px;border-radius:999px;border:2px solid transparent;font-size:15px;text-decoration:none;line-height:1.2;transition:background .15s,color .15s}
+.btn-p{background:var(--mauve-d);color:#fff}.btn-p:hover{background:var(--ink)}
+.btn-s{background:transparent;border-color:var(--mauve-d);color:var(--mauve-d)}.btn-s:hover{background:var(--mauve-d);color:#fff}
+.btn-sm{padding:10px 18px;font-size:14px}
+/* placeholders */
+.ph{position:relative;background:repeating-linear-gradient(135deg,#d9d4cc 0 12px,#e6e2db 12px 24px);border-radius:var(--r);display:flex;align-items:center;justify-content:center;text-align:center;color:#5d5850;font-family:'Mulish',sans-serif;font-size:14px;padding:var(--s2);min-height:120px}
+.ph span{background:rgba(255,255,255,.85);padding:4px 12px;border-radius:999px}
+.ph.mauve{background:repeating-linear-gradient(135deg,#a58b90 0 12px,#b39aa0 12px 24px)}
+.ph.mauve span{color:var(--ink)}
+/* wireframe chrome */
+.toolbar{position:sticky;top:0;z-index:300;background:#1e1e1e;color:#eee;display:flex;align-items:center;gap:var(--s2);padding:0 var(--s2);min-height:44px;font-size:13px;flex-wrap:wrap}
+.toolbar .ttl{font-family:'Montserrat',sans-serif;font-weight:600;opacity:.7;margin-right:var(--s1)}
+.tabs{display:flex;gap:4px}
+.tab{background:none;border:0;color:#ccc;padding:12px 14px;border-bottom:3px solid transparent;font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px}
+.tab[aria-selected=true]{color:#fff;border-color:var(--pink)}
+.tgl{margin-left:auto;background:#333;color:#fff;border:1px solid #555;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+.tgl:hover{background:#444}
+.site{background:var(--bg);max-width:1440px;margin:0 auto;position:relative;overflow-x:clip}
+/* badges */
+.nb{position:absolute;z-index:60;width:28px;height:28px;border-radius:50%;background:#C2185B;color:#fff;border:2px solid #fff;font:700 13px/1 'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.nb .tip{display:none;position:absolute;top:34px;left:0;width:260px;background:#1e1e1e;color:#fff;text-align:left;font:400 13px/1.45 'Mulish',sans-serif;padding:10px 12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.35);z-index:99}
+.nb.r .tip{left:auto;right:0}
+.nb:hover .tip,.nb:focus .tip,.nb.open .tip{display:block}
+body.notes-off .nb,body.notes-off .legend{display:none}
+body.notes-off .legend-keep{display:block}
+/* announcement */
+.announce{background:var(--pink);color:var(--ink);display:flex;align-items:center;position:relative;font-size:14px;font-weight:600;height:40px}
+.marq{flex:1;overflow:hidden;white-space:nowrap}
+.marq-track{display:inline-flex;animation:mq 38s linear infinite}
+.marq:hover .marq-track,.marq:focus-within .marq-track{animation-play-state:paused}
+.marq-track span{padding-right:64px}
+.marq-track a{font-weight:700}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marq-track{animation:none}}
+.announce .x{background:none;border:0;font-size:22px;width:40px;height:40px;color:var(--ink)}
+.announce .nb{top:6px;left:8px}
+.announce .nb{left:8px}
+body[data-v=B] .announce{display:none}
+.announce.gone{display:none}
+/* popup */
+.pop{position:fixed;left:24px;bottom:24px;width:300px;background:#fff;border-radius:0 0 40px 0;box-shadow:0 12px 36px rgba(0,0,0,.25);z-index:200;display:none;overflow:visible}
+.pop.show{display:block}
+body[data-v=A] .pop{display:none!important}
+.pop .ph{border-radius:0;min-height:110px}
+.pop-b{padding:var(--s2) var(--s3) var(--s3)}
+.pop-b .tag{font:600 12px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B0476A}
+.pop-b h4{font-size:18px;margin:4px 0 8px}
+.pop-b p{font-size:14px;margin-bottom:var(--s2)}
+.pop .x{position:absolute;top:8px;right:8px;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.2);width:32px;height:32px;border-radius:50%;border:0;background:#fff;font-size:18px;line-height:1}
+.pop .nb{top:-12px;left:-12px}
+/* header */
+header.top{background:#fff;border-bottom:1px solid var(--line);position:relative}
+.top .wrap{display:flex;align-items:center;gap:var(--s3);min-height:80px}
+.top-info{background:var(--ink);color:#e8e4dd;font-size:13px}
+.top-info .wrap{display:flex;gap:var(--s3);min-height:36px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:var(--s1);text-decoration:none;font-size:15px;letter-spacing:.06em;line-height:1.15;color:var(--ink)}
+.logo i{width:40px;height:40px;border:2px dashed var(--mauve);border-radius:0 0 16px 0;display:grid;place-items:center;font:600 9px 'Mulish',sans-serif;font-style:normal;color:var(--mauve-d)}
+nav.main{margin-left:auto;display:flex;align-items:center;gap:var(--s1)}
+nav.main>a,nav.main>.dd>button{background:none;border:0;padding:12px 12px;text-decoration:none;font-size:15px;font-weight:600;color:var(--ink);border-radius:8px;display:block}
+nav.main>a:hover,nav.main>.dd>button:hover{background:var(--bg)}
+.dd{position:relative}
+.dd-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 12px 32px rgba(0,0,0,.18);border-radius:0 0 24px 0;padding:var(--s1);min-width:280px;z-index:80}
+.dd:hover .dd-menu,.dd.open .dd-menu,.dd:focus-within .dd-menu{display:block}
+.dd-menu a{display:block;padding:8px 16px;text-decoration:none;color:var(--body);font-size:15px;border-radius:8px}
+.dd-menu a:hover{background:var(--bg);color:var(--ink)}
+.ph-btn{white-space:nowrap}
+.burger{display:none;margin-left:auto;background:none;border:2px solid var(--ink);border-radius:8px;width:44px;height:44px;font-size:20px}
+.top .nb{top:4px;left:4px}
+/* hero */
+.hero{background:var(--bg);padding:var(--s8) 0 var(--s10);position:relative}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--s8);align-items:center}
+.hero p.lead{font-size:18px;margin:var(--s3) 0 var(--s4);max-width:460px}
+.hero .btns{display:flex;gap:var(--s2);flex-wrap:wrap}
+.hero .ph{aspect-ratio:5/4;min-height:300px;border-radius:0 0 120px 0}
+.hero-photo{position:relative}
+.hero-photo:before{content:"";position:absolute;inset:24px -24px -24px 24px;background:var(--mauve);border-radius:0 0 120px 0;z-index:0}
+.hero-photo .ph{position:relative;z-index:1}
+.hero .nb.a{top:16px;left:16px}
+.hero .nb.b{top:16px;right:16px}
+/* strip */
+.strip{background:var(--mauve-d);padding:var(--s3) 0;position:relative}
+.strip-in{display:flex;gap:var(--s1);overflow-x:auto;padding:4px var(--s3);max-width:var(--max);margin:0 auto;scrollbar-width:thin;justify-content:center}
+.chip{flex:0 0 auto;display:flex;align-items:center;gap:8px;background:#fff;color:var(--ink);text-decoration:none;font:600 13px 'Montserrat',sans-serif;padding:10px 16px;border-radius:999px;white-space:nowrap}
+.chip:hover{background:var(--beige)}
+.chip em{font-style:normal;font-size:18px}
+.strip .nb{top:-14px;left:16px}
+.strip .nb.b{left:auto;right:16px}
+/* trust */
+.trust{padding:var(--s5) 0;border-bottom:1px solid var(--line);position:relative}
+.trust .wrap{display:flex;align-items:center;gap:var(--s5);flex-wrap:wrap;justify-content:center}
+.trust h4{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.logos{display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center}
+.lg{width:180px;height:64px;border:1px dashed #b5b0a8;background:#e9e6e0;color:#7a756d;filter:grayscale(1);display:grid;place-items:center;font:600 14px 'Montserrat',sans-serif;border-radius:8px;cursor:default;user-select:none}
+.trust .nb{top:8px;left:16px}
+/* services grid */
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3)}
+.card{background:#fff;border-radius:0 0 48px 0;overflow:hidden;display:flex;flex-direction:column}
+.card .ph{border-radius:0;aspect-ratio:4/3;min-height:0}
+.card-b{padding:var(--s3);display:flex;flex-direction:column;gap:var(--s1);flex:1}
+.card-b p{font-size:15px;color:var(--body)}
+.card-b .btn{margin-top:auto;align-self:flex-start}
+.card-b .btn{margin-top:var(--s2)}
+#usluge .nb.a{top:8px;left:16px}
+#usluge .nb.b{top:8px;left:52px}
+/* about */
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);align-items:center}
+.about .ph{aspect-ratio:4/3}
+.about p{margin:var(--s2) 0 var(--s4);max-width:520px}
+.about-t h2{margin-top:0}
+/* team */
+.team{background:var(--beige);}
+.team .wrap{display:grid;grid-template-columns:1.4fr auto auto;gap:var(--s8);align-items:center}
+.team h2,.team .stat b{color:var(--ink)}
+.team p{color:#3d3a35;margin-top:var(--s2);max-width:520px}
+.stat{text-align:center;background:var(--bg);padding:var(--s4) var(--s5);border-radius:0 0 56px 0}
+.stat b{display:block;font-size:56px;line-height:1}
+.stat span{font-size:14px;color:var(--muted)}
+.team .nb{top:8px;left:16px}
+/* news */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.post{display:flex;flex-direction:column;background:#fff;border-radius:0 0 48px 0;overflow:hidden}
+.post .ph{border-radius:0;aspect-ratio:16/9;min-height:0}
+.post .card-b time{font-size:13px;color:var(--muted)}
+.post .card-b h3{font-size:19px}
+#aktualno .nb.a{top:8px;left:16px}
+#aktualno .nb.b{top:8px;left:52px}
+#aktualno .nb.c{top:8px;left:88px}
+/* contact */
+.contact{background:#fff}
+.contact .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:var(--s8)}
+form.f{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);margin-top:var(--s4)}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld.full{grid-column:1/-1}
+.fld label{font:600 13px 'Montserrat',sans-serif;color:var(--ink)}
+.fld input,.fld textarea{font:400 16px 'Mulish',sans-serif;padding:12px 16px;border:1px solid #bdb6ab;border-radius:8px;background:var(--bg);color:var(--ink)}
+.fld input:focus,.fld textarea:focus{outline:2px solid var(--mauve-d);outline-offset:1px}
+.chk{display:flex;gap:var(--s1);align-items:flex-start;font-size:14px;grid-column:1/-1}
+.chk input{margin-top:4px}
+.info{display:grid;gap:var(--s2);align-content:start;margin-top:var(--s1)}
+.ic{display:flex;gap:var(--s2);background:var(--bg);padding:var(--s3);border-radius:0 0 40px 0;align-items:flex-start}
+.ic i{font-style:normal;font-size:24px}
+.ic h4{font-size:16px;margin-bottom:4px}
+.ic p{font-size:15px}
+.contact .nb{top:8px;left:16px}
+.ok{display:none;grid-column:1/-1;color:#2e6b3a;font-weight:600}
+/* footer */
+footer{background:var(--ink);color:#d9d4cc;position:relative}
+.fgrid{display:grid;grid-template-columns:1.4fr 1.3fr 1fr 1fr;gap:var(--s5);padding:var(--s8) 0 var(--s5)}
+footer h4{color:#fff;font-size:15px;margin-bottom:var(--s2);letter-spacing:.04em}
+footer p,footer li,footer a{font-size:15px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{text-decoration:none;color:#d9d4cc}footer a:hover{color:#fff;text-decoration:underline}
+footer .logo{color:#fff;margin-bottom:var(--s2)}
+footer .logo i{border-color:#bfb5a6;color:#bfb5a6}
+.soc{display:flex;gap:var(--s1);margin-top:var(--s2)}
+.soc a{width:40px;height:40px;border-radius:50%;border:1px solid #777;display:grid;place-items:center}
+.soc svg{width:18px;height:18px;fill:#fff}
+.hrs{display:grid;grid-template-columns:auto 1fr;gap:4px 16px}
+.hrs b{color:#fff;font-weight:600}
+.fbot{border-top:1px solid #444;padding:var(--s3) 0 var(--s4);font-size:12.5px;color:#9a948b;display:grid;gap:var(--s2)}
+.fbot a{font-size:12.5px;color:#9a948b;text-decoration:underline}
+.fbot .row{display:flex;justify-content:space-between;gap:var(--s2);flex-wrap:wrap;align-items:center}
+.cards{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.cc{border:1px solid #666;border-radius:4px;padding:2px 8px;font-size:11px;color:#bbb}
+footer .nb{top:16px;left:16px}
+/* floating */
+.fab-w{position:fixed;right:24px;bottom:24px;z-index:250;display:flex;flex-direction:column;align-items:flex-end;gap:var(--s1)}
+.fab{width:60px;height:60px;border-radius:50%;background:var(--mauve-d);color:#fff;border:3px solid #fff;font-size:26px;box-shadow:0 6px 18px rgba(0,0,0,.35);display:grid;place-items:center;padding:0}
+.fab:hover{background:var(--ink)}
+.fab-m{display:none;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.28);padding:var(--s1);min-width:240px}
+.fab-w.open .fab-m{display:block}
+.fab-m a{display:flex;gap:12px;align-items:center;padding:12px 16px;text-decoration:none;font:600 14px 'Montserrat',sans-serif;color:var(--ink);border-radius:8px}
+.fab-m a:hover{background:var(--bg)}
+.fab-w .nb{top:-10px;left:-10px;position:absolute}
+.fab-w .nb .tip{left:auto;right:0;top:-100px;bottom:auto}
+.fab-w .nb .tip{top:34px;right:-80px}
+/* cjenik */
+.pagehead{padding:var(--s8) 0 var(--s4);position:relative}
+.cj{max-width:820px;margin:0 auto;padding:0 var(--s3) var(--s10)}
+.cj .intro{margin:var(--s2) 0 var(--s3)}
+.cj input[type=search]{width:100%;font:400 16px 'Mulish',sans-serif;padding:14px 20px;border-radius:999px;border:1px solid #bdb6ab;background:#fff;color:var(--ink);margin-bottom:var(--s3)}
+.cj input:focus{outline:2px solid var(--mauve-d)}
+.acc{background:#fff;border-radius:12px;margin-bottom:var(--s1);overflow:hidden;border:1px solid var(--line)}
+.acc>button{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#fff;border:0;text-align:left;font:700 18px 'Montserrat',sans-serif;color:var(--ink)}
+.acc>button small{font:400 14px 'Mulish',sans-serif;color:var(--muted);margin-left:var(--s1)}
+.acc>button:after{content:"+";font-size:24px;color:var(--mauve-d);margin-left:auto;padding-left:16px}
+.acc.open>button:after{content:"–"}
+.acc .rows{display:none;border-top:1px solid var(--line)}
+.acc.open .rows{display:block}
+.rw{display:grid;grid-template-columns:1fr auto;gap:var(--s2);padding:8px 24px;font-size:15px}
+.rw:nth-child(even){background:var(--bg)}
+.rw b{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--ink);text-align:right;white-space:nowrap;font-size:15px}
+.note{font-size:13px;color:var(--muted);margin-top:var(--s2)}
+.empty{display:none;padding:var(--s3);text-align:center;color:var(--muted)}
+.pagehead .nb{top:16px;left:16px}
+/* legend */
+.legend{max-width:1200px;margin:var(--s5) auto;padding:var(--s4);background:#fff;border-radius:0 0 40px 0;border:1px solid var(--line)}
+.legend h2{font-size:24px}
+.legend ol{columns:2;column-gap:var(--s5);margin:var(--s3) 0 0;padding:0;list-style:none}
+.legend li{display:flex;gap:12px;font-size:14px;margin-bottom:10px;break-inside:avoid;line-height:1.45}
+.legend li b{flex:0 0 26px;height:26px;border-radius:50%;background:#C2185B;color:#fff;font:700 12px 'Montserrat',sans-serif;display:grid;place-items:center}
+.vsw{display:flex;gap:var(--s1);flex-wrap:wrap;margin-top:var(--s2);align-items:center;font-size:14px}
+.vsw button{border:1px solid var(--mauve-d);background:#fff;color:var(--mauve-d);padding:8px 16px;border-radius:999px;font:600 13px 'Montserrat',sans-serif}
+.vsw button[aria-pressed=true]{background:var(--mauve-d);color:#fff}
+/* mobile stage */
+.stage{display:none;padding:var(--s5) 0;text-align:center}
+.phone{display:inline-block;position:relative;background:#1e1e1e;padding:14px;border-radius:44px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.phone iframe{width:390px;height:780px;border:0;border-radius:30px;background:#fff;display:block}
+.phone .nb{top:-8px;right:-8px}
+.phone .nb .tip{right:0;left:auto;width:240px}
+.stage p{margin-top:var(--s2);font-size:14px;color:var(--muted)}
+body.view-mobile .site{display:none}
+body.view-mobile .stage{display:block}
+body.view-mobile .fab-w{display:none}
+body.view-mobile .pop{display:none!important}
+body.mobile-embed .toolbar,body.mobile-embed .legend,body.mobile-embed .stage{display:none!important}
+body.mobile-embed{background:var(--bg)}
+body.mobile-embed .legend{display:none}
+body.mobile-embed .site{max-width:none}
+@media (min-width:1081px){
+ .grid4 .card:nth-child(n+9){grid-column:span 2;flex-direction:row}
+ .grid4 .card:nth-child(n+9) .ph{aspect-ratio:auto;flex:0 0 42%}
+}
+@media (max-width:1080px){
+ .grid4{grid-template-columns:repeat(2,1fr)}
+ .fgrid{grid-template-columns:1fr 1fr}
+ .team .wrap{grid-template-columns:1fr auto}
+ .team .wrap>.btn{grid-column:1/-1;justify-self:start}
+ nav.main{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;padding:var(--s2);box-shadow:0 12px 24px rgba(0,0,0,.15);z-index:90}
+ nav.main.open{display:flex}
+ .burger{display:block}
+ .dd-menu{position:static;box-shadow:none;padding-left:var(--s2)}
+ .dd:hover .dd-menu{display:none}.dd.open .dd-menu{display:block}
+ .top .ph-btn{margin-left:auto}.burger{margin-left:0}
+}
+@media (max-width:820px){
+ .sec{padding:var(--s6) 0}
+ .hero{padding:var(--s4) 0 var(--s6)}
+ .hero .wrap,.about .wrap,.contact .wrap{grid-template-columns:1fr;gap:var(--s5)}
+ .hero-photo{order:-1}
+ .hero .ph{border-radius:0 0 72px 0;min-height:220px}
+ .hero-photo:before{border-radius:0 0 72px 0}
+ .grid3{grid-template-columns:1fr}
+ .team .wrap{grid-template-columns:1fr}
+ .strip-in{justify-content:flex-start}
+ .legend ol{columns:1}
+ .ph{border-radius:0 0 48px 0}
+ .top-info .wrap{justify-content:center;font-size:12px;min-height:32px}
+ .top-info .wrap span:nth-child(n+2){display:none}
+ .logo{font-size:12px}
+ .fgrid{grid-template-columns:1fr}
+ .pop{left:16px;right:88px;width:auto;bottom:16px}
+ .fab-w{right:16px;bottom:16px}
+ .tab{padding:12px 8px}
+ .top .ph-btn{padding:10px 14px;font-size:13px}
+ form.f{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+ .grid4{grid-template-columns:1fr}
+ .wrap{padding:0 var(--s2)}
+ .toolbar .ttl{display:none}
+ .stat{padding:var(--s3)}
+ .announce{font-size:13px}
+ .top .logo span{max-width:130px}
+}
+@media (max-width:600px){.logos{gap:8px;flex-wrap:nowrap}.lg{width:auto;flex:1;height:52px;font-size:11px;text-align:center;padding:0 4px}}
+</style>
+</head>
+<body data-v="A">
+
+<div class="toolbar" role="toolbar" aria-label="Wireframe alati">
+ <span class="ttl">WIREFRAME · Omnia Medicus</span>
+ <div class="tabs" role="tablist">
+  <button class="tab" role="tab" data-view="home" aria-selected="true">Naslovnica</button>
+  <button class="tab" role="tab" data-view="cjenik" aria-selected="false">Cjenik (mockup)</button>
+  <button class="tab" role="tab" data-view="mobile" aria-selected="false">Mobilni prikaz</button>
+ </div>
+ <button class="tgl" id="tgl" aria-pressed="true">Prikaži/sakrij bilješke</button>
+</div>
+
+<div class="site" id="site">
+
+ <!-- 1 announcement -->
+ <div class="announce" id="bar" role="region" aria-label="Obavijest o akciji">
+  <button class="nb" data-n="3" aria-label="Bilješka 3">3<span class="tip"><b>Točka 3/4 – Akcija izvan hero-a.</b> Tanka traka s tekstom koji se kreće (pauzira na hover) umjesto plakata zapečenog u fotografiju. Varijanta A.</span></button>
+  <div class="marq" tabindex="0"><div class="marq-track" id="mq"></div></div>
+  <button class="x" id="barx" aria-label="Zatvori traku">×</button>
+ </div>
+
+ <!-- top info + header -->
+ <div class="top-info"><div class="wrap"><span>📞 +385 91 515 0062</span><span>✉ poliklinika@poliklinika-omnia-medicus.hr</span><span>🕗 Pon–pet 08:00–21:00</span></div></div>
+ <header class="top">
+  <button class="nb" data-n="1" aria-label="Bilješka 1">1<span class="tip"><b>Točka 1 – Navigacija.</b> Padajući izbornik „Usluge" navodi svih 10 usluga; telefon je stalno vidljiv kao gumb u zaglavlju.</span></button>
+  <div class="wrap">
+   <a class="logo" href="#"><i>LOGO</i><span>POLIKLINIKA<br>OMNIA MEDICUS</span></a>
+   <nav class="main" id="nav" aria-label="Glavni izbornik">
+    <a href="#o-nama">O nama</a>
+    <div class="dd" id="dd"><button aria-haspopup="true" id="ddb">Usluge ▾</button><div class="dd-menu" id="ddm"></div></div>
+    <a href="#tim">Naš tim</a>
+    <a href="#" data-go="cjenik">Cjenik</a>
+    <a href="#aktualno">Aktualno</a>
+    <a href="#kontakt">Kontakt</a>
+   </nav>
+   <a class="btn btn-p btn-sm ph-btn" href="tel:+385915150062">📞 091 515 0062</a>
+   <button class="burger" id="burger" aria-label="Izbornik">☰</button>
+  </div>
+ </header>
+
+ <!-- HOME -->
+ <main id="home">
+  <section class="hero">
+   <button class="nb a" data-n="3" aria-label="Bilješka 3">3<span class="tip"><b>Točka 3 – Miran hero.</b> Jedna statična fotografija, bez slidera i bez teksta u slici; tekst je čitljiv HTML.</span></button>
+   <button class="nb b r" data-n="7" aria-label="Bilješka 7">7<span class="tip"><b>Točka 7 – Tipografija.</b> Veliki podebljani naslovi (Montserrat 700), manji i tanji tekst (Mulish 400). Samo 2–3 debljine.</span></button>
+   <div class="wrap">
+    <div>
+     <div class="eyebrow">Poliklinika u Sinju</div>
+     <h1>Vrhunska zdravstvena briga na jednom mjestu</h1>
+     <p class="lead">Moderna poliklinika s iskusnim stručnjacima, kratkim čekanjem i jasnim cijenama.</p>
+     <div class="btns">
+      <a class="btn btn-p" href="#kontakt" data-go="form">📅 Rezerviraj termin</a>
+      <a class="btn btn-s" href="#" data-go="cjenik">€ Pogledaj cjenik</a>
+     </div>
+    </div>
+    <div class="hero-photo"><div class="ph"><span>Fotografija: recepcija</span></div></div>
+   </div>
+  </section>
+  <div class="strip">
+   <button class="nb" data-n="8" aria-label="Bilješka 8">8<span class="tip"><b>Točka 8 – Jedna poruka, jasna točka fokusa.</b> Hero ima jedan naslov i dva gumba; ispod je odmah stalno vidljiv popis svih usluga.</span></button>
+   <button class="nb b r" data-n="1" aria-label="Bilješka 1">1<span class="tip"><b>Točka 1 – Usluge uvijek na vidiku.</b> Traka s 10 usluga uz hero; na mobitelu se pomiče vodoravno.</span></button>
+   <div class="strip-in" id="strip"></div>
+  </div>
+
+  <section class="trust">
+   <button class="nb" data-n="11" aria-label="Bilješka 11">11<span class="tip"><b>Točka 11 – Ugovorni partneri.</b> Logotipi su samo informativni, NISU poveznice (kursor ostaje strelica).</span></button>
+   <div class="wrap"><h4>Ugovorni partneri</h4>
+    <div class="logos"><div class="lg">Merkur osiguranje</div><div class="lg">Grawe</div><div class="lg">Croatia osiguranje</div></div>
+   </div>
+  </section>
+
+  <section class="sec" id="usluge">
+   <button class="nb a" data-n="5" aria-label="Bilješka 5">5<span class="tip"><b>Točka 5 – Mreža usluga.</b> 10 jednakih kartica umjesto 2 fotografije i 9 sivih gumba; nema praznog prostora.</span></button>
+   <button class="nb b" data-n="2" aria-label="Bilješka 2">2<span class="tip"><b>Točka 2 – Fotografije.</b> Kadar se bira pri uploadu – fokus na lice/osobu; omjer 4:3.</span></button>
+   <div class="wrap">
+    <div class="sec-head"><div><h2>Naše usluge</h2><p>Odaberite područje i saznajte što vam možemo ponuditi.</p></div></div>
+    <div class="grid4" id="grid"></div>
+   </div>
+  </section>
+
+  <section class="sec about" id="o-nama" style="background:#fff">
+   <div class="wrap">
+    <div class="ph"><span>Fotografija: ordinacija</span></div>
+    <div class="about-t"><div class="eyebrow">O poliklinici</div><h2>Zdravlje na dohvat ruke, u srcu Sinja</h2>
+     <p>Poliklinika Omnia Medicus nudi širok raspon specijalističkih pregleda i zahvata na jednom mjestu. Cilj nam je da se svaki pacijent osjeća sigurno i zbrinuto.</p>
+     <a class="btn btn-s" href="#">Više o nama</a></div>
+   </div>
+  </section>
+
+  <section class="sec team" id="tim">
+   <button class="nb" data-n="10" aria-label="Bilješka 10">10<span class="tip"><b>Točka 10 – Gumbi umjesto malih linkova.</b> Svaki poziv na akciju je pravi gumb.</span></button>
+   <div class="wrap">
+    <div><div class="eyebrow" style="color:#3d3a35">Stručni tim</div><h2>Stručni tim s iskustvom</h2><p>Naši liječnici i suradnici godinama liječe pacijente iz Sinja i cijele regije. Upoznajte ljude kojima povjeravate svoje zdravlje.</p></div>
+    <div class="stat"><b>13</b><span>stručnjaka</span></div>
+    <a class="btn btn-p" href="#">Upoznajte tim</a>
+   </div>
+  </section>
+
+  <section class="sec" id="aktualno">
+   <button class="nb a" data-n="4" aria-label="Bilješka 4">4<span class="tip"><b>Točka 4 – Aktualno bez akcija.</b> Akcije se više NE objavljuju ovdje nego u traci/skočnom baneru; ovdje ostaju samo članci.</span></button>
+   <button class="nb b" data-n="2" aria-label="Bilješka 2">2<span class="tip"><b>Točka 2 – Naslovne fotografije.</b> Posebna dimenzija 16:9 za naslovnice članaka.</span></button>
+   <button class="nb c" data-n="10" aria-label="Bilješka 10">10<span class="tip"><b>Točka 10 – Pravi gumb.</b> „Pročitaj članak →" umjesto sitnog „SAZNAJ VIŠE".</span></button>
+   <div class="wrap">
+    <div class="sec-head"><div><h2>Aktualno</h2><p>Savjeti i novosti iz poliklinike.</p></div><a class="btn btn-s" href="#">Vidi sve</a></div>
+    <div class="grid3">
+     <article class="post"><div class="ph"><span>Naslovna fotografija 16:9 (zasebna dimenzija)</span></div><div class="card-b"><time>1. listopada 2026.</time><h3>Ružičasti listopad: zašto je važan redoviti pregled dojki</h3><p>Rano otkrivanje bitno povećava uspješnost liječenja.</p><a class="btn btn-p btn-sm" href="#">Pročitaj članak →</a></div></article>
+     <article class="post"><div class="ph"><span>Naslovna fotografija 16:9 (zasebna dimenzija)</span></div><div class="card-b"><time>18. rujna 2026.</time><h3>Kako se pripremiti za ultrazvučni pregled</h3><p>Nekoliko jednostavnih savjeta prije dolaska na pregled.</p><a class="btn btn-p btn-sm" href="#">Pročitaj članak →</a></div></article>
+     <article class="post"><div class="ph"><span>Naslovna fotografija 16:9 (zasebna dimenzija)</span></div><div class="card-b"><time>4. rujna 2026.</time><h3>Zdravlje vena: kada posjetiti specijalista</h3><p>Prepoznajte simptome i saznajte mogućnosti liječenja.</p><a class="btn btn-p btn-sm" href="#">Pročitaj članak →</a></div></article>
+    </div>
+   </div>
+  </section>
+
+  <section class="sec contact" id="kontakt">
+   <button class="nb" data-n="10" aria-label="Bilješka 10">10<span class="tip"><b>Točka 10 – Jasan gumb.</b> Kratki obrazac s jednim istaknutim gumbom; kontakt podaci uz bok.</span></button>
+   <div class="wrap">
+    <div><h2>Kontaktirajte nas</h2><p style="margin-top:8px">Pošaljite upit i javit ćemo vam se u najkraćem roku.</p>
+     <form class="f" id="form">
+      <div class="fld"><label for="f1">Ime i prezime</label><input id="f1" required></div>
+      <div class="fld"><label for="f2">Telefon</label><input id="f2" type="tel"></div>
+      <div class="fld full"><label for="f3">E-mail</label><input id="f3" type="email" required></div>
+      <div class="fld full"><label for="f4">Poruka</label><textarea id="f4" rows="4"></textarea></div>
+      <label class="chk"><input type="checkbox" required> Pročitao/la sam i prihvaćam pravila o privatnosti.</label>
+      <div><button class="btn btn-p" type="submit">Pošalji upit ✉</button></div>
+      <div class="ok" id="ok">Hvala! (wireframe – upit nije poslan)</div>
+     </form></div>
+    <div class="info">
+     <div class="ic"><i>📍</i><div><h4>Adresa</h4><p>Put Piketa 2, 21230 Sinj</p></div></div>
+     <div class="ic"><i>📞</i><div><h4>Telefon</h4><p>+385 91 515 0062</p></div></div>
+     <div class="ic"><i>✉</i><div><h4>E-mail</h4><p>poliklinika@poliklinika-omnia-medicus.hr</p></div></div>
+     <div class="ic"><i>🕗</i><div><h4>Radno vrijeme</h4><p>Pon–pet 08:00–21:00</p></div></div>
+    </div>
+   </div>
+  </section>
+ </main>
+
+ <!-- CJENIK -->
+ <main id="cjenik" hidden>
+  <div class="wrap pagehead" style="max-width:820px;padding-bottom:0">
+   <button class="nb" data-n="6" aria-label="Bilješka 6">6<span class="tip"><b>Točka 6 – Cjenik.</b> Pretraga + accordion kategorije (zatvorene), kompaktna tablica ≤ 820 px, bez praznine s desne strane. Cijene su ilustrativne.</span></button>
+   <h1 style="font-size:clamp(32px,4vw,44px)">Cjenik</h1>
+  </div>
+  <div class="cj">
+   <p class="intro">Pregledajte cijene naših usluga po područjima ili pretražite točnu uslugu.</p>
+   <input type="search" id="q" placeholder="Pretraži uslugu…" aria-label="Pretraži uslugu">
+   <div id="accs"></div>
+   <div class="empty" id="empty">Nema rezultata za traženi pojam.</div>
+   <p class="note">Napomena: cijene su ilustrativne i služe samo za prikaz izgleda stranice.</p>
+  </div>
+ </main>
+
+ <!-- FOOTER -->
+ <footer>
+  <button class="nb" data-n="9" aria-label="Bilješka 9">9<span class="tip"><b>Točka 9 – Podnožje.</b> Jasni stupci: kontakt, zasebno radno vrijeme, usluge, društvene mreže. OIB/MBS/IBAN prebačeni u sitan, blijed donji red.</span></button>
+  <div class="wrap">
+   <div class="fgrid">
+    <div><a class="logo" href="#"><i>LOGO</i><span>POLIKLINIKA<br>OMNIA MEDICUS</span></a><p>Moderna poliklinika u Sinju – specijalistički pregledi, dijagnostika i zahvati na jednom mjestu.</p>
+     <div class="soc"><a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8V6.5c0-.7.2-1 1.1-1H17V2h-2.8C11.4 2 10 3.700 10 6.200V8H8v3.500h2V22h4V11.500h2.700L17 8z"/></svg></a><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3zm5 3.500a4.500 4.500 0 110 9 4.500 4.500 0 010-9zm0 2a2.500 2.500 0 100 5 2.500 2.500 0 000-5zM17.500 6a1 1 0 110 2 1 1 0 010-2z"/></svg></a></div></div>
+    <div><h4>Kontakt</h4><ul><li>Put Piketa 2, 21230 Sinj</li><li><a href="tel:+385915150062">+385 91 515 0062</a></li><li><a href="mailto:poliklinika@poliklinika-omnia-medicus.hr">poliklinika@poliklinika-omnia-medicus.hr</a></li></ul></div>
+    <div><h4>Radno vrijeme</h4><div class="hrs"><b>Pon–pet</b><span>08:00–21:00</span><b>Sub i ned</b><span>zatvoreno</span></div></div>
+    <div><h4>Usluge</h4><ul id="fsv"></ul></div>
+   </div>
+   <div class="fbot">
+    <div class="row"><span>Poliklinika Omnia Medicus · OIB 39435274456 · MBS 060487439 · IBAN HR6323600001103158217, Zagrebačka banka d.d.</span><span><a href="#">Pravila o privatnosti</a> · <a href="#">Kolačići</a></span></div>
+    <div class="row"><span class="cards">Obročno do 12 rata (ZABA, PBZ, OTP, Erste) <span class="cc">VISA</span><span class="cc">MC</span><span class="cc">Maestro</span><span class="cc">Diners</span></span><span>© 2026 · Izrada: Fer Projekt</span></div>
+   </div>
+  </div>
+ </footer>
+</div>
+
+<!-- mobile stage -->
+<section class="stage" id="stage">
+ <div class="phone">
+  <button class="nb r" data-n="13" aria-label="Bilješka 13">13<span class="tip"><b>Točka 13 – Mobilni prikaz.</b> Isti sadržaj u jednom stupcu: usluge se pomiču vodoravno, kartice jedna ispod druge, plutajući kontakt uvijek dostupan.</span></button>
+  <iframe id="mif" title="Mobilni prikaz naslovnice"></iframe>
+ </div>
+ <p>Prikaz na 390 px (interaktivan – možete se pomicati unutar okvira).</p>
+</section>
+
+<!-- popup variant B -->
+<aside class="pop" id="pop" aria-label="Akcija mjeseca">
+ <button class="nb" data-n="3" aria-label="Bilješka 3">3<span class="tip"><b>Točka 3 – Varijanta B.</b> Skočni baner dolje lijevo nakon ~2 s, lako se zatvara. Zamjenjuje plakat u hero-u.</span></button>
+ <button class="x" id="popx" aria-label="Zatvori">×</button>
+ <div class="ph mauve"><span>Fotografija: akcija</span></div>
+ <div class="pop-b"><div class="tag">Akcija mjeseca</div><h4>Ružičasti listopad</h4><p>Ultrazvuk dojki 50 € umjesto 60 € (gotovinsko plaćanje).</p><a class="btn btn-p btn-sm" href="#kontakt" data-go="form">Rezerviraj</a></div>
+</aside>
+
+<!-- floating contact -->
+<div class="fab-w" id="fabw">
+ <button class="nb r" data-n="12" aria-label="Bilješka 12">12<span class="tip"><b>Točka 12 – Plutajući kontakt.</b> Uvijek vidljiv gumb dolje desno: Nazovi, poruka, e-mail, zatraži ponudu.</span></button>
+ <div class="fab-m" id="fabm">
+  <a href="tel:+385915150062">📞 Nazovi</a>
+  <a href="https://wa.me/385915150062">💬 WhatsApp / Viber poruka</a>
+  <a href="mailto:poliklinika@poliklinika-omnia-medicus.hr">✉ E-mail</a>
+  <a href="#kontakt" data-go="form">📝 Zatraži ponudu</a>
+ </div>
+ <button class="fab" id="fab" aria-label="Kontakt" aria-expanded="false">💬</button>
+</div>
+
+<!-- legend -->
+<section class="legend" id="legend">
+ <h2>Bilješke uz zapisnik</h2>
+ <p style="font-size:14px;margin-top:4px">Brojevi odgovaraju točkama iz zapisnika sa sastanka (kratki sažeci).</p>
+ <ol>
+  <li><b>1</b><span>Sve usluge stalno vidljive: padajući izbornik i traka s uslugama ispod hero-a.</span></li>
+  <li><b>2</b><span>Fotografije: kadar se bira pri uploadu (lice/osoba), 4:3 za usluge, 16:9 za članke.</span></li>
+  <li><b>3</b><span>Bez slidera. Akcije: (a) skočni baner s X ili (b) tanka traka na vrhu s tekstom koji se kreće.</span></li>
+  <li><b>4</b><span>Aktualno ostaje za blog; kratkotrajne akcije (npr. UZV dojke u listopadu) odvojeno – traka/baner.</span></li>
+  <li><b>5</b><span>Fotografija iznad svake usluge + CTA; bez praznog bijelog prostora.</span></li>
+  <li><b>6</b><span>Cjenik kao pretraga + accordion kategorije i kompaktna tablica.</span></li>
+  <li><b>7</b><span>Jasna tipografska hijerarhija: veliki podebljani naslovi, manji tanji tekst.</span></li>
+  <li><b>8</b><span>Naslovnica rasterećena: jedna poruka, jasno kamo pogled ide prvo.</span></li>
+  <li><b>9</b><span>Footer: OIB/MBS/IBAN manje vidljivi, radno vrijeme odvojeno, logotip i društvene mreže.</span></li>
+  <li><b>10</b><span>CTA kao gumb s ikonom (Saznaj više, Pošalji upit) – i u člancima Aktualno.</span></li>
+  <li><b>11</b><span>Logotipi ugovornih partnera (bez poveznica).</span></li>
+  <li><b>12</b><span>Lebdeći kontakt gumb: poziv, poruka, e-mail, zatraži ponudu.</span></li>
+  <li><b>13</b><span>Prilagodba za mobitel (jedan stupac, vodoravna traka usluga).</span></li>
+  <li><b>14</b><span>Blog jednom tjedno (Telum) – informativno, bez izmjena.</span></li>
+ </ol>
+ <div class="vsw" role="group" aria-label="Varijanta akcije">
+  <span><b>Akcija mjeseca:</b></span>
+  <button data-v="A" aria-pressed="true">Varijanta A: traka</button>
+  <button data-v="B" aria-pressed="false">Varijanta B: skočni baner</button>
+  <button data-v="AB" aria-pressed="false">Obje</button>
+ </div>
+ <p style="font-size:12.5px;margin-top:16px;color:#6B6B6B">Brojevi prate zapisnik sastanka od 22. 9. 2026. Cijene u cjeniku su ilustrativne.</p>
+</section>
+
+<script>
+(function(){
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var SV=[
+["Estetska medicina","✨","Njega i obnova kože te tretmani za svjež izgled."],
+["Kirurgija","🩹","Dijagnostika i manji kirurški zahvati."],
+["Kardiologija","❤️","Pregledi srca, EKG i ultrazvuk srca."],
+["Pulmologija","🫁","Pregledi i dijagnostika bolesti pluća."],
+["Urologija","💧","Pregledi i liječenje tegoba mokraćnog sustava."],
+["Ortopedija","🦴","Bolovi u zglobovima, leđima i kralježnici."],
+["UZV dijagnostika","🔍","Ultrazvučni pregledi bez dugog čekanja."],
+["Operacije proširenih vena","🦵","Suvremeno liječenje proširenih vena nogu."],
+["Fizikalna medicina","🏃","Rehabilitacija i terapija bolova."],
+["Endokrinologija","🧬","Štitnjača, dijabetes i hormonski status."]];
+var FULL={"Endokrinologija":"Endokrinologija i dijabetologija"};
+var qs=new URLSearchParams(location.search),MOB=qs.get('mobile')==='1';
+if(MOB)document.body.classList.add('mobile-embed');
+// render
+$('#mq').innerHTML=(function(){var t='<span>🎀 Ružičasti listopad — ultrazvuk dojki 50 € umjesto 60 € (gotovinsko plaćanje) · <a href="#kontakt" data-go="form">Rezervirajte termin →</a></span>';return t+t+t+t})();
+$('#ddm').innerHTML=SV.map(function(s){return '<a href="#usluge">'+(FULL[s[0]]||s[0])+'</a>'}).join('');
+$('#strip').innerHTML=SV.map(function(s){return '<a class="chip" href="#usluge"><em aria-hidden="true">'+s[1]+'</em>'+s[0]+'</a>'}).join('');
+$('#grid').innerHTML=SV.map(function(s){return '<article class="card"><div class="ph"><span>Fotografija: '+s[0].toLowerCase()+'</span></div><div class="card-b"><h3>'+(FULL[s[0]]||s[0])+'</h3><p>'+s[2]+'</p><a class="btn btn-s btn-sm" href="#">Saznaj više →</a></div></article>'}).join('');
+$('#fsv').innerHTML=SV.map(function(s){return '<li><a href="#usluge">'+s[0]+'</a></li>'}).join('');
+// cjenik
+var PR={
+"Kirurgija":[["Specijalistički kirurški pregled",40],["Ekscizija madeža",90],["Ekscizija lipoma",150],["Previjanje i skidanje šavova",20],["Operacija urasla nokta",80]],
+"Kardiologija":[["Kardiološki pregled",50],["EKG",25],["Ultrazvuk srca",70],["Holter EKG 24 h",60],["Test opterećenja",65]],
+"UZV dijagnostika":[["Ultrazvuk dojki",60],["Ultrazvuk abdomena",45],["Ultrazvuk štitnjače",40],["Ultrazvuk mokraćnog sustava",40],["Color doppler vena nogu",70],["Ultrazvuk mekih česti",40]],
+"Estetska medicina":[["Konzultacije",0],["Botulinum – jedno područje",180],["Hijaluronski filer 1 ml",250],["Kemijski piling",70],["Mezoterapija lica",120]],
+"Ortopedija":[["Ortopedski pregled",50],["Infiltracija zgloba",70],["Kontrolni pregled",30],["Ortopedska pomagala – savjetovanje",20]],
+"Urologija":[["Urološki pregled",50],["Ultrazvuk prostate",45],["Uroflowmetrija",40],["Kontrolni pregled",30]]};
+function fm(n){return n===0?'besplatno':n.toFixed(2).replace('.',',')+' €'}
+var A=$('#accs'),h='';
+Object.keys(PR).forEach(function(k,i){h+='<div class="acc" data-k="'+k+'"><button aria-expanded="false" aria-controls="r'+i+'">'+k+'<small data-c>('+PR[k].length+' stavki)</small></button><div class="rows" id="r'+i+'">'+PR[k].map(function(r){return '<div class="rw"><span>'+r[0]+'</span><b>'+fm(r[1]).replace('besplatno','Besplatno')+'</b></div>'}).join('')+'</div></div>'});
+A.innerHTML=h;
+function setOpen(a,o){a.classList.toggle('open',o);$('button',a).setAttribute('aria-expanded',o)}
+A.addEventListener('click',function(e){var b=e.target.closest('.acc>button');if(b)setOpen(b.parentNode,!b.parentNode.classList.contains('open'))});
+$('#q').addEventListener('input',function(){
+ var q=this.value.trim().toLowerCase(),any=false;
+ $$('.acc',A).forEach(function(a){var n=0;$$('.rw',a).forEach(function(r){var m=!q||r.textContent.toLowerCase().indexOf(q)>-1;r.style.display=m?'':'none';if(m)n++});
+  a.style.display=n?'':'none';if(n)any=true;$('[data-c]',a).textContent='('+n+' '+(n===1?'stavka':'stavki')+')';
+  setOpen(a,!!q&&n>0)});
+ $('#empty').style.display=any?'none':'block';
+ $$('.rw',A).forEach(function(r){}); // zebra recalculated below
+});
+// view switching
+var cur='home';
+function view(v){
+ cur=v;
+ $('#home').hidden=v!=='home';$('#cjenik').hidden=v!=='cjenik';
+ document.body.classList.toggle('view-mobile',v==='mobile');
+ $$('.tab').forEach(function(t){t.setAttribute('aria-selected',t.dataset.view===v)});
+ if(v==='mobile'){var f=$('#mif');if(!f.getAttribute('src'))f.src='?mobile=1'}
+ window.scrollTo(0,0);
+}
+$$('.tab').forEach(function(t){t.onclick=function(){view(t.dataset.view)}});
+// delegated clicks
+document.addEventListener('click',function(e){
+ var nb=e.target.closest('.nb');
+ $$('.nb.open').forEach(function(x){if(x!==nb)x.classList.remove('open')});
+ if(nb){nb.classList.toggle('open');e.preventDefault();return}
+ var g=e.target.closest('[data-go]');
+ if(g){e.preventDefault();var w=g.dataset.go;
+  if(w==='cjenik'){view('cjenik')}
+  else{if(cur!=='home')view('home');setTimeout(function(){$('#kontakt').scrollIntoView({behavior:'smooth'})},30)}
+  $('#nav').classList.remove('open');$('#fabw').classList.remove('open');return}
+ var a=e.target.closest('a[href="#"]');if(a)e.preventDefault();
+ var h=e.target.closest('a[href^="#"]');
+ if(h&&h.getAttribute('href').length>1){if(cur!=='home'&&!MOB){e.preventDefault();view('home');var id=h.getAttribute('href');setTimeout(function(){var t=$(id);t&&t.scrollIntoView({behavior:'smooth'})},30)}$('#nav').classList.remove('open')}
+ if(!e.target.closest('#dd'))$('#dd').classList.remove('open');
+});
+// nav
+$('#burger').onclick=function(){$('#nav').classList.toggle('open')};
+$('#ddb').onclick=function(){$('#dd').classList.toggle('open')};
+// notes toggle
+$('#tgl').onclick=function(){var off=document.body.classList.toggle('notes-off');this.setAttribute('aria-pressed',!off)};
+// announcement/popup
+var barGone=false,popGone=false,pt;
+$('#barx').onclick=function(){$('#bar').classList.add('gone');barGone=true};
+$('#popx').onclick=function(){$('#pop').classList.remove('show');popGone=true;clearTimeout(pt)};
+function variant(v){
+ document.body.dataset.v=v==='AB'?'AB':v;
+ $$('.vsw button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v)});
+ barGone=false;popGone=false;$('#bar').classList.remove('gone');
+ if(v==='B')$('#bar').classList.add('gone');
+ $('#pop').classList.remove('show');clearTimeout(pt);
+ if(v!=='A')pt=setTimeout(function(){if(!popGone)$('#pop').classList.add('show')},v===cv0?2000:500);
+}
+var cv0='A';
+$$('.vsw button').forEach(function(b){b.onclick=function(){variant(b.dataset.v)}});
+// fab
+function fab(o){$('#fabw').classList.toggle('open',o);$('#fab').setAttribute('aria-expanded',o);$('#fab').textContent=o?'×':'💬'}
+$('#fab').onclick=function(){fab(!$('#fabw').classList.contains('open'))};
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){fab(false);$$('.nb.open').forEach(function(x){x.classList.remove('open')});$('#dd').classList.remove('open')}});
+// form
+$('#form').addEventListener('submit',function(e){e.preventDefault();$('#ok').style.display='block'});
+// init
+if(MOB){document.body.classList.add('mobile-embed')}
+variant('A');
+})();
+</script>
+</body>
+</html>
