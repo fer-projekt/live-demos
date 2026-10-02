@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popis ekrana – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="INDEX" data-shell="none">
+<main class="max-w-6xl mx-auto px-4 py-6">
+  <h1 class="wf-h1">D&amp;ST Grow &amp; Reward – wireframe</h1>
+  <p class="wf-sub">KONČAR D&amp;ST · Fer Projekt · interni radni materijal, stanje 2. 10. 2026. Izvor istine je Specifikacija; svi podaci na ekranima su izmišljeni.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Što je ovo</dt><dd>Low-fi, crno-bijeli prikaz svih ekrana četiri modula i temelja aplikacije. Ništa se ne sprema; gumbi samo pokazuju što bi se dogodilo.</dd>
+      <dt>Kako se koristi</dt><dd>
+        <ul>
+          <li>Crna traka na vrhu pripada wireframeu, ne aplikaciji: listanje ekrana (← →), povratak na popis, izbor uloge za lijevi izbornik i skrivanje bilješki.</li>
+          <li>Isprekidani okviri s naslovom „Bilješka za wireframe“ objašnjavaju tko koristi ekran, čemu služi i koja pravila vrijede.</li>
+          <li>Oznake poput <span class="wf-p">P11</span> upućuju na otvoreno pitanje iz Specifikacije; prijeđite mišem za tekst. <span class="wf-p">N1</span> su nova pitanja uočena tijekom izrade wireframea, a <span class="wf-p">prijedlog</span> je naš prijedlog koji klijent nije tražio.</li>
+          <li>Gdje postoji okvir „Stanje ekrana“, isti ekran može se prikazati u više stanja (npr. upozorenje, blokada, zaključano).</li>
+        </ul>
+      </dd>
+      <dt>Odstupanja od popisa ekrana iz uputa</dt><dd>
+        <ul>
+          <li>Dodan je <b>F1.4b Detalj prijedloga</b> (popis i detalj odobravatelja su dva ekrana).</li>
+          <li>Dodan je <b>F2.10 Budžet napredovanja</b>: Specifikacija traži da član Uprave stalno vidi budžet napredovanja, a ekrana nije bilo na popisu.</li>
+        </ul>
+      </dd>
+    </dl>
+  </section>
+
+  <h2 class="wf-section-title">Legenda</h2>
+  <div class="wf-grid md:grid-cols-2">
+    <div class="wf-card">
+      <div class="wf-kv">
+        <dt>Polje koje računa sustav</dt><dd><span class="wf-calc">2.205,00 €</span></dd>
+        <dt>Podatak koji se puni sam</dt><dd><span class="wf-locked">Projekt tehnologije</span></dd>
+        <dt>Unos</dt><dd><select class="wf-select" style="max-width:120px"><option>3</option></select></dd>
+        <dt>Gumbi</dt><dd class="wf-actions"><button type="button" class="wf-btn-primary">Predaj na odobrenje</button><button type="button" class="wf-btn">Spremi</button><button type="button" class="wf-btn" disabled>Nedostupno</button></dd>
+      </div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-kv">
+        <dt>Statusi</dt><dd class="flex flex-wrap gap-1">
+          <span class="wf-status is-draft">Spremljeno</span>
+          <span class="wf-status">Poslano HR-u</span>
+          <span class="wf-status is-back">Vraćeno na doradu</span>
+          <span class="wf-status is-done">Odobreno</span>
+          <span class="wf-status is-closed">Zaključano</span>
+        </dd>
+        <dt>Budžet</dt><dd>
+          <div class="wf-meter"><span class="used" style="width:27%"></span><span class="res" style="width:58%"></span></div>
+          <div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div>
+        </dd>
+      </div>
+    </div>
+  </div>
+  <div class="wf-grid md:grid-cols-2 mt-3">
+    <div class="wf-alert">Zaposlenik s ovim ocjenama ne ostvaruje pravo na godišnju nagradu.</div>
+    <div class="wf-block">Prijedlog premašuje raspoloživi budžet odjela.</div>
+  </div>
+  <div class="wf-table-wrap"><table class="wf-table"><tbody>
+    <tr class="wf-disabled-row"><td>Ema Tomić</td><td>Pripravnik · zaposlena 1. 6. 2026.</td><td>ne može se predložiti u prvih 12 mjeseci</td></tr>
+  </tbody></table></div>
+
+  <div id="wf-index"></div>
+
+  <h2 class="wf-section-title">Pitanja na koja upućuju oznake</h2>
+  <p class="wf-sub">P1–P31 su otvorena pitanja iz Specifikacije (skraćeno). N# su nova pitanja uočena tijekom izrade wireframea; treba ih prebaciti u Specifikaciju ili riješiti s Naručiteljem.</p>
+  <div id="wf-questions"></div>
+</main>
+</body>
+</html>

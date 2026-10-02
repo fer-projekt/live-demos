@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2.9 Izvještaj napredovanja po odjelu – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F2.9">
+<main>
+  <h1 class="wf-h1">Izvještaj napredovanja po odjelu</h1>
+  <p class="wf-sub">Ciklus 2027. · stanje na dan 20. 2. 2027. · iznosi su bruto, mjesečni</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator vidi sve odjele; rukovoditelj, direktor, član Uprave i predsjednik Uprave samo jedinice iz svoje nadležnosti (izbornik za sve uloge).</dd>
+      <dt>Čemu služi</dt><dd>Zbirni pokazatelji napredovanja po odjelu, s izvozom u Excel.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Stupci točno prema Specifikaciji: ukupan broj radnika (bez rukovoditelja); postotak povećanja broja zaposlenika u zadnjih godinu dana; prijedlog budžeta odjela u EUR (postotak od sume plaća odjela); broj i postotak promoviranih; prijedlog bruto iznosa napredovanja po odjelu (zbroj povećanja) u EUR i postotku; zbroj bruto plaća prije i nakon povećanja.</li>
+        <li>Svatko vidi samo izvještaje unutar svoje uloge i nadležnosti.</li>
+        <li>Izvoz u Excel (i CSV).</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">N37</span> Povećanje broja zaposlenika računa se u odnosu na isti dan prije godinu dana.</li>
+        <li><span class="wf-p">N38</span> „Promovirani“ su prijedlozi prema filtru statusa; zadano svi aktivni prijedlozi (Spremljeno, u postupku, Odobreno).</li>
+        <li>Prijedlog napredovanja u postotku je zbroj povećanja kroz sumu plaća odjela prije povećanja.</li>
+        <li>Broj zaposlenika u odjelima Razvoj proizvodnje i Montaža SET, njihove mase plaća i raniji brojevi zaposlenih su izmišljeni primjeri.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-filters">
+    <div><label class="wf-label" for="c">Ciklus</label><select class="wf-select" id="c"><option>2027.</option></select></div>
+    <div><label class="wf-label" for="s">Sektor</label><select class="wf-select" id="s"><option>Svi sektori</option><option>Tehnologija</option><option>Proizvodnja SET</option></select></div>
+    <div><label class="wf-label" for="o">Odjel</label><select class="wf-select" id="o"><option>Svi odjeli</option><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option><option>Montaža SET</option></select></div>
+    <div><label class="wf-label" for="st">Status prijedloga <span class="wf-p">N38</span></label><select class="wf-select" id="st"><option>Svi aktivni prijedlozi</option><option>Samo odobreni</option><option>U postupku i odobreni</option></select></div>
+    <div class="wf-actions ml-auto">
+      <button type="button" class="wf-btn" data-wf-toast="Izvještaj je izvezen u Excel (napredovanje_2027_po_odjelu.xlsx).">Izvezi u Excel</button>
+      <button type="button" class="wf-btn" data-wf-toast="Izvještaj je izvezen u CSV.">Izvezi u CSV</button>
+    </div>
+  </div>
+
+  <div class="wf-table-wrap">
+    <table class="wf-table text-xs [&_th]:whitespace-normal [&_th]:align-bottom">
+      <thead><tr>
+        <th>Odjel</th>
+        <th class="num">Ukupno radnika (bez rukov.)</th>
+        <th class="num">Rast broja zaposl. u god. dana <span class="wf-p">N37</span></th>
+        <th class="num">Budžet odjela (€, % plaća)</th>
+        <th class="num">Broj promoviranih</th>
+        <th class="num">Postotak promoviranih</th>
+        <th class="num">Bruto napredovanja (€)</th>
+        <th class="num">Napredovanje (%)</th>
+        <th class="num">Plaće prije (€)</th>
+        <th class="num">Plaće nakon (€)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="wf-name">Projekt tehnologije</td><td class="num">9</td><td class="num">12,50 % <span class="wf-muted">(8 → 9)</span></td><td class="num">1.070,00 (5,00 %)</td><td class="num">4</td><td class="num">44,44 %</td><td class="num">750,00</td><td class="num">3,50 %</td><td class="num">21.400,00</td><td class="num">22.150,00</td></tr>
+        <tr><td class="wf-name">Razvoj proizvodnje</td><td class="num">7</td><td class="num">16,67 % <span class="wf-muted">(6 → 7)</span></td><td class="num">800,00 (5,00 %)</td><td class="num">2</td><td class="num">28,57 %</td><td class="num">550,00</td><td class="num">3,44 %</td><td class="num">16.000,00</td><td class="num">16.550,00</td></tr>
+        <tr><td class="wf-name">Montaža SET</td><td class="num">12</td><td class="num">9,09 % <span class="wf-muted">(11 → 12)</span></td><td class="num">1.200,00 (5,00 %)</td><td class="num">3</td><td class="num">25,00 %</td><td class="num">500,00</td><td class="num">2,08 %</td><td class="num">24.000,00</td><td class="num">24.500,00</td></tr>
+      </tbody>
+      <tfoot><tr><td>Ukupno prikazane jedinice (uzorak)</td><td class="num">28</td><td class="num">12,00 % <span class="wf-muted">(25 → 28)</span></td><td class="num">3.070,00</td><td class="num">9</td><td class="num">32,14 %</td><td class="num">1.800,00</td><td class="num">2,93 %</td><td class="num">61.400,00</td><td class="num">63.200,00</td></tr></tfoot>
+    </table>
+  </div>
+  <p class="wf-help mt-2">Projekt tehnologije: promovirani su Marija Perić (300), Ivan Božić (150), Dario Vuković (200) i Nina Šarić (100) = 750,00 €; Filip Matić nije uključen (HR oznaka). Zbroj plaća odjela 21.400,00 € + 750,00 € = 22.150,00 €. Prijedlog budžeta odjela je u okviru razine odjela (F2.1). Razvoj proizvodnje: Ivona Jakšić (350) i Bruno Kralj (200) = 550,00 € (2 od 7). Montaža SET: Stjepan Lovrić (150), Mateo Blažević (150) i Hrvoje Pavić (200) = 500,00 € (3 od 12). Postotak povećanja broja zaposlenika izračunan je iz prikazanih brojki (raniji broj zaposlenih je izmišljeni primjer <span class="wf-p">prijedlog</span>). Izvještaj ne prikazuje pojedinačne plaće.</p>
+</main>
+</body>
+</html>

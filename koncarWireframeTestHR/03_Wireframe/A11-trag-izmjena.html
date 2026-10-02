@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A11 Trag izmjena – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A11">
+<main>
+  <h1 class="wf-h1">Trag izmjena</h1>
+  <p class="wf-sub">Tko, kada i što je promijenio. Vide ga samo HR administratori.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Samo HR administrator. Ostale uloge ovaj ekran i stavku izbornika ne vide.</dd>
+      <dt>Čemu služi</dt><dd>Evidencija svake važne izmjene i popis svih uvoza i izvoza, za kontrolu, ispravke i reviziju.</dd>
+      <dt>Pravila</dt><dd><ul><li>Bilježe se: prijedlozi, statusi, odobrenja i odbijanja s napomenama, HR intervencije, budžeti i preraspodjele, uvozi i ponovni uvozi, izvozi, zaključavanja te promjene podataka o zaposlenicima.</li><li>Za svaku izmjenu bilježi se korisnik, datum i vrijeme te sadržaj izmjene (staro → novo).</li><li>HR iznimka prekoračenja budžeta ostaje u tragu bez posebne napomene; zapis vidi samo HR.</li><li>Zapisi se ne mogu mijenjati ni brisati. HR administrativne izmjene ne šalju obavijesti drugim korisnicima.</li><li>Uz trag se vodi popis svih uvoza, izvoza i poslanih obavijesti (obavijesti: Dnevnik poslanih, A10).</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p">P31</span> Koliko dugo se čuvaju podaci i trag izmjena, i vrijedi li isto za zaposlenike koji su otišli: otvoreno; wireframe ne prikazuje ograničenje.</li><li><span class="wf-p">prijedlog</span> Filteri: razdoblje (od–do), modul, korisnik, vrsta izmjene; izvoz traga u Excel.</li><li>Primjeri zapisa su izmišljeni i slažu se s ostalim ekranima; zapisi HR iznimki prikazani su zasebno ispod tablice, kao primjer onoga što nastaje radnjom na F1.5; brojevi redaka u uvozima dodani su za primjer.</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="tab">
+    <button type="button" data-wf-tab="trag" class="is-active">Trag izmjena</button>
+    <button type="button" data-wf-tab="uvozi">Uvozi i izvozi</button>
+  </div>
+
+  <div data-wf-panel="tab:trag">
+    <div class="wf-filters">
+      <div><label class="wf-label" for="od">Od</label><input class="wf-input" type="text" value="1. 10. 2026." id="od"></div>
+      <div><label class="wf-label" for="do">Do</label><input class="wf-input" type="text" value="19. 11. 2026." id="do"></div>
+      <div><label class="wf-label" for="m">Modul</label><select class="wf-select" id="m"><option selected>Svi moduli</option><option>Godišnje nagrađivanje</option><option>Godišnje napredovanje</option><option>Mjesečne stimulacije</option><option>Kvartalne nagrade</option><option>Zaposlenici</option><option>Linije odobravanja</option><option>Budžeti</option></select></div>
+      <div><label class="wf-label" for="k">Korisnik</label><select class="wf-select" id="k"><option selected>Svi korisnici</option><option>Petra Novak</option><option>Sanja Lukić</option><option>Ivana Horvat</option><option>Marko Kovačević</option><option>Ana Babić</option></select></div>
+      <div><label class="wf-label" for="v">Vrsta izmjene</label><select class="wf-select" id="v"><option selected>Sve vrste</option><option>Promjena podataka o zaposleniku</option><option>Predaja, odobrenje, odbijanje</option><option>Vraćanje na doradu</option><option>HR iznimka</option><option>Preraspodjela budžeta</option><option>Uvoz i ponovni uvoz</option><option>Zaključavanje i otključavanje</option><option>Promjena linije</option></select></div>
+      <div><button type="button" class="wf-btn" data-wf-toast="Izvoz traga u Excel je pokrenut (9 zapisa). Izvoz se bilježi u popis uvoza i izvoza.">Izvezi u Excel</button></div>
+    </div>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Vrijeme</th><th>Korisnik</th><th>Uloga</th><th>Modul</th><th>Objekt</th><th>Radnja</th><th>Staro → novo</th><th>Napomena</th></tr></thead>
+<tbody>
+<tr><td class="whitespace-nowrap">18. 11. 2026. u 9:05</td><td>Petra Novak</td><td>HR administrator</td><td>Godišnje nagrađivanje</td><td>Prijedlog: Filip Matić</td><td class="font-bold">Vraćanje na doradu</td><td style="min-width:220px">Poslano HR-u → Vraćeno na doradu</td><td style="min-width:200px">Razlog: nedostaju konkretni primjeri. „Primjeri za radnu učinkovitost nisu mjerljivi – navesti konkretne zadatke, rokove ili brojke.“</td></tr>
+<tr><td class="whitespace-nowrap">5. 11. 2026. u 10:15</td><td>Petra Novak</td><td>HR administrator</td><td>Godišnje nagrađivanje</td><td>Budžet: Razvoj proizvodnje → Projekt tehnologije</td><td class="font-bold">Preraspodjela budžeta</td><td style="min-width:220px">Razvoj proizvodnje 14.000,00 € → 12.000,00 €; Projekt tehnologije 23.000,00 € → 25.000,00 €</td><td style="min-width:200px">Odobrenje člana Uprave (Ana Babić), 4. 11. 2026.</td></tr>
+<tr><td class="whitespace-nowrap">3. 11. 2026. u 8:30</td><td>Sanja Lukić</td><td>HR administrator</td><td>Mjesečne stimulacije</td><td>Razdoblje: rujan 2026.</td><td class="font-bold">Zaključavanje mjeseca</td><td style="min-width:220px">Otvoreno → Zaključano</td><td style="min-width:200px">–</td></tr>
+<tr><td class="whitespace-nowrap">30. 10. 2026. u 15:20</td><td>Marko Kovačević</td><td>Direktor</td><td>Mjesečne stimulacije</td><td>Prijedlog: listopad 2026., odjel Projekt tehnologije</td><td class="font-bold">Odobrenje (cijeli prikazani popis)</td><td style="min-width:220px">Poslano na odobrenje → Odobreno (290,00 €)</td><td style="min-width:200px">–</td></tr>
+<tr><td class="whitespace-nowrap">28. 10. 2026. u 9:40</td><td>Ivana Horvat</td><td>Rukovoditelj</td><td>Mjesečne stimulacije</td><td>Prijedlog: listopad 2026., odjel Projekt tehnologije</td><td class="font-bold">Predaja na odobrenje</td><td style="min-width:220px">Spremljeno → Poslano na odobrenje (290,00 €)</td><td style="min-width:200px">–</td></tr>
+<tr><td class="whitespace-nowrap">22. 10. 2026. u 11:40</td><td>Sanja Lukić</td><td>HR administrator</td><td>Zaposlenici</td><td>Zaposlenik: Marija Perić (SAP 10234)</td><td class="font-bold">Promjena plaće</td><td style="min-width:220px">3.050,00 € → 3.200,00 € (vrijedi od 1. 4. 2025.)</td><td style="min-width:200px">Dopuna povijesti nakon prvog prijenosa.</td></tr>
+<tr><td class="whitespace-nowrap">20. 10. 2026. u 10:00</td><td>Petra Novak</td><td>HR administrator</td><td>Linije odobravanja</td><td>Rukovoditelj: Josip Jurić, godišnje nagrađivanje</td><td class="font-bold">Promjena linije</td><td style="min-width:220px">Luka Knežević → HR → Ana Babić ⟶ Luka Knežević → Maja Pavlović → HR → Ana Babić</td><td style="min-width:200px">Dodana druga razina dodatnog odobravatelja (SET).</td></tr>
+<tr><td class="whitespace-nowrap">15. 10. 2026. u 9:35</td><td>Petra Novak</td><td>HR administrator</td><td>Zaposlenici</td><td>Zaposlenik: Petar Vidović (SAP 10011)</td><td class="font-bold">Deaktivacija</td><td style="min-width:220px">Aktivan → Neaktivan (datum odlaska 30. 6. 2026.)</td><td style="min-width:200px">Prvi prijenos.</td></tr>
+<tr><td class="whitespace-nowrap">12. 10. 2026. u 14:20</td><td>Petra Novak</td><td>HR administrator</td><td>Kvartalne nagrade</td><td>Uvoz prisutnosti Q3 2026.</td><td class="font-bold">Ponovni uvoz prisutnosti</td><td style="min-width:220px">prisutnost_Q3_2026.csv: 8 redaka → 11 redaka (2 greške retka)</td><td style="min-width:200px">Prethodna datoteka bila je nepotpuna.</td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help mt-2">Prikazano 9 zapisa u odabranom razdoblju (uzorak). Najnoviji zapisi su na vrhu.</p>
+    <h3 class="wf-h3 mt-5">Kako izgledaju zapisi HR iznimki <span class="wf-p">prijedlog</span></h3>
+    <p class="wf-help mb-2">Primjer zapisa koji nastaju kad HR na ekranu F1.5 provede iznimku. Nisu dio prikazanog stanja na dan 19. 11. 2026.</p>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Vrijeme</th><th>Korisnik</th><th>Modul</th><th>Objekt</th><th>Radnja</th><th>Staro → novo</th><th>Napomena</th></tr></thead>
+<tbody>
+<tr><td class="wf-muted">nakon radnje</td><td>Petra Novak</td><td>Godišnje nagrađivanje</td><td>Prijedlog: Tena Kolar</td><td class="font-bold">Ručni iznos iznad limita</td><td style="min-width:220px">4.500,00 € (limit za I7) → 5.880,00 €</td><td style="min-width:200px">Osnova: odluka Uprave (datum i oznaka odluke) <span class="wf-p">N24</span></td></tr>
+<tr><td class="wf-muted">nakon radnje</td><td>Petra Novak</td><td>Godišnje nagrađivanje</td><td>Prijedlog: Filip Matić (4.590,00 €)</td><td class="font-bold">HR iznimka: prekoračenje budžeta</td><td style="min-width:220px">raspoloživo 3.710,00 € → −880,00 €</td><td style="min-width:200px">– (bez posebne napomene). Zapis vidi samo HR.</td></tr>
+</tbody></table></div>
+  </div>
+
+  <div data-wf-panel="tab:uvozi">
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Datoteka</th><th>Vrsta</th><th>Modul</th><th>Tko</th><th>Kada</th><th class="num">Broj redaka</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="wf-mono text-xs">zaposlenici_2026-11-19.xlsx</td><td>Izvoz (Excel)</td><td>Zaposlenici</td><td>Petra Novak</td><td class="whitespace-nowrap">19. 11. 2026. u 11:00</td><td class="num">16</td><td>Uspjelo</td></tr>
+<tr><td class="wf-mono text-xs">hrnet_stimulacije_2026-09.csv</td><td>Izvoz za HRNET</td><td>Mjesečne stimulacije</td><td>Sanja Lukić</td><td class="whitespace-nowrap">3. 11. 2026. u 8:25</td><td class="num">3</td><td>Uspjelo; prijedlozi: Izvezeno za obračun</td></tr>
+<tr><td class="wf-mono text-xs">hrnet_stimulacije_2026-10.csv</td><td>Izvoz za HRNET</td><td>Mjesečne stimulacije</td><td>Petra Novak</td><td class="whitespace-nowrap">2. 11. 2026. u 9:15</td><td class="num">2</td><td><span class="font-bold">Neuspjelo:</span> nedostaje OIB nadređenog (1 redak)</td></tr>
+<tr><td class="wf-mono text-xs">zaposlenici_prvi_prijenos.xlsx</td><td>Uvoz (prvi prijenos)</td><td>Zaposlenici</td><td>Petra Novak</td><td class="whitespace-nowrap">15. 10. 2026. u 9:30</td><td class="num">412</td><td>Uspjelo</td></tr>
+<tr><td class="wf-mono text-xs">prisutnost_Q3_2026.csv</td><td>Uvoz prisutnosti</td><td>Kvartalne nagrade</td><td>Petra Novak</td><td class="whitespace-nowrap">12. 10. 2026. u 14:20</td><td class="num">11</td><td>Uspjelo s greškama (2 retka); zamijenio prethodni uvoz</td></tr>
+<tr><td class="wf-mono text-xs">prisutnost_Q3_2026.csv</td><td>Uvoz prisutnosti</td><td>Kvartalne nagrade</td><td>Petra Novak</td><td class="whitespace-nowrap">12. 10. 2026. u 9:50</td><td class="num">8</td><td>Zamijenjen ponovnim uvozom (nepotpuna datoteka)</td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help mt-2">Svaki uvoz i izvoz je zapisan: datoteka, tko, kada, broj redaka i status. Ponovni uvoz moguć je do zaključavanja razdoblja i bilježi se kao novi zapis.</p>
+  </div>
+</main>
+</body>
+</html>

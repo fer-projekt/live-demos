@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F4.2 Uvoz prisutnosti – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F4.2">
+<main>
+  <h1 class="wf-h1">Uvoz prisutnosti</h1>
+  <p class="wf-sub">CSV datoteka po godini i kvartalu · prisutnost i fond sati po zaposleniku</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator.</dd>
+      <dt>Čemu služi</dt><dd>Preuzima postojeći ekran „Import Prisutnosti“ (godina, kvartal, učitavanje datoteke, Import, Pošalji mail obavijest). Za svaki redak datoteke prikazuje OIB, SAP šifru, ime i prezime iz baze i iz CSV-a, prisutnost, fond sati i status retka. Retke s greškom jasno označava.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>CSV sadrži OIB, SAP šifru, prezime i ime, prisutnost i fond sati. Na postojećem ekranu: najviše jedna datoteka, do 3 MB.</li>
+        <li>Statusi retka: ok · korisnik ne postoji u bazi · korisnik ne postoji u CSV-u · greška retka: neispravan OIB <span class="wf-p">P28</span>.</li>
+        <li>Postotak prisutnosti = prisutnost / fond sati, na 2 decimale. Prag: do 30,00 % → 0 %; do 50,00 % → 50 %; do 75,00 % → 75 %; iznad 75,00 % → 100 %.</li>
+        <li>Do zaključavanja kvartala HR može učitati novu datoteku ako je prethodna bila nepotpuna ili pogrešna. Svaki uvoz se bilježi (povijest uvoza dolje i trag izmjena A11).</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p" title="NOVO: Što se događa s retcima s greškom pri uvozu prisutnosti – primjenjuju li se ispravni retci, a pogrešni preskaču, ili se cijeli uvoz odbija? Treba li zasebna potvrda uvoza? Wireframe pretpostavlja da se ispravni retci primjenjuju, retci s greškom ne, a HR ispravlja datoteku i ponovno uvozi.">N44</span> Retci s greškom ne primjenjuju se; ispravni retci primjenjuju se odmah. Posebne potvrde uvoza nema.</li>
+        <li><span class="wf-p" title="NOVO: Što točno šalje gumb „Pošalji mail obavijest“ s postojećeg ekrana 09 – kome i s kojim tekstom? Wireframe pretpostavlja obavijest rukovoditeljima da je prisutnost za kvartal uvezena.">N45</span> Gumb „Pošalji mail obavijest“ zadržan s ekrana 09; pretpostavka: obavijest rukovoditeljima da je prisutnost za kvartal uvezena i da mogu unositi kvartalne nagrade.</li>
+        <li><span class="wf-p">prijedlog</span> Zaposlenik „Roko Bilić“ (OIB 2718281828) i „Pero Novaković“ izmišljeni su (Pero je primjer za „ne postoji u bazi“, Roko za neispravan OIB).</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" id="scenarios">
+    <button type="button" data-sc="prije" class="is-active">Prije uvoza</button>
+    <button type="button" data-sc="rezultat">Rezultat uvoza (s greškama)</button>
+    <button type="button" data-sc="zakljucano">Kvartal zaključan</button>
+  </div>
+
+  <div class="wf-grid md:grid-cols-3 mb-3">
+    <div><label class="wf-label" for="g">Godina</label><select class="wf-select" id="g"><option>2026</option><option>2027</option></select></div>
+    <div><label class="wf-label" for="kv">Kvartal</label><select class="wf-select" id="kv"><option>2026-Q3 (srpanj–rujan)</option><option>2026-Q2 (travanj–lipanj)</option><option>2026-Q4 (listopad–prosinac)</option></select></div>
+    <dl class="wf-kv self-end"><dt>Fond sati u kvartalu</dt><dd>520</dd><dt>Rok za unos i odobravanje</dt><dd>15. 10. 2026.</dd></dl>
+  </div>
+
+  <div id="msg"></div>
+
+  <div class="wf-drop mb-3" id="drop">
+    <div id="drop-text">Povucite CSV datoteku koju želite učitati ili <a class="wf-link" href="#">pretražite</a> za njih.<br><span class="wf-muted"><i>Maksimalni broj datoteka je 1. Maksimalna veličina datoteke je 3 MB.</i></span></div>
+  </div>
+  <div class="wf-actions mb-2">
+    <button type="button" class="wf-btn-primary" id="b-uvezi" data-sc-go="rezultat">Uvezi</button>
+    <button type="button" class="wf-btn" data-wf-open="dlg-mail">Pošalji mail obavijest <span class="wf-p" title="NOVO: Što točno šalje gumb „Pošalji mail obavijest“ s postojećeg ekrana 09?">N45</span></button>
+  </div>
+  <p class="wf-help mb-4">Mail obavijest: rukovoditeljima odjela da je prisutnost za odabrani kvartal uvezena.</p>
+
+  <div id="rezultat">
+    <h2 class="wf-section-title">Rezultat uvoza – 2026-Q3</h2>
+    <div class="wf-grid grid-cols-2 lg:grid-cols-5 mb-3">
+      <div class="wf-kpi"><div class="wf-kpi-label">Redaka u datoteci</div><div class="wf-kpi-value">11</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Ok</div><div class="wf-kpi-value">9</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Ne postoji u bazi</div><div class="wf-kpi-value">1</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Greška retka</div><div class="wf-kpi-value">1</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Ne postoji u CSV-u</div><div class="wf-kpi-value">1</div></div>
+    </div>
+    <div class="wf-alert">Dva retka datoteke i jedan zaposlenik iz baze nisu uvezeni ispravno (označeni su u tablici). Ispravni retci su primijenjeni, a ostale ispravite u datoteci i ponovno uvezite <span class="wf-p" title="NOVO: Što se događa s retcima s greškom pri uvozu prisutnosti?">N44</span>.</div>
+    <div class="wf-table-wrap mb-2">
+      <table class="wf-table">
+        <thead>
+          <tr><th rowspan="2">#</th><th colspan="3">Iz baze</th><th colspan="3">Iz CSV-a</th><th colspan="4">Prisutnost</th><th rowspan="2">Status retka</th></tr>
+          <tr><th>OIB</th><th>SAP šifra</th><th>Ime i prezime</th><th>OIB</th><th>SAP šifra</th><th>Prezime i ime</th><th class="num">Prisutnost (sati)</th><th class="num">Fond sati</th><th class="num">Izračunati postotak</th><th class="num">Primijenjeni postotak</th></tr>
+        </thead>
+        <tbody id="tb"></tbody>
+      </table>
+    </div>
+    <p class="wf-help mb-4">Redak „ne postoji u CSV-u“: zaposlenik iz baze nema prisutnost za kvartal; dok se ne uveze, kvartalna nagrada za njega ne može se izračunati i predaja je blokirana <span class="wf-p">N47</span>.</p>
+  </div>
+
+  <h2 class="wf-section-title">Povijest uvoza</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table" id="hist">
+      <thead><tr><th>Uvoz</th><th>Kvartal</th><th>Kada</th><th>Tko</th><th>Datoteka</th><th class="num">Redaka</th><th class="num">Ok</th><th class="num">Greške</th><th>Stanje</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2026-Q3</td><td>1. 10. 2026. 14:10</td><td>Petra Novak</td><td class="wf-mono">prisutnost_2026_Q3_v1.csv</td><td class="num">8</td><td class="num">8</td><td class="num">0</td><td>zamijenjen novijim uvozom (nepotpuna datoteka)</td></tr>
+        <tr class="is-selected" data-wf-panel="sc:rezultat"><td>2</td><td>2026-Q3</td><td>2. 10. 2026. 9:40</td><td>Petra Novak</td><td class="wf-mono">prisutnost_2026_Q3_v2.csv</td><td class="num">11</td><td class="num">9</td><td class="num">2</td><td>aktivan</td></tr>
+        <tr data-wf-panel="sc:zakljucano"><td>2</td><td>2026-Q3</td><td>2. 10. 2026. 9:40</td><td>Petra Novak</td><td class="wf-mono">prisutnost_2026_Q3_v2.csv</td><td class="num">11</td><td class="num">9</td><td class="num">2</td><td><span class="wf-status is-closed">Zaključano</span> konačan uvoz</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Povijest se puni i u tragu izmjena (A11). Prvi uvoz je jedini koji postoji u stanju „Prije uvoza“.</p>
+
+  <dialog class="wf-dialog" id="dlg-mail">
+    <div class="wf-dialog-head">Pošalji mail obavijest <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Obavijest „Prisutnost za 2026-Q3 je uvezena“ šalje se rukovoditeljima čiji odjeli imaju zaposlenike u uvozu <span class="wf-p" title="NOVO: Što točno šalje gumb „Pošalji mail obavijest“ s postojećeg ekrana 09?">N45</span>. Slanje se bilježi u dnevniku obavijesti (A10).</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Obavijest je poslana rukovoditeljima.">Pošalji</button>
+    </div>
+  </dialog>
+</main>
+<script>
+(function () {
+  var OK = [
+    ['31415926535', '10234', 'Marija Perić', 520, 520], ['27182818284', '10457', 'Ivan Božić', 512, 520], ['16180339887', '11802', 'Lucija Grgić', 364, 520],
+    ['14142135623', '10671', 'Filip Matić', 520, 520], ['17320508075', '11915', 'Ema Tomić', 234, 520], ['22360679774', '10088', 'Karlo Radić', 504, 520],
+    ['26457513110', '10912', 'Nina Šarić', 520, 520], ['28284271247', '11340', 'Dario Vuković', 146, 520], ['33166247903', '11021', 'Tena Kolar', 520, 520]
+  ];
+  function r2(x) { return Math.round((x + 1e-9) * 100) / 100; }
+  function prag(p) { return p <= 30 ? 0 : p <= 50 ? 50 : p <= 75 ? 75 : 100; }
+  function csvName(n) { var s = n.split(' '); return s[1] + ' ' + s[0]; }
+  function rows() {
+    var h = '', i = 0;
+    OK.forEach(function (r) {
+      var p = r2(r[3] / r[4] * 100); i++;
+      h += '<tr><td>' + i + '</td><td class="wf-mono">' + r[0] + '</td><td class="wf-mono">' + r[1] + '</td><td>' + r[2] + '</td><td class="wf-mono">' + r[0] + '</td><td class="wf-mono">' + r[1] + '</td><td>' + csvName(r[2]) + '</td>' +
+        '<td class="num">' + r[3] + '</td><td class="num">' + r[4] + '</td><td class="num">' + WF.fmt(p) + ' %</td><td class="num">' + prag(p) + ' %</td><td><span class="wf-status is-done">ok</span></td></tr>';
+    });
+    h += '<tr class="is-error"><td>10</td><td class="wf-muted">–</td><td class="wf-muted">–</td><td class="wf-muted">–</td><td class="wf-mono">99999999990</td><td class="wf-mono">12500</td><td>Novaković Pero</td><td class="num">480</td><td class="num">520</td><td class="num">' + WF.fmt(r2(480 / 520 * 100)) + ' %</td><td class="num">–</td><td><b>ne postoji u bazi</b><br><span class="text-xs">redak se ne primjenjuje</span></td></tr>';
+    h += '<tr class="is-error"><td>11</td><td class="wf-muted">–</td><td class="wf-muted">–</td><td class="wf-muted">–</td><td class="wf-mono">2718281828</td><td class="wf-mono">10999</td><td>Bilić Roko</td><td class="num">500</td><td class="num">520</td><td class="num">–</td><td class="num">–</td><td><b>greška retka: neispravan OIB</b> <span class="wf-p">P28</span><br><span class="text-xs">10 znamenki, očekuje se 11; redak se ne primjenjuje</span></td></tr>';
+    h += '<tr class="is-error"><td>12</td><td class="wf-mono">12020569031</td><td class="wf-mono">10777</td><td>Bruno Kralj</td><td class="wf-muted">–</td><td class="wf-muted">–</td><td class="wf-muted">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td><b>ne postoji u CSV-u</b><br><span class="text-xs">prisutnost nije uvezena</span></td></tr>';
+    return h;
+  }
+  function start() {
+    var $ = function (id) { return document.getElementById(id); };
+    $('tb').innerHTML = rows();
+    function go(key) {
+      document.querySelectorAll('#scenarios button').forEach(function (b) { b.classList.toggle('is-active', b.dataset.sc === key); });
+      document.querySelectorAll('[data-wf-panel^="sc:"]').forEach(function (p) { p.classList.toggle('wf-on', p.getAttribute('data-wf-panel') === 'sc:' + key); });
+      $('rezultat').hidden = key === 'prije';
+      var z = key === 'zakljucano';
+      $('b-uvezi').disabled = z;
+      $('drop').style.opacity = z ? '.5' : '1';
+      $('msg').innerHTML = z ? '<div class="wf-block">Kvartal 2026-Q3 je zaključan. Novi uvoz prisutnosti nije moguć dok HR ne otključa kvartal (A8 Ciklusi i razdoblja).</div>' :
+        key === 'prije' ? '<div class="wf-info">Za 2026-Q3 već postoji jedan uvoz (1. 10. 2026., 8 redaka). Novi uvoz zamjenjuje prethodni; stari ostaje u povijesti <span class="wf-p">prijedlog</span>.</div>' : '';
+      $('drop-text').innerHTML = key === 'prije' ? 'Povucite CSV datoteku koju želite učitati ili <a class="wf-link" href="#">pretražite</a> za njih.<br><span class="wf-muted"><i>Maksimalni broj datoteka je 1. Maksimalna veličina datoteke je 3 MB.</i></span>' :
+        'Odabrana datoteka: <b class="wf-mono">prisutnost_2026_Q3_v2.csv</b> (11 redaka, 2 KB)';
+    }
+    $('scenarios').addEventListener('click', function (e) { var b = e.target.closest('button[data-sc]'); if (b) go(b.dataset.sc); });
+    document.addEventListener('click', function (e) { var b = e.target.closest('[data-sc-go]'); if (b && !b.disabled) go(b.dataset.scGo); });
+    go('prije');
+  }
+  if (window.WF) start(); else document.addEventListener('DOMContentLoaded', start);
+})();
+</script>
+</body>
+</html>

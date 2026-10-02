@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A1 Prijava – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A1" data-shell="none">
+<main>
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Svi korisnici aplikacije (rukovoditelji, odobravatelji, Uprava, HR). Jedini ekran bez izbornika.</dd>
+      <dt>Čemu služi</dt><dd>Ulaz u aplikaciju jednim klikom, Microsoft računom. Aplikacija ne poznaje lozinke.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Prijava je isključivo Microsoft računom (Entra ID); lozinka se u aplikaciji ne unosi, ne čuva i ne mijenja.</li>
+        <li>Postoje dva odvojena okruženja, testno i produkcijsko; okruženje mora biti jasno označeno na ekranu.</li>
+        <li>Nakon prijave korisnik vidi izbornik prema svojoj ulozi i nadležnosti (ekran A2).</li>
+        <li>Prava se određuju kombinacijom uloge, organizacijske nadležnosti i linije odobravanja.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">prijedlog</span> Oznaka okruženja kao traka (testno) odnosno oznaka (produkcija); Specifikacija traži samo odvojena okruženja.</li>
+        <li><span class="wf-p">prijedlog</span> Stanje „Račun nema pristup“ s uputom da se korisnik obrati HR-u <span class="wf-p" title="NOVO: Što se događa kad se prijavi Microsoft račun koji nije među korisnicima aplikacije? Wireframe pretpostavlja poruku bez pristupa uz uputu da se obrati HR-u; korisnika dodaje HR.">N11</span>.</li>
+        <li>Gumb „Prijava Microsoft računom“ u wireframeu vodi na početnu (A3); stvarna prijava se opisuje u analizi (identiteti, sesija) jer Specifikacija to navodi kao „potrebno riješiti“.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="prod" class="is-active">Produkcija</button>
+    <button type="button" data-wf-tab="test">Testno okruženje</button>
+    <button type="button" data-wf-tab="nema">Račun nema pristup</button>
+  </div>
+
+  <div class="mx-auto max-w-md mt-6">
+    <div data-wf-panel="stanje:test" class="bg-black text-white text-center py-1.5 px-2 text-xs font-bold tracking-wide">TESTNO OKRUŽENJE – podaci nisu stvarni <span class="wf-p">prijedlog</span></div>
+
+    <div class="wf-card text-center py-8 px-6">
+      <h1 class="wf-h1 text-2xl">D&amp;ST Grow &amp; Reward</h1>
+      <p class="wf-muted mb-1">KONČAR D&amp;ST · HR procesi</p>
+      <p class="text-sm mb-5">Godišnje nagrađivanje, napredovanje, stimulacije i kvartalne nagrade</p>
+
+      <div data-wf-panel="stanje:prod stanje:test">
+        <a class="wf-btn-primary w-full justify-center py-2.5" href="A03-pocetna.html">Prijava Microsoft računom</a>
+        <p class="wf-help mt-3">Prijavljujete se svojim Microsoft računom (Entra ID). U aplikaciji nema lozinke: ne unosi se, ne čuva i ne mijenja.</p>
+      </div>
+
+      <div data-wf-panel="stanje:nema" class="text-left">
+        <div class="wf-block">Račun <b>nepoznat.korisnik@firma.example</b> nema pristup aplikaciji. <span class="wf-p" title="NOVO: Što se događa kad se prijavi Microsoft račun koji nije među korisnicima aplikacije? Wireframe pretpostavlja poruku bez pristupa uz uputu da se obrati HR-u; korisnika dodaje HR.">N11</span></div>
+        <p class="text-sm mb-3">Prijava Microsoft računom je uspjela, ali taj račun nije među korisnicima D&amp;ST Grow &amp; Reward. Obratite se HR-u kako bi vam dodali pristup i ulogu.</p>
+        <div class="wf-actions">
+          <a class="wf-btn-primary" href="A01-prijava.html">Prijava drugim računom</a>
+          <a class="wf-btn" href="A01-prijava.html">Natrag</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-xs wf-muted mt-3">
+      <span data-wf-panel="stanje:prod">Okruženje: <b>produkcija</b></span>
+      <span data-wf-panel="stanje:test">Okruženje: <b>testno</b></span>
+      <span data-wf-panel="stanje:nema">Okruženje: <b>produkcija</b></span>
+    </p>
+  </div>
+</main>
+</body>
+</html>

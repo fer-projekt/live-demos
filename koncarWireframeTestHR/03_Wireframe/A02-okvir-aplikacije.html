@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2 Okvir aplikacije i izbornik po ulozi – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A2">
+<main>
+  <h1 class="wf-h1">Okvir aplikacije i izbornik po ulozi</h1>
+  <p class="wf-sub">Ljuska koju dijele svi ekrani: lijevi izbornik, zaglavlje s korisnikom i sadržaj.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Svi korisnici. Ekran je za Naručitelja i razvoj: objašnjava što je zajedničko svim ekranima.</dd>
+      <dt>Čemu služi</dt><dd>Pokazuje dijelove ljuske i koja uloga vidi koju stavku izbornika. Matrica je točan prikaz izbornika iz wireframea (isti popis koji se mijenja odabirom uloge u traci wireframea).</dd>
+      <dt>Pravila</dt><dd><ul><li>Izbornik ovisi o ulozi: korisnik vidi samo stavke koje mu pripadaju; ostale se ne prikazuju (nisu sive).</li><li>Stavke su grupirane po modulima: Godišnje nagrađivanje, Godišnje napredovanje, Mjesečne stimulacije, Kvartalne nagrade, Administracija.</li><li>Prava se određuju prema poslu, ne prema osobi: uloga + organizacijska nadležnost + linija odobravanja. Plaće, procjene, nagrade, napredovanja i disciplinske mjere vide se samo unutar vlastite nadležnosti.</li><li>HR je vlasnik aplikacije i jedini ima Administraciju (osim popisa zaposlenika koji čita i Predsjednik Uprave). Trag izmjena vidi samo HR.</li><li>Sučelje je responzivno: na užem zaslonu izbornik se skriva iza gumba „Izbornik“.</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p" title="NOVO: Korisnik s više uloga (npr. rukovoditelj koji je i dodatni odobravatelj). Wireframe pretpostavlja jedan izbornik koji je zbroj stavki svih njegovih uloga, a zaglavlje navodi sve uloge. Vlastiti prijedlog korisnik ne odobrava.">N10</span> Korisnik s više uloga: izbornik je zbroj stavki svih njegovih uloga, a zaglavlje navodi sve uloge i nadležnosti.</li><li><span class="wf-p">P7</span> Član Uprave kao predlagatelj: stavke „Moji zaposlenici“, „Unos stimulacija“ i „Unos kvartalnih nagrada“ vidi prema pretpostavci iz Specifikacije (može predložiti za svoje direktno podređene); za koje izvršitelje i tko odobrava njegov prijedlog je otvoreno.</li><li><span class="wf-p">prijedlog</span> Direktor ne vidi „Na odobrenju“ u napredovanju jer je u napredovanju zadnja razina član Uprave <span class="wf-p">P3</span>.</li><li><span class="wf-p">prijedlog</span> Dodatni odobravatelj i direktor nemaju Budžet napredovanja; izbornik prati wf.js, a Specifikacija ne navodi njihov pregled budžeta napredovanja.</li></ul></dd>
+    </dl>
+  </section>
+
+  <h2 class="wf-section-title">1. Dijelovi ljuske</h2>
+  <div class="border border-black bg-white">
+    <div class="grid md:grid-cols-[230px_1fr]">
+      <div class="md:border-r border-black p-3 text-sm">
+        <div class="font-extrabold">D&amp;ST Grow &amp; Reward <span class="wf-mono text-xs border border-black px-1">1</span></div>
+        <div class="text-xs wf-muted border-b border-black pb-2 mb-2">KONČAR D&amp;ST · HR procesi</div>
+        <div class="text-xs font-bold uppercase text-neutral-600 mt-2">Početna</div>
+        <div class="text-xs font-bold uppercase text-neutral-600 mt-2">Godišnje nagrađivanje</div>
+        <div class="text-xs font-bold uppercase text-neutral-600 mt-2">Godišnje napredovanje</div>
+        <div class="text-xs font-bold uppercase text-neutral-600 mt-2">Mjesečne stimulacije</div>
+        <div class="text-xs font-bold uppercase text-neutral-600 mt-2">Kvartalne nagrade</div>
+        <div class="text-xs font-bold uppercase text-neutral-600 mt-2">Administracija</div>
+        <div class="text-xs wf-muted mt-3">Stavke unutar skupina ovise o ulozi (matrica niže).</div>
+      </div>
+      <div>
+        <div class="flex flex-wrap items-center gap-3 border-b border-black p-3 text-sm">
+          <span class="border border-black px-2 py-0.5 text-xs md:hidden">☰ Izbornik</span>
+          <span class="text-xs wf-muted">Mjesečne stimulacije › Unos stimulacija <span class="wf-mono border border-black px-1">2</span></span>
+          <span class="ml-auto text-right text-xs leading-tight"><b class="text-sm">Ivana Horvat</b><br>Rukovoditelj · Odjel Projekt tehnologije · <span class="underline">Odjava</span> <span class="wf-mono border border-black px-1">3</span></span>
+        </div>
+        <div class="p-3"><div class="wf-ph">Sadržaj ekrana (naslov, bilješka, tablice, obrasci) <span class="wf-mono border border-black px-1 ml-2 bg-white">4</span></div></div>
+      </div>
+    </div>
+  </div>
+  <ol class="mt-3 text-sm list-decimal pl-5 space-y-1">
+    <li><b>Lijevi izbornik</b> po ulozi i modulima; aktivna stavka je označena. Detaljni ekrani (npr. obrazac zaposlenika) označavaju stavku popisa iz kojeg se otvaraju.</li>
+    <li><b>Putanja</b> (modul › ekran).</li>
+    <li><b>Korisnik, uloga i nadležnost</b> u zaglavlju te Odjava. Nadležnost je odjel, sektor, profitni centri odnosno cijela tvrtka, ovisno o ulozi. <span class="wf-p">prijedlog</span> <span class="wf-p" title="NOVO: Korisnik s više uloga (npr. rukovoditelj koji je i dodatni odobravatelj). Wireframe pretpostavlja jedan izbornik koji je zbroj stavki svih njegovih uloga, a zaglavlje navodi sve uloge. Vlastiti prijedlog korisnik ne odobrava.">N10</span></li>
+    <li><b>Sadržaj</b> ekrana. Izračunata polja su zaključana i označena, a statusi imaju isti oblik na svim ekranima.</li>
+    <li>Gornja crna traka s oznakom WIREFRAME i izborom uloge nije dio aplikacije. U produkciji ostaje samo oznaka okruženja u testnom okruženju (A1).</li>
+  </ol>
+
+  <h2 class="wf-section-title">2. Matrica „stavka izbornika × uloga“</h2>
+  <p class="wf-help mb-2">Točno kao izbornik u wireframeu: odaberite ulogu u gornjoj traci pa usporedite lijevi izbornik s odgovarajućim stupcem. „da“ = stavka je u izborniku te uloge.</p>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Stavka izbornika</th><th>Ekran</th><th class="text-center">Rukovoditelj</th><th class="text-center">Dodatni odobravatelj</th><th class="text-center">Direktor</th><th class="text-center">Član Uprave</th><th class="text-center">Predsjednik Uprave</th><th class="text-center">HR administrator</th></tr></thead>
+<tbody>
+<tr><td colspan="8" class="bg-neutral-100 font-bold uppercase text-xs">Bez skupine</td></tr>
+<tr><td>Početna</td><td><a class="wf-link wf-mono" href="A03-pocetna.html">A3</a></td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td></tr>
+<tr><td colspan="8" class="bg-neutral-100 font-bold uppercase text-xs">Godišnje nagrađivanje</td></tr>
+<tr><td>Moji zaposlenici</td><td><a class="wf-link wf-mono" href="F1-02-moji-zaposlenici.html">F1.2</a></td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da <span class="wf-p">P7</span></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td></tr>
+<tr><td>Na odobrenju</td><td><a class="wf-link wf-mono" href="F1-04-na-odobrenju.html">F1.4</a></td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td></tr>
+<tr><td>HR provjera</td><td><a class="wf-link wf-mono" href="F1-05-hr-provjera.html">F1.5</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Budžet i pregled</td><td><a class="wf-link wf-mono" href="F1-06-budzet-pregled.html">F1.6</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Izvještaji i izvoz</td><td><a class="wf-link wf-mono" href="F1-07-izvjestaji-izvoz.html">F1.7</a></td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Postavke ciklusa</td><td><a class="wf-link wf-mono" href="F1-01-postavke-ciklusa.html">F1.1</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td colspan="8" class="bg-neutral-100 font-bold uppercase text-xs">Godišnje napredovanje</td></tr>
+<tr><td>Moji zaposlenici</td><td><a class="wf-link wf-mono" href="F2-02-moji-zaposlenici.html">F2.2</a></td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da <span class="wf-p">P7</span></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td></tr>
+<tr><td>Na odobrenju</td><td><a class="wf-link wf-mono" href="F2-07-odobravanje.html">F2.7</a></td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td></tr>
+<tr><td>HR provjera</td><td><a class="wf-link wf-mono" href="F2-06-hr-provjera.html">F2.6</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Budžet napredovanja</td><td><a class="wf-link wf-mono" href="F2-10-budzet-pregled.html">F2.10</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Primjena nove plaće</td><td><a class="wf-link wf-mono" href="F2-08-primjena-nove-place.html">F2.8</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Izvještaj po odjelu</td><td><a class="wf-link wf-mono" href="F2-09-izvjestaj.html">F2.9</a></td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Postavke ciklusa</td><td><a class="wf-link wf-mono" href="F2-01-postavke-ciklusa.html">F2.1</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td colspan="8" class="bg-neutral-100 font-bold uppercase text-xs">Mjesečne stimulacije</td></tr>
+<tr><td>Unos stimulacija</td><td><a class="wf-link wf-mono" href="F3-01-unos-stimulacija.html">F3.1</a></td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td></tr>
+<tr><td>Odobrenje stimulacija</td><td><a class="wf-link wf-mono" href="F3-02-odobrenje-stimulacija.html">F3.2</a></td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Fondovi</td><td><a class="wf-link wf-mono" href="F3-03-fondovi.html">F3.3</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Izvoz i izvještaji</td><td><a class="wf-link wf-mono" href="F3-04-izvoz-izvjestaji.html">F3.4</a></td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td></tr>
+<tr><td colspan="8" class="bg-neutral-100 font-bold uppercase text-xs">Kvartalne nagrade</td></tr>
+<tr><td>Unos kvartalnih nagrada</td><td><a class="wf-link wf-mono" href="F4-04-unos-kvartalnih.html">F4.4</a></td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td></tr>
+<tr><td>Odobrenje kvartalnih nagrada</td><td><a class="wf-link wf-mono" href="F4-05-odobrenje-kvartalnih.html">F4.5</a></td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Postotak Uprave</td><td><a class="wf-link wf-mono" href="F4-01-postotak-uprave.html">F4.1</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Uvoz prisutnosti</td><td><a class="wf-link wf-mono" href="F4-02-uvoz-prisutnosti.html">F4.2</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Disciplinske mjere</td><td><a class="wf-link wf-mono" href="F4-03-disciplinske-mjere.html">F4.3</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Izvoz i izvještaji</td><td><a class="wf-link wf-mono" href="F4-06-izvoz-izvjestaji.html">F4.6</a></td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td></tr>
+<tr><td colspan="8" class="bg-neutral-100 font-bold uppercase text-xs">Administracija</td></tr>
+<tr><td>Zaposlenici</td><td><a class="wf-link wf-mono" href="A04-zaposlenici.html">A4</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Masovni uvoz zaposlenika</td><td><a class="wf-link wf-mono" href="A06-masovni-uvoz.html">A6</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Rukovoditelji i linije odobravanja</td><td><a class="wf-link wf-mono" href="A07-linije-odobravanja.html">A7</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Ciklusi i razdoblja</td><td><a class="wf-link wf-mono" href="A08-ciklusi-razdoblja.html">A8</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Budžeti</td><td><a class="wf-link wf-mono" href="A09-budzeti.html">A9</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Obavijesti</td><td><a class="wf-link wf-mono" href="A10-obavijesti.html">A10</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Trag izmjena</td><td><a class="wf-link wf-mono" href="A11-trag-izmjena.html">A11</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+<tr><td>Korisnici, uloge i šifrarnici</td><td><a class="wf-link wf-mono" href="A12-korisnici-uloge-sifrarnici.html">A12</a></td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center wf-muted">–</td><td class="text-center font-bold">da</td></tr>
+</tbody>
+</table></div>
+
+  <h2 class="wf-section-title">3. Što koja uloga vidi i radi</h2>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Uloga</th><th>Primjer korisnika i nadležnost</th><th>Što vidi</th><th>Što radi</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Rukovoditelj <span class="wf-muted font-normal">(oko 80)</span></td><td>Ivana Horvat · odjel Projekt tehnologije</td><td>svoje zaposlenike, njihove plaće, budžet i statuse svog odjela</td><td>unosi, sprema i šalje prijedloge za svoje ljude</td></tr>
+<tr><td class="wf-name">Dodatni odobravatelj</td><td>Luka Knežević · Proizvodnja SET, 1. razina; Maja Pavlović · 2. razina</td><td>prijedloge odjela za koje je određen (samo određeni odjeli)</td><td>odobrava ili odbija prije sljedeće razine; u proizvodnji SET postoje dvije takve razine</td></tr>
+<tr><td class="wf-name">Direktor</td><td>Marko Kovačević · sektor Tehnologija</td><td>sve odjele kojima je nadređen: prijedloge, statuse, iskorištenost budžeta, izvještaje, povijest</td><td>odobrava ili odbija; ne predlaže</td></tr>
+<tr><td class="wf-name">Član Uprave</td><td>Ana Babić · PC DT/ST i PC SET</td><td>sve sektore i odjele kojima je nadređen, zbirno i po zaposleniku: statuse, budžete, prijedloge, odobrenja, izvještaje</td><td>odobrava ili odbija; može predložiti i za svoje direktno podređene <span class="wf-p">P7</span></td></tr>
+<tr><td class="wf-name">Predsjednik Uprave</td><td>Tomislav Marić · cijela tvrtka</td><td>sve zaposlenike i zbirni izvještaj za cijelu tvrtku</td><td>pregled (ništa ne mijenja)</td></tr>
+<tr><td class="wf-name">HR administrator</td><td>Petra Novak, Sanja Lukić · cijela tvrtka</td><td>sve što treba za vođenje procesa, povijest svih izmjena, zbirni izvještaj za cijelu tvrtku</td><td>vodi korisnike, uloge, zaposlenike, cikluse, budžete, statuse, uvoz i izvoz, ispravke i zaključavanje razdoblja; u napredovanju i nagrađivanju provjerava prijedloge; kad redovni odobravatelj nije dostupan, može iznimno završno odobriti na temelju dogovora s nadležnima; pruža podršku korisnicima. U redovnom tijeku ne predlaže.</td></tr>
+</tbody>
+</table></div>
+
+  <h2 class="wf-section-title">4. Korisnik s više uloga <span class="wf-p" title="NOVO: Korisnik s više uloga (npr. rukovoditelj koji je i dodatni odobravatelj). Wireframe pretpostavlja jedan izbornik koji je zbroj stavki svih njegovih uloga, a zaglavlje navodi sve uloge. Vlastiti prijedlog korisnik ne odobrava.">N10</span></h2>
+  <div class="wf-info">
+    <b>Primjer:</b> rukovoditelj koji je istovremeno dodatni odobravatelj za drugi odjel. Specifikacija to ne opisuje. Wireframe pretpostavlja: izbornik sadrži stavke obiju uloga (npr. „Moji zaposlenici“ i „Na odobrenju“), zaglavlje piše „Rukovoditelj, Dodatni odobravatelj“ s nadležnostima obiju uloga, a vlastiti prijedlog korisnik ne može odobriti. U A12 se jednom korisniku može dodijeliti više uloga.
+  </div>
+</main>
+</body>
+</html>

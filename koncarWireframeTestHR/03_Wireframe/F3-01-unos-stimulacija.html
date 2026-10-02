@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F3.1 Unos stimulacija – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F3.1">
+<main>
+  <h1 class="wf-h1">Unos stimulacija</h1>
+  <p class="wf-sub">Odjel Projekt tehnologije · fond 2026./2027. (1. 4. 2026. – 31. 3. 2027.)</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Rukovoditelj za svoj odjel. Član Uprave za zaposlenike u svojoj nadležnosti.</dd>
+      <dt>Čemu služi</dt><dd>Mjesečni prijedlog stimulacija za cijeli odjel. Raspored preuzima postojeći ekran „Stimulacije“ (pregled po mjesecima gore, unos po zaposleniku dolje) i dodaje preostali godišnji fond, obavezno obrazloženje i blokadu prekoračenja.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Postotak se bira iz izbornika: 0, 5, 10, 15 ili 20 % mjesečne bruto plaće; iznos, zbroj i stanje fonda računa sustav.</li>
+        <li>Obrazloženje je obavezno za svaku stimulaciju veću od 0 % <span class="wf-p">P26</span>.</li>
+        <li>Nema mjesečnog limita: smije se dati i više, dok god ukupno ostaje unutar preostalog godišnjeg fonda. Dodjelu koja bi premašila fond sustav blokira i javlja razlog.</li>
+        <li>Predaj na odobrenje šalje cijeli mjesečni prijedlog odjela odjednom; pojedinačnog slanja nema. Nakon predaje unos je zaključan.</li>
+        <li>Odbijeni zaposlenik vraća se rukovoditelju, ostali ostaju odobreni <span class="wf-p">P1</span>. Odbijeni iznos ne troši fond i može se dati drugome.</li>
+        <li>Rok za unos i odobravanje je zadnji dan mjeseca za koji se isplata odnosi. Ako u mjesecu nema stimulacija, nema ni obračuna ni umanjenja fonda.</li>
+        <li>Promjena plaće odmah vrijedi u svim modulima, ali ne mijenja već određeni fond stimulacija.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" id="scenarios">
+    <button type="button" data-sc="unos" class="is-active">Unos (studeni, spremljeno)</button>
+    <button type="button" data-sc="blokada">Prekoračen fond (ožujak 2027.)</button>
+    <button type="button" data-sc="predano">Predano – zaključano</button>
+    <button type="button" data-sc="odbijen">Jedan zaposlenik odbijen</button>
+  </div>
+
+  <div class="wf-grid md:grid-cols-3 mb-4">
+    <dl class="wf-kv">
+      <dt>Rukovoditelj</dt><dd><span class="wf-locked">Ivana Horvat</span></dd>
+      <dt>Odjel</dt><dd><span class="wf-locked">Projekt tehnologije</span></dd>
+    </dl>
+    <div>
+      <label class="wf-label" for="god">Godina (fond)</label>
+      <select class="wf-select" id="god"><option>2026./2027. (1. 4. 2026. – 31. 3. 2027.)</option><option>2025./2026.</option></select>
+    </div>
+    <dl class="wf-kv">
+      <dt>Odobravatelji</dt><dd>Marko Kovačević (direktor)</dd>
+      <dt>Rok</dt><dd id="s-rok">30. 11. 2026.</dd>
+    </dl>
+  </div>
+
+  <!-- pregled po mjesecima (kao postojeći ekran) -->
+  <div id="mjeseci">
+    <h2 class="wf-h2">Pregled po mjesecima</h2>
+    <div class="wf-table-wrap mb-4">
+      <table class="wf-table">
+        <thead><tr><th>Mjesec</th><th class="num">Zbroj stimulacija (%)</th><th class="num">Zbroj bruto od stimulacija (€)</th><th class="num">Broj zaposlenika sa stimulacijom</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>travanj 2026.</td><td class="num">45</td><td class="num">1.135,00</td><td class="num">4</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td></tr>
+          <tr><td>svibanj 2026.</td><td class="num">15</td><td class="num">440,00</td><td class="num">2</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td></tr>
+          <tr><td>lipanj 2026.</td><td class="num">55</td><td class="num">1.500,00</td><td class="num">5</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td></tr>
+          <tr><td>srpanj 2026.</td><td class="num">0</td><td class="num">0,00</td><td class="num">0</td><td class="wf-muted">nema stimulacija</td></tr>
+          <tr><td>kolovoz 2026.</td><td class="num">30</td><td class="num">682,50</td><td class="num">2</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td></tr>
+          <tr><td>rujan 2026.</td><td class="num">30</td><td class="num">980,00</td><td class="num">3</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td></tr>
+          <tr><td>listopad 2026.</td><td class="num">15</td><td class="num">290,00</td><td class="num">2</td><td><span class="wf-status is-done">Odobreno</span></td></tr>
+          <tr class="is-selected"><td><b>studeni 2026.</b></td><td class="num" id="sum-pct">50</td><td class="num" id="sum-eur">1.522,50</td><td class="num" id="sum-cnt">4</td><td><span class="wf-status is-draft" id="sum-status">Spremljeno</span></td></tr>
+          <tr><td class="wf-muted">prosinac 2026.</td><td class="num wf-muted">–</td><td class="num wf-muted">–</td><td class="num wf-muted">–</td><td class="wf-muted">nije otvoren</td></tr>
+          <tr><td class="wf-muted">siječanj 2027.</td><td class="num wf-muted">–</td><td class="num wf-muted">–</td><td class="num wf-muted">–</td><td class="wf-muted">nije otvoren</td></tr>
+          <tr><td class="wf-muted">veljača 2027.</td><td class="num wf-muted">–</td><td class="num wf-muted">–</td><td class="num wf-muted">–</td><td class="wf-muted">nije otvoren</td></tr>
+          <tr><td class="wf-muted">ožujak 2027.</td><td class="num wf-muted">–</td><td class="num wf-muted">–</td><td class="num wf-muted">–</td><td class="wf-muted">nije otvoren</td></tr>
+        </tbody>
+        <tfoot><tr><td>Odobreno do sada (travanj–listopad)</td><td class="num">190</td><td class="num">5.027,50</td><td class="num"></td><td></td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- stanje fonda -->
+  <div class="wf-grid grid-cols-2 lg:grid-cols-4 mb-2">
+    <div class="wf-kpi"><div class="wf-kpi-label">Godišnji fond odjela</div><div class="wf-kpi-value">12.840,00 €</div><div class="wf-kpi-sub">unosi HR prema odluci Uprave</div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label">Iskorišteno do sada</div><div class="wf-kpi-value" id="k-isk">5.027,50 €</div><div class="wf-kpi-sub" id="k-isk-sub">odobreno travanj–listopad</div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label" id="k-mj-label">Ovaj prijedlog (studeni)</div><div class="wf-kpi-value"><span class="wf-calc" id="k-mj">1.522,50 €</span></div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label">Preostalo nakon ovog prijedloga</div><div class="wf-kpi-value"><span class="wf-calc" id="k-pre">6.290,00 €</span></div></div>
+  </div>
+  <div class="wf-meter mb-1"><span class="used" id="m-isk" style="width:39.15%"></span><span class="res" id="m-mj" style="width:11.86%"></span></div>
+  <div class="wf-legend mb-4"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>ovaj prijedlog</span><span><i></i>preostalo</span></div>
+
+  <div id="msgs"></div>
+
+  <!-- unos po zaposleniku -->
+  <div class="flex flex-wrap items-end gap-3 mb-3">
+    <div style="min-width:180px">
+      <label class="wf-label" for="mj">Mjesec</label>
+      <select class="wf-select" id="mj"><option id="mj-opt">studeni 2026.</option><option>listopad 2026.</option><option>rujan 2026.</option></select>
+    </div>
+    <div class="pb-1">Status: <span class="wf-status is-draft" id="s-status">Spremljeno</span> <span class="wf-at" id="s-at" style="display:inline">zadnja izmjena Ivana Horvat, 12. 11. 2026. u 14:05</span></div>
+    <div class="wf-actions ml-auto">
+      <button type="button" class="wf-btn" id="btn-spremi" data-wf-toast="Prijedlog je spremljen. Do predaje ga vidite samo vi.">Spremi</button>
+      <button type="button" class="wf-btn-primary" id="btn-predaj" data-wf-open="dlg-predaj">Predaj na odobrenje</button>
+      <button type="button" class="wf-btn" data-wf-toast="Podaci su ponovno učitani.">Osvježi</button>
+    </div>
+  </div>
+
+  <div class="wf-table-wrap">
+    <table class="wf-table" id="tbl">
+      <thead><tr>
+        <th class="sticky left-0 bg-neutral-200">Zaposlenik</th><th>Dolazak</th><th>Odlazak</th><th class="num">Bruto plaća (€)</th><th>Stimulacija (%)</th><th class="num">Bruto od stimulacije (€)</th>
+        <th style="min-width:230px">Obrazloženje rukovoditelja</th><th style="min-width:180px">Napomena odobravatelja</th><th>Status</th><th>Zadnja izmjena</th><th>Odobrenje</th>
+      </tr></thead>
+      <tbody></tbody>
+      <tfoot><tr><td colspan="4">Ukupno za mjesec</td><td class="num" id="f-pct">50 %</td><td class="num"><span class="wf-calc" id="f-eur">1.522,50</span></td><td colspan="5" id="f-cnt">4 zaposlenika sa stimulacijom</td></tr></tfoot>
+    </table>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-predaj">
+    <div class="wf-dialog-head">Predaj na odobrenje <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Predajete cijeli prijedlog stimulacija odjela za <b id="d-mj">studeni 2026.</b>: <b id="d-cnt">4</b> zaposlenika, ukupno <b id="d-eur">1.522,50 €</b>.</p>
+      <p class="mt-2">Nakon predaje unos se zaključava. Prijedlog ide odobravatelju (Marko Kovačević). E-mail o predaji dobivate vi i odobravatelj.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Prijedlog je predan: status Poslano na odobrenje. Unos je zaključan.">Predaj na odobrenje</button>
+    </div>
+  </dialog>
+</main>
+
+<script>
+/* Izračun uživo i primjeri stanja – samo prikaz. */
+(function () {
+  var FOND = 12840;
+  var ROWS = [
+    ['Marija Perić', '3. 4. 2018.', 3200, 10, 'Vodila uvođenje novog postupka lakiranja kotlova.'],
+    ['Ivan Božić', '2. 9. 2019.', 2450, 5, 'Preuzeo dodatne narudžbe tijekom bolovanja kolegice.'],
+    ['Lucija Grgić', '2. 3. 2026.', 1800, 0, ''],
+    ['Filip Matić', '4. 9. 2017.', 2700, 0, ''],
+    ['Ema Tomić', '1. 6. 2026.', 1300, 0, ''],
+    ['Karlo Radić', '11. 5. 2009.', 3900, 20, 'Riješio kritičan zastoj na liniji DT u roku od 48 sati.'],
+    ['Nina Šarić', '10. 5. 2021.', 2000, 15, 'Pripremila dokumentaciju za audit kupca.'],
+    ['Dario Vuković', '2. 9. 2024.', 1950, 0, ''],
+    ['Tena Kolar', '7. 1. 2020.', 2100, 0, '']
+  ];
+  var SC = {
+    unos:    { mj: 'studeni 2026.', rok: '30. 11. 2026.', isk: 5027.5, iskSub: 'odobreno travanj–listopad', status: ['Spremljeno', 'is-draft', 'zadnja izmjena Ivana Horvat, 12. 11. 2026. u 14:05'] },
+    blokada: { mj: 'ožujak 2027.', rok: '31. 3. 2027.', isk: 12430, iskSub: 'odobreno travanj 2026. – veljača 2027.', status: ['Spremljeno', 'is-draft', 'zadnja izmjena Ivana Horvat, 18. 3. 2027. u 10:20'],
+               pct: [0, 0, 0, 0, 0, 20, 0, 0, 0], hideMonths: true },
+    predano: { mj: 'studeni 2026.', rok: '30. 11. 2026.', isk: 5027.5, iskSub: 'odobreno travanj–listopad', locked: true, status: ['Poslano na odobrenje', '', 'predala Ivana Horvat, 13. 11. 2026. u 9:12 · kod: Marko Kovačević'] },
+    odbijen: { mj: 'studeni 2026.', rok: '30. 11. 2026.', isk: 5027.5, iskSub: 'odobreno travanj–listopad', rejected: 5, status: ['Odbijeno', 'is-back', 'jedan zaposlenik odbijen 16. 11. 2026. · ostali odobreni'] }
+  };
+  var PCTS = [0, 5, 10, 15, 20];
+  var cur, $ = function (id) { return document.getElementById(id); };
+  var tbody = document.querySelector('#tbl tbody');
+
+  function rowHtml(r, i, sc) {
+    var pct = sc.pct ? sc.pct[i] : r[3];
+    var rejected = sc.rejected === i, approvedOther = sc.rejected != null && !rejected;
+    var lock = sc.locked || approvedOther;
+    var status, odobr = '–', nap = '';
+    if (sc.locked) status = '<span class="wf-status">Poslano na odobrenje</span>';
+    else if (rejected) { status = '<span class="wf-status is-back">Odbijeno</span>'; nap = 'Za studeni predložiti najviše 10 % – doprinos nije iznad ostalih u timu.'; odobr = 'odbio M. Kovačević<br>16. 11. 2026.'; }
+    else if (approvedOther) { status = pct > 0 ? '<span class="wf-status is-done">Odobreno</span>' : '<span class="wf-muted">–</span>'; odobr = pct > 0 ? 'M. Kovačević<br>16. 11. 2026.' : '–'; }
+    else status = '<span class="wf-status is-draft">Spremljeno</span>';
+    var opts = PCTS.map(function (p) { return '<option value="' + p + '"' + (p === pct ? ' selected' : '') + '>' + p + '</option>'; }).join('');
+    var obr = sc.pct ? (pct > 0 ? 'Iznimno zalaganje na završetku projekta.' : '') : r[4];
+    return '<tr data-i="' + i + '"' + (rejected ? ' class="is-selected"' : '') + '>' +
+      '<td class="wf-name sticky left-0 bg-white">' + r[0] + '</td><td class="whitespace-nowrap">' + r[1] + '</td><td></td><td class="num">' + WF.fmt(r[2]) + '</td>' +
+      '<td><select class="wf-select" data-pct' + (lock ? ' disabled' : '') + ' aria-label="Stimulacija – ' + r[0] + '">' + opts + '</select></td>' +
+      '<td class="num"><span class="wf-calc" data-eur></span></td>' +
+      '<td><textarea class="wf-textarea" rows="2" data-obr' + (lock ? ' disabled' : '') + '>' + obr + '</textarea><div class="wf-error" hidden>Obrazloženje je obavezno za stimulaciju iznad 0 %.</div></td>' +
+      '<td><span class="wf-locked is-block">' + (nap || '&nbsp;') + '</span></td>' +
+      '<td data-status>' + status + '</td>' +
+      '<td class="text-xs">' + (sc.locked || sc.rejected != null ? 'I. Horvat<br>12. 11. 2026.' : 'I. Horvat<br>12. 11. 2026.') + '</td>' +
+      '<td class="text-xs">' + odobr + '</td></tr>';
+  }
+
+  function load(key) {
+    cur = SC[key];
+    document.querySelectorAll('#scenarios button').forEach(function (b) { b.classList.toggle('is-active', b.dataset.sc === key); });
+    tbody.innerHTML = ROWS.map(function (r, i) { return rowHtml(r, i, cur); }).join('');
+    $('mjeseci').hidden = !!cur.hideMonths;
+    $('mj-opt').textContent = cur.mj; $('s-rok').textContent = cur.rok; $('d-mj').textContent = cur.mj;
+    $('k-isk').textContent = WF.fmt(cur.isk) + ' €'; $('k-isk-sub').textContent = cur.iskSub;
+    $('k-mj-label').textContent = 'Ovaj prijedlog (' + cur.mj.replace(/ \d{4}\.$/, '') + ')';
+    $('s-status').textContent = cur.status[0]; $('s-status').className = 'wf-status ' + cur.status[1]; $('s-at').textContent = cur.status[2];
+    $('btn-spremi').disabled = !!cur.locked;
+    calc();
+  }
+
+  function calc() {
+    var sumEur = 0, sumPct = 0, cnt = 0, missing = 0;
+    tbody.querySelectorAll('tr').forEach(function (tr) {
+      var i = +tr.dataset.i, r = ROWS[i];
+      var pct = +tr.querySelector('[data-pct]').value, eur = r[2] * pct / 100;
+      tr.querySelector('[data-eur]').textContent = WF.fmt(eur);
+      // odbijeni zaposlenik ne troši fond dok ga rukovoditelj ne ispravi
+      var stillRejected = cur.rejected === i && pct === ROWS[i][3];
+      if (cur.rejected === i && !stillRejected) tr.querySelector('[data-status]').innerHTML = '<span class="wf-status is-draft">Spremljeno</span><span class="wf-at">ispravak nakon odbijanja</span>';
+      if (!stillRejected) { sumEur += eur; sumPct += pct; if (pct > 0) cnt++; }
+      var obr = tr.querySelector('[data-obr]'), err = obr.nextElementSibling;
+      var bad = pct > 0 && !obr.value.trim() && !obr.disabled;
+      obr.classList.toggle('is-error', bad); err.hidden = !bad; if (bad) missing++;
+    });
+    var pre = FOND - cur.isk - sumEur;
+    $('k-mj').textContent = WF.fmt(sumEur) + ' €'; $('k-pre').textContent = WF.fmt(pre) + ' €';
+    $('m-isk').style.width = Math.min(100, cur.isk / FOND * 100) + '%';
+    $('m-mj').style.width = Math.max(0, Math.min(100 - cur.isk / FOND * 100, sumEur / FOND * 100)) + '%';
+    $('f-pct').textContent = sumPct + ' %'; $('f-eur').textContent = WF.fmt(sumEur); $('f-cnt').textContent = cnt + ' zaposlenika sa stimulacijom';
+    $('d-cnt').textContent = cnt; $('d-eur').textContent = WF.fmt(sumEur) + ' €';
+    if (!cur.hideMonths) { $('sum-pct').textContent = sumPct; $('sum-eur').textContent = WF.fmt(sumEur); $('sum-cnt').textContent = cnt; $('sum-status').textContent = cur.status[0]; $('sum-status').className = 'wf-status ' + cur.status[1]; }
+
+    var m = [], stop = false;
+    if (pre < 0) { m.push('<div class="wf-block">Prijedlog za ' + cur.mj + ' (' + WF.fmt(sumEur) + ' €) premašuje preostali godišnji fond odjela (' + WF.fmt(FOND - cur.isk) + ' €) za ' + WF.fmt(-pre) + ' €. Smanjite stimulacije; prijedlog se ne može predati.</div>'); stop = true; }
+    if (missing) { m.push('<div class="wf-block">Nedostaje obrazloženje za ' + missing + (missing === 1 ? ' stimulaciju' : ' stimulacije') + ' iznad 0 %. Prijedlog se ne može predati.</div>'); stop = true; }
+    if (cur.locked) m.push('<div class="wf-info">Prijedlog je predan 13. 11. 2026. i zaključan. Čeka odluku odobravatelja (Marko Kovačević).</div>');
+    if (cur.rejected != null) m.push('<div class="wf-info">Odobravatelj je odbio jednu stimulaciju (<b>' + ROWS[cur.rejected][0] + '</b>) uz napomenu; ostali zaposlenici ostaju odobreni <span class="wf-p" title="' + WF.questions.P1 + '">P1</span>. Odbijeni iznos ne troši fond. Možete ispraviti njegov postotak i ponovno predati ili iznos iskoristiti kasnije za drugog zaposlenika.</div>');
+    $('msgs').innerHTML = m.join('');
+    $('btn-predaj').disabled = stop || !!cur.locked;
+  }
+
+  document.getElementById('scenarios').addEventListener('click', function (e) { var b = e.target.closest('button[data-sc]'); if (b) load(b.dataset.sc); });
+  tbody.addEventListener('change', calc);
+  tbody.addEventListener('input', calc);
+  if (window.WF) load('unos'); else document.addEventListener('DOMContentLoaded', function () { load('unos'); });
+})();
+</script>
+</body>
+</html>

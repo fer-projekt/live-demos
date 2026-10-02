@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F1.5 HR provjera – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F1.5">
+<main>
+  <h1 class="wf-h1">HR provjera – godišnja nagrada</h1>
+  <p class="wf-sub">Ciklus 2026. · formalna provjera prijedloga prije odobravatelja najviše razine · sve jedinice</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator (Petra Novak, Sanja Lukić). HR je u liniji nagrađivanja i napredovanja, ali u redovnom tijeku ne predlaže.</dd>
+      <dt>Čemu služi</dt><dd>Popis prijedloga koji čekaju HR provjeru i otvoren prijedlog s HR panelom. Detalj je isti kao kod odobravatelja (F1.4b), uz vraćanje na doradu i HR iznimke.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>HR provjerava je li prijedlog potpun i u skladu s pravilnikom: obrazloženje, konkretni primjeri, iznos unutar raspona i budžeta. Ako jest, Potvrdi provjeru <span class="wf-p">N4</span> šalje ga dalje (status HR provjereno); ako nije, Vrati na doradu.</li>
+        <li>Vraćanje: bira se jedan ili više razloga, uz obaveznu napomenu. Rukovoditelj dobiva e-mail; dodatni odobravatelj također (u SET-u oba dodatna). Dorađeni prijedlog ponovno ide HR-u <span class="wf-p">P2</span>.</li>
+        <li>Razlozi: nedovoljno obrazloženje; nedostaju konkretni primjeri; prijedlog nije u skladu s pravilnikom; iznos nije unutar dopuštenog raspona ili budžeta; nisu ispunjeni osnovni uvjeti; treba ispraviti osnovne podatke; status zaposlenja; ostalo (uz kratko pojašnjenje).</li>
+        <li>HR iznimke: ručni iznos iznad limita uz odluku Uprave; odobrenje prekoračenja budžeta nakon odluke Uprave; iznimno završno odobrenje kad redovni odobravatelj nije dostupan; korekcija nakon odobrenja. Svaka iznimka zapisuje se u tragu izmjena (tko, kada, što) i ne šalje obavijesti drugim korisnicima.</li>
+        <li>Zapis o odobrenom prekoračenju budžeta vidi samo HR; ne traži posebnu napomenu.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li>Statusi kod HR-a su „Poslano HR-u“ i „HR provjereno“, kao kod napredovanja <span class="wf-p">N2</span>; radnja se zove „Potvrdi provjeru“ <span class="wf-p">N4</span>.</li>
+        <li>Obavezno polje „Osnova odluke“ (tko je odlučio i kada) kod ručnog iznosa, iznimnog odobrenja i korekcije <span class="wf-p" title="NOVO: Mora li HR kod iznimki (ručni iznos iznad limita, iznimno završno odobrenje, korekcija nakon odobrenja) upisati osnovu odluke (tko je odlučio i kada)? Wireframe pretpostavlja: obavezno polje „Osnova odluke“, osim kod prekoračenja budžeta (Specifikacija: bez posebne napomene).">N24</span>.</li>
+        <li>Pomoćni popis „Provjera potpunosti“ i kartica „Ostali prijedlozi“ su naš prijedlog prikaza <span class="wf-p">prijedlog</span>.</li>
+        <li>Korekcija nakon odobrenja: dogovor ili odluka nadležnih <span class="wf-p">P9</span>. Status dok prijedlog čeka dodatnog odobravatelja <span class="wf-p">P10</span>.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-grid grid-cols-2 lg:grid-cols-4 mb-4">
+    <div class="wf-kpi"><div class="wf-kpi-label">Čeka HR provjeru</div><div class="wf-kpi-value">4</div><div class="wf-kpi-sub">Poslano HR-u, ukupno 11.620,00 €</div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label">Provjereno, kod odobravatelja</div><div class="wf-kpi-value">2</div><div class="wf-kpi-sub">HR provjereno, 14.740,00 €</div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label">Vraćeno na doradu</div><div class="wf-kpi-value">1</div><div class="wf-kpi-sub">kod rukovoditelja</div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label">Odobreno</div><div class="wf-kpi-value">1</div><div class="wf-kpi-sub">6.630,00 €</div></div>
+  </div>
+
+  <div class="wf-tabs" data-wf-tabs="lista">
+    <button type="button" data-wf-tab="ceka" class="is-active">Čeka HR provjeru (4)</button>
+    <button type="button" data-wf-tab="ostali">Ostali prijedlozi (5)</button>
+  </div>
+
+  <div data-wf-panel="lista:ceka">
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Odjel</th><th>Rukovoditelj</th><th>Zaposlenik</th><th class="num">Razina</th><th class="num">Iznos (€)</th><th>Status</th><th>Predano</th><th>Napomena sustava</th><th>Radnja</th></tr></thead>
+        <tbody>
+          <tr><td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="wf-name">Nina Šarić</td><td class="num">3</td><td class="num">1.200,00</td><td><span class="wf-status">Poslano HR-u</span><span class="wf-at">kod: HR</span></td><td>12. 11. 2026.</td><td>–</td>
+            <td><a class="wf-btn wf-btn-sm" href="#prijedlog">Otvori</a></td></tr>
+          <tr class="is-selected"><td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="wf-name">Tena Kolar</td><td class="num">6</td><td class="num">4.500,00</td><td><span class="wf-status">Poslano HR-u</span><span class="wf-at">kod: HR</span></td><td>11. 11. 2026.</td><td>limit I7 primijenjen (osnovni iznos 5.880,00 €)</td>
+            <td><a class="wf-btn wf-btn-sm" href="#prijedlog">Otvori</a></td></tr>
+          <tr><td>Razvoj proizvodnje</td><td>Goran Šimić</td><td class="wf-name">Bruno Kralj</td><td class="num">3</td><td class="num">1.500,00</td><td><span class="wf-status">Poslano HR-u</span><span class="wf-at">kod: HR</span></td><td>14. 11. 2026.</td><td>–</td>
+            <td><a class="wf-btn wf-btn-sm" href="#prijedlog">Otvori</a></td></tr>
+          <tr><td>Montaža SET</td><td>Josip Jurić</td><td class="wf-name">Hrvoje Pavić</td><td class="num">5</td><td class="num">4.420,00</td><td><span class="wf-status">Poslano HR-u</span><span class="wf-at">kod: HR</span></td><td>17. 11. 2026.</td><td>prošao oba dodatna odobravatelja (Luka Knežević, Maja Pavlović)</td>
+            <td><a class="wf-btn wf-btn-sm" href="#prijedlog">Otvori</a></td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Ukupno</td><td class="num">11.620,00</td><td colspan="4"></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="wf-help mt-2">Wireframe pod popisom prikazuje primjer otvorenog prijedloga Tene Kolar.</p>
+  </div>
+
+  <div data-wf-panel="lista:ostali">
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Odjel</th><th>Zaposlenik</th><th class="num">Iznos (€)</th><th>Status</th><th>HR iznimka</th></tr></thead>
+        <tbody>
+          <tr><td>Projekt tehnologije</td><td class="wf-name">Marija Perić</td><td class="num">8.960,00</td><td><span class="wf-status">HR provjereno</span><span class="wf-at">kod: Marko Kovačević</span></td>
+            <td><a class="wf-btn wf-btn-sm" href="#iznimke">Iznimno završno odobrenje</a></td></tr>
+          <tr><td>Razvoj proizvodnje</td><td class="wf-name">Ivona Jakšić</td><td class="num">5.780,00</td><td><span class="wf-status">HR provjereno</span><span class="wf-at">kod: Marko Kovačević</span></td><td class="wf-muted">–</td></tr>
+          <tr><td>Montaža SET</td><td class="wf-name">Stjepan Lovrić</td><td class="num">1.935,00</td><td><span class="wf-status">Poslano na odobrenje</span><span class="wf-at">kod: Luka Knežević <span class="wf-p">P10</span></span></td><td class="wf-muted">još nije stigao do HR-a</td></tr>
+          <tr class="is-error"><td>Projekt tehnologije</td><td class="wf-name">Filip Matić</td><td class="num">4.590,00</td><td><span class="wf-status is-back">Vraćeno na doradu</span><span class="wf-at">kod: Ivana Horvat; HR: nedostaju konkretni primjeri</span></td>
+            <td><div class="wf-error">ne stane u raspoloživo (3.710,00 €) <span class="wf-p">P11</span></div><a class="wf-btn wf-btn-sm" href="#iznimke">Odobri prekoračenje budžeta</a></td></tr>
+          <tr><td>Projekt tehnologije</td><td class="wf-name">Karlo Radić</td><td class="num">6.630,00</td><td><span class="wf-status is-done">Odobreno</span><span class="wf-at">zaključano za sve osim HR-a</span></td>
+            <td><a class="wf-btn wf-btn-sm" href="#iznimke">Korekcija nakon odobrenja</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="wf-help mt-2">Dorađeni prijedlog (npr. Filip Matić nakon ispravka) ponovno se pojavljuje na kartici „Čeka HR provjeru“ <span class="wf-p">P2</span>.</p>
+  </div>
+
+  <!-- otvoren prijedlog -->
+  <h2 class="wf-section-title" id="prijedlog">Otvoren prijedlog – Tena Kolar</h2>
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="cekanje" class="is-active">Čeka HR provjeru</button>
+    <button type="button" data-wf-tab="potvrdeno">Nakon Potvrdi provjeru</button>
+    <button type="button" data-wf-tab="vraceno">Nakon Vrati na doradu</button>
+  </div>
+
+  <div class="mb-3">Status:
+    <span class="wf-status" data-wf-panel="stanje:cekanje">Poslano HR-u</span><span class="wf-at inline ml-2" data-wf-panel="stanje:cekanje">kod: HR</span>
+    <span class="wf-status" data-wf-panel="stanje:potvrdeno">HR provjereno</span><span class="wf-at inline ml-2" data-wf-panel="stanje:potvrdeno">kod: Marko Kovačević</span>
+    <span class="wf-status is-back" data-wf-panel="stanje:vraceno">Vraćeno na doradu</span><span class="wf-at inline ml-2" data-wf-panel="stanje:vraceno">kod: Ivana Horvat</span>
+  </div>
+  <ol class="wf-steps" data-wf-panel="stanje:cekanje" aria-label="Linija odobravanja">
+    <li class="is-done">Ivana Horvat – predlaže</li>
+    <li class="is-active">HR – formalna provjera</li>
+    <li class="">Marko Kovačević – direktor, najviša razina</li>
+  </ol>
+  <ol class="wf-steps" data-wf-panel="stanje:potvrdeno" aria-label="Linija odobravanja">
+    <li class="is-done">Ivana Horvat – predlaže</li>
+    <li class="is-done">HR – formalna provjera</li>
+    <li class="is-active">Marko Kovačević – direktor, najviša razina</li>
+  </ol>
+  <ol class="wf-steps" data-wf-panel="stanje:vraceno" aria-label="Linija odobravanja">
+    <li class="is-done">Ivana Horvat – predlaže</li>
+    <li class="is-done">HR – vraćeno na doradu</li>
+    <li class="">Marko Kovačević – direktor, najviša razina</li>
+  </ol>
+
+  <div class="wf-info" data-wf-panel="stanje:potvrdeno">Provjera je potvrđena; prijedlog je otišao Marku Kovačeviću. Zapis je u tragu izmjena.</div>
+  <div class="wf-info" data-wf-panel="stanje:vraceno"><b>Vraćeno na doradu</b> – Petra Novak (HR), 20. 11. 2026. u 9:05<br>Razlozi: <b>nedovoljno obrazloženje; nedostaju konkretni primjeri</b><br>Napomena HR-a: „Obrazloženje ne objašnjava zašto je razina 6 opravdana; primjeri trebaju sadržavati rokove ili brojke.“<br>E-mail su dobili Ivana Horvat (rukovoditelj); odjel nema dodatnog odobravatelja. Dorađeni prijedlog ponovno ide HR-u <span class="wf-p">P2</span>.</div>
+
+  <div class="wf-grid md:grid-cols-2 mt-3">
+    <dl class="wf-kv">
+      <dt>Odjel / organizacijska jedinica</dt><dd><span class="wf-locked">Projekt tehnologije</span></dd>
+      <dt>Rukovoditelj</dt><dd><span class="wf-locked">Ivana Horvat</span></dd>
+      <dt>Broj zaposlenih u odjelu</dt><dd><span class="wf-locked">9</span></dd>
+      <dt>Budžet za godišnju nagradu</dt><dd><span class="wf-locked">25.000,00 € (9,74 %)</span> <span class="wf-p">N1</span></dd>
+      <dt>Datum procjene</dt><dd><span class="wf-locked">10. 11. 2026.</span></dd>
+    </dl>
+    <dl class="wf-kv">
+      <dt>Ime i prezime zaposlenika</dt><dd><span class="wf-locked">Tena Kolar</span></dd>
+      <dt>Radno mjesto / grupa radnih mjesta</dt><dd><span class="wf-locked">Tehnolog / Tehnologija</span></dd>
+      <dt>Ugovorena mjesečna bruto plaća</dt><dd><span class="wf-locked">2.100,00 €</span></dd>
+      <dt>Stupanj složenosti</dt><dd><span class="wf-locked">I7</span> <span class="wf-muted text-xs">najviši iznos nagrade 4.500,00 €</span></dd>
+    </dl>
+  </div>
+
+  <div class="wf-card mt-4">
+    <div class="wf-h3">Rezultat procjene i prijedlog iznosa</div>
+    <div class="flex flex-wrap items-end gap-3">
+      <div><div class="wf-label">Ocjene K–U–D</div><span class="wf-calc">4–4–4</span></div>
+      <div><div class="wf-label">Prosjek</div><span class="wf-calc">4,00</span></div>
+      <div><div class="wf-label">Razina učinka</div><span class="wf-calc">6</span></div>
+      <div><div class="wf-label">Faktor</div><span class="wf-calc">2,8</span></div>
+      <div><div class="wf-label">Osnovni iznos</div><span class="wf-calc">5.880,00 €</span></div>
+      <div><div class="wf-label">Najviši iznos za I7</div><span class="wf-calc">4.500,00 €</span></div>
+      <div><div class="wf-label">Prijedlog iznosa</div><span class="wf-calc text-lg font-bold">4.500,00 €</span></div>
+    </div>
+    <div class="wf-info mt-3 mb-0">Osnovni iznos (2.100,00 € × 2,8 = 5.880,00 €) premašuje najviši iznos za I7, pa je primijenjen limit od 4.500,00 €. Viši iznos može, uz odluku Uprave, ručno unijeti samo HR (iznimka A ispod).</div>
+    <div class="wf-grid grid-cols-2 md:grid-cols-4 mt-3">
+      <div><div class="wf-muted text-xs">Dodijeljeno</div><div class="font-bold">25.000,00 €</div></div>
+      <div><div class="wf-muted text-xs">Rezervirano (uklj. ovaj prijedlog)</div><div class="font-bold">14.660,00 €</div></div>
+      <div><div class="wf-muted text-xs">Iskorišteno</div><div class="font-bold">6.630,00 €</div></div>
+      <div><div class="wf-muted text-xs">Raspoloživo</div><div class="font-bold">3.710,00 €</div></div>
+    </div>
+  </div>
+
+  <details class="wf-card mt-3">
+    <summary class="cursor-pointer font-semibold">Obrazac rukovoditelja (samo za čitanje): ocjene, opisne procjene, primjeri, obrazloženje</summary>
+    <div class="wf-table-wrap mt-3">
+      <table class="wf-table">
+        <thead><tr><th>Kriterij</th><th>Procjena rukovoditelja (opisno)</th><th>Primjeri iz prakse</th><th class="num">Ocjena</th></tr></thead>
+        <tbody>
+          <tr><td><b>Kvaliteta rada</b></td><td>Pouzdana i vrlo precizna; dokumentaciju izrađuje bez ispravaka.</td>
+            <td><ol class="list-decimal pl-4"><li>Izradila postupke za 11 narudžbi DT bez reklamacija (ožujak–rujan 2026.).</li><li>Smanjila ispravke sastavnica s 6 na 1 mjesečno.</li></ol></td><td class="num">4</td></tr>
+          <tr><td><b>Radna učinkovitost</b></td><td>Brza i organizirana; preuzima dodatne narudžbe uz zadržanu kvalitetu.</td>
+            <td><ol class="list-decimal pl-4"><li>U kolovozu preuzela 4 dodatne narudžbe i sve predala u roku.</li><li>Skratila pripremu tehnologije za pojedinačne narudžbe s 4 na 3 dana.</li></ol></td><td class="num">4</td></tr>
+          <tr><td><b>Doprinos timu</b></td><td>Aktivno dijeli znanje i pomaže kolegama.</td>
+            <td><ol class="list-decimal pl-4"><li>Uvela Emu Tomić u rad s tehnološkim postupcima.</li><li>Održala internu radionicu o novim predlošcima dokumentacije.</li></ol></td><td class="num">4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="wf-field mt-3 mb-0"><div class="wf-label">Obrazloženje rukovoditelja</div><div class="wf-locked is-block">U posljednjih 12 mjeseci dosljedno na najvišoj razini u sva tri kriterija; preuzimala je dodatne narudžbe i mentorirala novu kolegicu bez pada kvalitete.</div></div>
+  </details>
+
+  <!-- HR panel -->
+  <h2 class="wf-section-title">HR panel</h2>
+  <div class="wf-card">
+    <div class="wf-h3">Provjera potpunosti <span class="wf-p">prijedlog</span></div>
+    <div class="grid gap-1 md:grid-cols-2 mb-3">
+      <label class="wf-check"><input type="checkbox" checked> Obrazloženje je dovoljno</label>
+      <label class="wf-check"><input type="checkbox" checked> Za svaki kriterij postoje 2–3 konkretna primjera</label>
+      <label class="wf-check"><input type="checkbox" checked> Iznos je unutar dopuštenog raspona (limit I7 primijenjen)</label>
+      <label class="wf-check"><input type="checkbox" checked> Iznos je unutar raspoloživog budžeta odjela</label>
+      <label class="wf-check"><input type="checkbox" checked> Osnovni podaci i status zaposlenja su ispravni (aktivan, plaća i stupanj složenosti postoje)</label>
+      <label class="wf-check"><input type="checkbox" checked> Prijedlog je u skladu s pravilnikom</label>
+    </div>
+    <div class="wf-field">
+      <label class="wf-label" for="hr-nap">Napomena HR-a (vidi je odobravatelj u detalju prijedloga)</label>
+      <textarea class="wf-textarea" id="hr-nap" rows="2">Obrazac je potpun; iznos je unutar limita za I7 i raspoloživog budžeta.</textarea>
+    </div>
+    <div class="wf-actions">
+      <button type="button" class="wf-btn-primary" data-wf-toast="Provjera je potvrđena. Prijedlog je poslan odobravatelju (HR provjereno)." data-wf-panel="stanje:cekanje">Potvrdi provjeru</button>
+      <button type="button" class="wf-btn" data-wf-open="dlg-vrati" data-wf-panel="stanje:cekanje">Vrati na doradu</button>
+      <button type="button" class="wf-btn-primary" disabled data-wf-panel="stanje:potvrdeno stanje:vraceno">Potvrdi provjeru</button>
+      <button type="button" class="wf-btn" disabled data-wf-panel="stanje:potvrdeno stanje:vraceno">Vrati na doradu</button>
+      <span class="wf-help" data-wf-panel="stanje:potvrdeno">Provjera je potvrđena; prijedlog je kod odobravatelja.</span>
+      <span class="wf-help" data-wf-panel="stanje:vraceno">Prijedlog je kod rukovoditelja; nakon dorade ponovno dolazi na HR provjeru.</span>
+    </div>
+  </div>
+
+  <!-- HR iznimke -->
+  <h2 class="wf-section-title" id="iznimke">HR iznimke <span class="wf-muted font-normal normal-case tracking-normal text-xs">– svaka se zapisuje u tragu izmjena</span></h2>
+  <div class="wf-tabs" data-wf-tabs="izn">
+    <button type="button" data-wf-tab="izn-a" class="is-active">A. Ručni iznos iznad limita</button>
+    <button type="button" data-wf-tab="izn-b">B. Prekoračenje budžeta</button>
+    <button type="button" data-wf-tab="izn-c">C. Iznimno završno odobrenje</button>
+    <button type="button" data-wf-tab="izn-d">D. Korekcija nakon odobrenja</button>
+  </div>
+
+  <div class="wf-card" data-wf-panel="izn:izn-a">
+    <div class="wf-h3">Ručni iznos iznad limita – Tena Kolar (I7, limit 4.500,00 €)</div>
+    <p class="mb-3">Limit se u pravilu ne prekoračuje. Iznimno, u posebno obrazloženim slučajevima iznimnog učinka, Uprava može odobriti viši iznos unutar budžeta; HR ga tada unosi ručno.</p>
+    <div class="wf-grid md:grid-cols-3">
+      <div class="wf-field mb-0"><label class="wf-label wf-req" for="ra-iznos">Ručni iznos nagrade (€)</label><input class="wf-input" id="ra-iznos" value="5.880,00"><div class="wf-help">osnovni iznos 5.880,00 €</div></div>
+      <div class="wf-field mb-0 md:col-span-2"><label class="wf-label wf-req" for="ra-osn">Osnova odluke <span class="wf-p" title="NOVO: Mora li HR kod iznimki (ručni iznos iznad limita, iznimno završno odobrenje, korekcija nakon odobrenja) upisati osnovu odluke (tko je odlučio i kada)? Wireframe pretpostavlja: obavezno polje „Osnova odluke“, osim kod prekoračenja budžeta (Specifikacija: bez posebne napomene).">N24</span></label><input class="wf-input" id="ra-osn" value="Odluka Uprave od 24. 11. 2026. (izniman učinak)"></div>
+    </div>
+    <div class="wf-info mt-3">Razlika prema limitu: +1.380,00 €. Raspoloživo 3.710,00 € – iznos stane; raspoloživo nakon iznimke 2.330,00 €. Prijedlog se označava kao „ručno unesen iznos“.</div>
+    <div class="wf-actions"><button type="button" class="wf-btn-primary" data-wf-toast="Ručni iznos je spremljen i zapisan u tragu izmjena (tko, kada, što).">Spremi iznimku</button></div>
+  </div>
+
+  <div class="wf-card" data-wf-panel="izn:izn-b">
+    <div class="wf-h3">Odobrenje prekoračenja budžeta – Filip Matić (odjel Projekt tehnologije)</div>
+    <p class="mb-3">Dorađeni prijedlog (4.590,00 €) ne stane u raspoloživi budžet odjela; sustav blokira predaju <span class="wf-p">P11</span>. Iznimno, nakon odluke Uprave, HR može odobriti prekoračenje.</p>
+    <div class="wf-grid grid-cols-2 md:grid-cols-4">
+      <div><div class="wf-muted text-xs">Prijedlog</div><div class="font-bold">4.590,00 €</div></div>
+      <div><div class="wf-muted text-xs">Raspoloživo</div><div class="font-bold">3.710,00 €</div></div>
+      <div><div class="wf-muted text-xs">Prekoračenje</div><div class="font-bold">880,00 €</div></div>
+      <div><div class="wf-muted text-xs">Raspoloživo nakon iznimke</div><div class="font-bold">−880,00 €</div></div>
+    </div>
+    <div class="wf-info mt-3">Radnja ne traži posebnu napomenu. Zapis ostaje u tragu izmjena i vidljiv je samo HR administratorima; rukovoditelj i odobravatelji ga ne vide.</div>
+    <div class="wf-actions"><button type="button" class="wf-btn-primary" data-wf-toast="Prekoračenje je odobreno. Zapis vidi samo HR (trag izmjena).">Odobri prekoračenje budžeta</button></div>
+  </div>
+
+  <div class="wf-card" data-wf-panel="izn:izn-c">
+    <div class="wf-h3">Iznimno završno odobrenje – Marija Perić (kod: Marko Kovačević)</div>
+    <p class="mb-3">Kad redovni odobravatelj nije dostupan, HR može iznimno završno odobriti, na temelju dogovora ili inputa nadležnih.</p>
+    <div class="wf-grid md:grid-cols-3">
+      <div class="wf-field mb-0"><div class="wf-label">Prijedlog</div><span class="wf-locked is-block">Marija Perić, 8.960,00 €</span></div>
+      <div class="wf-field mb-0 md:col-span-2"><label class="wf-label wf-req" for="rc-osn">Osnova odluke <span class="wf-p" title="NOVO: Mora li HR kod iznimki (ručni iznos iznad limita, iznimno završno odobrenje, korekcija nakon odobrenja) upisati osnovu odluke (tko je odlučio i kada)? Wireframe pretpostavlja: obavezno polje „Osnova odluke“, osim kod prekoračenja budžeta (Specifikacija: bez posebne napomene).">N24</span></label><input class="wf-input" id="rc-osn" placeholder="npr. dogovor s članom Uprave Anom Babić, datum"></div>
+    </div>
+    <div class="wf-alert mt-3">Marko Kovačević je označen kao nedostupan; nakon iznimnog odobrenja prijedlog je zaključan za sve osim HR-a, a e-mail o odobrenju dobivaju predlagatelj i odobravatelji u liniji.</div>
+    <div class="wf-actions"><button type="button" class="wf-btn-primary" data-wf-toast="Iznimno odobrenje je zapisano u tragu izmjena (tko, kada, što).">Odobri iznimno</button></div>
+  </div>
+
+  <div class="wf-card" data-wf-panel="izn:izn-d">
+    <div class="wf-h3">Korekcija nakon odobrenja – Karlo Radić (odobreno 6.630,00 €)</div>
+    <p class="mb-3">Odobreni prijedlog zaključan je za sve osim HR-a. HR ga može korigirati na temelju dogovora ili odluke Uprave odnosno direktora <span class="wf-p">P9</span>.</p>
+    <div class="wf-grid md:grid-cols-3">
+      <div class="wf-field mb-0"><label class="wf-label wf-req" for="rd-iznos">Novi iznos (€)</label><input class="wf-input" id="rd-iznos" value="6.630,00"></div>
+      <div class="wf-field mb-0 md:col-span-2"><label class="wf-label wf-req" for="rd-osn">Osnova odluke <span class="wf-p" title="NOVO: Mora li HR kod iznimki (ručni iznos iznad limita, iznimno završno odobrenje, korekcija nakon odobrenja) upisati osnovu odluke (tko je odlučio i kada)? Wireframe pretpostavlja: obavezno polje „Osnova odluke“, osim kod prekoračenja budžeta (Specifikacija: bez posebne napomene).">N24</span></label><input class="wf-input" id="rd-osn" placeholder="npr. odluka Uprave, uputa direktora, datum"></div>
+    </div>
+    <div class="wf-info mt-3">Izmjena iznosa ažurira iskorišteni budžet odjela i upisuje se u trag izmjena: stara vrijednost, nova vrijednost, tko i kada.</div>
+    <div class="wf-actions"><button type="button" class="wf-btn-primary" data-wf-toast="Korekcija je spremljena i zapisana u tragu izmjena.">Spremi korekciju</button></div>
+  </div>
+
+  <!-- povijest -->
+  <h2 class="wf-section-title">Povijest statusa</h2>
+  <ul class="wf-timeline">
+    <li class="is-done"><b>Spremljeno</b> – Ivana Horvat, 10. 11. 2026. u 15:42</li>
+    <li class="is-done"><b>Poslano HR-u</b> – Ivana Horvat predala prijedlog, 11. 11. 2026. u 8:50</li>
+    <li class="is-current" data-wf-panel="stanje:cekanje"><b>Čeka HR provjeru</b> – Petra Novak</li>
+    <li class="is-next" data-wf-panel="stanje:cekanje">HR provjereno ili vraćeno na doradu</li>
+    <li class="is-done" data-wf-panel="stanje:potvrdeno"><b>HR provjereno</b> – Petra Novak, 20. 11. 2026. u 9:05</li>
+    <li class="is-current" data-wf-panel="stanje:potvrdeno"><b>Čeka odluku</b> – Marko Kovačević, direktor</li>
+    <li class="is-done" data-wf-panel="stanje:vraceno"><b>Vraćeno na doradu</b> – Petra Novak, 20. 11. 2026. u 9:05; razlozi: nedovoljno obrazloženje, nedostaju konkretni primjeri</li>
+    <li class="is-next" data-wf-panel="stanje:vraceno">Dorađeni prijedlog ponovno ide HR-u <span class="wf-p">P2</span></li>
+  </ul>
+
+  <dialog class="wf-dialog" id="dlg-vrati">
+    <div class="wf-dialog-head">Vrati na doradu – Tena Kolar <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-field">
+        <div class="wf-label wf-req">Razlozi (jedan ili više)</div>
+        <div class="grid gap-1">
+          <label class="wf-check"><input type="checkbox" checked> nedovoljno obrazloženje</label>
+          <label class="wf-check"><input type="checkbox" checked> nedostaju konkretni primjeri</label>
+          <label class="wf-check"><input type="checkbox"> prijedlog nije u skladu s pravilnikom</label>
+          <label class="wf-check"><input type="checkbox"> iznos nije unutar dopuštenog raspona ili budžeta</label>
+          <label class="wf-check"><input type="checkbox"> nisu ispunjeni osnovni uvjeti</label>
+          <label class="wf-check"><input type="checkbox"> treba ispraviti osnovne podatke</label>
+          <label class="wf-check"><input type="checkbox"> status zaposlenja</label>
+          <label class="wf-check"><input type="checkbox"> ostalo (uz kratko pojašnjenje)</label>
+        </div>
+      </div>
+      <div class="wf-field">
+        <label class="wf-label" for="vr-ostalo">Pojašnjenje za „ostalo“</label>
+        <input class="wf-input" id="vr-ostalo" disabled placeholder="Samo ako je odabrano „ostalo“">
+      </div>
+      <div class="wf-field">
+        <label class="wf-label wf-req" for="vr-nap">Napomena HR-a</label>
+        <textarea class="wf-textarea" id="vr-nap" rows="3">Obrazloženje ne objašnjava zašto je razina 6 opravdana; primjeri trebaju sadržavati rokove ili brojke.</textarea>
+        <div class="wf-help">Napomena je obavezna.</div>
+      </div>
+      <div class="wf-info mb-0"><b>Tko dobiva e-mail:</b> rukovoditelj Ivana Horvat i dodatni odobravatelj, ako ga odjel ima (Projekt tehnologije nema). U proizvodnji SET: rukovoditelj, dodatni odobravatelj (Luka Knežević) i dodatni odobravatelj više razine (Maja Pavlović).</div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Prijedlog je vraćen na doradu. Rukovoditelj je obaviješten e-mailom.">Vrati na doradu</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

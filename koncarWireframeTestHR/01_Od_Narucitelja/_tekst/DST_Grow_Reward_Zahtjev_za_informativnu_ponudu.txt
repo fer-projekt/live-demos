@@ -1,0 +1,323 @@
+D&ST GROW & REWARD
+
+ZAHTJEV ZA DOSTAVU
+INFORMATIVNE PONUDE
+
+Implementacija centralne web-aplikacije za upravljanje stimulacijama, kvartalnim nagradama, godišnjim napredovanjem i godišnjim nagrađivanjem.
+
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Predmet zahtjeva
+  KONČAR D&ST poziva potencijalne dobavljače da na temelju ovog dokumenta dostave informativnu ponudu koja uključuje predloženo rješenje, procjenu izvedivosti, plan implementacije i komercijalni model.
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Status dokumenta
+  Dokument je osnova za informativnu ponudu. Detaljna funkcionalna specifikacija i prilozi mogu se dostaviti odabranim dobavljačima u sljedećoj fazi. Konačan opseg potvrđuje se kroz radionice analize prije ugovaranja.
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Dokument za informativnu ponudu | rujan 2026.
+
+KONČAR D&ST
+
+1. Sažetak projekta
+
+Cilj je uspostaviti jedinstveno, kontrolirano i transparentno rješenje za četiri HR procesa namijenjena zaposlenicima . Rješenje treba objediniti postojeće parcijalne aplikacije te standardizirati unos, izračun, odobravanje, izvještavanje i razmjenu podataka.
+
+-   Centralna responzivna web-aplikacija s testnim i produkcijskim okruženjem.
+
+-   Četiri poslovna modula sa zajedničkim korisnicima, ulogama, master podacima i auditom.
+
+-   Višerazinska odobravanja, budžetske kontrole, zaključavanje razdoblja i e-mail obavijesti.
+
+-   Automatski izračuni i validacije uz blokade kada poslovna pravila nisu zadovoljena.
+
+-   Standardizirani CSV uvoz i izvoz, uključujući podatke za HRNET.
+
+-   Operativni i upravljački izvještaji prema ulozi, organizacijskoj jedinici i razdoblju.
+
+  -----------------------------------------------------------------------------------
+  Pokazatelj                          Okvirna vrijednost
+  ----------------------------------- -----------------------------------------------
+  Rukovoditelji s pristupom           oko 80
+
+  Vršni broj istovremenih korisnika   oko 40
+
+  Dodatni korisnici                   HR administratori, direktori i članovi Uprave
+
+  Vrsta iznosa                        bruto iznosi
+  -----------------------------------------------------------------------------------
+
+2. Korisničke uloge i pristup
+
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Uloga                Glavne ovlasti
+  -------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  HR administrator     Administracija modula, korisnika, master podataka, ciklusa, budžeta, statusa, uvoza/izvoza, korekcija i zaključavanja. Sve ključne intervencije moraju biti evidentirane.
+
+  Rukovoditelj         Pregled zaposlenika i budžeta unutar nadležnosti, unos i predaja prijedloga te praćenje statusa.
+
+  Direktor             Pregled podataka i budžeta podređenih odjela te odobravanje ili odbijanje prema liniji odobravanja.
+
+  Član Uprave          Agregirani i pojedinačni pregled u vlastitoj nadležnosti te sudjelovanje u odobravanju; posebne ovlasti za direktno podređene potvrđuju se u analizi.
+
+  Predsjednik Uprave   Generalni pregled organizacije prema konačnom modelu prava.
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Kontrola pristupa
+  Pristup bruto plaćama, procjenama, nagradama, napredovanjima i disciplinskim mjerama mora se ograničiti prema ulozi, organizacijskoj nadležnosti i liniji odobravanja.
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. Funkcionalni moduli
+
+3.1 Mjesečne stimulacije
+
+-   Godišnji fond po odjelu vrijedi od 1. travnja do 31. ožujka i troši se kroz mjesece.
+
+-   Rukovoditelj bira 0 %, 5 %, 10 %, 15 % ili 20 % mjesečne bruto plaće; sustav računa iznos i stanje budžeta.
+
+-   Obrazloženje je obvezno za iznos veći od 0 %, a prekoračenje fonda mora biti blokirano.
+
+-   Predaje se cijeli mjesečni prijedlog odjela; masovno odobravanje je dopušteno, a odbijanje je pojedinačno uz napomenu.
+
+-   Odobreni podaci izvoze se u standardizirani Excel format za HRNET.
+
+3.2 Kvartalne nagrade
+
+-   HR unosi postotak maksimalne osnovice i uvozi prisutnost za kvartal putem CSV-a.
+
+-   Prisutnost se računa prema odnosu prisutnosti i fonda sati te mapira na 0 %, 50 %, 75 % ili 100 %.
+
+-   Procjena koristi ponderirane kriterije: kvaliteta 40 %, količina 30 %, urednost i pravila 15 %, suradnja 15 %.
+
+-   Konačni iznos računa se iz bruto plaće, postotka Uprave, ponderirane procjene i prisutnosti.
+
+-   Disciplinska mjera za kvartal postavlja konačni iznos na 0 EUR.
+
+-   Masovno odobravanje je dopušteno, a odbijanje je pojedinačno uz napomenu.
+
+3.3 Godišnje napredovanje
+
+-   Podržano je horizontalno napredovanje i vertikalno napredovanje (Standardna → Napredna pozicija te Junior/Početna → Standardna pozicija).
+
+-   HR otvara ciklus, definira budžetska pravila, dopuštene iznose povećanja i eventualna ograničenja.
+
+-   Rukovoditelj ispunjava digitalni obrazac s procjenama kandidata za napredovanje, obrazloženjem i konkretnim primjerima.
+
+-   HR provjerava potpunost i usklađenost s pravilnikom te prijedlog prosljeđuje ili vraća na doradu.
+
+-   Odobravanje je pojedinačno, a član Uprave završna je linija odobravanja.
+
+-   Početni apoeni povećanja su 100–450 EUR u koracima od 50 EUR, uz mogućnost administrativne promjene.
+
+-   Nakon odobrenja računa se nova bruto plaća; HR potvrđuje primjenu i upis u master podatke.
+
+3.4 Godišnje nagrađivanje
+
+-   Jednokratna godišnja isplata za učinak iznad osnovnih očekivanja.
+
+-   Formula koristi ugovorenu mjesečnu bruto plaću i faktor prema razini učinka (procjena rukovoditelja), uz limite prema stupnju složenosti radnog mjesta.
+
+-   Rukovoditelj kod kandidata za godišnju nagradu procjenjuje kvalitetu rada, radnu učinkovitost i doprinos timu.
+
+-   Razine učinka 1 i 2 imaju faktor 0 i u tom slučaju nije moguća isplata godišnje nagrade; nagrada je moguća od razine učinka 3 uz konkretne primjere.
+
+-   Faktore za određebne razine učinka unosi HR administrator na početku svakog ciklusa, prema odluci Uprave
+
+-   Opći maksimalni iznos je 12.000 EUR bruto; HR može provesti iznimku po posebnoj odluci Uprave, uz audit zapis.
+
+-   HR je kontrolna točka prije linije odobravanja; odobravanje je pojedinačno.
+
+  ------------------------------------------------------------------------
+  Razina učinka         Prijedlog faktora     Nagrada
+  --------------------- --------------------- ----------------------------
+  1                     0                     Ne
+
+  2                     0                     Ne
+
+  3                     0,6                   Moguća
+
+  4                     0,9                   Moguća
+
+  5                     1,7                   Moguća
+
+  6                     2,8                   Moguća
+  ------------------------------------------------------------------------
+
+  -----------------------------------------------------------------------
+  Složenost                         Maksimalni iznos
+  --------------------------------- -------------------------------------
+  I8 / I7                           4.500 EUR bruto
+
+  I6                                6.000 EUR bruto
+
+  I5 / I4                           12.000 EUR bruto
+  -----------------------------------------------------------------------
+
+4. Zajedničke funkcionalnosti
+
+  ----------------------------------------------------------------------------------------------------------------------------
+  Područje         Zahtjev
+  ---------------- -----------------------------------------------------------------------------------------------------------
+  Workflow         Statusi po modulu, višerazinsko odobravanje, vraćanje na doradu i zaključavanje nakon završetka.
+
+  Budžeti          Dodijeljeni, rezervirani, iskorišteni i raspoloživi iznosi; automatsko ažuriranje i kontrolirane iznimke.
+
+  Obavijesti       Uređivi predlošci, pravila slanja, podsjetnici i evidencija poslanih poruka.
+
+  Izvještaji       Pregledi po modulu, organizaciji, korisniku, zaposleniku, razdoblju i statusu; Excel/CSV izvoz.
+
+  Audit trail      Korisnik, datum/vrijeme i sadržaj ključne promjene, osobito HR intervencije i ponovni uvozi.
+
+  Administracija   Korisnici, uloge, hijerarhija, odobravatelji, šifrarnici, ciklusi i poslovni parametri.
+  ----------------------------------------------------------------------------------------------------------------------------
+
+5. Podaci, migracija i integracije
+
+Centralni master zaposlenika koristi se u svim modulima. Ključni identifikatori su OIB i DIST/SAP šifra. Sustav mora čuvati povijest promjena s razdobljem važenja i ne smije retroaktivno mijenjati zaključene cikluse.
+
+-   Minimalni podaci uključuju identitet, status zaposlenja, organizacijsku pripadnost, radno mjesto, platni razred, bruto plaću, rukovoditelja, odobravatelje, e-mail, poziciju i stupanj složenosti.
+
+-   HR održava zaposlenike i organizacijske promjene nakon inicijalne migracije.
+
+-   Masovno ažuriranje odabranih podataka, osobito bruto plaća, provodi se standardiziranom Excel datotekom.
+
+-   Deaktivirani zaposlenici ostaju u povijesti i izvještajima, ali se isključuju iz budućih obračuna.
+
+  ------------------------------------------------------------------------------------------------------------
+  Tok                    Očekivanje
+  ---------------------- -------------------------------------------------------------------------------------
+  Inicijalna migracija   Podaci iz postojećih aplikacija za stimulacije i kvartalne nagrade.
+
+  Prisutnost             CSV po godini i kvartalu, s validacijom i statusom svakog retka.
+
+  Master podaci          Standardizirani Excel s validacijama i primjenom za buduća razdoblja.
+
+  HRNET                  Standardizirani Excel po modulu; konačna polja i validacije potvrđuju se u analizi.
+
+  Izvještaji             Excel izvozi za operativne i upravljačke potrebe.
+  ------------------------------------------------------------------------------------------------------------
+
+6. Sigurnost i nefunkcionalni zahtjevi
+
+-   Autorizacija mora kombinirati ulogu, organizacijsku nadležnost i liniju odobravanja.
+
+-   Potrebni su audit trail, povijest podataka, zapisi uvoza/izvoza i evidencija obavijesti.
+
+-   Obvezna su odvojena testna i produkcijska okruženja.
+
+-   Dobavljač treba predložiti autentikaciju, upravljanje identitetima, enkripciju, logiranje, backup, oporavak i zadržavanje podataka.
+
+-   Dobavljač treba navesti performanse i način skaliranja za približno 40 istovremenih korisnika.
+
+-   Rješenje treba biti responzivno, uporabljivo i pristupačno; izračunata polja moraju biti jasno označena i zaključana.
+
+  -------------------------------------------------------------------------------------------------------------------------------------------------------
+  Obveza dobavljača
+  U tehničkom prijedlogu treba jasno navesti sigurnosne pretpostavke, infrastrukturne preduvjete, model odgovornosti, SLA i sva odstupanja od zahtjeva.
+  -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7. Plan implementacije
+
+  --------------------------------------------------------------------------
+  Prioritet   Modul                           Ciljni rok spremnosti
+  ----------- ------------------------------- ------------------------------
+  1           Godišnje nagrađivanje           1. studenoga 2026.
+
+  2           Godišnje napredovanje           1. veljače 2027.
+
+  3           Mjesečne stimulacije            1. ožujka 2027.
+
+  4           Kvartalne nagrade               1. travnja 2027.
+  --------------------------------------------------------------------------
+
+Preferira se istovremena isporuka svih modula. Ako to nije izvedivo, dopuštena je fazna isporuka prema navedenim prioritetima. Dobavljač mora potvrditi izvedivost rokova i predložiti realan plan koji obuhvaća analizu, dizajn, razvoj ili konfiguraciju, migraciju, testiranje, edukaciju, produkcijsko puštanje i stabilizaciju.
+
+Minimalni kriteriji prihvaćanja
+
+-   Uspješno korisničko testiranje u testnom okruženju.
+
+-   Potvrđeni izračuni, validacije, workflowi, prava pristupa i zaključavanje razdoblja.
+
+-   Uspješan uvoz, ponovni uvoz, obrada grešaka i izvoz podataka.
+
+-   Potvrđeni izvještaji, Excel izvozi i audit trail.
+
+-   Isporučena dokumentacija, edukacija i dogovorena podrška nakon puštanja.
+
+8. Obvezni sadržaj informativne ponude
+
+  -----------------------------------------------------------------------------------------------
+  #     Tražena informacija
+  ----- -----------------------------------------------------------------------------------------
+  1     Sažetak predloženog rješenja i stupanj funkcionalne pokrivenosti.
+
+  2     Arhitektura, tehnološki stog, model hostinga, autentikacije i licenciranja.
+
+  3     Matrica usklađenosti: standardno / konfiguracija / prilagodba / razvoj / nije podržano.
+
+  4     Plan faza, ključne aktivnosti, rokovi, preduvjeti i ovisnosti o naručitelju.
+
+  5     Pristup migraciji, integracijama, sigurnosti, audit trailu i zaštiti podataka.
+
+  6     Pristup testiranju, edukaciji, produkcijskom puštanju i stabilizaciji.
+
+  7     Projektni tim, uloge i relevantne reference na sličnim rješenjima.
+
+  8     Komercijalni model: jednokratni, periodični i opcionalni troškovi, bez PDV-a.
+
+  9     SLA, održavanje, podrška, nadogradnje i sigurnosne zakrpe.
+
+  10    Pretpostavke, ograničenja, isključenja iz opsega, rizici i otvorena pitanja.
+  -----------------------------------------------------------------------------------------------
+
+Upute za pripremu ponude
+
+-   Sve cijene treba prikazati bez PDV-a i odvojiti jednokratne, periodične i opcionalne troškove.
+
+-   Troškove treba, gdje je moguće, prikazati po modulu i zajedničkim komponentama.
+
+-   Treba navesti rok valjanosti ponude, pretpostavljeni početak projekta i izvedivost ciljnih rokova.
+
+-   Pitanja, odstupanja i alternativna rješenja treba navesti u zasebnom dijelu ponude.
+
+9. Pretpostavke i pitanja koja dobavljač treba obraditi
+
+Za teme u nastavku dobavljač treba navesti korištenu pretpostavku, moguća ograničenja i preporučeni način rješavanja. Konačna pravila usuglasit će se tijekom detaljne analize.
+
+  ------------------------------------------------------------------------------------------------------------------------------
+  Tema                      Što treba obraditi
+  ------------------------- ----------------------------------------------------------------------------------------------------
+  Linije odobravanja        Opisati konfigurabilan model koji podržava organizacijsku hijerarhiju i iznimke po modulu.
+
+  Godišnje nagrađivanje     Navesti podržava li rješenje strogo pojedinačno odobravanje i opcionalno masovno odobravanje.
+
+  HRNET                     Navesti pretpostavke o formatu, validacijama, obradi grešaka.
+
+  Autentikacija i hosting   Predložiti identitetski i infrastrukturni model, mrežne preduvjete i lokaciju podataka.
+
+  Sigurnost                 Predložiti zadržavanje podataka, backup/DR ciljeve, logove i upravljanje privilegiranim pristupom.
+
+  Migracija                 Navesti pretpostavljeni opseg, potrebne ulazne podatke i način provjere kvalitete.
+
+  SLA                       Predložiti radno vrijeme podrške, prioritete, vremena odaziva i eskalacije.
+  ------------------------------------------------------------------------------------------------------------------------------
+
+10. Završne odredbe
+
+Informativna ponuda treba omogućiti procjenu funkcionalne pokrivenosti, izvedivosti rokova, ukupnih troškova i preduvjeta provedbe. Dobavljač treba jasno razlikovati standardne funkcionalnosti, konfiguraciju, prilagodbe i razvoj po mjeri te navesti sve pretpostavke i isključenja.
+
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Sljedeća faza
+  Odabranim dobavljačima mogu se dostaviti detaljna funkcionalna specifikacija, obrasci, primjeri ulaznih i izlaznih datoteka, organizacijska struktura te dodatni sigurnosni zahtjevi. KONČAR D&ST zadržava pravo izmjene opsega, traženja pojašnjenja i neodabira nijedne ponude.
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

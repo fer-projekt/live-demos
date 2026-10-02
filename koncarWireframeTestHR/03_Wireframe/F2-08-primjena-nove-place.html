@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2.8 Primjena nove plaće – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F2.8">
+<main>
+  <h1 class="wf-h1">Primjena nove plaće – godišnje napredovanje 2027.</h1>
+  <p class="wf-sub">Odobrena napredovanja primjenjuju se od 1. 4. 2027. · poluautomatski postupak uz HR potvrdu</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator.</dd>
+      <dt>Čemu služi</dt><dd>Nakon konačne odluke Uprave sustav izračuna novu bruto plaću (postojeća plaća + odobreno povećanje); HR pregleda, potvrdi, nova plaća se upiše u podatke o zaposleniku s datumom primjene i izveze za HRNET.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Koraci: pregled izračuna → HR potvrda → upis u podatke o zaposleniku s datumom primjene 1. 4. 2027. (status Primijenjeno u master podacima) → izvoz za HRNET (status Izvezeno za obračun) <span class="wf-p">P25</span>.</li>
+        <li>Automatskog upisa bez HR potvrde nema.</li>
+        <li>U primjenu ulaze samo prijedlozi sa statusom Odobreno; prijedlozi u postupku se ne primjenjuju.</li>
+        <li>Nova plaća postaje osnova za stimulacije, kvartalne nagrade i daljnje napredovanje. Raniji podatak ostaje u povijesti (vrijedi do 31. 3. 2027.).</li>
+        <li>Upis i izvoz bilježe se u tragu izmjena.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">P29</span> Format izvoza za HRNET nije dogovoren; wireframe nudi Excel i CSV s stupcima OIB, SAP šifra, prezime, ime, nova bruto plaća, datum primjene, OIB nadređenog <span class="wf-p">prijedlog</span>.</li>
+        <li><span class="wf-p">P25</span> Status „Izvezeno za obračun“ dodaje se i napredovanju.</li>
+        <li><span class="wf-p">N36</span> Ako se master podaci promijene nakon predaje, primjena se zaustavlja dok HR ne odluči.</li>
+        <li>HR potvrđuje primjenu po zaposleniku (kvačica), a upis se radi za potvrđene retke <span class="wf-p">prijedlog</span>.</li>
+        <li>Mateo Blažević i Hrvoje Pavić (Montaža SET) i njihovi iznosi su izmišljeni.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" id="scenarios">
+    <button type="button" data-sc="redovno" class="is-active">Redovno</button>
+    <button type="button" data-sc="odstupanje">Odstupanje u master podacima (Hrvoje Pavić)</button>
+  </div>
+
+  <ol class="wf-steps" id="steps" aria-label="Koraci primjene">
+    <li>Pregled izračuna</li><li>HR potvrda</li><li>Upis u podatke o zaposleniku</li><li>Izvoz za HRNET</li>
+  </ol>
+  <div id="msgs"></div>
+
+  <h2 class="wf-section-title">Odobrena napredovanja</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table" id="tbl">
+      <thead><tr>
+        <th style="width:40px"><span class="sr-only">Potvrda</span></th><th>Zaposlenik</th><th>Odjel</th><th>Vrsta</th><th class="num">Postojeća plaća (master)</th><th class="num">Odobreno povećanje</th><th class="num">Nova bruto plaća</th><th class="num">Povećanje</th><th>Platni razred</th><th>Odobrio</th><th>Status</th>
+      </tr></thead>
+      <tbody></tbody>
+      <tfoot><tr><td colspan="4">Ukupno za primjenu (potvrđeni retci)</td><td class="num" id="t-pay"></td><td class="num" id="t-inc"></td><td class="num" id="t-new"></td><td colspan="4" id="t-cnt"></td></tr></tfoot>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Datum primjene za sve retke: <b>1. 4. 2027.</b></p>
+
+  <div class="wf-card mt-4" id="box"></div>
+
+  <div id="exp" class="mt-4" hidden>
+    <h3 class="wf-h3">Pregled izvoza za HRNET <span class="wf-p">P29</span></h3>
+    <div class="wf-table-wrap"><table class="wf-table"><thead><tr><th>OIB</th><th>SAP šifra</th><th>Prezime</th><th>Ime</th><th class="num">Nova bruto plaća (€)</th><th>Datum primjene</th><th>OIB nadređenog</th></tr></thead><tbody id="exp-body"></tbody></table></div>
+    <p class="wf-help mt-1">OIB nadređenog su izmišljeni primjeri.</p>
+  </div>
+
+  <h2 class="wf-section-title">Nisu odobreni – ne ulaze u primjenu</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th>Zaposlenik</th><th>Odjel</th><th>Vrsta</th><th class="num">Povećanje</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr class="wf-disabled-row"><td class="wf-name">Marija Perić</td><td>Projekt tehnologije</td><td>Standardna → Napredna</td><td class="num">300,00 €</td><td>HR provjereno <span class="wf-at">kod: Ana Babić</span></td></tr>
+        <tr class="wf-disabled-row"><td class="wf-name">Ivona Jakšić</td><td>Razvoj proizvodnje</td><td>Standardna → Napredna</td><td class="num">350,00 €</td><td>HR provjereno <span class="wf-at">kod: Ana Babić</span></td></tr>
+        <tr class="wf-disabled-row"><td class="wf-name">Ivan Božić</td><td>Projekt tehnologije</td><td>Horizontalno</td><td class="num">150,00 €</td><td>Poslano HR-u</td></tr>
+        <tr class="wf-disabled-row"><td class="wf-name">Bruno Kralj</td><td>Razvoj proizvodnje</td><td>Horizontalno</td><td class="num">200,00 €</td><td>Poslano HR-u</td></tr>
+        <tr class="wf-disabled-row"><td class="wf-name">Stjepan Lovrić</td><td>Montaža SET</td><td>Horizontalno</td><td class="num">150,00 €</td><td>Poslano na odobrenje <span class="wf-at">kod: Luka Knežević <span class="wf-p">P10</span></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Ova ploča prikazuje stanje u trenutku kad su odobrena samo tri prijedloga; ostali su još u postupku.</p>
+</main>
+
+<script>
+(function () {
+  var R = [
+    { k: 'nina', n: 'Nina Šarić', oib: '26457513110', sap: '10912', pre: 'Šarić', ime: 'Nina', odj: 'Projekt tehnologije', nad: '45678901234', vrsta: 'Horizontalno', pay: 2000, inc: 100, pr: 'PR 6', odob: 'Ana Babić, 22. 2. 2027.' },
+    { k: 'mateo', n: 'Mateo Blažević', oib: '57721566490', sap: '12014', pre: 'Blažević', ime: 'Mateo', odj: 'Montaža SET', nad: '67890123456', vrsta: 'Horizontalno', pay: 2050, inc: 150, pr: 'PR 6', odob: 'Ana Babić, 23. 2. 2027.' },
+    { k: 'hrvoje', n: 'Hrvoje Pavić', oib: '69314718056', sap: '12033', pre: 'Pavić', ime: 'Hrvoje', odj: 'Montaža SET', nad: '67890123456', vrsta: 'Horizontalno', pay: 2600, inc: 200, pr: 'PR 7', odob: 'Ana Babić, 23. 2. 2027.' }
+  ];
+  var stage = 1, scen = 'redovno', chk = { nina: true, mateo: true, hrvoje: true }, applied = {}, exported = false;
+  var $ = function (id) { return document.getElementById(id); };
+  var eur = function (n) { return WF.fmt(n) + ' €'; };
+  function mismatch(r) { return scen === 'odstupanje' && r.k === 'hrvoje'; }
+  function masterPay(r) { return mismatch(r) ? 2650 : r.pay; }
+
+  function render() {
+    [].slice.call($('steps').children).forEach(function (li, i) { li.className = i + 1 < stage ? 'is-done' : (i + 1 === stage ? 'is-active' : ''); });
+    var tb = $('tbl').querySelector('tbody'), tp = 0, ti = 0, tn = 0, cnt = 0;
+    tb.innerHTML = R.map(function (r) {
+      var mm = mismatch(r), on = chk[r.k] && !mm;
+      if (on) { tp += r.pay; ti += r.inc; tn += r.pay + r.inc; cnt++; }
+      var st = exported && applied[r.k] ? '<span class="wf-status is-done">Izvezeno za obračun</span>' : (applied[r.k] ? '<span class="wf-status is-done">Primijenjeno u master podacima</span>' : (mm ? '<span class="wf-status is-back">Odstupanje</span>' : '<span class="wf-status is-done">Odobreno</span>'));
+      var dis = stage !== 2 || mm ? ' disabled' : '';
+      return '<tr' + (mm ? ' class="is-error"' : '') + '><td><input type="checkbox" data-k="' + r.k + '"' + (on ? ' checked' : '') + dis + ' aria-label="Potvrdi primjenu – ' + r.n + '"></td>' +
+        '<td class="wf-name">' + r.n + '</td><td>' + r.odj + '</td><td>' + r.vrsta + '</td>' +
+        '<td class="num">' + eur(masterPay(r)) + (mm ? '<span class="wf-at">u prijedlogu: ' + eur(r.pay) + '</span>' : '') + '</td><td class="num">' + eur(r.inc) + '</td>' +
+        '<td class="num"><span class="wf-calc">' + eur(r.pay + r.inc) + '</span></td><td class="num">' + WF.fmt(r.inc / r.pay * 100) + ' %</td><td>' + r.pr + '</td><td class="text-xs">' + r.odob + '</td><td>' + st + '</td></tr>';
+    }).join('');
+    $('t-pay').textContent = eur(tp); $('t-inc').textContent = eur(ti); $('t-new').textContent = eur(tn); $('t-cnt').textContent = cnt + ' od ' + R.length + ' zaposlenika';
+
+    var m = [];
+    if (scen === 'odstupanje') m.push('<div class="wf-block">Hrvoje Pavić: postojeća bruto plaća u master podacima (2.650,00 €) razlikuje se od one u prijedlogu (2.600,00 €). Izračun ne vrijedi; primjena je zaustavljena dok HR ne pregleda promjenu i odluči. <span class="wf-p">N36</span></div>');
+    if (stage === 1) m.push('<div class="wf-info">Izračun: postojeća bruto plaća + odobreno povećanje = nova bruto plaća. Provjerite iznose i nastavite na HR potvrdu.</div>');
+    $('msgs').innerHTML = m.join('');
+    document.querySelectorAll('#msgs .wf-p').forEach(function (p) { if (WF.questions[p.textContent]) p.title = p.textContent + ': ' + WF.questions[p.textContent]; });
+
+    var b = '';
+    if (stage === 1) b = '<div class="wf-h3">Korak 1 – pregled izračuna</div><p class="mb-3">Sustav je izračunao nove plaće za odobrena napredovanja. Ništa se ne upisuje bez vaše potvrde.</p><button type="button" class="wf-btn-primary" data-go="2">Nastavi na HR potvrdu</button>';
+    if (stage === 2) b = '<div class="wf-h3">Korak 2 – HR potvrda</div><p class="mb-3">Označite zaposlenike za koje potvrđujete primjenu. Retci s odstupanjem se ne mogu potvrditi.</p><div class="wf-actions"><button type="button" class="wf-btn-primary" data-go="3"' + (cnt ? '' : ' disabled') + '>Potvrdi primjenu (' + cnt + ')</button><button type="button" class="wf-btn" data-go="1">Natrag</button></div>';
+    if (stage === 3) b = '<div class="wf-h3">Korak 3 – upis u podatke o zaposleniku</div><p class="mb-2">Potvrđeno za ' + cnt + ' zaposlenika. Nova bruto plaća upisuje se u podatke o zaposleniku s datumom primjene <b>1. 4. 2027.</b>; dosadašnja vrijedi do 31. 3. 2027. i ostaje u povijesti.</p><div class="wf-actions"><button type="button" class="wf-btn-primary" data-go="4">Upiši u podatke o zaposlenicima</button><button type="button" class="wf-btn" data-go="2">Natrag</button></div>';
+    if (stage === 4) b = '<div class="wf-h3">Korak 4 – izvoz za HRNET</div><p class="mb-2">' + (exported ? 'Izvoz je napravljen; potvrđeni zaposlenici imaju status Izvezeno za obračun.' : 'Nova plaća upisana je u master podatke (status Primijenjeno u master podacima). Izvezite promjene za obračun plaće.') + '</p><div class="wf-actions"><button type="button" class="wf-btn-primary" data-exp="xlsx"' + (exported ? ' disabled' : '') + '>Izvezi u Excel</button><button type="button" class="wf-btn" data-exp="csv"' + (exported ? ' disabled' : '') + '>Izvezi u CSV</button></div><p class="wf-help mt-2">Nova plaća je osnova za stimulacije, kvartalne nagrade i daljnje napredovanje.</p>';
+    $('box').innerHTML = b;
+    var ex = $('exp'); ex.hidden = stage < 4;
+    $('exp-body').innerHTML = R.filter(function (r) { return applied[r.k]; }).map(function (r) { return '<tr><td class="wf-mono">' + r.oib + '</td><td>' + r.sap + '</td><td>' + r.pre + '</td><td>' + r.ime + '</td><td class="num">' + WF.fmt(r.pay + r.inc) + '</td><td>1. 4. 2027.</td><td class="wf-mono">' + r.nad + '</td></tr>'; }).join('');
+  }
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest('[data-go]'), x = e.target.closest('[data-exp]');
+    if (g) {
+      var to = +g.dataset.go;
+      if (to === 4) { R.forEach(function (r) { if (chk[r.k] && !mismatch(r)) applied[r.k] = true; }); WF.toast('Nova plaća je upisana u podatke o zaposlenicima s datumom primjene 1. 4. 2027.'); }
+      if (to < 4 && stage === 4) return;
+      stage = to; render();
+    }
+    if (x) { exported = true; render(); WF.toast('Izvoz za HRNET je napravljen (' + x.dataset.exp.toUpperCase() + '). Status: Izvezeno za obračun.'); }
+  });
+  $('tbl').addEventListener('change', function (e) { var c = e.target.closest('[data-k]'); if (c) { chk[c.dataset.k] = c.checked; render(); } });
+  $('scenarios').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-sc]'); if (!b) return;
+    scen = b.dataset.sc; stage = 1; applied = {}; exported = false; chk = { nina: true, mateo: true, hrvoje: true };
+    document.querySelectorAll('#scenarios button').forEach(function (x) { x.classList.toggle('is-active', x === b); });
+    render();
+  });
+  function go() { render(); }
+  if (window.WF) go(); else document.addEventListener('DOMContentLoaded', go);
+})();
+</script>
+</body>
+</html>

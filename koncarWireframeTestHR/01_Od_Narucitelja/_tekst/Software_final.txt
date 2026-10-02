@@ -1,0 +1,527 @@
+Funkcionalna specifikacija aplikacije D&ST Grow & Reward za nagrađivanje i napredovanje zaposlenika
+
+1. Opći opis i svrha aplikacije
+
+Aplikacija D&ST Grow & Reward zamišljena je kao centralno mjesto za upravljanje procesima varijabilnog nagrađivanja, kvartalnih nagrada, godišnjih napredovanja i godišnjih nagrada. Aplikacija mora omogućiti standardiziran, transparentan i kontroliran unos, obradu, odobravanje, izvještavanje i izvoz podataka povezanih s navedenim HR procesima.
+
+Aplikacija je namijenjena HR administratorima, rukovoditeljima, odobravateljima i Upravi, uz jasno definirane korisničke uloge, prava pristupa, poslovna pravila, budžete, statuse i kontrole. Svi moduli aplikacije primjenjuju se isključivo na zaposlenike izvršitelje. Podaci rukovoditelja ne vode se u aplikaciji kao podaci zaposlenika za potrebe stimulacija, kvartalnih nagrada, godišnjeg napredovanja ili godišnjeg nagrađivanja, nego se rukovoditelji vode isključivo kao korisnici aplikacije u ulozi predlagatelja i/ili odobravatelja. Svi iznosi u aplikaciji prikazuju se u bruto iznosu. Sustav mora omogućiti zaključavanje i otključavanje mjeseca, kvartala odnosno ciklusa, kako bi se kontrolirao unos i izmjena podataka nakon završetka pojedinog obračunskog razdoblja ili razdoblja za odobravanje.
+
+Vlasnik aplikacije i svih poslovnih procesa koje aplikacija podržava je HR. Aplikacija mora imati zasebno testno i produkcijsko okruženje. Očekivani broj istovremenih korisnika u razdobljima najvećeg opterećenja je približno 40. Cilj je da svi moduli budu spremni istovremeno, a ako to ne bude moguće, dopušteno je fazno puštanje u rad uz prioritet modula godišnjeg nagrađivanja i godišnjeg napredovanja. Krajnji rok za isporuku modula nagrađivanje je 1.11.2026., a za modul napredovanje 1.2.2027., za stimulacije 1.3.2027, kvartalnice 1.4.2027.
+
+HR administratori upravljaju svim modulima aplikacije, uključujući korisnike, uloge, master podatke, cikluse, budžete, statuse, prijedloge, workflow, uvoz, ponovni uvoz, izvoz, izvještaje, ispravke podataka, administrativne korekcije i zaključavanje odnosno otključavanje razdoblja. HR može provoditi administrativne izmjene i iznimna finalna odobrenja u svim modulima kada redovni odobravatelj nije dostupan, na temelju dogovora ili inputa nadležnih odobravatelja, direktora ili Uprave. HR može administrativno ispraviti podatke, ponovno učitati podatke za isto razdoblje prije zaključavanja, promijeniti status, korigirati budžet ili provesti drugu potrebnu administrativnu radnju u okviru poslovnih pravila aplikacije. Sve HR administrativne izmjene evidentiraju se u povijesti izmjena. Povijest izmjena pregledavaju samo HR administratori. HR u redovnom tijeku procesa ne nastupa kao predlagatelj.
+
+Korisnici aplikacije uključuju približno 80 rukovoditelja koji moraju imati pristup aplikaciji za pregled zaposlenika, budžeta, statusa i podataka koji se odnose na odjele kojima rukovode te za unos, spremanje i slanje prijedloga iz svoje nadležnosti. Pravo predlaganja ima neposredno nadređeni voditelj odnosno rukovoditelj.
+
+Svaki direktor mora imati pregled podataka za sve odjele kojima je nadređen. Direktor nema pravo unositi prijedloge, već ima pravo odobravanja i odbijanja prijedloga u skladu s definiranom linijom odobravanja u pojedinom modulu. Pregled uključuje statuse obrade, prijedloge rukovoditelja, iskorištenost budžeta, izvještaje i povijesne podatke u okviru njegove organizacijske nadležnosti.
+
+Svaki član Uprave mora imati pregled podataka za sve sektore i odjele kojima je nadređen. Član Uprave ima pravo unositi prijedloge za svoje direktno podređene, te ima pravo odobravanja i odbijanja prijedloga u skladu s definiranom linijom odobravanja u pojedinom modulu. Pristup člana Uprave mora omogućiti pregled agregiranih i pojedinačnih podataka, statusa procesa, budžeta, prijedloga, odobrenja i izvještaja unutar pripadajuće organizacijske nadležnosti.
+
+Direktori i članovi Uprave dio su linije odobravanja. Imaju pravo pregleda, odobravanja i odbijanja prijedloga u okviru svoje organizacijske nadležnosti, bez prava predlaganja.
+
+Prava pregleda pojedinačnih podataka, uključujući podatke o bruto plaći, uvijek se ograničavaju prema organizacijskoj nadležnosti korisnika i pripadajućoj liniji odobravanja. HR administratori imaju pristup podacima potrebnima za administraciju i provedbu procesa, dok rukovoditelji, direktori i članovi Uprave vide samo zaposlenike, prijedloge, budžete i plaće unutar svojih odjela, sektora odnosno linija odobravanja. Predsjednik Uprave ima pravo pregleda podataka za sve zaposlenike.
+
+Linija odobravanja nije jednaka za sve rukovoditelje, već ovisi o organizacijskoj hijerarhiji pojedinog odjela odnosno sektora. Kod nekih rukovoditelja prvi nadređeni odobravatelj je direktor, dok je kod drugih prvi nadređeni odobravatelj član Uprave. Direktor je zadnja linija odobravanja kada je uključen u proces, neovisno o tome nastupa li kao druga ili treća linija odobravanja. Član Uprave je zadnja linija odobravanja u slučajevima kada nastupa kao druga linija odobravanja.
+
+U modulu napredovanja član Uprave je uvijek zadnja linija odobravanja.
+
+Pravo predlaganja u aplikaciji ima neposredno nadređeni voditelj odnosno rukovoditelj za zaposlenike koji su u njegovoj organizacijskoj nadležnosti. HR nema ulogu predlagatelja u redovnom tijeku procesa, već administrira sve module aplikacije, uključujući stimulacije, kvartalne nagrade, godišnje napredovanje i godišnje nagrađivanje. Administracija uključuje upravljanje ciklusima, podacima, budžetima, statusima, prijedlozima, korekcijama, izvještajima, uvozom i izvozom te tehničkom i procesnom podrškom korisnicima. HR može mijenjati podatke i statuse u aplikaciji u okviru svojih administratorskih ovlasti, osobito radi ispravaka, provedbe odluka Uprave, kalibracija, kontrole pravilnosti procesa i zaključavanja ciklusa, uz obvezno evidentiranje izmjena.
+
+U modulu godišnjeg napredovanja HR ima obveznu kontrolnu ulogu. Nakon što neposredno nadređeni voditelj odnosno rukovoditelj unese i pošalje prijedlog napredovanja, HR pregledava potpunost prijedloga i njegovu usklađenost s važećim pravilnikom. Ako prijedlog nije potpun ili nije u skladu s pravilnikom, HR može vratiti prijedlog na doradu rukovoditelju uz obveznu napomenu.
+
+1.1 Korisničke uloge i prava pristupa
+
+Software se sastoji od četiri logičke cjeline (page-a) i dodatnih page-eva vezanih za izvještavanje, unos podataka i kontrolu:
+
+1.  Stimulacije (mjesečno)
+
+2.  Kvartalne nagrade (kvartalno)
+
+3.  Godišnje napredovanje zaposlenika
+
+4.  Godišnje nagrađivanje zaposlenika
+
+1.2 Opći statusi procesa
+
+Za sve module koriste se standardizirani statusi procesa, prema potrebi modula: spremljeno, poslano na odobrenje, odbijeno, odobreno, zaključano i izvezeno za obračun. Status vraćeno na doradu koristi se samo u modulu godišnjeg napredovanja, u okviru HR provjere potpunosti i usklađenosti prijedloga s pravilnikom.
+
+Nakon finalnog odobrenja u bilo kojem modulu aplikacije prijedlog se zaključava za sve korisnike osim HR administratora. HR administrator zadržava mogućnost administrativnih izmjena nakon finalnog odobrenja, u skladu s općim administratorskim pravilima, na temelju dogovora, inputa ili odluke Uprave i/ili direktora te uz obvezno evidentiranje izmjene u povijesti izmjena.
+
+Pravilo odobravanja i odbijanja: U svim modulima odobravanje se provodi prema definiranoj liniji odobravanja i organizacijskoj nadležnosti. Sustav mora omogućiti masovno odobravanje kada je to predviđeno pojedinim modulom, dok se odbijanje uvijek provodi na razini pojedinačnog zaposlenika odnosno pojedinačnog prijedloga, uz obveznu napomenu odobravatelja. Odbijanje jednog prijedloga ne utječe na status ostalih prijedloga istog rukovoditelja. Odbijeni prijedlog ne smatra se odobrenim niti realiziranim i, ako je vezan uz budžet, ne umanjuje raspoloživi budžet. Nakon odbijanja rukovoditelj može, u skladu s pravilima pojedinog modula i raspoloživim budžetom, poslati novi ili ispravljeni prijedlog za istog ili drugog zaposlenika.
+
+2. Modul: Mjesečne stimulacije
+
+2.1 Budžet i razdoblje stimulacija
+
+-   Budžet stimulacija određuje se na godišnjoj razini, s primjenom od 1. travnja tekuće godine do 31. ožujka sljedeće godine.
+
+-   Godišnji budžet stimulacija je određeni postotak ukupnog mjesečnog fonda plaća koji se definira na početku razdoblja (1.travnja) i unosi ga odjel HR-a, prema poslovnoj odluci Uprave.
+
+Budžet se vodi kao jedan godišnji fond po odjelu koji se troši kroz mjesece tijekom važećeg razdoblja i u pravilu se ne mijenja tijekom godine.
+
+-   HR administrator ručno definira pripadajuće budžete stimulacija u aplikaciji.
+
+-   Neiskorišteni dio godišnjeg fonda ne prenosi se u naredno razdoblje.
+
+Iznimna korekcija budžeta moguća je kada zaposleniku prestane pripravnički status; korekcija se primjenjuje od mjeseca promjene statusa i izračunava proporcionalno za preostale mjesece do kraja važećeg razdoblja, primjenom pravila 2,5 % na mjesečnu bruto plaću zaposlenika.
+
+2.2 Vidljivost i prava rukovoditelja
+
+Rukovoditelj ima uvid u zaposlenike iz svoje organizacijske nadležnosti, njihove bruto plaće, godišnji budžet stimulacija odjela, iskorišteni i preostali raspoloživi budžet.
+
+2.3 Dodjela stimulacija
+
+-   Stimulacije se dodjeljuju mjesečno odabirom postotka iz padajućeg izbornika: 0 %, 5 %, 10 %, 15 % ili 20 % mjesečne bruto plaće zaposlenika.
+
+-   Sustav automatski izračunava bruto iznos stimulacije, zbroj dodijeljenih stimulacija i novo stanje budžeta.
+
+-   Rukovoditelj mora unijeti obrazloženje dodjele stimulacije za svakog zaposlenika; bez obrazloženja nije moguće spremiti niti poslati prijedlog na odobrenje.
+
+-   Ako u pojedinom mjesecu stimulacije nisu dodijeljene, sustav ne generira dodatni obračun niti umanjuje budžet.
+
+2.4 Odobravanje stimulacija
+
+Odobravanje stimulacija provodi se prema definiranoj liniji odobravanja. Odobravatelj vidi pregled prijedloga po rukovoditelju i zaposlenicima, uključujući statuse, iznose, broj zaposlenika kojima je dodijeljena stimulacija, potrošeni i ukupni budžet.
+
+Član Uprave može dodijeliti stimulaciju za zaposlenike kojima je nadležan.
+
+Masovno odobravanje dopušteno je za prikazani skup podataka, dok se odbijanje provodi pojedinačno po zaposleniku odnosno prijedlogu, uz obveznu napomenu odobravatelja. Ako odobravatelj odbije pojedinačni prijedlog unutar mjesečnog prijedloga rukovoditelja, ostali odobreni prijedlozi ostaju odobreni. Odbijeni prijedlog ne umanjuje raspoloživi godišnji fond stimulacija. Nakon odbijanja rukovoditelj može poslati novi ili izmijenjeni pojedinačni prijedlog za odbijenog zaposlenika ili raspoloživi iznos kasnije koristiti za drugog zaposlenika u okviru istog godišnjeg fonda. Vraćanje cijelog mjesečnog prijedloga na početak nije predviđeno. Vraćanje na doradu nije predviđeno u modulu stimulacija.
+
+Svi predlagatelji i odobravatelji u liniji trebaju automatski dobiti e-mail obavijest o statusu stimulacija: predano/odobreno/odbijeno.
+
+2.5 Kontrola budžeta
+
+Sustav automatski blokira dodjelu stimulacije ako bi se premašio preostali raspoloživi godišnji fond stimulacija odjela. Ne primjenjuje se zasebni mjesečni limit, nego se svaka mjesečna dodjela oduzima od istog godišnjeg fonda. Rukovoditelj može u pojedinom mjesecu predložiti veći iznos stimulacija bez dodatnog odobrenja, pod uvjetom da ukupna dodjela ostaje unutar preostalog godišnjeg fonda i prolazi redovnu liniju odobravanja. U slučaju pokušaja prekoračenja sustav mora prikazati jasnu poruku o razlogu blokade. Rok za unos i završetak procesa odobravanja stimulacija je zadnji dan u mjesecu za koji se odnosi isplata.
+
+2.6 Prikaz podataka – tab Stimulacije
+
+Tab Stimulacije mora omogućiti pregled i unos po rukovoditelju, godini i mjesecu. Minimalni prikaz po zaposleniku uključuje osnovne podatke zaposlenika, datum dolaska i odlaska, bruto plaću, odabrani postotak stimulacije, izračunati bruto iznos stimulacije, napomenu rukovoditelja, napomenu odobravatelja, status te podatke o izmjeni i odobrenju.
+
+Rukovoditelj u modulu stimulacija koristi radnju Predaj na odobrenje. Prije predaje sustav provjerava jesu li uneseni svi obvezni podaci, uključujući obrazloženje za sve stimulacije veće od 0 %. Radnjom Predaj na odobrenje rukovoditelj šalje cijeli mjesečni prijedlog stimulacija za svoj odjel odjednom; nije predviđeno pojedinačno slanje zaposlenika na odobrenje. Nakon predaje unos se zaključava za rukovoditelja i pokreće se postupak odobravanja.
+
+2.7. Izvoz Stimulacija
+
+Sustav mora omogućiti izvoz odobrenih stimulacija za određeni mjesec u standardiziranom Excel formatu za import u HRNET. Minimalni podaci za izvoz uključuju OIB zaposlenika, DIST-ov broj zaposlenika iz matične knjige (SAP šifra), prezime, ime, bruto iznos stimulacije, dodijeljeni postotak stimulacije i OIB nadređenog.
+
+2.8. Izvještaji stimulacije
+
+Izvještaji stimulacija moraju omogućiti pregled po odobravatelju, rukovoditelju, zaposleniku, godini i mjesecu, uključujući dodijeljeni postotak stimulacije, bruto iznos stimulacije, status, napomene i podatke o odobrenju.
+
+3. Modul: Kvartalne nagrade
+
+Modul kvartalnih nagrada mora omogućiti obračun kvartalne nagrade na temelju odluke Uprave, bruto plaće zaposlenika, podataka o prisutnosti, procjene rukovoditelja po unaprijed definiranim kriterijima te eventualnih eliminacijskih uvjeta.
+
+3.1 Odluka Uprave i osnovica za obračun
+
+-   Visina kvartalne nagrade definira se odlukom Uprave za svaki kvartal zasebno.
+
+-   Odlukom Uprave određuje se postotak bruto plaće koji predstavlja maksimalnu osnovicu za obračun kvartalne nagrade za taj kvartal.
+
+-   Postotak unosi HR administrator centralno i vrijedi jednako za sve zaposlenike za taj kvartal.
+
+-   Rukovoditelji ne mogu mijenjati postotak definiran odlukom Uprave.
+
+3.2 Import prisutnosti
+
+HR administrator uvozi podatke o prisutnosti zasebno za svaki kvartal putem CSV datoteke. Prije učitavanja odabiru se godina i kvartal. CSV datoteka mora sadržavati najmanje: OIB, DIST-ov broj zaposlenika iz matične knjige (SAP šifra), prisutnost, fond sati i prezime ime. HR administrator može prije zaključavanja kvartala ponovno učitati novu CSV datoteku za isti kvartal ako je prethodni import bio nepotpun, pogrešan ili ga je potrebno administrativno ispraviti. Svaki uvoz i ponovni uvoz evidentira se u povijesti izmjena.
+
+3.3 Validacija i status importa
+
+Nakon učitavanja sustav prikazuje rezultat importa i validaciju podataka. Minimalni prikaz uključuje OIB, DIST-ov broj zaposlenika iz matične knjige (SAP šifra), ime i prezime iz baze, ime i prezime iz CSV-a, prisutnost, fond sati i status importa. Status importa može biti: ok, korisnik ne postoji u bazi ili korisnik ne postoji u CSV-u. Redovi s greškom moraju biti jasno označeni.
+
+3.4 Izračun prisutnosti i kvartalne nagrade
+
+Izračun prisutnosti: postotak prisutnosti izračunava se prema formuli prisutnost / fond sati. Rezultat se zaokružuje na dvije decimale i zatim mapira prema sljedećim pragovima: do i uključujući 30,00 % = 0 %, više od 30,00 % do i uključujući 50,00 % = 50 %, više od 50,00 % do i uključujući 75,00 % = 75 %, više od 75,00 % = 100 %.
+
+Redoslijed obračuna kvartalne nagrade: sustav najprije izračunava maksimalni iznos kvartalne nagrade prema formuli bruto plaća × postotak iz odluke Uprave. Zatim se primjenjuje ponderirana rukovoditeljska procjena, nakon toga postotak prisutnosti, a na kraju eliminacijski uvjet ako postoji. Konačni bruto iznos kvartalne nagrade izračunava se automatski prema formuli: bruto plaća × postotak iz odluke Uprave × ukupna rukovoditeljska procjena × postotak prisutnosti. Ako zaposlenik ima evidentiranu disciplinsku mjeru za taj kvartal, konačni iznos postavlja se na 0 EUR neovisno o prethodno izračunatim vrijednostima.
+
+Rukovoditeljska procjena: procjena se sastoji od četiri ponderirana kriterija: kvaliteta posla 40 %, količina posla 30 %, urednost radnog mjesta / pridržavanje internih pravila 15 % i suradnja s radnicima i nadređenima 15 %. Svi kriteriji zadano su postavljeni na 100 %. Rukovoditelj za svaki kriterij bira vrijednost iz padajućeg izbornika: 100 %, 75 %, 50 %, 25 % ili 0 %. Rukovoditelj ne unosi iznos kvartalne nagrade, nego samo procjenu po kriterijima i, ako je potrebno, obrazloženje smanjenja.
+
+Logika ponderiranja: svaki kriterij množi se svojim ponderom, a ponderirani rezultati se zbrajaju u ukupnu rukovoditeljsku procjenu. Ako je pojedini kriterij ocijenjen s 0 %, to umanjuje samo taj ponderirani dio procjene i ne znači da je ukupna kvartalna nagrada automatski 0 %. Ukupna kvartalna nagrada može biti 0 EUR samo ako to proizlazi iz ukupnog obračuna, primjerice zbog 0 % prisutnosti ili eliminacijskog uvjeta.
+
+Obrazloženje smanjenja: rukovoditelj unosi obrazloženje samo ako bilo koji kriterij smanji ispod 100 %. Ako su svi kriteriji ostavljeni na zadanoj vrijednosti 100 %, obrazloženje nije obvezno. Rukovoditelj vidi automatski izračunati iznos kvartalne nagrade, ali ga ne može ručno mijenjati.
+
+Napomena za korisničko sučelje: rukovoditelj u tabu Kvartalnice mora vidjeti sve zaposlenike iz svoje organizacijske nadležnosti, njihove osnovne podatke, izračunate iznose i status prijedloga. Polja koja sustav računa moraju biti zaključana za ručno uređivanje. Rukovoditelj mijenja isključivo vrijednosti kriterija procjene putem padajućeg izbornika i unosi obrazloženje ako je barem jedan kriterij manji od 100 %. Zadana vrijednost svih kriterija pri otvaranju kvartala je 100 %.
+
+Primjer 1 – svi kriteriji 100 %, puna prisutnost i odluka Uprave 75 %: ako je bruto plaća zaposlenika 2.000 EUR, odluka Uprave određuje 75 %, ukupna rukovoditeljska procjena je 100 %, a prisutnost je 100 %, maksimalna kvartalnica iznosi 1.500 EUR, a konačni bruto iznos za isplatu također iznosi 1.500 EUR.
+
+Primjer 2 – odluka Uprave 75 % i smanjena procjena na jednom kriteriju: ako je bruto plaća zaposlenika 2.000 EUR, odluka Uprave određuje 75 %, kvaliteta posla je 100 %, količina posla 75 %, urednost / interna pravila 100 %, a suradnja 100 %, ukupna rukovoditeljska procjena iznosi 92,5 % jer se računa 40 % × 100 % + 30 % × 75 % + 15 % × 100 % + 15 % × 100 %. Maksimalna kvartalnica iznosi 1.500 EUR, a ako je prisutnost 100 %, konačni bruto iznos za isplatu iznosi 1.387,50 EUR.
+
+Primjer 3 – odluka Uprave 75 % i jedan kriterij 0 %: ako je bruto plaća zaposlenika 2.000 EUR, odluka Uprave određuje 75 %, kvaliteta posla je 100 %, količina posla 100 %, urednost / interna pravila 0 %, a suradnja 100 %, ukupna rukovoditeljska procjena iznosi 85 %. Kriterij urednosti ima ponder 15 %, pa se umanjuje samo taj dio procjene. To ne znači da je ukupna kvartalnica 0 %. Maksimalna kvartalnica iznosi 1.500 EUR, a ako je prisutnost 100 %, konačni bruto iznos za isplatu iznosi 1.275 EUR.
+
+Primjer 4 – odluka Uprave 75 % i utjecaj prisutnosti: ako je bruto plaća zaposlenika 2.000 EUR, odluka Uprave određuje 75 %, a iznos nakon rukovoditeljske procjene iznosi 1.387,50 EUR, tada se na taj iznos primjenjuje postotak prisutnosti. Ako izračunati postotak prisutnosti prema pragovima iznosi 75 %, konačni bruto iznos za isplatu iznosi 1.040,63 EUR. Ako je postotak prisutnosti 0 %, konačni bruto iznos za isplatu iznosi 0 EUR bez obzira na rukovoditeljsku procjenu.
+
+Primjer 5 – eliminacijski uvjet: ako zaposlenik ima evidentiranu disciplinsku mjeru za kvartal, sustav postavlja konačni bruto iznos kvartalne nagrade na 0 EUR, neovisno o bruto plaći, odluci Uprave, rukovoditeljskoj procjeni i prisutnosti.
+
+3.5 Eliminacijski uvjeti
+
+Ako zaposlenik u tekućem kvartalu ima upozorenje na obveze iz radnog odnosa odnosno disciplinsku mjeru, zaposlenik gubi pravo na kvartalnu nagradu u cijelosti za taj kvartal i sustav postavlja konačni iznos kvartalne nagrade na 0 EUR. Podatak o disciplinskoj mjeri ručno unosi HR administrator za konkretnog zaposlenika i kvartal. Modul kvartalnih nagrada, kao i ostali obračunski i prijedložni moduli aplikacije, primjenjuje se isključivo na zaposlenike izvršitelje; rukovoditelji se u aplikaciji ne vode kao zaposlenici za potrebe obračuna i prijedloga, nego isključivo kao korisnici u ulozi predlagatelja i/ili odobravatelja.
+
+3.7 Izvještaji kvartalnice
+
+Izvještaji kvartalnih nagrada moraju omogućiti pregled po odobravatelju, rukovoditelju, zaposleniku, godini i kvartalu, uključujući ključne podatke o bruto plaći, prisutnosti, rukovoditeljskoj procjeni, eventualnoj disciplinskoj mjeri, izračunatom iznosu prije prisutnosti, konačnom bruto iznosu za isplatu, statusu, napomenama i podacima o odobrenju. Izvještaji kvartalnih nagrada moraju imati mogućnost izvoza u Excel.
+
+3.8 Odobravanje kvartalnih nagrada
+
+Odobravanje kvartalnih nagrada provodi se prema definiranoj liniji odobravanja. Odobravatelj vidi pregled prijedloga po rukovoditelju i zaposlenicima, status prijedloga, izračunate iznose i napomene. Član Uprave može dodijeliti kvartalnu nagradu za zaposlenike kojima je nadležan.
+
+Masovno odobravanje dopušteno je za prikazani skup podataka, dok se odbijanje provodi pojedinačno po zaposleniku odnosno prijedlogu, uz obveznu napomenu odobravatelja. Odbijanje jednog prijedloga ne utječe na status ostalih prijedloga istog rukovoditelja. Nakon odbijanja rukovoditelj može poslati novi ili ispravljeni prijedlog za istog zaposlenika, u skladu s pravilima modula. Vraćanje na doradu nije predviđeno u modulu kvartalnih nagrada.
+
+Rok za unos i završetak procesa odobravanja kvartalnih nagrada je do sredine sljedećeg mjeseca nakon isteka kvartala. Nakon odbijanja rukovoditelj može unijeti i poslati novi ili ispravljeni prijedlog u istom obračunskom razdoblju.
+
+Svi predlagatelji i odobravatelji u liniji trebaju automatski dobiti e-mail obavijest o statusu kvartalnica: predano/odobreno/odbijeno.
+
+3.9 Izvoz kvartalnih nagrada
+
+-   OIB zaposlenika
+
+-   DIST-ov broj zaposlenika iz matične knjige (SAP šifra)
+
+-   Prezime
+
+-   Ime
+
+-   Bruto plaća relevantna za obračun kvartalnice
+
+-   Konačni izračunati postotak kvartalnice
+
+-   Konačni bruto iznos kvartalne nagrade za isplatu
+
+-   OIB nadređenog
+
+3.10 Prikaz podataka – tab Kvartalnice
+
+Tab Kvartalnice mora omogućiti pregled i unos podataka po rukovoditelju, godini i kvartalu. Minimalni prikaz po zaposleniku uključuje osnovne podatke zaposlenika, OIB, DIST-ov broj zaposlenika iz matične knjige (SAP šifra), bruto plaću, postotak iz odluke Uprave, prisutnost, fond sati, izračunati postotak prisutnosti, kriterije rukovoditeljske procjene, ukupnu rukovoditeljsku procjenu, maksimalni iznos kvartalnice prije procjene, iznos nakon rukovoditeljske procjene, konačni bruto iznos za isplatu, status disciplinske mjere, napomene, status i podatke o izmjeni odnosno odobrenju.
+
+Ručni unos dopušten je samo na poljima disciplinska mjera, kriteriji rukovoditeljske procjene i obrazloženje smanjenja. Svi kriteriji rukovoditeljske procjene zadano su postavljeni na 100 %. Rukovoditelj za svaki kriterij bira vrijednost iz padajućeg izbornika: 100 %, 75 %, 50 %, 25 % ili 0 %. Ako rukovoditelj smanji bilo koji kriterij ispod 100 %, obrazloženje je obvezno. Sustav automatski izračunava maksimalni iznos kvartalnice, ponderirani rezultat po kriterijima, iznos nakon rukovoditeljske procjene, postotak prisutnosti i konačni bruto iznos za isplatu. Vrijednost 0 % na pojedinom kriteriju umanjuje samo taj ponderirani dio i ne postavlja automatski ukupnu kvartalnicu na 0 %. Rukovoditelj koristi radnje Spremi i Predaj na odobrenje. Spremi privremeno čuva unos i vidljiv je samo rukovoditelju do predaje, a Predaj na odobrenje zaključava unos za rukovoditelja i pokreće postupak odobravanja.
+
+Za svaki kriterij procjene aplikacija mora prikazati odabranu vrijednost, ponder kriterija i izračunati ponderirani doprinos tog kriterija ukupnoj rukovoditeljskoj procjeni. Time rukovoditelj i odobravatelj mogu jasno vidjeti kako pojedini odabir utječe na konačni izračun, bez mogućnosti ručne izmjene iznosa.
+
+4. Modul: Godišnje napredovanje zaposlenika – horizontalno/vertikalno/vertikalno junior
+
+Modul godišnjeg napredovanja mora podržati unos, provjeru uvjeta, obrazloženje, odobravanje i izvještavanje za horizontalno napredovanje, vertikalno napredovanje te vertikalno napredovanje zaposlenika iz Junior/Početne u Standardnu poziciju.
+
+4.1 Budžeti i ograničenja
+
+-   Budžet i postotak za godišnje napredovanje nisu tvrdo fiksirani u aplikaciji, nego ih za svaki ciklus određuje Uprava, a HR administrator ih unosi u aplikaciju.
+
+-   Budžet se vodi najmanje na razini Društva i sektora, a prema potrebi i na razini odjela odnosno organizacijske jedinice.
+
+-   Dopuštena je preraspodjela unutar sektora/odjela uz odobrenje nadležnog člana Uprave. Preraspodjela između sektora ili druga iznimna preraspodjela provodi se samo na temelju odluke Uprave. Član Uprave mora imati kontinuirani pregled dodijeljenog, iskorištenog, rezerviranog i raspoloživog budžeta na razini svog profitnog centra te odjela u svojoj nadležnosti te mogućnost praćenja preraspodjele budžeta unutar sektora.
+
+-   Ako se u pojedinom ciklusu primjenjuju ograničenja iz pravilnika, sustav mora podržati kontrolu maksimalno 50 % zaposlenika na razini Društva odnosno sektora i maksimalno 75 % zaposlenika po odjelu, uz iznimku za odjel s jednim zaposlenikom. Odjel HR mora imati mogućnost uključiti/isključiti ovo pravilo u slučaju potrebe.
+
+-   HR u ciklusu potvrđuje primjenjiva budžetska pravila, postotak, iznose i ograničenja prema važećoj odluci Uprave i pravilniku.
+
+4.2 Iznosi povećanja
+
+Predviđeni bruto iznosi za napredovanja:
+• 100 / 150 / 200 / 250 / 300 / 350 / 400 / 450 EUR
+
+Odjel HR-a ima mogućnost definirati i drugačije iznose apoena za napredovanja.
+
+Uvjeti:
+• unutar budžeta,
+• jedan od definiranih iznosa
+
+4.3 Tijek postupka
+
+Postupak godišnjeg napredovanja provodi se kroz ciklus koji otvara HR. Rukovoditelj unosi prijedlog napredovanja, odabire vrstu napredovanja, predlaže iznos povećanja plaće i ispunjava odgovarajući digitalni obrazac. HR provjerava potpunost prijedloga i usklađenost s pravilnikom. Ako je prijedlog potpun i usklađen, HR ga prosljeđuje u liniju odobravanja. Ako prijedlog nije potpun ili nije usklađen, HR ga vraća rukovoditelju na doradu uz napomenu. Konačnu odluku donosi Uprava, a primjena odobrenih napredovanja predviđena je od 1. travnja.
+
+HR kod vraćanja na doradu unosi obveznu napomenu i odabire jedan ili više standardnih razloga, primjerice: nedovoljno obrazloženje, nedostaju konkretni primjeri, prijedlog nije u skladu s pravilnikom, predloženi iznos nije unutar dopuštenog raspona ili budžeta, nisu ispunjeni osnovni uvjeti, potrebno je ispraviti osnovne podatke ili ostalo. Ako je potrebno, HR može dodati kratko tekstualno pojašnjenje.
+
+Dorađeni prijedlog rukovoditelj ponovno šalje HR-u na provjeru. Tek nakon pozitivne HR provjere prijedlog se prosljeđuje u liniju odobravanja. Svi predlagatelji i odobravatelji u liniji trebaju automatski dobiti e-mail obavijest o statusu: predano/vraćeno na doradu/odobreno/odbijeno.
+
+U redovnom tijeku sustav rukovoditelju prikazuje sve aktivne zaposlenike iz njegove organizacijske nadležnosti. Ako za pojedinog zaposlenika postoje okolnosti zbog kojih prijedlog napredovanja nije dopušten, a rukovoditelj ga predloži, HR dodaje odgovarajuću napomenu i oznaku razloga. Razlog se bira iz jednostavnog padajućeg izbornika: neispunjen osnovni uvjet, status zaposlenja, neispunjeni uvjeti pravilnika, ograničenje budžeta ili ostalo. Ako je odabrano ostalo, HR može unijeti kratko pojašnjenje. Za takvog zaposlenika sustav onemogućuje slanje prijedloga napredovanja.
+
+Zaposlenici kojima je pozicija radnog mjesta označena kao Pripravnik ili Junior ne mogu 12 mjeseci od zaposlenja biti odabrani za napredovanje, dakle ispunjavanje obrazaca za njih u tom periodu mora biti onemogućeno (zaposlenici u modulu napredovanje moraju u tom periodu biti vizualno označeni sivom bojom kako bi bilo jasno da je napredovanje onemogućeno).
+
+Odobravanje godišnjeg napredovanja provodi se pojedinačno, po zaposleniku odnosno prijedlogu. Masovno odobravanje nije predviđeno. Odobravatelji moraju moći pregledati prijedlog, obrazac, obrazloženja, predloženi iznos, HR napomene i povijest statusa prije donošenja odluke.
+
+Ako odobravatelj odbije prijedlog napredovanja, sustav mora omogućiti unos obvezne napomene odobravatelja. Odbijanje jednog prijedloga ne utječe na status ostalih prijedloga istog rukovoditelja. Odbijeni prijedlog ne smatra se realiziranim i ne umanjuje budžet napredovanja. Rukovoditelj može u istom ciklusu unijeti novi ili izmijenjeni prijedlog za istog ili drugog zaposlenika, uključujući drugu vrstu napredovanja ako su za to ispunjeni uvjeti i ako je prijedlog unutar raspoloživog budžeta.
+
+Član Uprave mora imati pregled budžeta za godišnje napredovanje na razini svog profitnog centra te odjela iz svoje nadležnosti. Sustav mora prikazivati ukupno dodijeljen budžet, iskorišteni budžet, rezervirani budžet za prijedloge u postupku odobravanja te preostali raspoloživi budžet. Prilikom svakog odobravanja ili odbijanja prijedloga sustav automatski ažurira stanje budžeta i omogućuje pregled iskorištenosti po pojedinoj organizacijskoj jedinici. Član Uprave mora moći vidjeti koji je rukovoditelj/ odjel iskoristio pojedini dio budžeta, za koje zaposlenike i u kojem iznosu. Sustav mora omogućiti usporedni pregled budžeta i iskorištenosti između organizacijskih jedinica unutar istog profitnog centra te prikaz potencijalno raspoloživog neiskorištenog budžeta. Na temelju svojih ovlasti član Uprave može donijeti odluku o preraspodjeli raspoloživog budžeta između organizacijskih jedinica unutar sektora, nakon čega HR administrator evidentira odobrenu preraspodjelu u sustavu. Sve preraspodjele moraju biti evidentirane u povijesti izmjena.
+
+4.4 Primjena napredovanja
+
+Odobrena napredovanja primjenjuju se od 1. travnja. Nakon finalnog odobrenja sustav mora izračunati i prikazati novu bruto plaću na temelju postojeće bruto plaće i odobrenog povećanja. Primjena nove bruto plaće provodi se poluautomatizirano: HR pregledava i potvrđuje primjenu, nakon čega se nova bruto plaća upisuje u master podatke s datumom primjene. Sustav mora omogućiti izvoz odobrenih promjena za HRNET odnosno obračun plaće. Potpuno automatsko upisivanje novih bruto plaća bez HR potvrde nije predviđeno.
+
+Konačni statusi modula godišnjeg napredovanja su: Spremljeno, Poslano HR-u, Vraćeno na doradu, HR provjereno, Poslano na odobrenje, Odbijeno, Odobreno, Zaključano i Primijenjeno u master podacima.
+
+Nakon konačne odluke Uprave ciklus godišnjeg napredovanja zaključava se za sve korisnike osim HR administratora. Sustav mora blokirati prijedloge koji prelaze odobreni budžet za taj ciklus, pri čemu se odobreni postotak i budžet temelje na godišnjoj odluci Uprave i unosu HR administratora. HR može provesti administrativnu intervenciju samo na temelju odluke Uprave, u skladu s općim administratorskim pravilima i uz evidentiranje u povijesti izmjena.
+
+4.5 Horizontalno napredovanje – OBRAZAC
+1 A Obrazac_HORIZONTALNO napredovanje 1_3_2026 FINAL_M1
+
+Za svakog zaposlenika koji se predlaže za horizontalno napredovanje, odnosno napredovanje unutar platnog razreda, obavezno se ispunjava digitalni Obrazac za godišnje napredovanje unutar platnog razreda, koji je sastavni dio Modula 4. Obrazac uključuje osnovne podatke, procjenu razvojnih razina ovladanosti poslom, eliminacijski kriterij, provjeru osnovnih uvjeta, konkretne primjere iz prakse, zaključak rukovoditelja i suglasnosti.
+
+Osnovni podaci obrasca: obrazac sadrži najmanje sljedeća polja: odjel / organizacijska jedinica, rukovoditelj, broj zaposlenih u odjelu, budžet za napredovanja u iznosu i postotku, datum procjene, ime i prezime zaposlenika te radno mjesto / grupa radnih mjesta. Podaci koji postoje u master podacima povlače se automatski, a rukovoditelj unosi procjenu, primjere, zaključak i prijedlog povećanja plaće.
+
+Procjena i uvjeti horizontalnog napredovanja: zaposlenik se procjenjuje prema kriterijima samostalnost u radu, kvaliteta rada, radna učinkovitost i doprinos timu, pri čemu se doprinos timu primjenjuje za razine 3 i 4. Za svaki kriterij rukovoditelj unosi opisnu procjenu odnosno ključne riječi i numeričku razinu od 1 do 4. Horizontalno napredovanje moguće je samo ako su ispunjeni svi osnovni uvjeti: u posljednjih 12 mjeseci ostvaruje stabilnu razinu visokog učinka, ima najmanje razinu 2 u svim kriterijima i barem jednu razinu 3, nema razinu 1, kontinuirano preuzima zadatke i odgovornosti, sigurnost i radna disciplina su bez propusta, ponašanje je usklađeno s vrijednostima organizacije i prijedlog je unutar budžeta odjela. Ako je bilo koji uvjet označen kao NE, postupak se prekida i prijedlog nije moguće poslati dalje.
+
+Eliminacijski kriterij, primjeri i zaključak: poštovanje sigurnosti i radne discipline obvezno se označava kao Zadovoljava ili Ne zadovoljava. Ako je označeno Ne zadovoljava, napredovanje nije moguće neovisno o ostalim ocjenama. Rukovoditelj za svaki kriterij unosi 2–3 konkretna, mjerljiva primjera iz prakse. Zaključak rukovoditelja sadrži preporuku za napredovanje unutar platnog razreda i prijedlog postotka odnosno iznosa povećanja plaće. Bez potpuno ispunjenog obrasca, uključujući primjere i obvezne provjere, prijedlog nije moguće poslati na odobrenje niti uključiti zaposlenika u daljnji postupak. Suglasnosti uključuju direktora sektora i HR.
+
+4.6 Vertikalno napredovanje – Standardna pozicija -> Napredna pozicija
+
+OBRAZAC
+[2 A Obraza...6 FINAL_M1 | Word]
+
+Obrazac za vertikalno napredovanje iz Standardne u Naprednu poziciju platnog razreda dostupan je za radna mjesta koja su klasificirana kao ključna ekspertna radna mjesta: Projektant transformatora SET, Projektant transformatora DT/ST, Razvojni inženjer, Voditelj prodajnog područja SET, Voditelj prodajnog područja DT, Konstruktor transformatora SET, Konstruktor transformatora DT/ST, Inženjer ispitivač transformatora SET, Inženjer procesa u Razvoju proizvodnje, Inženjer procesa u odjelu Projekt tehnologije, Specijalist za metalne konstrukcije SET, Specijalist za metalne konstrukcije DT/ST. Odjel HR-a mora imati mogućnost dodati i druga radna mjesta u klasifikaciju ključnih ekspertnih radnih mjesta.
+
+Digitalni obrazac za vertikalno napredovanje iz Standardne u Naprednu poziciju platnog razreda uključuje osnovne podatke, rezultate procjene stručnih razina, podatke o postojećoj plaći i platnom razredu, prijedlog povećanja plaće, predloženi viši platni razred, provjeru osnovnih uvjeta, primjere iz prakse, zaključak rukovoditelja i suglasnosti.
+
+Procjena i uvjeti vertikalnog napredovanja: kriteriji vertikalnog napredovanja uključuju stručna znanja, razinu odgovornosti, samostalnost u stručnom odlučivanju te doprinos timu i prijenos znanja, uz opisnu procjenu i ocjenu 1–4. Vertikalno napredovanje moguće je isključivo ako su svi osnovni uvjeti označeni kao DA: radno mjesto je klasificirano kao ključno ekspertno radno mjesto, u procjeni stručnih razina ostvarene su najmanje dvije ocjene 3 i dvije ocjene 4, zaposlenik najmanje 12 mjeseci ostvaruje iznadprosječan učinak, kontinuirano preuzima zadatke i odgovornosti višeg platnog razreda, doprinos značajno nadmašuje očekivanja trenutne razine, sigurnost i radna disciplina su bez propusta, ponašanja i komunikacija su usklađeni s temeljnim vrijednostima organizacije i prijedlog povećanja plaće je unutar budžeta odjela.
+
+Pravila, primjeri i suglasnosti za vertikalno napredovanje: za svaki kriterij rukovoditelj unosi opisnu procjenu i ocjenu 1–4 te 2–3 konkretna primjera iz prakse. Zaključak rukovoditelja treba sadržavati prijedlog vertikalnog napredovanja iz Standardne u Naprednu poziciju platnog razreda. Suglasnosti uključuju direktora sektora, HR i Upravu. Za zaposlenike koji prelaze u Naprednu poziciju sustav mora podržati dodatno pravilo iz pravilnika: najmanje 12 mjeseci u standardnoj poziciji u potkategoriji 3 ili 4 nakon odobrenja Uprave, a nakon isteka razdoblja, uz zadržavanje uspješnosti i bez negativnih promjena u rezultatima ili ponašanju, prelazak u viši napredni platni razred i naziv radnog mjesta s prefiksom Senior.
+
+4.7 Vertikalno napredovanje – JUNIOR (Početna pozicija → Standardna pozicija) – OBRAZAC
+
+OBRAZAC ZA VERTIKALNO NAPREDOVANJE IZ JUNIOR U STANDARDNU POZICIJU
+
+Za vertikalno napredovanje zaposlenika iz Početne pozicije odnosno Junior pozicije u Standardnu poziciju platnog razreda rukovoditelj ispunjava digitalni obrazac koji uključuje osnovne podatke, podatke o plaći i platnom razredu, prijedlog povećanja plaće, predloženi viši platni razred, provjeru osnovnih uvjeta, procjenu po kriterijima, primjere iz prakse, eliminacijski kriterij sigurnosti i radne discipline, zaključak rukovoditelja i suglasnosti.
+
+Procjena i uvjeti za Junior napredovanje: kriteriji uključuju samostalnost u radu, kvalitetu rada, radnu učinkovitost i doprinos timu, uz opisnu procjenu i ocjenu 1–4. Procjena se odnosi na posljednjih 12 mjeseci. Napredovanje iz Početne u Standardnu poziciju moguće je samo ako su svi osnovni uvjeti označeni kao DA: u procjeni razvojnih razina ostvarena je najmanje razina 2 u svim kriterijima i jedna razina 3, bez razine 1; zaposlenik je najmanje 12–24 mjeseca u Početnoj poziciji (ne uključujući pripravništvo i probni rok); najmanje 12–24 mjeseca ostvaruje iznadprosječan učinak; kontinuirano preuzima zadatke i odgovornosti višeg platnog razreda; sigurnost i radna disciplina su bez propusta; ponašanja i komunikacija usklađeni su s vrijednostima organizacije; stvarni doprinos nadmašuje očekivanja Junior pozicije; prijedlog povećanja je unutar budžeta odjela. Ako je bilo koji odgovor NE, postupak se automatski zaustavlja.
+
+Primjeri, eliminacijski kriterij i poslovna logika: rukovoditelj je obvezan unijeti 2–3 konkretna primjera za svaki kriterij: samostalnost u radu, kvaliteta rada, radna učinkovitost i doprinos timu. Poštovanje sigurnosti i radne discipline označava se kao Zadovoljava ili Ne zadovoljava. Ako je označeno Ne zadovoljava, napredovanje nije moguće. Zaključak rukovoditelja sadrži preporuku za napredovanje i prijedlog postotka odnosno iznosa povećanja plaće, uz suglasnosti direktora sektora i HR-a. Bez potpuno ispunjenog obrasca nije moguće poslati prijedlog na odobrenje niti uključiti zaposlenika u daljnji postupak. Odobrena promjena primjenjuje se na buduće razdoblje, primjerice od 1. travnja, a nova plaća postaje osnova za stimulacije, kvartalnice i daljnje napredovanje.
+
+Za sva tri obrasca godišnjeg napredovanja vrijedi zajedničko pravilo: prijedlog nije moguće poslati na odobrenje ako nisu ispunjeni svi obvezni osnovni podaci, DA/NE provjere, eliminacijski kriteriji, opisne procjene, numeričke ocjene 1–4, 2–3 konkretna primjera iz prakse za svaki primjenjivi kriterij i prijedlog povećanja plaće.
+
+IT treba u suradnji s HR-om potvrditi obvezna polja, dopuštene vrijednosti, validacije, poruke greške, iznose povećanja plaće, način izračuna nove bruto plaće te tehničku kontrolu budžetskih i brojčanih ograničenja.
+
+Izvještaj napredovanja mora imati pregled ukupnog broja radnika u odjelu (bez rukovoditelja), postotak povećanja broja zaposlenika u odjelu u zadnjih godinu dana, iznos prijedloga budžeta odjela u EUR (postotak od sume odjela), broj promoviranih radnika, postotak promoviranih radnika, prijedlog bruto iznosa napredovanja po odjelu u EUR (zbroj svih iznosa povećanja po odjelu), prijedlog napredovanja u postotku, suma bruto iznosa plaća prije povećanja te suma bruto iznosa plaća nakon povećanja.
+
+Izvještaji napredovanja moraju imati mogućnost izvoza u Excel.
+
+Za modul godišnjeg napredovanja testiranje mora posebno obuhvatiti: unos HR budžeta i postotka za ciklus, primjenu pravila 3 % ako je tako određeno odlukom Uprave, kontrolu budžeta na razini Društva, sektora i odjela, ograničenja 50 % na razini Društva/sektora i 75 % po odjelu kada su uključena, unos dopuštenih iznosa povećanja 100–450 EUR, horizontalno napredovanje, vertikalno napredovanje iz Standardne u Naprednu poziciju za ključna ekspertna radna mjesta, Junior napredovanje iz Početne u Standardnu poziciju, DA/NE provjere uvjeta, eliminacijski kriterij sigurnosti i radne discipline, obvezne opisne procjene i ocjene 1–4, obveznost 2–3 konkretna primjera po kriteriju, vraćanje na doradu od strane HR-a, pojedinačno odobravanje i odbijanje, izračun nove bruto plaće, primjenu od 1. travnja te upis nove plaće u master podatke nakon HR potvrde.
+
+5. Modul: Godišnje nagrađivanje zaposlenika
+
+Modul godišnjeg nagrađivanja mora omogućiti unos prijedloga godišnje nagrade, procjenu zaposlenika prema definiranim kriterijima, unos konkretnih primjera, provjeru budžeta, tijek odobravanja te izvještavanje o dodijeljenim godišnjim nagradama.
+
+5.1 Svrha i osnovna pravila godišnje nagrade
+
+Godišnja nagrada je jednokratna isplata temeljem ukupnog doprinosa i procjene učinka koji prelazi osnovna očekivanja. Dodjeljuje se jednom godišnje i neovisna je o stimulacijama i kvartalnim nagradama.
+
+5.2. Budžet i ograničenja
+
+-   Budžet za godišnju nagradu za svaki ciklus određuje Uprava, a HR administrator ih unosi u aplikaciju.
+
+-   Budžet se vodi na razini odjela odnosno organizacijske jedinice.
+
+-   Dopuštena je preraspodjela unutar sektora/odjela uz odobrenje nadležnog člana Uprave. Preraspodjela između sektora ili druga iznimna preraspodjela provodi se samo na temelju odluke Uprave. Član Uprave mora imati kontinuirani pregled dodijeljenog, iskorištenog, rezerviranog i raspoloživog budžeta na razini svog profitnog centra te odjela u svojoj nadležnosti te mogućnost praćenja preraspodjele budžeta unutar sektora.
+
+-   Sustav mora omogućiti unos istog pravila ili budžeta za sve sektore i odjele te pojedinačne korekcije po sektoru, profitnom centru, odjelu ili drugoj organizacijskoj jedinici.
+
+5.3. Raspon nagrade
+
+Formula za izračun godišnje nagrade:
+
+ugovorena mjesečna bruto plaća zaposlenika × faktor nagrade prema ostvarenoj razini učinka
+
+Iznos godišnje nagrade izračunava se množenjem ugovorene mjesečne bruto plaće predloženog zaposlenika s faktorom koji odgovara ostvarenoj razini učinka. Faktore prema razinama učinka za svaki ciklus određuje Uprava, a HR administrator ih unosi u aplikaciju.
+
+Nakon izračuna osnovnog iznosa nagrade primjenjuju se maksimalni iznos za pripadajući stupanj složenosti i opći maksimalni iznos godišnje nagrade.
+
+Na temelju kombinacije navedenih elemenata sustav određuje pripadajući raspon i prijedlog godišnje nagrade.
+
+Zbog navedene metode izračuna godišnje nagrade, kod svakog zaposlenika trebao bi biti naveden iznos mjesečne bruto plaće i stupanj složenosti radnog mjesta.
+
+5.4. Tijek postupka
+
+Prije početka postupka Uprava definira ukupan budžet za godišnje nagrade koji se raspoređuje po profitnim centrima te organizacijskim jedinicama odnosno rukovoditeljima. Uprava definira faktore koji odgovaraju određenim razinama učinka.
+
+HR administrator pokreće ciklus godišnjeg nagrađivanja te određuje razdoblje u kojem rukovoditelji mogu unositi prijedloge zaposlenika za godišnju nagradu.
+
+Rukovoditelj za svakog zaposlenika kojeg predlaže za godišnju nagradu ispunjava digitalni obrazac (Obrazac za godišnju nagradu) te unosi ocjene po kriterijima, obrazloženje procjene te konkretne primjere koji potkrepljuju prijedlog. Kriteriji koji se ocjenjuju su: kvaliteta rada, radna učinkovitost i doprinos timu, a moguće ocjene su u rasponu 2-4.
+
+Procijenjene razine učinka odnosno različite kombinacije ocjena daju faktor kojim se množi ugovorena mjesečna bruto plaća zaposlenika i na taj način se dobiva osnovni iznos godišnje nagrade.
+
+Razina učinka i faktor nagrade
+
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Razina učinka   Moguće kombinacije ocjena (Kvaliteta – Učinkovitost – Doprinos)   Prosjek ocjena   Primjer faktora nagrade   Pravo na godišnju nagradu
+  --------------- ----------------------------------------------------------------- ---------------- ------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------
+  Razina 1        2–2–3                                                             2,33             0                         Ne ostvaruje pravo na godišnju nagradu, sustav treba automatski obavijestiti rukovoditelja da radnik s ovim ocjenama ne ostvaruje pravo na god.nagradu
+
+  Razina 2        2–2–4; 2–3–3; 3–2–3                                               2,67             0                         Ne ostvaruje pravo na godišnju nagradu, sustav treba automatski obavijestiti rukovoditelja da radnik s ovim ocjenama ne ostvaruje pravo na god.nagradu
+
+  Razina 3        2–3–4; 2–4–3; 3–2–4; 3–3–3; 4–2–3                                 3,00             0,6                       Može ostvariti pravo na godišnju nagradu
+
+  Razina 4        2–4–4; 3–3–4; 3–4–3; 4–2–4; 4–3–3                                 3,33             0,9                       Može ostvariti pravo na godišnju nagradu
+
+  Razina 5        3–4–4; 4–3–4; 4–4–3                                               3,67             1,7                       Može ostvariti pravo na godišnju nagradu
+
+  Razina 6        4–4–4                                                             4,00             2,8                       Može ostvariti pravo na godišnju nagradu
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Razine učinka 1 i 2 imaju faktor 0 i ne stvaraju osnovu za godišnju nagradu te u slučaju da rukovoditeljeva procjena završi tim razinama učinka, sustav mora rukovoditelja automatski obavijestiti kako taj radnik nema osnove za dodjelu godišnje nagrade. Godišnja nagrada se dodjeljuje samo za učinak koji prelazi osnovna očekivanja, počevši od Razine 3, uz uvjet da je prijedlog obrazložen konkretnim primjerima iz prakse.
+
+Nakon izračuna osnovnog iznosa nagrade primjenjuju se maksimalni iznos za pripadajući stupanj složenosti i opći maksimalni iznos godišnje nagrade.
+
+Opći maksimalni iznos godišnje nagrade iznosi 12.000 EUR bruto. Ovaj iznos može se primijeniti samo na zaposlenike raspoređene na stupnjeve složenosti I4 i I5, i to isključivo za izniman učinak, uz obrazloženje konkretnog iznadprosječnog doprinosa i odobrenje u skladu s linijom odobravanja.
+
+Maksimalni iznosi prema stupnju složenosti
+
+  -----------------------------------------------------------------------
+  Stupanj složenosti               Maksimalni iznos godišnje nagrade
+  -------------------------------- --------------------------------------
+  I8                               4.500 EUR bruto
+
+  I7                               4.500 EUR bruto
+
+  I6                               6.000 EUR bruto
+
+  I5                               12.000 EUR bruto
+
+  I4                               12.000 EUR bruto
+  -----------------------------------------------------------------------
+
+Propisani maksimalni iznos godišnje nagrade za pojedini stupanj složenosti u pravilu se ne može prekoračiti. Iznimno, u posebno obrazloženim slučajevima iznimnog učinka, Uprava može odobriti i viši iznos godišnje nagrade od propisanog limita za pripadajući stupanj složenosti, pod uvjetom da je takav iznos u okviru odobrenog budžeta. Sustav mora omogućiti HR administratoru da ručno unese i veći iznos od maksimalno propisanog po posebnom odobrenju Uprave.
+
+Sustav provjerava dopušteni raspon nagrade, raspoloživi budžet i obvezna obrazloženja te mora upozoriti rukovoditelja u slučaju prekoračenja raspoloživih sredstava.
+
+5.3 Kontrole i odobravanje
+
+HR provjerava potpunost prijedloga. Ako je prijedlog potpun i usklađen, HR ga prosljeđuje u liniju odobravanja. Ako prijedlog nije potpun ili nije usklađen, HR ga vraća rukovoditelju na doradu uz napomenu.
+
+HR kod vraćanja na doradu unosi obveznu napomenu i odabire jedan ili više standardnih razloga, primjerice: nedovoljno obrazloženje, nedostaju konkretni primjeri, prijedlog nije u skladu s pravilnikom, predloženi iznos nije unutar dopuštenog raspona ili budžeta, nisu ispunjeni osnovni uvjeti, potrebno je ispraviti osnovne podatke, status zaposlenja ili ostalo. Ako je potrebno, HR može dodati kratko tekstualno pojašnjenje.
+
+Dorađeni prijedlog rukovoditelj ponovno šalje HR-u na provjeru. Tek nakon pozitivne HR provjere prijedlog se prosljeđuje u liniju odobravanja. Svi predlagatelji i odobravatelji u liniji trebaju automatski dobiti e-mail obavijest o statusu: predano/vraćeno na doradu/odobreno/odbijeno.
+
+Odobravanje godišnjeg nagrađivanja provodi se pojedinačno, po zaposleniku odnosno prijedlogu. Masovno odobravanje nije predviđeno. Odobravatelji moraju moći pregledati prijedlog, obrazac, obrazloženja, predloženi iznos, HR napomene i povijest statusa prije donošenja odluke.
+
+Ako odobravatelj odbije prijedlog, sustav mora omogućiti unos obvezne napomene odobravatelja. Odbijanje jednog prijedloga ne utječe na status ostalih prijedloga istog rukovoditelja. Odbijeni prijedlog ne smatra se realiziranim i ne umanjuje budžet nagrađivanja.
+
+Član Uprave mora imati pregled budžeta za godišnje nagrađivanje na razini svog profitnog centra te odjela iz svoje nadležnosti. Sustav mora prikazivati ukupno dodijeljen budžet, iskorišteni budžet, rezervirani budžet za prijedloge u postupku odobravanja te preostali raspoloživi budžet. Prilikom svakog odobravanja ili odbijanja prijedloga sustav automatski ažurira stanje budžeta i omogućuje pregled iskorištenosti po pojedinoj organizacijskoj jedinici. Član Uprave mora moći vidjeti koji je rukovoditelj/ odjel iskoristio pojedini dio budžeta, za koje zaposlenike i u kojem iznosu. Sustav mora omogućiti usporedni pregled budžeta i iskorištenosti između organizacijskih jedinica unutar istog profitnog centra te prikaz potencijalno raspoloživog neiskorištenog budžeta.
+
+Direktor mora imati pregled budžeta te prijedloge nagrađenih djelatnika za sve odjele u svojoj nadležnosti. Također, direktor mora za sve odjele u svojoj nadležnosti imati pregled koji je rukovoditelj (odjel) iskoristio pojedini dio budžeta, za koje zaposlenike i u kojem iznosu.
+
+Nakon završnog odobrenja člana Uprave moguće su kalibracije između profitnih centara, a potrebne korekcije u sustav unosi HR na temelju inputa i odluke Uprave, uz evidentiranje izmjene u povijesti izmjena.
+
+Iznimno, nakon odluke Uprave, HR može administrativno odobriti prekoračenje budžeta. Takva radnja ne traži posebnu napomenu, ali se evidentira u povijesti izmjena i vidljiva je samo HR administratorima.
+
+5.4 Evidencija i izvještaji
+
+Izvještaji godišnjeg nagrađivanja moraju omogućiti pregled broja nagrađenih zaposlenika s njihovim podacima (ime i prezime, OIB, DIST-ov broj zaposlenika iz matične knjige - SAP šifra, ugovorena mjesečna bruto plaća, stupanj složenosti radnog mjesta te iznos po zaposleniku), raspodjele iznosa nagrada, iskorištenja budžeta, statusa prijedloga, odobrenja i podataka po organizacijskim jedinicama, sektorima odnosno profitnim centrima. Izvještaji moraju imati mogućnost izvoza u Excel.
+
+Izvještaj po odjelima mora imati pregled ukupnog broja radnika u odjelu (bez rukovoditelja), iznos nagrade, broj nagrađenih radnika u tom razdoblju te postotak nagrađenih u tom razdoblju.
+
+5.5 Godišnja nagrada – obrazac za procjenu
+[Obrazac_GO...2026 FINAL | Word]
+
+Za svakog zaposlenika predloženog za godišnju nagradu obavezno se ispunjava digitalni Obrazac za procjenu – Godišnja nagrada, koji je sastavni dio aplikacije. Obrazac se ispunjava samo za zaposlenike za koje rukovoditelj predlaže godišnju nagradu.
+
+Osnovni podaci obrasca: obrazac sadrži najmanje sljedeća polja: odjel / organizacijska jedinica, rukovoditelj, broj zaposlenih u odjelu, budžet za godišnju nagradu u iznosu i postotku, datum procjene, ime i prezime zaposlenika te radno mjesto / grupa radnih mjesta. Podaci koji postoje u master podacima trebaju se automatski povlačiti u obrazac, dok rukovoditelj unosi samo podatke koji se odnose na procjenu i prijedlog godišnje nagrade.
+
+Procjena prema kriterijima: zaposlenik se procjenjuje prema kriterijima kvaliteta rada, radna učinkovitost i doprinos timu. Kriterij kvaliteta rada obuhvaća točnost, pouzdanost i dosljednost rezultata. Kriterij radna učinkovitost obuhvaća organizaciju rada, tempo rada i pravovremeno izvršenje. Za navedene kriterije rukovoditelj dodjeljuje razinu od 2 do 4 i unosi opisnu procjenu. Kriterij doprinos timu može biti procijenjen s 3 i 4.
+
+Primjeri iz prakse: rukovoditelj je obvezan unijeti 2–3 konkretna primjera iz prakse za svaki primjenjivi kriterij: kvaliteta rada, radna učinkovitost i doprinos timu. Bez unesenih konkretnih primjera za obvezne kriterije nije moguće poslati prijedlog godišnje nagrade dalje u postupak.
+
+Izračun i prikaz rezultata procjene: na temelju dodijeljenih razina sustav izračunava prosjek ukupnih ocjena i faktor nagrade koji odgovara toj razini učinka. Sustav zatim prikazuje prijedlog iznosa godišnje nagrade u EUR, ovisno o procijenjenoj razini učinka, odnosno pripadajućem faktoru i ugovorenoj mjesečnoj bruto plaći zaposlenika.
+
+Sustav provjerava da su uneseni svi obvezni podaci, uključujući razine 2–4 (ili 3-4 za kriterij doprinos timu), opisne procjene i 2–3 konkretna primjera iz prakse za svaki primjenjivi kriterij te je li prijedlog nagrade unutar raspoloživog budžeta. Također, sustav primjenjuje maksimalni iznos za pripadajući stupanj složenosti i opći maksimalni iznos godišnje nagrade.
+
+HR administrator može administrativno korigirati prijedlog ili iznos na temelju odluke Uprave ili upute direktora, uz evidentiranje izmjene u povijesti izmjena.
+
+Rukovoditelj u modulu godišnjeg nagrađivanja koristi radnju Predaj na odobrenje. Prije predaje sustav provjerava jesu li za sve zaposlenike za koje je predložena godišnja nagrada uneseni svi obvezni podaci, uključujući procjenu, konkretne primjere iz prakse, prijedlog razine nagrade i obrazloženje rukovoditelja. Ako rukovoditelj za zaposlenika ne unese razinu godišnje nagrade, smatra se da zaposlenik nije predložen za godišnju nagradu, bez posebnog statusa i bez obveznog razloga nepredlaganja. Za zaposlenike za koje rukovoditelj ne predlaže godišnju nagradu nije potrebno unositi obrazloženje niti razlog nepredlaganja.
+
+Rukovoditelj koristi radnje Spremi i Predaj na odobrenje. Spremi privremeno čuva unos i vidljiv je samo rukovoditelju do predaje, a Predaj na odobrenje zaključava unos za rukovoditelja i pokreće postupak odobravanja.
+
+Nakon predaje prijedlog se šalje u definiranu liniju odobravanja i zaključava za rukovoditelja.
+
+Za modul godišnjeg nagrađivanja testiranje mora posebno obuhvatiti: automatsko povlačenje osnovnih podataka iz master podataka, unos budžeta u iznosu i postotku, unos razina 2–4 po kriterijima, unos opisnih procjena, obvezna 2–3 konkretna primjera iz prakse za svaki primjenjivi kriterij, izračun prosjeka ukupnih ocjena i pretvaranje razine učinka u faktore, izračun bruto iznosa godišnje nagrade u EUR, blokadu slanja ako nedostaju obvezni podaci, blokadu prekoračenja budžeta, masovno odobravanje, pojedinačno odbijanje i zaključavanje prijedloga nakon predaje odnosno finalnog odobrenja.
+
+6. Sustav e-mail obavijesti i podsjetnika
+
+-   Sustav mora imati centralni modul e-mail obavijesti i podsjetnika za sve poslovne module.
+
+-   HR administrator mora moći uređivati predloške poruka i definirati pravila automatiziranog slanja po modulu.
+
+-   Primjeri okidača su: otvaranje ciklusa, podsjetnik prije roka, slanje na odobrenje, odbijanje, vraćanje na doradu, zaključavanje razdoblja te uspješan ili neuspješan izvoz.
+
+-   Lista primatelja mora se temeljiti na aktualnim korisničkim ulogama, rukovoditeljima i odobravateljima.
+
+-   Sustav mora voditi evidenciju poslanih obavijesti.
+
+7. Praćenje, izvještavanje i dashboardi
+
+-   Izvještaji i dashboardi moraju omogućiti pregled budžeta, realizacije, statusa procesa i rezultata po modulu.
+
+-   Minimalni presjeci uključuju: odjel, sektor, rukovoditelja, odobravatelja, zaposlenika, razdoblje, status, iskorištenost budžeta te povijest nagrađivanja i napredovanja.
+
+-   Izvještaji za Upravu moraju omogućiti agregirani pregled po sektorima, profitnim centrima i organizacijskim jedinicama.
+
+-   Pristup izvještajima ograničava se prema ulozi korisnika i organizacijskoj nadležnosti.
+
+-   Generalni izvještaj za cijelu firmu, u svim modulima, ima odjel HR-a i Predsjednik Uprave.
+
+Izvještaji koriste organizacijsku pripadnost i povijesne podatke koje održava HR. Sustav ne treba automatski dijeliti iznose ili odgovornosti između više odjela; eventualne iznimke HR uređuje administrativno.
+
+8. Upravljanje zaposlenicima i master podacima
+
+Aplikacija mora imati centralno upravljanje master podacima zaposlenika, koji se koriste u svim modulima: stimulacije, kvartalne nagrade, godišnje napredovanje i godišnje nagrađivanje.
+
+8.1 Unos i ažuriranje zaposlenika
+
+HR administrator unosi, ažurira, deaktivira i reaktivira zaposlenike izvršitelje koji mogu biti obuhvaćeni obračunskim i prijedložnim modulima aplikacije. Obvezni podaci uključuju najmanje: OIB, DIST-ov broj zaposlenika iz matične knjige (SAP šifra), ime, prezime, datum dolaska, datum odlaska, status zaposlenja, organizacijsku jedinicu, sektor, odjel, radno mjesto, grupu radnih mjesta, platni razred, bruto plaću, neposredno nadređenog rukovoditelja, odobravatelja i e-mail adresu (ako je potrebna za obavijesti) , poziciju radnog mjesta koju je moguće odabrati preko padajućeg izbornika (Pripravnik, Junior, Standardna pozicija, Senior) i stupanj složenosti radnog mjesta. Zaposlenici kojima je prestao radni odnos bit će deaktivirani s određenim datumom. Iako će i dalje biti vidljivi u svim modulima sustava radi evidencije i pregleda povijesnih podataka, njihov status neće utjecati na buduće planiranje i obračun budžeta.
+
+Sve promjene odjela, bruto plaće i radnog mjesta koje se unose automatski se ažuriraju u svim modulima, osim budžeta za stimulacije.
+
+Rukovoditelji, direktori i članovi Uprave održavaju se u aplikaciji kao korisnici i/ili odobravatelji, a ne kao zaposlenici u obračunskim modulima.
+
+8.2 Pravila i kontrole
+
+OIB i DIST-ov broj zaposlenika iz matične knjige (SAP šifra) su ključni identifikatori zaposlenika u aplikaciji. Svi podaci, prijedlozi, obračuni, statusi, uvozi, ponovni uvozi, izvozi, izvještaji i povijesni zapisi u svim modulima moraju se vezati uz OIB i DIST-ov broj zaposlenika iz matične knjige (SAP šifra). OIB se ne smije duplicirati. Deaktivirani zaposlenici ostaju vidljivi u povijesnim podacima i izvještajima, ali se isključuju iz budućih obračuna i prijedloga.
+
+Promjena bruto plaće, organizacijske pripadnosti, rukovoditelja, odobravatelja, radnog mjesta, platnog razreda ili statusa zaposlenja koristi se za buduće obračune i ne utječe retroaktivno na zaključene cikluse.
+
+Inicijalni uvoz master podataka provodi se iz postojećih aplikacija za kvartalnice i stimulacije. Nakon inicijalnog uvoza, HR ručno održava nove zaposlenike, odlaske, reaktivacije i druge promjene relevantne za poslovne module.
+
+Sustav mora čuvati povijest relevantnih promjena master podataka, uključujući datum početka i završetka važenja, korisnika koji je promjenu unio te datum i vrijeme izmjene. Trenutno važeći podatak koristi se za buduće obračune, a povijesni podatak za izvještavanje i rekonstrukciju prethodnih razdoblja.
+
+Ako zaposlenik tijekom razdoblja promijeni odjel, rukovoditelja, odobravatelja ili drugu organizacijsku pripadnost, sustav ne provodi automatsku proporcionalnu raspodjelu iznosa ili odgovornosti. HR ručno određuje važeću organizacijsku pripadnost za relevantno razdoblje.
+
+9. Administracija voditelja/rukovoditelja
+
+Administracija rukovoditelja omogućuje HR-u ručno održavanje rukovoditelja, odobravatelja i linija odobravanja prema stvarnoj organizacijskoj hijerarhiji.
+
+Modul mora omogućiti pregled po godini, rukovoditelju, organizacijskoj jedinici, broju zaposlenika, pripadajućem budžetu stimulacija te prvom, drugom i, ako je primjenjivo, trećem odobravatelju. HR mora moći ručno ažurirati liniju odobravanja po rukovoditelju.
+
+10. Masovno učitavanje podataka
+
+Sustav mora omogućiti masovno učitavanje i ažuriranje odabranih master podataka, osobito bruto plaća, putem standardizirane Excel datoteke. Promjene se primjenjuju na buduće obračune i ne utječu retroaktivno na zaključena razdoblja.
+
+11. Integracije, izvoz i uvoz podataka
+
+Aplikacija mora podržati standardizirani uvoz i izvoz podataka za potrebe obračuna, kontrole i izvještavanja. Izvoz za HRNET definira se po modulu, uključujući format datoteke, obvezne stupce, validacije i poruke greške.
+
+12. Audit trail i povijest izmjena
+
+Sustav mora evidentirati povijest izmjena za ključne podatke i procese. Za svaku izmjenu bilježe se korisnik, datum i vrijeme izmjene te sadržaj izmjene. Povijest izmjena vidljiva je samo HR administratorima. HR administrativne izmjene ne pokreću automatske e-mail obavijesti drugim korisnicima, osim ako je za pojedini modul izričito definirano drugačije.
+
+13. Zaštita osobnih podataka i sigurnost
+
+Aplikacija obrađuje osobne podatke, podatke o plaći, procjene učinka, prijedloge napredovanja, nagrade i disciplinske mjere. Pristup podacima mora biti ograničen prema korisničkoj ulozi i organizacijskoj nadležnosti.
+
+Podatak o disciplinskoj mjeri unosi isključivo HR administrator, ručno, za konkretnog zaposlenika i razdoblje. Taj podatak koristi se samo za primjenu relevantnih poslovnih pravila i vidljiv je korisnicima koji imaju pravo pregleda tog zaposlenika.
+
+Podaci o bruto plaći vidljivi su samo HR administratorima te rukovoditeljima, direktorima i članovima Uprave u okviru njihove organizacijske nadležnosti odnosno linije odobravanja.
+
+14. Planirana dinamika implementacije i fazno puštanje u rad
+
+Cilj je da cjelokupna aplikacija bude razvijena, testirana i spremna za korištenje u isto vrijeme. Ako to ne bude moguće, dopušteno je fazno puštanje u rad prema poslovnim prioritetima.
+
+-   Modul godišnjeg nagrađivanja mora biti spreman za korištenje najkasnije do 1. studenog.
+
+-   Modul godišnjeg napredovanja mora biti spreman za korištenje najkasnije do 1. veljače.
+
+-   Moduli stimulacija i kvartalnih nagrada mogu se, ako bude potrebno, isporučiti kasnije jer su postojeća rješenja funkcionalno dostupna do 1. travnja iduće godine.
+
+-   Fazno puštanje mora biti usklađeno s testiranjem, migracijom podataka, edukacijom korisnika i spremnošću produkcijskog okruženja.
+
+Očekivani korisnici aplikacije su približno 80 rukovoditelja, HR administratori te direktori i članovi Uprave u liniji odobravanja. Procijenjeni vršni broj istovremenih korisnika je približno 40. Inicijalna migracija podataka provodi se iz postojećih aplikacija za kvartalnice i stimulacije, a naknadno održavanje podataka provodi HR ručnim unosom. Aplikacija mora imati zasebno testno i produkcijsko okruženje.
+
+15. Testiranje i kriteriji prihvaćanja
+
+Prije produkcijskog korištenja potrebno je provesti korisničko testiranje svih modula u testnom okruženju. Testiranje mora obuhvatiti unos podataka, validacije, workflow odobravanja, zaključavanje razdoblja, izvještaje, uvoz i izvoz podataka te pristup prema korisničkim ulogama.
+
+Za modul kvartalnih nagrada testiranje mora posebno obuhvatiti: import prisutnosti s ispravnim i neispravnim OIB-om, mapiranje prisutnosti na pragove 0 %, 50 %, 75 % i 100 %, zadane vrijednosti kriterija procjene od 100 %, smanjenje jednog ili više kriterija, obvezno obrazloženje kod smanjenja ispod 100 %, slučaj kada je jedan kriterij 0 %, primjenu eliminacijskog uvjeta, zaključavanje izračunatih polja za rukovoditelja, masovno odobravanje, pojedinačno odbijanje i izvoz konačnih odobrenih iznosa.

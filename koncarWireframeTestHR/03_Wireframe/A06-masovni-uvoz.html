@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A6 Masovni uvoz zaposlenika – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A6">
+<main>
+  <h1 class="wf-h1">Masovni uvoz zaposlenika</h1>
+  <p class="wf-sub">Masovna promjena odabranih podataka (osobito bruto plaće) standardiziranom Excel datotekom, s provjerom prije potvrde.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator.</dd>
+      <dt>Čemu služi</dt><dd>Promjena podataka većeg broja zaposlenika odjednom: učitavanje Excela, pregled svakog retka s greškama i tek onda potvrda.</dd>
+      <dt>Pravila</dt><dd><ul><li>Tri koraka: 1. Učitavanje, 2. Pregled po retku, 3. Potvrda. Ništa se ne primjenjuje prije potvrde.</li><li>Vrijedi samo za buduće obračune; ne mijenja zaključena razdoblja (datum „vrijedi od“ u zaključenom razdoblju je greška retka).</li><li>Provjere po retku <span class="wf-p">prijedlog</span>: OIB postoji u bazi, OIB nije duplikat u datoteci, datum nije u zaključenom razdoblju, iznos je ispravan broj (Specifikacija traži samo „provjeru prije potvrde“).</li><li>Zaposlenik se prepoznaje po OIB-u i SAP šifri; OIB se ne smije duplicirati.</li><li>Uvoz i svaka promjena bilježe se u trag izmjena i popis uvoza i izvoza (A11).</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p">P30</span> Prvo punjenje novih polja (pozicija, stupanj složenosti, platni razred, sektor, grupa radnih mjesta) ide istim putem iz Excela koji dostavlja HR; vrsta promjene „Prvo punjenje“.</li><li><span class="wf-p" title="NOVO: Koja se polja smiju mijenjati masovnim uvozom i uvozi li se datoteka djelomično ako ima grešaka? Wireframe pretpostavlja plaću, poziciju, stupanj složenosti, platni razred i radno mjesto, a uvoz se potvrđuje samo kad nema grešaka.">N19</span> Mogu se masovno mijenjati plaća, platni razred, radno mjesto, pozicija i stupanj složenosti; uvoz se potvrđuje samo kad nema grešaka (sve ili ništa).</li><li><span class="wf-p">prijedlog</span> Predložak ima stupce: OIB, SAP šifra, nova vrijednost, vrijedi od (neobavezno; prazno = datum s ovog ekrana).</li><li>Datoteka i redovi su izmišljeni; brojke plaća slažu se s popisom zaposlenika (A4).</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="korak">
+    <button type="button" data-wf-tab="1" class="is-active">1. Učitavanje</button>
+    <button type="button" data-wf-tab="2">2. Pregled po retku (greške)</button>
+    <button type="button" data-wf-tab="3">3. Potvrda</button>
+  </div>
+
+  <div data-wf-panel="korak:1">
+    <ol class="wf-steps"><li class="is-active">Učitavanje</li><li class="">Pregled po retku</li><li class="">Potvrda</li></ol>
+    <div class="wf-grid md:grid-cols-2">
+      <div class="wf-card">
+        <div class="wf-h3">Postavke uvoza</div>
+        <div class="wf-field"><label class="wf-label wf-req">Vrsta promjene</label><select class="wf-select" ><option selected>Bruto plaća</option><option>Platni razred</option><option>Radno mjesto i grupa radnih mjesta</option><option>Pozicija</option><option>Stupanj složenosti</option><option>Prvo punjenje novih polja</option></select><div class="wf-help">Prvo punjenje novih polja: <span class="wf-p">P30</span> · odabir polja: <span class="wf-p" title="NOVO: Koja se polja smiju mijenjati masovnim uvozom i uvozi li se datoteka djelomično ako ima grešaka? Wireframe pretpostavlja plaću, poziciju, stupanj složenosti, platni razred i radno mjesto, a uvoz se potvrđuje samo kad nema grešaka.">N19</span></div></div>
+        <div class="wf-field"><label class="wf-label wf-req">Vrijedi od</label><input class="wf-input" type="text" value="1. 12. 2026." ><div class="wf-help">Samo buduće obračunsko razdoblje; datum u zaključenom razdoblju nije dopušten.</div></div>
+        <button type="button" class="wf-btn" data-wf-toast="Preuzet je predložak za vrstu promjene „Bruto plaća“.">Preuzmi predložak</button>
+      </div>
+      <div class="wf-card">
+        <div class="wf-h3">Datoteka</div>
+        <div class="wf-drop">
+          <p class="font-bold">Povucite Excel datoteku (.xlsx) ovdje</p>
+          <p class="wf-help">ili</p>
+          <button type="button" class="wf-btn" data-wf-toast="Datoteka je odabrana: place_2026-12.xlsx (9 redaka).">Odaberi datoteku</button>
+          <p class="wf-help mt-3">Odabrana datoteka: <b>place_2026-12.xlsx</b> · 9 redaka</p>
+        </div>
+        <div class="wf-actions mt-3"><button type="button" class="wf-btn-primary" data-step-go="2">Učitaj i provjeri</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-wf-panel="korak:2">
+    <ol class="wf-steps"><li class="is-done">Učitavanje</li><li class="is-active">Pregled po retku</li><li class="">Potvrda</li></ol>
+    <div class="wf-block">Datoteka sadrži greške u 4 od 9 redaka. Uvoz se ne može potvrditi dok se greške ne isprave. <span class="wf-p" title="NOVO: Koja se polja smiju mijenjati masovnim uvozom i uvozi li se datoteka djelomično ako ima grešaka? Wireframe pretpostavlja plaću, poziciju, stupanj složenosti, platni razred i radno mjesto, a uvoz se potvrđuje samo kad nema grešaka.">N19</span></div>
+    <div class="flex flex-wrap gap-x-6 gap-y-1 mb-3 text-sm">
+      <span><b>9</b> redaka u datoteci</span><span><b>5</b> ispravnih</span><span><b>4</b> s greškom</span>
+      <span class="wf-muted">Vrsta promjene: bruto plaća · vrijedi od 1. 12. 2026.</span>
+    </div>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th class="num">Redak</th><th>OIB</th><th>SAP šifra</th><th>Ime i prezime</th><th>Polje</th><th class="num">Staro</th><th class="num">Novo</th><th>Vrijedi od</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="wf-mono">41421356237</td><td class="wf-mono">12001</td><td class="wf-name">Stjepan Lovrić</td><td>Bruto plaća</td><td class="num">2.150,00</td><td class="num">2.250,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">2</td><td class="wf-mono">31622776601</td><td class="wf-mono">12058</td><td class="wf-name">Leon Barić</td><td>Bruto plaća</td><td class="num">2.050,00</td><td class="num">2.150,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">3</td><td class="wf-mono">44721359549</td><td class="wf-mono">12061</td><td class="wf-name">Marin Jukić</td><td>Bruto plaća</td><td class="num">2.600,00</td><td class="num">2.700,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">4</td><td class="wf-mono">23606797749</td><td class="wf-mono">10560</td><td class="wf-name">Ivona Jakšić</td><td>Bruto plaća</td><td class="num">3.400,00</td><td class="num">3.500,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">5</td><td class="wf-mono">14159265358</td><td class="wf-mono">12047</td><td class="wf-name">Antonio Šimunović</td><td>Bruto plaća</td><td class="num">1.700,00</td><td class="num">1.750,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr class="is-error"><td class="num">6</td><td class="wf-mono">99999999990</td><td class="wf-mono">19999</td><td class="wf-name">Pero Novaković</td><td>Bruto plaća</td><td class="num">–</td><td class="num">2.200,00</td><td>1. 12. 2026.</td><td><span class="wf-error">OIB ne postoji u bazi</span></td></tr>
+<tr class="is-error"><td class="num">7</td><td class="wf-mono">41421356237</td><td class="wf-mono">12001</td><td class="wf-name">Stjepan Lovrić</td><td>Bruto plaća</td><td class="num">2.150,00</td><td class="num">2.300,00</td><td>1. 12. 2026.</td><td><span class="wf-error">Duplikat: OIB se već pojavljuje u retku 1</span></td></tr>
+<tr class="is-error"><td class="num">8</td><td class="wf-mono">12020569031</td><td class="wf-mono">10777</td><td class="wf-name">Bruno Kralj</td><td>Bruto plaća</td><td class="num">2.500,00</td><td class="num">2.550,00</td><td>1. 9. 2026.</td><td><span class="wf-error">Datum „vrijedi od“ je u zaključenom razdoblju (rujan 2026.)</span></td></tr>
+<tr class="is-error"><td class="num">9</td><td class="wf-mono">33166247903</td><td class="wf-mono">11021</td><td class="wf-name">Tena Kolar</td><td>Bruto plaća</td><td class="num">2.100,00</td><td class="num">2.1OO,00</td><td>1. 12. 2026.</td><td><span class="wf-error">Neispravan iznos (očekuje se broj, npr. 2.150,00)</span></td></tr>
+</tbody>
+</table></div>
+    <div class="wf-actions mt-3">
+      <button type="button" class="wf-btn-primary" disabled>Potvrdi uvoz</button>
+      <button type="button" class="wf-btn" data-wf-toast="Popis grešaka je izvezen u Excel (4 retka).">Izvezi greške u Excel</button>
+      <button type="button" class="wf-btn" data-step-go="3">Učitaj ispravljenu datoteku</button>
+      <button type="button" class="wf-btn" data-step-go="1">Natrag</button>
+    </div>
+  </div>
+
+  <div data-wf-panel="korak:3">
+    <ol class="wf-steps"><li class="is-done">Učitavanje</li><li class="is-done">Pregled po retku</li><li class="is-active">Potvrda</li></ol>
+    <div class="wf-info">Ispravljena datoteka <b>place_2026-12_ispravljeno.xlsx</b>: 7 redaka, 0 grešaka. Pregledajte sažetak i potvrdite.</div>
+    <div class="wf-grid md:grid-cols-3 mb-3">
+      <div class="wf-kpi"><div class="wf-kpi-label">Redaka za primjenu</div><div class="wf-kpi-value">7</div><div class="wf-kpi-sub">bruto plaća · vrijedi od 1. 12. 2026.</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Mjesečna masa plaća tih zaposlenika</div><div class="wf-kpi-value">16.500,00 € → 17.050,00 €</div><div class="wf-kpi-sub">povećanje 550,00 €</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Utjecaj</div><div class="wf-kpi-value">samo buduće</div><div class="wf-kpi-sub">zaključena razdoblja se ne mijenjaju</div></div>
+    </div>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th class="num">Redak</th><th>OIB</th><th>SAP šifra</th><th>Ime i prezime</th><th>Polje</th><th class="num">Staro</th><th class="num">Novo</th><th>Vrijedi od</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="wf-mono">41421356237</td><td class="wf-mono">12001</td><td class="wf-name">Stjepan Lovrić</td><td>Bruto plaća</td><td class="num">2.150,00</td><td class="num">2.250,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">2</td><td class="wf-mono">31622776601</td><td class="wf-mono">12058</td><td class="wf-name">Leon Barić</td><td>Bruto plaća</td><td class="num">2.050,00</td><td class="num">2.150,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">3</td><td class="wf-mono">44721359549</td><td class="wf-mono">12061</td><td class="wf-name">Marin Jukić</td><td>Bruto plaća</td><td class="num">2.600,00</td><td class="num">2.700,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">4</td><td class="wf-mono">23606797749</td><td class="wf-mono">10560</td><td class="wf-name">Ivona Jakšić</td><td>Bruto plaća</td><td class="num">3.400,00</td><td class="num">3.500,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">5</td><td class="wf-mono">14159265358</td><td class="wf-mono">12047</td><td class="wf-name">Antonio Šimunović</td><td>Bruto plaća</td><td class="num">1.700,00</td><td class="num">1.750,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">6</td><td class="wf-mono">12020569031</td><td class="wf-mono">10777</td><td class="wf-name">Bruno Kralj</td><td>Bruto plaća</td><td class="num">2.500,00</td><td class="num">2.550,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+<tr><td class="num">7</td><td class="wf-mono">33166247903</td><td class="wf-mono">11021</td><td class="wf-name">Tena Kolar</td><td>Bruto plaća</td><td class="num">2.100,00</td><td class="num">2.150,00</td><td>1. 12. 2026.</td><td>ok</td></tr>
+</tbody>
+</table></div>
+    <label class="wf-check mt-3"><input type="checkbox"> Potvrđujem da sam pregledao/la promjene</label>
+    <div class="wf-actions mt-3">
+      <button type="button" class="wf-btn-primary" data-wf-toast="Uvoz je primijenjen: 7 promjena vrijedi od 1. 12. 2026. Zapisano u trag izmjena i popis uvoza.">Potvrdi uvoz</button>
+      <button type="button" class="wf-btn" data-step-go="2">Natrag na pregled</button>
+      <a class="wf-btn" href="A11-trag-izmjena.html">Trag izmjena</a>
+    </div>
+  </div>
+
+<script>
+/* samo prikaz: gumbi „Dalje“ prebacuju korak kao prekidač stanja */
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-step-go]'); if (!b) return;
+  var t = document.querySelector('[data-wf-tabs="korak"] [data-wf-tab="' + b.getAttribute('data-step-go') + '"]'); if (t) t.click();
+});
+</script>
+</main>
+</body>
+</html>

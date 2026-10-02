@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A5 Zaposlenik – detalj – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A5">
+<main>
+  <p class="text-xs mb-1"><a class="wf-link" href="A04-zaposlenici.html">← Zaposlenici</a></p>
+  <h1 class="wf-h1">Zaposlenik – detalj</h1>
+  <p class="wf-sub"><span data-wf-panel="stanje:aktivan stanje:greska">Marija Perić · SAP 10234 · Projekt tehnologije <span class="wf-status">Aktivan</span></span><span data-wf-panel="stanje:neaktivan">Petar Vidović · SAP 10011 · Projekt tehnologije <span class="wf-status is-closed">Neaktivan</span></span></p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator. Rukovoditelj i ostali ovaj ekran ne vide; Predsjednik Uprave zaposlenika otvara samo za čitanje.</dd>
+      <dt>Čemu služi</dt><dd>Pregled i uređivanje svih podataka zaposlenika, povijest promjena te deaktivacija i reaktivacija.</dd>
+      <dt>Pravila</dt><dd><ul><li>Skupine polja prema Specifikaciji: osobni, zaposlenje, organizacija, radno mjesto (pozicija: Pripravnik, Junior, Standardna pozicija, Senior), plaća.</li><li>Svaka izmjena traži datum „vrijedi od“; povijest čuva vrijedi od–do, staro i novo, tko je unio i kada. Važeći podatak koristi se za buduće obračune, raniji za izvještaje i rekonstrukciju.</li><li>Izmjena ne mijenja zaključene cikluse. Promjena odjela, bruto plaće ili radnog mjesta odmah vrijedi u svim modulima, osim u već određenom budžetu stimulacija.</li><li>Promjena odjela ili rukovoditelja usred razdoblja: sustav ne dijeli iznose automatski; HR ručno određuje kamo zaposlenik pripada za to razdoblje.</li><li>Deaktivacija ide s datumom odlaska; zaposlenik ostaje vidljiv u povijesti i izvještajima, ne ulazi u nove obračune i prijedloge; može se reaktivirati.</li><li>OIB se ne smije duplicirati. Zaposlenik je izvršitelj; rukovoditelji se vode kao korisnici (A12).</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p" title="NOVO: Koje vrijednosti ima „status zaposlenja“ (osim aktivan/neaktivan)? Wireframe pretpostavlja samo Aktivan i Neaktivan; „status zaposlenja“ se spominje i među razlozima vraćanja i „ne smije biti predložen“.">N14</span> Status zaposlenja ima vrijednosti Aktivan i Neaktivan.</li><li><span class="wf-p" title="NOVO: Što je „organizacijska jedinica“ u odnosu na sektor i odjel, i je li „odobravatelj“ na zaposleniku zaseban podatak? Wireframe pretpostavlja da je organizacijska jedinica profitni centar, a odobravatelj se izvodi iz linije rukovoditelja (prikazan zaključano).">N15</span> Organizacijska jedinica je profitni centar; odobravatelj se izvodi iz linije (zaključano).</li><li><span class="wf-p" title="NOVO: Deaktivacija zaposlenika koji ima otvorene prijedloge. Wireframe pretpostavlja da sustav upozori HR popisom otvorenih prijedloga i da ih ne briše automatski; HR ih rješava ručno.">N12</span> Pri deaktivaciji sustav upozori na otvorene prijedloge i ne briše ih.</li><li><span class="wf-p">P23</span> Pozicija i stupanj složenosti/platni razred, Početna i Napredna pozicija još nisu usklađeni.</li><li><span class="wf-p">prijedlog</span> Ponovna aktivacija također traži datum „vrijedi od“.</li><li>Podaci o plaći i razredima u povijesti su izmišljeni (prvi prijenos i dopuna HR-a).</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="aktivan" class="is-active">Aktivan zaposlenik</button>
+    <button type="button" data-wf-tab="greska">Greška: OIB već postoji</button>
+    <button type="button" data-wf-tab="neaktivan">Neaktivan zaposlenik</button>
+  </div>
+
+  <div class="wf-tabs" data-wf-tabs="tab">
+    <button type="button" data-wf-tab="podaci" class="is-active">Podaci</button>
+    <button type="button" data-wf-tab="povijest">Povijest promjena</button>
+  </div>
+
+  <div data-wf-panel="tab:podaci">
+    <div data-wf-panel="stanje:greska" class="wf-block">Izmjene nisu spremljene: OIB 27182818284 već pripada drugom zaposleniku (Ivan Božić). Ispravite OIB.</div>
+    <div data-wf-panel="stanje:aktivan stanje:greska">
+    <div class="wf-grid md:grid-cols-2 mb-4">
+      <div class="wf-card"><div class="wf-h3">Osobni podaci</div>
+        <div data-wf-panel="stanje:aktivan"><div class="wf-field"><label class="wf-label wf-req">OIB</label><input class="wf-input" type="text" value="31415926535" ><div class="wf-help">Jedinstven u cijeloj aplikaciji.</div></div></div>
+        <div data-wf-panel="stanje:greska"><div class="wf-field"><label class="wf-label wf-req">OIB</label><input class="wf-input is-error" type="text" value="27182818284"><div class="wf-error">OIB 27182818284 već postoji (Ivan Božić, SAP 10457). OIB se ne smije duplicirati.</div></div></div>
+        <div class="wf-field"><label class="wf-label wf-req">SAP šifra</label><input class="wf-input" type="text" value="10234" ><div class="wf-help">DIST-ov broj zaposlenika iz matične knjige.</div></div>
+        <div class="grid grid-cols-2 gap-3"><div class="wf-field"><label class="wf-label wf-req">Ime</label><input class="wf-input" type="text" value="Marija" ></div><div class="wf-field"><label class="wf-label wf-req">Prezime</label><input class="wf-input" type="text" value="Perić" ></div></div>
+        <div class="wf-field"><label class="wf-label">E-mail</label><input class="wf-input" type="text" value="marija.peric@firma.example" ><div class="wf-help">Ako treba za obavijesti.</div></div></div>
+      <div class="wf-card"><div class="wf-h3">Zaposlenje</div>
+        <div class="wf-field"><label class="wf-label wf-req">Datum dolaska</label><input class="wf-input" type="text" value="3. 4. 2018." ></div>
+        <div class="wf-field"><label class="wf-label">Datum odlaska</label><span class="wf-locked is-block">–</span><div class="wf-help">Upisuje se radnjom Deaktiviraj.</div></div>
+        <div class="wf-field"><label class="wf-label wf-req">Status zaposlenja <span class="wf-p" title="NOVO: Koje vrijednosti ima „status zaposlenja“ (osim aktivan/neaktivan)? Wireframe pretpostavlja samo Aktivan i Neaktivan; „status zaposlenja“ se spominje i među razlozima vraćanja i „ne smije biti predložen“.">N14</span></label><select class="wf-select" ><option selected>Aktivan</option><option>Neaktivan</option></select></div></div>
+      <div class="wf-card"><div class="wf-h3">Organizacija</div>
+        <div class="wf-field"><label class="wf-label wf-req">Organizacijska jedinica <span class="wf-p" title="NOVO: Što je „organizacijska jedinica“ u odnosu na sektor i odjel, i je li „odobravatelj“ na zaposleniku zaseban podatak? Wireframe pretpostavlja da je organizacijska jedinica profitni centar, a odobravatelj se izvodi iz linije rukovoditelja (prikazan zaključano).">N15</span></label><select class="wf-select" ><option selected>PC DT/ST</option><option>PC SET</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Sektor</label><select class="wf-select" ><option selected>Tehnologija</option><option>Proizvodnja SET</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Odjel</label><select class="wf-select" ><option selected>Projekt tehnologije</option><option>Razvoj proizvodnje</option><option>Montaža SET</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Neposredno nadređeni rukovoditelj</label><select class="wf-select" ><option selected>Ivana Horvat</option><option>Goran Šimić</option><option>Josip Jurić</option></select></div>
+        <div class="wf-field"><label class="wf-label">Odobravatelj <span class="wf-p" title="NOVO: Što je „organizacijska jedinica“ u odnosu na sektor i odjel, i je li „odobravatelj“ na zaposleniku zaseban podatak? Wireframe pretpostavlja da je organizacijska jedinica profitni centar, a odobravatelj se izvodi iz linije rukovoditelja (prikazan zaključano).">N15</span></label><span class="wf-locked is-block text-xs">Stimulacije i kvartalne: Marko Kovačević (direktor)<br>Nagrađivanje: HR → Marko Kovačević (direktor)<br>Napredovanje: HR → Ana Babić (član Uprave)</span><div class="wf-help">Izvodi se iz linije odobravanja rukovoditelja (A7); ovdje se ne uređuje.</div></div></div>
+      <div class="wf-card"><div class="wf-h3">Radno mjesto</div>
+        <div class="wf-field"><label class="wf-label wf-req">Radno mjesto</label><select class="wf-select" ><option selected>Inženjer procesa u odjelu Projekt tehnologije (ključno ekspertno)</option><option>Tehnolog</option><option>Senior tehnolog</option><option>Referent pripreme proizvodnje</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Grupa radnih mjesta</label><select class="wf-select" ><option selected>Tehnologija</option><option>Proizvodnja SET</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Pozicija <span class="wf-p">P23</span></label><select class="wf-select" ><option>Pripravnik</option><option>Junior</option><option selected>Standardna pozicija</option><option>Senior</option></select><div class="wf-help">Padajući izbornik: Pripravnik, Junior, Standardna pozicija, Senior.</div></div>
+        <div class="grid grid-cols-2 gap-3"><div class="wf-field"><label class="wf-label wf-req">Stupanj složenosti</label><select class="wf-select" ><option>I4</option><option selected>I5</option><option>I6</option><option>I7</option><option>I8</option></select></div><div class="wf-field"><label class="wf-label wf-req">Platni razred</label><select class="wf-select" ><option>PR 8</option><option selected>PR 9</option><option>PR 10</option></select></div></div></div>
+      <div class="wf-card"><div class="wf-h3">Plaća</div>
+        <div class="wf-field"><label class="wf-label wf-req">Bruto plaća (€ mjesečno)</label><input class="wf-input" type="text" value="3.200,00" style="text-align:right"></div>
+        <div class="wf-field"><label class="wf-label">Zadnja promjena plaće</label><span class="wf-locked">1. 4. 2025.</span></div>
+        <div class="wf-help">Plaću vide samo HR te rukovoditelj, direktor i član Uprave unutar svoje nadležnosti.</div></div>
+      <div class="wf-card">
+        <div class="wf-h3">Izmjena vrijedi od</div>
+        <div class="wf-field"><label class="wf-label wf-req">Datum „vrijedi od“</label><input class="wf-input" type="text" value="1. 12. 2026." ><div class="wf-help">Obavezan za svaku izmjenu. Upisuje se u povijest; izmjena vrijedi za buduće obračune i ne mijenja zaključene cikluse.</div></div>
+        <div class="wf-info text-xs">Promjena odjela, bruto plaće ili radnog mjesta odmah vrijedi u svim modulima, osim u već određenom budžetu stimulacija.</div>
+      </div>
+    </div>
+
+    <div class="wf-card mb-4">
+      <div class="wf-h3">Promjena odjela ili rukovoditelja usred razdoblja</div>
+      <p class="text-sm mb-2">Ako se mijenja odjel ili rukovoditelj dok je razdoblje otvoreno, sustav ne dijeli iznose automatski. HR ručno određuje kamo zaposlenik pripada za to razdoblje.</p>
+      <div class="wf-table-wrap"><table class="wf-table"><thead><tr><th>Otvoreno razdoblje</th><th>Pripada odjelu</th></tr></thead><tbody>
+        <tr><td>Mjesečne stimulacije studeni 2026.</td><td><label class="wf-check"><input type="radio" name="r1" checked> stari odjel</label><label class="wf-check"><input type="radio" name="r1"> novi odjel</label></td></tr>
+        <tr><td>Godišnje nagrađivanje 2026.</td><td><label class="wf-check"><input type="radio" name="r2" checked> stari odjel</label><label class="wf-check"><input type="radio" name="r2"> novi odjel</label></td></tr>
+      </tbody></table></div>
+      <p class="wf-help">Prikazuje se samo kad se u obrascu promijeni odjel ili rukovoditelj <span class="wf-p">prijedlog</span>.</p>
+    </div>
+
+    <div class="wf-actions pt-3 border-t border-black">
+      <button type="button" class="wf-btn-primary" data-wf-toast="Izmjene su spremljene s datumom „vrijedi od“ 1. 12. 2026. i zapisane u povijest.">Spremi</button>
+      <a class="wf-btn" href="A04-zaposlenici.html">Odustani</a>
+      <button type="button" class="wf-btn ml-auto" data-wf-open="dlg-deakt">Deaktiviraj</button>
+    </div></div>
+    <div data-wf-panel="stanje:neaktivan"><div class="wf-card">
+      <div class="wf-info">Zaposlenik je <b>neaktivan od 30. 6. 2026.</b> Ostaje vidljiv u povijesti i izvještajima, ali ne ulazi u nove obračune i prijedloge. Podaci su samo za čitanje. (Primjer: Petar Vidović.)</div>
+      <div class="wf-grid md:grid-cols-2">
+        <div><dl class="wf-kv"><dt>Ime i prezime</dt><dd>Petar Vidović</dd><dt>OIB</dt><dd class="wf-mono">19999999999</dd><dt>SAP šifra</dt><dd class="wf-mono">10011</dd><dt>Status zaposlenja <span class="wf-p" title="NOVO: Koje vrijednosti ima „status zaposlenja“ (osim aktivan/neaktivan)? Wireframe pretpostavlja samo Aktivan i Neaktivan; „status zaposlenja“ se spominje i među razlozima vraćanja i „ne smije biti predložen“.">N14</span></dt><dd>Neaktivan</dd><dt>Datum odlaska</dt><dd>30. 6. 2026.</dd></dl></div>
+        <div><dl class="wf-kv"><dt>Odjel / sektor</dt><dd>Projekt tehnologije / Tehnologija</dd><dt>Rukovoditelj</dt><dd>Ivana Horvat</dd><dt>Radno mjesto</dt><dd>Tehnolog (Tehnologija)</dd><dt>Pozicija, stupanj, razred</dt><dd>Standardna pozicija · I6 · PR 7</dd><dt>Bruto plaća</dt><dd>2.300,00 €</dd></dl></div>
+      </div>
+      <div class="wf-actions mt-4 pt-3 border-t border-black">
+        <button type="button" class="wf-btn-primary" data-wf-open="dlg-reakt">Reaktiviraj</button>
+        <a class="wf-btn" href="A04-zaposlenici.html">Natrag na popis</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div data-wf-panel="tab:povijest">
+    <div class="wf-filters">
+      <div><label class="wf-label" for="hp">Polje</label><select class="wf-select" id="hp"><option selected>Sva polja</option><option>Bruto plaća</option><option>Platni razred</option><option>Pozicija</option><option>Odjel</option></select></div>
+    </div>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Vrijedi od</th><th>Vrijedi do</th><th>Polje</th><th>Staro → novo</th><th>Tko je unio</th><th>Kada</th></tr></thead>
+<tbody>
+<tr><td>1. 4. 2025.</td><td class="wf-muted">trenutno važeće</td><td>Bruto plaća</td><td>3.050,00 € → <b>3.200,00 €</b></td><td>Sanja Lukić</td><td>22. 10. 2026. u 11:40</td></tr>
+<tr><td>1. 4. 2025.</td><td class="wf-muted">trenutno važeće</td><td>Platni razred</td><td>PR 8 → <b>PR 9</b></td><td>Sanja Lukić</td><td>22. 10. 2026. u 11:42</td></tr>
+<tr><td>1. 4. 2024.</td><td>31. 3. 2025.</td><td>Bruto plaća</td><td>2.900,00 € → 3.050,00 €</td><td>Petra Novak (prvi prijenos)</td><td>15. 10. 2026. u 9:30</td></tr>
+<tr><td>3. 4. 2020.</td><td class="wf-muted">trenutno važeće</td><td>Pozicija</td><td>Junior → <b>Standardna pozicija</b></td><td>Petra Novak (prvi prijenos)</td><td>15. 10. 2026. u 9:30</td></tr>
+<tr><td>3. 4. 2018.</td><td class="wf-muted">trenutno važeće</td><td>Odjel</td><td>– → <b>Projekt tehnologije</b></td><td>Petra Novak (prvi prijenos)</td><td>15. 10. 2026. u 9:30</td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help mt-2">„Vrijedi do“ je dan prije sljedeće promjene istog polja; trenutno važeći podatak nema datuma završetka. Povijest vide HR administratori; u tragu izmjena (A11) isti zapisi imaju oznaku korisnika i uloge.</p>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-deakt">
+    <div class="wf-dialog-head">Deaktiviraj zaposlenika <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Deaktivirate: <b>Marija Perić</b> (SAP 10234).</p>
+      <div class="wf-field"><label class="wf-label wf-req">Datum odlaska</label><input class="wf-input" type="text" value="" ><div class="wf-help">Od tog datuma zaposlenik ne ulazi u nove obračune i prijedloge. Ostaje vidljiv u povijesti i izvještajima.</div></div>
+      <div class="wf-alert">Zaposlenik ima otvorene prijedloge: godišnja nagrada 2026. (HR provjereno, čeka Marka Kovačevića) i stimulacija za studeni 2026. (Spremljeno). Prijedlozi se ne brišu automatski; riješite ih ručno. <span class="wf-p" title="NOVO: Deaktivacija zaposlenika koji ima otvorene prijedloge. Wireframe pretpostavlja da sustav upozori HR popisom otvorenih prijedloga i da ih ne briše automatski; HR ih rješava ručno.">N12</span></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Zaposlenik je deaktiviran. Izmjena je zapisana u trag izmjena.">Deaktiviraj</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-reakt">
+    <div class="wf-dialog-head">Reaktiviraj zaposlenika <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Reaktivirate: <b>Petar Vidović</b> (SAP 10011), neaktivan od 30. 6. 2026.</p>
+      <div class="wf-field"><label class="wf-label wf-req">Aktivan od</label><input class="wf-input" type="text" value="" ><div class="wf-help">Datum od kojeg ponovno ulazi u obračune i prijedloge. <span class="wf-p">prijedlog</span></div></div>
+      <p class="wf-help">Datum odlaska se briše, a povijest ostaje.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Zaposlenik je reaktiviran. Izmjena je zapisana u trag izmjena.">Reaktiviraj</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F1.1 Postavke ciklusa – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F1.1">
+<main>
+  <h1 class="wf-h1">Postavke ciklusa – godišnje nagrađivanje</h1>
+  <p class="wf-sub">Ciklus 2026. · sve vrijednosti unosi HR prema odluci Uprave</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator (Petra Novak, Sanja Lukić). Ostale uloge ovaj ekran ne vide.</dd>
+      <dt>Čemu služi</dt><dd>HR na jednom mjestu unosi sve što Uprava odluči za godišnje nagrađivanje: razdoblje unosa i rok odobravanja, budžet po jedinicama, faktore za razine učinka, limite po stupnju složenosti i postavku masovnog odobravanja; zatim otvara ciklus.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Budžet: HR unese isto pravilo za sve jedinice (iznos ili postotak) i zatim pojedinačne korekcije po sektoru, profitnom centru ili odjelu. Budžet se vodi po odjelu odnosno organizacijskoj jedinici.</li>
+        <li>Faktori za razine 1–6 određuje Uprava za svaki ciklus; razine 1 i 2 imaju faktor 0 (nema prava na nagradu). Vrijednosti na ekranu su primjer iz Specifikacije.</li>
+        <li>Limiti: I8 i I7 4.500 €, I6 6.000 €, I5 i I4 12.000 €. Limit se u pravilu ne prekoračuje; viši iznos iznimno unosi samo HR uz odluku Uprave (ekran F1.5).</li>
+        <li>Masovno odobravanje godišnje nagrade zadano je isključeno; HR ga može uključiti <span class="wf-p">P6</span>.</li>
+        <li>Otvaranjem ciklusa rukovoditelji dobivaju e-mail i mogu unositi prijedloge u zadanom razdoblju. Svaka izmjena postavki ostaje u tragu izmjena.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li>Postotak budžeta je postotak godišnje mase bruto plaća odjela <span class="wf-p">N1</span>.</li>
+        <li>Značenje korekcije na razini sektora ili profitnog centra <span class="wf-p" title="NOVO: Korekcija budžeta na razini sektora ili profitnog centra – što točno znači? Wireframe pretpostavlja: drugo pravilo (iznos ili postotak) za sve odjele te jedinice; vrijedi najuža razina (odjel nadjačava sektor, sektor nadjačava profitni centar).">N22</span>.</li>
+        <li>Mijenjanje budžeta, faktora i limita nakon otvaranja ciklusa <span class="wf-p" title="NOVO: Smije li HR mijenjati budžet, faktore i limite nakon otvaranja ciklusa? Wireframe pretpostavlja: da, uz zapis u tragu izmjena; budžet ne može biti manji od rezerviranog i iskorištenog iznosa, a promjena ne mijenja već odobrene prijedloge.">N23</span>.</li>
+        <li>Što se događa kad istekne rok unosa ili odobravanja <span class="wf-p" title="NOVO: Što se događa kad istekne rok unosa (27. 11.) ili rok odobravanja (11. 12.)? Wireframe pretpostavlja: nakon roka unosa rukovoditelj ne može predati prijedlog; rok odobravanja je podsjetnik i ne blokira odobravatelja; HR može produžiti oba roka.">N21</span>.</li>
+        <li>Statusi ciklusa („U pripremi“, „Otvoren“) i prikaz koraka ciklusa su naš prijedlog <span class="wf-p">prijedlog</span>. Specifikacija poznaje samo otvaranje i zaključavanje ciklusa.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="priprema" class="is-active">Ciklus u pripremi</button>
+    <button type="button" data-wf-tab="otvoren">Ciklus otvoren</button>
+    <button type="button" data-wf-tab="greske">Nepotpun unos (otvaranje onemogućeno)</button>
+  </div>
+
+  <div class="wf-block" data-wf-panel="stanje:greske">Ciklus se ne može otvoriti dok nije popunjeno sve obavezno: nije unesen budžet za Montažu SET, nije unesen faktor za razinu 5 i zbroj budžeta jedinica ne odgovara ukupnom budžetu Uprave.</div>
+  <div class="wf-info" data-wf-panel="stanje:otvoren">Ciklus je otvoren 2. 11. 2026. u 8:00 (Petra Novak). Rukovoditelji su dobili e-mail o početku unosa. Izmjene postavki i dalje su moguće i bilježe se u tragu izmjena <span class="wf-p" title="NOVO: Smije li HR mijenjati budžet, faktore i limite nakon otvaranja ciklusa? Wireframe pretpostavlja: da, uz zapis u tragu izmjena; budžet ne može biti manji od rezerviranog i iskorištenog iznosa, a promjena ne mijenja već odobrene prijedloge.">N23</span>.</div>
+
+  <!-- 1. ciklus -->
+  <h2 class="wf-section-title">1. Ciklus i rokovi</h2>
+  <div class="wf-card">
+    <div class="wf-grid md:grid-cols-4">
+      <div class="wf-field mb-0">
+        <div class="wf-label">Ciklus</div>
+        <span class="wf-locked is-block">Godišnje nagrađivanje 2026.</span>
+      </div>
+      <div class="wf-field mb-0">
+        <div class="wf-label">Status ciklusa <span class="wf-p">prijedlog</span></div>
+        <span class="wf-status is-draft" data-wf-panel="stanje:priprema stanje:greske">U pripremi</span>
+        <span class="wf-status" data-wf-panel="stanje:otvoren">Otvoren</span>
+      </div>
+      <div class="wf-field mb-0">
+        <label class="wf-label wf-req" for="od">Početak unosa prijedloga</label>
+        <input class="wf-input" id="od" value="2. 11. 2026.">
+      </div>
+      <div class="wf-field mb-0">
+        <label class="wf-label wf-req" for="do">Kraj unosa prijedloga</label>
+        <input class="wf-input" id="do" value="27. 11. 2026.">
+      </div>
+    </div>
+    <div class="wf-grid md:grid-cols-4 mt-3">
+      <div class="wf-field mb-0">
+        <label class="wf-label wf-req" for="rok">Rok za odobravanje <span class="wf-p" title="NOVO: Što se događa kad istekne rok unosa (27. 11.) ili rok odobravanja (11. 12.)? Wireframe pretpostavlja: nakon roka unosa rukovoditelj ne može predati prijedlog; rok odobravanja je podsjetnik i ne blokira odobravatelja; HR može produžiti oba roka.">N21</span></label>
+        <input class="wf-input" id="rok" value="11. 12. 2026.">
+        <div class="wf-help">izmišljeni rok za primjer</div>
+      </div>
+      <div class="md:col-span-3">
+        <div class="wf-label">Koraci ciklusa <span class="wf-p">prijedlog</span></div>
+        <ol class="wf-steps mb-0" data-wf-panel="stanje:priprema stanje:greske"><li class="is-active">Priprema postavki</li><li class="">Unos prijedloga</li><li class="">Odobravanje</li><li class="">Kalibracija i izvoz</li><li class="">Zaključavanje ciklusa</li></ol><ol class="wf-steps mb-0" data-wf-panel="stanje:otvoren"><li class="is-done">Priprema postavki</li><li class="is-active">Unos prijedloga</li><li class="">Odobravanje</li><li class="">Kalibracija i izvoz</li><li class="">Zaključavanje ciklusa</li></ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. budžet -->
+  <h2 class="wf-section-title">2. Budžet za godišnju nagradu</h2>
+  <div class="wf-grid md:grid-cols-2">
+    <div class="wf-card">
+      <div class="wf-h3">Ukupan budžet (odluka Uprave)</div>
+      <label class="wf-label wf-req" for="ukupno">Ukupan budžet za ciklus 2026. (€)</label>
+      <input class="wf-input" id="ukupno" value="52.000,00">
+      <div class="wf-help">Uprava ga raspodjeljuje po profitnim centrima i organizacijskim jedinicama; HR unosi rezultat u tablici ispod.</div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">Isto pravilo za sve jedinice</div>
+      <div class="wf-field">
+        <label class="wf-check"><input type="radio" name="pravilo" checked> Postotak godišnje mase bruto plaća odjela <span class="wf-p">N1</span></label><br>
+        <label class="wf-check mt-1"><input type="radio" name="pravilo"> Isti iznos po odjelu</label>
+      </div>
+      <div class="wf-field mb-0">
+        <label class="wf-label wf-req" for="pr-vr">Vrijednost pravila</label>
+        <div class="flex items-center gap-2"><input class="wf-input" id="pr-vr" value="6,00" style="max-width:120px"><span>%</span></div>
+        <div class="wf-help">Primjer pravila. Pojedinačne korekcije unose se u tablici ispod.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="wf-h3 mt-4">Korekcije po sektoru, profitnom centru ili odjelu <span class="wf-p" title="NOVO: Korekcija budžeta na razini sektora ili profitnog centra – što točno znači? Wireframe pretpostavlja: drugo pravilo (iznos ili postotak) za sve odjele te jedinice; vrijedi najuža razina (odjel nadjačava sektor, sektor nadjačava profitni centar).">N22</span></h3>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr>
+        <th>Jedinica</th><th>Vrsta</th><th class="num">Godišnja masa bruto plaća (€)</th><th class="num">Po pravilu (€)</th><th style="min-width:230px">Korekcija</th><th class="num">Budžet jedinice (€)</th><th class="num">Udio mase plaća</th>
+      </tr></thead>
+      <tbody>
+        <tr class="is-selected"><td class="wf-name">PC DT/ST</td><td>profitni centar</td><td class="num">448.800,00</td><td class="num">–</td>
+          <td><select class="wf-select" aria-label="Korekcija PC DT/ST"><option>Bez korekcije</option><option>Iznos (€)</option><option>Postotak (%)</option></select></td>
+          <td class="num"><span class="wf-calc">37.000,00</span></td><td class="num">8,24 %</td></tr>
+        <tr><td class="wf-name pl-6">Sektor Tehnologija</td><td>sektor</td><td class="num">448.800,00</td><td class="num">–</td>
+          <td><select class="wf-select" aria-label="Korekcija sektor Tehnologija"><option>Bez korekcije</option><option>Iznos (€)</option><option>Postotak (%)</option></select></td>
+          <td class="num"><span class="wf-calc">37.000,00</span></td><td class="num">8,24 %</td></tr>
+        <tr><td class="wf-name pl-12">Projekt tehnologije</td><td>odjel</td><td class="num">256.800,00</td><td class="num">15.408,00</td>
+          <td><div class="flex gap-2"><select class="wf-select" aria-label="Vrsta korekcije Projekt tehnologije"><option>Bez korekcije</option><option selected>Iznos (€)</option><option>Postotak (%)</option></select><input class="wf-input" value="25.000,00" aria-label="Iznos korekcije" style="min-width:110px"></div></td>
+          <td class="num"><b>25.000,00</b></td><td class="num">9,74 %</td></tr>
+        <tr><td class="wf-name pl-12">Razvoj proizvodnje</td><td>odjel</td><td class="num">192.000,00</td><td class="num">11.520,00</td>
+          <td><div class="flex gap-2"><select class="wf-select" aria-label="Vrsta korekcije Razvoj proizvodnje"><option>Bez korekcije</option><option selected>Iznos (€)</option><option>Postotak (%)</option></select><input class="wf-input" value="12.000,00" aria-label="Iznos korekcije" style="min-width:110px"></div></td>
+          <td class="num"><b>12.000,00</b></td><td class="num">6,25 %</td></tr>
+        <tr class="is-selected"><td class="wf-name">PC SET</td><td>profitni centar</td><td class="num">288.000,00</td><td class="num">–</td>
+          <td><select class="wf-select" aria-label="Korekcija PC SET"><option>Bez korekcije</option><option>Iznos (€)</option><option>Postotak (%)</option></select></td>
+          <td class="num"><span class="wf-calc">15.000,00</span></td><td class="num">5,21 %</td></tr>
+        <tr><td class="wf-name pl-6">Sektor Proizvodnja SET</td><td>sektor</td><td class="num">288.000,00</td><td class="num">–</td>
+          <td><select class="wf-select" aria-label="Korekcija sektor Proizvodnja SET"><option>Bez korekcije</option><option>Iznos (€)</option><option>Postotak (%)</option></select></td>
+          <td class="num"><span class="wf-calc">15.000,00</span></td><td class="num">5,21 %</td></tr>
+        <tr><td class="wf-name pl-12">Montaža SET</td><td>odjel</td><td class="num">288.000,00</td><td class="num">17.280,00</td>
+          <td><div class="flex gap-2"><select class="wf-select" aria-label="Vrsta korekcije Montaža SET"><option>Bez korekcije</option><option selected>Iznos (€)</option><option>Postotak (%)</option></select><input class="wf-input" value="15.000,00" aria-label="Iznos korekcije" style="min-width:110px"></div></td>
+          <td class="num"><b data-wf-panel="stanje:priprema stanje:otvoren">15.000,00</b><span class="wf-error" data-wf-panel="stanje:greske">nije unesen</span></td><td class="num">5,21 %</td></tr>
+      </tbody>
+      <tfoot><tr>
+        <td colspan="5">Zbroj budžeta odjela</td>
+        <td class="num"><span data-wf-panel="stanje:priprema stanje:otvoren">52.000,00</span><span data-wf-panel="stanje:greske">37.000,00</span></td>
+        <td><span class="wf-muted font-normal" data-wf-panel="stanje:priprema stanje:otvoren">odgovara ukupnom budžetu</span><span class="wf-error" data-wf-panel="stanje:greske">razlika 15.000,00 €</span></td>
+      </tr></tfoot>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Godišnja masa plaća = 12 × mjesečna masa: Projekt tehnologije 256.800,00 € (21.400,00 € mjesečno), Razvoj proizvodnje 192.000,00 € (16.000,00 €), Montaža SET 288.000,00 € (24.000,00 €). Postoci su različiti po odjelu jer se budžet određuje korekcijama (iznos ili postotak), ne jednim pravilom. Postotak budžeta računa sustav. Iznosi odgovaraju stanju nakon preraspodjele od 5. 11. 2026. (2.000,00 € iz Razvoja proizvodnje u Projekt tehnologije; početno 14.000,00 € i 23.000,00 €), vidi F1.6.</p>
+
+  <!-- 3. faktori -->
+  <h2 class="wf-section-title">3. Faktori za razine učinka <span class="wf-p" title="Faktore za ciklus određuje Uprava, a HR ih unosi (vrijednosti su primjer).">prijedlog</span></h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th>Razina učinka</th><th>Kombinacije ocjena (kvaliteta – učinkovitost – doprinos)</th><th class="num">Prosjek</th><th style="min-width:130px">Faktor</th><th>Pravo na nagradu</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2–2–3</td><td class="num">2,33</td><td><span class="wf-locked">0</span></td><td>ne – sustav automatski obavještava rukovoditelja</td></tr>
+        <tr><td>2</td><td>2–2–4; 2–3–3; 3–2–3</td><td class="num">2,67</td><td><span class="wf-locked">0</span></td><td>ne – sustav automatski obavještava rukovoditelja</td></tr>
+        <tr><td>3</td><td>2–3–4; 2–4–3; 3–2–4; 3–3–3; 4–2–3</td><td class="num">3,00</td><td><input class="wf-input" value="0,6" aria-label="Faktor razine 3"></td><td>može</td></tr>
+        <tr><td>4</td><td>2–4–4; 3–3–4; 3–4–3; 4–2–4; 4–3–3</td><td class="num">3,33</td><td><input class="wf-input" value="0,9" aria-label="Faktor razine 4"></td><td>može</td></tr>
+        <tr><td>5</td><td>3–4–4; 4–3–4; 4–4–3</td><td class="num">3,67</td>
+          <td><input class="wf-input" value="1,7" aria-label="Faktor razine 5" data-wf-panel="stanje:priprema stanje:otvoren"><div data-wf-panel="stanje:greske"><input class="wf-input is-error" value="" aria-label="Faktor razine 5"><div class="wf-error">Unesite faktor.</div></div></td><td>može</td></tr>
+        <tr><td>6</td><td>4–4–4</td><td class="num">4,00</td><td><input class="wf-input" value="2,8" aria-label="Faktor razine 6"></td><td>može</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Nagrada = ugovorena mjesečna bruto plaća × faktor razine učinka. Razinu sustav računa iz ocjena; rukovoditelj je ne bira <span class="wf-p">P14</span>.</p>
+
+  <!-- 4. limiti -->
+  <h2 class="wf-section-title">4. Najviši iznos nagrade po stupnju složenosti</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th>Stupanj složenosti</th><th style="min-width:160px">Najviši iznos (€, bruto)</th><th>Napomena</th></tr></thead>
+      <tbody>
+        <tr><td>I8</td><td><input class="wf-input" value="4.500,00" aria-label="Limit I8"></td><td></td></tr>
+        <tr><td>I7</td><td><input class="wf-input" value="4.500,00" aria-label="Limit I7"></td><td></td></tr>
+        <tr><td>I6</td><td><input class="wf-input" value="6.000,00" aria-label="Limit I6"></td><td></td></tr>
+        <tr><td>I5</td><td><input class="wf-input" value="12.000,00" aria-label="Limit I5"></td><td>12.000 € je ujedno opći maksimum, samo za I4 i I5 i isključivo za izniman učinak <span class="wf-p">P13</span></td></tr>
+        <tr><td>I4</td><td><input class="wf-input" value="12.000,00" aria-label="Limit I4"></td><td>isto kao I5 <span class="wf-p">P13</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Limit se u pravilu ne prekoračuje. Viši iznos iznimno, uz odluku Uprave, ručno unosi samo HR (ekran F1.5) i to ostaje u tragu izmjena.</p>
+
+  <!-- 5. ostalo -->
+  <h2 class="wf-section-title">5. Odobravanje</h2>
+  <div class="wf-card">
+    <label class="wf-check"><input type="checkbox"> Dopusti masovno odobravanje godišnje nagrade <span class="wf-p">P6</span></label>
+    <div class="wf-help">Zadano isključeno: odobravatelji odlučuju pojedinačno, po zaposleniku. Kad HR uključi, odobravatelj na popisu „Na odobrenju“ može odabrati više prijedloga i odobriti ih odjednom; odbijanje ostaje pojedinačno uz obavezan razlog.</div>
+  </div>
+
+  <div class="wf-actions mt-4 pt-4 border-t border-black">
+    <button type="button" class="wf-btn" data-wf-toast="Postavke ciklusa su spremljene. Izmjena je zapisana u tragu izmjena.">Spremi</button>
+    <button type="button" class="wf-btn-primary" data-wf-open="dlg-otvori" data-wf-panel="stanje:priprema">Otvori ciklus</button>
+    <button type="button" class="wf-btn-primary" disabled data-wf-panel="stanje:otvoren">Ciklus je otvoren</button>
+    <button type="button" class="wf-btn-primary" disabled data-wf-panel="stanje:greske">Otvori ciklus</button>
+    <span class="wf-help" data-wf-panel="stanje:greske">Otvaranje nije moguće dok nije popunjeno sve obavezno.</span>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-otvori">
+    <div class="wf-dialog-head">Otvori ciklus 2026. <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Provjera prije otvaranja:</p>
+      <ul class="list-disc pl-5 mt-1 mb-2">
+        <li>Budžet unesen za sve jedinice, zbroj 52.000,00 € odgovara ukupnom budžetu.</li>
+        <li>Faktori uneseni za razine 3–6; razine 1 i 2 imaju faktor 0.</li>
+        <li>Limiti uneseni za I4–I8.</li>
+        <li>Razdoblje unosa 2. 11. – 27. 11. 2026., rok odobravanja 11. 12. 2026.</li>
+      </ul>
+      <p>Nakon otvaranja svi rukovoditelji dobivaju e-mail o početku unosa prijedloga. Masovno odobravanje: <b>isključeno</b>.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Ciklus 2026. je otvoren. Rukovoditelji su obaviješteni e-mailom.">Otvori ciklus</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F4.3 Disciplinske mjere – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F4.3">
+<main>
+  <h1 class="wf-h1">Disciplinske mjere</h1>
+  <p class="wf-sub">Unos po zaposleniku i kvartalu · posljedica: kvartalna nagrada 0 EUR</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Unosi i uređuje isključivo HR administrator <span class="wf-p">P27</span>. Vidljivo je samo korisnicima koji smiju vidjeti tog zaposlenika (rukovoditelj, odobravatelji u liniji), samo za čitanje.</dd>
+      <dt>Čemu služi</dt><dd>Ručni unos disciplinske mjere (upozorenje na obveze iz radnog odnosa ili disciplinska mjera) za konkretnog zaposlenika i kvartal. Služi samo za primjenu pravila: kvartalna nagrada za taj kvartal je 0 EUR, bez obzira na sve ostalo.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Disciplinska mjera ili upozorenje u kvartalu = nagrada 0 EUR, redoslijed izračuna: najviši iznos → procjena → prisutnost → disciplinska mjera.</li>
+        <li>Mjera je vidljiva na ekranu unosa kvartalnih nagrada (F4.4) kao podatak samo za čitanje; rukovoditelj je ne unosi i ne mijenja.</li>
+        <li>Plaće, procjene, nagrade i disciplinske mjere vide se samo unutar vlastite nadležnosti i linije odobravanja.</li>
+        <li>Zaključani kvartal se više ne mijenja. Svaki unos i izmjena bilježe se u tragu izmjena.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p" title="NOVO: Što se događa ako se disciplinska mjera unese nakon što je rukovoditelj već predao ili je odobravatelj odobrio kvartalnu nagradu, i može li se pogrešno unesena mjera ukloniti? Wireframe pretpostavlja: iznos se preračuna na 0, prijedlog se vraća rukovoditelju, a ispravak (Uredi) ostaje u tragu izmjena; brisanja nema.">N46</span> Unos nakon predaje ili odobrenja: iznos se preračunava na 0,00 €, a prijedlog za tog zaposlenika vraća rukovoditelju. Pogrešan unos ispravlja se radnjom Uredi; brisanja nema.</li>
+        <li><span class="wf-p">prijedlog</span> Napomena uz mjeru je obavezna; datum i opis mjere izmišljeni.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="popis" class="is-active">Popis</button>
+    <button type="button" data-wf-tab="prazno">Nema mjera u kvartalu</button>
+    <button type="button" data-wf-tab="zakljucano">Kvartal zaključan</button>
+  </div>
+
+  <div class="wf-filters">
+    <div><label class="wf-label" for="g">Godina</label><select class="wf-select" id="g"><option>2026</option><option>2027</option></select></div>
+    <div><label class="wf-label" for="kv">Kvartal</label><select class="wf-select" id="kv"><option>2026-Q3 (srpanj–rujan)</option><option>2026-Q2 (travanj–lipanj)</option><option>Svi kvartali</option></select></div>
+    <div><label class="wf-label" for="od">Odjel</label><select class="wf-select" id="od"><option>Svi</option><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option><option>Montaža SET</option></select></div>
+    <div class="wf-actions ml-auto">
+      <button type="button" class="wf-btn" data-wf-toast="Lista je osvježena.">Osvježi</button>
+      <button type="button" class="wf-btn-primary" data-wf-open="dlg-dodaj" data-wf-panel="stanje:popis stanje:prazno">Dodaj</button>
+      <button type="button" class="wf-btn-primary" disabled data-wf-panel="stanje:zakljucano">Dodaj</button>
+    </div>
+  </div>
+
+  <div class="wf-info mb-3" data-wf-panel="stanje:zakljucano">Kvartal 2026-Q3 je zaključan: unos i izmjena disciplinskih mjera nisu mogući dok HR ne otključa kvartal (A8).</div>
+
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th>Zaposlenik</th><th>OIB</th><th>SAP šifra</th><th>Odjel</th><th>Kvartal</th><th>Vrsta</th><th style="min-width:220px">Napomena</th><th class="num">Posljedica: kvartalna nagrada</th><th>Unio / kada</th><th>Radnja</th></tr></thead>
+      <tbody>
+        <tr data-wf-panel="stanje:popis stanje:zakljucano"><td class="wf-name">Karlo Radić</td><td class="wf-mono">22360679774</td><td class="wf-mono">10088</td><td>Projekt tehnologije</td><td class="whitespace-nowrap">2026-Q3</td><td>Upozorenje na obveze iz radnog odnosa</td><td>Upozorenje zbog nepoštivanja pravila sigurnosti na radu, 18. 8. 2026.</td>
+          <td class="num"><b>0,00 €</b><br><span class="wf-at">prije mjere: 2.925,00 €</span></td><td class="text-xs">Petra Novak<br>2. 10. 2026. 10:05</td>
+          <td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-dodaj" data-wf-panel="stanje:popis">Uredi</button><button type="button" class="wf-btn wf-btn-sm" disabled data-wf-panel="stanje:zakljucano">Uredi</button></td></tr>
+        <tr data-wf-panel="stanje:prazno"><td colspan="10" class="wf-muted">Za odabrani kvartal nema unesenih disciplinskih mjera. Kvartalne nagrade računaju se bez ograničenja zbog disciplinskih mjera.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="wf-section-title">Što vide ostali korisnici</h2>
+  <div class="wf-card">
+    <p class="mb-2">Na ekranu unosa kvartalnih nagrada (F4.4) i odobravanja (F4.5) mjera je podatak samo za čitanje, za zaposlenike koje korisnik smije vidjeti:</p>
+    <dl class="wf-kv">
+      <dt>Zaposlenik</dt><dd>Karlo Radić (Projekt tehnologije)</dd>
+      <dt>Disciplinska mjera</dt><dd><span class="wf-locked">Da – nagrada 0,00 €</span></dd>
+      <dt>Tko je može mijenjati</dt><dd>samo HR administrator <span class="wf-p">P27</span></dd>
+    </dl>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-dodaj">
+    <div class="wf-dialog-head">Dodaj disciplinsku mjeru <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-field"><label class="wf-label wf-req" for="d-z">Zaposlenik</label>
+        <select class="wf-select" id="d-z">
+          <option value="2925">Karlo Radić – Projekt tehnologije (OIB 22360679774, SAP 10088)</option>
+          <option value="2400">Marija Perić – Projekt tehnologije</option>
+          <option value="1699.69">Ivan Božić – Projekt tehnologije</option>
+          <option value="1500">Nina Šarić – Projekt tehnologije</option>
+        </select>
+        <div class="wf-help">Samo aktivni zaposlenici izvršitelji; rukovoditelji, direktori i članovi Uprave nisu u obračunu.</div></div>
+      <div class="wf-grid grid-cols-2">
+        <div class="wf-field"><label class="wf-label wf-req" for="d-k">Kvartal</label><select class="wf-select" id="d-k"><option>2026-Q3 (srpanj–rujan)</option><option>2026-Q2 (travanj–lipanj)</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req" for="d-v">Vrsta</label><select class="wf-select" id="d-v"><option>Upozorenje na obveze iz radnog odnosa</option><option>Disciplinska mjera</option></select></div>
+      </div>
+      <div class="wf-field"><label class="wf-label wf-req" for="d-n">Napomena</label><textarea class="wf-textarea" id="d-n">Upozorenje zbog nepoštivanja pravila sigurnosti na radu, 18. 8. 2026.</textarea></div>
+      <div class="wf-alert">Posljedica: kvartalna nagrada za <b id="d-ime">Karlo Radić</b> u odabranom kvartalu bit će <b>0,00 €</b> bez obzira na sve ostalo (sada <span class="wf-calc" id="d-prije">2.925,00 €</span>). <span class="wf-p" title="NOVO: Unos mjere nakon predaje ili odobrenja kvartalne nagrade – što se događa?">N46</span> Ako je prijedlog već predan, vraća se rukovoditelju.</div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Disciplinska mjera je spremljena i zabilježena u tragu izmjena.">Dodaj</button>
+    </div>
+  </dialog>
+</main>
+<script>
+(function () {
+  function start() {
+    var s = document.getElementById('d-z');
+    s.addEventListener('change', function () {
+      document.getElementById('d-ime').textContent = s.options[s.selectedIndex].text.split(' – ')[0];
+      document.getElementById('d-prije').textContent = WF.fmt(+s.value) + ' €';
+    });
+  }
+  if (window.WF) start(); else document.addEventListener('DOMContentLoaded', start);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2.10 Budžet napredovanja – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F2.10">
+<main>
+  <h1 class="wf-h1">Budžet napredovanja – pregled</h1>
+  <p class="wf-sub">Ciklus 2027. · stanje na dan 20. 2. 2027. · mjesečno povećanje bruto plaća</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Član Uprave (Ana Babić) za profitne centre DT/ST i SET. HR i predsjednik Uprave imaju pregled, a direktor za svoje odjele.</dd>
+      <dt>Čemu služi</dt><dd>Stalan pregled dodijeljenog, iskorištenog, rezerviranog i raspoloživog budžeta profitnog centra i odjela; tko je iskoristio koji dio, za koje zaposlenike i u kojem iznosu; usporedba jedinica; neiskorišteni budžet; preraspodjele; stanje ograničenja 50 % / 75 %.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Stanje se ažurira pri svakom odobravanju i odbijanju. Rezervirano su prijedlozi u postupku, iskorišteno su odobreni; odbijeni prijedlog ne troši budžet.</li>
+        <li>Preraspodjela unutar sektora ili odjela uz odobrenje nadležnog člana Uprave; između sektora samo odlukom Uprave. Odluku evidentira HR, a sve preraspodjele ostaju u tragu izmjena.</li>
+        <li>Ograničenja 50 % (Društvo, sektor) i 75 % (odjel) prikazuju se dok je pravilo uključeno u F2.1.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">P18</span> Budžet se vodi i po odjelu.</li>
+        <li><span class="wf-p">N31</span> Spremljeni prijedlog (Dario Vuković) ne rezervira budžet.</li>
+        <li><span class="wf-p">P7</span> Prijedlozi člana Uprave za direktno podređene nisu prikazani.</li>
+        <li>Prijedlozi odjela Razvoj proizvodnje i Montaža SET (osim brojki budžeta) te datum odluke o preraspodjeli od 150,00 € su izmišljeni primjeri.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="pc">
+    <button type="button" data-wf-tab="dtst" class="is-active">PC DT/ST</button>
+    <button type="button" data-wf-tab="set">PC SET</button>
+  </div>
+
+  <!-- PC DT/ST -->
+  <div data-wf-panel="pc:dtst">
+    <div class="wf-grid grid-cols-2 lg:grid-cols-4 mb-2">
+      <div class="wf-kpi"><div class="wf-kpi-label">Dodijeljeno</div><div class="wf-kpi-value">1.870,00 €</div><div class="wf-kpi-sub">sektor Tehnologija, 5,00 %</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Iskorišteno (odobreno)</div><div class="wf-kpi-value">100,00 €</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Rezervirano (u postupku)</div><div class="wf-kpi-value">1.000,00 €</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Raspoloživo</div><div class="wf-kpi-value">770,00 €</div></div>
+    </div>
+    <div class="wf-meter"><span class="used" style="width:5.35%"></span><span class="res" style="width:53.48%"></span></div>
+    <div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div>
+
+    <h2 class="wf-section-title">Usporedba jedinica unutar profitnog centra</h2>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Jedinica</th><th>Rukovoditelj</th><th class="num">Dodijeljeno</th><th class="num">Iskorišteno</th><th class="num">Rezervirano</th><th class="num">Raspoloživo (neiskorišteno)</th><th style="min-width:160px">Raspodjela</th><th class="num">Udio predloženih</th></tr></thead>
+        <tbody>
+          <tr><td class="wf-name">Projekt tehnologije</td><td>Ivana Horvat</td><td class="num">1.070,00</td><td class="num">100,00</td><td class="num">450,00</td><td class="num">520,00</td><td><div class="wf-meter"><span class="used" style="width:9.35%"></span><span class="res" style="width:42.06%"></span></div></td><td class="num">4 od 9 = 44 % (75 %)</td></tr>
+          <tr><td class="wf-name">Razvoj proizvodnje</td><td>Goran Šimić</td><td class="num">800,00</td><td class="num">0,00</td><td class="num">550,00</td><td class="num">250,00</td><td><div class="wf-meter"><span class="res" style="width:68.75%"></span></div></td><td class="num">2 od 7 = 29 % (75 %)</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Sektor Tehnologija</td><td class="num">1.870,00</td><td class="num">100,00</td><td class="num">1.000,00</td><td class="num">770,00</td><td></td><td class="num">6 od 16 = 37,5 % (50 %)</td></tr></tfoot>
+      </table>
+    </div>
+
+    <h2 class="wf-section-title">Tko je iskoristio koji dio i za koga</h2>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Jedinica</th><th>Rukovoditelj</th><th>Zaposlenik</th><th>Vrsta napredovanja</th><th class="num">Iznos (€)</th><th>Status</th><th>Udio budžeta</th></tr></thead>
+        <tbody>
+          <tr><td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="wf-name">Nina Šarić</td><td>Horizontalno</td><td class="num">100,00</td><td><span class="wf-status is-done">Odobreno</span> <span class="wf-at">iskorišteno</span></td><td>9,35 %</td></tr>
+          <tr><td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="wf-name">Marija Perić</td><td>Standardna → Napredna</td><td class="num">300,00</td><td><span class="wf-status">HR provjereno</span> <span class="wf-at">rezervirano, kod: Ana Babić</span></td><td>28,04 %</td></tr>
+          <tr><td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="wf-name">Ivan Božić</td><td>Horizontalno</td><td class="num">150,00</td><td><span class="wf-status">Poslano HR-u</span> <span class="wf-at">rezervirano</span></td><td>14,02 %</td></tr>
+          <tr class="wf-disabled-row"><td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="wf-name">Dario Vuković</td><td>Junior → Standardna</td><td class="num">200,00</td><td><span class="wf-status is-draft">Spremljeno</span> <span class="wf-at">ne rezervira budžet <span class="wf-p">N31</span></span></td><td>–</td></tr>
+          <tr><td>Razvoj proizvodnje</td><td>Goran Šimić</td><td class="wf-name">Ivona Jakšić</td><td>Standardna → Napredna</td><td class="num">350,00</td><td><span class="wf-status">HR provjereno</span> <span class="wf-at">rezervirano, kod: Ana Babić</span></td><td>43,75 %</td></tr>
+          <tr><td>Razvoj proizvodnje</td><td>Goran Šimić</td><td class="wf-name">Bruno Kralj</td><td>Horizontalno</td><td class="num">200,00</td><td><span class="wf-status">Poslano HR-u</span> <span class="wf-at">rezervirano</span></td><td>25,00 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PC SET -->
+  <div data-wf-panel="pc:set">
+    <div class="wf-grid grid-cols-2 lg:grid-cols-4 mb-2">
+      <div class="wf-kpi"><div class="wf-kpi-label">Dodijeljeno</div><div class="wf-kpi-value">1.200,00 €</div><div class="wf-kpi-sub">sektor Proizvodnja SET, 5,00 %</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Iskorišteno (odobreno)</div><div class="wf-kpi-value">350,00 €</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Rezervirano (u postupku)</div><div class="wf-kpi-value">150,00 €</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Raspoloživo</div><div class="wf-kpi-value">700,00 €</div></div>
+    </div>
+    <div class="wf-meter"><span class="used" style="width:29.17%"></span><span class="res" style="width:12.5%"></span></div>
+    <div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div>
+
+    <h2 class="wf-section-title">Usporedba jedinica unutar profitnog centra</h2>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Jedinica</th><th>Rukovoditelj</th><th class="num">Dodijeljeno</th><th class="num">Iskorišteno</th><th class="num">Rezervirano</th><th class="num">Raspoloživo (neiskorišteno)</th><th style="min-width:160px">Raspodjela</th><th class="num">Udio predloženih</th></tr></thead>
+        <tbody>
+          <tr><td class="wf-name">Montaža SET</td><td>Josip Jurić</td><td class="num">1.200,00</td><td class="num">350,00</td><td class="num">150,00</td><td class="num">700,00</td><td><div class="wf-meter"><span class="used" style="width:29.17%"></span><span class="res" style="width:12.5%"></span></div></td><td class="num">3 od 12 = 25 % (75 %)</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Sektor Proizvodnja SET</td><td class="num">1.200,00</td><td class="num">350,00</td><td class="num">150,00</td><td class="num">700,00</td><td></td><td class="num">3 od 12 = 25 % (50 %)</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="wf-help mt-1">Za usporedbu s drugim jedinicama profitnog centra prikazan je samo odjel iz primjera.</p>
+
+    <h2 class="wf-section-title">Tko je iskoristio koji dio i za koga</h2>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Jedinica</th><th>Rukovoditelj</th><th>Zaposlenik</th><th>Vrsta napredovanja</th><th class="num">Iznos (€)</th><th>Status</th><th>Udio budžeta</th></tr></thead>
+        <tbody>
+          <tr><td>Montaža SET</td><td>Josip Jurić</td><td class="wf-name">Mateo Blažević</td><td>Horizontalno</td><td class="num">150,00</td><td><span class="wf-status is-done">Odobreno</span> <span class="wf-at">iskorišteno</span></td><td>12,50 %</td></tr>
+          <tr><td>Montaža SET</td><td>Josip Jurić</td><td class="wf-name">Hrvoje Pavić</td><td>Horizontalno</td><td class="num">200,00</td><td><span class="wf-status is-done">Odobreno</span> <span class="wf-at">iskorišteno</span></td><td>16,67 %</td></tr>
+          <tr><td>Montaža SET</td><td>Josip Jurić</td><td class="wf-name">Stjepan Lovrić</td><td>Horizontalno</td><td class="num">150,00</td><td><span class="wf-status">Poslano na odobrenje</span> <span class="wf-at">rezervirano, kod: Luka Knežević <span class="wf-p">P10</span></span></td><td>12,50 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">Ograničenja 50 % / 75 %</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th>Razina</th><th>Jedinica</th><th class="num">Zaposlenika</th><th class="num">Predloženo</th><th class="num">Udio</th><th class="num">Ograničenje</th><th>Stanje</th></tr></thead>
+      <tbody>
+        <tr><td>Društvo</td><td class="wf-name">Cijela tvrtka</td><td class="num">412</td><td class="num">96</td><td class="num">23 %</td><td class="num">50 %</td><td>unutar ograničenja</td></tr>
+        <tr><td>Sektor</td><td class="wf-name">Tehnologija</td><td class="num">16</td><td class="num">6</td><td class="num">37,5 %</td><td class="num">50 %</td><td>unutar ograničenja</td></tr>
+        <tr><td>Sektor</td><td class="wf-name">Proizvodnja SET</td><td class="num">12</td><td class="num">3</td><td class="num">25 %</td><td class="num">50 %</td><td>unutar ograničenja</td></tr>
+        <tr><td>Odjel</td><td class="wf-name">Projekt tehnologije</td><td class="num">9</td><td class="num">4</td><td class="num">44 %</td><td class="num">75 %</td><td>unutar ograničenja</td></tr>
+        <tr><td>Odjel</td><td class="wf-name">Razvoj proizvodnje</td><td class="num">7</td><td class="num">2</td><td class="num">29 %</td><td class="num">75 %</td><td>unutar ograničenja</td></tr>
+        <tr><td>Odjel</td><td class="wf-name">Montaža SET</td><td class="num">12</td><td class="num">3</td><td class="num">25 %</td><td class="num">75 %</td><td>unutar ograničenja</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Pravilo je uključeno u postavkama ciklusa (F2.1). Iznimka: odjel s jednim zaposlenikom. Broj predloženih uključuje spremljene prijedloge <span class="wf-p">N31</span>; Filip Matić (HR oznaka) nije uključen.</p>
+
+  <h2 class="wf-section-title">Preraspodjele</h2>
+  <div class="wf-table-wrap mb-3">
+    <table class="wf-table">
+      <thead><tr><th>Datum odluke</th><th>Vrsta</th><th>Iz</th><th>U</th><th class="num">Iznos (€)</th><th>Odluka</th><th>Evidencija HR-a</th></tr></thead>
+      <tbody><tr><td>15. 2. 2027.</td><td>Unutar sektora Tehnologija</td><td>Razvoj proizvodnje</td><td>Projekt tehnologije</td><td class="num">150,00</td><td>Ana Babić (član Uprave)</td><td><span class="wf-status is-draft">Čeka evidenciju HR-a</span></td></tr></tbody>
+    </table>
+  </div>
+  <p class="wf-help mb-3">Iznosi „dodijeljeno“ iznad još ne uključuju ovu preraspodjelu; mijenjaju se kad je HR evidentira. Sve preraspodjele ostaju u tragu izmjena.</p>
+  <div class="wf-card">
+    <div class="wf-h3">Odluka o preraspodjeli raspoloživog budžeta</div>
+    <div class="wf-grid md:grid-cols-5">
+      <div class="wf-field"><label class="wf-label" for="pv">Vrsta</label><select class="wf-select" id="pv"><option>Unutar sektora</option><option>Između sektora</option></select></div>
+      <div class="wf-field"><label class="wf-label wf-req" for="pi">Iz jedinice</label><select class="wf-select" id="pi"><option>Razvoj proizvodnje</option><option>Projekt tehnologije</option></select></div>
+      <div class="wf-field"><label class="wf-label wf-req" for="pu">U jedinicu</label><select class="wf-select" id="pu"><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option></select></div>
+      <div class="wf-field"><label class="wf-label wf-req" for="pz">Iznos (€)</label><input class="wf-input" id="pz" value="150,00"></div>
+      <div class="wf-field"><label class="wf-label" for="pn">Napomena</label><input class="wf-input" id="pn"></div>
+    </div>
+    <div class="wf-actions"><button type="button" class="wf-btn-primary" data-wf-toast="Odluka je zabilježena. HR administrator evidentira preraspodjelu u sustavu.">Zabilježi odluku</button>
+    <span class="wf-help">Odluku o preraspodjeli donosi član Uprave; evidentira je HR.</span></div>
+  </div>
+</main>
+</body>
+</html>

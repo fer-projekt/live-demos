@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2.7 Na odobrenju – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F2.7">
+<main>
+  <h1 class="wf-h1">Na odobrenju – godišnje napredovanje 2027.</h1>
+  <p class="wf-sub">Prijedlozi koji čekaju odluku člana Uprave · profitni centri DT/ST i SET</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Član Uprave (Ana Babić) kao zadnja razina odobravanja. Dodatni odobravatelj (samo određeni odjeli) ima isti ekran za svoj korak; ako on odbije, e-mail dobiva rukovoditelj, a ako odbije dodatni odobravatelj više razine u Montaži SET, rukovoditelj i dodatni odobravatelj.</dd>
+      <dt>Čemu služi</dt><dd>Pregled prijedloga prije odluke: cijeli obrazac, obrazloženja, predloženi iznos, HR napomene i povijest statusa; pojedinačno Odobri ili Odbaci.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Odobrava se pojedinačno, po zaposleniku; masovnog odobravanja nema.</li>
+        <li>Odbaci uvijek traži obrazloženje. Prijedlog se vraća rukovoditelju; e-mail dobivaju rukovoditelj i HR administratori (u SET-u i dodatni odobravatelji). Odbijeni prijedlog ne troši budžet.</li>
+        <li>Odluka ne utječe na ostale prijedloge istog rukovoditelja.</li>
+        <li>Nakon konačne odluke ciklus se zaključava za sve osim HR-a <span class="wf-p">N39</span>.</li>
+        <li>Odobreno povećanje ide u primjenu od 1. 4. 2027. tek nakon HR potvrde (F2.8).</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">P3</span> Član Uprave je uvijek zadnja razina; ostaje otvoreno postoji li još zajednička odluka Uprave.</li>
+        <li><span class="wf-p">P10</span> Status dok prijedlog čeka dodatnog odobravatelja je otvoren; na vremenskoj crti je označen kao korak odjela s dodatnim odobravateljem.</li>
+        <li><span class="wf-p">N39</span> Ciklus se zaključava kad je odlučen zadnji prijedlog i HR potvrdi zaključavanje.</li>
+        <li>Podaci o Ivoni Jakšić (ocjene, platni razred, primjeri) su izmišljeni.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <h2 class="wf-section-title">Čekaju moju odluku (<span id="cnt">2</span>)</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table" id="lista">
+      <thead><tr><th>Zaposlenik</th><th>Odjel / rukovoditelj</th><th>Vrsta napredovanja</th><th class="num">Povećanje</th><th class="num">Nova plaća</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <tr data-k="marija"><td class="wf-name">Marija Perić</td><td>Projekt tehnologije / Ivana Horvat</td><td>Standardna → Napredna</td><td class="num">300,00 € (9,38 %)</td><td class="num">3.500,00 €</td><td data-st><span class="wf-status">HR provjereno</span><span class="wf-at">kod: Ana Babić</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-open="marija">Otvori</button></td></tr>
+        <tr data-k="ivona"><td class="wf-name">Ivona Jakšić</td><td>Razvoj proizvodnje / Goran Šimić</td><td>Standardna → Napredna</td><td class="num">350,00 € (10,29 %)</td><td class="num">3.750,00 €</td><td data-st><span class="wf-status">HR provjereno</span><span class="wf-at">kod: Ana Babić</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-open="ivona">Otvori</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="detail" class="mt-6">
+    <h2 class="wf-section-title">Detalj prijedloga: <span id="d-title"></span></h2>
+    <div class="wf-info" id="d-lock" hidden></div>
+    <div class="wf-grid grid-cols-1 lg:grid-cols-3">
+      <div class="lg:col-span-2">
+        <div class="wf-grid md:grid-cols-2">
+          <dl class="wf-kv">
+            <dt>Odjel / rukovoditelj</dt><dd id="k-odj"></dd>
+            <dt>Zaposlenik</dt><dd id="k-name"></dd>
+            <dt>Radno mjesto</dt><dd id="k-rm"></dd>
+            <dt>Vrsta napredovanja</dt><dd>Standardna → Napredna</dd>
+            <dt>Budžet odjela (dodijeljeno / raspoloživo)</dt><dd id="k-bud"></dd>
+          </dl>
+          <dl class="wf-kv">
+            <dt>Postojeća plaća / zadnja promjena</dt><dd id="k-pay"></dd>
+            <dt>Predloženi iznos povećanja</dt><dd id="k-inc"></dd>
+            <dt>Nova bruto plaća od 1. 4. 2027.</dt><dd id="k-new"></dd>
+            <dt>Platni razred</dt><dd id="k-pr"></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="wf-card">
+        <div class="wf-h3">Povijest statusa</div>
+        <ul class="wf-timeline" id="tl"></ul>
+      </div>
+    </div>
+
+    <h3 class="wf-h3 mt-4">Obrazac – Standardna → Napredna (samo za čitanje)</h3>
+    <div class="wf-card">
+      <div class="wf-label">1. Provjera osnovnih uvjeta</div>
+      <ul class="list-disc pl-5 text-sm mb-3">
+        <li>Radno mjesto je klasificirano kao Ključno ekspertno radno mjesto: <b>DA</b></li>
+        <li>Najmanje ocjena razine 3 u dva kriterija i ocjena razine 4 u dva kriterija: <b>DA</b></li>
+        <li>12 mjeseci ostvaruje iznadprosječan učinak: <b>DA</b></li>
+        <li>Kontinuirano preuzima zadatke i odgovornosti višeg platnog razreda i stvarni doprinos značajno nadmašuje očekivanja trenutne razine: <b>DA</b></li>
+        <li>Sigurnost i radna disciplina su bez propusta: <b>DA</b></li>
+        <li>Pokazuje ponašanja i komunikaciju u timu u skladu s temeljnim vrijednostima organizacije: <b>DA</b></li>
+        <li>Prijedlog za povećanje plaće nalazi se unutar zadanog budžeta odjela: <b>DA</b></li>
+      </ul>
+      <div class="wf-label">2. Procjena rukovoditelja / stručna razina i 3. primjeri iz prakse</div>
+      <div class="wf-table-wrap"><table class="wf-table"><thead><tr><th>Kriterij</th><th>Opisna procjena rukovoditelja</th><th>Primjeri iz prakse</th><th class="num">Ocjena</th></tr></thead><tbody id="d-crit"></tbody></table></div>
+      <div class="wf-label mt-3">5. Zaključak rukovoditelja</div>
+      <p id="d-zakl" class="text-sm"></p>
+    </div>
+
+    <div class="wf-grid md:grid-cols-2 mt-4">
+      <div class="wf-card">
+        <div class="wf-h3">Obrazloženje rukovoditelja</div>
+        <p class="text-sm" id="d-obr"></p>
+      </div>
+      <div class="wf-card">
+        <div class="wf-h3">HR napomene</div>
+        <p class="text-sm" id="d-hr"></p>
+      </div>
+    </div>
+
+    <div class="wf-card mt-4">
+      <div class="wf-h3">Pravilo Senior <span class="wf-p">P23</span></div>
+      <p class="text-sm">Nakon vašeg odobrenja zaposlenik je najmanje 12 mjeseci u potkategoriji 3 ili 4 Standardne pozicije; uz zadržanu uspješnost prelazi u viši (napredni) platni razred i dobiva prefiks Senior. Datum odobrenja upisuje sustav.</p>
+    </div>
+
+    <div class="wf-actions mt-4 pt-4 border-t border-black">
+      <button type="button" class="wf-btn-primary" id="b-odobri" data-wf-open="dlg-odobri">Odobri</button>
+      <button type="button" class="wf-btn" id="b-odbaci" data-wf-open="dlg-odbaci">Odbaci</button>
+      <span class="wf-help">Odluka je pojedinačna i konačna za ovaj prijedlog. <span class="wf-p">P3</span></span>
+    </div>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-odobri">
+    <div class="wf-dialog-head">Odobri prijedlog <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Odobravate napredovanje za <b id="o-name"></b>: povećanje <b id="o-inc"></b> od 1. 4. 2027. Prijedlog dobiva status Odobreno i zaključava se za sve osim HR-a. E-mail dobivaju rukovoditelj i odobravatelji u liniji.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" id="o-ok">Odobri</button>
+    </div>
+  </dialog>
+  <dialog class="wf-dialog" id="dlg-odbaci">
+    <div class="wf-dialog-head">Odbaci prijedlog <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-field"><label class="wf-label wf-req" for="x-razlog">Obrazloženje odbijanja</label><textarea class="wf-textarea" id="x-razlog" rows="3"></textarea><div class="wf-error" id="x-err" hidden>Obrazloženje je obavezno.</div></div>
+      <p class="wf-help">Prijedlog se vraća rukovoditelju na doradu. E-mail dobivaju rukovoditelj i HR administratori; za Montažu SET i oba dodatna odobravatelja. Odbijeni prijedlog ne troši budžet.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" id="x-ok">Odbaci</button>
+    </div>
+  </dialog>
+</main>
+
+<script>
+(function () {
+  var NAMES = ['1. Stručna znanja zaposlenika', '2. Razina odgovornosti', '3. Samostalnost u stručnom odlučivanju', '4. Doprinos timu i prijenos znanja'];
+  var D = {
+    marija: { name: 'Marija Perić', odj: 'Projekt tehnologije / Ivana Horvat', rm: 'Inženjer procesa u odjelu Projekt tehnologije', bud: '1.070,00 € / 520,00 €', pay: 3200, last: '1. 4. 2025.', inc: 300, pr: 'PR 9 → PR 10', g: [4, 3, 4, 3],
+      opis: ['Primjenjuje napredna znanja iz tehnologije procesa.', 'Preuzima odgovornost za projekte uvođenja novih postupaka.', 'Donosi pouzdane odluke i u neizvjesnim situacijama.', 'Sustavno mentorira kolege.'],
+      ex: ['Novi postupak lakiranja skratio ciklus za 12 %. · Riješila problem prionjivosti premaza na seriji ST 40.', 'Vodila uvođenje nove linije za završnu obradu u roku. · Koordinirala audit kupca.', 'Promjena dobavljača premaza bez zastoja. · Smjernice proizvodnji u kritičnom zastoju.', 'Mentorirala tri tehnologa. · 4 interne radionice.'],
+      zakl: 'Predlažem prelazak u Naprednu poziciju: kontinuirano djeluje na razini višeg platnog razreda.', obr: 'U posljednjih 12 mjeseci iznad očekivanja; vodila uvođenje nove linije i mentorirala tri kolege uz mjerljive rezultate.', hr: 'Petra Novak, 15. 2. 2027.: obrazac potpun, primjeri mjerljivi, iznos unutar apoena i budžeta, udio 44 % (do 75 %).',
+      tl: [['Spremljeno', 'Ivana Horvat, 10. 2. 2027.', 'is-done'], ['Dodatni odobravatelj', 'preskočeno: odjel nema dodatnog odobravatelja <span class="wf-p">P10</span>', 'is-done'], ['Poslano HR-u', 'Ivana Horvat, 12. 2. 2027.', 'is-done'], ['HR provjereno', 'Petra Novak, 15. 2. 2027.', 'is-done'], ['Odluka člana Uprave', 'Ana Babić – čeka odluku', 'is-current'], ['Primijenjeno u master podacima', 'nakon HR potvrde (F2.8)', 'is-next']] },
+    ivona: { name: 'Ivona Jakšić', odj: 'Razvoj proizvodnje / Goran Šimić', rm: 'Inženjer procesa u Razvoju proizvodnje', bud: '800,00 € / 250,00 €', pay: 3400, last: '1. 4. 2025.', inc: 350, pr: 'PR 9 → PR 10', g: [4, 4, 3, 3],
+      opis: ['Napredna znanja iz procesa; rješava nestandardne probleme.', 'Preuzima odgovornost za složene projekte uz mjerljiv utjecaj.', 'Pouzdane odluke u složenim situacijama.', 'Sustavno prenosi znanje kolegama.'],
+      ex: ['Razvila postupak koji je smanjio škart za 8 %. · Samostalno uvela novu metodu mjerenja.', 'Vodila projekt preseljenja linije u roku. · Preuzela audit procesa.', 'Odluka o promjeni parametara procesa bez zastoja. · Savjetovala proizvodnju u kritičnoj situaciji.', 'Mentorirala dva inženjera. · Dvije radionice za odjel.'],
+      zakl: 'Predlažem prelazak u Naprednu poziciju zbog kontinuiranog rada na razini višeg platnog razreda.', obr: 'Stabilno iznad očekivanja i preuzimanje projekata višeg razreda zadnjih 12 mjeseci.', hr: 'Petra Novak, 16. 2. 2027.: obrazac potpun, iznos unutar apoena i budžeta, udio 2 od 7 = 29 % (do 75 %).',
+      tl: [['Spremljeno', 'Goran Šimić, 9. 2. 2027.', 'is-done'], ['Dodatni odobravatelj', 'preskočeno: odjel nema dodatnog odobravatelja <span class="wf-p">P10</span>', 'is-done'], ['Poslano HR-u', 'Goran Šimić, 11. 2. 2027.', 'is-done'], ['HR provjereno', 'Petra Novak, 16. 2. 2027.', 'is-done'], ['Odluka člana Uprave', 'Ana Babić – čeka odluku', 'is-current'], ['Primijenjeno u master podacima', 'nakon HR potvrde (F2.8)', 'is-next']] }
+  };
+  var cur, done = {}, $ = function (id) { return document.getElementById(id); };
+  var eur = function (n) { return WF.fmt(n) + ' €'; };
+  function render(k) {
+    cur = k; var d = D[k], dn = done[k];
+    document.querySelectorAll('#lista tr[data-k]').forEach(function (tr) { tr.classList.toggle('is-selected', tr.dataset.k === k); });
+    $('d-title').textContent = d.name; $('k-odj').textContent = d.odj; $('k-name').textContent = d.name; $('k-rm').textContent = d.rm; $('k-bud').textContent = d.bud;
+    $('k-pay').textContent = eur(d.pay) + ' / ' + d.last; $('k-inc').textContent = eur(d.inc) + ' (' + WF.fmt(d.inc / d.pay * 100) + ' %)'; $('k-new').textContent = eur(d.pay + d.inc); $('k-pr').textContent = d.pr;
+    $('d-crit').innerHTML = NAMES.map(function (n, i) { return '<tr><td class="wf-name">' + n + '</td><td>' + d.opis[i] + '</td><td>' + d.ex[i] + '</td><td class="num">' + d.g[i] + '</td></tr>'; }).join('');
+    $('d-zakl').textContent = d.zakl; $('d-obr').textContent = d.obr; $('d-hr').textContent = d.hr;
+    var tl = d.tl.slice();
+    if (dn) {
+      tl[4] = dn === 'ok' ? ['Odobreno', 'Ana Babić, 18. 2. 2027.', 'is-done'] : ['Odbijeno', 'Ana Babić, 18. 2. 2027. – vraćeno rukovoditelju', 'is-done'];
+      if (dn === 'ne') tl[5] = ['Vraćeno na doradu', 'rukovoditelj dorađuje u istom ciklusu', 'is-current'];
+    }
+    $('tl').innerHTML = tl.map(function (t) { return '<li class="' + t[2] + '"><b>' + t[0] + '</b><span class="wf-at whitespace-normal">' + t[1] + '</span></li>'; }).join('');
+    $('b-odobri').disabled = !!dn; $('b-odbaci').disabled = !!dn;
+    var lock = $('d-lock');
+    lock.hidden = !dn;
+    if (dn === 'ok') lock.innerHTML = '<b>Odobreno.</b> Prijedlog je zaključan za sve osim HR-a. E-mail su dobili rukovoditelj i odobravatelji u liniji. Nakon konačne odluke ciklus se zaključava za sve osim HR-a <span class="wf-p">N39</span>.';
+    if (dn === 'ne') lock.innerHTML = '<b>Odbijeno.</b> Prijedlog je vraćen rukovoditelju; e-mail su dobili rukovoditelj i HR administratori. Odbijeni prijedlog ne troši budžet.';
+    var tr = document.querySelector('#lista tr[data-k="' + k + '"] [data-st]');
+    if (dn === 'ok') tr.innerHTML = '<span class="wf-status is-done">Odobreno</span>';
+    if (dn === 'ne') tr.innerHTML = '<span class="wf-status is-back">Odbijeno</span>';
+    $('cnt').textContent = Object.keys(D).length - Object.keys(done).length;
+    $('o-name').textContent = d.name; $('o-inc').textContent = eur(d.inc);
+  }
+  document.getElementById('lista').addEventListener('click', function (e) { var b = e.target.closest('[data-open]'); if (b) render(b.dataset.open); });
+  $('o-ok').addEventListener('click', function () { $('dlg-odobri').close(); done[cur] = 'ok'; render(cur); WF.toast('Prijedlog je odobren.'); });
+  $('x-ok').addEventListener('click', function () {
+    var v = $('x-razlog').value.trim(); $('x-err').hidden = !!v; $('x-razlog').classList.toggle('is-error', !v);
+    if (!v) return; $('dlg-odbaci').close(); done[cur] = 'ne'; $('x-razlog').value = ''; render(cur); WF.toast('Prijedlog je odbijen i vraćen rukovoditelju.');
+  });
+  function go() { render('marija'); }
+  if (window.WF) go(); else document.addEventListener('DOMContentLoaded', go);
+})();
+</script>
+</body>
+</html>

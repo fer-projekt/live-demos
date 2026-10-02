@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F3.4 Izvoz i izvještaji stimulacija – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F3.4">
+<main>
+  <h1 class="wf-h1">Izvoz i izvještaji – mjesečne stimulacije</h1>
+  <p class="wf-sub">Fond 2026./2027. (1. 4. 2026. – 31. 3. 2027.)</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Izvoz: HR administrator. Izvještaji: svatko unutar svoje uloge i nadležnosti (rukovoditelj, odobravatelji, direktor, član Uprave); zbirni izvještaj za cijelu tvrtku imaju HR i predsjednik Uprave.</dd>
+      <dt>Čemu služi</dt><dd>Kartica <b>Izvoz</b> preuzima postojeći ekran „Izvoz Stimulacije“ (lista mjeseci, Zaključano, Izvezi u CSV za HR, Izvezi u CSV za Upravu, Osvježi). Kartica <b>Izvještaji</b> daje presjeke po odobravatelju, rukovoditelju, zaposleniku, godini i mjesecu.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Izvoz za HRNET je standardizirana datoteka za odabrani mjesec: OIB, SAP šifra, prezime, ime, bruto iznos stimulacije, dodijeljeni postotak, OIB nadređenog.</li>
+        <li>Nakon izvoza odobreni iznosi dobivaju status „Izvezeno za obračun“. Izvoz je moguć samo za mjesec u kojem je sve odobreno <span class="wf-p">N27</span>.</li>
+        <li>Zaključani mjesec naknadnim se promjenama više ne mijenja; HR ga može otključati (zaključavanje i otključavanje je u A8). Izvoz i svako preuzimanje bilježe se u tragu izmjena.</li>
+        <li>Svi izvještaji izvoze se u Excel (i CSV).</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">P29</span> Format izvoza: nudimo Excel i CSV; „Izvezi u CSV za Upravu“ zadržan kao na postojećem ekranu, sadržaj datoteke za Upravu nije opisan.</li>
+        <li><span class="wf-p" title="NOVO: Obuhvaća li izvoz za HRNET sve odjele u jednoj datoteci po mjesecu i samo zaposlenike sa stimulacijom većom od 0 %? Wireframe pretpostavlja: da, jedna datoteka za cijelu tvrtku, samo retci iznad 0 %.">N41</span> Izvoz po mjesecu obuhvaća sve odjele u jednoj datoteci i samo zaposlenike sa stimulacijom većom od 0 %.</li>
+        <li><span class="wf-p">prijedlog</span> OIB-ovi nadređenih rukovoditelja (Ivana Horvat 45678901234, Goran Šimić 56789012345) izmišljeni su.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="kartica">
+    <button type="button" data-wf-tab="izvoz" class="is-active">Izvoz</button>
+    <button type="button" data-wf-tab="izvjestaji">Izvještaji</button>
+  </div>
+
+  <!-- ===== IZVOZ ===== -->
+  <div data-wf-panel="kartica:izvoz">
+    <div class="wf-actions mb-3"><button type="button" class="wf-btn" data-wf-toast="Lista je osvježena.">Osvježi listu</button></div>
+    <div class="wf-table-wrap mb-2">
+      <table class="wf-table">
+        <thead><tr><th>ID (mjesec) ↓</th><th>Zaključano</th><th class="num">Zbroj bruto – Projekt tehnologije (€)</th><th>Status</th><th>Izvoz</th></tr></thead>
+        <tbody>
+          <tr><td class="wf-mono">2026-04</td><td><label class="wf-check"><input type="checkbox" checked aria-label="Zaključano 2026-04"> da</label></td><td class="num">1.135,00</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Preuzimanje CSV-a za HR.">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Preuzimanje CSV-a za Upravu.">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Preuzimanje Excela.">Izvezi u Excel</button></div></td></tr>
+          <tr><td class="wf-mono">2026-05</td><td><label class="wf-check"><input type="checkbox" checked aria-label="Zaključano 2026-05"> da</label></td><td class="num">440,00</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u Excel</button></div></td></tr>
+          <tr><td class="wf-mono">2026-06</td><td><label class="wf-check"><input type="checkbox" checked aria-label="Zaključano 2026-06"> da</label></td><td class="num">1.500,00</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u Excel</button></div></td></tr>
+          <tr><td class="wf-mono">2026-07</td><td><label class="wf-check"><input type="checkbox" checked aria-label="Zaključano 2026-07"> da</label></td><td class="num">0,00</td><td class="wf-muted">nema stimulacija</td>
+            <td class="wf-muted">nema što izvesti</td></tr>
+          <tr><td class="wf-mono">2026-08</td><td><label class="wf-check"><input type="checkbox" checked aria-label="Zaključano 2026-08"> da</label></td><td class="num">682,50</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u Excel</button></div></td></tr>
+          <tr><td class="wf-mono">2026-09</td><td><label class="wf-check"><input type="checkbox" checked aria-label="Zaključano 2026-09"> da</label></td><td class="num">980,00</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u Excel</button></div></td></tr>
+          <tr><td class="wf-mono">2026-10</td><td><label class="wf-check"><input type="checkbox" aria-label="Zaključano 2026-10"> ne</label></td><td class="num">290,00</td><td><span class="wf-status is-done">Odobreno</span><span class="wf-at">spremno za izvoz</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn-primary wf-btn-sm" data-wf-open="dlg-izvoz">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-izvoz">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-izvoz">Izvezi u Excel</button></div></td></tr>
+          <tr class="is-selected"><td class="wf-mono">2026-11</td><td><label class="wf-check"><input type="checkbox" aria-label="Zaključano 2026-11"> ne</label></td><td class="num">1.522,50</td><td><span class="wf-status is-draft">Spremljeno</span><span class="wf-at">nije predano na odobrenje – izvoz nije moguć</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm" disabled>Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm" disabled>Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm" disabled>Izvezi u Excel</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="wf-help mb-4">Iznosi u listi su za odjel Projekt tehnologije (kao na F3.1). Datoteka za HRNET obuhvaća sve odjele: za studeni 2026. to je uz 1.522,50 € još 420,00 € Razvoja proizvodnje (F3.2), ukupno 1.942,50 €.</p>
+
+    <h2 class="wf-section-title">Pregled stupaca datoteke za HRNET <span class="wf-p">P29</span></h2>
+    <div class="flex flex-wrap items-end gap-3 mb-3">
+      <div style="min-width:240px"><label class="wf-label" for="pm">Mjesec</label>
+        <select class="wf-select" id="pm"><option>studeni 2026. (primjer: kako će izgledati nakon odobrenja)</option></select></div>
+      <div class="pb-1 wf-muted">6 redaka, ukupno 1.942,50 €</div>
+    </div>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>OIB</th><th>SAP šifra</th><th>Prezime</th><th>Ime</th><th class="num">Bruto iznos stimulacije (€)</th><th class="num">Dodijeljeni postotak</th><th>OIB nadređenog</th></tr></thead>
+        <tbody>
+          <tr><td class="wf-mono">31415926535</td><td class="wf-mono">10234</td><td>Perić</td><td>Marija</td><td class="num">320,00</td><td class="num">10</td><td class="wf-mono">45678901234</td></tr>
+          <tr><td class="wf-mono">27182818284</td><td class="wf-mono">10457</td><td>Božić</td><td>Ivan</td><td class="num">122,50</td><td class="num">5</td><td class="wf-mono">45678901234</td></tr>
+          <tr><td class="wf-mono">22360679774</td><td class="wf-mono">10088</td><td>Radić</td><td>Karlo</td><td class="num">780,00</td><td class="num">20</td><td class="wf-mono">45678901234</td></tr>
+          <tr><td class="wf-mono">26457513110</td><td class="wf-mono">10912</td><td>Šarić</td><td>Nina</td><td class="num">300,00</td><td class="num">15</td><td class="wf-mono">45678901234</td></tr>
+          <tr><td class="wf-mono">23606797749</td><td class="wf-mono">10560</td><td>Jakšić</td><td>Ivona</td><td class="num">170,00</td><td class="num">5</td><td class="wf-mono">56789012345</td></tr>
+          <tr><td class="wf-mono">12020569031</td><td class="wf-mono">10777</td><td>Kralj</td><td>Bruno</td><td class="num">250,00</td><td class="num">10</td><td class="wf-mono">56789012345</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Ukupno</td><td class="num">1.942,50</td><td colspan="2"></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="wf-help mt-1">Zaposlenici sa stimulacijom 0 % nisu u datoteci <span class="wf-p" title="NOVO: Obuhvaća li izvoz za HRNET sve odjele u jednoj datoteci i samo zaposlenike sa stimulacijom većom od 0 %?">N41</span>. Nakon izvoza status mjeseca postaje „Izvezeno za obračun“.</p>
+  </div>
+
+  <!-- ===== IZVJEŠTAJI ===== -->
+  <div data-wf-panel="kartica:izvjestaji">
+    <div class="wf-filters">
+      <div><label class="wf-label" for="fo">Odobravatelj</label><select class="wf-select" id="fo"><option>Svi</option><option>Marko Kovačević</option><option>Luka Knežević</option><option>Ana Babić</option></select></div>
+      <div><label class="wf-label" for="fr">Rukovoditelj</label><select class="wf-select" id="fr"><option>Svi</option><option>Ivana Horvat</option><option>Goran Šimić</option><option>Josip Jurić</option></select></div>
+      <div><label class="wf-label" for="fz">Zaposlenik</label><select class="wf-select" id="fz"><option>Svi</option><option>Marija Perić</option><option>Karlo Radić</option><option>Nina Šarić</option></select></div>
+      <div><label class="wf-label" for="fg">Godina</label><select class="wf-select" id="fg"><option>2026.</option><option>2027.</option></select></div>
+      <div><label class="wf-label" for="fm">Mjesec</label><select class="wf-select" id="fm"><option>studeni</option><option>listopad</option><option>Svi mjeseci</option></select></div>
+      <button type="button" class="wf-btn" data-wf-toast="Prikaz je osvježen prema filtrima.">Prikaži</button>
+      <button type="button" class="wf-btn-primary ml-auto" data-wf-toast="Preuzimanje Excela s izvještajem.">Izvezi u Excel</button>
+    </div>
+    <p class="wf-help mb-2">Prikazani su podaci za studeni 2026. kako će izgledati nakon odobrenja (izvještaj vidi samo zaposlenike unutar vaše nadležnosti; HR i predsjednik Uprave vide cijelu tvrtku).</p>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Mjesec</th><th>Rukovoditelj</th><th>Zaposlenik</th><th class="num">Postotak</th><th class="num">Bruto iznos (€)</th><th>Status</th><th style="min-width:200px">Napomena rukovoditelja</th><th style="min-width:160px">Napomena odobravatelja</th><th>Odobrio</th><th>Odobreno</th></tr></thead>
+        <tbody>
+          <tr><td>studeni 2026.</td><td>Ivana Horvat</td><td class="wf-name">Marija Perić</td><td class="num">10 %</td><td class="num">320,00</td><td><span class="wf-status is-done">Odobreno</span></td><td>Vodila uvođenje novog postupka lakiranja kotlova.</td><td class="wf-muted">–</td><td>Marko Kovačević</td><td>16. 11. 2026.</td></tr>
+          <tr><td>studeni 2026.</td><td>Ivana Horvat</td><td class="wf-name">Ivan Božić</td><td class="num">5 %</td><td class="num">122,50</td><td><span class="wf-status is-done">Odobreno</span></td><td>Preuzeo dodatne narudžbe tijekom bolovanja kolegice.</td><td class="wf-muted">–</td><td>Marko Kovačević</td><td>16. 11. 2026.</td></tr>
+          <tr><td>studeni 2026.</td><td>Ivana Horvat</td><td class="wf-name">Karlo Radić</td><td class="num">20 %</td><td class="num">780,00</td><td><span class="wf-status is-done">Odobreno</span></td><td>Riješio kritičan zastoj na liniji DT u roku od 48 sati.</td><td class="wf-muted">–</td><td>Marko Kovačević</td><td>16. 11. 2026.</td></tr>
+          <tr><td>studeni 2026.</td><td>Ivana Horvat</td><td class="wf-name">Nina Šarić</td><td class="num">15 %</td><td class="num">300,00</td><td><span class="wf-status is-done">Odobreno</span></td><td>Pripremila dokumentaciju za audit kupca.</td><td class="wf-muted">–</td><td>Marko Kovačević</td><td>16. 11. 2026.</td></tr>
+          <tr><td>studeni 2026.</td><td>Goran Šimić</td><td class="wf-name">Ivona Jakšić</td><td class="num">5 %</td><td class="num">170,00</td><td><span class="wf-status is-done">Odobreno</span></td><td>Preuzela vođenje pilot-ispitivanja novog alata.</td><td class="wf-muted">–</td><td>Marko Kovačević</td><td>16. 11. 2026.</td></tr>
+          <tr><td>studeni 2026.</td><td>Goran Šimić</td><td class="wf-name">Bruno Kralj</td><td class="num">10 %</td><td class="num">250,00</td><td><span class="wf-status is-done">Odobreno</span></td><td>Samostalno uveo novu listu provjere pri preuzimanju materijala.</td><td class="wf-muted">–</td><td>Marko Kovačević</td><td>16. 11. 2026.</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="3">Ukupno</td><td class="num">65 %</td><td class="num">1.942,50</td><td colspan="5">6 zaposlenika sa stimulacijom</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="wf-help mt-1">Odbijene stimulacije prikazuju se sa statusom „Odbijeno“ i napomenom odobravatelja; ne ulaze u zbroj. Zaposlenici s 0 % ne prikazuju se kad je filtar „samo sa stimulacijom“.</p>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-izvoz">
+    <div class="wf-dialog-head">Izvoz za obračun – listopad 2026. <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Izvozite odobrene stimulacije za <b>listopad 2026.</b> (odjel Projekt tehnologije: 2 zaposlenika, 290,00 €). Nakon izvoza mjesec dobiva status <span class="wf-status is-done">Izvezeno za obračun</span>. Izvoz se bilježi u tragu izmjena, a obavijest o uspješnom ili neuspješnom izvozu šalje se prema pravilima obavijesti.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Izvoz je uspješan. Status: Izvezeno za obračun.">Izvezi</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

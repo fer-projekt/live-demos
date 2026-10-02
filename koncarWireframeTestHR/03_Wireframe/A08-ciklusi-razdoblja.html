@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A8 Ciklusi i razdoblja – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A8">
+<main>
+  <h1 class="wf-h1">Ciklusi i razdoblja</h1>
+  <p class="wf-sub">Otvaranje, rokovi, zaključavanje i otključavanje mjeseca, kvartala i ciklusa. Stanje na dan 19. 11. 2026.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator.</dd>
+      <dt>Čemu služi</dt><dd>Jedno mjesto na kojem HR otvara razdoblja, vidi rokove i zaključava ih nakon završetka obračuna ili odobravanja, odnosno ponovno otključava.</dd>
+      <dt>Pravila</dt><dd><ul><li>Moduli imaju različita razdoblja: stimulacije po mjesecima (fond 1. 4. – 31. 3.), kvartalne nagrade po kvartalima, nagrađivanje i napredovanje po ciklusu.</li><li>Rokovi: stimulacije do zadnjeg dana mjeseca; kvartalne do sredine mjeseca nakon kvartala; nagrađivanje unos 2. 11. – 27. 11. 2026. i odobravanje do 11. 12. 2026.; napredovanje unos 1. 2. – 28. 2. 2027., primjena nove plaće 1. 4. 2027.</li><li>Zaključano razdoblje (mjesec, kvartal, ciklus) naknadne promjene više ne mijenjaju: promjene plaće, odjela ili linije vrijede samo za otvorena i buduća razdoblja.</li><li>Svako otvaranje, zaključavanje i otključavanje ide u trag izmjena (tko, kada, što) i može poslati obavijest o zaključavanju (A10).</li><li>Nakon zadnjeg odobrenja prijedlog je zaključan za sve osim HR-a; zaključavanje razdoblja je zaseban, širi korak.</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p">prijedlog</span> Rokovi nagrađivanja (unos 2. 11. – 27. 11. 2026., odobravanje do 11. 12. 2026.) i unos napredovanja (1. 2. – 28. 2. 2027.) su izmišljeni primjeri; Specifikacija navodi samo rok modula (1. 11. 2026. odnosno 1. 2. 2027.) i primjenu nove plaće od 1. 4.</li><li><span class="wf-p">prijedlog</span> Stupci „Otvoreno od“ i „Otvoreno do“ (prozor unosa) su naš prijedlog; Specifikacija navodi samo rokove i razdoblje unosa za nagrađivanje i napredovanje.</li><li><span class="wf-p" title="NOVO: Tko smije otključati zaključano razdoblje i treba li razlog? Wireframe pretpostavlja da samo HR, uz obaveznu napomenu, a zapis ide u trag izmjena.">N16</span> Otključavanje samo HR, uz obaveznu napomenu; zapis u tragu izmjena.</li><li><span class="wf-p">prijedlog</span> Razdoblje kojem je istekao rok ostaje „Otvoreno“ dok ga HR ne zaključa (npr. listopad 2026. i Q3 2026.).</li><li>Rok odobravanja za napredovanje 2027. nije naveden u Specifikaciji; određuje ga HR pri otvaranju ciklusa <span class="wf-p">prijedlog</span>.</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="modul">
+    <button type="button" data-wf-tab="stim" class="is-active">Mjesečne stimulacije</button>
+    <button type="button" data-wf-tab="kvart">Kvartalne nagrade</button>
+    <button type="button" data-wf-tab="nag">Godišnje nagrađivanje</button>
+    <button type="button" data-wf-tab="nap">Godišnje napredovanje</button>
+  </div>
+
+  <div data-wf-panel="modul:stim"><p class="wf-help mb-2 mt-0">Fond 2026./2027. (1. 4. 2026. – 31. 3. 2027.). Rok za unos i odobravanje je zadnji dan mjeseca za koji se isplata odnosi.</p><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Razdoblje</th><th>Otvoreno od</th><th>Otvoreno do</th><th>Rok</th><th>Status</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">travanj 2026.</td><td>1. 4. 2026.</td><td>30. 4. 2026.</td><td>30. 4. 2026.</td><td><span class="wf-status is-closed">Zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otkljuc" data-period="travanj 2026.">Otključaj</button></td></tr>
+<tr><td class="wf-name">svibanj 2026.</td><td>1. 5. 2026.</td><td>31. 5. 2026.</td><td>31. 5. 2026.</td><td><span class="wf-status is-closed">Zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otkljuc" data-period="svibanj 2026.">Otključaj</button></td></tr>
+<tr><td class="wf-name">lipanj 2026.</td><td>1. 6. 2026.</td><td>30. 6. 2026.</td><td>30. 6. 2026.</td><td><span class="wf-status is-closed">Zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otkljuc" data-period="lipanj 2026.">Otključaj</button></td></tr>
+<tr><td class="wf-name">srpanj 2026.</td><td>1. 7. 2026.</td><td>31. 7. 2026.</td><td>31. 7. 2026.</td><td><span class="wf-status is-closed">Zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otkljuc" data-period="srpanj 2026.">Otključaj</button></td></tr>
+<tr><td class="wf-name">kolovoz 2026.</td><td>1. 8. 2026.</td><td>31. 8. 2026.</td><td>31. 8. 2026.</td><td><span class="wf-status is-closed">Zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otkljuc" data-period="kolovoz 2026.">Otključaj</button></td></tr>
+<tr><td class="wf-name">rujan 2026.</td><td>1. 9. 2026.</td><td>30. 9. 2026.</td><td>30. 9. 2026.</td><td><span class="wf-status is-closed">Zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otkljuc" data-period="rujan 2026.">Otključaj</button></td></tr>
+<tr><td class="wf-name">listopad 2026.</td><td>1. 10. 2026.</td><td>31. 10. 2026.</td><td>31. 10. 2026. <span class="wf-at">rok istekao; odobreno, čeka izvoz i zaključavanje</span></td><td><span class="wf-status">Otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-zakljuc" data-period="listopad 2026.">Zaključaj</button></td></tr>
+<tr><td class="wf-name">studeni 2026.</td><td>1. 11. 2026.</td><td>30. 11. 2026.</td><td>30. 11. 2026.</td><td><span class="wf-status">Otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-zakljuc" data-period="studeni 2026.">Zaključaj</button></td></tr>
+<tr><td class="wf-name">prosinac 2026.</td><td>1. 12. 2026.</td><td>31. 12. 2026.</td><td>31. 12. 2026.</td><td><span class="wf-muted">nije otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otvori" data-period="prosinac 2026.">Otvori</button></td></tr>
+<tr><td class="wf-name">siječanj 2027.</td><td>1. 1. 2027.</td><td>31. 1. 2027.</td><td>31. 1. 2027.</td><td><span class="wf-muted">nije otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otvori" data-period="siječanj 2027.">Otvori</button></td></tr>
+<tr><td class="wf-name">veljača 2027.</td><td>1. 2. 2027.</td><td>28. 2. 2027.</td><td>28. 2. 2027.</td><td><span class="wf-muted">nije otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otvori" data-period="veljača 2027.">Otvori</button></td></tr>
+<tr><td class="wf-name">ožujak 2027.</td><td>1. 3. 2027.</td><td>31. 3. 2027.</td><td>31. 3. 2027.</td><td><span class="wf-muted">nije otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otvori" data-period="ožujak 2027.">Otvori</button></td></tr>
+</tbody>
+</table></div></div>
+  <div data-wf-panel="modul:kvart"><p class="wf-help mb-2 mt-0">Rok za unos i odobravanje je do sredine mjeseca nakon isteka kvartala. Uvoz prisutnosti moguć je do zaključavanja kvartala (F4.2).</p><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Razdoblje</th><th>Otvoreno od</th><th>Otvoreno do</th><th>Rok</th><th>Status</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Q1 2026. (siječanj–ožujak)</td><td>1. 4. 2026.</td><td>15. 4. 2026.</td><td>15. 4. 2026.</td><td><span class="wf-status is-closed">Zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otkljuc" data-period="Q1 2026. (siječanj–ožujak)">Otključaj</button></td></tr>
+<tr><td class="wf-name">Q2 2026. (travanj–lipanj)</td><td>1. 7. 2026.</td><td>15. 7. 2026.</td><td>15. 7. 2026.</td><td><span class="wf-status is-closed">Zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otkljuc" data-period="Q2 2026. (travanj–lipanj)">Otključaj</button></td></tr>
+<tr><td class="wf-name">Q3 2026. (srpanj–rujan)</td><td>1. 10. 2026.</td><td>15. 10. 2026.</td><td>15. 10. 2026. <span class="wf-at">rok istekao, čeka zaključavanje</span></td><td><span class="wf-status">Otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-zakljuc" data-period="Q3 2026. (srpanj–rujan)">Zaključaj</button></td></tr>
+<tr><td class="wf-name">Q4 2026. (listopad–prosinac)</td><td>1. 1. 2027.</td><td>15. 1. 2027.</td><td>15. 1. 2027.</td><td><span class="wf-muted">nije otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otvori" data-period="Q4 2026. (listopad–prosinac)">Otvori</button></td></tr>
+<tr><td class="wf-name">Q1 2027. (siječanj–ožujak)</td><td>1. 4. 2027.</td><td>15. 4. 2027.</td><td>15. 4. 2027.</td><td><span class="wf-muted">nije otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otvori" data-period="Q1 2027. (siječanj–ožujak)">Otvori</button></td></tr>
+</tbody>
+</table></div></div>
+  <div data-wf-panel="modul:nag"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Ciklus</th><th>Unos od</th><th>Unos do</th><th>Rok odobravanja / primjena</th><th>Status</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje 2026.</td><td>2. 11. 2026.</td><td>27. 11. 2026.</td><td>odobravanje do 11. 12. 2026.</td><td><span class="wf-status">Otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-zakljuc" data-period="Godišnje nagrađivanje 2026.">Zaključaj</button> <a class="wf-btn wf-btn-sm" href="F1-01-postavke-ciklusa.html">Postavke ciklusa</a></td></tr>
+</tbody>
+</table></div></div>
+  <div data-wf-panel="modul:nap"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Ciklus</th><th>Unos od</th><th>Unos do</th><th>Rok odobravanja / primjena</th><th>Status</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje napredovanje 2027.</td><td>1. 2. 2027.</td><td>28. 2. 2027.</td><td>odobravanje: rok određuje HR <span class="wf-p">prijedlog</span><span class="wf-at">nova plaća se primjenjuje od 1. 4. 2027.</span></td><td><span class="wf-muted">nije otvoreno</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-otvori" data-period="Godišnje napredovanje 2027.">Otvori</button> <a class="wf-btn wf-btn-sm" href="F2-01-postavke-ciklusa.html">Postavke ciklusa</a></td></tr>
+</tbody>
+</table></div></div>
+
+  <div class="wf-info mt-4">Zaključavanje i otključavanje svakog razdoblja zapisuje se u <a class="wf-link" href="A11-trag-izmjena.html">Trag izmjena</a>. Zaključano razdoblje se naknadnim promjenama (plaće, odjela, linije) više ne mijenja.</div>
+
+  <dialog class="wf-dialog" id="dlg-otvori">
+    <div class="wf-dialog-head">Otvori razdoblje <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Otvarate: <b class="js-period">razdoblje</b></p>
+      <div class="wf-grid md:grid-cols-3 mt-2"><div class="wf-field"><label class="wf-label wf-req">Otvoreno od</label><input class="wf-input" type="text" value="1. 12. 2026." ></div><div class="wf-field"><label class="wf-label wf-req">Otvoreno do</label><input class="wf-input" type="text" value="31. 12. 2026." ></div><div class="wf-field"><label class="wf-label wf-req">Rok</label><input class="wf-input" type="text" value="31. 12. 2026." ></div></div>
+      <p class="wf-help">Obavijest o otvaranju ciklusa šalje se prema pravilima slanja (A10).</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Razdoblje je otvoreno. Zapisano u trag izmjena.">Otvori</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-zakljuc">
+    <div class="wf-dialog-head">Zaključaj razdoblje <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Zaključavate: <b class="js-period">razdoblje</b></p>
+      <ul class="list-disc pl-5 text-sm mt-2"><li>Unos i izmjene prijedloga u tom razdoblju više nisu moguće za rukovoditelje i odobravatelje.</li><li>Naknadne promjene podataka (plaća, odjel, linija) ne mijenjaju zaključeno razdoblje.</li><li>Zaključavanje se bilježi u trag izmjena.</li></ul>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Razdoblje je zaključano. Zapisano u trag izmjena.">Zaključaj</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-otkljuc">
+    <div class="wf-dialog-head">Otključaj razdoblje <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Otključavate: <b class="js-period">razdoblje</b></p>
+      <div class="wf-alert">Otključavanje je iznimka i ostaje u tragu izmjena. <span class="wf-p" title="NOVO: Tko smije otključati zaključano razdoblje i treba li razlog? Wireframe pretpostavlja da samo HR, uz obaveznu napomenu, a zapis ide u trag izmjena.">N16</span></div>
+      <div class="wf-field"><label class="wf-label wf-req">Napomena</label><textarea class="wf-textarea" rows="3" placeholder="Zašto se razdoblje otključava"></textarea><div class="wf-help">Obavezna <span class="wf-p">prijedlog</span></div></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Razdoblje je otključano. Zapisano u trag izmjena.">Otključaj</button>
+    </div>
+  </dialog>
+
+<script>
+/* samo prikaz: u dijalog upisuje naziv razdoblja iz gumba */
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-period]'); if (!b) return;
+  document.querySelectorAll('.js-period').forEach(function (x) { x.textContent = b.getAttribute('data-period'); });
+});
+</script>
+</main>
+</body>
+</html>

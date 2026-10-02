@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2.1 Postavke ciklusa – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F2.1">
+<main>
+  <h1 class="wf-h1">Postavke ciklusa – godišnje napredovanje 2027.</h1>
+  <p class="wf-sub">Unos prijedloga 1. 2. – 28. 2. 2027. · primjena nove plaće od 1. 4. 2027. · vrijednosti određuje Uprava, a unosi ih HR</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator. Vrijednosti prema odluci Uprave.</dd>
+      <dt>Čemu služi</dt><dd>HR za ciklus unosi budžet i postotak, dopuštene iznose povećanja, budžetska pravila i ograničenja, granicu mjeseci za Junior i popis ključnih ekspertnih radnih mjesta, odredi razdoblje unosa i otvori ciklus.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Budžet i postotak nisu fiksni u aplikaciji; za svaki ciklus ih određuje Uprava, a HR unosi. Vodi se na razini Društva, sektora i odjela <span class="wf-p">P18</span>.</li>
+        <li>Apoeni 100–450 € (bruto); HR može dodati i druge iznose. Rukovoditelj bira samo iz ovog popisa.</li>
+        <li>Pravilo 50 % / 75 %: najviše 50 % zaposlenika na razini Društva odnosno sektora i 75 % po odjelu, osim u odjelu s jednim zaposlenikom. HR pravilo uključuje i isključuje.</li>
+        <li>Pripravnici i Juniori ne mogu biti predloženi 12 mjeseci od zaposlenja <span class="wf-p">P17</span>.</li>
+        <li>HR može dodati ključna ekspertna radna mjesta; samo za njih postoji obrazac Standardna → Napredna.</li>
+        <li>Svaka izmjena postavki ostaje u tragu izmjena.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">P18</span> Budžet se uvijek vodi i po odjelu; postotak se računa od mjesečne mase bruto plaća jedinice, a budžet je mjesečno povećanje <span class="wf-p">N1</span>.</li>
+        <li><span class="wf-p">P15</span> Pravilo 3 % je parametar koji HR uključuje i upisuje prema odluci Uprave; značenje nije definirano pa ga sustav za sada samo evidentira.</li>
+        <li><span class="wf-p">P16</span> Granica mjeseci za Junior (12–24) je jedan broj po ciklusu; wireframe koristi 12.</li>
+        <li>Mjesečne mase plaća, broj zaposlenika i budžeti sektora, Društva i odjela osim Projekta tehnologije su izmišljeni primjeri.</li>
+        <li>Izmjena postavki nakon otvaranja ciklusa je moguća samo uz zapis u tragu izmjena <span class="wf-p">prijedlog</span>.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="priprema" class="is-active">Priprema ciklusa</button>
+    <button type="button" data-wf-tab="otvoren">Ciklus otvoren</button>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-3 mb-3">
+    <div>Status ciklusa:
+      <span data-wf-panel="stanje:priprema"><span class="wf-status is-draft">Spremljeno</span> <span class="wf-muted text-xs">ciklus još nije otvoren</span></span>
+      <span data-wf-panel="stanje:otvoren"><span class="wf-status is-done">Otvoren</span> <span class="wf-muted text-xs">otvorio Petra Novak, 25. 1. 2027.</span></span>
+    </div>
+  </div>
+
+  <div class="wf-info" data-wf-panel="stanje:otvoren">Ciklus je otvoren; rukovoditelji unose prijedloge od 1. 2. 2027. Izmjene postavki su moguće i dalje, ali se bilježe u tragu izmjena.</div>
+  <div id="msgs"></div>
+
+  <h2 class="wf-section-title">1. Razdoblje i primjena</h2>
+  <div class="wf-grid md:grid-cols-4">
+    <div class="wf-field"><label class="wf-label wf-req" for="cn">Naziv ciklusa</label><input class="wf-input" id="cn" value="Godišnje napredovanje 2027."></div>
+    <div class="wf-field"><label class="wf-label wf-req" for="od">Unos prijedloga od</label><input class="wf-input" id="od" value="1. 2. 2027."></div>
+    <div class="wf-field"><label class="wf-label wf-req" for="do">Unos prijedloga do</label><input class="wf-input" id="do" value="28. 2. 2027."></div>
+    <div class="wf-field"><label class="wf-label wf-req" for="pr">Datum primjene nove plaće</label><input class="wf-input" id="pr" value="1. 4. 2027."></div>
+  </div>
+
+  <h2 class="wf-section-title">2. Budžet i postotak po razinama <span class="wf-p">P18</span> <span class="wf-p">N1</span></h2>
+  <p class="wf-help mb-2">Postotak je od mjesečne mase bruto plaća jedinice; budžet je ukupno mjesečno povećanje plaća. Postotak za pojedinu jedinicu može se korigirati (npr. odluka Uprave).</p>
+  <div class="wf-table-wrap">
+    <table class="wf-table" id="bud">
+      <thead><tr><th>Razina</th><th>Jedinica</th><th class="num">Zaposlenika (bez rukovoditelja)</th><th class="num">Mjesečna masa bruto plaća (€)</th><th style="width:130px" class="wf-req">Postotak (%)</th><th class="num">Budžet (€)</th><th>Zbroj nižih razina</th></tr></thead>
+      <tbody>
+        <tr data-lvl="d"><td>Društvo</td><td class="wf-name">Cijela tvrtka</td><td class="num">412</td><td class="num" data-m="1250000">1.250.000,00</td><td><input class="wf-input num" data-p value="5,00"></td><td class="num"><span class="wf-calc" data-b></span></td><td data-s>–</td></tr>
+        <tr data-lvl="s" data-par="d"><td>Sektor</td><td class="wf-name">Tehnologija</td><td class="num">16</td><td class="num" data-m="37400">37.400,00</td><td><input class="wf-input num" data-p value="5,00"></td><td class="num"><span class="wf-calc" data-b></span></td><td data-s>–</td></tr>
+        <tr data-lvl="o" data-par="s1"><td class="pl-6">Odjel</td><td class="wf-name">Projekt tehnologije</td><td class="num">9</td><td class="num" data-m="21400">21.400,00</td><td><input class="wf-input num" data-p value="5,00"></td><td class="num"><span class="wf-calc" data-b></span></td><td>–</td></tr>
+        <tr data-lvl="o" data-par="s1"><td class="pl-6">Odjel</td><td class="wf-name">Razvoj proizvodnje</td><td class="num">7</td><td class="num" data-m="16000">16.000,00</td><td><input class="wf-input num" data-p value="5,00"></td><td class="num"><span class="wf-calc" data-b></span></td><td>–</td></tr>
+        <tr data-lvl="s" data-par="d"><td>Sektor</td><td class="wf-name">Proizvodnja SET</td><td class="num">12</td><td class="num" data-m="24000">24.000,00</td><td><input class="wf-input num" data-p value="5,00"></td><td class="num"><span class="wf-calc" data-b></span></td><td data-s>–</td></tr>
+        <tr data-lvl="o" data-par="s2"><td class="pl-6">Odjel</td><td class="wf-name">Montaža SET</td><td class="num">12</td><td class="num" data-m="24000">24.000,00</td><td><input class="wf-input num" data-p value="5,00"></td><td class="num"><span class="wf-calc" data-b></span></td><td>–</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Za Projekt tehnologije: 5,00 % od 21.400,00 € = 1.070,00 €. Razvoj proizvodnje: 5,00 % od 16.000,00 € = 800,00 €; Montaža SET: 5,00 % od 24.000,00 € = 1.200,00 €; sektor Tehnologija: 1.870,00 € (16 zaposlenih). Ostali odjeli i sektori Društva izostavljeni su radi preglednosti; prikazani su samo odjeli iz primjera.</p>
+  <div class="mt-2"><label class="wf-label" for="bpr">Što ako zbroj odjela premaši budžet sektora</label>
+    <select class="wf-select" id="bpr" style="max-width:420px"><option>Upozorenje HR-u; HR može nastaviti uz preraspodjelu</option></select>
+    <span class="wf-help">Prikaz upozorenja kad HR promijeni postotak jedinice (isprobajte: upišite 7 u odjel Razvoj proizvodnje).</span></div>
+
+  <h2 class="wf-section-title">3. Dopušteni iznosi povećanja (apoeni, bruto)</h2>
+  <div class="flex flex-wrap items-center gap-2 mb-2" id="apoeni"></div>
+  <div class="flex flex-wrap items-end gap-2">
+    <div><label class="wf-label" for="novi">Dodaj drugi iznos (€)</label><input class="wf-input" id="novi" style="width:140px" placeholder="npr. 125"></div>
+    <button type="button" class="wf-btn" id="dodaj-apoen">Dodaj</button>
+    <span class="wf-help" id="apoen-err"></span>
+  </div>
+  <p class="wf-help mt-1">Predviđeno: 100, 150, 200, 250, 300, 350, 400 i 450 €. Povećanje u prijedlogu mora biti jedan od ovih iznosa i unutar budžeta.</p>
+
+  <h2 class="wf-section-title">4. Ograničenja i pravila</h2>
+  <div class="wf-grid md:grid-cols-2">
+    <div class="wf-card">
+      <div class="wf-h3">Pravilo 50 % / 75 %</div>
+      <label class="wf-check"><input type="checkbox" checked> Pravilo je uključeno u ovom ciklusu</label>
+      <dl class="wf-kv mt-3">
+        <dt>Društvo i sektor</dt><dd>najviše 50 % zaposlenika</dd>
+        <dt>Odjel</dt><dd>najviše 75 % zaposlenika</dd>
+        <dt>Iznimka</dt><dd>odjel s jednim zaposlenikom</dd>
+      </dl>
+      <p class="wf-help mt-2">HR pravilo uključuje i isključuje. Primjer: Projekt tehnologije 4 od 9 = 44 % (dopušteno do 75 %).</p>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">Pravilo 3 % <span class="wf-p">P15</span></div>
+      <label class="wf-check"><input type="checkbox"> Pravilo se primjenjuje ako ga je odredila Uprava</label>
+      <div class="wf-field mt-3" style="max-width:200px"><label class="wf-label" for="p3">Vrijednost (%)</label><input class="wf-input" id="p3" value="3,00" disabled></div>
+      <p class="wf-help">Značenje pravila nije definirano; parametar se samo evidentira za ciklus.</p>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">Junior → Standardna: granica mjeseci <span class="wf-p">P16</span></div>
+      <div class="wf-field" style="max-width:260px"><label class="wf-label wf-req" for="gm">Najmanje mjeseci u Početnoj poziciji (12–24)</label><input class="wf-input num" id="gm" value="12"></div>
+      <p class="wf-help">Probni rok i pripravnički staž se ne računaju <span class="wf-p">N30</span>.</p>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">Blokada prvih 12 mjeseci <span class="wf-p">P17</span></div>
+      <dl class="wf-kv">
+        <dt>Pozicije</dt><dd>Pripravnik, Junior</dd>
+        <dt>Razdoblje</dt><dd>12 mjeseci od datuma zaposlenja</dd>
+      </dl>
+      <p class="wf-help mt-2">Takvi zaposlenici su u F2.2 sivi i ne mogu se predložiti. Pravilo je fiksno po Specifikaciji, ne parametar.</p>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">5. Ključna ekspertna radna mjesta</h2>
+  <p class="wf-help mb-2">Samo zaposlenici na ovim radnim mjestima mogu se predložiti za napredovanje Standardna → Napredna.</p>
+  <div class="wf-table-wrap">
+    <table class="wf-table" id="kljucna">
+      <thead><tr><th style="width:50px">#</th><th>Radno mjesto</th><th>Izvor</th><th class="num">Zaposlenika na mjestu u odjelima iz primjera</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Projektant transformatora SET</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>2</td><td>Projektant transformatora DT/ST</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>3</td><td>Razvojni inženjer</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>4</td><td>Voditelj prodajnog područja SET</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>5</td><td>Voditelj prodajnog područja DT</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>6</td><td>Konstruktor transformatora SET</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>7</td><td>Konstruktor transformatora DT/ST</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>8</td><td>Inženjer ispitivač transformatora SET</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>9</td><td>Inženjer procesa u Razvoju proizvodnje</td><td>Specifikacija</td><td class="num">1 (Ivona Jakšić)</td></tr>
+        <tr><td>10</td><td>Inženjer procesa u odjelu Projekt tehnologije</td><td>Specifikacija</td><td class="num">1 (Marija Perić)</td></tr>
+        <tr><td>11</td><td>Specijalist za metalne konstrukcije SET</td><td>Specifikacija</td><td class="num">0</td></tr>
+        <tr><td>12</td><td>Specijalist za metalne konstrukcije DT/ST</td><td>Specifikacija</td><td class="num">0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="flex flex-wrap items-end gap-2 mt-2">
+    <div><label class="wf-label" for="nrm">Dodaj radno mjesto</label><input class="wf-input" id="nrm" style="width:300px" placeholder="naziv radnog mjesta"></div>
+    <button type="button" class="wf-btn" id="dodaj-rm">Dodaj</button>
+  </div>
+  <p class="wf-help mt-1">Broj zaposlenika po radnom mjestu je primjer; nije polje Specifikacije <span class="wf-p">prijedlog</span>.</p>
+
+  <div class="wf-actions mt-6 pt-4 border-t border-black">
+    <button type="button" class="wf-btn" data-wf-toast="Postavke ciklusa su spremljene. Izmjena je zabilježena u tragu izmjena.">Spremi</button>
+    <button type="button" class="wf-btn-primary" id="otvori" data-wf-open="dlg-otvori" data-wf-panel="stanje:priprema">Otvori ciklus</button>
+    <button type="button" class="wf-btn-primary" disabled data-wf-panel="stanje:otvoren">Otvori ciklus</button>
+    <span class="wf-help" id="otvori-why"></span>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-otvori">
+    <div class="wf-dialog-head">Otvori ciklus <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Otvarate ciklus <b>Godišnje napredovanje 2027.</b>: unos prijedloga 1. 2. – 28. 2. 2027., primjena od 1. 4. 2027.</p>
+      <ul class="list-disc pl-5 mt-2">
+        <li>Budžet Društva: <b id="d-bud">62.500,00 €</b>; apoena: <b id="d-ap">8</b>; pravilo 50 % / 75 %: <b>uključeno</b>.</li>
+        <li>Ključnih ekspertnih radnih mjesta: <b id="d-rm">12</b>; granica za Junior: <b>12 mjeseci</b>.</li>
+      </ul>
+      <p class="mt-2">Rukovoditelji dobivaju e-mail obavijest o otvaranju ciklusa (A10).</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Ciklus je otvoren. Rukovoditelji su obaviješteni.">Otvori ciklus</button>
+    </div>
+  </dialog>
+</main>
+
+<script>
+(function () {
+  var apoeni = [100, 150, 200, 250, 300, 350, 400, 450];
+  var box = document.getElementById('apoeni');
+  function drawApoeni() {
+    box.innerHTML = apoeni.map(function (a, i) {
+      return '<span class="wf-status">' + WF.fmt(a, 0) + ' € ' + (i >= 8 ? '<button type="button" class="wf-btn wf-btn-sm" data-rm="' + i + '" aria-label="Ukloni ' + a + '">Ukloni</button>' : '') + '</span>';
+    }).join('');
+    document.getElementById('d-ap').textContent = apoeni.length;
+  }
+  function parse(s) { return parseFloat(String(s).replace(/\./g, '').replace(',', '.')) || 0; }
+  function budgets() {
+    var rows = [].slice.call(document.querySelectorAll('#bud tbody tr')), sums = {}, msgs = [];
+    rows.forEach(function (tr) {
+      var m = +tr.querySelector('[data-m]').dataset.m, p = parse(tr.querySelector('[data-p]').value), b = m * p / 100;
+      tr.dataset.b = b; tr.querySelector('[data-b]').textContent = WF.fmt(b);
+    });
+    var sec = { s1: rows[1], s2: rows[4] };
+    var sum1 = +rows[2].dataset.b + +rows[3].dataset.b, sum2 = +rows[5].dataset.b;
+    var cells = [[rows[1], sum1], [rows[4], sum2], [rows[0], +rows[1].dataset.b + +rows[4].dataset.b]];
+    cells.forEach(function (c) {
+      var over = c[1] > +c[0].dataset.b + 0.005;
+      c[0].querySelector('[data-s]').innerHTML = WF.fmt(c[1]) + ' €' + (over ? ' <b>– premašuje budžet za ' + WF.fmt(c[1] - +c[0].dataset.b) + ' €</b>' : '');
+      if (over) msgs.push('Zbroj nižih razina (' + WF.fmt(c[1]) + ' €) premašuje budžet jedinice „' + c[0].children[1].textContent + '“ (' + WF.fmt(+c[0].dataset.b) + ' €).');
+    });
+    document.getElementById('d-bud').textContent = WF.fmt(+rows[0].dataset.b) + ' €';
+    document.getElementById('msgs').innerHTML = msgs.map(function (t) { return '<div class="wf-alert">' + t + ' Preraspodjelu evidentira HR uz odluku Uprave.</div>'; }).join('');
+  }
+  document.getElementById('bud').addEventListener('input', budgets);
+  box.addEventListener('click', function (e) { var b = e.target.closest('[data-rm]'); if (b) { apoeni.splice(+b.dataset.rm, 1); drawApoeni(); } });
+  document.getElementById('dodaj-apoen').addEventListener('click', function () {
+    var v = parse(document.getElementById('novi').value), er = document.getElementById('apoen-err');
+    if (!v || v <= 0) { er.innerHTML = '<span class="wf-error">Upišite iznos veći od 0.</span>'; return; }
+    if (apoeni.indexOf(v) !== -1) { er.innerHTML = '<span class="wf-error">Taj iznos već postoji.</span>'; return; }
+    apoeni.push(v); er.textContent = ''; document.getElementById('novi').value = ''; drawApoeni();
+  });
+  document.getElementById('dodaj-rm').addEventListener('click', function () {
+    var inp = document.getElementById('nrm'), v = inp.value.trim(); if (!v) return;
+    var tb = document.querySelector('#kljucna tbody'), n = tb.children.length + 1;
+    var tr = document.createElement('tr'); tr.innerHTML = '<td>' + n + '</td><td></td><td>dodao HR</td><td class="num">0</td>'; tr.children[1].textContent = v; tb.appendChild(tr);
+    document.getElementById('d-rm').textContent = n; inp.value = '';
+  });
+  function go() { drawApoeni(); budgets(); }
+  if (window.WF) go(); else document.addEventListener('DOMContentLoaded', go);
+})();
+</script>
+</body>
+</html>

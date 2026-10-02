@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F1.2 Moji zaposlenici – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F1.2">
+<main>
+  <h1 class="wf-h1">Moji zaposlenici – godišnja nagrada</h1>
+  <p class="wf-sub">Ciklus 2026. · odjel Projekt tehnologije · unos prijedloga 2. 11. – 27. 11. 2026. · odobravanje do 11. 12. 2026.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Rukovoditelj za svoj odjel. Član Uprave vidi isti ekran za svoje direktno podređene <span class="wf-p">P7</span>.</dd>
+      <dt>Čemu služi</dt><dd>Pregled budžeta odjela i statusa po zaposleniku; ulaz u obrazac za procjenu (F1.3).</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Budžet odjela prikazuje dodijeljeno, rezervirano (prijedlozi u postupku), iskorišteno (odobreno) i raspoloživo; stanje se ažurira pri svakom odobravanju i odbijanju. Odbijeni i vraćeni prijedlog ne troši budžet.</li>
+        <li>Za koga rukovoditelj ne unese razinu, taj nije predložen: bez posebnog statusa i bez obaveznog razloga (Lucija Grgić, Ema Tomić).</li>
+        <li>Ocjene koje daju razinu 1 ili 2 (faktor 0) znače da zaposlenik nema pravo na nagradu; sustav upozorava rukovoditelja i prijedlog se ne predaje <span class="wf-p">N5</span>.</li>
+        <li>Spremi čuva unos (vidi ga samo rukovoditelj). Predaj na odobrenje zaključava unos i šalje ga HR-u na formalnu provjeru, zatim odobravatelju najviše razine.</li>
+        <li>Predaja se blokira ako bi prijedlog premašio raspoloživi budžet <span class="wf-p">P11</span> ili ako nedostaje obavezni podatak (ocjena, opis, 2–3 primjera, obrazloženje).</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li>Predaja je pojedinačna, s obrasca (F1.3), za svakog zaposlenika posebno <span class="wf-p" title="NOVO: Predaja na odobrenje – pojedinačno za svakog zaposlenika (s obrasca) ili za sve spremljene prijedloge odjednom? Software_final govori o provjeri „za sve zaposlenike za koje je predložena nagrada“, a Specifikacija o pojedinačnom odobravanju i odbijanju. Wireframe pretpostavlja pojedinačnu predaju s obrasca; varijanta „odjednom“ vidi se u stanju ekrana.">N20</span>. Razlog: odobravanje i odbijanje su pojedinačni, a kod predaje svih odjednom jedan neispravan prijedlog (npr. Filip Matić) zaustavio bi ostale.</li>
+        <li>Datum i sat zadnje izmjene i „kod koga je“ prijedlog su naš prijedlog prikaza <span class="wf-p">prijedlog</span>.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="redovno" class="is-active">Predaja pojedinačno, s obrasca (zadano)</button>
+    <button type="button" data-wf-tab="odjednom">Varijanta N20: predaja svih spremljenih odjednom</button>
+  </div>
+
+  <!-- budžet odjela -->
+  <div class="wf-card">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <div class="wf-h3">Budžet odjela Projekt tehnologije za godišnju nagradu</div>
+      <div class="wf-muted text-xs">25.000,00 € (9,74 % godišnje mase bruto plaća) <span class="wf-p">N1</span></div>
+    </div>
+    <div class="wf-grid grid-cols-2 md:grid-cols-4 my-2">
+      <div><div class="wf-muted text-xs">Dodijeljeno</div><div class="num text-left font-bold">25.000,00 €</div></div>
+      <div><div class="wf-muted text-xs">Rezervirano (u postupku)</div><div class="num text-left font-bold">14.660,00 €</div><div class="wf-muted text-xs">Marija 8.960 + Nina 1.200 + Tena 4.500</div></div>
+      <div><div class="wf-muted text-xs">Iskorišteno (odobreno)</div><div class="num text-left font-bold">6.630,00 €</div><div class="wf-muted text-xs">Karlo</div></div>
+      <div><div class="wf-muted text-xs">Raspoloživo</div><div class="num text-left font-bold">3.710,00 €</div></div>
+    </div>
+    <div class="wf-meter"><span class="used" style="width:26.52%"></span><span class="res" style="width:58.64%"></span></div>
+    <div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div>
+  </div>
+
+  <div class="wf-alert mt-4">Dario Vuković: ocjene 2–2–3 daju razinu učinka 1 (faktor 0). Zaposlenik nema pravo na godišnju nagradu i ne predlaže se; sustav je o tome automatski obavijestio rukovoditelja e-mailom. <span class="wf-p">N5</span></div>
+
+  <div class="wf-info" data-wf-panel="stanje:odjednom">
+    <div class="wf-h3">Varijanta N20: predaja svih spremljenih odjednom</div>
+    <p>Prije predaje sustav provjerava jesu li za sve zaposlenike za koje je predložena nagrada uneseni svi obvezni podaci. Jedan neispravan prijedlog zaustavlja predaju svih.</p>
+    <div class="wf-actions mt-2">
+      <button type="button" class="wf-btn-primary" data-wf-open="dlg-sve">Predaj na odobrenje (sve spremljene)</button>
+      <span class="wf-help">U ovoj varijanti gumb stoji iznad tablice; pojedinačni gumb na obrascu ne postoji.</span>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between gap-2 mt-4 mb-2">
+    <h2 class="wf-h2 mb-0">Zaposlenici odjela (9)</h2>
+    <button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Podaci su ponovno učitani.">Osvježi</button>
+  </div>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr>
+        <th>Zaposlenik</th><th style="min-width:210px">Radno mjesto</th><th>Stupanj složenosti</th><th class="num">Bruto plaća (€)</th><th>Ocjene K–U–D</th><th class="num">Razina</th><th class="num">Iznos nagrade (€)</th><th>Status</th><th>Kod koga je</th><th>Radnja</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="wf-name">Marija Perić</td><td>Inženjer procesa u odjelu Projekt tehnologije (ključno ekspertno)</td><td>I5</td><td class="num">3.200,00</td><td>4–4–4</td><td class="num">6</td><td class="num">8.960,00</td>
+          <td><span class="wf-status">HR provjereno</span></td><td>Marko Kovačević (direktor)</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a><div class="wf-help">samo za čitanje</div></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Ivan Božić</td><td>Tehnolog</td><td>I6</td><td class="num">2.450,00</td><td>3–3–4</td><td class="num">4</td><td class="num">2.205,00</td>
+          <td><span class="wf-status is-draft">Spremljeno</span></td><td>Ivana Horvat</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a><div class="wf-help">stane u raspoloživo</div></td>
+        </tr>
+        <tr class="wf-disabled-row">
+          <td class="wf-name">Lucija Grgić</td><td>Tehnolog</td><td>I7</td><td class="num">1.800,00</td><td>–</td><td class="num">–</td><td class="num">–</td>
+          <td>nije predložena</td><td>–</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a></td>
+        </tr>
+        <tr class="is-error">
+          <td class="wf-name">Filip Matić</td><td>Tehnolog</td><td>I6</td><td class="num">2.700,00</td><td>4–3–4</td><td class="num">5</td>
+          <td class="num">4.590,00<div class="wf-error">ne stane u raspoloživo (3.710,00) <span class="wf-p">P11</span></div></td>
+          <td><span class="wf-status is-back">Vraćeno na doradu</span><span class="wf-at">HR: nedostaju konkretni primjeri</span></td><td>Ivana Horvat</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a></td>
+        </tr>
+        <tr class="wf-disabled-row">
+          <td class="wf-name">Ema Tomić</td><td>Tehnolog</td><td>I8</td><td class="num">1.300,00</td><td>–</td><td class="num">–</td><td class="num">–</td>
+          <td>nije predložena</td><td>–</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Karlo Radić</td><td>Senior tehnolog</td><td>I5</td><td class="num">3.900,00</td><td>4–3–4</td><td class="num">5</td><td class="num">6.630,00</td>
+          <td><span class="wf-status is-done">Odobreno</span></td><td>–</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a><div class="wf-help">zaključano, mijenja samo HR <span class="wf-p">P9</span></div></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Nina Šarić</td><td>Referent pripreme proizvodnje</td><td>I7</td><td class="num">2.000,00</td><td>3–3–3</td><td class="num">3</td><td class="num">1.200,00</td>
+          <td><span class="wf-status">Poslano HR-u</span></td><td>HR</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a><div class="wf-help">samo za čitanje</div></td>
+        </tr>
+        <tr class="is-error">
+          <td class="wf-name">Dario Vuković</td><td>Tehnolog</td><td>I7</td><td class="num">1.950,00</td><td>2–2–3</td><td class="num">1</td>
+          <td class="num">0,00<div class="wf-error">razina 1, nema pravo <span class="wf-p">N5</span></div></td>
+          <td>nije predložen <span class="wf-p">N5</span></td><td>–</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Tena Kolar</td><td>Tehnolog</td><td>I7</td><td class="num">2.100,00</td><td>4–4–4</td><td class="num">6</td>
+          <td class="num">4.500,00<div class="wf-help">limit primijenjen</div></td>
+          <td><span class="wf-status">Poslano HR-u</span></td><td>HR</td>
+          <td><a class="wf-btn wf-btn-sm" href="F1-03-obrazac-procjene.html">Otvori obrazac</a><div class="wf-help">samo za čitanje</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-2">Sivi redovi: zaposlenik nije predložen (nije unesena razina); nema statusa ni razloga. Redak Filipa Matića: prijedlog je vraćen na doradu, a i dorađen ne stane u raspoloživi budžet; predaju bi omogućila tek HR iznimka nakon odluke Uprave (ekran F1.5).</p>
+
+  <dialog class="wf-dialog" id="dlg-sve">
+    <div class="wf-dialog-head">Predaj na odobrenje – sve spremljene <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Provjera obaveznih podataka prije predaje:</p>
+      <div class="wf-table-wrap mt-2">
+        <table class="wf-table">
+          <thead><tr><th>Zaposlenik</th><th class="num">Iznos (€)</th><th>Rezultat provjere</th></tr></thead>
+          <tbody>
+            <tr><td class="wf-name">Ivan Božić</td><td class="num">2.205,00</td><td>u redu</td></tr>
+            <tr class="is-error"><td class="wf-name">Filip Matić</td><td class="num">4.590,00</td><td>prekoračuje raspoloživi budžet za 880,00 € <span class="wf-p">P11</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="wf-block mt-3 mb-0">Predaja nije moguća dok se prijedlog Filipa Matića ne ispravi ili ne dobije HR iznimku. Ivan Božić ostaje nepredan. <span class="wf-p" title="NOVO: Predaja na odobrenje – pojedinačno za svakog zaposlenika (s obrasca) ili za sve spremljene prijedloge odjednom? Software_final govori o provjeri „za sve zaposlenike za koje je predložena nagrada“, a Specifikacija o pojedinačnom odobravanju i odbijanju. Wireframe pretpostavlja pojedinačnu predaju s obrasca; varijanta „odjednom“ vidi se u stanju ekrana.">N20</span></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Zatvori</button>
+      <button type="button" class="wf-btn-primary" disabled>Predaj na odobrenje</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

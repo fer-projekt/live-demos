@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F3.3 Fondovi stimulacija – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F3.3">
+<main>
+  <h1 class="wf-h1">Fondovi stimulacija</h1>
+  <p class="wf-sub">Godišnji fond po odjelu · razdoblje 1. 4. 2026. – 31. 3. 2027.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator. Fond unosi i korigira samo HR; rukovoditelji i odobravatelji vide iznose na svojim ekranima (F3.1, F3.2).</dd>
+      <dt>Čemu služi</dt><dd>Pregled i unos godišnjeg fonda stimulacija po odjelu te evidencija iznimnih korekcija. Fond se unosi ručno na početku razdoblja.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Jedan godišnji fond po odjelu, od 1. travnja do 31. ožujka. Visinu određuje Uprava kao postotak ukupnog mjesečnog fonda plaća (osnova); HR iznos upisuje ručno.</li>
+        <li>Fond se u pravilu ne mijenja tijekom godine. Neiskorišteni dio ne prenosi se u sljedeće razdoblje.</li>
+        <li>Iznimna korekcija je moguća samo kad zaposleniku prestane pripravnički status: od mjeseca promjene do kraja razdoblja, razmjerno, po 2,5 % njegove mjesečne bruto plaće.</li>
+        <li>Promjena plaće zaposlenika odmah vrijedi u svim modulima, ali ne mijenja već određeni fond.</li>
+        <li>Svaki unos i korekcija fonda bilježe se u tragu izmjena (tko, kada, što).</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p" title="NOVO: Korekcija fonda zbog prestanka pripravničkog statusa – računa li je sustav sam ili je HR unosi ručno? Wireframe pretpostavlja da je HR pokreće dijalogom, a sustav izračuna iznos po formuli iz Specifikacije.">N40</span> Korekciju pokreće HR; sustav predlaže iznos (2,5 % × bruto plaća × broj mjeseci) koji HR potvrđuje.</li>
+        <li><span class="wf-p">prijedlog</span> Odjeli Razvoj proizvodnje (fond 9.600,00 €, 60 % od 16.000,00 €) i Montaža SET (13.200,00 €, 55 % od 24.000,00 €) su izmišljeni; postotak osnove može se razlikovati po odjelu.</li>
+        <li><span class="wf-p">prijedlog</span> Stupac „Rezervirano“ prikazuje prijedloge u postupku, jer zajednička pravila budžeta traže dodijeljeno, rezervirano, iskorišteno i raspoloživo.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="prije" class="is-active">Bez korekcija</button>
+    <button type="button" data-wf-tab="poslije">Korekcija Eme Tomić primijenjena</button>
+  </div>
+
+  <div class="flex flex-wrap items-end gap-3 mb-3">
+    <div style="min-width:260px">
+      <label class="wf-label" for="razd">Razdoblje</label>
+      <select class="wf-select" id="razd"><option>2026./2027. (1. 4. 2026. – 31. 3. 2027.)</option><option>2025./2026. (zaključano)</option></select>
+    </div>
+    <div class="wf-actions ml-auto">
+      <button type="button" class="wf-btn" data-wf-open="dlg-fond">Dodaj fond odjela</button>
+      <button type="button" class="wf-btn" data-wf-open="dlg-korekcija">Dodaj korekciju</button>
+      <button type="button" class="wf-btn" data-wf-toast="Podaci su ponovno učitani.">Osvježi</button>
+    </div>
+  </div>
+
+  <div class="wf-table-wrap mb-3">
+    <table class="wf-table">
+      <thead><tr>
+        <th>Odjel</th><th>Rukovoditelj</th><th class="num">Mjesečni fond plaća (€)</th><th class="num">Osnova (%)</th><th class="num">Godišnji fond (€)</th>
+        <th class="num">Korekcije (€)</th><th class="num">Fond nakon korekcija (€)</th><th class="num">Iskorišteno (€)</th><th class="num">Rezervirano (€)</th><th class="num">Preostalo (€)</th><th>Radnja</th>
+      </tr></thead>
+      <tbody>
+        <tr class="is-selected">
+          <td class="wf-name">Projekt tehnologije</td><td class="whitespace-nowrap">Ivana Horvat</td><td class="num">21.400,00</td><td class="num">60,00 %</td><td class="num">12.840,00</td>
+          <td class="num"><span data-wf-panel="stanje:prije">0,00</span><span data-wf-panel="stanje:poslije">+130,00</span></td>
+          <td class="num"><span data-wf-panel="stanje:prije">12.840,00</span><span data-wf-panel="stanje:poslije">12.970,00</span></td>
+          <td class="num">5.027,50</td><td class="num">0,00</td>
+          <td class="num"><b><span data-wf-panel="stanje:prije">7.812,50</span><span data-wf-panel="stanje:poslije">7.942,50</span></b></td>
+          <td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-fond">Uredi</button></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Razvoj proizvodnje</td><td>Goran Šimić</td><td class="num">16.000,00</td><td class="num">60,00 %</td><td class="num">9.600,00</td>
+          <td class="num">0,00</td><td class="num">9.600,00</td><td class="num">3.870,00</td><td class="num">0,00</td><td class="num"><b>5.730,00</b></td>
+          <td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-fond">Uredi</button></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Montaža SET</td><td>Josip Jurić</td><td class="num">24.000,00</td><td class="num">55,00 %</td><td class="num">13.200,00</td>
+          <td class="num">0,00</td><td class="num">13.200,00</td><td class="num">5.150,00</td><td class="num">0,00</td><td class="num"><b>8.050,00</b></td>
+          <td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-fond">Uredi</button></td>
+        </tr>
+      </tbody>
+      <tfoot><tr><td colspan="4">Ukupno prikazane jedinice (uzorak)</td>
+        <td class="num">35.640,00</td>
+        <td class="num"><span data-wf-panel="stanje:prije">0,00</span><span data-wf-panel="stanje:poslije">+130,00</span></td>
+        <td class="num"><span data-wf-panel="stanje:prije">35.640,00</span><span data-wf-panel="stanje:poslije">35.770,00</span></td>
+        <td class="num">14.047,50</td><td class="num">0,00</td>
+        <td class="num"><span data-wf-panel="stanje:prije">21.592,50</span><span data-wf-panel="stanje:poslije">21.722,50</span></td><td></td></tr></tfoot>
+    </table>
+  </div>
+  <p class="wf-help mb-2">Osnova je postotak ukupnog mjesečnog fonda plaća odjela. Iskorišteno = odobreno; rezervirano = prijedlozi u postupku. Preostalo (raspoloživo) = fond nakon korekcija − iskorišteno − rezervirano. Projekt tehnologije prije korekcije: 12.840,00 − 5.027,50 − 0,00 = 7.812,50 €; nakon korekcije 12.970,00 − 5.027,50 = 7.942,50 €.</p>
+  <p class="wf-help mb-2">Rezervirano su samo prijedlozi u postupku (Poslano na odobrenje). Studeni 2026. je za sada Spremljeno (vidi ga samo rukovoditelj, F3.1), pa još ne rezervira fond <span class="wf-p">prijedlog</span>. Kad se predaju (F3.2), rezervirano postaje 1.522,50 € (Projekt tehnologije) i 420,00 € (Razvoj proizvodnje), a preostalo 6.290,00 € i 5.310,00 €; zbroj uzorka: rezervirano 1.942,50 €, preostalo 19.650,00 €.</p>
+  <p class="wf-help mb-4">Sektor Tehnologija (Projekt tehnologije + Razvoj proizvodnje): fond 22.440,00 €, iskorišteno 8.897,50 €, raspoloživo 13.542,50 €. Proizvodnja SET (Montaža SET): fond 13.200,00 €, iskorišteno 5.150,00 €, raspoloživo 8.050,00 €.</p>
+
+  <div class="wf-info">Neiskorišteni dio fonda ne prenosi se u sljedeće razdoblje: prijenos u 2027./2028. iznosi 0,00 € za sve odjele. Fond se ne mijenja ni kad se promijeni plaća zaposlenika; npr. povećanje plaće Marije Perić od 1. 4. 2027. ne mijenja fond za 2026./2027.</div>
+
+  <h2 class="wf-section-title">Korekcije fonda u razdoblju</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th>Datum unosa</th><th>Odjel</th><th>Zaposlenik</th><th>Razlog</th><th>Od mjeseca</th><th>Izračun</th><th class="num">Iznos (€)</th><th>Unio</th><th>Napomena</th></tr></thead>
+      <tbody>
+        <tr data-wf-panel="stanje:prije"><td colspan="9" class="wf-muted">Nema korekcija u ovom razdoblju.</td></tr>
+        <tr data-wf-panel="stanje:poslije"><td>30. 11. 2026.</td><td>Projekt tehnologije</td><td class="wf-name">Ema Tomić</td><td>Prestanak pripravničkog statusa</td><td>prosinac 2026.</td><td>2,5 % × 1.300,00 € = 32,50 € × 4 mjeseca</td><td class="num">130,00</td><td>Petra Novak</td><td>Pripravnički status prestaje 1. 12. 2026.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-korekcija">
+    <div class="wf-dialog-head">Dodaj korekciju fonda <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-alert">Korekcija je iznimna: moguća samo kad zaposleniku prestane pripravnički status. Fond se u pravilu ne mijenja tijekom godine.</div>
+      <div class="wf-field"><label class="wf-label">Odjel</label><span class="wf-locked is-block">Projekt tehnologije</span></div>
+      <div class="wf-field"><label class="wf-label" for="k-zap">Zaposlenik</label>
+        <select class="wf-select" id="k-zap"><option>Ema Tomić – Pripravnik, bruto plaća 1.300,00 €</option></select>
+        <div class="wf-help">Na popisu su samo zaposlenici kojima je pripravnički status prestao ili prestaje.</div></div>
+      <div class="wf-field"><label class="wf-label" for="k-mj">Od mjeseca (prvi mjesec nakon prestanka pripravničkog statusa)</label>
+        <select class="wf-select" id="k-mj">
+          <option value="4" selected>prosinac 2026.</option><option value="3">siječanj 2027.</option><option value="2">veljača 2027.</option><option value="1">ožujak 2027.</option>
+        </select></div>
+      <div class="wf-grid grid-cols-3 mb-3">
+        <div><div class="wf-label">Postotak mjesečne bruto plaće</div><span class="wf-locked is-block">2,5 %</span></div>
+        <div><div class="wf-label">Mjesečno</div><span class="wf-calc is-block" id="k-mjes">32,50 €</span></div>
+        <div><div class="wf-label">Ukupno do 31. 3. 2027. (<span id="k-n">4</span> mj.)</div><span class="wf-calc is-block" id="k-uk">130,00 €</span></div>
+      </div>
+      <div class="wf-field"><label class="wf-label wf-req" for="k-nap">Napomena</label><textarea class="wf-textarea" id="k-nap">Pripravnički status prestaje 1. 12. 2026.</textarea></div>
+      <p class="wf-help">Primjer iz podataka: 2,5 % × 1.300,00 € × 4 mjeseca = 130,00 €. Korekcija povećava fond odjela za taj iznos <span class="wf-p" title="NOVO: Korekcija fonda zbog prestanka pripravničkog statusa – računa li je sustav sam ili je HR unosi ručno?">N40</span>.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Korekcija je spremljena i zabilježena u tragu izmjena.">Spremi</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-fond">
+    <div class="wf-dialog-head">Fond odjela za 2026./2027. <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-alert">Fond se u pravilu ne mijenja tijekom godine. Izmjena mora imati obrazloženje i ostaje u tragu izmjena.</div>
+      <div class="wf-field"><label class="wf-label">Odjel</label><span class="wf-locked is-block">Projekt tehnologije</span></div>
+      <div class="wf-grid grid-cols-3 mb-3">
+        <div><label class="wf-label" for="f-masa">Ukupni mjesečni fond plaća (€)</label><span class="wf-locked is-block" id="f-masa">21.400,00</span><div class="wf-help">iz podataka o zaposlenicima</div></div>
+        <div><label class="wf-label wf-req" for="f-pct">Osnova (%) prema odluci Uprave</label><input class="wf-input" id="f-pct" value="60,00"></div>
+        <div><div class="wf-label">Godišnji fond (€)</div><span class="wf-calc is-block" id="f-iznos">12.840,00</span></div>
+      </div>
+      <div class="wf-field"><label class="wf-label wf-req" for="f-ob">Obrazloženje izmjene</label><textarea class="wf-textarea" id="f-ob" placeholder="Odluka Uprave, datum, tko je dostavio."></textarea></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Fond je spremljen.">Spremi</button>
+    </div>
+  </dialog>
+</main>
+<script>
+(function () {
+  function start() {
+    var $ = function (id) { return document.getElementById(id); };
+    $('k-mj').addEventListener('change', function () {
+      var n = +this.value, m = 0.025 * 1300;
+      $('k-n').textContent = n; $('k-mjes').textContent = WF.fmt(m) + ' €'; $('k-uk').textContent = WF.fmt(m * n) + ' €';
+    });
+    $('f-pct').addEventListener('input', function () {
+      var p = parseFloat(this.value.replace(',', '.')) || 0;
+      $('f-iznos').textContent = WF.fmt(21400 * p / 100);
+    });
+  }
+  if (window.WF) start(); else document.addEventListener('DOMContentLoaded', start);
+})();
+</script>
+</body>
+</html>

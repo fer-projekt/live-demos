@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F4.6 Izvoz i izvještaji kvartalnih nagrada – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F4.6">
+<main>
+  <h1 class="wf-h1">Izvoz i izvještaji – kvartalne nagrade</h1>
+  <p class="wf-sub">Izvoz za obračun plaća (HRNET) i izvještaji po kvartalu</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Izvoz: HR administrator. Izvještaji: svatko unutar svoje uloge i nadležnosti; zbirni izvještaj za cijelu tvrtku imaju HR i predsjednik Uprave.</dd>
+      <dt>Čemu služi</dt><dd>Kartica <b>Izvoz</b> preuzima postojeći ekran „Izvoz Kvartalnice“ (lista kvartala, Zaključano, Izvezi u CSV za HR, Izvezi u CSV za Upravu, Osvježi listu). Kartica <b>Izvještaji</b> daje presjeke po odobravatelju, rukovoditelju, zaposleniku, godini i kvartalu.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Izvoz za HRNET: OIB, SAP šifra, prezime, ime, bruto plaća za obračun, konačni postotak, konačni bruto iznos nagrade, OIB nadređenog.</li>
+        <li>Izvoz je moguć kad je kvartal odobren <span class="wf-p">prijedlog</span>; nakon izvoza prijedlog dobiva status „Izvezeno za obračun“. Izvoz se bilježi u tragu izmjena.</li>
+        <li>Zaključani kvartal se naknadnim promjenama više ne mijenja; zaključavanje i otključavanje je u A8.</li>
+        <li>Izvještaj: bruto plaća, prisutnost, procjena, disciplinska mjera, iznos prije prisutnosti, konačni iznos, status, napomene i podaci o odobrenju. Izvoz u Excel (i CSV).</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">P29</span> Format izvoza za HRNET: Excel i CSV; „Izvezi u CSV za Upravu“ zadržan kao na postojećem ekranu, sadržaj datoteke za Upravu nije opisan.</li>
+        <li><span class="wf-p" title="NOVO: Izvoz kvartalnih nagrada za HRNET – uključuju li se i zaposlenici s konačnim iznosom 0,00 € (disciplinska mjera, prisutnost do 30 %)? Wireframe pretpostavlja da, radi potpunosti evidencije.">N48</span> U izvoz ulaze i zaposlenici s konačnim iznosom 0,00 € (disciplinska mjera, prisutnost do 30 %).</li>
+        <li><span class="wf-p" title="NOVO: Je li „Maksimalni koeficijent“ s postojećeg ekrana Izvoz Kvartalnice isto što i postotak Uprave? Vrijednosti se ne slažu (100 naspram 70 na ekranu unosa).">N42</span> „Maksimalni koeficijent“ s postojećeg ekrana (uz gumb Ažuriraj) ovdje je zamijenjen stupcem „Postotak Uprave“ (uređuje se u F4.1).</li>
+        <li><span class="wf-p">prijedlog</span> OIB-ovi nadređenih (Ivana Horvat 45678901234, Goran Šimić 56789012345) i podaci Gorana Šimića izmišljeni su; datoteka obuhvaća sve odjele.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="kartica">
+    <button type="button" data-wf-tab="izvoz" class="is-active">Izvoz</button>
+    <button type="button" data-wf-tab="izvjestaji">Izvještaji</button>
+  </div>
+
+  <!-- ===== IZVOZ ===== -->
+  <div data-wf-panel="kartica:izvoz">
+    <div class="wf-actions mb-3"><button type="button" class="wf-btn" data-wf-toast="Lista je osvježena.">Osvježi listu</button></div>
+    <div class="wf-table-wrap mb-4">
+      <table class="wf-table">
+        <thead><tr><th>ID (kvartal) ↓</th><th>Zaključano</th><th class="num">Postotak Uprave</th><th class="num">Konačni iznos (€)</th><th>Status</th><th>Izvoz</th></tr></thead>
+        <tbody>
+          <tr><td class="wf-mono">2026-Q1</td><td><label class="wf-check"><input type="checkbox" checked aria-label="Zaključano 2026-Q1"> da</label></td><td class="num">65 %</td><td class="num wf-muted">–</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u Excel</button></div></td></tr>
+          <tr><td class="wf-mono">2026-Q2</td><td><label class="wf-check"><input type="checkbox" checked aria-label="Zaključano 2026-Q2"> da</label></td><td class="num">70 %</td><td class="num wf-muted">–</td><td><span class="wf-status is-done">Izvezeno za obračun</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm">Izvezi u Excel</button></div></td></tr>
+          <tr class="is-selected"><td class="wf-mono">2026-Q3</td><td><label class="wf-check"><input type="checkbox" aria-label="Zaključano 2026-Q3"> ne</label></td><td class="num">75 % <a class="wf-link text-xs" href="F4-01-postotak-uprave.html">uredi</a></td><td class="num">14.674,69</td>
+            <td><span class="wf-status is-done">Odobreno</span><span class="wf-at">spremno za izvoz</span></td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn-primary wf-btn-sm" data-wf-open="dlg-izvoz">Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-izvoz">Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-izvoz">Izvezi u Excel</button></div></td></tr>
+          <tr><td class="wf-mono">2026-Q4</td><td><label class="wf-check"><input type="checkbox" disabled aria-label="Zaključano 2026-Q4"> ne</label></td><td class="num wf-muted">nije određen</td><td class="num wf-muted">–</td><td class="wf-muted">kvartal nije završen</td>
+            <td><div class="wf-actions"><button type="button" class="wf-btn wf-btn-sm" disabled>Izvezi u CSV za HR</button><button type="button" class="wf-btn wf-btn-sm" disabled>Izvezi u CSV za Upravu</button><button type="button" class="wf-btn wf-btn-sm" disabled>Izvezi u Excel</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="wf-section-title">Pregled stupaca datoteke za HRNET <span class="wf-p">P29</span></h2>
+    <div class="flex flex-wrap items-end gap-3 mb-3">
+      <div style="min-width:200px"><label class="wf-label" for="pk">Kvartal</label><select class="wf-select" id="pk"><option>2026-Q3 (srpanj–rujan)</option></select></div>
+      <div class="pb-1 wf-muted">11 redaka, ukupno 14.674,69 € (Projekt tehnologije 10.320,00 €, Razvoj proizvodnje 4.354,69 €)</div>
+    </div>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>OIB</th><th>SAP šifra</th><th>Prezime</th><th>Ime</th><th class="num">Bruto plaća za obračun (€)</th><th class="num">Konačni postotak</th><th class="num">Konačni bruto iznos (€)</th><th>OIB nadređenog</th></tr></thead>
+        <tbody id="hr-tb"></tbody>
+        <tfoot><tr><td colspan="6">Ukupno</td><td class="num" id="hr-sum"></td><td></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="wf-help mt-1">Retci s 0,00 € ulaze u izvoz <span class="wf-p" title="NOVO: Izvoz kvartalnih nagrada za HRNET – uključuju li se i zaposlenici s konačnim iznosom 0,00 €?">N48</span>. Konačni postotak = % Uprave × ukupna procjena × primijenjeni postotak prisutnosti (0 uz disciplinsku mjeru). Iznos se računa iz neokruglog postotka, pa se konačni iznos može za nekoliko centi razlikovati od bruto plaće × prikazani postotak (npr. Ivan Božić: 69,38 % × 2.450,00 € = 1.699,81 €, a izračun daje 1.699,69 €).</p>
+  </div>
+
+  <!-- ===== IZVJEŠTAJI ===== -->
+  <div data-wf-panel="kartica:izvjestaji">
+    <div class="wf-filters">
+      <div><label class="wf-label" for="fo">Odobravatelj</label><select class="wf-select" id="fo"><option>Svi</option><option>Marko Kovačević</option><option>Luka Knežević</option><option>Ana Babić</option></select></div>
+      <div><label class="wf-label" for="fr">Rukovoditelj</label><select class="wf-select" id="fr"><option>Svi</option><option>Ivana Horvat</option><option>Goran Šimić</option><option>Josip Jurić</option></select></div>
+      <div><label class="wf-label" for="fz">Zaposlenik</label><select class="wf-select" id="fz"><option>Svi</option><option>Marija Perić</option><option>Karlo Radić</option><option>Filip Matić</option></select></div>
+      <div><label class="wf-label" for="fg">Godina</label><select class="wf-select" id="fg"><option>2026</option><option>2027</option></select></div>
+      <div><label class="wf-label" for="fk">Kvartal</label><select class="wf-select" id="fk"><option>Q3</option><option>Q2</option><option>Q1</option><option>Svi kvartali</option></select></div>
+      <button type="button" class="wf-btn" data-wf-toast="Prikaz je osvježen prema filtrima.">Prikaži</button>
+      <button type="button" class="wf-btn-primary ml-auto" data-wf-toast="Preuzimanje Excela s izvještajem.">Izvezi u Excel</button>
+    </div>
+    <p class="wf-help mb-2">Prikazan je 2026-Q3 kako će izgledati nakon odobrenja. Izvještaj vidi samo zaposlenike unutar vaše nadležnosti; HR i predsjednik Uprave vide cijelu tvrtku.</p>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Kvartal</th><th>Rukovoditelj</th><th>Zaposlenik</th><th class="num">Bruto plaća (€)</th><th class="num">Prisutnost / fond sati</th><th class="num">Procjena</th><th>Disciplinska mjera</th><th class="num">Iznos prije prisutnosti (€)</th><th class="num">Konačni iznos (€)</th><th>Status</th><th style="min-width:240px">Napomene</th><th>Odobrio</th><th>Odobreno</th></tr></thead>
+        <tbody id="iz-tb"></tbody>
+        <tfoot><tr><td colspan="8">Ukupno</td><td class="num" id="iz-sum"></td><td colspan="4"></td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-izvoz">
+    <div class="wf-dialog-head">Izvoz za obračun – 2026-Q3 <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Izvozite odobrene kvartalne nagrade za <b>2026-Q3</b> (11 zaposlenika, 14.674,69 €). Nakon izvoza kvartal dobiva status <span class="wf-status is-done">Izvezeno za obračun</span>. Izvoz se bilježi u tragu izmjena, a obavijest o uspješnom ili neuspješnom izvozu šalje se prema pravilima obavijesti.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Izvoz je uspješan. Status: Izvezeno za obračun.">Izvezi</button>
+    </div>
+  </dialog>
+</main>
+
+<script>
+(function () {
+  var UPR = 75, FOND = 520, PON = [40, 30, 15, 15];
+  // ruk, OIB ruk, ime, prezime, OIB, SAP, bruto, [K,Q,U,S], prisutnost, disc, napomena
+  var D = [
+    ['Ivana Horvat', '45678901234', 'Marija', 'Perić', '31415926535', '10234', 3200, [100, 100, 100, 100], 520, 0, ''],
+    ['Ivana Horvat', '45678901234', 'Ivan', 'Božić', '27182818284', '10457', 2450, [100, 75, 100, 100], 512, 0, 'Rukovoditelj: količina posla niža zbog preraspodjele na projekt nove peći.'],
+    ['Ivana Horvat', '45678901234', 'Lucija', 'Grgić', '16180339887', '11802', 1800, [100, 75, 100, 100], 364, 0, 'Rukovoditelj: u timu od ožujka; količina posla još nije na razini iskusnijih kolega.'],
+    ['Ivana Horvat', '45678901234', 'Filip', 'Matić', '14142135623', '10671', 2700, [100, 100, 0, 100], 520, 0, 'Rukovoditelj: urednost 0 %, ponovljena odstupanja od internih pravila.'],
+    ['Ivana Horvat', '45678901234', 'Ema', 'Tomić', '17320508075', '11915', 1300, [100, 100, 100, 100], 234, 0, 'Prisutnost 45,00 % → primijenjeno 50 %.'],
+    ['Ivana Horvat', '45678901234', 'Karlo', 'Radić', '22360679774', '10088', 3900, [100, 100, 100, 100], 504, 1, 'Disciplinska mjera u kvartalu: nagrada 0,00 €.'],
+    ['Ivana Horvat', '45678901234', 'Nina', 'Šarić', '26457513110', '10912', 2000, [100, 100, 100, 100], 520, 0, ''],
+    ['Ivana Horvat', '45678901234', 'Dario', 'Vuković', '28284271247', '11340', 1950, [100, 100, 100, 100], 146, 0, 'Prisutnost 28,08 % → primijenjeno 0 %.'],
+    ['Ivana Horvat', '45678901234', 'Tena', 'Kolar', '33166247903', '11021', 2100, [100, 100, 100, 100], 520, 0, ''],
+    ['Goran Šimić', '56789012345', 'Ivona', 'Jakšić', '23606797749', '10560', 3400, [100, 100, 100, 100], 520, 0, ''],
+    ['Goran Šimić', '56789012345', 'Bruno', 'Kralj', '12020569031', '10777', 2500, [100, 100, 100, 75], 500, 0, 'Rukovoditelj: suradnja 75 %, kašnjenje izvještaja ispitivanja.']
+  ];
+  function r2(x) { return Math.round((x + 1e-9) * 100) / 100; }
+  function pf(x) { var s = WF.fmt(x, 2); return s.indexOf(',') > -1 ? s.replace(/0+$/, '').replace(/,$/, '') : s; }
+  function prag(p) { return p <= 30 ? 0 : p <= 50 ? 50 : p <= 75 ? 75 : 100; }
+  function start() {
+    var hr = '', iz = '', sum = 0;
+    D.forEach(function (r) {
+      var proc = 0; r[7].forEach(function (v, k) { proc += PON[k] * v / 100; });
+      var pp = r2(r[8] / FOND * 100), pr = prag(pp), nakon = r2(r2(r[6] * UPR / 100) * proc / 100);
+      var kon = r[9] ? 0 : r2(nakon * pr / 100), pct = r[9] ? 0 : r2(UPR * proc / 100 * pr / 100);
+      sum += kon;
+      hr += '<tr><td class="wf-mono">' + r[4] + '</td><td class="wf-mono">' + r[5] + '</td><td>' + r[3] + '</td><td>' + r[2] + '</td><td class="num">' + WF.fmt(r[6]) + '</td><td class="num">' + WF.fmt(pct) + ' %</td><td class="num">' + WF.fmt(kon) + '</td><td class="wf-mono">' + r[1] + '</td></tr>';
+      iz += '<tr><td>2026-Q3</td><td>' + r[0] + '</td><td class="wf-name">' + r[2] + ' ' + r[3] + '</td><td class="num">' + WF.fmt(r[6]) + '</td><td class="num">' + r[8] + ' / ' + FOND + '<br><span class="wf-at">' + WF.fmt(pp) + ' % → ' + pr + ' %</span></td>' +
+        '<td class="num">' + pf(proc) + ' %</td><td>' + (r[9] ? '<b>Da</b>' : 'Ne') + '</td><td class="num">' + WF.fmt(nakon) + '</td><td class="num"><b>' + WF.fmt(kon) + '</b></td>' +
+        '<td><span class="wf-status is-done">Odobreno</span></td><td>' + (r[10] || '<span class="wf-muted">–</span>') + '</td><td>Marko Kovačević</td><td>12. 10. 2026.</td></tr>';
+    });
+    document.getElementById('hr-tb').innerHTML = hr; document.getElementById('iz-tb').innerHTML = iz;
+    document.getElementById('hr-sum').textContent = WF.fmt(sum); document.getElementById('iz-sum').textContent = WF.fmt(sum);
+  }
+  if (window.WF) start(); else document.addEventListener('DOMContentLoaded', start);
+})();
+</script>
+</body>
+</html>

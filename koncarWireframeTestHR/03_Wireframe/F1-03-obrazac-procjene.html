@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F1.3 Obrazac za procjenu – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F1.3">
+<main>
+  <p class="text-xs mb-1"><a class="wf-link" href="F1-02-moji-zaposlenici.html">← Moji zaposlenici</a></p>
+  <h1 class="wf-h1">Obrazac za procjenu – godišnja nagrada</h1>
+  <p class="wf-sub">Ciklus 2026. · unos prijedloga 2. 11. – 27. 11. 2026. · procjena se odnosi na posljednjih 12 mjeseci</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Rukovoditelj, za svakog zaposlenika kojeg predlaže za godišnju nagradu. Član Uprave za svoje direktno podređene <span class="wf-p">P7</span>.</dd>
+      <dt>Čemu služi</dt><dd>Digitalna verzija klijentova obrasca „Obrazac za procjenu – Godišnja nagrada“: ocjene, opisna procjena, primjeri i obrazloženje; sustav računa razinu učinka i iznos.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Zaglavlje se puni samo iz podataka o zaposleniku i ciklusu; rukovoditelj unosi samo procjenu.</li>
+        <li>Ocjene: kvaliteta rada i radna učinkovitost 2–4, doprinos timu 3–4 <span class="wf-p">P12</span>. Razina se računa iz ocjena; rukovoditelj je ne bira <span class="wf-p">P14</span>.</li>
+        <li>Za svaki kriterij opisna procjena i 2–3 konkretna primjera; bez primjera i obrazloženja prijedlog se ne može predati.</li>
+        <li>Nagrada = ugovorena mjesečna bruto plaća × faktor razine, uz limit po stupnju složenosti (I8 i I7 4.500 €, I6 6.000 €, I5 i I4 12.000 €) <span class="wf-p">P13</span>.</li>
+        <li>Razina 1 ili 2: sustav upozorava rukovoditelja da zaposlenik nema pravo na nagradu <span class="wf-p">N5</span>.</li>
+        <li>Prekoračenje raspoloživog budžeta odjela blokira predaju; iznimku nakon odluke Uprave unosi samo HR <span class="wf-p">P11</span>.</li>
+        <li>Spremi čuva unos (vidi ga samo rukovoditelj). Predaj na odobrenje zaključava unos i šalje prijedlog u liniju: dodatni odobravatelj (ako ga odjel ima) → HR → odobravatelj najviše razine.</li>
+      </ul></dd>
+      <dt>Stanja</dt><dd>Okvir „Stanje ekrana“ puni obrazac primjerima iz izmišljenih podataka. Ocjene se mogu i ručno mijenjati – izračun i poruke se osvježe.</dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" id="scenarios">
+    <button type="button" data-sc="ivan" class="is-active">Ispravno (Ivan Božić)</button>
+    <button type="button" data-sc="dario">Razina 1 – nema pravo (Dario Vuković)</button>
+    <button type="button" data-sc="filip">Vraćeno na doradu + prekoračen budžet (Filip Matić)</button>
+    <button type="button" data-sc="tena">Primijenjen limit (Tena Kolar)</button>
+    <button type="button" data-sc="nedostaje">Nedostaju obavezni podaci</button>
+  </div>
+
+  <!-- status i linija odobravanja -->
+  <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mb-3">
+    <div>Status: <span class="wf-status is-draft" id="s-status">Spremljeno</span> <span class="wf-muted text-xs" id="s-at">zadnje spremanje 12. 11. 2026. u 14:32</span></div>
+  </div>
+  <ol class="wf-steps" aria-label="Linija odobravanja">
+    <li class="is-active">Ivana Horvat – predaje</li>
+    <li>HR – formalna provjera</li>
+    <li>Marko Kovačević – direktor, najviša razina</li>
+  </ol>
+
+  <div class="wf-info" id="hr-return" hidden>
+    <b>Vraćeno na doradu</b> – Petra Novak (HR), 18. 11. 2026. u 9:05<br>
+    Razlozi: <b>nedostaju konkretni primjeri</b><br>
+    Napomena HR-a: „Primjeri za radnu učinkovitost nisu mjerljivi – navesti konkretne zadatke, rokove ili brojke.“
+  </div>
+
+  <!-- zaglavlje -->
+  <h2 class="wf-section-title">Osnovni podaci <span class="wf-muted font-normal normal-case tracking-normal text-xs">– puni se samo</span></h2>
+  <div class="wf-grid md:grid-cols-2">
+    <dl class="wf-kv">
+      <dt>Odjel / organizacijska jedinica</dt><dd><span class="wf-locked">Projekt tehnologije</span></dd>
+      <dt>Rukovoditelj</dt><dd><span class="wf-locked">Ivana Horvat</span></dd>
+      <dt>Broj zaposlenih u odjelu</dt><dd><span class="wf-locked">9</span></dd>
+      <dt>Budžet za godišnju nagradu</dt><dd><span class="wf-locked">25.000,00 € (9,74 %)</span> <span class="wf-p">N1</span></dd>
+      <dt>Datum procjene</dt><dd><span class="wf-locked">12. 11. 2026.</span></dd>
+    </dl>
+    <dl class="wf-kv">
+      <dt>Ime i prezime zaposlenika</dt><dd><span class="wf-locked" id="h-name">Ivan Božić</span></dd>
+      <dt>Radno mjesto / grupa radnih mjesta</dt><dd><span class="wf-locked" id="h-rm">Tehnolog / Tehnologija</span></dd>
+      <dt>Ugovorena mjesečna bruto plaća</dt><dd><span class="wf-locked" id="h-pl">2.450,00 €</span></dd>
+      <dt>Stupanj složenosti</dt><dd><span class="wf-locked" id="h-st">I6</span> <span class="wf-muted text-xs" id="h-lim">najviši iznos nagrade 6.000,00 €</span></dd>
+    </dl>
+  </div>
+
+  <div class="wf-card mt-4">
+    <div class="wf-h3">Budžet odjela za godišnju nagradu</div>
+    <div class="wf-grid grid-cols-2 md:grid-cols-4 mb-2">
+      <div><div class="wf-muted text-xs">Dodijeljeno</div><div class="num text-left font-bold" id="b-dod">25.000,00 €</div></div>
+      <div><div class="wf-muted text-xs">Rezervirano (u postupku)</div><div class="num text-left font-bold" id="b-rez">14.660,00 €</div></div>
+      <div><div class="wf-muted text-xs">Iskorišteno (odobreno)</div><div class="num text-left font-bold" id="b-isk">6.630,00 €</div></div>
+      <div><div class="wf-muted text-xs">Raspoloživo</div><div class="num text-left font-bold" id="b-rasp">3.710,00 €</div></div>
+    </div>
+    <div class="wf-meter"><span class="used" id="m-isk" style="width:26.52%"></span><span class="res" id="m-rez" style="width:58.64%"></span></div>
+    <div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div>
+  </div>
+
+  <!-- 1. procjena -->
+  <h2 class="wf-section-title">1. Procjena rukovoditelja prema kriterijima (posljednjih 12 mjeseci)</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th style="min-width:180px">Kriterij</th><th style="min-width:300px">Razine ovladanosti poslom</th><th style="min-width:240px" class="wf-req">Procjena rukovoditelja (opisno)</th><th class="wf-req">Ocjena</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>Kvaliteta rada</b><div class="wf-muted text-xs mt-1">točnost, pouzdanost i dosljednost rezultata rada u standardnim i složenijim situacijama</div></td>
+          <td><ul class="wf-levels">
+            <li class="wf-muted"><b>1.</b>Kvaliteta rada je uredna i prihvatljiva; greške su rijetke i ispravljive uz povratnu informaciju. <i>(nije dopuštena)</i></li>
+            <li><b>2.</b>Stabilna i pouzdana kvaliteta rada; održava kvalitetu u uobičajenim radnim situacijama; dosljedno primjenjuje pravila struke i interne smjernice.</li>
+            <li><b>3.</b>Visoka razina kvalitete i točnosti; održava standarde i u složenim situacijama.</li>
+            <li><b>4.</b>Uzor u kvaliteti i točnosti; aktivno podiže razinu kvalitete kod drugih.</li>
+          </ul></td>
+          <td><textarea class="wf-textarea" rows="3">Točan i pouzdan; tehnološka dokumentacija bez većih ispravaka.</textarea></td>
+          <td><select class="wf-select" data-g="0" aria-label="Ocjena – kvaliteta rada"><option>2</option><option selected>3</option><option>4</option></select><div class="wf-help">2–4 <span class="wf-p">P12</span></div></td>
+        </tr>
+        <tr>
+          <td><b>Radna učinkovitost</b><div class="wf-muted text-xs mt-1">organizacija rada, tempo i pravovremeno izvršenje uz zadržanu kvalitetu</div></td>
+          <td><ul class="wf-levels">
+            <li class="wf-muted"><b>1.</b>Rad je organiziran i pouzdan; tempo je primjeren razini iskustva; još gradi sigurnost u upravljanju vremenom. <i>(nije dopuštena)</i></li>
+            <li><b>2.</b>Obavlja zadatke u očekivanom vremenu i ritmu; dobro upravlja prioritetima.</li>
+            <li><b>3.</b>Brz i dobro organiziran; učinkovito rješava veći obujam posla bez gubitka kvalitete.</li>
+            <li><b>4.</b>Preuzima dodatne zadatke i pomaže drugima bez usporavanja vlastitog rada; doprinosi učinkovitosti tima.</li>
+          </ul></td>
+          <td><textarea class="wf-textarea" rows="3">Brz i organiziran, rokove drži i kod većeg obujma posla.</textarea></td>
+          <td><select class="wf-select" data-g="1" aria-label="Ocjena – radna učinkovitost"><option>2</option><option selected>3</option><option>4</option></select><div class="wf-help">2–4</div></td>
+        </tr>
+        <tr>
+          <td><b>Doprinos timu</b><div class="wf-muted text-xs mt-1">dijeljenje znanja, suradnja i pozitivan utjecaj na rad i razvoj drugih; vrijedi za 3. i 4. razinu</div></td>
+          <td><ul class="wf-levels">
+            <li><b>3.</b>Dijeli znanje i pomaže kolegama u rješavanju stručnih pitanja.</li>
+            <li><b>4.</b>Proaktivno pruža razvojnu podršku kolegama; mentorira i jača stručnu razinu tima.</li>
+          </ul></td>
+          <td><textarea class="wf-textarea" rows="3">Mentor novim tehnolozima, aktivno dijeli znanje.</textarea></td>
+          <td><select class="wf-select" data-g="2" aria-label="Ocjena – doprinos timu"><option>3</option><option selected>4</option></select><div class="wf-help">3–4</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. primjeri -->
+  <h2 class="wf-section-title">2. Primjeri iz prakse prema ključnim kriterijima (navesti 2–3)</h2>
+  <div class="wf-grid lg:grid-cols-3">
+    <div class="wf-card">
+      <div class="wf-h3">I. Kvaliteta rada</div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 1</label><textarea class="wf-textarea" rows="2">Izradio tehnološke postupke za 14 narudžbi DT bez reklamacija iz proizvodnje (ožujak–rujan 2026.).</textarea></div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 2</label><textarea class="wf-textarea" rows="2">Uveo kontrolnu listu za provjeru sastavnica; ispravci su pali s 9 na 2 mjesečno.</textarea></div>
+      <div class="wf-field"><label class="wf-label">Primjer 3</label><textarea class="wf-textarea" rows="2"></textarea></div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">II. Radna učinkovitost</div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 1</label><textarea class="wf-textarea" rows="2">U lipnju preuzeo 6 dodatnih narudžbi kolegice na bolovanju i sve predao u roku.</textarea></div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 2</label><textarea class="wf-textarea" rows="2">Skratio pripremu dokumentacije za standardni DT s 3 na 2 radna dana.</textarea></div>
+      <div class="wf-field"><label class="wf-label">Primjer 3</label><textarea class="wf-textarea" rows="2"></textarea></div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">III. Doprinos timu</div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 1</label><textarea class="wf-textarea" rows="2">Mentor Luciji Grgić i Dariju Vukoviću tijekom uvođenja u posao (od ožujka 2026.).</textarea></div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 2</label><textarea class="wf-textarea" rows="2" data-miss>Održao internu radionicu o novom ERP modulu za 8 kolega.</textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label">Primjer 3</label><textarea class="wf-textarea" rows="2"></textarea></div>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">3. Obrazloženje prijedloga</h2>
+  <div class="wf-field">
+    <label class="wf-label wf-req" for="obr">Obrazloženje rukovoditelja</label>
+    <textarea class="wf-textarea" id="obr" rows="3" data-miss>U posljednjih 12 mjeseci stabilno iznad očekivanja; uz vlastite zadatke preuzeo je mentorstvo dvoje novih kolega i dodatne narudžbe bez pada kvalitete.</textarea>
+    <div class="wf-error" hidden>Obrazloženje je obavezno.</div>
+  </div>
+
+  <!-- 4. izračun -->
+  <h2 class="wf-section-title">4. Rezultat procjene i prijedlog iznosa</h2>
+  <div class="wf-card">
+    <div class="flex flex-wrap items-end gap-3">
+      <div><div class="wf-label">Kvaliteta rada</div><span class="wf-calc" id="c-g0">3</span></div>
+      <div><div class="wf-label">Radna učinkovitost</div><span class="wf-calc" id="c-g1">3</span></div>
+      <div><div class="wf-label">Doprinos timu</div><span class="wf-calc" id="c-g2">4</span></div>
+      <div class="pb-2">→</div>
+      <div><div class="wf-label">Prosjek ukupnih ocjena</div><span class="wf-calc" id="c-avg">3,33</span></div>
+      <div><div class="wf-label">Razina učinka</div><span class="wf-calc" id="c-lvl">4</span></div>
+      <div><div class="wf-label">Faktor <span class="wf-p" title="Faktore za ciklus određuje Uprava, a HR ih unosi (vrijednosti su primjer).">prijedlog</span></div><span class="wf-calc" id="c-fac">0,9</span></div>
+    </div>
+    <div class="flex flex-wrap items-end gap-3 mt-3">
+      <div><div class="wf-label">Osnovni iznos (plaća × faktor)</div><span class="wf-calc" id="c-base">2.205,00 €</span></div>
+      <div><div class="wf-label" id="c-limlabel">Najviši iznos za I6</div><span class="wf-calc" id="c-lim">6.000,00 €</span></div>
+      <div><div class="wf-label">Prijedlog iznosa godišnje nagrade</div><span class="wf-calc text-lg font-bold" id="c-amt">2.205,00 €</span></div>
+      <div><div class="wf-label">Raspoloživo nakon predaje</div><span class="wf-calc" id="c-after">1.505,00 €</span></div>
+    </div>
+  </div>
+
+  <div class="mt-3" id="msgs"></div>
+
+  <details class="wf-card mt-3">
+    <summary class="cursor-pointer font-semibold">Razine učinka i faktori za ciklus 2026.</summary>
+    <div class="wf-table-wrap mt-3">
+      <table class="wf-table">
+        <thead><tr><th>Razina</th><th>Kombinacije ocjena (kvaliteta – učinkovitost – doprinos)</th><th class="num">Prosjek</th><th class="num">Faktor</th><th>Nagrada</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>2–2–3</td><td class="num">2,33</td><td class="num">0</td><td>ne – sustav upozorava rukovoditelja</td></tr>
+          <tr><td>2</td><td>2–2–4; 2–3–3; 3–2–3</td><td class="num">2,67</td><td class="num">0</td><td>ne – sustav upozorava rukovoditelja</td></tr>
+          <tr><td>3</td><td>2–3–4; 2–4–3; 3–2–4; 3–3–3; 4–2–3</td><td class="num">3,00</td><td class="num">0,6</td><td>može</td></tr>
+          <tr><td>4</td><td>2–4–4; 3–3–4; 3–4–3; 4–2–4; 4–3–3</td><td class="num">3,33</td><td class="num">0,9</td><td>može</td></tr>
+          <tr><td>5</td><td>3–4–4; 4–3–4; 4–4–3</td><td class="num">3,67</td><td class="num">1,7</td><td>može</td></tr>
+          <tr><td>6</td><td>4–4–4</td><td class="num">4,00</td><td class="num">2,8</td><td>može</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="wf-help mt-2">Faktore za svaki ciklus određuje Uprava, a HR ih unosi na početku ciklusa (ekran F1.1). Limiti: I8 i I7 4.500 €, I6 6.000 €, I5 i I4 12.000 € <span class="wf-p">P13</span>.</p>
+  </details>
+
+  <p class="wf-help mt-3">Potpis rukovoditelja i datum s papirnatog obrasca zamjenjuje predaja u aplikaciji <span class="wf-p">P8</span>.</p>
+
+  <div class="wf-actions mt-4 pt-4 border-t border-black">
+    <button type="button" class="wf-btn" data-wf-toast="Prijedlog je spremljen. Do predaje ga vidite samo vi.">Spremi</button>
+    <button type="button" class="wf-btn-primary" id="btn-predaj" data-wf-open="dlg-predaj">Predaj na odobrenje</button>
+    <a class="wf-btn" href="F1-02-moji-zaposlenici.html">Natrag na popis</a>
+    <span class="wf-help" id="predaj-why"></span>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-predaj">
+    <div class="wf-dialog-head">Predaj na odobrenje <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Predajete prijedlog godišnje nagrade za <b id="d-name">Ivan Božić</b> u iznosu <b id="d-amt">2.205,00 €</b>.</p>
+      <p class="mt-2">Nakon predaje unos se zaključava i više ga ne možete mijenjati. Prijedlog ide HR-u na formalnu provjeru, zatim odobravatelju najviše razine. E-mail o predaji dobivate vi i odobravatelji u liniji.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Prijedlog je predan: status Poslano HR-u. Unos je zaključan.">Predaj na odobrenje</button>
+    </div>
+  </dialog>
+</main>
+
+<script>
+/* Izračun uživo i primjeri stanja – samo prikaz. Faktori i limiti su primjer iz Specifikacije. */
+(function () {
+  var FAKTOR = { 1: 0, 2: 0, 3: 0.6, 4: 0.9, 5: 1.7, 6: 2.8 };
+  var LIMIT = { I8: 4500, I7: 4500, I6: 6000, I5: 12000, I4: 12000 };
+  var DOD = 25000;
+  var SC = {
+    ivan:      { name: 'Ivan Božić',    rm: 'Tehnolog / Tehnologija', pl: 2450, st: 'I6', g: [3, 3, 4], rez: 14660, isk: 6630, status: ['Spremljeno', 'is-draft', 'zadnje spremanje 12. 11. 2026. u 14:32'] },
+    dario:     { name: 'Dario Vuković', rm: 'Tehnolog / Tehnologija', pl: 1950, st: 'I7', g: [2, 2, 3], rez: 14660, isk: 6630, status: ['Spremljeno', 'is-draft', 'zadnje spremanje 12. 11. 2026. u 15:10'] },
+    filip:     { name: 'Filip Matić',   rm: 'Tehnolog / Tehnologija', pl: 2700, st: 'I6', g: [4, 3, 4], rez: 14660, isk: 6630, hr: true, status: ['Vraćeno na doradu', 'is-back', 'vratila Petra Novak (HR) 18. 11. 2026.'] },
+    tena:      { name: 'Tena Kolar',    rm: 'Tehnolog / Tehnologija', pl: 2100, st: 'I7', g: [4, 4, 4], rez: 10160, isk: 6630, status: ['Spremljeno', 'is-draft', 'prikaz prije njezine predaje 10. 11. 2026.'] },
+    nedostaje: { name: 'Ivan Božić',    rm: 'Tehnolog / Tehnologija', pl: 2450, st: 'I6', g: [3, 3, 4], rez: 14660, isk: 6630, miss: true, status: ['Spremljeno', 'is-draft', 'zadnje spremanje 12. 11. 2026. u 14:32'] }
+  };
+  var cur = SC.ivan;
+  var $ = function (id) { return document.getElementById(id); };
+  var eur = function (n) { return WF.fmt(n) + ' €'; };
+  var sel = [].slice.call(document.querySelectorAll('select[data-g]'));
+  var miss = [].slice.call(document.querySelectorAll('[data-miss]'));
+  miss.forEach(function (m) { m.dataset.orig = m.value; });
+
+  function load(key) {
+    cur = SC[key];
+    document.querySelectorAll('#scenarios button').forEach(function (b) { b.classList.toggle('is-active', b.dataset.sc === key); });
+    $('h-name').textContent = cur.name; $('h-rm').textContent = cur.rm; $('h-pl').textContent = eur(cur.pl);
+    $('h-st').textContent = cur.st; $('h-lim').textContent = 'najviši iznos nagrade ' + eur(LIMIT[cur.st]);
+    $('s-status').textContent = cur.status[0]; $('s-status').className = 'wf-status ' + cur.status[1]; $('s-at').textContent = cur.status[2];
+    $('hr-return').hidden = !cur.hr;
+    sel.forEach(function (s, i) { s.value = String(cur.g[i]); });
+    miss.forEach(function (m) {
+      m.value = cur.miss ? '' : m.dataset.orig;
+      m.classList.toggle('is-error', !!cur.miss);
+      m.nextElementSibling.hidden = !cur.miss;
+    });
+    var rasp = DOD - cur.rez - cur.isk;
+    $('b-rez').textContent = eur(cur.rez); $('b-isk').textContent = eur(cur.isk); $('b-rasp').textContent = eur(rasp);
+    $('m-isk').style.width = (cur.isk / DOD * 100) + '%'; $('m-rez').style.width = (cur.rez / DOD * 100) + '%';
+    calc();
+  }
+
+  function calc() {
+    var g = sel.map(function (s) { return +s.value; });
+    var sum = g[0] + g[1] + g[2], lvl = sum - 6, fac = FAKTOR[lvl];
+    var base = cur.pl * fac, lim = LIMIT[cur.st], amt = Math.min(base, lim);
+    var rasp = DOD - cur.rez - cur.isk, after = rasp - amt;
+    g.forEach(function (v, i) { $('c-g' + i).textContent = v; });
+    $('c-avg').textContent = WF.fmt(sum / 3); $('c-lvl').textContent = lvl; $('c-fac').textContent = String(fac).replace('.', ',');
+    $('c-base').textContent = eur(base); $('c-limlabel').textContent = 'Najviši iznos za ' + cur.st; $('c-lim').textContent = eur(lim);
+    $('c-amt').textContent = eur(amt); $('c-after').textContent = eur(after);
+    $('d-name').textContent = cur.name; $('d-amt').textContent = eur(amt);
+
+    var m = [], stop = [];
+    if (lvl <= 2) {
+      m.push('<div class="wf-alert">Ocjene daju razinu učinka ' + lvl + ' (faktor 0): ' + cur.name + ' ne ostvaruje pravo na godišnju nagradu. Zaposlenik s razinom 1 ili 2 ne predlaže se; sustav o tome automatski obavještava rukovoditelja. <span class="wf-p">N5</span></div>');
+      stop.push('razina učinka ' + lvl);
+    } else if (base > lim) {
+      m.push('<div class="wf-info">Osnovni iznos (' + eur(base) + ') premašuje najviši iznos za stupanj složenosti ' + cur.st + ', pa je primijenjen limit od ' + eur(lim) + '. Viši iznos može iznimno, uz odluku Uprave, ručno unijeti samo HR.</div>');
+    }
+    if (lvl > 2 && amt > rasp) {
+      m.push('<div class="wf-block">Prijedlog (' + eur(amt) + ') premašuje raspoloživi budžet odjela (' + eur(rasp) + ') za ' + eur(amt - rasp) + '. Prijedlog se ne može predati. Iznimku nakon odluke Uprave može odobriti samo HR. <span class="wf-p">P11</span></div>');
+      stop.push('prekoračen budžet');
+    }
+    if (cur.miss) {
+      m.push('<div class="wf-block">Nedostaju obavezni podaci: drugi primjer za kriterij „Doprinos timu“ i obrazloženje prijedloga. Prijedlog se ne može predati.</div>');
+      stop.push('nedostaju podaci');
+    }
+    if (!m.length) m.push('<div class="wf-info">Svi obavezni podaci su uneseni i prijedlog je unutar budžeta. Nakon predaje prijedlog ide HR-u na formalnu provjeru.</div>');
+    $('msgs').innerHTML = m.join('');
+    document.querySelectorAll('#msgs .wf-p').forEach(function (p) { p.title = p.textContent + ': ' + WF.questions[p.textContent]; });
+    var b = $('btn-predaj');
+    b.disabled = stop.length > 0;
+    $('predaj-why').textContent = stop.length ? 'Predaja nije moguća: ' + stop.join(', ') + '.' : '';
+  }
+
+  document.getElementById('scenarios').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-sc]'); if (b) load(b.dataset.sc);
+  });
+  sel.forEach(function (s) { s.addEventListener('change', calc); });
+  if (window.WF) load('ivan'); else document.addEventListener('DOMContentLoaded', function () { load('ivan'); });
+})();
+</script>
+</body>
+</html>

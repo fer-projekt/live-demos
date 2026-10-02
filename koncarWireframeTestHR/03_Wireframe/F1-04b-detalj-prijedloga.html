@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F1.4b Detalj prijedloga – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F1.4b">
+<main>
+  <p class="text-xs mb-1"><a class="wf-link" href="F1-04-na-odobrenju.html">← Na odobrenju</a></p>
+  <h1 class="wf-h1">Detalj prijedloga – Marija Perić</h1>
+  <p class="wf-sub">Godišnja nagrada, ciklus 2026. · odjel Projekt tehnologije · samo za čitanje</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Odobravatelj najviše razine (ovdje direktor Marko Kovačević). Isti detalj vidi dodatni odobravatelj za svoje odjele i član Uprave kad je on zadnja razina.</dd>
+      <dt>Čemu služi</dt><dd>Odobravatelj prije odluke vidi cijeli obrazac, obrazloženja, predloženi iznos, HR napomene i povijest statusa; zatim odobrava ili odbacuje.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Ekran je samo za čitanje; odobravatelj ne mijenja ni ocjene ni iznos. Iznos je izračunat i zaključan.</li>
+        <li>Odobri i Odbaci su pojedinačne radnje. Odbaci uvijek traži razlog; prijedlog se vraća rukovoditelju na doradu, ne troši budžet, a ostali prijedlozi istog rukovoditelja ostaju gdje jesu.</li>
+        <li>Nakon zadnjeg odobrenja prijedlog je zaključan za sve osim HR-a; HR ga mijenja samo na temelju dogovora ili odluke Uprave odnosno direktora, uz zapis u tragu izmjena <span class="wf-p">P9</span>.</li>
+        <li>Tko dobiva e-mail kod odbijanja (odobravatelj najviše razine, nagrađivanje): rukovoditelj i HR administratori; u proizvodnji SET i oba dodatna odobravatelja <span class="wf-p">P5</span>. Kad odbija dodatni odobravatelj, e-mail dobiva rukovoditelj; kad odbija dodatni odobravatelj više razine (SET), rukovoditelj i dodatni odobravatelj. Predlagatelj i odobravatelji u liniji dobivaju e-mail i kod odobrenja.</li>
+        <li>Zapis HR-a o odobrenom prekoračenju budžeta direktor ne vidi; vidi ga samo HR.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li>Nakon odbijanja dorađeni prijedlog ponovno ide HR-u i cijeloj liniji <span class="wf-p">P2</span>.</li>
+        <li>Opisne procjene, primjeri i datumi su izmišljeni za primjer. Limit 12.000 € za I5 vrijedi samo za izniman učinak <span class="wf-p">P13</span>.</li>
+        <li>Postotak budžeta je postotak godišnje mase bruto plaća <span class="wf-p">N1</span>.</li>
+      </ul></dd>
+      <dt>Stanja</dt><dd>Prekidač mijenja status prijedloga, stanje budžeta, povijest i dostupne radnje.</dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="ceka" class="is-active">Čeka odluku</button>
+    <button type="button" data-wf-tab="odobreno">Odobreno</button>
+    <button type="button" data-wf-tab="odbijeno">Odbijeno</button>
+  </div>
+
+  <!-- status i linija -->
+  <div class="mb-3">Status:
+    <span class="wf-status" data-wf-panel="stanje:ceka">HR provjereno</span><span class="wf-at inline ml-2" data-wf-panel="stanje:ceka">kod: Marko Kovačević</span>
+    <span class="wf-status is-done" data-wf-panel="stanje:odobreno">Odobreno</span><span class="wf-at inline ml-2" data-wf-panel="stanje:odobreno">28. 11. 2026. u 11:03, Marko Kovačević</span>
+    <span class="wf-status is-back" data-wf-panel="stanje:odbijeno">Odbijeno</span><span class="wf-at inline ml-2" data-wf-panel="stanje:odbijeno">28. 11. 2026. u 11:03, Marko Kovačević</span>
+  </div>
+  <ol class="wf-steps" data-wf-panel="stanje:ceka" aria-label="Linija odobravanja">
+    <li class="is-done">Ivana Horvat – predlaže</li>
+    <li class="is-done">HR – Petra Novak, formalna provjera</li>
+    <li class="is-active">Marko Kovačević – direktor, najviša razina</li>
+  </ol>
+  <ol class="wf-steps" data-wf-panel="stanje:odobreno" aria-label="Linija odobravanja">
+    <li class="is-done">Ivana Horvat – predlaže</li>
+    <li class="is-done">HR – Petra Novak, formalna provjera</li>
+    <li class="is-done">Marko Kovačević – direktor, najviša razina</li>
+  </ol>
+  <ol class="wf-steps" data-wf-panel="stanje:odbijeno" aria-label="Linija odobravanja">
+    <li class="is-done">Ivana Horvat – predlaže</li>
+    <li class="is-done">HR – Petra Novak, formalna provjera</li>
+    <li class="">Marko Kovačević – direktor, najviša razina</li>
+  </ol>
+
+  <div class="wf-info" data-wf-panel="stanje:odobreno"><b>Prijedlog je zaključan</b> za sve osim HR-a. Iznos je prešao iz rezerviranog u iskorišteni budžet odjela. E-mail o odobrenju dobili su Ivana Horvat i HR.</div>
+  <div class="wf-alert" data-wf-panel="stanje:odbijeno"><b>Prijedlog je odbijen i vraćen rukovoditelju na doradu.</b> Razlog: „Iznos treba uskladiti s odlukom Uprave o ciklusu; molim dopunu obrazloženja za razinu 6.“ Odbijeni prijedlog ne troši budžet. E-mail su dobili Ivana Horvat i HR administratori.</div>
+
+  <!-- zaglavlje -->
+  <h2 class="wf-section-title">Osnovni podaci</h2>
+  <div class="wf-grid md:grid-cols-2">
+    <dl class="wf-kv">
+      <dt>Odjel / organizacijska jedinica</dt><dd><span class="wf-locked">Projekt tehnologije</span></dd>
+      <dt>Rukovoditelj</dt><dd><span class="wf-locked">Ivana Horvat</span></dd>
+      <dt>Broj zaposlenih u odjelu</dt><dd><span class="wf-locked">9</span></dd>
+      <dt>Budžet za godišnju nagradu</dt><dd><span class="wf-locked">25.000,00 € (9,74 %)</span> <span class="wf-p">N1</span></dd>
+      <dt>Datum procjene</dt><dd><span class="wf-locked">10. 11. 2026.</span></dd>
+    </dl>
+    <dl class="wf-kv">
+      <dt>Ime i prezime zaposlenika</dt><dd><span class="wf-locked">Marija Perić</span></dd>
+      <dt>Radno mjesto / grupa radnih mjesta</dt><dd><span class="wf-locked">Inženjer procesa u odjelu Projekt tehnologije (ključno ekspertno) / Tehnologija</span></dd>
+      <dt>Ugovorena mjesečna bruto plaća</dt><dd><span class="wf-locked">3.200,00 €</span></dd>
+      <dt>Stupanj složenosti</dt><dd><span class="wf-locked">I5</span> <span class="wf-muted text-xs">najviši iznos nagrade 12.000,00 € <span class="wf-p">P13</span></span></dd>
+    </dl>
+  </div>
+
+  <!-- budžet -->
+  <div class="wf-card mt-4">
+    <div class="wf-h3">Budžet odjela za godišnju nagradu</div>
+    <div class="wf-grid grid-cols-2 md:grid-cols-4 mb-2">
+      <div><div class="wf-muted text-xs">Dodijeljeno</div><div class="num text-left font-bold">25.000,00 €</div></div>
+      <div><div class="wf-muted text-xs">Rezervirano (u postupku)</div>
+        <div class="num text-left font-bold" data-wf-panel="stanje:ceka">14.660,00 €</div>
+        <div class="num text-left font-bold" data-wf-panel="stanje:odobreno stanje:odbijeno">5.700,00 €</div>
+        <div class="wf-muted text-xs" data-wf-panel="stanje:ceka">uključuje ovaj prijedlog (8.960,00 €)</div>
+      </div>
+      <div><div class="wf-muted text-xs">Iskorišteno (odobreno)</div>
+        <div class="num text-left font-bold" data-wf-panel="stanje:ceka stanje:odbijeno">6.630,00 €</div>
+        <div class="num text-left font-bold" data-wf-panel="stanje:odobreno">15.590,00 €</div>
+        <div class="wf-muted text-xs" data-wf-panel="stanje:odobreno">Karlo 6.630 + Marija 8.960</div>
+      </div>
+      <div><div class="wf-muted text-xs">Raspoloživo</div>
+        <div class="num text-left font-bold" data-wf-panel="stanje:ceka stanje:odobreno">3.710,00 €</div>
+        <div class="num text-left font-bold" data-wf-panel="stanje:odbijeno">12.670,00 €</div>
+        <div class="wf-muted text-xs" data-wf-panel="stanje:odbijeno">odbijeni iznos vraćen u raspoloživo</div>
+      </div>
+    </div>
+    <div class="wf-meter" data-wf-panel="stanje:ceka"><span class="used" style="width:26.52%"></span><span class="res" style="width:58.64%"></span></div>
+    <div class="wf-meter" data-wf-panel="stanje:odobreno"><span class="used" style="width:62.36%"></span><span class="res" style="width:22.8%"></span></div>
+    <div class="wf-meter" data-wf-panel="stanje:odbijeno"><span class="used" style="width:26.52%"></span><span class="res" style="width:22.8%"></span></div>
+    <div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div>
+  </div>
+
+  <!-- procjena -->
+  <h2 class="wf-section-title">1. Procjena rukovoditelja prema kriterijima (posljednjih 12 mjeseci)</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th style="min-width:160px">Kriterij</th><th style="min-width:260px">Odabrana razina ovladanosti poslom</th><th style="min-width:260px">Procjena rukovoditelja (opisno)</th><th class="num">Ocjena</th></tr></thead>
+      <tbody>
+        <tr><td><b>Kvaliteta rada</b></td>
+          <td><b>4.</b> Uzor u kvaliteti i točnosti; aktivno podiže razinu kvalitete kod drugih.</td>
+          <td>Iznimno točna i pouzdana; tehnološki postupci i radne upute prolaze bez ispravaka.</td><td class="num"><span class="wf-locked">4</span></td></tr>
+        <tr><td><b>Radna učinkovitost</b></td>
+          <td><b>4.</b> Preuzima dodatne zadatke i pomaže drugima bez usporavanja vlastitog rada; doprinosi učinkovitosti tima.</td>
+          <td>Rokove drži i kod većeg obujma posla; preuzima dodatne zadatke bez gubitka kvalitete.</td><td class="num"><span class="wf-locked">4</span></td></tr>
+        <tr><td><b>Doprinos timu</b></td>
+          <td><b>4.</b> Proaktivno pruža razvojnu podršku kolegama; mentorira i jača stručnu razinu tima.</td>
+          <td>Mentorira kolege i vodi internu razmjenu znanja o procesima.</td><td class="num"><span class="wf-locked">4</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="wf-section-title">2. Primjeri iz prakse prema ključnim kriterijima</h2>
+  <div class="wf-grid lg:grid-cols-3">
+    <div class="wf-card">
+      <div class="wf-h3">I. Kvaliteta rada</div>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Vodila uvođenje novog tehnološkog procesa za DT seriju; škart pao s 4,1 % na 1,6 % (ožujak–rujan 2026.).</li>
+        <li>Izradila standard za kontrolu sastavnica koji su preuzela još dva odjela.</li>
+      </ol>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">II. Radna učinkovitost</div>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>U lipnju i srpnju preuzela dodatne projekte kolege na dugotrajnom bolovanju; sve isporučeno u roku.</li>
+        <li>Skratila izradu tehnološke dokumentacije za nove proizvode s 10 na 7 radnih dana.</li>
+      </ol>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">III. Doprinos timu</div>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Mentor dvoje novih kolega (od ožujka 2026.).</li>
+        <li>Održala tri interne radionice o optimizaciji procesa za ukupno 24 kolege.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">3. Obrazloženje prijedloga</h2>
+  <div class="wf-card">Marija je nositeljica ključnog znanja o procesima u odjelu i u posljednjih 12 mjeseci dosljedno ostvaruje najvišu razinu u sva tri kriterija. Zbog ključnog doprinosa uvođenju novog procesa i mentorstva predlažem nagradu prema razini 6.</div>
+
+  <h2 class="wf-section-title">4. Rezultat procjene i prijedlog iznosa</h2>
+  <div class="wf-card">
+    <div class="flex flex-wrap items-end gap-3">
+      <div><div class="wf-label">Kvaliteta rada</div><span class="wf-calc">4</span></div>
+      <div><div class="wf-label">Radna učinkovitost</div><span class="wf-calc">4</span></div>
+      <div><div class="wf-label">Doprinos timu</div><span class="wf-calc">4</span></div>
+      <div class="pb-2">→</div>
+      <div><div class="wf-label">Prosjek ukupnih ocjena</div><span class="wf-calc">4,00</span></div>
+      <div><div class="wf-label">Razina učinka</div><span class="wf-calc">6</span></div>
+      <div><div class="wf-label">Faktor</div><span class="wf-calc">2,8</span></div>
+    </div>
+    <div class="flex flex-wrap items-end gap-3 mt-3">
+      <div><div class="wf-label">Osnovni iznos (plaća × faktor)</div><span class="wf-calc">8.960,00 €</span></div>
+      <div><div class="wf-label">Najviši iznos za I5</div><span class="wf-calc">12.000,00 €</span></div>
+      <div><div class="wf-label">Prijedlog iznosa godišnje nagrade</div><span class="wf-calc text-lg font-bold">8.960,00 €</span></div>
+      <div><div class="wf-label">Raspoloživo nakon odobrenja</div><span class="wf-calc">3.710,00 €</span></div>
+    </div>
+    <p class="wf-help mt-2">3.200,00 € × 2,8 = 8.960,00 €; unutar limita za I5 i unutar raspoloživog budžeta odjela.</p>
+  </div>
+
+  <!-- HR napomene -->
+  <h2 class="wf-section-title">HR napomene</h2>
+  <div class="wf-card">
+    <dl class="wf-kv">
+      <dt>Provjera potvrđena</dt><dd>Petra Novak (HR), 17. 11. 2026. u 10:12</dd>
+      <dt>Napomena HR-a</dt><dd class="font-normal">Obrazac je potpun, primjeri su konkretni i mjerljivi, iznos je unutar dopuštenog raspona i raspoloživog budžeta odjela.</dd>
+      <dt>Ranije vraćanje na doradu</dt><dd class="font-normal">nema</dd>
+    </dl>
+  </div>
+
+  <!-- povijest statusa -->
+  <h2 class="wf-section-title">Povijest statusa</h2>
+  <ul class="wf-timeline">
+    <li class="is-done"><b>Spremljeno</b> – Ivana Horvat, 10. 11. 2026. u 15:20</li>
+    <li class="is-done"><b>Poslano HR-u</b> – Ivana Horvat predala prijedlog, 13. 11. 2026. u 9:40</li>
+    <li class="is-done"><b>HR provjereno</b> – Petra Novak, 17. 11. 2026. u 10:12</li>
+    <li class="is-current" data-wf-panel="stanje:ceka"><b>Čeka odluku</b> – Marko Kovačević, direktor<span class="wf-at">rok 11. 12. 2026.</span></li>
+    <li class="is-next" data-wf-panel="stanje:ceka">Odobreno ili odbijeno</li>
+    <li class="is-done" data-wf-panel="stanje:odobreno"><b>Odobreno</b> – Marko Kovačević, 28. 11. 2026. u 11:03</li>
+    <li class="is-current" data-wf-panel="stanje:odobreno"><b>Zaključano</b> za sve osim HR-a</li>
+    <li class="is-done" data-wf-panel="stanje:odbijeno"><b>Odbijeno</b> – Marko Kovačević, 28. 11. 2026. u 11:03; razlog: „Iznos treba uskladiti s odlukom Uprave o ciklusu; molim dopunu obrazloženja za razinu 6.“</li>
+    <li class="is-next" data-wf-panel="stanje:odbijeno">Vraćeno rukovoditelju na doradu; dorađeni prijedlog ponovno ide HR-u i cijeloj liniji <span class="wf-p">P2</span></li>
+  </ul>
+
+  <p class="wf-help mt-3">Potpis direktora sektora s papirnatog obrasca zamjenjuje odobrenje u aplikaciji <span class="wf-p">P8</span>.</p>
+
+  <div class="wf-actions mt-4 pt-4 border-t border-black">
+    <button type="button" class="wf-btn-primary" data-wf-open="dlg-odobri" data-wf-panel="stanje:ceka">Odobri</button>
+    <button type="button" class="wf-btn" data-wf-open="dlg-odbaci" data-wf-panel="stanje:ceka">Odbaci</button>
+    <button type="button" class="wf-btn-primary" disabled data-wf-panel="stanje:odobreno stanje:odbijeno">Odobri</button>
+    <button type="button" class="wf-btn" disabled data-wf-panel="stanje:odobreno stanje:odbijeno">Odbaci</button>
+    <a class="wf-btn" href="F1-04-na-odobrenju.html">Natrag na popis</a>
+    <span class="wf-help" data-wf-panel="stanje:odobreno">Odluka je donesena; prijedlog mijenja samo HR.</span>
+    <span class="wf-help" data-wf-panel="stanje:odbijeno">Odluka je donesena; prijedlog je kod rukovoditelja.</span>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-odobri">
+    <div class="wf-dialog-head">Odobri prijedlog <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Odobravate godišnju nagradu za <b>Mariju Perić</b> u iznosu <b>8.960,00 €</b>.</p>
+      <p class="mt-2">Prijedlog se zaključava za sve osim HR-a, a iznos prelazi u iskorišteni budžet odjela. E-mail dobivaju Ivana Horvat i odobravatelji u liniji.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Prijedlog je odobren i zaključan.">Odobri</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-odbaci">
+    <div class="wf-dialog-head">Odbaci prijedlog <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Odbacujete prijedlog godišnje nagrade za <b>Mariju Perić</b> (8.960,00 €). Prijedlog se vraća rukovoditelju na doradu i ne troši budžet.</p>
+      <div class="wf-field mt-3">
+        <label class="wf-label wf-req" for="razlog">Razlog odbijanja</label>
+        <textarea class="wf-textarea" id="razlog" rows="3" placeholder="Upišite razlog (obavezno)"></textarea>
+        <div class="wf-help">Bez razloga Odbaci nije moguće.</div>
+      </div>
+      <div class="wf-info mb-0">
+        <b>Tko dobiva e-mail:</b> rukovoditelj Ivana Horvat i HR administratori (Petra Novak, Sanja Lukić). Odjel nema dodatnog odobravatelja. U proizvodnji SET e-mail dobivaju i oba dodatna odobravatelja <span class="wf-p">P5</span>.
+      </div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Prijedlog je odbijen i vraćen rukovoditelju. Poslan je e-mail.">Odbaci</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F4.1 Postotak Uprave – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F4.1">
+<main>
+  <h1 class="wf-h1">Postotak Uprave</h1>
+  <p class="wf-sub">Najviša osnovica kvartalne nagrade kao postotak bruto plaće, isti za sve zaposlenike u kvartalu</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator unosi postotak. Rukovoditelji ga vide na ekranu za unos (F4.4), zaključanog, i ne mogu ga mijenjati.</dd>
+      <dt>Čemu služi</dt><dd>Uprava za svaki kvartal odredi postotak bruto plaće koji je najviša osnovica nagrade; HR ga ovdje unosi. Prema njemu sustav računa „najviši iznos prije procjene“ (bruto plaća × % Uprave).</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Jedan postotak po kvartalu, jednak za sve zaposlenike.</li>
+        <li>Zaključani kvartal se više ne mijenja; HR ga može otključati (A8). Svaka izmjena bilježi se u tragu izmjena.</li>
+        <li>Redoslijed izračuna: najviši iznos (plaća × % Uprave) → procjena rukovoditelja → prisutnost → disciplinska mjera.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p" title="NOVO: Je li „Maksimalni koeficijent“ s postojećeg ekrana Izvoz Kvartalnice (vrijednost 100, gumb Ažuriraj) isto što i postotak Uprave? Na ekranu unosa svi kriteriji 100 % i prisutnost 100 % daju 70, a ne 100. Wireframe pretpostavlja da je isto, ali vrijednost se ne slaže.">N42</span> „Maksimalni koeficijent“ iz postojeće aplikacije (ekran 08, uz gumb Ažuriraj) smatramo postotkom Uprave i zadržavamo naziv radnje <b>Ažuriraj</b>. Nejasno je zašto ekran unosa (06) uz sve kriterije 100 % pokazuje 70, a ne 100; vidi i <span class="wf-p">N3</span> („Faktor uspjeha“).</li>
+        <li><span class="wf-p" title="NOVO: Što se događa ako se postotak Uprave promijeni nakon što su rukovoditelji počeli unositi ili predali kvartalne nagrade? Wireframe pretpostavlja da je promjena moguća do zaključavanja kvartala, da se iznosi preračunaju, a već predani prijedlozi vrate rukovoditelju.">N43</span> Promjena postotka nakon početka unosa: moguća do zaključavanja kvartala, iznosi se preračunavaju (dijalog upozorava).</li>
+        <li><span class="wf-p">prijedlog</span> Postoci Q1 2026. (65 %) i Q2 2026. (70 %) izmišljeni su; Q3 2026. = 75 % je iz Specifikacije.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="uredi" class="is-active">Q3 2026. – unos</button>
+    <button type="button" data-wf-tab="zakljucano">Q3 2026. – kvartal zaključan</button>
+  </div>
+
+  <div class="wf-alert" data-wf-panel="stanje:uredi">Promjena postotka Uprave nakon što su rukovoditelji počeli unositi mijenja iznose u njihovim prijedlozima. Sustav traži potvrdu i bilježi izmjenu <span class="wf-p" title="NOVO: Što se događa ako se postotak Uprave promijeni nakon što su rukovoditelji počeli unositi?">N43</span>.</div>
+  <div class="wf-info" data-wf-panel="stanje:zakljucano">Kvartal Q3 2026. je zaključan: postotak se ne može mijenjati dok ga HR ne otključa (A8 Ciklusi i razdoblja).</div>
+
+  <div class="flex flex-wrap items-end gap-3 mb-3">
+    <div style="min-width:120px"><label class="wf-label" for="g">Godina</label><select class="wf-select" id="g"><option>2026</option><option>2027</option></select></div>
+    <div class="wf-actions ml-auto"><button type="button" class="wf-btn" data-wf-toast="Lista je osvježena.">Osvježi</button></div>
+  </div>
+
+  <div class="wf-table-wrap mb-4">
+    <table class="wf-table">
+      <thead><tr><th>Kvartal</th><th>Razdoblje</th><th style="min-width:150px">Postotak Uprave (% bruto plaće)</th><th>Zaključano</th><th>Zadnja izmjena</th><th>Rok za unos i odobravanje</th><th>Radnja</th></tr></thead>
+      <tbody>
+        <tr class="wf-muted"><td class="wf-mono">2026-Q1</td><td>1. 1. – 31. 3. 2026.</td><td class="num">65 %</td><td><span class="wf-status is-closed">Zaključano</span></td><td>Petra Novak, 8. 4. 2026.</td><td>15. 4. 2026.</td><td><button type="button" class="wf-btn wf-btn-sm" disabled>Ažuriraj</button></td></tr>
+        <tr class="wf-muted"><td class="wf-mono">2026-Q2</td><td>1. 4. – 30. 6. 2026.</td><td class="num">70 %</td><td><span class="wf-status is-closed">Zaključano</span></td><td>Petra Novak, 8. 7. 2026.</td><td>15. 7. 2026.</td><td><button type="button" class="wf-btn wf-btn-sm" disabled>Ažuriraj</button></td></tr>
+        <tr class="is-selected"><td class="wf-mono"><b>2026-Q3</b></td><td>1. 7. – 30. 9. 2026.</td>
+          <td>
+            <div data-wf-panel="stanje:uredi"><div class="flex items-center gap-1"><input class="wf-input" id="pct" value="75" aria-label="Postotak Uprave za Q3 2026." style="max-width:90px"> %</div></div>
+            <div data-wf-panel="stanje:zakljucano"><span class="wf-locked">75 %</span></div>
+          </td>
+          <td><label class="wf-check"><input type="checkbox" aria-label="Zaključano Q3 2026." disabled><span data-wf-panel="stanje:uredi">ne</span><span data-wf-panel="stanje:zakljucano">da</span></label></td>
+          <td>Petra Novak, 28. 9. 2026.</td><td>15. 10. 2026.</td>
+          <td><button type="button" class="wf-btn wf-btn-sm" data-wf-panel="stanje:uredi" data-wf-open="dlg-azuriraj">Ažuriraj</button><button type="button" class="wf-btn wf-btn-sm" data-wf-panel="stanje:zakljucano" disabled>Ažuriraj</button></td></tr>
+        <tr><td class="wf-mono">2026-Q4</td><td>1. 10. – 31. 12. 2026.</td><td class="wf-muted">nije određen</td><td class="wf-muted">–</td><td class="wf-muted">–</td><td>15. 1. 2027.</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-azuriraj">Dodaj</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="wf-grid md:grid-cols-2 mb-4">
+    <div class="wf-card">
+      <h2 class="wf-h2">Što vidi rukovoditelj (F4.4)</h2>
+      <dl class="wf-kv">
+        <dt>Postotak Uprave</dt><dd><span class="wf-locked">75 %</span></dd>
+        <dt>Mogućnost izmjene</dt><dd>nema; polje je zaključano</dd>
+      </dl>
+      <p class="wf-help mt-2">Rukovoditelj ne unosi iznose; sustav ih računa iz plaće, postotka Uprave, njegove procjene i prisutnosti.</p>
+    </div>
+    <div class="wf-card">
+      <h2 class="wf-h2">Primjer najvišeg iznosa</h2>
+      <dl class="wf-kv">
+        <dt>Bruto plaća</dt><dd>2.000,00 €</dd>
+        <dt>Postotak Uprave</dt><dd><span id="ex-p">75</span> %</dd>
+        <dt>Najviši iznos prije procjene</dt><dd><span class="wf-calc" id="ex-i">1.500,00 €</span></dd>
+      </dl>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">Povijest izmjena postotka</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th>Kvartal</th><th>Kada</th><th>Tko</th><th class="num">Prije</th><th class="num">Poslije</th><th>Napomena</th></tr></thead>
+      <tbody>
+        <tr><td>2026-Q3</td><td>28. 9. 2026. 11:20</td><td>Petra Novak</td><td class="num">–</td><td class="num">75 %</td><td>Prvi unos prema odluci Uprave.</td></tr>
+        <tr><td>2026-Q2</td><td>8. 7. 2026. 9:05</td><td>Petra Novak</td><td class="num">–</td><td class="num">70 %</td><td>Prvi unos prema odluci Uprave.</td></tr>
+        <tr><td>2026-Q1</td><td>8. 4. 2026. 10:40</td><td>Petra Novak</td><td class="num">–</td><td class="num">65 %</td><td>Prvi unos prema odluci Uprave.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-azuriraj">
+    <div class="wf-dialog-head">Postotak Uprave <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-field"><label class="wf-label" for="d-kv">Kvartal</label><select class="wf-select" id="d-kv"><option>2026-Q3 (srpanj–rujan)</option><option>2026-Q4 (listopad–prosinac)</option></select></div>
+      <div class="wf-field"><label class="wf-label wf-req" for="d-p">Postotak Uprave (% bruto plaće)</label><input class="wf-input" id="d-p" value="75"></div>
+      <div class="wf-field"><label class="wf-label wf-req" for="d-n">Obrazloženje izmjene</label><textarea class="wf-textarea" id="d-n" placeholder="Odluka Uprave i datum."></textarea></div>
+      <div class="wf-alert">Rukovoditelji su za Q3 2026. već počeli unositi. Nakon izmjene sustav preračunava iznose, a predani prijedlozi vraćaju se rukovoditeljima <span class="wf-p" title="NOVO: Što se događa ako se postotak Uprave promijeni nakon početka unosa?">N43</span>.</div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Postotak Uprave je ažuriran i zabilježen u tragu izmjena.">Ažuriraj</button>
+    </div>
+  </dialog>
+</main>
+<script>
+(function () {
+  function start() {
+    var el = document.getElementById('pct');
+    el.addEventListener('input', function () {
+      var p = parseFloat(el.value.replace(',', '.')) || 0;
+      document.getElementById('ex-p').textContent = String(p).replace('.', ',');
+      document.getElementById('ex-i').textContent = WF.fmt(2000 * p / 100) + ' €';
+    });
+  }
+  if (window.WF) start(); else document.addEventListener('DOMContentLoaded', start);
+})();
+</script>
+</body>
+</html>

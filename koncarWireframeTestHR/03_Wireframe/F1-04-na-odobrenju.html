@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F1.4 Na odobrenju – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F1.4">
+<main>
+  <h1 class="wf-h1">Na odobrenju – godišnja nagrada</h1>
+  <p class="wf-sub">Ciklus 2026. · Sektor Tehnologija · rok za odobravanje 11. 12. 2026.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Odobravatelj najviše razine za rukovoditelje u svojoj nadležnosti; ovdje direktor Marko Kovačević. Isti ekran vidi dodatni odobravatelj (samo prijedloge svojih odjela) i član Uprave kad je on zadnja razina u liniji.</dd>
+      <dt>Čemu služi</dt><dd>Popis prijedloga godišnje nagrade koji čekaju moju odluku; odluka se donosi u detalju prijedloga (F1.4b).</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Na popis dolaze samo prijedlozi koje je HR već provjerio (status HR provjereno). Redoslijed u liniji: rukovoditelj → dodatni odobravatelj (ako ga odjel ima) → HR → odobravatelj najviše razine.</li>
+        <li>Odobravanje je pojedinačno, po zaposleniku. Masovno odobravanje nije predviđeno, osim ako ga HR uključi u postavkama ciklusa (F1.1); u wireframeu je isključeno <span class="wf-p">P6</span>.</li>
+        <li>Odbijanje je uvijek pojedinačno i traži razlog; ostali prijedlozi istog rukovoditelja ostaju gdje jesu.</li>
+        <li>Direktor vidi samo prijedloge odjela u svojoj nadležnosti (Projekt tehnologije, Razvoj proizvodnje).</li>
+        <li>Kartica „Obrađeno“ prikazuje prijedloge o kojima je odluka već donesena.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li>Status dok prijedlog čeka dodatnog odobravatelja (u SET-u) nije utvrđen <span class="wf-p">P10</span>; u ovom ekranu nije prikazan jer direktor takav prijedlog ne vidi.</li>
+        <li>Stupci „Datum HR provjere“ i „Rok“ su naš prijedlog prikaza <span class="wf-p">prijedlog</span>; rok je rok odobravanja ciklusa <span class="wf-p" title="NOVO: Što se događa kad istekne rok unosa (27. 11.) ili rok odobravanja (11. 12.)? Wireframe pretpostavlja: nakon roka unosa rukovoditelj ne može predati prijedlog; rok odobravanja je podsjetnik i ne blokira odobravatelja; HR može produžiti oba roka.">N21</span>.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="masovno">
+    <button type="button" data-wf-tab="iskljuceno" class="is-active">Masovno odobravanje isključeno (zadano)</button>
+    <button type="button" data-wf-tab="ukljuceno">HR je uključio masovno odobravanje</button>
+  </div>
+
+  <div class="wf-grid grid-cols-2 lg:grid-cols-4 mb-4">
+    <div class="wf-kpi"><div class="wf-kpi-label">Čeka moju odluku</div><div class="wf-kpi-value">2</div><div class="wf-kpi-sub">ukupno 14.740,00 €</div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label">Obrađeno</div><div class="wf-kpi-value">1</div><div class="wf-kpi-sub">odobreno 6.630,00 €</div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label">Budžet sektora (dodijeljeno)</div><div class="wf-kpi-value">37.000,00 €</div><div class="wf-kpi-sub">raspoloživo 8.430,00 €</div></div>
+    <div class="wf-kpi"><div class="wf-kpi-label">Rok za odobravanje</div><div class="wf-kpi-value">11. 12. 2026.</div></div>
+  </div>
+
+  <div class="wf-tabs" data-wf-tabs="lista">
+    <button type="button" data-wf-tab="ceka" class="is-active">Čeka moju odluku (2)</button>
+    <button type="button" data-wf-tab="obradeno">Obrađeno (1)</button>
+  </div>
+
+  <div data-wf-panel="lista:ceka">
+    <div class="wf-info" data-wf-panel="masovno:iskljuceno">Masovno odobravanje isključeno je u postavkama ciklusa (ekran F1.1). Prijedlozi se otvaraju i odobravaju jedan po jedan. <span class="wf-p">P6</span></div>
+    <div class="wf-actions mb-3" data-wf-panel="masovno:ukljuceno">
+      <button type="button" class="wf-btn-primary" data-wf-open="dlg-masovno">Odobri odabrane</button>
+      <span class="wf-help">Samo odobravanje; odbijanje je i dalje pojedinačno uz razlog. <span class="wf-p">P6</span></span>
+    </div>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr>
+          <th style="width:30px"><input type="checkbox" disabled aria-label="Odaberi sve" data-wf-panel="masovno:iskljuceno"><input type="checkbox" aria-label="Odaberi sve" data-wf-panel="masovno:ukljuceno"></th>
+          <th>Odjel</th><th>Rukovoditelj</th><th>Zaposlenik</th><th class="num">Razina</th><th class="num">Iznos (€)</th><th>Status</th><th>Datum HR provjere</th><th>Rok</th><th>Radnja</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" disabled aria-label="Odaberi Mariju Perić" data-wf-panel="masovno:iskljuceno"><input type="checkbox" aria-label="Odaberi Mariju Perić" data-wf-panel="masovno:ukljuceno"></td>
+            <td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="wf-name">Marija Perić</td><td class="num">6</td><td class="num">8.960,00</td>
+            <td><span class="wf-status">HR provjereno</span><span class="wf-at">kod: Marko Kovačević</span></td><td>17. 11. 2026.</td><td>11. 12. 2026.</td>
+            <td><a class="wf-btn wf-btn-sm" href="F1-04b-detalj-prijedloga.html">Otvori prijedlog</a></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" disabled aria-label="Odaberi Ivonu Jakšić" data-wf-panel="masovno:iskljuceno"><input type="checkbox" aria-label="Odaberi Ivonu Jakšić" data-wf-panel="masovno:ukljuceno"></td>
+            <td>Razvoj proizvodnje</td><td>Goran Šimić</td><td class="wf-name">Ivona Jakšić</td><td class="num">5</td><td class="num">5.780,00</td>
+            <td><span class="wf-status">HR provjereno</span><span class="wf-at">kod: Marko Kovačević</span></td><td>18. 11. 2026.</td><td>11. 12. 2026.</td>
+            <td><a class="wf-btn wf-btn-sm" href="F1-04b-detalj-prijedloga.html">Otvori prijedlog</a><div class="wf-help">wireframe otvara primjer Marije Perić</div></td>
+          </tr>
+        </tbody>
+        <tfoot><tr><td colspan="5">Ukupno na čekanju</td><td class="num">14.740,00</td><td colspan="4"></td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div data-wf-panel="lista:obradeno">
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr>
+          <th>Odjel</th><th>Rukovoditelj</th><th>Zaposlenik</th><th class="num">Razina</th><th class="num">Iznos (€)</th><th>Status</th><th>Moja odluka</th><th>Radnja</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="wf-name">Karlo Radić</td><td class="num">5</td><td class="num">6.630,00</td>
+            <td><span class="wf-status is-done">Odobreno</span><span class="wf-at">zaključano za sve osim HR-a</span></td><td>Odobreno 18. 11. 2026.</td>
+            <td><a class="wf-btn wf-btn-sm" href="F1-04b-detalj-prijedloga.html">Otvori prijedlog</a><div class="wf-help">samo za čitanje</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="wf-help mt-2">Odbijeni prijedlozi koje je direktor vratio rukovoditelju također se vode ovdje, sa statusom Odbijeno i razlogom <span class="wf-p">prijedlog</span>.</p>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-masovno">
+    <div class="wf-dialog-head">Odobri odabrane <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Odobravate 2 prijedloga u ukupnom iznosu <b>14.740,00 €</b>: Marija Perić (8.960,00 €) i Ivona Jakšić (5.780,00 €).</p>
+      <p class="mt-2">Odobreni prijedlozi se zaključavaju za sve osim HR-a. E-mail dobivaju predlagatelj i odobravatelji u liniji.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Odabrani prijedlozi su odobreni.">Odobri</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

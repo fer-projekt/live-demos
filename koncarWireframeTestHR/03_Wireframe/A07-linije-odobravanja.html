@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A7 Rukovoditelji i linije odobravanja – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A7">
+<main>
+  <h1 class="wf-h1">Rukovoditelji i linije odobravanja</h1>
+  <p class="wf-sub">Pregled po godini: rukovoditelj, organizacijska jedinica, broj zaposlenika, budžet stimulacija te prvi, drugi i treći odobravatelj.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator.</dd>
+      <dt>Čemu služi</dt><dd>HR ručno održava rukovoditelje, odobravatelje i linije odobravanja prema stvarnoj hijerarhiji. Linija nije ista za sve rukovoditelje ni za sve module.</dd>
+      <dt>Pravila</dt><dd><ul><li>Linija se određuje posebno za svakog rukovoditelja, a razlikuje se po modulu: stimulacije i kvartalne (HR nije u liniji), godišnje nagrađivanje (HR je u liniji) i godišnje napredovanje (HR je u liniji, zadnji je uvijek član Uprave).</li><li>Redoslijed: rukovoditelj → dodatni odobravatelj (samo određeni odjeli; proizvodnja SET ima dvije razine) → HR (samo napredovanje i nagrađivanje) → odobravatelj najviše razine.</li><li>Najviša razina je zadnja osoba u liniji: direktor kad je u liniji; član Uprave kad je druga razina; u napredovanju uvijek član Uprave <span class="wf-p">P3</span>.</li><li>Dodatni odobravatelji upisuju se po odjelu <span class="wf-p">P4</span>; u proizvodnji SET su dvije razine.</li><li>Promjena linije vrijedi za nove prijedloge i bilježi se u trag izmjena; ne mijenja već odobrene prijedloge.</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p">P10</span> Status prijedloga dok čeka dodatnog odobravatelja je „Poslano na odobrenje“ (oznaka kod koga je).</li><li><span class="wf-p">P2</span> Nakon dorade prijedlog ponovno prolazi cijelu liniju.</li><li><span class="wf-p">prijedlog</span> Tri stupca 1.–3. prikazuju osobe koje HR upisuje; HR se prikazuje samo u stupcu „Tijek odobravanja“ jer ga HR ne upisuje, nego ga određuje modul.</li><li><span class="wf-p">prijedlog</span> U stimulacijama SET u primjeru ima samo prvu razinu dodatnog odobravatelja (Luka Knežević → Ana Babić), kao u izmišljenim podacima.</li><li>Broj zaposlenika i budžet stimulacija za Razvoj proizvodnje i Montažu SET su izmišljeni (isti kao na ekranu Budžeti).</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-filters">
+    <div><label class="wf-label" for="god">Godina</label><select class="wf-select" id="god"><option selected>2026.</option><option>2025.</option><option>2027.</option></select></div>
+    <div class="wf-actions ml-auto">
+      <button type="button" class="wf-btn-primary" data-wf-open="dlg-novi">Dodaj rukovoditelja</button>
+    </div>
+  </div>
+
+  <div class="wf-tabs" data-wf-tabs="modul">
+    <button type="button" data-wf-tab="stim" class="is-active">Stimulacije i kvartalne nagrade</button>
+    <button type="button" data-wf-tab="nag">Godišnje nagrađivanje</button>
+    <button type="button" data-wf-tab="nap">Godišnje napredovanje</button>
+  </div>
+
+  <div data-wf-panel="modul:stim"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Rukovoditelj</th><th class="md:whitespace-normal!">Organizacijska jedinica (odjel) <span class="wf-p">N15</span></th><th class="num md:whitespace-normal!">Broj zaposlenika</th><th class="num md:whitespace-normal!">Budžet stimulacija (godišnji fond)</th><th>1. odobravatelj</th><th>2. odobravatelj</th><th>3. odobravatelj</th><th>Tijek odobravanja</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Ivana Horvat</td><td>Projekt tehnologije</td><td class="num">9</td><td class="num">12.840,00</td><td>Marko Kovačević (direktor)</td><td><span class="wf-muted">–</span></td><td><span class="wf-muted">–</span></td><td class="text-xs" style="min-width:170px">rukovoditelj → Marko Kovačević</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+<tr><td class="wf-name">Goran Šimić</td><td>Razvoj proizvodnje</td><td class="num">7</td><td class="num">9.600,00</td><td>Marko Kovačević (direktor)</td><td><span class="wf-muted">–</span></td><td><span class="wf-muted">–</span></td><td class="text-xs" style="min-width:170px">rukovoditelj → Marko Kovačević</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+<tr><td class="wf-name">Josip Jurić</td><td>Montaža SET</td><td class="num">12</td><td class="num">13.200,00</td><td>Luka Knežević (dodatni, 1. razina)</td><td>Ana Babić (član Uprave)</td><td><span class="wf-muted">–</span></td><td class="text-xs" style="min-width:170px">rukovoditelj → Luka Knežević → Ana Babić</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+</tbody>
+</table></div><p class="wf-help mt-2">HR nije u liniji. Zadnja razina: direktor odnosno član Uprave (za SET).</p></div>
+  <div data-wf-panel="modul:nag"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Rukovoditelj</th><th class="md:whitespace-normal!">Organizacijska jedinica (odjel) <span class="wf-p">N15</span></th><th class="num md:whitespace-normal!">Broj zaposlenika</th><th class="num md:whitespace-normal!">Budžet stimulacija (godišnji fond)</th><th>1. odobravatelj</th><th>2. odobravatelj</th><th>3. odobravatelj</th><th>Tijek odobravanja</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Ivana Horvat</td><td>Projekt tehnologije</td><td class="num">9</td><td class="num">12.840,00</td><td>Marko Kovačević (direktor)</td><td><span class="wf-muted">–</span></td><td><span class="wf-muted">–</span></td><td class="text-xs" style="min-width:170px">rukovoditelj → HR → Marko Kovačević</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+<tr><td class="wf-name">Goran Šimić</td><td>Razvoj proizvodnje</td><td class="num">7</td><td class="num">9.600,00</td><td>Marko Kovačević (direktor)</td><td><span class="wf-muted">–</span></td><td><span class="wf-muted">–</span></td><td class="text-xs" style="min-width:170px">rukovoditelj → HR → Marko Kovačević</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+<tr><td class="wf-name">Josip Jurić</td><td>Montaža SET</td><td class="num">12</td><td class="num">13.200,00</td><td>Luka Knežević (dodatni, 1. razina)</td><td>Maja Pavlović (dodatni, 2. razina)</td><td>Ana Babić (član Uprave)</td><td class="text-xs" style="min-width:170px">rukovoditelj → Luka Knežević → Maja Pavlović → HR → Ana Babić</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+</tbody>
+</table></div><p class="wf-help mt-2">HR je u liniji nakon dodatnih odobravatelja i prije odobravatelja najviše razine. Kad je u liniji direktor, on je zadnji.</p></div>
+  <div data-wf-panel="modul:nap"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Rukovoditelj</th><th class="md:whitespace-normal!">Organizacijska jedinica (odjel) <span class="wf-p">N15</span></th><th class="num md:whitespace-normal!">Broj zaposlenika</th><th class="num md:whitespace-normal!">Budžet stimulacija (godišnji fond)</th><th>1. odobravatelj</th><th>2. odobravatelj</th><th>3. odobravatelj</th><th>Tijek odobravanja</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Ivana Horvat</td><td>Projekt tehnologije</td><td class="num">9</td><td class="num">12.840,00</td><td>Ana Babić (član Uprave)</td><td><span class="wf-muted">–</span></td><td><span class="wf-muted">–</span></td><td class="text-xs" style="min-width:170px">rukovoditelj → HR → Ana Babić</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+<tr><td class="wf-name">Goran Šimić</td><td>Razvoj proizvodnje</td><td class="num">7</td><td class="num">9.600,00</td><td>Ana Babić (član Uprave)</td><td><span class="wf-muted">–</span></td><td><span class="wf-muted">–</span></td><td class="text-xs" style="min-width:170px">rukovoditelj → HR → Ana Babić</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+<tr><td class="wf-name">Josip Jurić</td><td>Montaža SET</td><td class="num">12</td><td class="num">13.200,00</td><td>Luka Knežević (dodatni, 1. razina)</td><td>Maja Pavlović (dodatni, 2. razina)</td><td>Ana Babić (član Uprave)</td><td class="text-xs" style="min-width:170px">rukovoditelj → Luka Knežević → Maja Pavlović → HR → Ana Babić</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-linija">Uredi liniju</button></td></tr>
+</tbody>
+</table></div><p class="wf-help mt-2">U napredovanju je zadnji uvijek član Uprave <span class="wf-p">P3</span>.</p></div>
+
+  <h2 class="wf-section-title">Dodatni odobravatelji po odjelu <span class="wf-p">P4</span></h2>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Odjel</th><th>1. razina</th><th>2. razina</th><th>Vrijedi od</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Montaža SET</td><td>Luka Knežević</td><td>Maja Pavlović</td><td>1. 1. 2026.</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-dodatni">Uredi</button></td></tr>
+<tr><td class="wf-name">Projekt tehnologije</td><td class="wf-muted">nema</td><td class="wf-muted">–</td><td>–</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-dodatni">Dodaj</button></td></tr>
+<tr><td class="wf-name">Razvoj proizvodnje</td><td class="wf-muted">nema</td><td class="wf-muted">–</td><td>–</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-dodatni">Dodaj</button></td></tr>
+</tbody>
+</table></div>
+  <p class="wf-help mt-2">Koji odjeli osim proizvodnje SET imaju dodatnog odobravatelja nije utvrđeno <span class="wf-p">P4</span>; HR ih upisuje po odjelu.</p>
+
+  <dialog class="wf-dialog" id="dlg-linija">
+    <div class="wf-dialog-head">Uredi liniju – Ivana Horvat <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <dl class="wf-kv mb-3"><dt>Rukovoditelj</dt><dd><span class="wf-locked">Ivana Horvat</span></dd><dt>Organizacijska jedinica</dt><dd><span class="wf-locked">Projekt tehnologije</span></dd><dt>Godina</dt><dd><span class="wf-locked">2026.</span></dd></dl>
+      <div class="wf-card mb-3"><div class="wf-h3">Stimulacije i kvartalne nagrade</div>
+      <div class="wf-grid md:grid-cols-3">
+        <div class="wf-field"><label class="wf-label">1. odobravatelj</label><select class="wf-select" ><option>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option selected>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div><div class="wf-field"><label class="wf-label">2. odobravatelj</label><select class="wf-select" ><option selected>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div><div class="wf-field"><label class="wf-label">3. odobravatelj</label><select class="wf-select" ><option selected>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div>
+      </div>
+      <div class="text-xs">HR nije u liniji.</div><div class="wf-help">Zadnji u liniji je direktor ili član Uprave.</div></div>
+      <div class="wf-card mb-3"><div class="wf-h3">Godišnje nagrađivanje</div>
+      <div class="wf-grid md:grid-cols-3">
+        <div class="wf-field"><label class="wf-label">1. odobravatelj</label><select class="wf-select" ><option>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option selected>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div><div class="wf-field"><label class="wf-label">2. odobravatelj</label><select class="wf-select" ><option selected>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div><div class="wf-field"><label class="wf-label">3. odobravatelj</label><select class="wf-select" ><option selected>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div>
+      </div>
+      <div class="text-xs">Tijek: rukovoditelj → dodatni odobravatelji → <b>HR</b> (fiksno) → odobravatelj najviše razine.</div><div class="wf-help">Kad je direktor u liniji, on je zadnji; kad je član Uprave druga razina, on je zadnji.</div></div>
+      <div class="wf-card"><div class="wf-h3">Godišnje napredovanje</div>
+        <div class="wf-grid md:grid-cols-3"><div class="wf-field"><label class="wf-label">1. odobravatelj</label><select class="wf-select" ><option>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option selected>Ana Babić (član Uprave)</option></select></div><div class="wf-field"><label class="wf-label">2. odobravatelj</label><select class="wf-select" ><option selected>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div><div class="wf-field"><label class="wf-label">3. odobravatelj</label><select class="wf-select" ><option selected>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div></div>
+        <div class="text-xs">Tijek: rukovoditelj → dodatni odobravatelji → <b>HR</b> (fiksno) → član Uprave.</div>
+        <div class="wf-help">Zadnji u liniji mora biti član Uprave <span class="wf-p">P3</span>; sustav ne dopušta spremanje ako nije.</div></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Linija je spremljena. Izmjena je zapisana u trag izmjena.">Spremi</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-dodatni">
+    <div class="wf-dialog-head">Dodatni odobravatelji odjela <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-field"><label class="wf-label">Odjel</label><select class="wf-select" ><option selected>Montaža SET</option><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option></select></div>
+      <div class="wf-field"><label class="wf-label">1. razina</label><select class="wf-select" ><option>– nema –</option><option selected>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select></div>
+      <div class="wf-field"><label class="wf-label">2. razina</label><select class="wf-select" ><option>– nema –</option><option>Luka Knežević (dodatni odobravatelj, 1. razina)</option><option selected>Maja Pavlović (dodatni odobravatelj, 2. razina)</option><option>Marko Kovačević (direktor)</option><option>Ana Babić (član Uprave)</option></select><div class="wf-help">Druga razina postoji samo u proizvodnji SET. <span class="wf-p">P4</span></div></div>
+      <div class="wf-field"><label class="wf-label wf-req">Vrijedi od</label><input class="wf-input" type="text" value="1. 1. 2026." ></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Dodatni odobravatelji su spremljeni. Izmjena je zapisana u trag izmjena.">Spremi</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-novi">
+    <div class="wf-dialog-head">Dodaj rukovoditelja <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-field"><label class="wf-label wf-req">Korisnik (Microsoft račun)</label><select class="wf-select" ><option selected>Odaberite korisnika</option><option>Ivana Horvat</option><option>Goran Šimić</option><option>Josip Jurić</option></select><div class="wf-help">Korisnik mora prije toga postojati u ekranu Korisnici, uloge i šifrarnici.</div></div>
+      <div class="wf-field"><label class="wf-label wf-req">Organizacijska jedinica</label><select class="wf-select" ><option selected>Odaberite jedinicu</option><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option><option>Montaža SET</option></select></div>
+      <p class="wf-help">Linije po modulima određuju se nakon dodavanja radnjom Uredi liniju.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Rukovoditelj je dodan. Odredite liniju odobravanja.">Spremi</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

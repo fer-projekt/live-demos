@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A9 Budžeti – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A9">
+<main>
+  <h1 class="wf-h1">Budžeti</h1>
+  <p class="wf-sub">Dodijeljeno, rezervirano, iskorišteno i raspoloživo po profitnom centru, sektoru i odjelu; preraspodjela uz evidenciju.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator (vodi i evidentira). Član Uprave, direktor i rukovoditelj iste brojke vide u pregledima svojih modula, ograničeno na svoju nadležnost.</dd>
+      <dt>Čemu služi</dt><dd>Pregled stanja budžeta po modulu i evidentiranje preraspodjela između jedinica.</dd>
+      <dt>Pravila</dt><dd><ul><li>Gdje modul ima budžet prikazuju se dodijeljeni, rezervirani (prijedlozi u postupku), iskorišteni (odobreno) i raspoloživi iznos. Stanje se ažurira pri svakom odobravanju i odbijanju; odbijeni prijedlog ne troši budžet.</li><li>Budžeti su: godišnje nagrađivanje (po odjelu), napredovanje (na razini Društva, sektora i odjela <span class="wf-p">P18</span>), stimulacije (godišnji fond po odjelu 1. 4. – 31. 3.). Kvartalne nagrade nemaju budžet.</li><li>Preraspodjela unutar sektora ili odjela traži odobrenje nadležnog člana Uprave; između sektora samo odluka Uprave. HR je evidentira.</li><li>Prekoračenje i preraspodjele su moguće samo kontrolirano i ostaju u tragu izmjena. HR iznimku prekoračenja unosi nakon odluke Uprave, a zapis vidi samo HR.</li><li>Raspoloživo = dodijeljeno − rezervirano − iskorišteno.</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p" title="NOVO: Treba li preraspodjela budžeta bilježiti datum i oznaku odluke (odobrenje člana Uprave odnosno odluka Uprave)? Wireframe pretpostavlja da HR upisuje temelj, datum odluke i napomenu.">N17</span> Preraspodjela bilježi temelj, datum odluke i napomenu.</li><li><span class="wf-p">prijedlog</span> Preraspodjela se nudi i za stimulacije i napredovanje, iako Specifikacija opću preraspodjelu navodi uz nagrađivanje i napredovanje; fond stimulacija se „u pravilu ne mijenja tijekom godine“.</li><li>Tab napredovanja prikazuje primjer iz veljače 2027. (ciklus 2027. je u stvarnosti otvoren tek 1. 2. 2027.); ostali su na dan 19. 11. 2026.</li><li><span class="wf-p">P18</span> Budžet napredovanja uvijek i po odjelu.</li><li>Iznosi za Razvoj proizvodnje i Montažu SET dopunjeni su izmišljenim vrijednostima; sektor Tehnologija je jedini sektor profitnog centra DT/ST u primjeru.</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="modul">
+    <button type="button" data-wf-tab="nag" class="is-active">Godišnje nagrađivanje 2026.</button>
+    <button type="button" data-wf-tab="nap">Godišnje napredovanje 2027.</button>
+    <button type="button" data-wf-tab="stim">Mjesečne stimulacije 2026./2027.</button>
+    <button type="button" data-wf-tab="kvart">Kvartalne nagrade</button>
+  </div>
+
+  <div data-wf-panel="modul:nag"><div class="wf-legend mb-2"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Profitni centar › sektor › odjel</th><th class="num">Dodijeljeno (€)</th><th class="num">Rezervirano (€)</th><th class="num">Iskorišteno (€)</th><th class="num">Raspoloživo (€)</th><th>Iskorištenost</th><th></th></tr></thead>
+<tbody>
+<tr class="font-bold"><td>PC DT/ST</td><td class="num">37.000,00</td><td class="num">21.940,00</td><td class="num">6.630,00</td><td class="num">8.430,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:17.92%"></span><span class="res" style="width:59.30%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:22px">Sektor Tehnologija</td><td class="num">37.000,00</td><td class="num">21.940,00</td><td class="num">6.630,00</td><td class="num">8.430,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:17.92%"></span><span class="res" style="width:59.30%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:44px">Projekt tehnologije</td><td class="num">25.000,00</td><td class="num">14.660,00</td><td class="num">6.630,00</td><td class="num">3.710,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:26.52%"></span><span class="res" style="width:58.64%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+<tr><td style="padding-left:44px">Razvoj proizvodnje</td><td class="num">12.000,00</td><td class="num">7.280,00</td><td class="num">0,00</td><td class="num">4.720,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:0.00%"></span><span class="res" style="width:60.67%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+<tr class="font-bold"><td>PC SET</td><td class="num">15.000,00</td><td class="num">6.355,00</td><td class="num">0,00</td><td class="num">8.645,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:0.00%"></span><span class="res" style="width:42.37%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:22px">Sektor Proizvodnja SET</td><td class="num">15.000,00</td><td class="num">6.355,00</td><td class="num">0,00</td><td class="num">8.645,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:0.00%"></span><span class="res" style="width:42.37%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:44px">Montaža SET</td><td class="num">15.000,00</td><td class="num">6.355,00</td><td class="num">0,00</td><td class="num">8.645,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:0.00%"></span><span class="res" style="width:42.37%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+</tbody>
+<tfoot><tr><td>Ukupno prikazane jedinice (uzorak)</td><td class="num">52.000,00</td><td class="num">28.295,00</td><td class="num">6.630,00</td><td class="num">17.075,00</td><td colspan="2"></td></tr></tfoot>
+</table></div><p class="wf-help mt-2">Budžet Projekt tehnologije 25.000,00 € (9,74 % godišnje mase plaća <span class="wf-p">N1</span>). Rezervirano su prijedlozi u postupku (Marija Perić, Nina Šarić, Tena Kolar); iskorišteno je odobreno (Karlo Radić).</p></div>
+  <div data-wf-panel="modul:nap"><div class="wf-legend mb-2"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Profitni centar › sektor › odjel</th><th class="num">Dodijeljeno (€)</th><th class="num">Rezervirano (€)</th><th class="num">Iskorišteno (€)</th><th class="num">Raspoloživo (€)</th><th>Iskorištenost</th><th></th></tr></thead>
+<tbody>
+<tr class="font-bold"><td>Društvo (cijela tvrtka, 412 zaposlenika)</td><td class="num">62.500,00</td><td class="num">21.350,00</td><td class="num">9.800,00</td><td class="num">31.350,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:15.68%"></span><span class="res" style="width:34.16%"></span></div></td><td></td></tr>
+<tr class="font-bold"><td>PC DT/ST</td><td class="num">1.870,00</td><td class="num">1.000,00</td><td class="num">100,00</td><td class="num">770,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:5.35%"></span><span class="res" style="width:53.48%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:22px">Sektor Tehnologija</td><td class="num">1.870,00</td><td class="num">1.000,00</td><td class="num">100,00</td><td class="num">770,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:5.35%"></span><span class="res" style="width:53.48%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:44px">Projekt tehnologije</td><td class="num">1.070,00</td><td class="num">450,00</td><td class="num">100,00</td><td class="num">520,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:9.35%"></span><span class="res" style="width:42.06%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+<tr><td style="padding-left:44px">Razvoj proizvodnje</td><td class="num">800,00</td><td class="num">550,00</td><td class="num">0,00</td><td class="num">250,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:0.00%"></span><span class="res" style="width:68.75%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+<tr class="font-bold"><td>PC SET</td><td class="num">1.200,00</td><td class="num">150,00</td><td class="num">350,00</td><td class="num">700,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:29.17%"></span><span class="res" style="width:12.50%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:22px">Sektor Proizvodnja SET</td><td class="num">1.200,00</td><td class="num">150,00</td><td class="num">350,00</td><td class="num">700,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:29.17%"></span><span class="res" style="width:12.50%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:44px">Montaža SET</td><td class="num">1.200,00</td><td class="num">150,00</td><td class="num">350,00</td><td class="num">700,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:29.17%"></span><span class="res" style="width:12.50%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+</tbody>
+<tfoot><tr><td>Ukupno prikazane jedinice (uzorak; bez retka Društvo)</td><td class="num">3.070,00</td><td class="num">1.150,00</td><td class="num">450,00</td><td class="num">1.470,00</td><td colspan="2"></td></tr></tfoot>
+</table></div><p class="wf-help mt-2">Budžet Projekt tehnologije 1.070,00 € mjesečnog povećanja (5,00 % mjesečne mase plaća). Rezervirano 450,00 € (Marija 300 + Ivan 150), iskorišteno 100,00 € (Nina). Pravilo 50 %/75 % i pravilo 3 % postavljaju se u postavkama ciklusa (F2.1).</p></div>
+  <div data-wf-panel="modul:stim"><div class="wf-legend mb-2"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Profitni centar › sektor › odjel</th><th class="num">Dodijeljeno (€)</th><th class="num">Rezervirano (€)</th><th class="num">Iskorišteno (€)</th><th class="num">Raspoloživo (€)</th><th>Iskorištenost</th><th></th></tr></thead>
+<tbody>
+<tr class="font-bold"><td>PC DT/ST</td><td class="num">22.440,00</td><td class="num">0,00</td><td class="num">8.897,50</td><td class="num">13.542,50</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:39.65%"></span><span class="res" style="width:0.00%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:22px">Sektor Tehnologija</td><td class="num">22.440,00</td><td class="num">0,00</td><td class="num">8.897,50</td><td class="num">13.542,50</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:39.65%"></span><span class="res" style="width:0.00%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:44px">Projekt tehnologije</td><td class="num">12.840,00</td><td class="num">0,00</td><td class="num">5.027,50</td><td class="num">7.812,50</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:39.15%"></span><span class="res" style="width:0.00%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+<tr><td style="padding-left:44px">Razvoj proizvodnje</td><td class="num">9.600,00</td><td class="num">0,00</td><td class="num">3.870,00</td><td class="num">5.730,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:40.31%"></span><span class="res" style="width:0.00%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+<tr class="font-bold"><td>PC SET</td><td class="num">13.200,00</td><td class="num">0,00</td><td class="num">5.150,00</td><td class="num">8.050,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:39.02%"></span><span class="res" style="width:0.00%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:22px">Sektor Proizvodnja SET</td><td class="num">13.200,00</td><td class="num">0,00</td><td class="num">5.150,00</td><td class="num">8.050,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:39.02%"></span><span class="res" style="width:0.00%"></span></div></td><td></td></tr>
+<tr><td style="padding-left:44px">Montaža SET</td><td class="num">13.200,00</td><td class="num">0,00</td><td class="num">5.150,00</td><td class="num">8.050,00</td><td><div class="wf-meter" style="min-width:140px"><span class="used" style="width:39.02%"></span><span class="res" style="width:0.00%"></span></div></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pre">Preraspodijeli</button></td></tr>
+</tbody>
+<tfoot><tr><td>Ukupno prikazane jedinice (uzorak)</td><td class="num">35.640,00</td><td class="num">0,00</td><td class="num">14.047,50</td><td class="num">21.592,50</td><td colspan="2"></td></tr></tfoot>
+</table></div><p class="wf-help mt-2">Godišnji fond Projekt tehnologije 12.840,00 € (60 % ukupnog mjesečnog fonda plaća 21.400,00 €, odluka Uprave). Odobreno travanj–listopad 5.027,50 €; prijedlog za studeni (1.522,50 €) je spremljen i ne rezervira fond. Neiskorišteni dio se ne prenosi u sljedeće razdoblje. Upravljanje fondovima: <a class="wf-link" href="F3-03-fondovi.html">Fondovi stimulacija</a>.</p></div>
+  <div data-wf-panel="modul:kvart"><div class="wf-info">Kvartalne nagrade nemaju budžet <span class="wf-p">prijedlog</span> (Specifikacija ga ne navodi). Iznos nagrade računa se iz bruto plaće, postotka Uprave (isti za sve zaposlenike u kvartalu), procjene rukovoditelja i prisutnosti. Postotak Uprave unosi HR u ekranu <a class="wf-link" href="F4-01-postotak-uprave.html">Postotak Uprave</a>.</div></div>
+
+  <h2 class="wf-section-title">Povijest preraspodjela</h2>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Datum i vrijeme</th><th>Modul</th><th>Iz jedinice</th><th>U jedinicu</th><th class="num">Iznos (€)</th><th>Temelj</th><th>Evidentirao</th><th>Napomena</th></tr></thead>
+<tbody>
+<tr><td>5. 11. 2026. u 10:15</td><td>Godišnje nagrađivanje</td><td>Razvoj proizvodnje</td><td>Projekt tehnologije</td><td class="num">2.000,00</td><td>unutar sektora Tehnologija – odobrenje člana Uprave (Ana Babić), 4. 11. 2026.</td><td>Petra Novak</td><td>Veći broj zaposlenika s razinom 5 i 6 u Projektu tehnologije.</td></tr>
+<tr><td>15. 2. 2027.</td><td>Godišnje napredovanje</td><td>Razvoj proizvodnje</td><td>Projekt tehnologije</td><td class="num">150,00</td><td>unutar sektora Tehnologija – odobrenje člana Uprave (Ana Babić)</td><td><span class="wf-status is-draft">čeka evidenciju HR-a</span></td><td>Brojke u tablici napredovanja još ne uključuju ovu preraspodjelu.</td></tr>
+</tbody>
+</table></div>
+  <p class="wf-help mt-2">Dodijeljeni iznosi nagrađivanja već uključuju evidentiranu preraspodjelu od 5. 11. 2026.; preraspodjela napredovanja od 15. 2. 2027. čeka evidenciju HR-a pa ju tablica napredovanja još ne uključuje. Svaka preraspodjela je u tragu izmjena (A11).</p>
+
+  <dialog class="wf-dialog" id="dlg-pre">
+    <div class="wf-dialog-head">Preraspodjela budžeta <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p class="wf-help mt-0 mb-3">Evidentirate odluku o preraspodjeli; sustav ne preraspodjeljuje sam.</p>
+      <div class="wf-grid md:grid-cols-2">
+        <div class="wf-field"><label class="wf-label wf-req">Iz jedinice</label><select class="wf-select" ><option selected>Razvoj proizvodnje</option><option>Projekt tehnologije</option><option>Montaža SET</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">U jedinicu</label><select class="wf-select" ><option selected>Projekt tehnologije</option><option>Razvoj proizvodnje</option><option>Montaža SET</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Iznos (€)</label><input class="wf-input" type="text" placeholder="0,00" style="text-align:right"><div class="wf-help">Najviše raspoloživo u izvornoj jedinici; rezervirano i iskorišteno se ne preraspodjeljuje. <span class="wf-p">prijedlog</span></div></div>
+        <div class="wf-field"><label class="wf-label wf-req">Datum odluke <span class="wf-p" title="NOVO: Treba li preraspodjela budžeta bilježiti datum i oznaku odluke (odobrenje člana Uprave odnosno odluka Uprave)? Wireframe pretpostavlja da HR upisuje temelj, datum odluke i napomenu.">N17</span></label><input class="wf-input" type="text" placeholder="d. m. gggg." ></div>
+      </div>
+      <div class="wf-field"><div class="wf-label wf-req">Temelj</div>
+        <label class="wf-check block mb-1"><input type="radio" name="tem" checked> odobrenje nadležnog člana Uprave (unutar sektora)</label>
+        <label class="wf-check block"><input type="radio" name="tem"> odluka Uprave (između sektora)</label>
+      </div>
+      <div class="wf-field"><label class="wf-label wf-req">Napomena</label><textarea class="wf-textarea" rows="2" placeholder="Razlog preraspodjele"></textarea></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Preraspodjela je evidentirana i zapisana u trag izmjena.">Evidentiraj preraspodjelu</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2.6 HR provjera – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F2.6">
+<main>
+  <h1 class="wf-h1">HR provjera – godišnje napredovanje 2027.</h1>
+  <p class="wf-sub">Prijedlozi koji čekaju formalnu provjeru potpunosti i usklađenosti s pravilnikom</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator (u liniji napredovanja nakon dodatnog odobravatelja, prije člana Uprave).</dd>
+      <dt>Čemu služi</dt><dd>HR provjerava je li prijedlog potpun i u skladu s pravilnikom (obrazloženje, konkretni primjeri, iznos unutar apoena i budžeta), pa ga potvrđuje, vraća rukovoditelju na doradu ili označava da zaposlenik ne smije biti predložen.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li><b>Potvrdi provjeru</b> daje status HR provjereno i prijedlog ide članu Uprave <span class="wf-p">N4</span>.</li>
+        <li><b>Vrati na doradu</b>: jedan ili više razloga i obavezna napomena; e-mail rukovoditelju i dodatnom odobravatelju (ako ga odjel ima); u Montaži SET (Proizvodnja SET) dobivaju ga rukovoditelj, dodatni odobravatelj (Luka Knežević) i dodatni odobravatelj više razine (Maja Pavlović). Dorađeni prijedlog ponovno ide HR-u.</li>
+        <li>Oznaka „ne smije biti predložen“ (razlog iz izbornika, uz pojašnjenje kod „ostalo“): sustav onemogućuje slanje prijedloga.</li>
+        <li>Nakon odobrenja prijedlog je zaključan; HR ga mijenja samo na temelju odluke Uprave, uz zapis u tragu izmjena <span class="wf-p">P9</span>.</li>
+        <li>Kad redovni odobravatelj nije dostupan, HR može iznimno završno odobriti na temelju dogovora s nadležnima (izvan ovog ekrana).</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">N4</span> Naziv radnje „Potvrdi provjeru“ je naš prijedlog.</li>
+        <li><span class="wf-p">P2</span> Dorađeni prijedlog ponovno prolazi cijelu liniju, počevši od HR-a.</li>
+        <li><span class="wf-p">N35</span> HR može ukloniti oznaku „ne smije biti predložen“ uz trag izmjena; rukovoditelj vidi razlog.</li>
+        <li>Razlozi vraćanja su iz Specifikacije; „status zaposlenja“ kao razlog vraćanja postoji samo kod godišnje nagrade, ovdje je razlog samo kod oznake.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <h2 class="wf-section-title">Popis za provjeru</h2>
+  <div class="wf-filters">
+    <div><label class="wf-label" for="f-od">Odjel</label><select class="wf-select" id="f-od"><option>Svi odjeli</option><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option></select></div>
+    <div><label class="wf-label" for="f-st">Status</label><select class="wf-select" id="f-st"><option>Poslano HR-u</option><option>Svi statusi</option></select></div>
+  </div>
+  <div class="wf-table-wrap">
+    <table class="wf-table" id="lista">
+      <thead><tr><th>Zaposlenik</th><th>Odjel</th><th>Rukovoditelj</th><th>Vrsta napredovanja</th><th class="num">Povećanje</th><th class="num">Nova plaća</th><th>Predano</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <tr data-k="ivan"><td class="wf-name">Ivan Božić</td><td>Projekt tehnologije</td><td>Ivana Horvat</td><td>Horizontalno</td><td class="num">150,00 € (6,12 %)</td><td class="num">2.600,00 €</td><td>16. 2. 2027.</td><td><span class="wf-status">Poslano HR-u</span><span class="wf-at">kod: HR</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-open="ivan">Otvori</button></td></tr>
+        <tr data-k="bruno"><td class="wf-name">Bruno Kralj</td><td>Razvoj proizvodnje</td><td>Goran Šimić</td><td>Horizontalno</td><td class="num">200,00 € (8,00 %)</td><td class="num">2.700,00 €</td><td>17. 2. 2027.</td><td><span class="wf-status">Poslano HR-u</span><span class="wf-at">kod: HR</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-open="bruno">Otvori</button></td></tr>
+        <tr data-k="filip"><td class="wf-name">Filip Matić</td><td>Projekt tehnologije</td><td>Ivana Horvat</td><td>Horizontalno</td><td class="num">150,00 € (5,56 %)</td><td class="num">2.850,00 €</td><td>15. 2. 2027.</td><td><span class="wf-status is-back">Vraćeno na doradu</span><span class="wf-at">HR oznaka: ne smije biti predložen</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-open="filip">Otvori</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Filip Matić prikazan je radi primjera oznake „ne smije biti predložen“ (zadani filtar prikazuje samo Poslano HR-u).</p>
+
+  <div id="detail" class="mt-6">
+    <h2 class="wf-section-title">Prijedlog na provjeri: <span id="d-title"></span></h2>
+
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mb-2">
+      <div>Status: <span class="wf-status" id="d-status">Poslano HR-u</span> <span class="wf-muted text-xs" id="d-at"></span></div>
+    </div>
+    <ol class="wf-steps" aria-label="Linija odobravanja">
+      <li class="is-done" id="l-1">Rukovoditelj – predao</li>
+      <li class="is-active" id="l-2">HR – formalna provjera</li>
+      <li id="l-3">Ana Babić – član Uprave, zadnja razina <span class="wf-p">P3</span></li>
+    </ol>
+    <div id="d-flag"></div>
+
+    <div class="wf-grid md:grid-cols-2">
+      <dl class="wf-kv">
+        <dt>Zaposlenik</dt><dd id="k-name"></dd>
+        <dt>Odjel / rukovoditelj</dt><dd id="k-odj"></dd>
+        <dt>Radno mjesto</dt><dd id="k-rm"></dd>
+        <dt>Vrsta napredovanja</dt><dd id="k-vrsta"></dd>
+      </dl>
+      <dl class="wf-kv">
+        <dt>Postojeća plaća / zadnja promjena</dt><dd id="k-pay"></dd>
+        <dt>Prijedlog povećanja</dt><dd id="k-inc"></dd>
+        <dt>Nova bruto plaća od 1. 4. 2027.</dt><dd id="k-new"></dd>
+        <dt>Datum procjene</dt><dd>12. 2. 2027.</dd>
+      </dl>
+    </div>
+
+    <details class="wf-card mt-3">
+      <summary class="cursor-pointer font-semibold">Obrazac koji je predao rukovoditelj (samo za čitanje)</summary>
+      <div class="mt-3" id="d-form"></div>
+    </details>
+
+    <h3 class="wf-h3 mt-4">Provjere sustava</h3>
+    <div class="wf-table-wrap"><table class="wf-table"><tbody id="d-checks"></tbody></table></div>
+
+    <h3 class="wf-h3 mt-4">HR panel</h3>
+    <div class="wf-card">
+      <div class="wf-actions">
+        <button type="button" class="wf-btn-primary" id="b-potvrdi">Potvrdi provjeru</button>
+        <button type="button" class="wf-btn" id="b-vrati" data-wf-open="dlg-vrati">Vrati na doradu</button>
+        <button type="button" class="wf-btn" id="b-oznaka" data-wf-open="dlg-oznaka">Označi: ne smije biti predložen</button>
+        <button type="button" class="wf-btn" id="b-ukloni" hidden data-wf-toast="Oznaka je uklonjena. Izmjena je zabilježena u tragu izmjena.">Ukloni oznaku</button>
+      </div>
+      <p class="wf-help mt-2" id="d-help"></p>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">Odobreni prijedlozi – izmjene HR-a</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th>Zaposlenik</th><th>Vrsta</th><th class="num">Povećanje</th><th>Status</th><th></th></tr></thead>
+      <tbody><tr><td class="wf-name">Nina Šarić</td><td>Horizontalno</td><td class="num">100,00 € (5,00 %)</td><td><span class="wf-status is-done">Odobreno</span><span class="wf-at">zaključano</span></td><td><button type="button" class="wf-btn wf-btn-sm" disabled>Izmijeni</button></td></tr></tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-1">Nakon odobrenja HR ne mijenja prijedlog sam: izmjena je moguća samo na temelju odluke Uprave i ostaje u tragu izmjena <span class="wf-p">P9</span>.</p>
+
+  <dialog class="wf-dialog" id="dlg-vrati">
+    <div class="wf-dialog-head">Vrati na doradu <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p class="mb-2">Odaberite jedan ili više razloga:</p>
+      <div class="grid gap-1" id="razlozi">
+        <label class="wf-check"><input type="checkbox" value="nedovoljno obrazloženje"> nedovoljno obrazloženje</label>
+        <label class="wf-check"><input type="checkbox" value="nedostaju konkretni primjeri"> nedostaju konkretni primjeri</label>
+        <label class="wf-check"><input type="checkbox" value="prijedlog nije u skladu s pravilnikom"> prijedlog nije u skladu s pravilnikom</label>
+        <label class="wf-check"><input type="checkbox" value="iznos nije unutar dopuštenog raspona ili budžeta"> iznos nije unutar dopuštenog raspona ili budžeta</label>
+        <label class="wf-check"><input type="checkbox" value="nisu ispunjeni osnovni uvjeti"> nisu ispunjeni osnovni uvjeti</label>
+        <label class="wf-check"><input type="checkbox" value="treba ispraviti osnovne podatke"> treba ispraviti osnovne podatke</label>
+        <label class="wf-check"><input type="checkbox" value="ostalo" id="r-ostalo"> ostalo (uz kratko pojašnjenje)</label>
+      </div>
+      <div class="wf-field mt-3"><label class="wf-label" for="r-pojasnjenje">Pojašnjenje (uz „ostalo“)</label><input class="wf-input" id="r-pojasnjenje"></div>
+      <div class="wf-field"><label class="wf-label wf-req" for="r-napomena">Napomena rukovoditelju</label><textarea class="wf-textarea" id="r-napomena" rows="3"></textarea></div>
+      <div class="wf-error" id="r-err" hidden></div>
+      <p class="wf-help mt-2">E-mail dobivaju rukovoditelj i dodatni odobravatelj (ako ga odjel ima). Za Montažu SET: rukovoditelj, dodatni odobravatelj i dodatni odobravatelj više razine. Dorađeni prijedlog ponovno ide HR-u.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" id="r-ok">Vrati na doradu</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-oznaka">
+    <div class="wf-dialog-head">Oznaka: ne smije biti predložen <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-field"><label class="wf-label wf-req" for="o-razlog">Razlog</label>
+        <select class="wf-select" id="o-razlog"><option value="">– odaberi –</option><option>neispunjen osnovni uvjet</option><option>status zaposlenja</option><option>neispunjeni uvjeti pravilnika</option><option>ograničenje budžeta</option><option>ostalo</option></select></div>
+      <div class="wf-field"><label class="wf-label" for="o-pojasnjenje">Kratko pojašnjenje (obavezno uz „ostalo“)</label><input class="wf-input" id="o-pojasnjenje"></div>
+      <div class="wf-error" id="o-err" hidden></div>
+      <p class="wf-help">Nakon oznake sustav onemogućuje slanje prijedloga za ovog zaposlenika; rukovoditelj vidi razlog <span class="wf-p">N35</span>.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" id="o-ok">Spremi oznaku</button>
+    </div>
+  </dialog>
+</main>
+
+<script>
+(function () {
+  var D = {
+    ivan: { name: 'Ivan Božić', odj: 'Projekt tehnologije / Ivana Horvat', rm: 'Tehnolog / Tehnologija', vrsta: 'Horizontalno', pay: 2450, last: '1. 4. 2025.', inc: 150, rasp: 520, udio: '4 od 9 = 44 % (ograničenje 75 %)', status: ['Poslano HR-u', '', 'predala Ivana Horvat 16. 2. 2027. u 10:12'], g: [3, 3, 3, 4], uvj: 5, opis: ['Samostalno vodi izradu tehnoloških postupaka.', 'Točan i pouzdan; dokumentacija bez većih ispravaka.', 'Brz i organiziran, rokove drži.', 'Mentor novim tehnolozima.'], zakl: 'Preporučujem horizontalno napredovanje: stabilno iznad očekivanja, uz mentorstvo i dodatne narudžbe bez pada kvalitete.' },
+    bruno: { name: 'Bruno Kralj', odj: 'Razvoj proizvodnje / Goran Šimić', rm: 'Tehnolog / Tehnologija', vrsta: 'Horizontalno', pay: 2500, last: '1. 4. 2025.', inc: 200, rasp: 250, udio: '2 od 7 = 29 % (ograničenje 75 %)', status: ['Poslano HR-u', '', 'predao Goran Šimić 17. 2. 2027. u 8:40'], g: [3, 3, 3, 3], uvj: 5, opis: ['Samostalno rješava odstupanja u tehnologiji lakiranja.', 'Kvaliteta stabilna, bez reklamacija.', 'Rokove drži i kod većeg obujma.', 'Dijeli znanje o novim alatima.'], zakl: 'Preporučujem horizontalno napredovanje zbog stabilno visokog učinka u zadnjih 12 mjeseci.' },
+    filip: { name: 'Filip Matić', odj: 'Projekt tehnologije / Ivana Horvat', rm: 'Tehnolog / Tehnologija', vrsta: 'Horizontalno', pay: 2700, last: '1. 4. 2024.', inc: 150, rasp: 520, udio: '4 od 9 = 44 % (ograničenje 75 %)', status: ['Vraćeno na doradu', 'is-back', 'vratila Petra Novak 15. 2. 2027.'], flag: 'neispunjeni uvjeti pravilnika', g: [3, 3, 3, 4], uvj: 5, opis: ['Samostalno obavlja standardne zadatke.', 'Kvaliteta stabilna.', 'Rokove drži.', 'Dijeli znanje.'], zakl: 'Preporučujem horizontalno napredovanje.' }
+  };
+  var CR = ['Samostalnost u radu', 'Kvaliteta rada', 'Radna učinkovitost', 'Doprinos timu'];
+  var cur = null, $ = function (id) { return document.getElementById(id); };
+  var eur = function (n) { return WF.fmt(n) + ' €'; };
+
+  function render(key) {
+    cur = key; var d = D[key];
+    $('l-2').className = 'is-active'; $('l-3').className = ''; $('b-vrati').disabled = false; $('b-oznaka').disabled = false;
+    document.querySelectorAll('#lista tr[data-k]').forEach(function (tr) { tr.classList.toggle('is-selected', tr.dataset.k === key); });
+    $('d-title').textContent = d.name;
+    setStatus(d.status[0], d.status[1], d.status[2]);
+    $('k-name').textContent = d.name; $('k-odj').textContent = d.odj; $('k-rm').textContent = d.rm; $('k-vrsta').textContent = d.vrsta;
+    $('k-pay').textContent = eur(d.pay) + ' / ' + d.last;
+    $('k-inc').textContent = eur(d.inc) + ' (' + WF.fmt(d.inc / d.pay * 100) + ' %)';
+    $('k-new').textContent = eur(d.pay + d.inc);
+    var f = '<div class="wf-table-wrap"><table class="wf-table"><thead><tr><th>Kriterij</th><th>Opisna procjena</th><th class="num">Ocjena</th></tr></thead><tbody>';
+    CR.forEach(function (c, i) { f += '<tr><td class="wf-name">' + c + '</td><td>' + d.opis[i] + '</td><td class="num">' + d.g[i] + '</td></tr>'; });
+    f += '</tbody></table></div><ul class="mt-2 list-disc pl-5"><li>Uvjeti pod točkom 1: svih ' + d.uvj + ' = DA</li><li>Eliminacijski kriterij (sigurnost i radna disciplina): Zadovoljava</li><li>Primjeri iz prakse: 2 po kriteriju upisana (8 ukupno)</li><li>Zaključak: ' + d.zakl + '</li></ul>';
+    $('d-form').innerHTML = f;
+    var ok = '<span>ispunjeno</span>', no = '<b>nije ispunjeno</b>';
+    var rows = [
+      ['Obrazac je potpun (ocjene, opisi, primjeri, zaključak)', ok],
+      ['Ocjene: najmanje 2 u svim, barem jedna 3, nijedna 1', ok],
+      ['Svi osnovni uvjeti DA; eliminacijski kriterij Zadovoljava', ok],
+      ['Iznos je jedan od apoena iz postavki ciklusa', ok],
+      ['Budžet odjela: ' + eur(d.inc) + ' ≤ raspoloživo ' + eur(d.rasp), d.inc <= d.rasp ? ok : no],
+      ['Udio predloženih: ' + d.udio, ok],
+      ['Status zaposlenja: aktivan', ok],
+      ['Usklađenost s pravilnikom (ručna ocjena HR-a)', d.flag ? '<b>HR: ' + d.flag + '</b>' : '<span class="wf-muted">HR ocjenjuje</span>']
+    ];
+    $('d-checks').innerHTML = rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td></tr>'; }).join('');
+    flag(d.flag);
+  }
+  function flag(txt) {
+    $('d-flag').innerHTML = txt ? '<div class="wf-block">HR oznaka: ne smije biti predložen – razlog: ' + txt + '. Sustav onemogućuje slanje prijedloga. <span class="wf-p" title="' + WF.questions.P9 + '">P9</span></div>' : '';
+    $('b-oznaka').hidden = !!txt; $('b-ukloni').hidden = !txt;
+    $('b-potvrdi').disabled = !!txt;
+    $('d-help').textContent = txt ? 'Prijedlog se ne može potvrditi dok je oznaka postavljena.' : 'Potvrdom provjere prijedlog dobiva status HR provjereno i ide članu Uprave Ani Babić.';
+  }
+  function setStatus(t, cls, at) { $('d-status').textContent = t; $('d-status').className = 'wf-status ' + (cls || ''); $('d-at').textContent = at || ''; }
+
+  document.getElementById('lista').addEventListener('click', function (e) { var b = e.target.closest('[data-open]'); if (b) render(b.dataset.open); });
+  $('b-potvrdi').addEventListener('click', function () {
+    setStatus('HR provjereno', '', 'potvrdila Petra Novak · kod: Ana Babić');
+    $('l-2').className = 'is-done'; $('l-3').className = 'is-active';
+    $('b-potvrdi').disabled = true; $('b-vrati').disabled = true; $('b-oznaka').disabled = true;
+    WF.toast('Provjera je potvrđena: status HR provjereno. Prijedlog ide članu Uprave.');
+  });
+  $('r-ok').addEventListener('click', function () {
+    var sel = [].slice.call(document.querySelectorAll('#razlozi input:checked')).map(function (i) { return i.value; });
+    var err = $('r-err'), msg = '';
+    if (!sel.length) msg = 'Odaberite barem jedan razlog.';
+    else if (!$('r-napomena').value.trim()) msg = 'Napomena je obavezna.';
+    else if (sel.indexOf('ostalo') !== -1 && !$('r-pojasnjenje').value.trim()) msg = 'Uz „ostalo“ upišite kratko pojašnjenje.';
+    err.hidden = !msg; err.textContent = msg;
+    if (msg) return;
+    $('dlg-vrati').close();
+    setStatus('Vraćeno na doradu', 'is-back', 'razlozi: ' + sel.join(', '));
+    $('b-potvrdi').disabled = true; $('b-vrati').disabled = true;
+    WF.toast('Prijedlog je vraćen na doradu. E-mail su dobili rukovoditelj i dodatni odobravatelj (ako ga odjel ima).');
+  });
+  $('o-ok').addEventListener('click', function () {
+    var r = $('o-razlog').value, err = $('o-err'), msg = '';
+    if (!r) msg = 'Odaberite razlog.';
+    else if (r === 'ostalo' && !$('o-pojasnjenje').value.trim()) msg = 'Uz „ostalo“ upišite kratko pojašnjenje.';
+    err.hidden = !msg; err.textContent = msg;
+    if (msg) return;
+    $('dlg-oznaka').close(); D[cur].flag = r; flag(r);
+    WF.toast('Oznaka je spremljena. Slanje prijedloga je onemogućeno.');
+  });
+  $('b-ukloni').addEventListener('click', function () { D[cur].flag = null; flag(null); });
+  function go() { render('ivan'); }
+  if (window.WF) go(); else document.addEventListener('DOMContentLoaded', go);
+})();
+</script>
+</body>
+</html>

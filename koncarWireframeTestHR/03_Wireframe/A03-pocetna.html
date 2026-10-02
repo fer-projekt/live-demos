@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A3 Početna – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A3">
+<main>
+  <h1 class="wf-h1">Početna</h1>
+  <p class="wf-sub">Što čeka moju radnju, aktivni ciklusi i rokovi, stanje budžeta. Sadržaj ovisi o ulozi.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Svi korisnici; svaka uloga vidi svoj pregled. Kartice ispod su wireframe kontrola za prikaz svih uloga na jednom ekranu (u aplikaciji se odmah prikazuje pregled korisnikove uloge).</dd>
+      <dt>Čemu služi</dt><dd>Prvi ekran nakon prijave: što moram napraviti, koji su ciklusi otvoreni i do kada, koliko je budžeta ostalo. Poveznice vode u module.</dd>
+      <dt>Pravila</dt><dd><ul><li>Cijeli sadržaj početne je naš prijedlog <span class="wf-p">prijedlog</span>; Specifikacija traži samo preglede statusa i budžeta.</li><li>Opseg podataka ovisi o nadležnosti: rukovoditelj vidi svoj odjel, direktor svoj sektor, član Uprave svoje profitne centre, HR i Predsjednik Uprave cijelu tvrtku.</li><li>Budžet se prikazuje kao dodijeljeno, rezervirano (prijedlozi u postupku), iskorišteno i raspoloživo. Spremljeni, a nepredani prijedlog ne rezervira budžet.</li><li>Kvartalne nagrade nemaju budžet pa ga početna ne prikazuje <span class="wf-p">prijedlog</span>: Specifikacija budžet kvartalnih nagrada ne navodi.</li><li>Brojke su iz izmišljenih podataka i slažu se s ekranima modula. Za odjele izvan Projekta tehnologije dopunjeno je izmišljenim vrijednostima.</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p">prijedlog</span> Kartice „Čeka moju radnju“ i redoslijed blokova su prijedlog.</li><li><span class="wf-p">P10</span> Prijedlog koji čeka dodatnog odobravatelja prikazuje se kao „Poslano na odobrenje“.</li><li><span class="wf-p" title="NOVO: Korisnik s više uloga (npr. rukovoditelj koji je i dodatni odobravatelj). Wireframe pretpostavlja jedan izbornik koji je zbroj stavki svih njegovih uloga, a zaglavlje navodi sve uloge. Vlastiti prijedlog korisnik ne odobrava.">N10</span> Korisnik s više uloga vidi na početnoj pregled za svaku svoju ulogu (zasebne kartice).</li><li><span class="wf-p">prijedlog</span> Dodatni odobravatelj nema pregled budžeta na početnoj.</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="uloga">
+    <button type="button" data-wf-tab="ruk" class="is-active">Rukovoditelj</button>
+    <button type="button" data-wf-tab="odob">Odobravatelj (dodatni, direktor, član Uprave)</button>
+    <button type="button" data-wf-tab="hr">HR administrator</button>
+    <button type="button" data-wf-tab="pred">Predsjednik Uprave</button>
+  </div>
+
+  <div data-wf-panel="uloga:ruk">
+    <p class="wf-sub">Ivana Horvat · odjel Projekt tehnologije (9 zaposlenika) · prikaz na dan 19. 11. 2026. <span class="wf-p">prijedlog</span></p>
+    <h2 class="wf-section-title">Čeka moju radnju <span class="wf-p">prijedlog</span></h2>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Što čeka</th><th class="num">Broj</th><th>Rok</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>Prijedlog vraćen na doradu: Filip Matić (HR: nedostaju konkretni primjeri)</td><td class="num">1</td><td>27. 11. 2026.</td><td><a class="wf-btn wf-btn-sm" href="F1-02-moji-zaposlenici.html">Moji zaposlenici</a></td></tr>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>Spremljen prijedlog koji nije predan: Ivan Božić</td><td class="num">1</td><td>27. 11. 2026.</td><td><a class="wf-btn wf-btn-sm" href="F1-02-moji-zaposlenici.html">Moji zaposlenici</a></td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>Prijedlog za studeni 2026. spremljen, nije predan</td><td class="num">1</td><td>30. 11. 2026.</td><td><a class="wf-btn wf-btn-sm" href="F3-01-unos-stimulacija.html">Unos stimulacija</a></td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help">Prazno stanje kad nema radnji: „Nema stavki koje čekaju vašu radnju.“ Kvartalna nagrada Q3 2026. i napredovanje 2027. trenutno nemaju radnji.</p>
+
+    <h2 class="wf-section-title">Aktivni ciklusi i rokovi <span class="wf-p">prijedlog</span></h2>
+    <div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Ciklus / razdoblje</th><th>Status</th><th>Unos do</th><th>Odobravanje do</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>ciklus 2026.</td><td><span class="wf-status">Otvoreno</span></td><td>27. 11. 2026.</td><td>11. 12. 2026.</td></tr>
+<tr><td class="wf-name">Godišnje napredovanje</td><td>ciklus 2027.</td><td>nije otvoreno <span class="wf-at">otvara se 1. 2. 2027.</span></td><td>28. 2. 2027.</td><td>primjena nove plaće 1. 4. 2027.</td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>studeni 2026.</td><td><span class="wf-status">Otvoreno</span></td><td colspan="2">30. 11. 2026. (rok za unos i odobravanje je zadnji dan mjeseca)</td></tr>
+<tr><td class="wf-name">Kvartalne nagrade</td><td>Q3 2026. (srpanj–rujan)</td><td><span class="wf-status">Otvoreno</span> <span class="wf-at">rok istekao, čeka zaključavanje</span></td><td colspan="2">15. 10. 2026. (sredina mjeseca nakon kvartala)</td></tr>
+</tbody>
+</table></div>
+
+    <h2 class="wf-section-title">Budžet mojeg odjela <span class="wf-p">prijedlog</span></h2>
+    <div class="wf-grid md:grid-cols-2">
+      <div class="wf-card"><div class="wf-h3">Godišnje nagrađivanje 2026.</div><div class="wf-help mb-2 mt-0">Odjel Projekt tehnologije</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>Projekt tehnologije</b><span class="num">dodijeljeno 25.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:26.52%"></span><span class="res" style="width:58.64%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 6.630,00 € · rezervirano 14.660,00 € · <b class="text-black">raspoloživo 3.710,00 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+      <div class="wf-card"><div class="wf-h3">Mjesečne stimulacije – fond 2026./2027.</div><div class="wf-help mb-2 mt-0">Odjel Projekt tehnologije; spremljeni prijedlog za studeni ne rezervira fond</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>Projekt tehnologije</b><span class="num">dodijeljeno 12.840,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.15%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 5.027,50 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 7.812,50 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+    </div>
+    <p class="wf-help mt-2">Napredovanje: budžet se prikazuje kad HR otvori ciklus 2027. Kvartalne nagrade nemaju budžet.</p>
+  </div>
+  <div data-wf-panel="uloga:odob">
+  <div class="wf-states" data-wf-tabs="odob">
+    <button type="button" data-wf-tab="dod" class="is-active">Dodatni odobravatelj (Luka Knežević)</button>
+    <button type="button" data-wf-tab="dir">Direktor (Marko Kovačević)</button>
+    <button type="button" data-wf-tab="cl">Član Uprave (Ana Babić)</button>
+  </div>
+
+    <div data-wf-panel="odob:dod">
+      <p class="wf-sub">Luka Knežević · dodatni odobravatelj, Proizvodnja SET (1. razina) · prikaz na dan 19. 11. 2026. <span class="wf-p">prijedlog</span></p>
+      <h2 class="wf-section-title">Čeka moju radnju <span class="wf-p">prijedlog</span></h2>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Što čeka</th><th class="num">Broj</th><th>Rok</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>Prijedlog Poslano na odobrenje: Stjepan Lovrić (Montaža SET)</td><td class="num">1</td><td>11. 12. 2026.</td><td><a class="wf-btn wf-btn-sm" href="F1-04-na-odobrenju.html">Na odobrenju</a></td></tr>
+</tbody>
+</table></div>
+      <h2 class="wf-section-title">Aktivni ciklusi i rokovi <span class="wf-p">prijedlog</span></h2>
+      <div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Ciklus / razdoblje</th><th>Status</th><th>Unos do</th><th>Odobravanje do</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>ciklus 2026.</td><td><span class="wf-status">Otvoreno</span></td><td>27. 11. 2026.</td><td>11. 12. 2026.</td></tr>
+<tr><td class="wf-name">Godišnje napredovanje</td><td>ciklus 2027.</td><td>nije otvoreno <span class="wf-at">otvara se 1. 2. 2027.</span></td><td>28. 2. 2027.</td><td>primjena nove plaće 1. 4. 2027.</td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>studeni 2026.</td><td><span class="wf-status">Otvoreno</span></td><td colspan="2">30. 11. 2026. (rok za unos i odobravanje je zadnji dan mjeseca)</td></tr>
+<tr><td class="wf-name">Kvartalne nagrade</td><td>Q3 2026. (srpanj–rujan)</td><td><span class="wf-status">Otvoreno</span> <span class="wf-at">rok istekao, čeka zaključavanje</span></td><td colspan="2">15. 10. 2026. (sredina mjeseca nakon kvartala)</td></tr>
+</tbody>
+</table></div>
+      <div class="wf-info mt-4">Pregled budžeta za dodatnog odobravatelja <span class="wf-p">prijedlog</span>: Specifikacija mu daje samo prijedloge odjela za koji je određen, pa budžet na početnoj nije prikazan.</div>
+    </div>
+
+    <div data-wf-panel="odob:dir">
+      <p class="wf-sub">Marko Kovačević · direktor, sektor Tehnologija (Projekt tehnologije, Razvoj proizvodnje) · prikaz na dan 19. 11. 2026. <span class="wf-p">prijedlog</span></p>
+      <h2 class="wf-section-title">Čeka moju radnju <span class="wf-p">prijedlog</span></h2>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Što čeka</th><th class="num">Broj</th><th>Rok</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>Prijedlozi HR provjereno, čekaju odluku: Marija Perić (8.960,00 €), Ivona Jakšić (5.780,00 €)</td><td class="num">2</td><td>11. 12. 2026.</td><td><a class="wf-btn wf-btn-sm" href="F1-04-na-odobrenju.html">Na odobrenju</a></td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>Prijedlog za studeni 2026. još nije predan (Projekt tehnologije)</td><td class="num">0</td><td>30. 11. 2026.</td><td><a class="wf-btn wf-btn-sm" href="F3-02-odobrenje-stimulacija.html">Odobrenje stimulacija</a></td></tr>
+</tbody>
+</table></div>
+      <h2 class="wf-section-title">Aktivni ciklusi i rokovi <span class="wf-p">prijedlog</span></h2>
+      <div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Ciklus / razdoblje</th><th>Status</th><th>Unos do</th><th>Odobravanje do</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>ciklus 2026.</td><td><span class="wf-status">Otvoreno</span></td><td>27. 11. 2026.</td><td>11. 12. 2026.</td></tr>
+<tr><td class="wf-name">Godišnje napredovanje</td><td>ciklus 2027.</td><td>nije otvoreno <span class="wf-at">otvara se 1. 2. 2027.</span></td><td>28. 2. 2027.</td><td>primjena nove plaće 1. 4. 2027.</td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>studeni 2026.</td><td><span class="wf-status">Otvoreno</span></td><td colspan="2">30. 11. 2026. (rok za unos i odobravanje je zadnji dan mjeseca)</td></tr>
+<tr><td class="wf-name">Kvartalne nagrade</td><td>Q3 2026. (srpanj–rujan)</td><td><span class="wf-status">Otvoreno</span> <span class="wf-at">rok istekao, čeka zaključavanje</span></td><td colspan="2">15. 10. 2026. (sredina mjeseca nakon kvartala)</td></tr>
+</tbody>
+</table></div>
+      <h2 class="wf-section-title">Budžet mojih odjela <span class="wf-p">prijedlog</span></h2>
+      <div class="wf-grid md:grid-cols-2">
+        <div class="wf-card"><div class="wf-h3">Godišnje nagrađivanje 2026.</div><div class="wf-help mb-2 mt-0">Sektor Tehnologija</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>Sektor Tehnologija</b><span class="num">dodijeljeno 37.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:17.92%"></span><span class="res" style="width:59.3%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 6.630,00 € · rezervirano 21.940,00 € · <b class="text-black">raspoloživo 8.430,00 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>– Projekt tehnologije</b><span class="num">dodijeljeno 25.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:26.52%"></span><span class="res" style="width:58.64%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 6.630,00 € · rezervirano 14.660,00 € · <b class="text-black">raspoloživo 3.710,00 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>– Razvoj proizvodnje</b><span class="num">dodijeljeno 12.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:0%"></span><span class="res" style="width:60.67%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 0,00 € · rezervirano 7.280,00 € · <b class="text-black">raspoloživo 4.720,00 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+        <div class="wf-card"><div class="wf-h3">Mjesečne stimulacije – fond 2026./2027.</div><div class="wf-help mb-2 mt-0">Sektor Tehnologija</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>Sektor Tehnologija</b><span class="num">dodijeljeno 22.440,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.65%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 8.897,50 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 13.542,50 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>– Projekt tehnologije</b><span class="num">dodijeljeno 12.840,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.15%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 5.027,50 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 7.812,50 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>– Razvoj proizvodnje</b><span class="num">dodijeljeno 9.600,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:40.31%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 3.870,00 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 5.730,00 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+      </div>
+    </div>
+
+    <div data-wf-panel="odob:cl">
+      <p class="wf-sub">Ana Babić · član Uprave, profitni centri DT/ST i SET · prikaz na dan 19. 11. 2026. <span class="wf-p">prijedlog</span></p>
+      <h2 class="wf-section-title">Čeka moju radnju <span class="wf-p">prijedlog</span></h2>
+      <div class="wf-info">Nema prijedloga koji čekaju vašu odluku. U HR provjeri je 1 prijedlog iz Montaže SET (Hrvoje Pavić, 4.420,00 €) koji će doći do vas nakon HR-a. <a class="wf-btn wf-btn-sm" href="F1-04-na-odobrenju.html">Na odobrenju</a></div>
+      <h2 class="wf-section-title">Aktivni ciklusi i rokovi <span class="wf-p">prijedlog</span></h2>
+      <div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Ciklus / razdoblje</th><th>Status</th><th>Unos do</th><th>Odobravanje do</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>ciklus 2026.</td><td><span class="wf-status">Otvoreno</span></td><td>27. 11. 2026.</td><td>11. 12. 2026.</td></tr>
+<tr><td class="wf-name">Godišnje napredovanje</td><td>ciklus 2027.</td><td>nije otvoreno <span class="wf-at">otvara se 1. 2. 2027.</span></td><td>28. 2. 2027.</td><td>primjena nove plaće 1. 4. 2027.</td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>studeni 2026.</td><td><span class="wf-status">Otvoreno</span></td><td colspan="2">30. 11. 2026. (rok za unos i odobravanje je zadnji dan mjeseca)</td></tr>
+<tr><td class="wf-name">Kvartalne nagrade</td><td>Q3 2026. (srpanj–rujan)</td><td><span class="wf-status">Otvoreno</span> <span class="wf-at">rok istekao, čeka zaključavanje</span></td><td colspan="2">15. 10. 2026. (sredina mjeseca nakon kvartala)</td></tr>
+</tbody>
+</table></div>
+      <h2 class="wf-section-title">Budžet mojih profitnih centara <span class="wf-p">prijedlog</span></h2>
+      <div class="wf-grid md:grid-cols-2">
+        <div class="wf-card"><div class="wf-h3">Godišnje nagrađivanje 2026.</div><div class="wf-help mb-2 mt-0">Profitni centri DT/ST i SET</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>PC DT/ST</b><span class="num">dodijeljeno 37.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:17.92%"></span><span class="res" style="width:59.3%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 6.630,00 € · rezervirano 21.940,00 € · <b class="text-black">raspoloživo 8.430,00 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>PC SET</b><span class="num">dodijeljeno 15.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:0%"></span><span class="res" style="width:42.37%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 0,00 € · rezervirano 6.355,00 € · <b class="text-black">raspoloživo 8.645,00 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+        <div class="wf-card"><div class="wf-h3">Mjesečne stimulacije – fond 2026./2027.</div><div class="wf-help mb-2 mt-0">Profitni centri DT/ST i SET</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>PC DT/ST</b><span class="num">dodijeljeno 22.440,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.65%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 8.897,50 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 13.542,50 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>PC SET</b><span class="num">dodijeljeno 13.200,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.02%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 5.150,00 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 8.050,00 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+      </div>
+      <p class="wf-help mt-2">Detaljan pregled po odjelima, za koga i usporedba: <a class="wf-btn wf-btn-sm" href="F1-06-budzet-pregled.html">Budžet i pregled</a></p>
+    </div>
+  </div>
+  <div data-wf-panel="uloga:hr">
+    <p class="wf-sub">Petra Novak · HR administrator, cijela tvrtka · prikaz na dan 19. 11. 2026. <span class="wf-p">prijedlog</span></p>
+    <h2 class="wf-section-title">Čeka moju radnju <span class="wf-p">prijedlog</span></h2>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Što čeka</th><th class="num">Broj</th><th>Rok</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>HR provjera: Nina Šarić, Tena Kolar, Bruno Kralj, Hrvoje Pavić</td><td class="num">4</td><td>11. 12. 2026.</td><td><a class="wf-btn wf-btn-sm" href="F1-05-hr-provjera.html">HR provjera</a></td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>Listopad 2026. odobreno: izvoz za obračun i zaključavanje</td><td class="num">1</td><td>31. 10. 2026. (istekao)</td><td><a class="wf-btn wf-btn-sm" href="F3-04-izvoz-izvjestaji.html">Izvoz i izvještaji</a></td></tr>
+<tr><td class="wf-name">Kvartalne nagrade</td><td>Q3 2026.: rok istekao, razdoblje čeka zaključavanje</td><td class="num">1</td><td>15. 10. 2026. (istekao)</td><td><a class="wf-btn wf-btn-sm" href="A08-ciklusi-razdoblja.html">Ciklusi i razdoblja</a></td></tr>
+<tr><td class="wf-name">Godišnje napredovanje</td><td>Ciklus 2027. još nije otvoren; postavke i budžet unijeti prije 1. 2. 2027.</td><td class="num">1</td><td>1. 2. 2027.</td><td><a class="wf-btn wf-btn-sm" href="F2-01-postavke-ciklusa.html">Postavke ciklusa</a></td></tr>
+</tbody>
+</table></div>
+
+    <h2 class="wf-section-title">Aktivni ciklusi i rokovi <span class="wf-p">prijedlog</span></h2>
+    <div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Ciklus / razdoblje</th><th>Status</th><th>Unos do</th><th>Odobravanje do</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>ciklus 2026.</td><td><span class="wf-status">Otvoreno</span></td><td>27. 11. 2026.</td><td>11. 12. 2026.</td></tr>
+<tr><td class="wf-name">Godišnje napredovanje</td><td>ciklus 2027.</td><td>nije otvoreno <span class="wf-at">otvara se 1. 2. 2027.</span></td><td>28. 2. 2027.</td><td>primjena nove plaće 1. 4. 2027.</td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>studeni 2026.</td><td><span class="wf-status">Otvoreno</span></td><td colspan="2">30. 11. 2026. (rok za unos i odobravanje je zadnji dan mjeseca)</td></tr>
+<tr><td class="wf-name">Kvartalne nagrade</td><td>Q3 2026. (srpanj–rujan)</td><td><span class="wf-status">Otvoreno</span> <span class="wf-at">rok istekao, čeka zaključavanje</span></td><td colspan="2">15. 10. 2026. (sredina mjeseca nakon kvartala)</td></tr>
+</tbody>
+</table></div>
+
+    <h2 class="wf-section-title">Budžet prikazanih jedinica (uzorak) <span class="wf-p">prijedlog</span></h2>
+    <div class="wf-grid md:grid-cols-2">
+      <div class="wf-card"><div class="wf-h3">Godišnje nagrađivanje 2026.</div><div class="wf-help mb-2 mt-0">Zbroj triju prikazanih odjela (Projekt tehnologije, Razvoj proizvodnje, Montaža SET)</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>Ukupno prikazane jedinice (uzorak)</b><span class="num">dodijeljeno 52.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:12.75%"></span><span class="res" style="width:54.41%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 6.630,00 € · rezervirano 28.295,00 € · <b class="text-black">raspoloživo 17.075,00 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>PC DT/ST</b><span class="num">dodijeljeno 37.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:17.92%"></span><span class="res" style="width:59.3%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 6.630,00 € · rezervirano 21.940,00 € · <b class="text-black">raspoloživo 8.430,00 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>PC SET</b><span class="num">dodijeljeno 15.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:0%"></span><span class="res" style="width:42.37%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 0,00 € · rezervirano 6.355,00 € · <b class="text-black">raspoloživo 8.645,00 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+      <div class="wf-card"><div class="wf-h3">Mjesečne stimulacije – fond 2026./2027.</div><div class="wf-help mb-2 mt-0">Zbroj triju prikazanih odjela (uzorak)</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>Ukupno prikazane jedinice (uzorak)</b><span class="num">dodijeljeno 35.640,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.42%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 14.047,50 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 21.592,50 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>PC DT/ST</b><span class="num">dodijeljeno 22.440,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.65%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 8.897,50 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 13.542,50 €</b></div></div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>PC SET</b><span class="num">dodijeljeno 13.200,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.02%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 5.150,00 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 8.050,00 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+    </div>
+    <p class="wf-help mt-2">Upravljanje: <a class="wf-btn wf-btn-sm" href="A09-budzeti.html">Budžeti</a> <a class="wf-btn wf-btn-sm" href="A11-trag-izmjena.html">Trag izmjena</a></p>
+  </div>
+  <div data-wf-panel="uloga:pred">
+    <p class="wf-sub">Tomislav Marić · Predsjednik Uprave, cijela tvrtka (samo pregled) · prikaz na dan 19. 11. 2026. <span class="wf-p">prijedlog</span></p>
+    <h2 class="wf-section-title">Čeka moju radnju <span class="wf-p">prijedlog</span></h2>
+    <div class="wf-info">Predsjednik Uprave ima pregled i ne odobrava ni ne predlaže, pa nema radnji. Umjesto toga: <a class="wf-btn wf-btn-sm" href="F1-07-izvjestaji-izvoz.html">Izvještaji nagrađivanja</a> <a class="wf-btn wf-btn-sm" href="F1-06-budzet-pregled.html">Budžet i pregled</a> <a class="wf-btn wf-btn-sm" href="A04-zaposlenici.html">Zaposlenici</a></div>
+
+    <h2 class="wf-section-title">Aktivni ciklusi i rokovi <span class="wf-p">prijedlog</span></h2>
+    <div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Modul</th><th>Ciklus / razdoblje</th><th>Status</th><th>Unos do</th><th>Odobravanje do</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Godišnje nagrađivanje</td><td>ciklus 2026.</td><td><span class="wf-status">Otvoreno</span></td><td>27. 11. 2026.</td><td>11. 12. 2026.</td></tr>
+<tr><td class="wf-name">Godišnje napredovanje</td><td>ciklus 2027.</td><td>nije otvoreno <span class="wf-at">otvara se 1. 2. 2027.</span></td><td>28. 2. 2027.</td><td>primjena nove plaće 1. 4. 2027.</td></tr>
+<tr><td class="wf-name">Mjesečne stimulacije</td><td>studeni 2026.</td><td><span class="wf-status">Otvoreno</span></td><td colspan="2">30. 11. 2026. (rok za unos i odobravanje je zadnji dan mjeseca)</td></tr>
+<tr><td class="wf-name">Kvartalne nagrade</td><td>Q3 2026. (srpanj–rujan)</td><td><span class="wf-status">Otvoreno</span> <span class="wf-at">rok istekao, čeka zaključavanje</span></td><td colspan="2">15. 10. 2026. (sredina mjeseca nakon kvartala)</td></tr>
+</tbody>
+</table></div>
+
+    <h2 class="wf-section-title">Budžet prikazanih jedinica (uzorak) <span class="wf-p">prijedlog</span></h2>
+    <div class="wf-grid md:grid-cols-2">
+      <div class="wf-card"><div class="wf-h3">Godišnje nagrađivanje 2026.</div><div class="wf-help mb-2 mt-0">Zbroj triju prikazanih odjela (uzorak)</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>Ukupno prikazane jedinice (uzorak)</b><span class="num">dodijeljeno 52.000,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:12.75%"></span><span class="res" style="width:54.41%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 6.630,00 € · rezervirano 28.295,00 € · <b class="text-black">raspoloživo 17.075,00 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+      <div class="wf-card"><div class="wf-h3">Mjesečne stimulacije – fond 2026./2027.</div><div class="wf-help mb-2 mt-0">Zbroj triju prikazanih odjela (uzorak)</div><div class="mb-3">
+    <div class="flex flex-wrap justify-between gap-x-4 text-sm"><b>Ukupno prikazane jedinice (uzorak)</b><span class="num">dodijeljeno 35.640,00 €</span></div>
+    <div class="wf-meter"><span class="used" style="width:39.42%"></span><span class="res" style="width:0%"></span></div>
+    <div class="text-xs wf-muted">iskorišteno 14.047,50 € · rezervirano 0,00 € · <b class="text-black">raspoloživo 21.592,50 €</b></div></div><div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div></div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

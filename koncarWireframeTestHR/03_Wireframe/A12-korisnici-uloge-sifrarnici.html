@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A12 Korisnici, uloge i šifrarnici – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A12">
+<main>
+  <h1 class="wf-h1">Korisnici, uloge i šifrarnici</h1>
+  <p class="wf-sub">Administracija pristupa i popisa vrijednosti koje koriste svi moduli.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator.</dd>
+      <dt>Čemu služi</dt><dd>HR vodi korisnike aplikacije (Microsoft računi, uloge, nadležnost), pregledava uloge i održava šifrarnike.</dd>
+      <dt>Pravila</dt><dd><ul><li>Prijava je Microsoft računom; korisnik mora postojati u popisu da bi imao pristup (A1).</li><li>Postoji šest uloga: rukovoditelj, dodatni odobravatelj, direktor, član Uprave, Predsjednik Uprave, HR administrator. Prava se određuju kombinacijom uloge, organizacijske nadležnosti i linije odobravanja.</li><li>Rukovoditelji, direktori i članovi Uprave vode se samo kao korisnici (ne kao zaposlenici u obračunu). Linije odobravanja održavaju se na ekranu A7.</li><li>Šifrarnici dijele svi moduli: organizacijske jedinice, radna mjesta i grupe, pozicije, stupnjevi složenosti, platni razredi, razlozi vraćanja na doradu, razlozi „ne smije biti predložen“.</li><li>Svaka izmjena korisnika, uloga i šifrarnika bilježi se u trag izmjena.</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p" title="NOVO: Korisnik s više uloga (npr. rukovoditelj koji je i dodatni odobravatelj). Wireframe pretpostavlja jedan izbornik koji je zbroj stavki svih njegovih uloga, a zaglavlje navodi sve uloge. Vlastiti prijedlog korisnik ne odobrava.">N10</span> Jedan korisnik može imati više uloga (npr. rukovoditelj i dodatni odobravatelj): u obrascu je više kvačica za uloge.</li><li><span class="wf-p" title="NOVO: Smije li HR sam uređivati popise šifrarnika, uključujući razloge vraćanja na doradu i razloge „ne smije biti predložen“? Wireframe pretpostavlja da da, ali popisi iz Specifikacije ostaju zadani, a „Ostalo“ ne može nestati.">N18</span> HR uređuje popise razloga; popisi iz Specifikacije su zadani, a „ostalo“ je stalno dostupno i ne može se isključiti.</li><li><span class="wf-p">prijedlog</span> Popis od šest uloga je zadan; HR korisnicima dodjeljuje uloge i nadležnost, ali ne stvara nove uloge.</li><li><span class="wf-p">prijedlog</span> Deaktivirani korisnik ne može se prijaviti; njegovi zapisi i povijest ostaju.</li><li><span class="wf-p">P23</span> Popis pozicija usklađuje se s Početnom i Naprednom pozicijom.</li><li>Microsoft računi (@firma.example), grupe radnih mjesta za SET i platni razredi PR 1–PR 12 su izmišljeni.</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="tab">
+    <button type="button" data-wf-tab="kor" class="is-active">Korisnici</button>
+    <button type="button" data-wf-tab="ul">Uloge</button>
+    <button type="button" data-wf-tab="sif">Šifrarnici</button>
+  </div>
+
+  <div data-wf-panel="tab:kor">
+    <div class="wf-filters">
+      <div style="min-width:240px"><label class="wf-label" for="kq">Pretraga</label><input class="wf-input" id="kq" type="search" placeholder="Ime ili Microsoft račun"></div>
+      <div><label class="wf-label" for="ku">Uloga</label><select class="wf-select" id="ku"><option selected>Sve uloge</option><option>Rukovoditelj</option><option>Dodatni odobravatelj</option><option>Direktor</option><option>Član Uprave</option><option>Predsjednik Uprave</option><option>HR administrator</option></select></div>
+      <div class="wf-actions ml-auto"><button type="button" class="wf-btn-primary" data-wf-open="dlg-kor">Dodaj korisnika</button></div>
+    </div>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Microsoft račun</th><th>Ime i prezime</th><th style="min-width:170px">Uloge</th><th style="min-width:230px">Nadležnost</th><th class="text-center">Aktivan</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-mono text-xs">ivana.horvat@firma.example</td><td class="wf-name">Ivana Horvat</td><td>Rukovoditelj</td><td>Odjel Projekt tehnologije</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">goran.simic@firma.example</td><td class="wf-name">Goran Šimić</td><td>Rukovoditelj</td><td>Odjel Razvoj proizvodnje</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">josip.juric@firma.example</td><td class="wf-name">Josip Jurić</td><td>Rukovoditelj</td><td>Odjel Montaža SET</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">luka.knezevic@firma.example</td><td class="wf-name">Luka Knežević</td><td>Dodatni odobravatelj</td><td>Proizvodnja SET (1. razina)</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">maja.pavlovic@firma.example</td><td class="wf-name">Maja Pavlović</td><td>Dodatni odobravatelj</td><td>Proizvodnja SET (2. razina, dodatni odobravatelj više razine)</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">marko.kovacevic@firma.example</td><td class="wf-name">Marko Kovačević</td><td>Direktor</td><td>Sektor Tehnologija (Projekt tehnologije, Razvoj proizvodnje)</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">ana.babic@firma.example</td><td class="wf-name">Ana Babić</td><td>Član Uprave</td><td>PC DT/ST i PC SET</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">tomislav.maric@firma.example</td><td class="wf-name">Tomislav Marić</td><td>Predsjednik Uprave</td><td>cijela tvrtka</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">petra.novak@firma.example</td><td class="wf-name">Petra Novak</td><td>HR administrator</td><td>cijela tvrtka</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+<tr><td class="wf-mono text-xs">sanja.lukic@firma.example</td><td class="wf-name">Sanja Lukić</td><td>HR administrator</td><td>cijela tvrtka</td><td class="text-center"><input type="checkbox" checked aria-label="Aktivan" style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-kor">Uredi</button></td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help mt-2">10 korisnika. Ovdje su samo korisnici; zaposlenici izvršitelji su na ekranu Zaposlenici (A4).</p>
+  </div>
+
+  <div data-wf-panel="tab:ul">
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Uloga</th><th>Što vidi</th><th>Što radi</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Rukovoditelj</td><td>svoje zaposlenike, njihove plaće, budžet i statuse svog odjela</td><td>unosi, sprema i šalje prijedloge za svoje ljude</td></tr>
+<tr><td class="wf-name">Dodatni odobravatelj</td><td>prijedloge odjela za koje je određen (samo određeni odjeli)</td><td>odobrava ili odbija prije sljedeće razine; u proizvodnji SET postoje dvije takve razine</td></tr>
+<tr><td class="wf-name">Direktor</td><td>sve odjele kojima je nadređen: prijedloge, statuse, iskorištenost budžeta, izvještaje, povijest</td><td>odobrava ili odbija; ne predlaže</td></tr>
+<tr><td class="wf-name">Član Uprave</td><td>sve sektore i odjele kojima je nadređen, zbirno i po zaposleniku: statuse, budžete, prijedloge, odobrenja, izvještaje</td><td>odobrava ili odbija; može predložiti i za svoje direktno podređene <span class="wf-p">P7</span></td></tr>
+<tr><td class="wf-name">Predsjednik Uprave</td><td>sve zaposlenike i zbirni izvještaj za cijelu tvrtku</td><td>pregled</td></tr>
+<tr><td class="wf-name">HR administrator</td><td>sve što treba za vođenje procesa, povijest svih izmjena, zbirni izvještaj za cijelu tvrtku</td><td>vodi korisnike, uloge, zaposlenike, cikluse, budžete, statuse, uvoz i izvoz, ispravke i zaključavanje razdoblja; u napredovanju i nagrađivanju provjerava prijedloge; kad redovni odobravatelj nije dostupan, može iznimno završno odobriti na temelju dogovora s nadležnima; pruža podršku korisnicima. U redovnom tijeku ne predlaže.</td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help mt-2">Koje stavke izbornika koja uloga vidi prikazano je u matrici na ekranu <a class="wf-link" href="A02-okvir-aplikacije.html">Okvir aplikacije</a>.</p>
+  </div>
+
+  <div data-wf-panel="tab:sif">
+  <div class="wf-tabs" data-wf-tabs="sif">
+    <button type="button" data-wf-tab="org" class="is-active">Organizacijske jedinice</button>
+    <button type="button" data-wf-tab="rm">Radna mjesta i grupe</button>
+    <button type="button" data-wf-tab="poz">Pozicije</button>
+    <button type="button" data-wf-tab="st">Stupnjevi složenosti</button>
+    <button type="button" data-wf-tab="pr">Platni razredi</button>
+    <button type="button" data-wf-tab="rv">Razlozi vraćanja na doradu</button>
+    <button type="button" data-wf-tab="ns">Razlozi „ne smije biti predložen“</button>
+  </div>
+    <div data-wf-panel="sif:org"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Profitni centar</th><th>Sektor</th><th>Odjel</th><th>Rukovoditelj</th><th class="text-center">Aktivno</th><th></th></tr></thead>
+<tbody>
+<tr><td>PC DT/ST</td><td>Tehnologija</td><td>Projekt tehnologije</td><td>Ivana Horvat</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>PC DT/ST</td><td>Tehnologija</td><td>Razvoj proizvodnje</td><td>Goran Šimić</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>PC SET</td><td>Proizvodnja SET</td><td>Montaža SET</td><td>Josip Jurić</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+</tbody>
+</table></div><div class="wf-actions mt-3"><button type="button" class="wf-btn-primary" data-wf-toast="Nova stavka je dodana. Izmjena je zapisana u trag izmjena.">Dodaj</button></div></div>
+    <div data-wf-panel="sif:rm"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Radno mjesto</th><th>Grupa radnih mjesta</th><th>Ključno ekspertno</th><th class="text-center">Aktivno</th><th></th></tr></thead>
+<tbody>
+<tr><td>Inženjer procesa u odjelu Projekt tehnologije</td><td>Tehnologija</td><td>da</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>Inženjer procesa u Razvoju proizvodnje</td><td>Tehnologija</td><td>da</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>Tehnolog</td><td>Tehnologija</td><td>ne</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>Senior tehnolog</td><td>Tehnologija</td><td>ne</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>Referent pripreme proizvodnje</td><td>Tehnologija</td><td>ne</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>Monter transformatora</td><td>Proizvodnja SET <span class="wf-p">prijedlog</span></td><td>ne</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>Ispitivač</td><td>Proizvodnja SET <span class="wf-p">prijedlog</span></td><td>ne</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+</tbody>
+</table></div><div class="wf-actions mt-3"><button type="button" class="wf-btn-primary" data-wf-toast="Nova stavka je dodana. Izmjena je zapisana u trag izmjena.">Dodaj</button></div><p class="wf-help mt-2">Ključna ekspertna radna mjesta (popis od 12 u Specifikaciji, HR može dodati druga) vode se u postavkama ciklusa napredovanja (F2.1).</p></div>
+    <div data-wf-panel="sif:poz"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Pozicija</th><th>Napomena</th><th class="text-center">Aktivno</th><th></th></tr></thead>
+<tbody>
+<tr><td>Pripravnik</td><td>u prvih 12 mjeseci ne može se predložiti za napredovanje</td><td class="text-center"><input type="checkbox" checked disabled style="width:14px;height:14px;accent-color:#000"></td><td><span class="wf-muted text-xs">zadano</span></td></tr>
+<tr><td>Junior</td><td>u prvih 12 mjeseci ne može se predložiti; Junior → Standardna (12–24 mjeseca <span class="wf-p">P16</span>)</td><td class="text-center"><input type="checkbox" checked disabled style="width:14px;height:14px;accent-color:#000"></td><td><span class="wf-muted text-xs">zadano</span></td></tr>
+<tr><td>Standardna pozicija</td><td>Standardna → Napredna samo za ključna ekspertna mjesta</td><td class="text-center"><input type="checkbox" checked disabled style="width:14px;height:14px;accent-color:#000"></td><td><span class="wf-muted text-xs">zadano</span></td></tr>
+<tr><td>Senior</td><td>naziv nakon 12 mjeseci u potkategoriji 3 ili 4 i odobrenja Uprave <span class="wf-p">P24</span></td><td class="text-center"><input type="checkbox" checked disabled style="width:14px;height:14px;accent-color:#000"></td><td><span class="wf-muted text-xs">zadano</span></td></tr>
+</tbody>
+</table></div></div>
+    <div data-wf-panel="sif:st"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Stupanj složenosti</th><th>Napomena</th><th class="text-center">Aktivno</th><th></th></tr></thead>
+<tbody>
+<tr><td>I4</td><td>najviši iznos godišnje nagrade 12.000 € (samo uz izniman učinak) <span class="wf-p">P13</span></td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>I5</td><td>najviši iznos godišnje nagrade 12.000 € (samo uz izniman učinak) <span class="wf-p">P13</span></td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>I6</td><td>najviši iznos godišnje nagrade 6.000 €</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>I7</td><td>najviši iznos godišnje nagrade 4.500 €</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>I8</td><td>najviši iznos godišnje nagrade 4.500 €</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+</tbody>
+</table></div><p class="wf-help mt-2">Limiti nagrade po stupnju složenosti mijenjaju se u postavkama ciklusa (F1.1).</p></div>
+    <div data-wf-panel="sif:pr"><div class="wf-card"><div class="wf-h3">Platni razredi</div><div class="flex flex-wrap gap-2"><span class="wf-status">PR 1</span> <span class="wf-status">PR 2</span> <span class="wf-status">PR 3</span> <span class="wf-status">PR 4</span> <span class="wf-status">PR 5</span> <span class="wf-status">PR 6</span> <span class="wf-status">PR 7</span> <span class="wf-status">PR 8</span> <span class="wf-status">PR 9</span> <span class="wf-status">PR 10</span> <span class="wf-status">PR 11</span> <span class="wf-status">PR 12</span></div><p class="wf-help mt-3">Šifre su izmišljene (PR 3–PR 10 koriste se u primjerima). Format i popis razreda potvrđuju se s HR-om, a vrijednosti dolaze iz prvog prijenosa <span class="wf-p">P30</span>.</p></div></div>
+    <div data-wf-panel="sif:rv"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Razlog vraćanja na doradu (HR)</th><th style="min-width:200px">Kada</th><th class="text-center">Aktivno</th><th></th></tr></thead>
+<tbody>
+<tr><td>nedovoljno obrazloženje</td><td>napredovanje i nagrađivanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>nedostaju konkretni primjeri</td><td>napredovanje i nagrađivanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>prijedlog nije u skladu s pravilnikom</td><td>napredovanje i nagrađivanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>iznos nije unutar dopuštenog raspona ili budžeta</td><td>napredovanje i nagrađivanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>nisu ispunjeni osnovni uvjeti</td><td>napredovanje i nagrađivanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>treba ispraviti osnovne podatke</td><td>napredovanje i nagrađivanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>status zaposlenja</td><td>samo godišnja nagrada</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>ostalo (uz kratko pojašnjenje)</td><td>napredovanje i nagrađivanje; uvijek dostupno</td><td class="text-center"><input type="checkbox" checked disabled style="width:14px;height:14px;accent-color:#000"></td><td><span class="wf-muted text-xs">zadano</span></td></tr>
+</tbody>
+</table></div><div class="wf-actions mt-3"><button type="button" class="wf-btn-primary" data-wf-toast="Nova stavka je dodana. Izmjena je zapisana u trag izmjena.">Dodaj</button></div><p class="wf-help mt-2">Pri vraćanju bira se jedan ili više razloga uz obaveznu napomenu <span class="wf-p" title="NOVO: Smije li HR sam uređivati popise šifrarnika, uključujući razloge vraćanja na doradu i razloge „ne smije biti predložen“? Wireframe pretpostavlja da da, ali popisi iz Specifikacije ostaju zadani, a „Ostalo“ ne može nestati.">N18</span>.</p></div>
+    <div data-wf-panel="sif:ns"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Razlog „ne smije biti predložen“</th><th style="min-width:200px">Kada</th><th class="text-center">Aktivno</th><th></th></tr></thead>
+<tbody>
+<tr><td>neispunjen osnovni uvjet</td><td>napredovanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>status zaposlenja</td><td>napredovanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>neispunjeni uvjeti pravilnika</td><td>napredovanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>ograničenje budžeta</td><td>napredovanje</td><td class="text-center"><input type="checkbox" checked  style="width:14px;height:14px;accent-color:#000"></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-toast="Uređivanje stavke šifrarnika (wireframe).">Uredi</button></td></tr>
+<tr><td>ostalo</td><td>napredovanje; uvijek dostupno</td><td class="text-center"><input type="checkbox" checked disabled style="width:14px;height:14px;accent-color:#000"></td><td><span class="wf-muted text-xs">zadano</span></td></tr>
+</tbody>
+</table></div><div class="wf-actions mt-3"><button type="button" class="wf-btn-primary" data-wf-toast="Nova stavka je dodana. Izmjena je zapisana u trag izmjena.">Dodaj</button></div><p class="wf-help mt-2">Nakon napomene s razlogom sustav onemogućuje slanje prijedloga <span class="wf-p" title="NOVO: Smije li HR sam uređivati popise šifrarnika, uključujući razloge vraćanja na doradu i razloge „ne smije biti predložen“? Wireframe pretpostavlja da da, ali popisi iz Specifikacije ostaju zadani, a „Ostalo“ ne može nestati.">N18</span>.</p></div>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-kor">
+    <div class="wf-dialog-head">Korisnik <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <div class="wf-field"><label class="wf-label wf-req">Microsoft račun</label><input class="wf-input" type="text" value="ivana.horvat@firma.example" ><div class="wf-help">Prijava je ovim računom (Entra ID); u aplikaciji nema lozinke.</div></div>
+      <div class="wf-grid md:grid-cols-2"><div class="wf-field"><label class="wf-label wf-req">Ime</label><input class="wf-input" type="text" value="Ivana" ></div><div class="wf-field"><label class="wf-label wf-req">Prezime</label><input class="wf-input" type="text" value="Horvat" ></div></div>
+      <div class="wf-field"><div class="wf-label wf-req">Uloge <span class="wf-p" title="NOVO: Korisnik s više uloga (npr. rukovoditelj koji je i dodatni odobravatelj). Wireframe pretpostavlja jedan izbornik koji je zbroj stavki svih njegovih uloga, a zaglavlje navodi sve uloge. Vlastiti prijedlog korisnik ne odobrava.">N10</span></div>
+        <label class="wf-check"><input type="checkbox" checked> Rukovoditelj</label>
+        <label class="wf-check"><input type="checkbox"> Dodatni odobravatelj</label>
+        <label class="wf-check"><input type="checkbox"> Direktor</label>
+        <label class="wf-check"><input type="checkbox"> Član Uprave</label>
+        <label class="wf-check"><input type="checkbox"> Predsjednik Uprave</label>
+        <label class="wf-check"><input type="checkbox"> HR administrator</label>
+      </div>
+      <div class="wf-field"><label class="wf-label wf-req">Nadležnost</label><select class="wf-select" ><option selected>Odjel Projekt tehnologije</option><option>Odjel Razvoj proizvodnje</option><option>Odjel Montaža SET</option><option>Sektor Tehnologija</option><option>PC DT/ST</option><option>PC SET</option><option>Cijela tvrtka</option></select><div class="wf-help">Odjel, sektor, profitni centar ili cijela tvrtka ovisno o ulozi.</div></div>
+      <label class="wf-check"><input type="checkbox" checked> Aktivan</label>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Korisnik je spremljen. Izmjena je zapisana u trag izmjena.">Spremi</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

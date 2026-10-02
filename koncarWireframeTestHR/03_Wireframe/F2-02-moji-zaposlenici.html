@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2.2 Moji zaposlenici – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F2.2">
+<main>
+  <h1 class="wf-h1">Moji zaposlenici – godišnje napredovanje</h1>
+  <p class="wf-sub">Odjel Projekt tehnologije · ciklus 2027. · unos prijedloga 1. 2. – 28. 2. 2027. · primjena nove plaće od 1. 4. 2027.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Rukovoditelj za svoj odjel. Član Uprave za svoje direktno podređene <span class="wf-p">P7</span>.</dd>
+      <dt>Čemu služi</dt><dd>Pregled svih aktivnih zaposlenika iz nadležnosti, budžeta napredovanja i ograničenja, odabir vrste napredovanja po zaposleniku i ulaz u odgovarajući obrazac (F2.3, F2.4, F2.5).</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Pripravnici i Juniori u prvih 12 mjeseci od zaposlenja prikazani su sivo i ne mogu se predložiti <span class="wf-p">P17</span>.</li>
+        <li>Vrste napredovanja: horizontalno (svi dopušteni); Junior → Standardna samo za Junior; Standardna → Napredna samo za ključna ekspertna radna mjesta (popis u F2.1).</li>
+        <li>Prijedlog iznad raspoloživog budžeta odjela, sektora ili Društva sustav blokira. Ograničenje 50 % (Društvo, sektor) i 75 % (odjel) vrijedi dok je pravilo uključeno u postavkama ciklusa.</li>
+        <li>Zaposlenik s HR oznakom „ne smije biti predložen“: slanje je onemogućeno, razlog vidi rukovoditelj.</li>
+        <li>Odbijeni prijedlog ne troši budžet; rukovoditelj u istom ciklusu može dati novi ili izmijenjeni prijedlog, i za drugu vrstu napredovanja.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">N32</span> Rukovoditelj vidi raspoloživi budžet i udio na razini odjela, sektora i Društva.</li>
+        <li><span class="wf-p">N31</span> Spremljeni prijedlog broji se u udio 50 %/75 %, ali ne rezervira budžet dok se ne preda.</li>
+        <li><span class="wf-p">P17</span> 12 mjeseci računa se od datuma zaposlenja.</li>
+        <li><span class="wf-p">N35</span> Rukovoditelj vidi razlog HR oznake „ne smije biti predložen“.</li>
+        <li>Budžeti i udjeli sektora i Društva te datumi prijedloga su izmišljeni primjeri.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="flex flex-wrap items-end gap-3 mb-3">
+    <div class="wf-actions ml-auto">
+      <button type="button" class="wf-btn" data-wf-toast="Podaci su ponovno učitani.">Osvježi</button>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">Budžet napredovanja – mjesečno povećanje bruto plaća <span class="wf-p">P18</span></h2>
+  <div class="wf-grid md:grid-cols-3">
+    <div class="wf-card">
+      <div class="wf-h3">Odjel Projekt tehnologije</div>
+      <dl class="wf-kv">
+        <dt>Dodijeljeno (5,00 %)</dt><dd class="num">1.070,00 €</dd>
+        <dt>Rezervirano (u postupku)</dt><dd class="num">450,00 €</dd>
+        <dt>Iskorišteno (odobreno)</dt><dd class="num">100,00 €</dd>
+        <dt>Raspoloživo</dt><dd class="num">520,00 €</dd>
+      </dl>
+      <div class="wf-meter mt-2"><span class="used" style="width:9.35%"></span><span class="res" style="width:42.06%"></span></div>
+      <div class="wf-help mt-1">Rezervirano: Marija 300 + Ivan 150. Iskorišteno: Nina 100.</div>
+      <div class="mt-2 text-xs">Predloženo zaposlenika: <b>4 od 9 = 44 %</b> (ograničenje 75 %)</div>
+      <div class="wf-meter mt-1" title="44 % od 75 %"><span class="used" style="width:44%"></span></div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">Sektor Tehnologija</div>
+      <dl class="wf-kv">
+        <dt>Dodijeljeno (5,00 %)</dt><dd class="num">1.870,00 €</dd>
+        <dt>Rezervirano</dt><dd class="num">1.000,00 €</dd>
+        <dt>Iskorišteno</dt><dd class="num">100,00 €</dd>
+        <dt>Raspoloživo</dt><dd class="num">770,00 €</dd>
+      </dl>
+      <div class="wf-meter mt-2"><span class="used" style="width:5.35%"></span><span class="res" style="width:53.48%"></span></div>
+      <div class="mt-2 text-xs">Predloženo zaposlenika: <b>6 od 16 = 37,5 %</b> (ograničenje 50 %)</div>
+      <div class="wf-meter mt-1"><span class="used" style="width:37.5%"></span></div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">Društvo</div>
+      <dl class="wf-kv">
+        <dt>Dodijeljeno (5,00 %)</dt><dd class="num">62.500,00 €</dd>
+        <dt>Rezervirano</dt><dd class="num">21.350,00 €</dd>
+        <dt>Iskorišteno</dt><dd class="num">9.800,00 €</dd>
+        <dt>Raspoloživo</dt><dd class="num">31.350,00 €</dd>
+      </dl>
+      <div class="wf-meter mt-2"><span class="used" style="width:15.68%"></span><span class="res" style="width:34.16%"></span></div>
+      <div class="mt-2 text-xs">Predloženo zaposlenika: <b>96 od 412 = 23 %</b> (ograničenje 50 %)</div>
+      <div class="wf-meter mt-1"><span class="used" style="width:23.3%"></span></div>
+    </div>
+  </div>
+  <div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i></i>raspoloživo</span></div>
+
+  <h2 class="wf-section-title">Zaposlenici odjela (9)</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr>
+        <th>Zaposlenik</th><th>Radno mjesto</th><th>Pozicija / platni razred</th><th class="num">Bruto plaća</th>
+        <th style="min-width:190px">Vrsta napredovanja</th><th class="num">Prijedlog</th><th>Status</th><th>Radnja</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="wf-name">Marija Perić</td><td>Inženjer procesa u odjelu Projekt tehnologije <span class="wf-muted text-xs">(ključno ekspertno)</span></td><td>Standardna pozicija · PR 9</td><td class="num">3.200,00 €<span class="wf-at">zadnja promjena 1. 4. 2025.</span></td>
+          <td><select class="wf-select max-w-[195px]" aria-label="Vrsta napredovanja – Marija Perić" disabled><option>Horizontalno</option><option selected>Standardna → Napredna</option></select></td>
+          <td class="num">300 € (9,38 %)</td>
+          <td><span class="wf-status">HR provjereno</span><span class="wf-at">kod: Ana Babić</span></td>
+          <td><a class="wf-btn wf-btn-sm" href="F2-05-obrazac-standardna-napredna.html">Otvori</a></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Ivan Božić</td><td>Tehnolog</td><td>Standardna pozicija · PR 7</td><td class="num">2.450,00 €<span class="wf-at">zadnja promjena 1. 4. 2025.</span></td>
+          <td><select class="wf-select max-w-[195px]" aria-label="Vrsta napredovanja – Ivan Božić" disabled><option selected>Horizontalno</option></select></td>
+          <td class="num">150 € (6,12 %)</td>
+          <td><span class="wf-status">Poslano HR-u</span><span class="wf-at">kod: HR</span></td>
+          <td><a class="wf-btn wf-btn-sm" href="F2-03-obrazac-horizontalno.html">Otvori</a></td>
+        </tr>
+        <tr class="wf-disabled-row" title="Junior u prvih 12 mjeseci od zaposlenja – napredovanje nije moguće">
+          <td class="wf-name">Lucija Grgić</td><td>Tehnolog</td><td>Junior · PR 5</td><td class="num">1.800,00 €<span class="wf-at">zadnja promjena 2. 3. 2026.</span></td>
+          <td><select class="wf-select max-w-[195px]" disabled aria-label="Vrsta napredovanja – Lucija Grgić"><option>–</option></select></td>
+          <td class="num">–</td>
+          <td>Zaposlena 2. 3. 2026. <span class="wf-p">P17</span><span class="wf-at whitespace-normal">napredovanje je moguće od 2. 3. 2027.</span></td>
+          <td><button type="button" class="wf-btn wf-btn-sm" disabled>Otvori</button></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Filip Matić</td><td>Tehnolog</td><td>Standardna pozicija · PR 7</td><td class="num">2.700,00 €<span class="wf-at">zadnja promjena 1. 4. 2024.</span></td>
+          <td><select class="wf-select max-w-[195px]" aria-label="Vrsta napredovanja – Filip Matić" disabled><option selected>Horizontalno</option></select></td>
+          <td class="num">150 € (5,56 %)</td>
+          <td><span class="wf-status is-back">Vraćeno na doradu</span>
+            <div class="mt-1 text-xs"><b>HR oznaka: ne smije biti predložen</b><br>razlog: neispunjeni uvjeti pravilnika <span class="wf-p">N35</span></div></td>
+          <td><a class="wf-btn wf-btn-sm" href="F2-03-obrazac-horizontalno.html">Otvori</a><span class="wf-at whitespace-normal">slanje onemogućeno</span></td>
+        </tr>
+        <tr class="wf-disabled-row" title="Pripravnik u prvih 12 mjeseci od zaposlenja – napredovanje nije moguće">
+          <td class="wf-name">Ema Tomić</td><td>Tehnolog</td><td>Pripravnik · PR 3</td><td class="num">1.300,00 €<span class="wf-at">zadnja promjena 1. 6. 2026.</span></td>
+          <td><select class="wf-select max-w-[195px]" disabled aria-label="Vrsta napredovanja – Ema Tomić"><option>–</option></select></td>
+          <td class="num">–</td>
+          <td>Zaposlena 1. 6. 2026. <span class="wf-p">P17</span><span class="wf-at whitespace-normal">napredovanje je moguće od 1. 6. 2027.</span></td>
+          <td><button type="button" class="wf-btn wf-btn-sm" disabled>Otvori</button></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Karlo Radić</td><td>Senior tehnolog</td><td>Senior · PR 10</td><td class="num">3.900,00 €<span class="wf-at">zadnja promjena 1. 4. 2025.</span></td>
+          <td><select class="wf-select max-w-[195px]" aria-label="Vrsta napredovanja – Karlo Radić"><option>– odaberi –</option><option>Horizontalno</option></select></td>
+          <td class="num">–</td>
+          <td><span class="wf-muted">nije predložen</span></td>
+          <td><a class="wf-btn wf-btn-sm" href="F2-03-obrazac-horizontalno.html">Predloži</a></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Nina Šarić</td><td>Referent pripreme proizvodnje</td><td>Standardna pozicija · PR 6</td><td class="num">2.000,00 €<span class="wf-at">zadnja promjena 1. 4. 2024.</span></td>
+          <td><select class="wf-select max-w-[195px]" aria-label="Vrsta napredovanja – Nina Šarić" disabled><option selected>Horizontalno</option></select></td>
+          <td class="num">100 € (5,00 %)</td>
+          <td><span class="wf-status is-done">Odobreno</span></td>
+          <td><a class="wf-btn wf-btn-sm" href="F2-03-obrazac-horizontalno.html">Pregled</a></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Dario Vuković</td><td>Tehnolog</td><td>Junior · PR 5</td><td class="num">1.950,00 €<span class="wf-at">zadnja promjena 2. 9. 2024.</span></td>
+          <td><select class="wf-select max-w-[195px]" aria-label="Vrsta napredovanja – Dario Vuković"><option>Horizontalno</option><option selected>Junior → Standardna</option></select></td>
+          <td class="num">200 € (10,26 %)<span class="wf-at">PR 5 → PR 6</span></td>
+          <td><span class="wf-status is-draft">Spremljeno</span></td>
+          <td><a class="wf-btn wf-btn-sm" href="F2-04-obrazac-junior-standardna.html">Otvori</a></td>
+        </tr>
+        <tr>
+          <td class="wf-name">Tena Kolar</td><td>Tehnolog</td><td>Standardna pozicija · PR 6</td><td class="num">2.100,00 €<span class="wf-at">zadnja promjena 1. 4. 2025.</span></td>
+          <td><select class="wf-select max-w-[195px]" aria-label="Vrsta napredovanja – Tena Kolar"><option>– odaberi –</option><option>Horizontalno</option></select></td>
+          <td class="num">–</td>
+          <td><span class="wf-muted">nije predložena</span></td>
+          <td><a class="wf-btn wf-btn-sm" href="F2-03-obrazac-horizontalno.html">Predloži</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="wf-help mt-2">Izbor vrste ovisi o poziciji: „Junior → Standardna“ nudi se samo za Junior, „Standardna → Napredna“ samo za ključna ekspertna radna mjesta (Marija Perić). Tena Kolar i Nina Šarić nemaju tu opciju jer radna mjesta nisu na popisu. Zaposlenik bez prijedloga jednostavno nije predložen, bez posebnog statusa.</p>
+
+  <div class="wf-info mt-3">Predloženo je 4 od 9 zaposlenika (44 %). Dariovih 200,00 € stane u raspoloživih 520,00 €; nakon njegove predaje raspoloživo je 320,00 €.</div>
+</main>
+</body>
+</html>

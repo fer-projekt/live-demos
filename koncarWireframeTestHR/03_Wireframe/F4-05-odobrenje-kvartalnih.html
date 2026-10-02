@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F4.5 Odobrenje kvartalnih nagrada – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F4.5">
+<main>
+  <h1 class="wf-h1">Odobrenje kvartalnih nagrada</h1>
+  <p class="wf-sub">Sektor Tehnologija · Q3 2026. (srpanj–rujan) · rok za unos i odobravanje 15. 10. 2026.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Odobravatelj: direktor (Marko Kovačević) za rukovoditelje iz svoje linije. Isti ekran vide dodatni odobravatelj, član Uprave i HR. HR iznimno može završno odobriti kad odobravatelj nije dostupan.</dd>
+      <dt>Čemu služi</dt><dd>Preuzima postojeći ekran „Odobrenje Kvartalnice“ (odobravatelj, izbor kvartala, rukovoditelj i status, obrazloženje odbijanja, Odobri / Odbaci, tablica po zaposleniku s kriterijima, prisutnošću, kvartalnim postotkom i iznosom, napomenama te tko je mijenjao i odobrio).</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li><b>Odobri</b> odobrava odjednom cijeli prikazani popis jednog rukovoditelja. <b>Odbaci</b> radi se pojedinačno, po zaposleniku, uz obavezno obrazloženje (napomenu).</li>
+        <li>Odbijeni zaposlenik vraća se rukovoditelju, koji šalje ispravljeni prijedlog za istog zaposlenika u istom razdoblju; ostali ostaju odobreni <span class="wf-p">P1</span>.</li>
+        <li>Prije odluke odobravatelj vidi popis po rukovoditelju i zaposleniku, četiri kriterija, ukupnu procjenu, prisutnost, disciplinsku mjeru, konačni postotak i iznos, statuse i napomene. Iznos je izračunat i ne može se mijenjati.</li>
+        <li>E-mail o predanom i odobrenom prijedlogu dobivaju rukovoditelj i odobravatelji u liniji. Kad odbija (Specifikacija, stupac „Stimulacije i kvartalne nagrade“): dodatni odobravatelj – rukovoditelj; odobravatelj najviše razine (ovdje direktor) – rukovoditelj i dodatni odobravatelj (ovdje ga nema, pa samo rukovoditelj); HR u liniji kvartalnih nagrada nema.</li>
+        <li>Isto vrijedi i za Montažu SET (linija Luka Knežević → Ana Babić): klijentov dijagram s dvije razine dodatnih odobravatelja i poseban stupac „Proizvodnja SET“ odnose se samo na napredovanje i nagrađivanje <span class="wf-p" title="NOVO: Vrijedi li za proizvodnju SET kod stimulacija i kvartalnih nagrada ista tablica e-mail obavijesti kao za ostale odjele? Klijentov dijagram s dvije razine dodatnih odobravatelja odnosi se samo na napredovanje i nagrađivanje. Wireframe: vrijedi stupac Stimulacije i kvartalne nagrade.">N50</span>.</li>
+        <li>Nakon zadnjeg odobrenja prijedlog je zaključan za sve osim HR-a; HR ga mijenja samo na temelju dogovora ili odluke nadležnih, uz trag izmjena.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p" title="NOVO: Završno odobrenje HR-a kad odobravatelj nije dostupan – treba li obavezna napomena (tko je i što dogovorio)? Wireframe pretpostavlja da.">N49</span> HR-ovo iznimno završno odobrenje traži obaveznu napomenu s tko je i što dogovoreno.</li>
+        <li><span class="wf-p">prijedlog</span> „Konačni postotak“ je stupac „Kvartalnica (%)“ iz postojeće aplikacije (% Uprave × ukupna procjena × primijenjeni postotak prisutnosti; 0 uz disciplinsku mjeru).</li>
+        <li><span class="wf-p">prijedlog</span> Goran Šimić (Razvoj proizvodnje): Ivona Jakšić 2.550,00 € i Bruno Kralj 1.804,69 € (suradnja 75 %, prisutnost 500/520); razlozi smanjenja izmišljeni su. Odobri je jedna radnja po rukovoditelju (kao na postojećem ekranu) i obuhvaća cijeli prikazani popis.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" id="scenarios">
+    <button type="button" data-sc="cekaju" class="is-active">Čeka odluku</button>
+    <button type="button" data-sc="odbijen">Odbijen jedan zaposlenik (Filip Matić)</button>
+    <button type="button" data-sc="odobreno">Odobreno</button>
+  </div>
+
+  <div class="flex flex-wrap items-end gap-4 mb-4">
+    <dl class="wf-kv"><dt>Odobravatelj</dt><dd><span class="wf-locked">Marko Kovačević (direktor)</span></dd></dl>
+    <div style="min-width:200px"><label class="wf-label" for="kv">Kvartal</label><select class="wf-select" id="kv"><option>2026-Q3 (srpanj–rujan)</option><option>2026-Q2 (travanj–lipanj)</option></select></div>
+    <dl class="wf-kv"><dt>Postotak Uprave</dt><dd><span class="wf-locked">75 %</span></dd></dl>
+    <dl class="wf-kv"><dt>Rok</dt><dd>15. 10. 2026.</dd></dl>
+    <div class="ml-auto"><button type="button" class="wf-btn" data-wf-toast="Podaci su ponovno učitani.">Osvježi</button></div>
+  </div>
+
+  <div id="blocks"></div>
+
+  <h2 class="wf-section-title">Pogled HR administratora – iznimno završno odobrenje <span class="wf-p" title="NOVO: Završno odobrenje HR-a kad odobravatelj nije dostupan – treba li obavezna napomena?">N49</span></h2>
+  <div class="wf-card mb-4">
+    <p class="mb-2">Kad redovni odobravatelj nije dostupan, HR može iznimno završno odobriti na temelju dogovora s nadležnima. Radnja je vidljiva samo ulozi HR administrator i bilježi se u tragu izmjena.</p>
+    <div class="wf-field"><label class="wf-label wf-req" for="hr-nap">Napomena: s kim je dogovoreno i na temelju čega</label>
+      <textarea class="wf-textarea" id="hr-nap" disabled>Direktor Marko Kovačević nedostupan do 16. 10.; rok je 15. 10. Dogovoreno s članicom Uprave Anom Babić (e-mail 14. 10. 2026.).</textarea></div>
+    <button type="button" class="wf-btn" disabled>Odobri (iznimno, samo HR)</button>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-odobri">
+    <div class="wf-dialog-head">Odobri <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Odobravate cijeli prikazani popis rukovoditelja <b id="o-ruk"></b> za <b>Q3 2026.</b>: <b id="o-cnt"></b>, ukupno <b id="o-eur"></b>.</p>
+      <p class="mt-2">E-mail o odobrenju dobivaju rukovoditelj i odobravatelji u liniji. Pojedinog zaposlenika možete odbaciti prije ove radnje.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Odobreno za cijeli popis. Status: Odobreno.">Odobri</button>
+    </div>
+  </dialog>
+
+  <dialog class="wf-dialog" id="dlg-odbaci">
+    <div class="wf-dialog-head">Odbaci kvartalnu nagradu <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <dl class="wf-kv mb-3">
+        <dt>Zaposlenik</dt><dd id="r-ime"></dd>
+        <dt>Konačni bruto iznos</dt><dd id="r-eur"></dd>
+        <dt>Rukovoditelj</dt><dd id="r-ruk"></dd>
+      </dl>
+      <div class="wf-field">
+        <label class="wf-label wf-req" for="r-obr">Obrazloženje odbijanja</label>
+        <textarea class="wf-textarea is-error" id="r-obr" placeholder="Upišite razlog; rukovoditelj ga dobiva e-mailom."></textarea>
+        <div class="wf-error" id="r-err">Obrazloženje je obavezno za odbijanje.</div>
+      </div>
+      <p class="wf-help">Zaposlenik se vraća rukovoditelju na ispravak. Ostali zaposlenici ostaju odobreni <span class="wf-p">P1</span>.</p>
+      <p class="wf-help mt-1">E-mail o odbijanju dobivaju rukovoditelj i dodatni odobravatelj (ako ga odjel ima).</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" id="r-ok" data-wf-close data-wf-toast="Zaposlenik je odbijen i vraćen rukovoditelju." disabled>Odbaci</button>
+    </div>
+  </dialog>
+</main>
+
+<script>
+(function () {
+  var UPR = 75, FOND = 520, PON = [40, 30, 15, 15], NAP = 'Obrazloženje nije dovoljno: navedite konkretne događaje i datume za urednost.';
+  // ime, bruto, [K,Q,U,S], prisutnost, disciplinska, obrazloženje
+  var BL = [
+    { ruk: 'Ivana Horvat', odj: 'Projekt tehnologije', kratko: 'I. Horvat', rej: 3, rows: [
+      ['Marija Perić', 3200, [100, 100, 100, 100], 520, false, ''],
+      ['Ivan Božić', 2450, [100, 75, 100, 100], 512, false, 'Količina posla u Q3 niža zbog preraspodjele na projekt nove peći.'],
+      ['Lucija Grgić', 1800, [100, 75, 100, 100], 364, false, 'U timu je od ožujka; količina posla još nije na razini iskusnijih kolega.'],
+      ['Filip Matić', 2700, [100, 100, 0, 100], 520, false, 'Urednost 0 %: ponovljena odstupanja od internih pravila pri vođenju dokumentacije tijekom kvartala.'],
+      ['Ema Tomić', 1300, [100, 100, 100, 100], 234, false, ''],
+      ['Karlo Radić', 3900, [100, 100, 100, 100], 504, true, ''],
+      ['Nina Šarić', 2000, [100, 100, 100, 100], 520, false, ''],
+      ['Dario Vuković', 1950, [100, 100, 100, 100], 146, false, ''],
+      ['Tena Kolar', 2100, [100, 100, 100, 100], 520, false, '']
+    ] },
+    { ruk: 'Goran Šimić', odj: 'Razvoj proizvodnje', kratko: 'G. Šimić', rej: -1, rows: [
+      ['Ivona Jakšić', 3400, [100, 100, 100, 100], 520, false, ''],
+      ['Bruno Kralj', 2500, [100, 100, 100, 75], 500, false, 'Suradnja 75 %: kašnjenje u predaji izvještaja ispitivanja drugim odjelima.']
+    ] }
+  ];
+  var cur = 'cekaju', $ = function (id) { return document.getElementById(id); };
+  function r2(x) { return Math.round((x + 1e-9) * 100) / 100; }
+  function pf(x) { var s = WF.fmt(x, 2); return s.indexOf(',') > -1 ? s.replace(/0+$/, '').replace(/,$/, '') : s; }
+  function prag(p) { return p <= 30 ? 0 : p <= 50 ? 50 : p <= 75 ? 75 : 100; }
+  function calc(r) {
+    var proc = 0; r[2].forEach(function (v, k) { proc += PON[k] * v / 100; });
+    var pp = r2(r[3] / FOND * 100), pr = prag(pp), nakon = r2(r2(r[1] * UPR / 100) * proc / 100);
+    return { proc: proc, pp: pp, pr: pr, kon: r[4] ? 0 : r2(nakon * pr / 100), pct: r[4] ? 0 : r2(UPR * proc / 100 * pr / 100) };
+  }
+  function rejected(bi, i) { return cur === 'odbijen' && BL[bi].rej === i; }
+
+  function rowHtml(b, bi, r, i) {
+    var c = calc(r), rej = rejected(bi, i), btn = '', odb = '–', nap = '&nbsp;', st;
+    if (cur === 'cekaju') { st = '<span class="wf-status">Poslano na odobrenje</span>'; btn = '<button type="button" class="wf-btn wf-btn-sm" data-odbaci="' + bi + ',' + i + '">Odbaci</button>'; odb = 'predano ' + '8. 10. 2026.'; }
+    else if (rej) { st = '<span class="wf-status is-back">Odbijeno</span>'; nap = NAP; odb = 'odbio M. Kovačević<br>12. 10. 2026.'; }
+    else { st = '<span class="wf-status is-done">Odobreno</span>'; odb = 'M. Kovačević<br>12. 10. 2026.'; }
+    return '<tr' + (rej ? ' class="is-selected"' : '') + '><td class="sticky left-0 bg-white wf-name">' + r[0] + '</td><td class="num">' + WF.fmt(r[1]) + '</td>' +
+      r[2].map(function (v) { return '<td class="num">' + v + '</td>'; }).join('') +
+      '<td class="num">' + pf(c.proc) + ' %</td><td class="num">' + r[3] + ' / ' + FOND + '<br><span class="wf-at">' + WF.fmt(c.pp) + ' % → ' + c.pr + ' %</span></td>' +
+      '<td>' + (r[4] ? '<b>Da</b>' : 'Ne') + '</td><td class="num">' + WF.fmt(c.pct) + ' %</td><td class="num"><b>' + WF.fmt(c.kon) + '</b></td>' +
+      '<td style="min-width:220px">' + (r[5] || '<span class="wf-muted">–</span>') + '</td><td style="min-width:170px"><span class="wf-locked is-block">' + nap + '</span></td>' +
+      '<td class="text-xs">' + b.kratko + '<br>5. 10. 2026.</td><td class="text-xs">' + odb + '</td><td>' + st + '</td><td>' + btn + '</td></tr>';
+  }
+
+  function block(b, bi) {
+    var sum = 0, cnt = 0, ukl = 0;
+    b.rows.forEach(function (r, i) { var k = calc(r).kon; if (rejected(bi, i)) { ukl = k; return; } sum += k; if (k > 0) cnt++; });
+    var stText, stCls, at;
+    if (cur === 'cekaju') { stText = 'Poslano na odobrenje'; stCls = ''; at = 'kod: Marko Kovačević'; }
+    else if (cur === 'odbijen' && bi === 0) { stText = 'Odbijeno'; stCls = 'is-back'; at = '1 zaposlenik vraćen rukovoditelju, ostali odobreni'; }
+    else { stText = 'Odobreno'; stCls = 'is-done'; at = 'Marko Kovačević, 12. 10. 2026.'; }
+    return '<section class="wf-card mb-6">' +
+      '<div class="flex flex-wrap items-start gap-4 mb-3"><div><div class="wf-label">Rukovoditelj</div><div class="text-lg font-bold">' + b.ruk + '</div><div class="wf-muted">Odjel ' + b.odj + '</div></div>' +
+      '<div><div class="wf-label">Status</div><span class="wf-status ' + stCls + '">' + stText + '</span><span class="wf-at">' + at + '</span></div>' +
+      '<div class="wf-actions ml-auto"><button type="button" class="wf-btn-primary" data-odobri="' + bi + '"' + (cur !== 'cekaju' ? ' disabled' : '') + '>Odobri</button></div></div>' +
+      '<div class="wf-grid grid-cols-2 lg:grid-cols-4 mb-3">' +
+      '<div class="wf-kpi"><div class="wf-kpi-label">Zbroj konačnih bruto iznosa' + (cur === 'cekaju' ? ' (čeka odluku)' : '') + '</div><div class="wf-kpi-value">' + WF.fmt(sum) + ' €</div></div>' +
+      '<div class="wf-kpi"><div class="wf-kpi-label">Zaposlenika s nagradom iznad 0</div><div class="wf-kpi-value">' + cnt + '</div></div>' +
+      '<div class="wf-kpi"><div class="wf-kpi-label">Zaposlenika u prijedlogu</div><div class="wf-kpi-value">' + b.rows.length + '</div></div>' +
+      '<div class="wf-kpi"><div class="wf-kpi-label">Postotak Uprave</div><div class="wf-kpi-value">' + UPR + ' %</div></div></div>' +
+      (ukl ? '<div class="wf-info">Odbijen je prijedlog za <b>Filipa Matića</b> (' + WF.fmt(ukl) + ' €) i vraćen rukovoditelju Ivani Horvat; ne ulazi u zbroj. Ostali ostaju odobreni <span class="wf-p">P1</span>.</div>' : '') +
+      '<div class="wf-table-wrap"><table class="wf-table"><thead><tr>' +
+      '<th class="sticky left-0 bg-neutral-200">Zaposlenik</th><th class="num">Bruto plaća (€)</th><th class="num">Kvaliteta (40 %)</th><th class="num">Količina (30 %)</th><th class="num">Urednost / pridržavanje (15 %)</th><th class="num">Suradnja (15 %)</th>' +
+      '<th class="num">Ukupna procjena</th><th class="num">Prisutnost / fond sati</th><th>Disciplinska mjera</th><th class="num">Konačni postotak</th><th class="num">Konačni bruto iznos (€)</th>' +
+      '<th>Obrazloženje rukovoditelja</th><th>Napomena odobravatelja</th><th>Modificirano od / kada</th><th>Odobreno od / kada</th><th>Status</th><th>Radnja</th></tr></thead><tbody>' +
+      b.rows.map(function (r, i) { return rowHtml(b, bi, r, i); }).join('') +
+      '</tbody><tfoot><tr><td class="sticky left-0 bg-neutral-100">Ukupno</td><td colspan="9"></td><td class="num">' + WF.fmt(sum) + '</td><td colspan="6">' + cnt + ' od ' + b.rows.length + ' zaposlenika s nagradom</td></tr></tfoot></table></div></section>';
+  }
+
+  function render() {
+    $('blocks').innerHTML = BL.map(block).join('');
+    document.querySelectorAll('#scenarios button').forEach(function (b) { b.classList.toggle('is-active', b.dataset.sc === cur); });
+  }
+
+  function start() {
+    render();
+    $('scenarios').addEventListener('click', function (e) { var b = e.target.closest('button[data-sc]'); if (b) { cur = b.dataset.sc; render(); } });
+    function chk() { var ok = $('r-obr').value.trim().length > 0; $('r-ok').disabled = !ok; $('r-err').hidden = ok; $('r-obr').classList.toggle('is-error', !ok); }
+    $('r-obr').addEventListener('input', chk);
+    $('blocks').addEventListener('click', function (e) {
+      var o = e.target.closest('[data-odobri]'), d = e.target.closest('[data-odbaci]');
+      if (o && !o.disabled) {
+        var b = BL[+o.dataset.odobri], eur = 0, c = 0;
+        b.rows.forEach(function (r) { var k = calc(r).kon; eur += k; if (k > 0) c++; });
+        $('o-ruk').textContent = b.ruk; $('o-cnt').textContent = b.rows.length + ' zaposlenika (' + c + ' s nagradom)'; $('o-eur').textContent = WF.fmt(eur) + ' €';
+        $('dlg-odobri').showModal();
+      }
+      if (d) {
+        var p = d.dataset.odbaci.split(','), bb = BL[+p[0]], r = bb.rows[+p[1]];
+        $('r-ime').textContent = r[0]; $('r-eur').textContent = WF.fmt(calc(r).kon) + ' €'; $('r-ruk').textContent = bb.ruk;
+        $('r-obr').value = ''; chk(); $('dlg-odbaci').showModal();
+      }
+    });
+  }
+  if (window.WF) start(); else document.addEventListener('DOMContentLoaded', start);
+})();
+</script>
+</body>
+</html>

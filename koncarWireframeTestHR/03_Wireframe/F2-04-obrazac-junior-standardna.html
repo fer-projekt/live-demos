@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F2.4 Obrazac – Junior → Standardna – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F2.4">
+<main>
+  <p class="text-xs mb-1"><a class="wf-link" href="F2-02-moji-zaposlenici.html">← Moji zaposlenici</a></p>
+  <h1 class="wf-h1">Obrazac – Junior → Standardna</h1>
+  <p class="wf-sub">Prijedlog vertikalnog napredovanja (prelazak iz Početne u Standardnu poziciju platnog razreda) · ciklus 2027. · unos prijedloga 1. 2. – 28. 2. 2027. · primjena nove plaće od 1. 4. 2027.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Rukovoditelj, za zaposlenika na poziciji Junior (Početna pozicija). Obrazac je dostupan samo za Junior; Juniori u prvih 12 mjeseci od zaposlenja nisu dostupni (F2.2).</dd>
+      <dt>Čemu služi</dt><dd>Digitalna verzija klijentova obrasca OB-0494 „Prijedlog vertikalnog napredovanja (prelazak iz Početne u Standardnu poziciju platnog razreda)“. Isto zaglavlje kao horizontalni obrazac, uz postojeći i predloženi viši platni razred.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Svi uvjeti pod točkom 1 moraju biti DA; svaki NE zaustavlja postupak. Ocjene: najmanje 2 u svim kriterijima, barem jedna 3, nijedna 1.</li>
+        <li>Vrijeme u Početnoj poziciji (12–24 mjeseca, probni rok i pripravnički staž se ne računaju) puni sustav iz podataka o zaposleniku; granicu određuje HR u postavkama ciklusa <span class="wf-p">P16</span>.</li>
+        <li>Eliminacijski kriterij „Poštovanje sigurnosti i radne discipline“: Zadovoljava / Ne zadovoljava. „Ne zadovoljava“ znači da napredovanje nije moguće.</li>
+        <li>Za svaki kriterij opisna procjena, ocjena 1–4 i 2–3 mjerljiva primjera; doprinos timu samo razine 3 i 4 <span class="wf-p">P21</span>.</li>
+        <li>Povećanje je jedan od apoena; sustav računa postotak i novu plaću <span class="wf-p">P19</span>. Prijedlog iznad raspoloživog budžeta odjela je blokiran.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li><span class="wf-p">P16</span> Točnu granicu (12–24 mjeseca) određuje HR; wireframe koristi 12 mjeseci.</li>
+        <li><span class="wf-p" title="NOVO: Odakle sustav zna trajanje probnog roka i pripravničkog staža koji se ne računaju u 12–24 mjeseca u Početnoj poziciji? Wireframe pretpostavlja: HR ih evidentira u podacima o zaposleniku, a sustav ih oduzima od vremena od zaposlenja.">N30</span> Probni rok i pripravnički staž evidentira HR u podacima o zaposleniku; sustav ih oduzima od vremena od zaposlenja.</li>
+        <li>Predloženi viši platni razred (PR 5 → PR 6) puni sustav iz šifrarnika <span class="wf-p">prijedlog</span> <span class="wf-p">P30</span>.</li>
+        <li><span class="wf-p">P8</span> Suglasnosti direktora sektora i HR-a zamjenjuju odobrenja u aplikaciji; direktora nema u liniji napredovanja <span class="wf-p">P3</span>.</li>
+        <li>Uvjet 2 (mjeseci) puni sustav; DA/NE odgovori rukovoditelja su uvjeti 1 i 3–6 <span class="wf-p">prijedlog</span>.</li>
+      </ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" id="scenarios">
+    <button type="button" data-sc="ok" class="is-active">Ispravno (Dario Vuković)</button>
+    <button type="button" data-sc="ne">Jedan uvjet NE</button>
+    <button type="button" data-sc="mjeseci">Prekratko u Početnoj poziciji</button>
+    <button type="button" data-sc="elim">Eliminacija: Ne zadovoljava</button>
+    <button type="button" data-sc="ocjene">Ocjene ne ispunjavaju pravilo</button>
+    <button type="button" data-sc="budzet">Izvan budžeta</button>
+    <button type="button" data-sc="nedostaje">Nedostaju podaci</button>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mb-3">
+    <div>Status: <span class="wf-status is-draft" id="s-status">Spremljeno</span> <span class="wf-muted text-xs" id="s-at"></span></div>
+  </div>
+  <ol class="wf-steps" aria-label="Linija odobravanja">
+    <li class="is-active">Ivana Horvat – predaje</li>
+    <li>HR – formalna provjera</li>
+    <li>Ana Babić – član Uprave, zadnja razina <span class="wf-p">P3</span></li>
+  </ol>
+
+  <div class="wf-info" id="hr-return" hidden>
+    <b>Vraćeno na doradu</b> – Petra Novak (HR), 15. 2. 2027. u 9:05<br>
+    Razlozi: <b>prijedlog nije u skladu s pravilnikom</b><br>
+    Napomena HR-a: „Zaposlenik ne ispunjava uvjete pravilnika za ovaj ciklus; prije ponovnog slanja potrebno je uskladiti s HR-om.“
+  </div>
+  <div class="wf-block" id="hr-flag" hidden>HR oznaka: ne smije biti predložen – razlog: neispunjeni uvjeti pravilnika (Petra Novak, 15. 2. 2027.). Sustav onemogućuje slanje prijedloga.</div>
+  <div id="no-form" hidden></div>
+
+  <h2 class="wf-section-title">Osnovni podaci <span class="wf-muted font-normal normal-case tracking-normal text-xs">– puni se iz master podataka i postavki ciklusa</span></h2>
+  <div class="wf-grid md:grid-cols-2">
+    <dl class="wf-kv">
+      <dt>Odjel / organizacijska jedinica</dt><dd><span class="wf-locked">Projekt tehnologije</span></dd>
+      <dt>Rukovoditelj</dt><dd><span class="wf-locked">Ivana Horvat</span></dd>
+      <dt>Broj zaposlenih u odjelu</dt><dd><span class="wf-locked">9</span></dd>
+      <dt>Budžet za napredovanja (iznos i %)</dt><dd><span class="wf-locked">1.070,00 € mjesečno (5,00 %)</span> <span class="wf-p">N1</span> <span class="wf-p">P18</span></dd>
+      <dt>Datum procjene</dt><dd><span class="wf-locked">12. 2. 2027.</span></dd>
+    </dl>
+    <dl class="wf-kv">
+      <dt>Ime i prezime zaposlenika</dt><dd><span class="wf-locked" id="h-name">Ime</span></dd>
+      <dt>Radno mjesto / grupa radnih mjesta</dt><dd><span class="wf-locked"><span id="h-rm">Radno mjesto</span></span></dd>
+      <dt>Postojeća bruto plaća</dt><dd><span class="wf-locked" id="h-pl">0,00 €</span></dd>
+      <dt>Datum prethodne promjene plaće</dt><dd><span class="wf-locked" id="h-last">–</span></dd>
+      <dt>Postojeći platni razred</dt><dd><span class="wf-locked" id="c-prfrom-wrap"><span id="h-pr">PR</span></span></dd>
+    </dl>
+  </div>
+
+  <div class="wf-card mt-4">
+    <div class="wf-h3">Prijedlog povećanja plaće <span class="wf-p">P19</span></div>
+    <div class="flex flex-wrap items-end gap-3">
+      <div><label class="wf-label wf-req" for="apoen">Iznos povećanja (apoen, bruto)</label>
+        <select class="wf-select" id="apoen" style="min-width:150px"><option value="">– odaberi –</option><option value="100">100 €</option><option value="150">150 €</option><option value="200">200 €</option><option value="250">250 €</option><option value="300">300 €</option><option value="350">350 €</option><option value="400">400 €</option><option value="450">450 €</option></select>
+        <div class="wf-help">Iznosi iz postavki ciklusa (F2.1).</div></div>
+      <div class="pb-6">→</div>
+      <div><div class="wf-label">Postotak povećanja</div><span class="wf-calc" id="c-pct">–</span></div>
+      <div><div class="wf-label">Apsolutni iznos povećanja</div><span class="wf-calc" id="c-inc">–</span></div>
+      <div><div class="wf-label">Nova bruto plaća</div><span class="wf-calc text-lg font-bold" id="c-new">–</span></div>
+      <div><div class="wf-label">Postojeći → predloženi viši platni razred <span class="wf-p">prijedlog</span></div><span class="wf-calc"><span id="c-prfrom">–</span> → <span id="c-prto">–</span></span></div>
+    </div>
+    <p class="wf-help mt-2">Povećanje vrijedi od 1. 4. 2027. nakon odobrenja i HR potvrde (F2.8).</p>
+  </div>
+
+  <div class="wf-card mt-4">
+    <div class="wf-h3">Rezultati procjene razine ovladanosti poslom za kriterije <span class="wf-muted font-normal text-xs">– izračunato iz točke 2</span></div>
+    <div class="flex flex-wrap items-end gap-3">
+      <div><div class="wf-label">1. Samostalnost u radu</div><span class="wf-calc" id="c-g0">–</span></div>
+      <div><div class="wf-label">2. Kvaliteta rada</div><span class="wf-calc" id="c-g1">–</span></div>
+      <div><div class="wf-label">3. Radna učinkovitost</div><span class="wf-calc" id="c-g2">–</span></div>
+      <div><div class="wf-label">4. Doprinos timu</div><span class="wf-calc" id="c-g3">–</span></div>
+    </div>
+  </div>
+
+  <div class="wf-card mt-4">
+    <div class="wf-h3">Budžet odjela za napredovanja <span class="wf-p">P18</span></div>
+    <div class="wf-grid grid-cols-2 md:grid-cols-5 mb-2">
+      <div><div class="wf-muted text-xs">Dodijeljeno</div><div class="num text-left font-bold">1.070,00 €</div></div>
+      <div><div class="wf-muted text-xs">Rezervirano (u postupku)</div><div class="num text-left font-bold" id="b-rez">–</div></div>
+      <div><div class="wf-muted text-xs">Iskorišteno (odobreno)</div><div class="num text-left font-bold">100,00 €</div></div>
+      <div><div class="wf-muted text-xs">Raspoloživo</div><div class="num text-left font-bold" id="b-rasp">–</div></div>
+      <div><div class="wf-muted text-xs">Raspoloživo nakon ovog prijedloga</div><div class="num text-left font-bold"><span class="wf-calc" id="b-after">–</span></div></div>
+    </div>
+    <div class="wf-meter"><span class="used" id="m-isk"></span><span class="res" id="m-rez"></span><span class="over" id="m-this"></span></div>
+    <div class="wf-legend"><span><i class="used"></i>iskorišteno</span><span><i class="res"></i>rezervirano</span><span><i style="background:repeating-linear-gradient(-45deg,#000 0 4px,#fff 4px 8px)"></i>ovaj prijedlog</span><span><i></i>raspoloživo</span></div>
+  </div>
+
+  <h2 class="wf-section-title">1. Provjera osnovnih uvjeta za vertikalno napredovanje iz Početne u Standardnu poziciju platnog razreda</h2>
+  <p class="wf-muted text-xs mb-1">(Vertikalno napredovanje iz PP u SP platnog razreda moguće je ako je odgovor DA na sve stavke pod točkom 1. Provjera osnovnih uvjeta za vertikalno napredovanje)</p>
+  <div class="border-t border-neutral-300">
+    <div class="grid md:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-2 border-b border-neutral-300" id="row-c0">
+      <div><span class="wf-muted">1.</span> • Ako u procjeni razvojnih razina ovladanosti poslom ostvaruje najmanje razinu 2 u svim temeljnim kriterijima te razinu 3 u nekom od četiri kriterija, uz uvjet da nema razinu 1 ni u jednom kriteriju:<div class="wf-help">Sustav provjerava ocjene iz točke 2: <b id="rule-state">–</b></div><div class="wf-error" id="err-c0" hidden>Odgovor NE – postupak se zaustavlja.</div></div>
+      <div class="md:text-right whitespace-nowrap"><label class="wf-check"><input type="radio" name="c0" value="da"> DA</label><label class="wf-check"><input type="radio" name="c0" value="ne"> NE</label></div>
+    </div>
+    <div class="grid md:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-2 border-b border-neutral-300" id="row-c1">
+      <div><span class="wf-muted">2.</span> • Zaposlenik treba biti barem 12 - 24 mjeseca u Početnoj poziciji platnog razreda na radnom mjestu Junior (probni rok i pripravnički staž ne računaju se)<div class="wf-help" id="auto-months-info">–</div><div class="wf-help">Puni sustav iz podataka o zaposleniku; granicu određuje HR <span class="wf-p">P16</span> <span class="wf-p" title="NOVO: Odakle sustav zna trajanje probnog roka i pripravničkog staža koji se ne računaju u 12–24 mjeseca u Početnoj poziciji? Wireframe pretpostavlja: HR ih evidentira u podacima o zaposleniku, a sustav ih oduzima od vremena od zaposlenja.">N30</span></div><div class="wf-error" id="err-c1" hidden>Odgovor NE – postupak se zaustavlja.</div></div>
+      <div class="md:text-right whitespace-nowrap"><span class="wf-calc" id="auto-months">–</span></div>
+    </div>
+    <div class="grid md:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-2 border-b border-neutral-300" id="row-c2">
+      <div><span class="wf-muted">3.</span> • 12 - 24 mjeseca ostvaruje iznadprosječan učinak i kontinuirano preuzima zadatke i odgovornosti višeg platnog razreda:<div class="wf-error" id="err-c2" hidden>Odgovor NE – postupak se zaustavlja.</div></div>
+      <div class="md:text-right whitespace-nowrap"><label class="wf-check"><input type="radio" name="c2" value="da"> DA</label><label class="wf-check"><input type="radio" name="c2" value="ne"> NE</label></div>
+    </div>
+    <div class="grid md:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-2 border-b border-neutral-300" id="row-c3">
+      <div><span class="wf-muted">4.</span> • Sigurnost i radna disciplina su bez propusta:<div class="wf-error" id="err-c3" hidden>Odgovor NE – postupak se zaustavlja.</div></div>
+      <div class="md:text-right whitespace-nowrap"><label class="wf-check"><input type="radio" name="c3" value="da"> DA</label><label class="wf-check"><input type="radio" name="c3" value="ne"> NE</label></div>
+    </div>
+    <div class="grid md:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-2 border-b border-neutral-300" id="row-c4">
+      <div><span class="wf-muted">5.</span> • Pokazuje ponašanja i komunikaciju u timu koji su u skladu s temeljnim vrijednostima organizacije.<div class="wf-error" id="err-c4" hidden>Odgovor NE – postupak se zaustavlja.</div></div>
+      <div class="md:text-right whitespace-nowrap"><label class="wf-check"><input type="radio" name="c4" value="da"> DA</label><label class="wf-check"><input type="radio" name="c4" value="ne"> NE</label></div>
+    </div>
+    <div class="grid md:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-2 border-b border-neutral-300" id="row-c5">
+      <div><span class="wf-muted">6.</span> • Njegov/njezin stvarni doprinos značajno nadmašuje očekivanja početne pozicije platnog razreda:<div class="wf-error" id="err-c5" hidden>Odgovor NE – postupak se zaustavlja.</div></div>
+      <div class="md:text-right whitespace-nowrap"><label class="wf-check"><input type="radio" name="c5" value="da"> DA</label><label class="wf-check"><input type="radio" name="c5" value="ne"> NE</label></div>
+    </div>
+    <div class="grid md:grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-2 border-b border-neutral-300" id="row-c6">
+      <div><span class="wf-muted">7.</span> • Prijedlog za povećanje plaće nalazi se unutar zadanog budžeta odjela:<div class="wf-help">Puni sustav iz raspoloživog budžeta odjela.</div><div class="wf-error" id="err-c6" hidden>Odgovor NE – postupak se zaustavlja.</div></div>
+      <div class="md:text-right whitespace-nowrap"><span class="wf-calc" id="auto-budget">–</span></div>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">2. Procjena rukovoditelja prema kriterijima (posljednjih 12 mjeseci)</h2>
+  <div class="wf-table-wrap">
+    <table class="wf-table">
+      <thead><tr><th style="min-width:190px">Kriterij</th><th style="min-width:320px">Razine ovladanosti poslom (ocjena 1. – 4.)</th><th style="min-width:240px" class="wf-req">Procjena rukovoditelja (opisno – ključne riječi)</th><th class="wf-req">Procjena rukovoditelja (ocjena 1, 2, 3 ili 4)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>Samostalnost u radu</b><div class="wf-muted text-xs mt-1">(Samostalnost u radu = koliko treba uputa/nadzora i kako rješava odstupanja)</div></td>
+          <td><ul class="wf-levels"><li><b>1.</b>Korektno izvršava zadatke prema uputama; pouzdan u jednostavnim situacijama; za malo složenije zadatke povremeno traži potvrdu ili usmjeravanje.</li><li><b>2.</b>Samostalno i pouzdano obavlja sve standardne zadatke; rijetko treba podršku; sigurno radi u uobičajenim situacijama.</li><li><b>3.</b>Samostalno rješava odstupanja i složenije situacije; razumije širi kontekst posla; pouzdan i u zahtjevnim uvjetima.</li><li><b>4.</b>Referentna stručna osoba; uvodi druge u posao, pomaže kolegama i radi bez potrebe za nadzorom.</li></ul></td>
+          <td><textarea class="wf-textarea" rows="3" data-opis="0" aria-label="Opisna procjena – Samostalnost u radu"></textarea></td>
+          <td><select class="wf-select" data-g="0" aria-label="Ocjena – Samostalnost u radu"><option value="">–</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><div class="wf-help">1–4</div></td>
+        </tr>
+        <tr>
+          <td><b>Kvaliteta rada</b><div class="wf-muted text-xs mt-1">(Kvaliteta rada = točnost, pouzdanost i dosljednost rezultata rada u standardnim i složenijim situacijama)</div></td>
+          <td><ul class="wf-levels"><li><b>1.</b>Kvaliteta rada je uredna i prihvatljiva; greške su rijetke i ispravljive uz povratnu informaciju.</li><li><b>2.</b>Stabilna i pouzdana kvaliteta rada; održava kvalitetu u uobičajenim radnim situacijama; dosljedno primjenjuje pravila struke i interne smjernice.</li><li><b>3.</b>Visoka razina kvalitete i točnosti; održava standarde i u složenim situacijama.</li><li><b>4.</b>Uzor u kvaliteti i točnosti; aktivno podiže razinu kvalitete kod drugih.</li></ul></td>
+          <td><textarea class="wf-textarea" rows="3" data-opis="1" aria-label="Opisna procjena – Kvaliteta rada"></textarea></td>
+          <td><select class="wf-select" data-g="1" aria-label="Ocjena – Kvaliteta rada"><option value="">–</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><div class="wf-help">1–4</div></td>
+        </tr>
+        <tr>
+          <td><b>Radna učinkovitost</b><div class="wf-muted text-xs mt-1">(Radna učinkovitost = organizacija rada, tempo i pravovremeno izvršenje uz zadržanu kvalitetu)</div></td>
+          <td><ul class="wf-levels"><li><b>1.</b>Rad je organiziran i pouzdan; tempo je primjeren razini iskustva; još gradi sigurnost u upravljanju vremenom.</li><li><b>2.</b>Obavlja zadatke u očekivanom vremenu i ritmu; dobro upravlja prioritetima.</li><li><b>3.</b>Brz i dobro organiziran; učinkovito rješava veći obujam posla bez gubitka kvalitete.</li><li><b>4.</b>Preuzima dodatne zadatke i pomaže drugima bez usporavanja vlastitog rada; doprinosi učinkovitosti tima.</li></ul></td>
+          <td><textarea class="wf-textarea" rows="3" data-opis="2" aria-label="Opisna procjena – Radna učinkovitost"></textarea></td>
+          <td><select class="wf-select" data-g="2" aria-label="Ocjena – Radna učinkovitost"><option value="">–</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><div class="wf-help">1–4</div></td>
+        </tr>
+        <tr>
+          <td><b>Doprinos timu (vrijedi za 3. i 4. razinu)</b><div class="wf-muted text-xs mt-1">(Doprinos timu = dijeljenje znanja, suradnja i pozitivan utjecaj na rad i razvoj drugih)</div> <span class="wf-p">P21</span></td>
+          <td><ul class="wf-levels"><li><b>3.</b>Dijeli znanje i pomaže kolegama u rješavanju stručnih pitanja.</li><li><b>4.</b>Proaktivno pruža razvojnu podršku kolegama; mentorira i jača stručnu razinu tima.</li></ul></td>
+          <td><textarea class="wf-textarea" rows="3" data-opis="3" aria-label="Opisna procjena – Doprinos timu"></textarea></td>
+          <td><select class="wf-select" data-g="3" aria-label="Ocjena – Doprinos timu"><option value="">–</option><option value="3">3</option><option value="4">4</option></select><div class="wf-help">3–4</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wf-card mt-3">
+    <div class="wf-h3">Provjera pravila ocjena <span class="wf-muted font-normal text-xs">– izračun uživo</span></div>
+    <div class="wf-table-wrap"><table class="wf-table"><tbody id="rule-box"></tbody></table></div>
+  </div>
+
+  <h2 class="wf-section-title">3. Primjeri iz prakse prema ključnim kriterijima <span class="wf-muted font-normal normal-case tracking-normal text-xs">– navesti 2–3 po kriteriju</span></h2>
+  <div class="wf-grid md:grid-cols-2 xl:grid-cols-4">
+    <div class="wf-card">
+      <div class="wf-h3">1) Kriterij – Samostalnost u radu</div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 1</label><textarea class="wf-textarea" rows="2" data-ex data-k="0" data-j="0"></textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 2</label><textarea class="wf-textarea" rows="2" data-ex data-k="0" data-j="1"></textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label">Primjer 3</label><textarea class="wf-textarea" rows="2" data-ex data-k="0" data-j="2"></textarea></div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">2) Kriterij – Kvaliteta rada</div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 1</label><textarea class="wf-textarea" rows="2" data-ex data-k="1" data-j="0"></textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 2</label><textarea class="wf-textarea" rows="2" data-ex data-k="1" data-j="1"></textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label">Primjer 3</label><textarea class="wf-textarea" rows="2" data-ex data-k="1" data-j="2"></textarea></div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">3) Kriterij – Radna učinkovitost</div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 1</label><textarea class="wf-textarea" rows="2" data-ex data-k="2" data-j="0"></textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 2</label><textarea class="wf-textarea" rows="2" data-ex data-k="2" data-j="1"></textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label">Primjer 3</label><textarea class="wf-textarea" rows="2" data-ex data-k="2" data-j="2"></textarea></div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-h3">4) Kriterij – Doprinos timu</div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 1</label><textarea class="wf-textarea" rows="2" data-ex data-k="3" data-j="0"></textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label wf-req">Primjer 2</label><textarea class="wf-textarea" rows="2" data-ex data-k="3" data-j="1"></textarea><div class="wf-error" hidden>Upišite najmanje 2 primjera.</div></div>
+      <div class="wf-field"><label class="wf-label">Primjer 3</label><textarea class="wf-textarea" rows="2" data-ex data-k="3" data-j="2"></textarea></div>
+    </div>
+  </div>
+
+  <h2 class="wf-section-title">4. Eliminacijski kriterij</h2>
+  <div class="wf-card">
+    <p class="font-semibold mb-2">Eliminacijski kriterij: Poštovanje sigurnosti i radne discipline (eliminacijski kriterij)</p>
+    <div>Status: <label class="wf-check ml-2"><input type="radio" name="elim" value="da"> Zadovoljava</label><label class="wf-check"><input type="radio" name="elim" value="ne"> Ne zadovoljava</label> <span class="wf-muted">(ako Ne → napredovanje nije moguće)</span></div>
+  </div>
+
+  <h2 class="wf-section-title">5. Zaključak rukovoditelja</h2>
+  <div class="wf-field">
+    <label class="wf-label wf-req" for="preporuka">Preporuka</label>
+    <textarea class="wf-textarea" id="preporuka" rows="3"></textarea>
+    <div class="wf-error" id="err-concl" hidden>Preporuka rukovoditelja je obavezna.</div>
+  </div>
+  <div class="wf-card">
+    <div class="wf-label">Predlažem napredovanje iz PP u SP platnog razreda (upisati prijedlog % povećanje plaće)</div>
+    <div class="flex flex-wrap items-end gap-3">
+      <div><div class="wf-muted text-xs">Postotak povećanja</div><span class="wf-calc" id="c-pct2">–</span></div>
+      <div><div class="wf-muted text-xs">Iznos povećanja</div><span class="wf-calc" id="c-inc2">–</span></div>
+      <div><div class="wf-muted text-xs">Nova bruto plaća</div><span class="wf-calc" id="c-new2">–</span></div>
+      <div><div class="wf-muted text-xs">Predloženi viši platni razred</div><span class="wf-calc" id="c-prto2">–</span></div>
+    </div>
+    <div class="wf-help mt-2">Prijedlog se bira iznad (apoen); preporuka i postotak/iznos povećanja čine zaključak rukovoditelja.</div>
+  </div>
+  <p class="wf-help mt-3">Potpis rukovoditelja i datum s papirnatog obrasca zamjenjuje predaja u aplikaciji <span class="wf-p">P8</span>.</p>
+  <h3 class="wf-h3 mt-3">Suglasnosti <span class="wf-p">P8</span></h3>
+  <div class="wf-table-wrap"><table class="wf-table">
+    <thead><tr><th>Suglasnost s obrasca</th><th>Zamjenjuje u aplikaciji</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Direktor sektora</td><td>nije u liniji napredovanja (HR → član Uprave) <span class="wf-p">P3</span><span class="wf-p">P8</span></td><td><span class="wf-muted">čeka predaju prijedloga</span></td></tr>
+      <tr><td>HR</td><td>HR provjera (Potvrdi provjeru) </td><td><span class="wf-muted">čeka predaju prijedloga</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="wf-section-title">Rezultat provjere i poruke</h2>
+  <div id="msgs"></div>
+
+  <div class="wf-actions mt-4 pt-4 border-t border-black">
+    <button type="button" class="wf-btn" id="btn-spremi" data-wf-toast="Prijedlog je spremljen. Do predaje ga vidite samo vi.">Spremi</button>
+    <button type="button" class="wf-btn-primary" id="btn-predaj" data-wf-open="dlg-predaj">Predaj na odobrenje</button>
+    <a class="wf-btn" href="F2-02-moji-zaposlenici.html">Natrag na popis</a>
+    <span class="wf-help" id="predaj-why"></span>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-predaj">
+    <div class="wf-dialog-head">Predaj na odobrenje <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Predajete prijedlog napredovanja (Junior → Standardna) za <b id="d-name">–</b>: povećanje <b id="d-amt">–</b> (<b id="d-pct">–</b>), nova bruto plaća <b id="d-new">–</b> od 1. 4. 2027.</p>
+      <p class="mt-2">Nakon predaje unos se zaključava i više ga ne možete mijenjati. Prijedlog dobiva status Poslano HR-u i ide HR-u na provjeru potpunosti i usklađenosti s pravilnikom; tek nakon HR provjere ide članu Uprave Ani Babić. E-mail o predaji dobivate vi i odobravatelji u liniji.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Prijedlog je predan: status Poslano HR-u. Unos je zaključan.">Predaj na odobrenje</button>
+    </div>
+  </dialog>
+</main>
+
+<script>
+/* Izračun uživo i primjeri stanja – samo prikaz. Apoeni, budžet i pravila su primjer (postavke ciklusa u F2.1). */
+(function () {
+  var CFG = {"apoeni":[100,150,200,250,300,350,400,450],"dod":1070,"isk":100,"manual":[0,2,3,4,5],"conds":[{"kind":"manual","s":"ocjene"},{"kind":"auto-months","s":"mjeseci u Početnoj poziciji"},{"kind":"manual","s":"iznadprosječan učinak i odgovornosti višeg razreda"},{"kind":"manual","s":"sigurnost i disciplina"},{"kind":"manual","s":"vrijednosti organizacije"},{"kind":"manual","s":"doprinos nadmašuje očekivanja"},{"kind":"auto-budget","s":"unutar budžeta odjela"}],"names":["Samostalnost u radu","Kvaliteta rada","Radna učinkovitost","Doprinos timu"],"opis":["Samostalno obavlja sve standardne zadatke, rijetko treba podršku.","Stabilna kvaliteta, dokumentacija bez ponavljanih ispravaka.","Zadatke izvršava u roku i dobro raspoređuje prioritete.","Pomaže novim kolegama i dijeli znanje o alatima."],"ex":[["Samostalno vodi pripremu tehnoloških kartica za seriju malih transformatora.","U rujnu samostalno riješio odstupanje u tolerancijama i obavijestio nadređenu naknadno.",""],["Kartice za 9 narudžbi bez reklamacija iz proizvodnje (travanj–listopad 2026.).","Zadnja tri mjeseca nema ispravaka nakon kontrole dokumentacije.",""],["Preuzeo dio narudžbi na zastupanju kolegice i predao ih u roku.","Uvodnu dokumentaciju za novi alat pripremio dva dana prije roka.",""],["Uveo u posao novu pripravnicu (Ema Tomić) kroz prva dva mjeseca.","Pripremio kratak vodič za ERP unos sastavnica.",""]],"concl":"Preporučujem prelazak u Standardnu poziciju: zadnjih 12 mjeseci iznad očekivanja za Junior poziciju, uz preuzimanje zadataka višeg razreda.","elim":true,"vertical":true,"months":true,"minMonths":12,"key":false,"udio":"4 od 9 = 44 %","ruleText":"najmanje razina 2 u svim kriterijima, razina 3 u nekom kriteriju i nijedna razina 1.","ruleP":"P21","rule":function (g, c) {
+      return [
+        { t: 'Najmanje razina 2 u svim kriterijima', ok: g.every(function (v) { return v >= 2; }) },
+        { t: 'Razina 3 u nekom od četiri kriterija <span class="wf-p" title="NOVO: Pravilo „barem jedna 3“ – prolazi li i ocjena 4 (npr. 2–2–2–4)? Wireframe pretpostavlja: da, vrijedi 3 ili viša.">N33</span>', ok: g.some(function (v) { return v >= 3; }) },
+        { t: 'Nijedna razina 1', ok: !g.some(function (v) { return v === 1; }) }
+      ];
+    }};
+  var SC = {"ok":{"name":"Dario Vuković","rm":"Tehnolog / Tehnologija","pay":1950,"last":"2. 9. 2024.","pr":"PR 5","prFrom":"PR 5","prTo":"PR 6","months":29,"arrive":"od 2. 9. 2024.","g":[3,3,2,3],"apoen":200,"rez":450,"status":["Spremljeno","is-draft","zadnje spremanje 12. 2. 2027. u 15:10"]},"ne":{"name":"Dario Vuković","rm":"Tehnolog / Tehnologija","pay":1950,"last":"2. 9. 2024.","pr":"PR 5","prFrom":"PR 5","prTo":"PR 6","months":29,"arrive":"od 2. 9. 2024.","g":[3,3,2,3],"apoen":200,"rez":450,"c":{"5":"ne"},"status":["Spremljeno","is-draft","zadnje spremanje 12. 2. 2027. u 15:10"]},"mjeseci":{"name":"Dario Vuković","rm":"Tehnolog / Tehnologija","pay":1950,"last":"2. 9. 2024.","pr":"PR 5","prFrom":"PR 5","prTo":"PR 6","months":10,"arrive":"od 2. 9. 2024., umanjeno za probni rok i pripravnički staž","g":[3,3,2,3],"apoen":200,"rez":450,"status":["Spremljeno","is-draft","primjer stanja: HR je evidentirao dulji probni rok i pripravništvo"]},"elim":{"name":"Dario Vuković","rm":"Tehnolog / Tehnologija","pay":1950,"last":"2. 9. 2024.","pr":"PR 5","prFrom":"PR 5","prTo":"PR 6","months":29,"arrive":"od 2. 9. 2024.","g":[3,3,2,3],"apoen":200,"rez":450,"elim":"ne","status":["Spremljeno","is-draft","zadnje spremanje 12. 2. 2027. u 15:10"]},"ocjene":{"name":"Dario Vuković","rm":"Tehnolog / Tehnologija","pay":1950,"last":"2. 9. 2024.","pr":"PR 5","prFrom":"PR 5","prTo":"PR 6","months":29,"arrive":"od 2. 9. 2024.","g":[2,2,1,3],"apoen":200,"rez":450,"status":["Spremljeno","is-draft","zadnje spremanje 12. 2. 2027. u 15:10"]},"budzet":{"name":"Dario Vuković","rm":"Tehnolog / Tehnologija","pay":1950,"last":"2. 9. 2024.","pr":"PR 5","prFrom":"PR 5","prTo":"PR 6","months":29,"arrive":"od 2. 9. 2024.","g":[3,3,2,3],"apoen":200,"rez":800,"status":["Spremljeno","is-draft","primjer: ostali prijedlozi u postupku rezerviraju 800,00 €"]},"nedostaje":{"name":"Dario Vuković","rm":"Tehnolog / Tehnologija","pay":1950,"last":"2. 9. 2024.","pr":"PR 5","prFrom":"PR 5","prTo":"PR 6","months":29,"arrive":"od 2. 9. 2024.","g":[3,3,0,3],"apoen":0,"rez":450,"blank":{"opis":[1],"ex":[[0,1]],"concl":true},"status":["Spremljeno","is-draft","zadnje spremanje 12. 2. 2027. u 15:10"]}};
+  var $ = function (id) { return document.getElementById(id); };
+  var eur = function (n) { return WF.fmt(n) + ' €'; };
+  var gsel = [].slice.call(document.querySelectorAll('select[data-g]'));
+  var opis = [].slice.call(document.querySelectorAll('textarea[data-opis]'));
+  var exs = [].slice.call(document.querySelectorAll('textarea[data-ex]'));
+  var concl = $('preporuka');
+  var apoen = $('apoen');
+  var cur = null;
+
+  function radioVal(name) { var r = document.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : ''; }
+  function setRadio(name, val) { document.querySelectorAll('input[name="' + name + '"]').forEach(function (r) { r.checked = (r.value === val); }); }
+  function txt(id, v) { var e = $(id); if (e) e.textContent = v; }
+
+  function load(key) {
+    cur = SC[key];
+    document.querySelectorAll('#scenarios button').forEach(function (b) { b.classList.toggle('is-active', b.dataset.sc === key); });
+    txt('h-name', cur.name); txt('h-rm', cur.rm.indexOf('/') < 0 ? cur.rm + ' / Tehnologija' : cur.rm); txt('h-pl', eur(cur.pay)); txt('h-last', cur.last);
+    txt('h-pr', cur.pr || ''); txt('h-st', cur.st || '');
+    txt('s-status', cur.status[0]); $('s-status').className = 'wf-status ' + cur.status[1]; txt('s-at', cur.status[2]);
+    $('hr-flag').hidden = !cur.hr; $('hr-return').hidden = !cur.hr;
+    $('no-form').hidden = !cur.noForm;
+    gsel.forEach(function (s, i) { s.value = cur.g[i] ? String(cur.g[i]) : ''; });
+    var bl = cur.blank || {};
+    opis.forEach(function (t, i) { t.value = (bl.opis && bl.opis.indexOf(i) !== -1) ? '' : CFG.opis[i]; });
+    exs.forEach(function (t) {
+      var i = +t.dataset.k, j = +t.dataset.j, base = CFG.ex[i][j] || '';
+      var gone = bl.ex && bl.ex.some(function (p) { return p[0] === i && p[1] === j; });
+      t.value = gone ? '' : base;
+    });
+    concl.value = bl.concl ? '' : CFG.concl;
+    CFG.manual.forEach(function (id) { setRadio('c' + id, cur.c && cur.c[id] !== undefined ? cur.c[id] : 'da'); });
+    if (CFG.elim) setRadio('elim', cur.elim === undefined ? 'da' : cur.elim);
+    apoen.value = cur.apoen ? String(cur.apoen) : '';
+    $('btn-spremi').disabled = false;
+    calc();
+  }
+
+  function calc() {
+    var g = gsel.map(function (s) { return +s.value || 0; });
+    var ap = +apoen.value || 0, pay = cur.pay;
+    var bl = !!cur.blank;
+    g.forEach(function (v, i) { txt('c-g' + i, v || '–'); });
+    txt('c-pct', ap ? WF.fmt(ap / pay * 100) + ' %' : '–');
+    txt('c-inc', ap ? eur(ap) : '–');
+    txt('c-new', ap ? eur(pay + ap) : '–');
+    txt('c-pct2', ap ? WF.fmt(ap / pay * 100) + ' %' : '–');
+    txt('c-inc2', ap ? eur(ap) : '–');
+    txt('c-new2', ap ? eur(pay + ap) : '–');
+    if (CFG.vertical) { txt('c-prto', cur.prTo || '–'); txt('c-prto2', cur.prTo || '–'); txt('c-prfrom', cur.prFrom || '–'); }
+
+    var rasp = CFG.dod - CFG.isk - cur.rez;
+    txt('b-rez', eur(cur.rez)); txt('b-rasp', eur(rasp));
+    txt('b-after', ap ? eur(rasp - ap) : '–');
+    $('m-isk').style.width = (CFG.isk / CFG.dod * 100) + '%';
+    $('m-rez').style.width = (cur.rez / CFG.dod * 100) + '%';
+    $('m-this').style.width = Math.max(0, Math.min(100 - (CFG.isk + cur.rez) / CFG.dod * 100, ap / CFG.dod * 100)) + '%';
+
+    // pravila ocjena
+    var complete = g.every(function (v) { return v > 0; });
+    var checks = CFG.rule(g, complete);
+    var rok = complete && checks.every(function (c) { return c.ok; });
+    $('rule-box').innerHTML = checks.map(function (c) {
+      return '<tr><td>' + c.t + '</td><td>' + (complete ? (c.ok ? 'ispunjeno' : '<b>nije ispunjeno</b>') : '<span class="wf-muted">čeka sve ocjene</span>') + '</td></tr>';
+    }).join('');
+    txt('rule-state', !complete ? 'ocjene nisu unesene' : (rok ? 'ocjene ispunjavaju pravilo' : 'ocjene NE ispunjavaju pravilo'));
+
+    // automatski uvjeti
+    var budOk = ap > 0 && ap <= rasp;
+    var auto = {};
+    auto.budget = ap ? (budOk ? 'da' : 'ne') : '';
+    if (CFG.months) auto.months = cur.months >= CFG.minMonths ? 'da' : 'ne';
+    if (CFG.key) auto.key = cur.key ? 'da' : 'ne';
+    Object.keys(auto).forEach(function (k) {
+      var e = $('auto-' + k); if (!e) return;
+      e.textContent = auto[k] === 'da' ? 'DA' : (auto[k] === 'ne' ? 'NE' : '–');
+    });
+    if (CFG.months) txt('auto-months-info', cur.months + ' mjeseci (' + cur.arrive + '); granica iz postavki ciklusa: najmanje ' + CFG.minMonths + ' mjeseci');
+
+    var stop = [], msgs = [];
+    var neList = [];
+    CFG.conds.forEach(function (c, i) {
+      var v = c.kind === 'manual' ? radioVal('c' + i) : (auto[c.kind.replace('auto-', '')] || '');
+      var row = $('row-c' + i), err = $('err-c' + i);
+      if (row) row.classList.toggle('font-bold', v === 'ne');
+      if (err) err.hidden = v !== 'ne';
+      if (v === 'ne') neList.push((i + 1) + ' (' + c.s + ')');
+    });
+    if (cur.hr) { msgs.push('<div class="wf-block">HR je označio zaposlenika: ne smije biti predložen (neispunjeni uvjeti pravilnika). Slanje prijedloga je onemogućeno. <span class="wf-p" title="NOVO: Može li HR ukloniti oznaku i vidi li rukovoditelj razlog? Wireframe pretpostavlja: HR može ukloniti uz trag izmjena, a rukovoditelj vidi razlog.">N35</span></div>'); stop.push('HR oznaka'); }
+    if (cur.noForm) { msgs.push('<div class="wf-block">Obrazac Standardna → Napredna dostupan je samo za ključna ekspertna radna mjesta; radno mjesto „' + cur.rm + '“ nije na popisu iz postavki ciklusa. Zaposlenik se ne može predložiti za ovu vrstu napredovanja.</div>'); stop.push('radno mjesto nije ključno ekspertno'); }
+    var onlyNo = neList.filter(function (s) { return !(cur.noForm && s.indexOf('(ključno ekspertno)') !== -1); });
+    if (onlyNo.length) { msgs.push('<div class="wf-block">Odgovor NE na uvjet ' + onlyNo.join(', ') + '. Postupak se zaustavlja i prijedlog se ne može poslati.</div>'); stop.push('uvjet NE'); }
+    if (CFG.elim && radioVal('elim') === 'ne') { msgs.push('<div class="wf-block">Eliminacijski kriterij „Poštovanje sigurnosti i radne discipline“: Ne zadovoljava. Napredovanje nije moguće neovisno o ostalim ocjenama.</div>'); stop.push('eliminacijski kriterij'); }
+    if (complete && !rok) { msgs.push('<div class="wf-block">Ocjene ne ispunjavaju pravilo: ' + CFG.ruleText + ' Uvjet 1 ne može biti DA. <span class="wf-p">' + CFG.ruleP + '</span></div>'); stop.push('pravilo ocjena'); }
+    if (ap && !budOk) { msgs.push('<div class="wf-block">Prijedlog (' + eur(ap) + ') premašuje raspoloživi budžet odjela (' + eur(rasp) + ') za ' + eur(ap - rasp) + '. Prijedlog se ne može poslati. <span class="wf-p">P18</span></div>'); stop.push('prekoračen budžet'); }
+
+    // nedostaju podaci
+    var miss = [];
+    gsel.forEach(function (s, i) { s.classList.toggle('is-error', bl && !s.value); if (!s.value) miss.push('ocjena „' + CFG.names[i] + '“'); });
+    opis.forEach(function (t, i) { var bad = !t.value.trim(); t.classList.toggle('is-error', bl && bad); if (bad) miss.push('opisna procjena „' + CFG.names[i] + '“'); });
+    exs.forEach(function (t) {
+      var j = +t.dataset.j, i = +t.dataset.k; if (j > 1) return;
+      var bad = !t.value.trim(); t.classList.toggle('is-error', bl && bad);
+      var er = t.nextElementSibling; if (er && er.classList.contains('wf-error')) er.hidden = !(bl && bad);
+      if (bad) miss.push('primjer ' + (j + 1) + ' – ' + CFG.names[i]);
+    });
+    var cb = !concl.value.trim(); concl.classList.toggle('is-error', bl && cb); $('err-concl').hidden = !(bl && cb); if (cb) miss.push('preporuka rukovoditelja');
+    apoen.classList.toggle('is-error', bl && !ap); if (!ap) miss.push('prijedlog povećanja (apoen)');
+    CFG.manual.forEach(function (id) { if (!radioVal('c' + id)) miss.push('DA/NE uvjet ' + (id + 1)); });
+    if (CFG.elim && !radioVal('elim')) miss.push('eliminacijski kriterij');
+    if (miss.length) { msgs.push('<div class="wf-block">Nedostaju obavezni podaci (' + miss.length + '): ' + miss.slice(0, 4).join('; ') + (miss.length > 4 ? '; …' : '') + '. Prijedlog se ne može predati.</div>'); stop.push('nedostaju podaci'); }
+
+    msgs.push('<div class="wf-info">Udio predloženih u odjelu s ovim prijedlogom: ' + CFG.udio + ' (ograničenje 75 % po odjelu, pravilo uključeno u postavkama ciklusa). <span class="wf-p" title="NOVO: Računa li se u udio 50 %/75 % i spremljeni (nepredani) prijedlog? Wireframe pretpostavlja: da, ali ne rezervira budžet dok se ne preda.">N31</span></div>');
+    if (!stop.length) msgs.push('<div class="wf-info">Svi uvjeti su DA, ocjene ispunjavaju pravilo, obavezni podaci su uneseni i prijedlog je unutar budžeta. Nakon predaje prijedlog ide HR-u na provjeru (status Poslano HR-u).</div>');
+    $('msgs').innerHTML = msgs.join('');
+    document.querySelectorAll('#msgs .wf-p').forEach(function (p) { if (!p.title && WF.questions[p.textContent]) p.title = p.textContent + ': ' + WF.questions[p.textContent]; });
+
+    var b = $('btn-predaj');
+    b.disabled = stop.length > 0;
+    $('predaj-why').textContent = stop.length ? 'Predaja nije moguća: ' + stop.join(', ') + '.' : '';
+    txt('d-name', cur.name); txt('d-amt', ap ? eur(ap) : '–'); txt('d-pct', ap ? WF.fmt(ap / pay * 100) + ' %' : '–'); txt('d-new', ap ? eur(pay + ap) : '–');
+  }
+
+  document.getElementById('scenarios').addEventListener('click', function (e) { var b = e.target.closest('button[data-sc]'); if (b) load(b.dataset.sc); });
+  document.querySelector('main').addEventListener('change', function (e) { if (cur && e.target.closest('select, input')) calc(); });
+  document.querySelector('main').addEventListener('input', function (e) { if (cur && e.target.matches('textarea')) calc(); });
+  if (window.WF) load('ok'); else document.addEventListener('DOMContentLoaded', function () { load('ok'); });
+})();
+
+</script>
+</body>
+</html>

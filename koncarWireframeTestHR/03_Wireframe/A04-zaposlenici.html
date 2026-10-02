@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A4 Zaposlenici – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A4">
+<main>
+  <h1 class="wf-h1">Zaposlenici</h1>
+  <p class="wf-sub">Jedan zajednički popis zaposlenika izvršitelja za sve module. Prepoznaju se po OIB-u i SAP šifri.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator vodi popis (dodaje, mijenja, deaktivira). Predsjednik Uprave ga samo pregledava.</dd>
+      <dt>Čemu služi</dt><dd>Pregled i pretraga svih zaposlenika izvršitelja, ulaz u detalj zaposlenika (A5), dodavanje novog, masovni uvoz (A6) i izvoz u Excel.</dd>
+      <dt>Pravila</dt><dd><ul><li>OIB se ne smije pojaviti dvaput; svi podaci, prijedlozi, obračuni, uvozi, izvozi i izvještaji vežu se uz OIB i SAP šifru.</li><li>U popisu su samo zaposlenici izvršitelji. Rukovoditelji, direktori i članovi Uprave nisu u popisu: vode se kao korisnici (ekran A12).</li><li>Neaktivni zaposlenik ostaje vidljiv u povijesti i izvještajima, ali ne ulazi u nove obračune i prijedloge (sivo, šrafirano).</li><li>Promjena odjela, bruto plaće ili radnog mjesta odmah vrijedi u svim modulima, osim u već određenom budžetu stimulacija; ne mijenja zaključene cikluse.</li><li>Svaka izmjena podataka bilježi se u trag izmjena (A11).</li><li>Nova polja (pozicija, stupanj složenosti, platni razred, sektor, grupa radnih mjesta) prvi put dolaze iz Excela koji dostavlja HR <span class="wf-p">P30</span>.</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li>Prikazano je 16 zaposlenika kao uzorak; stvarni popis je dulji, pa se uz tablicu očekuje straničenje <span class="wf-p">prijedlog</span>.</li><li><span class="wf-p" title="NOVO: Vidi li Predsjednik Uprave bruto plaće u popisu zaposlenika? Specifikacija mu daje pregled svih zaposlenika, ali plaće navodi samo za HR te rukovoditelje, direktore i članove Uprave. Wireframe pretpostavlja da ih vidi (samo čitanje).">N13</span> Predsjednik Uprave vidi i stupac bruto plaće, samo za čitanje (bez Dodaj zaposlenika, Masovni uvoz i izmjena).</li><li><span class="wf-p">prijedlog</span> Filteri i pretraga: odjel, sektor, rukovoditelj, status (svi / aktivni / neaktivni); pretraga po imenu, OIB-u i SAP šifri.</li><li><span class="wf-p" title="NOVO: Koje vrijednosti ima „status zaposlenja“ (osim aktivan/neaktivan)? Wireframe pretpostavlja samo Aktivan i Neaktivan; „status zaposlenja“ se spominje i među razlozima vraćanja i „ne smije biti predložen“.">N14</span> Status prikazan kao Aktivan / Neaktivan.</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="stanje">
+    <button type="button" data-wf-tab="hr" class="is-active">HR administrator – popis</button>
+    <button type="button" data-wf-tab="nema">HR – nema rezultata</button>
+    <button type="button" data-wf-tab="pred">Predsjednik Uprave – samo čitanje</button>
+  </div>
+
+  <div data-wf-panel="stanje:pred" class="wf-info">Prikaz za Predsjednika Uprave: popis je samo za čitanje, bez radnji dodavanja, uvoza i izmjena. Detalj zaposlenika otvara se bez mogućnosti uređivanja. <span class="wf-p" title="NOVO: Vidi li Predsjednik Uprave bruto plaće u popisu zaposlenika? Specifikacija mu daje pregled svih zaposlenika, ali plaće navodi samo za HR te rukovoditelje, direktore i članove Uprave. Wireframe pretpostavlja da ih vidi (samo čitanje).">N13</span> (Izbornik za tu ulogu odaberite u gornjoj traci.)</div>
+
+  <div class="wf-filters">
+    <div style="min-width:240px"><label class="wf-label" for="q">Pretraga</label><input class="wf-input" id="q" type="search" placeholder="Ime, OIB ili SAP šifra"></div>
+    <div><label class="wf-label" for="fo">Odjel</label><select class="wf-select" id="fo"><option selected>Svi odjeli</option><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option><option>Montaža SET</option></select></div>
+    <div><label class="wf-label" for="fs">Sektor</label><select class="wf-select" id="fs"><option selected>Svi sektori</option><option>Tehnologija</option><option>Proizvodnja SET</option></select></div>
+    <div><label class="wf-label" for="fr">Rukovoditelj</label><select class="wf-select" id="fr"><option selected>Svi rukovoditelji</option><option>Ivana Horvat</option><option>Goran Šimić</option><option>Josip Jurić</option></select></div>
+    <div><label class="wf-label" for="ft">Status</label><select class="wf-select" id="ft"><option selected>Svi</option><option>Aktivni</option><option>Neaktivni</option></select></div>
+    <div><button type="button" class="wf-btn" data-wf-toast="Filtri su očišćeni.">Očisti filtre</button></div>
+  </div>
+
+  <div class="wf-actions mb-3" data-wf-panel="stanje:hr stanje:nema">
+    <button type="button" class="wf-btn-primary" data-wf-open="dlg-dodaj">Dodaj zaposlenika</button>
+    <a class="wf-btn" href="A06-masovni-uvoz.html">Masovni uvoz</a>
+    <button type="button" class="wf-btn" data-wf-toast="Izvoz u Excel je pokrenut (16 zaposlenika). Izvoz se bilježi u popis uvoza i izvoza.">Izvezi u Excel</button>
+  </div>
+  <div class="wf-actions mb-3" data-wf-panel="stanje:pred">
+    <button type="button" class="wf-btn" data-wf-toast="Izvoz u Excel je pokrenut (16 zaposlenika).">Izvezi u Excel</button>
+  </div>
+
+  <div data-wf-panel="stanje:hr stanje:pred">
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Ime i prezime</th><th>OIB</th><th>SAP šifra</th><th>Odjel</th><th>Sektor</th><th>Rukovoditelj</th><th>Radno mjesto</th><th>Pozicija</th><th class="md:whitespace-normal!">Stupanj složenosti</th><th class="md:whitespace-normal!">Platni razred</th><th class="num md:whitespace-normal!">Bruto plaća (€)</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Marija Perić</a></td><td class="wf-mono">31415926535</td><td class="wf-mono">10234</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Inženjer procesa u odjelu Projekt tehnologije (ključno ekspertno)</td><td>Standardna pozicija</td><td>I5</td><td>PR 9</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">3.200,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Ivan Božić</a></td><td class="wf-mono">27182818284</td><td class="wf-mono">10457</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Tehnolog</td><td>Standardna pozicija</td><td>I6</td><td>PR 7</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.450,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Lucija Grgić</a></td><td class="wf-mono">16180339887</td><td class="wf-mono">11802</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Tehnolog</td><td>Junior</td><td>I7</td><td>PR 5</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">1.800,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Filip Matić</a></td><td class="wf-mono">14142135623</td><td class="wf-mono">10671</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Tehnolog</td><td>Standardna pozicija</td><td>I6</td><td>PR 7</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.700,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Ema Tomić</a></td><td class="wf-mono">17320508075</td><td class="wf-mono">11915</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Tehnolog</td><td>Pripravnik</td><td>I8</td><td>PR 3</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">1.300,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Karlo Radić</a></td><td class="wf-mono">22360679774</td><td class="wf-mono">10088</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Senior tehnolog</td><td>Senior</td><td>I5</td><td>PR 10</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">3.900,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Nina Šarić</a></td><td class="wf-mono">26457513110</td><td class="wf-mono">10912</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Referent pripreme proizvodnje</td><td>Standardna pozicija</td><td>I7</td><td>PR 6</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.000,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Dario Vuković</a></td><td class="wf-mono">28284271247</td><td class="wf-mono">11340</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Tehnolog</td><td>Junior</td><td>I7</td><td>PR 5</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">1.950,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Tena Kolar</a></td><td class="wf-mono">33166247903</td><td class="wf-mono">11021</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Tehnolog</td><td>Standardna pozicija</td><td>I7</td><td>PR 6</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.100,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr class="wf-disabled-row"><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Petar Vidović</a></td><td class="wf-mono">19999999999</td><td class="wf-mono">10011</td><td>Projekt tehnologije</td><td>Tehnologija</td><td>Ivana Horvat</td><td style="min-width:170px">Tehnolog</td><td>Standardna pozicija</td><td>I6</td><td>PR 7</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.300,00</span></td><td><span class="wf-status is-closed">Neaktivan</span><span class="wf-at">od 30. 6. 2026.</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Ivona Jakšić</a></td><td class="wf-mono">23606797749</td><td class="wf-mono">10560</td><td>Razvoj proizvodnje</td><td>Tehnologija</td><td>Goran Šimić</td><td style="min-width:170px">Inženjer procesa u Razvoju proizvodnje (ključno ekspertno)</td><td>Standardna pozicija</td><td>I5</td><td>PR 9</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">3.400,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Bruno Kralj</a></td><td class="wf-mono">12020569031</td><td class="wf-mono">10777</td><td>Razvoj proizvodnje</td><td>Tehnologija</td><td>Goran Šimić</td><td style="min-width:170px">Tehnolog</td><td>Standardna pozicija</td><td>I6</td><td>PR 7</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.500,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Stjepan Lovrić</a></td><td class="wf-mono">41421356237</td><td class="wf-mono">12001</td><td>Montaža SET</td><td>Proizvodnja SET</td><td>Josip Jurić</td><td style="min-width:170px">Monter transformatora</td><td>Standardna pozicija</td><td>I7</td><td>PR 6</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.150,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Mateo Blažević</a></td><td class="wf-mono">57721566490</td><td class="wf-mono">12014</td><td>Montaža SET</td><td>Proizvodnja SET</td><td>Josip Jurić</td><td style="min-width:170px">Monter transformatora</td><td>Standardna pozicija</td><td>I7</td><td>PR 6</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.050,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Hrvoje Pavić</a></td><td class="wf-mono">69314718056</td><td class="wf-mono">12033</td><td>Montaža SET</td><td>Proizvodnja SET</td><td>Josip Jurić</td><td style="min-width:170px">Ispitivač</td><td>Standardna pozicija</td><td>I6</td><td>PR 7</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">2.600,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+<tr><td class="wf-name"><a class="wf-link" href="A05-zaposlenik-detalj.html">Antonio Šimunović</a></td><td class="wf-mono">14159265358</td><td class="wf-mono">12047</td><td>Montaža SET</td><td>Proizvodnja SET</td><td>Josip Jurić</td><td style="min-width:170px">Monter transformatora</td><td>Junior</td><td>I8</td><td>PR 4</td><td class="num"><span data-wf-panel="stanje:hr stanje:pred">1.700,00</span></td><td><span class="wf-status">Aktivan</span></td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help mt-2">Prikazano 16 zaposlenika (uzorak popisa) · aktivnih 15, neaktivnih 1 · stranica 1 od 1.</p>
+  </div>
+
+  <div data-wf-panel="stanje:nema">
+    <div class="wf-table-wrap"><div class="p-8 text-center">
+      <p class="font-bold">Nema zaposlenika koji odgovaraju pretrazi „Perić 99“.</p>
+      <p class="wf-help">Promijenite pretragu ili očistite filtre. Zaposlenik kojeg tražite možda je neaktivan: postavite status „Svi“.</p>
+    </div></div>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-dodaj">
+    <div class="wf-dialog-head">Dodaj zaposlenika <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p class="wf-help mb-3 mt-0">Postojeća aplikacija ima obrazac „Dodaj djelatnika“ (OIB, naziv, dolazak, odlazak, e-mail, voditelj, matični broj, bruto plaća); ovdje su polja iz Specifikacije.</p>
+      <div class="wf-grid md:grid-cols-2">
+        <div class="wf-field"><label class="wf-label wf-req">OIB</label><input class="wf-input" type="text" value="" placeholder="11 znamenki"><div class="wf-help">Mora biti jedinstven.</div></div>
+        <div class="wf-field"><label class="wf-label wf-req">SAP šifra</label><input class="wf-input" type="text" value="" ></div>
+        <div class="wf-field"><label class="wf-label wf-req">Ime</label><input class="wf-input" type="text" value="" ></div>
+        <div class="wf-field"><label class="wf-label wf-req">Prezime</label><input class="wf-input" type="text" value="" ></div>
+        <div class="wf-field"><label class="wf-label">E-mail</label><input class="wf-input" type="text" value="" ><div class="wf-help">Ako treba za obavijesti.</div></div>
+        <div class="wf-field"><label class="wf-label wf-req">Datum dolaska</label><input class="wf-input" type="text" value="" ></div>
+        <div class="wf-field"><label class="wf-label wf-req">Odjel</label><select class="wf-select" ><option selected>Odaberite odjel</option><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option><option>Montaža SET</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Neposredno nadređeni rukovoditelj</label><select class="wf-select" ><option selected>Odaberite rukovoditelja</option><option>Ivana Horvat</option><option>Goran Šimić</option><option>Josip Jurić</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Radno mjesto</label><select class="wf-select" ><option selected>Odaberite radno mjesto</option><option>Tehnolog</option><option>Senior tehnolog</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Pozicija</label><select class="wf-select" ><option>Pripravnik</option><option>Junior</option><option selected>Standardna pozicija</option><option>Senior</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Stupanj složenosti</label><select class="wf-select" ><option>I4</option><option>I5</option><option selected>I6</option><option>I7</option><option>I8</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Platni razred</label><select class="wf-select" ><option>PR 3</option><option>PR 5</option><option>PR 6</option><option selected>PR 7</option><option>PR 9</option><option>PR 10</option></select></div>
+        <div class="wf-field"><label class="wf-label wf-req">Bruto plaća (€)</label><input class="wf-input" type="text" value="" ></div>
+      </div>
+      <p class="wf-help">Sektor, grupa radnih mjesta i odobravatelj izvode se iz odabranog odjela, radnog mjesta i linije odobravanja <span class="wf-p" title="NOVO: Što je „organizacijska jedinica“ u odnosu na sektor i odjel, i je li „odobravatelj“ na zaposleniku zaseban podatak? Wireframe pretpostavlja da je organizacijska jedinica profitni centar, a odobravatelj se izvodi iz linije rukovoditelja (prikazan zaključano).">N15</span>. Ostala polja (organizacijska jedinica, status zaposlenja) kao u detalju zaposlenika.</p>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Zaposlenik je dodan. Izmjena je zapisana u trag izmjena.">Spremi</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

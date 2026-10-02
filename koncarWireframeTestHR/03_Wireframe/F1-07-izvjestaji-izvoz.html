@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F1.7 Izvještaji i izvoz – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="F1.7">
+<main>
+  <h1 class="wf-h1">Izvještaji i izvoz – godišnja nagrada</h1>
+  <p class="wf-sub">Ciklus 2026. · svatko vidi samo izvještaje unutar svoje nadležnosti</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>Svi korisnici modula, svatko za svoju nadležnost: rukovoditelj svoj odjel, direktor svoje odjele, član Uprave svoje profitne centre. Zbirno za cijelu tvrtku imaju HR i predsjednik Uprave. Izvoz za obračun plaća (HRNET) smije samo HR.</dd>
+      <dt>Čemu služi</dt><dd>Tri izvještaja s filtrima i izvozom u Excel i CSV te izvoz odobrenih nagrada za obračun plaća.</dd>
+      <dt>Pravila</dt><dd><ul>
+        <li>Nagrađeni zaposlenici: ime i prezime, OIB, SAP šifra, ugovorena mjesečna bruto plaća, stupanj složenosti, iznos nagrade.</li>
+        <li>Po jedinicama: raspodjela iznosa, iskorištenje budžeta, statusi i odobrenja po organizacijskim jedinicama, sektorima i profitnim centrima.</li>
+        <li>Po odjelu: ukupan broj radnika (bez rukovoditelja), iznos nagrada, broj i postotak nagrađenih.</li>
+        <li>Svi izvještaji izvoze se u Excel i CSV. Odobrene nagrade izvoze se i za obračun plaća (HRNET); nakon izvoza prijedlog dobiva status „Izvezeno za obračun“.</li>
+        <li>Izvještaji koriste organizacijsku pripadnost i povijest koju održava HR; iznosi se ne dijele automatski između odjela.</li>
+        <li>Spremljene, nepredane prijedloge vidi samo rukovoditelj pa nisu u izvještajima.</li>
+      </ul></dd>
+      <dt>Pretpostavke</dt><dd><ul>
+        <li>Oblik izvoza za HRNET nije dogovoren <span class="wf-p">P29</span>; stupci u pregledu (OIB, SAP šifra, prezime, ime, iznos nagrade, OIB nadređenog) preuzeti su po uzoru na izvoz stimulacija <span class="wf-p">prijedlog</span>.</li>
+        <li>Izvozi samo odobreni prijedlozi koji još nisu izvezeni; ponovni izvoz i poništavanje izvoza nisu opisani <span class="wf-p" title="NOVO: Izvoz za HRNET – izvoze li se samo odobreni prijedlozi koji još nisu izvezeni, i može li se izvoz ponoviti ili poništiti? Wireframe pretpostavlja: samo odobreni i neizvezeni; ponovni izvoz uz zapis u tragu izmjena.">N27</span>.</li>
+        <li>„Nagrađeni“ su zaposlenici s odobrenim ili izvezenim prijedlogom; ostali se vide kroz status <span class="wf-p" title="NOVO: Tko se u izvještajima smatra „nagrađenim“? Wireframe pretpostavlja: zaposlenik s odobrenim (ili izvezenim) prijedlogom iznosa većeg od 0; prijedlozi u postupku prikazuju se samo kroz statuse.">N28</span>.</li>
+        <li>Broj radnika za Razvoj proizvodnje (7) i Montažu SET (12) izmišljen je; OIB nadređenog u pregledu izvoza je izmišljen (Ivana Horvat, rukovoditelj Karla Radića).</li>
+      </ul></dd>
+      <dt>Stanja</dt><dd>Prvi prekidač prikazuje nadležnost (što koja uloga vidi), drugi izvoz za obračun prije i poslije izvoza.</dd>
+    </dl>
+  </section>
+
+  <div class="wf-states" data-wf-tabs="opseg">
+    <button type="button" data-wf-tab="hr" class="is-active">Sve jedinice (HR, predsjednik Uprave)</button>
+    <button type="button" data-wf-tab="dir">Sektor Tehnologija (direktor)</button>
+    <button type="button" data-wf-tab="ruk">Odjel Projekt tehnologije (rukovoditelj)</button>
+  </div>
+  <div class="wf-states" data-wf-tabs="izvoz">
+    <button type="button" data-wf-tab="prije" class="is-active">Prije izvoza za obračun</button>
+    <button type="button" data-wf-tab="poslije">Nakon izvoza za obračun</button>
+  </div>
+
+  <!-- filtri -->
+  <div class="wf-filters">
+    <div><label class="wf-label" for="f-ciklus">Ciklus</label><select class="wf-select" id="f-ciklus"><option>2026.</option><option>2025.</option></select></div>
+    <div><label class="wf-label" for="f-pc">Profitni centar</label><select class="wf-select" id="f-pc"><option>Svi</option><option>PC DT/ST</option><option>PC SET</option></select></div>
+    <div><label class="wf-label" for="f-sek">Sektor</label><select class="wf-select" id="f-sek"><option>Svi</option><option>Tehnologija</option><option>Proizvodnja SET</option></select></div>
+    <div><label class="wf-label" for="f-odj">Odjel</label><select class="wf-select" id="f-odj"><option>Svi</option><option>Projekt tehnologije</option><option>Razvoj proizvodnje</option><option>Montaža SET</option></select></div>
+    <div><label class="wf-label" for="f-st">Status</label><select class="wf-select" id="f-st"><option>Svi</option><option>Poslano HR-u</option><option>HR provjereno</option><option>Vraćeno na doradu</option><option>Poslano na odobrenje</option><option>Odbijeno</option><option>Odobreno</option><option>Izvezeno za obračun</option></select></div>
+    <div><button type="button" class="wf-btn" data-wf-toast="Podaci su ponovno učitani.">Osvježi</button></div>
+  </div>
+
+  <div class="flex flex-wrap items-end justify-between gap-2">
+    <div class="wf-tabs mb-0 flex-1" data-wf-tabs="kartica">
+      <button type="button" data-wf-tab="nagradeni" class="is-active">Nagrađeni zaposlenici</button>
+      <button type="button" data-wf-tab="jedinice">Po jedinicama</button>
+      <button type="button" data-wf-tab="odjel">Po odjelu</button>
+    </div>
+    <div class="wf-actions mb-2">
+      <button type="button" class="wf-btn" data-wf-toast="Izvoz u Excel je pokrenut. Izvoz je zapisan u popisu izvoza.">Izvezi u Excel</button>
+      <button type="button" class="wf-btn" data-wf-toast="Izvoz u CSV je pokrenut. Izvoz je zapisan u popisu izvoza.">Izvezi u CSV</button>
+    </div>
+  </div>
+  <div class="mb-4"></div>
+
+  <!-- 1. nagrađeni zaposlenici -->
+  <div data-wf-panel="kartica:nagradeni">
+    <div class="wf-grid grid-cols-2 lg:grid-cols-4 mb-3">
+      <div class="wf-kpi"><div class="wf-kpi-label">Nagrađeni (odobreno ili izvezeno)</div><div class="wf-kpi-value">1</div><div class="wf-kpi-sub">Karlo Radić</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Iznos nagrađenih</div><div class="wf-kpi-value">6.630,00 €</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Prijedlozi u postupku</div><div class="wf-kpi-value" data-wf-panel="opseg:hr">8</div><div class="wf-kpi-value" data-wf-panel="opseg:dir">6</div><div class="wf-kpi-value" data-wf-panel="opseg:ruk">4</div><div class="wf-kpi-sub">uključujući vraćene na doradu</div></div>
+      <div class="wf-kpi"><div class="wf-kpi-label">Izvezeno za obračun</div><div class="wf-kpi-value" data-wf-panel="izvoz:prije">0</div><div class="wf-kpi-value" data-wf-panel="izvoz:poslije">1</div></div>
+    </div>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Ime i prezime</th><th>OIB</th><th>SAP šifra</th><th class="num">Ugovorena mjesečna bruto plaća (€)</th><th>Stupanj složenosti</th><th class="num">Iznos nagrade (€)</th><th>Odjel</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr data-wf-panel="opseg:hr opseg:dir opseg:ruk"><td class="wf-name">Karlo Radić</td><td class="wf-mono">22360679774</td><td class="wf-mono">10088</td><td class="num">3.900,00</td><td>I5</td><td class="num">6.630,00</td><td>Projekt tehnologije</td>
+            <td><span class="wf-status is-done" data-wf-panel="izvoz:prije">Odobreno</span><span class="wf-status is-done" data-wf-panel="izvoz:poslije">Izvezeno za obračun</span></td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir opseg:ruk"><td class="wf-name">Marija Perić</td><td class="wf-mono">31415926535</td><td class="wf-mono">10234</td><td class="num">3.200,00</td><td>I5</td><td class="num">8.960,00</td><td>Projekt tehnologije</td><td><span class="wf-status">HR provjereno</span></td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir opseg:ruk"><td class="wf-name">Tena Kolar</td><td class="wf-mono">33166247903</td><td class="wf-mono">11021</td><td class="num">2.100,00</td><td>I7</td><td class="num">4.500,00</td><td>Projekt tehnologije</td><td><span class="wf-status">Poslano HR-u</span></td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir opseg:ruk"><td class="wf-name">Nina Šarić</td><td class="wf-mono">26457513110</td><td class="wf-mono">10912</td><td class="num">2.000,00</td><td>I7</td><td class="num">1.200,00</td><td>Projekt tehnologije</td><td><span class="wf-status">Poslano HR-u</span></td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir opseg:ruk"><td class="wf-name">Filip Matić</td><td class="wf-mono">14142135623</td><td class="wf-mono">10671</td><td class="num">2.700,00</td><td>I6</td><td class="num">4.590,00</td><td>Projekt tehnologije</td><td><span class="wf-status is-back">Vraćeno na doradu</span></td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir"><td class="wf-name">Ivona Jakšić</td><td class="wf-mono">23606797749</td><td class="wf-mono">10560</td><td class="num">3.400,00</td><td>I5</td><td class="num">5.780,00</td><td>Razvoj proizvodnje</td><td><span class="wf-status">HR provjereno</span></td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir"><td class="wf-name">Bruno Kralj</td><td class="wf-mono">12020569031</td><td class="wf-mono">10777</td><td class="num">2.500,00</td><td>I6</td><td class="num">1.500,00</td><td>Razvoj proizvodnje</td><td><span class="wf-status">Poslano HR-u</span></td></tr>
+          <tr data-wf-panel="opseg:hr"><td class="wf-name">Stjepan Lovrić</td><td class="wf-mono">41421356237</td><td class="wf-mono">12001</td><td class="num">2.150,00</td><td>I7</td><td class="num">1.935,00</td><td>Montaža SET</td><td><span class="wf-status">Poslano na odobrenje</span></td></tr>
+          <tr data-wf-panel="opseg:hr"><td class="wf-name">Hrvoje Pavić</td><td class="wf-mono">69314718056</td><td class="wf-mono">12033</td><td class="num">2.600,00</td><td>I6</td><td class="num">4.420,00</td><td>Montaža SET</td><td><span class="wf-status">Poslano HR-u</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="wf-help mt-1">Popis uključuje i prijedloge u postupku radi pregleda; filtrom „Status: Odobreno“ ostaju samo nagrađeni. Plaće i OIB-ove vide samo korisnici unutar svoje nadležnosti.</p>
+  </div>
+
+  <!-- 2. po jedinicama -->
+  <div data-wf-panel="kartica:jedinice">
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Jedinica</th><th>Vrsta</th><th class="num">Dodijeljeno (€)</th><th class="num">Rezervirano (€)</th><th class="num">Iskorišteno (€)</th><th class="num">Raspoloživo (€)</th><th class="num">Iskorištenost</th><th class="num">Zauzeto</th><th>Statusi prijedloga</th><th class="num">Odobreno (broj)</th></tr></thead>
+        <tbody>
+          <tr class="is-selected" data-wf-panel="opseg:hr"><td class="wf-name">PC DT/ST</td><td>profitni centar</td><td class="num">37.000,00</td><td class="num">21.940,00</td><td class="num">6.630,00</td><td class="num">8.430,00</td><td class="num">17,92 %</td><td class="num">77,22 %</td><td>Poslano HR-u 3 · HR provjereno 2 · Vraćeno na doradu 1 · Odobreno 1</td><td class="num">1</td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir"><td class="wf-name pl-6">Sektor Tehnologija</td><td>sektor</td><td class="num">37.000,00</td><td class="num">21.940,00</td><td class="num">6.630,00</td><td class="num">8.430,00</td><td class="num">17,92 %</td><td class="num">77,22 %</td><td>Poslano HR-u 3 · HR provjereno 2 · Vraćeno na doradu 1 · Odobreno 1</td><td class="num">1</td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir opseg:ruk"><td class="wf-name pl-12">Projekt tehnologije</td><td>odjel</td><td class="num">25.000,00</td><td class="num">14.660,00</td><td class="num">6.630,00</td><td class="num">3.710,00</td><td class="num">26,52 %</td><td class="num">85,16 %</td><td>Poslano HR-u 2 · HR provjereno 1 · Vraćeno na doradu 1 · Odobreno 1</td><td class="num">1</td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir"><td class="wf-name pl-12">Razvoj proizvodnje</td><td>odjel</td><td class="num">12.000,00</td><td class="num">7.280,00</td><td class="num">0,00</td><td class="num">4.720,00</td><td class="num">0,00 %</td><td class="num">60,67 %</td><td>HR provjereno 1 · Poslano HR-u 1</td><td class="num">0</td></tr>
+          <tr class="is-selected" data-wf-panel="opseg:hr"><td class="wf-name">PC SET</td><td>profitni centar</td><td class="num">15.000,00</td><td class="num">6.355,00</td><td class="num">0,00</td><td class="num">8.645,00</td><td class="num">0,00 %</td><td class="num">42,37 %</td><td>Poslano na odobrenje 1 · Poslano HR-u 1</td><td class="num">0</td></tr>
+          <tr data-wf-panel="opseg:hr"><td class="wf-name pl-6">Sektor Proizvodnja SET</td><td>sektor</td><td class="num">15.000,00</td><td class="num">6.355,00</td><td class="num">0,00</td><td class="num">8.645,00</td><td class="num">0,00 %</td><td class="num">42,37 %</td><td>Poslano na odobrenje 1 · Poslano HR-u 1</td><td class="num">0</td></tr>
+          <tr data-wf-panel="opseg:hr"><td class="wf-name pl-12">Montaža SET</td><td>odjel</td><td class="num">15.000,00</td><td class="num">6.355,00</td><td class="num">0,00</td><td class="num">8.645,00</td><td class="num">0,00 %</td><td class="num">42,37 %</td><td>Poslano na odobrenje 1 · Poslano HR-u 1</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="wf-help mt-1">Iskorištenost = odobreno / dodijeljeno; zauzeto = (rezervirano + odobreno) / dodijeljeno. Raspodjela iznosa nagrada po zaposlenicima vidi se na kartici „Nagrađeni zaposlenici“.</p>
+  </div>
+
+  <!-- 3. po odjelu -->
+  <div data-wf-panel="kartica:odjel">
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>Odjel</th><th class="num">Ukupan broj radnika (bez rukovoditelja)</th><th class="num">Iznos nagrada (€)</th><th class="num">Broj nagrađenih</th><th class="num">Postotak nagrađenih</th></tr></thead>
+        <tbody>
+          <tr data-wf-panel="opseg:hr opseg:dir opseg:ruk"><td class="wf-name">Projekt tehnologije</td><td class="num">9</td><td class="num">6.630,00</td><td class="num">1</td><td class="num">11,11 %</td></tr>
+          <tr data-wf-panel="opseg:hr opseg:dir"><td class="wf-name">Razvoj proizvodnje</td><td class="num">7</td><td class="num">0,00</td><td class="num">0</td><td class="num">0,00 %</td></tr>
+          <tr data-wf-panel="opseg:hr"><td class="wf-name">Montaža SET</td><td class="num">12</td><td class="num">0,00</td><td class="num">0</td><td class="num">0,00 %</td></tr>
+        </tbody>
+        <tfoot>
+          <tr data-wf-panel="opseg:hr"><td>Ukupno prikazane jedinice (uzorak)</td><td class="num">28</td><td class="num">6.630,00</td><td class="num">1</td><td class="num">3,57 %</td></tr>
+          <tr data-wf-panel="opseg:dir"><td>Ukupno sektor</td><td class="num">16</td><td class="num">6.630,00</td><td class="num">1</td><td class="num">6,25 %</td></tr>
+          <tr data-wf-panel="opseg:ruk"><td>Ukupno odjel</td><td class="num">9</td><td class="num">6.630,00</td><td class="num">1</td><td class="num">11,11 %</td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="wf-help mt-1">Nagrađeni se broje samo s odobrenim ili izvezenim prijedlogom <span class="wf-p" title="NOVO: Tko se u izvještajima smatra „nagrađenim“? Wireframe pretpostavlja: zaposlenik s odobrenim (ili izvezenim) prijedlogom iznosa većeg od 0; prijedlozi u postupku prikazuju se samo kroz statuse.">N28</span>. Rukovoditelji nisu u broju radnika.</p>
+  </div>
+
+  <!-- izvoz za obračun -->
+  <h2 class="wf-section-title">Izvoz za obračun plaća (HRNET) <span class="wf-p">P29</span></h2>
+
+  <div class="wf-info" data-wf-panel="opseg:dir opseg:ruk">Izvoz za obračun plaća dostupan je samo HR administratoru. Vaši odobreni prijedlozi izvoze se za obračun nakon što ih HR izveze; status „Izvezeno za obračun“ vidite u izvještaju.
+    <div class="mt-2"><button type="button" class="wf-btn-primary" disabled>Izvezi za obračun (HRNET)</button></div></div>
+
+  <div class="wf-card" data-wf-panel="opseg:hr">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <div class="wf-h3">Spremno za izvoz</div>
+        <p data-wf-panel="izvoz:prije">1 odobren prijedlog koji još nije izvezen: Karlo Radić, 6.630,00 €.</p>
+        <p data-wf-panel="izvoz:poslije">Nema odobrenih prijedloga koji čekaju izvoz. Zadnji izvoz: 30. 11. 2026. u 14:20 (Petra Novak), 1 redak, 6.630,00 €; status prijedloga je „Izvezeno za obračun“. Izvoz je zapisan u popisu izvoza i tragu izmjena.</p>
+      </div>
+      <div class="wf-actions">
+        <button type="button" class="wf-btn-primary" data-wf-open="dlg-hrnet" data-wf-panel="izvoz:prije">Izvezi za obračun (HRNET)</button>
+        <button type="button" class="wf-btn-primary" disabled data-wf-panel="izvoz:poslije">Izvezi za obračun (HRNET)</button>
+      </div>
+    </div>
+    <div class="wf-label mt-3">Pregled datoteke za izvoz <span class="wf-p">prijedlog</span></div>
+    <div class="wf-table-wrap">
+      <table class="wf-table">
+        <thead><tr><th>OIB</th><th>SAP šifra</th><th>Prezime</th><th>Ime</th><th class="num">Iznos godišnje nagrade (€, bruto)</th><th>OIB nadređenog</th></tr></thead>
+        <tbody><tr><td class="wf-mono">22360679774</td><td class="wf-mono">10088</td><td>Radić</td><td>Karlo</td><td class="num">6.630,00</td><td class="wf-mono">45678901234</td></tr></tbody>
+      </table>
+    </div>
+    <p class="wf-help mt-1">Oblik datoteke dogovara se u analizi <span class="wf-p">P29</span>. Ponovni izvoz i poništavanje izvoza nisu opisani <span class="wf-p" title="NOVO: Izvoz za HRNET – izvoze li se samo odobreni prijedlozi koji još nisu izvezeni, i može li se izvoz ponoviti ili poništiti? Wireframe pretpostavlja: samo odobreni i neizvezeni; ponovni izvoz uz zapis u tragu izmjena.">N27</span>.</p>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-hrnet">
+    <div class="wf-dialog-head">Izvoz za obračun plaća (HRNET) <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <p>Izvozite 1 odobren prijedlog u ukupnom iznosu <b>6.630,00 €</b> (Karlo Radić).</p>
+      <p class="mt-2">Nakon izvoza prijedlog dobiva status <b>Izvezeno za obračun</b>. Izvoz se bilježi u popisu izvoza i tragu izmjena; o uspješnom ili neuspješnom izvozu stiže obavijest.</p>
+      <div class="wf-field mt-3 mb-0"><label class="wf-label" for="fmt">Oblik datoteke <span class="wf-p">P29</span></label>
+        <select class="wf-select" id="fmt"><option>Excel</option><option>CSV</option></select></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Izvoz je završen. Status prijedloga: Izvezeno za obračun.">Izvezi</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>

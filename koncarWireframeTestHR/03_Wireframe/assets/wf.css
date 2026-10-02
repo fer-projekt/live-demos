@@ -1,0 +1,206 @@
+/* D&ST Grow & Reward – wireframe, zajednički stilovi.
+   Samo crno, bijelo i sive nijanse. Klase wf-* su komponente; Tailwind utility klase ih mogu nadjačati.
+   Redoslijed slojeva mora biti isti kao u Tailwindu, inače preflight pregazi komponente. */
+@layer theme, base, components, utilities;
+
+@layer components {
+
+  /* ---------- osnovno ---------- */
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: #fff; color: #000; font-size: 14px; line-height: 1.45; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .wf-mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+  .wf-muted { color: #666; }
+  .wf-h1 { font-size: 22px; font-weight: 700; line-height: 1.2; margin: 0 0 4px; }
+  .wf-h2 { font-size: 16px; font-weight: 700; margin: 0 0 10px; }
+  .wf-h3 { font-size: 14px; font-weight: 700; margin: 0 0 6px; }
+  .wf-sub { color: #555; margin-bottom: 16px; }
+  a.wf-link { text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ---------- traka wireframea (nije dio aplikacije) ---------- */
+  .wf-bar { background: #000; color: #fff; font: 12px/1.3 ui-monospace, SFMono-Regular, Consolas, monospace;
+            display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 6px 12px; position: sticky; top: 0; z-index: 40; }
+  .wf-bar a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+  .wf-bar .wf-bar-id { border: 1px solid #fff; padding: 0 5px; }
+  .wf-bar .wf-bar-title { font-weight: 700; }
+  .wf-bar .wf-bar-spacer { flex: 1 1 auto; }
+  .wf-bar select, .wf-bar button { background: #000; color: #fff; border: 1px solid #fff; padding: 1px 6px; font: inherit; cursor: pointer; }
+  .wf-bar .is-off { opacity: .55; pointer-events: none; text-decoration: none; }
+
+  /* ---------- ljuska aplikacije ---------- */
+  .wf-shell { display: flex; min-height: calc(100vh - 30px); }
+  .wf-side { width: 250px; flex: 0 0 250px; border-right: 1px solid #000; background: #fff; padding: 14px 0 24px; }
+  .wf-side .wf-brand { font-weight: 800; font-size: 15px; padding: 0 16px 2px; }
+  .wf-side .wf-brand-sub { font-size: 11px; color: #666; padding: 0 16px 12px; border-bottom: 1px solid #000; margin-bottom: 8px; }
+  .wf-side .wf-nav-group { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #555; padding: 12px 16px 4px; }
+  .wf-side a.wf-nav-item { display: flex; align-items: center; gap: 6px; padding: 5px 16px 5px 20px; border-left: 4px solid transparent; }
+  .wf-side a.wf-nav-item:hover { background: #f2f2f2; }
+  .wf-side a.wf-nav-item.is-active { border-left-color: #000; font-weight: 700; background: #f2f2f2; }
+  .wf-side a.wf-nav-item.is-hidden-role { color: #9a9a9a; text-decoration: line-through; }
+  .wf-side a.wf-nav-item.is-hidden-role .wf-nav-box { border-style: dashed; border-color: #9a9a9a; }
+  .wf-side .wf-nav-legend { font-size: 11px; color: #777; padding: 14px 16px 0; border-top: 1px solid #ddd; margin-top: 12px; }
+  .wf-side a.wf-nav-item .wf-nav-box { width: 10px; height: 10px; border: 1px solid #000; flex: 0 0 10px; }
+  .wf-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+  .wf-head { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #000; padding: 10px 20px; flex-wrap: wrap; }
+  .wf-head .wf-crumb { font-size: 12px; color: #555; }
+  .wf-head .wf-user { margin-left: auto; text-align: right; font-size: 12px; line-height: 1.3; }
+  .wf-head .wf-user b { font-size: 13px; }
+  .wf-menu-btn { display: none; border: 1px solid #000; padding: 3px 8px; background: #fff; cursor: pointer; }
+  .wf-content { padding: 20px; max-width: 1400px; width: 100%; }
+  @media (max-width: 1023px) {
+    .wf-bar { position: static; }
+    .wf-side { display: none; position: fixed; top: 0; left: 0; bottom: 0; z-index: 50; overflow-y: auto; box-shadow: 4px 0 0 rgba(0,0,0,.15); }
+    body.wf-side-open .wf-side { display: block; }
+    .wf-menu-btn { display: inline-block; }
+    .wf-content { padding: 16px; }
+  }
+
+  /* ---------- bilješke i oznake pretpostavki (wireframe) ---------- */
+  .wf-note { border: 2px dashed #000; background: #fff; padding: 10px 12px; margin: 0 0 16px; font-size: 13px; }
+  .wf-note::before { content: "BILJEŠKA ZA WIREFRAME"; display: block; font: 700 11px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .05em; margin-bottom: 6px; }
+  .wf-note dl { display: grid; grid-template-columns: max-content 1fr; gap: 3px 12px; margin: 0; }
+  .wf-note dt { font-weight: 700; }
+  .wf-note dd { margin: 0; }
+  .wf-note ul { list-style: disc; padding-left: 18px; margin: 0; }
+  .wf-note li { margin: 1px 0; }
+  .wf-p { display: inline-block; font: 600 11px/1.35 ui-monospace, SFMono-Regular, Consolas, monospace; border: 1px solid #000; background: #fff; color: #000;
+          padding: 0 4px; border-radius: 2px; white-space: nowrap; vertical-align: middle; margin: 0 2px; cursor: help; }
+  body.wf-hide-notes .wf-note, body.wf-hide-notes .wf-p { display: none !important; }
+
+  /* prekidač stanja ekrana (wireframe kontrola, ne dio aplikacije) */
+  .wf-states { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; border: 1px dashed #000; padding: 6px 8px; margin: 0 0 14px;
+               font: 12px/1.3 ui-monospace, SFMono-Regular, Consolas, monospace; }
+  .wf-states::before { content: "STANJE EKRANA:"; font-weight: 700; margin-right: 4px; }
+  .wf-states[data-label]::before { content: attr(data-label) ":"; text-transform: uppercase; }
+  .wf-states button { border: 1px solid #000; background: #fff; padding: 2px 8px; cursor: pointer; font: inherit; }
+  .wf-states button.is-active { background: #000; color: #fff; }
+
+  /* ---------- obrasci ---------- */
+  .wf-label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+  .wf-req::after { content: " *"; }
+  .wf-help { font-size: 12px; color: #555; margin-top: 3px; }
+  .wf-input, .wf-select, .wf-textarea { display: block; width: 100%; border: 1px solid #000; background: #fff; color: #000; padding: 5px 8px; font: inherit; border-radius: 0; }
+  .wf-select { appearance: auto; }
+  .wf-textarea { min-height: 70px; resize: vertical; }
+  .wf-input[disabled], .wf-select[disabled], .wf-textarea[disabled] { background: #f2f2f2; color: #555; border-color: #999; cursor: not-allowed; }
+  .wf-input.is-error, .wf-select.is-error, .wf-textarea.is-error { border-width: 2px; border-style: dashed; }
+  .wf-error { font-size: 12px; font-weight: 700; margin-top: 3px; }
+  .wf-error::before { content: "✕ "; }
+  .wf-check { display: inline-flex; align-items: center; gap: 6px; margin-right: 14px; }
+  .wf-check input { width: 14px; height: 14px; accent-color: #000; }
+  .wf-field { margin-bottom: 12px; }
+
+  /* polje koje sustav računa – zaključano i jasno označeno */
+  .wf-calc { display: inline-block; min-width: 80px; border: 1px dashed #000; background: #efefef; padding: 4px 8px 3px; position: relative; font-variant-numeric: tabular-nums; }
+  .wf-calc::before { content: "izračunato"; display: block; font: 600 9px/1 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .03em; color: #555; margin-bottom: 2px; text-transform: uppercase; }
+  .wf-calc.is-block { display: block; }
+  td .wf-calc { display: block; min-width: 0; text-align: right; }
+  /* podatak koji se puni sam iz aplikacije ili ga ova uloga ne smije mijenjati */
+  .wf-locked { display: inline-block; min-width: 60px; border: 1px solid #aaa; background: #f5f5f5; padding: 4px 8px; color: #000; }
+  .wf-locked.is-block { display: block; }
+  .wf-kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; align-items: baseline; }
+  .wf-kv dt { font-size: 12px; color: #555; }
+  .wf-kv dd { margin: 0; font-weight: 600; }
+
+  /* ---------- gumbi ---------- */
+  .wf-btn, .wf-btn-primary { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #000; padding: 6px 14px; font: inherit; font-weight: 600; cursor: pointer; line-height: 1.2; white-space: nowrap; }
+  .wf-btn { background: #fff; color: #000; }
+  .wf-btn:hover { background: #f2f2f2; }
+  .wf-btn-primary { background: #000; color: #fff; }
+  .wf-btn-primary:hover { background: #333; }
+  .wf-btn[disabled], .wf-btn-primary[disabled], .wf-btn.is-disabled, .wf-btn-primary.is-disabled { background: #fff; color: #999; border: 1px dashed #999; cursor: not-allowed; }
+  .wf-btn-sm { padding: 3px 9px; font-size: 12px; }
+  .wf-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+  /* ---------- poruke ---------- */
+  .wf-alert, .wf-block, .wf-info { padding: 10px 12px; margin: 0 0 14px; font-size: 13px; }
+  .wf-alert { border: 1px solid #000; border-left-width: 8px; background: #fff; }
+  .wf-alert::before { content: "UPOZORENJE  "; font-weight: 800; letter-spacing: .03em; }
+  .wf-block { background: #000; color: #fff; }
+  .wf-block::before { content: "BLOKADA  "; font-weight: 800; letter-spacing: .03em; }
+  .wf-block .wf-p { background: #000; color: #fff; border-color: #fff; }
+  .wf-info { border: 1px solid #000; background: #f5f5f5; }
+
+  /* ---------- statusi ---------- */
+  .wf-status { display: inline-block; border: 1px solid #000; border-radius: 999px; padding: 1px 9px; font-size: 12px; white-space: nowrap; line-height: 1.4; background: #fff; }
+  .wf-status.is-draft { border-style: dotted; color: #444; }
+  .wf-status.is-back { border-style: dashed; border-width: 2px; font-weight: 700; }
+  .wf-status.is-done { background: #000; color: #fff; }
+  .wf-status.is-closed { background: #ddd; }
+  .wf-at { font-size: 11px; color: #555; display: block; margin-top: 2px; white-space: nowrap; }
+
+  /* ---------- kartice, KPI, budžet ---------- */
+  .wf-card { border: 1px solid #000; background: #fff; padding: 14px 16px; }
+  .wf-grid { display: grid; gap: 14px; }
+  .wf-kpi { border: 1px solid #000; padding: 10px 12px; }
+  .wf-kpi .wf-kpi-label { font-size: 12px; color: #555; }
+  .wf-kpi .wf-kpi-value { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .wf-kpi .wf-kpi-sub { font-size: 12px; color: #555; }
+  /* traka budžeta: iskorišteno (crno) | rezervirano (šrafirano) | raspoloživo (bijelo) */
+  .wf-meter { display: flex; height: 14px; border: 1px solid #000; background: #fff; overflow: hidden; }
+  .wf-meter > .used { background: #000; }
+  .wf-meter > .res { background: repeating-linear-gradient(45deg, #000 0 2px, #fff 2px 6px); }
+  .wf-meter > .over { background: repeating-linear-gradient(-45deg, #000 0 4px, #fff 4px 8px); }
+  .wf-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; margin-top: 4px; }
+  .wf-legend i { display: inline-block; width: 12px; height: 10px; border: 1px solid #000; vertical-align: -1px; margin-right: 4px; }
+  .wf-legend i.used { background: #000; }
+  .wf-legend i.res { background: repeating-linear-gradient(45deg, #000 0 2px, #fff 2px 6px); }
+
+  /* ---------- tablice ---------- */
+  .wf-table-wrap { overflow-x: auto; border: 1px solid #000; background: #fff; }
+  .wf-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .wf-table th { text-align: left; font-size: 12px; font-weight: 700; background: #efefef; border-bottom: 2px solid #000; padding: 7px 8px; vertical-align: bottom; white-space: nowrap; }
+  .wf-table td { border-bottom: 1px solid #cfcfcf; padding: 6px 8px; vertical-align: top; }
+  .wf-table td.wf-name { white-space: nowrap; font-weight: 700; }
+  .wf-table tr:last-child td { border-bottom: 0; }
+  .wf-table tfoot td { border-top: 2px solid #000; font-weight: 700; background: #f7f7f7; }
+  .wf-table th.num, .wf-table td.num { text-align: right; }
+  .wf-table .wf-select, .wf-table .wf-input { padding: 3px 6px; min-width: 70px; }
+  .wf-table tr.is-selected td { background: #f2f2f2; }
+  .wf-table tr.is-error td { background: repeating-linear-gradient(135deg, #fff 0 8px, #ededed 8px 10px); }
+  /* zaposlenik koji se ne može predložiti (npr. pripravnik u prvih 12 mjeseci) */
+  .wf-table tr.wf-disabled-row td, .wf-disabled-row { color: #8a8a8a; background: repeating-linear-gradient(45deg, #fff 0 6px, #f0f0f0 6px 12px); }
+
+  .wf-filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-bottom: 12px; }
+  .wf-filters > div { min-width: 150px; }
+
+  /* ---------- kartice (tabs), koraci, vremenska crta ---------- */
+  .wf-tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid #000; margin-bottom: 14px; }
+  .wf-tabs button { border: 1px solid #000; border-bottom: 0; background: #fff; padding: 6px 14px; margin-right: -1px; cursor: pointer; font: inherit; }
+  .wf-tabs button.is-active { background: #000; color: #fff; font-weight: 700; }
+  /* ploče kartica i stanja: vidljiva je samo aktivna (vidi wf.js) */
+  [data-wf-panel]:not(.wf-on) { display: none !important; }
+
+  .wf-steps { display: flex; flex-wrap: wrap; gap: 0; counter-reset: wfstep; margin: 0 0 16px; padding: 0; list-style: none; }
+  .wf-steps li { counter-increment: wfstep; border: 1px solid #000; margin-right: -1px; padding: 6px 14px; font-size: 13px; background: #fff; }
+  .wf-steps li::before { content: counter(wfstep) ". "; font-weight: 700; }
+  .wf-steps li.is-active { background: #000; color: #fff; font-weight: 700; }
+  .wf-steps li.is-done { background: #efefef; }
+
+  .wf-timeline { list-style: none; margin: 0; padding: 0 0 0 18px; border-left: 2px solid #000; }
+  .wf-timeline li { position: relative; padding: 0 0 12px 10px; font-size: 13px; }
+  .wf-timeline li::before { content: ""; position: absolute; left: -25px; top: 3px; width: 12px; height: 12px; background: #fff; border: 2px solid #000; border-radius: 50%; }
+  .wf-timeline li.is-done::before { background: #000; }
+  .wf-timeline li.is-current::before { background: #fff; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #000; }
+  .wf-timeline li.is-next { color: #777; }
+  .wf-timeline li.is-next::before { border-style: dashed; }
+  .wf-timeline .wf-at { display: inline; margin-left: 6px; }
+
+  /* ---------- dijalog ---------- */
+  dialog.wf-dialog { border: 2px solid #000; padding: 0; max-width: 620px; width: calc(100% - 32px); background: #fff; color: #000; }
+  dialog.wf-dialog::backdrop { background: rgba(0,0,0,.45); }
+  dialog.wf-dialog .wf-dialog-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #000; padding: 10px 14px; font-weight: 700; }
+  dialog.wf-dialog .wf-dialog-body { padding: 14px; }
+  dialog.wf-dialog .wf-dialog-foot { border-top: 1px solid #000; padding: 10px 14px; display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+
+  /* ---------- rezervirano mjesto (graf, datoteka...) ---------- */
+  .wf-ph { border: 1px solid #000; background: repeating-linear-gradient(45deg, #fff 0 10px, #f0f0f0 10px 20px); display: flex; align-items: center; justify-content: center;
+           text-align: center; color: #333; font: 12px ui-monospace, SFMono-Regular, Consolas, monospace; padding: 16px; min-height: 120px; }
+  .wf-drop { border: 2px dashed #000; padding: 28px 16px; text-align: center; background: #fafafa; }
+
+  /* ---------- tekst iz obrazaca (opisi razina) ---------- */
+  .wf-levels { margin: 0; padding: 0; list-style: none; font-size: 12px; }
+  .wf-levels li { padding: 2px 0 2px 22px; text-indent: -22px; }
+  .wf-levels b { display: inline-block; width: 22px; text-indent: 0; }
+  .wf-section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; border-bottom: 2px solid #000; padding-bottom: 4px; margin: 22px 0 10px; }
+}

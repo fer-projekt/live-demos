@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A10 Obavijesti – D&amp;ST Grow &amp; Reward (wireframe)</title>
+<link rel="stylesheet" href="assets/wf.css">
+<script src="assets/tailwind.js"></script>
+<script src="assets/wf.js" defer></script>
+</head>
+<body data-screen="A10">
+<main>
+  <h1 class="wf-h1">Obavijesti</h1>
+  <p class="wf-sub">Sve e-mail obavijesti i podsjetnici idu iz jednog mjesta, za sve module.</p>
+
+  <section class="wf-note">
+    <dl>
+      <dt>Tko</dt><dd>HR administrator.</dd>
+      <dt>Čemu služi</dt><dd>HR uređuje tekstove poruka (predloške) i pravila slanja po modulu te vidi što je poslano.</dd>
+      <dt>Pravila</dt><dd><ul><li>Okidači iz Specifikacije: otvaranje ciklusa, podsjetnik prije roka, slanje na odobrenje, odbijanje, vraćanje na doradu, zaključavanje razdoblja, uspješan i neuspješan izvoz; uz to odobrenje i razina učinka 1 ili 2 kod godišnje nagrade.</li><li>O predanom i odobrenom prijedlogu e-mail dobivaju predlagatelj i odobravatelji u liniji. Kod odbijanja primatelje određuje tablica niže.</li><li>Primatelji se određuju prema trenutnim ulogama, rukovoditeljima i odobravateljima; sustav pamti što je poslano (Dnevnik poslanih).</li><li>Kod godišnje nagrade sustav automatski obavještava rukovoditelja kad ocjene daju razinu učinka 1 ili 2 (zaposlenik nema pravo na nagradu).</li><li>HR administrativne izmjene ne šalju obavijesti drugim korisnicima, osim ako je za pojedini modul drugačije dogovoreno.</li></ul></dd>
+      <dt>Pretpostavke</dt><dd><ul><li><span class="wf-p">P5</span> Kad najviša razina odbije napredovanje ili nagradu, dodatni odobravatelj ne dobiva e-mail (u SET dobiva). Prikazano točno kako piše u tablici.</li><li><span class="wf-p">prijedlog</span> Odobrenje kao zaseban okidač, podsjetnik (3 dana prije roka), primatelji kod zaključavanja i izvoza, tekstovi predložaka i oznake u zagradama su naš prijedlog.</li><li><span class="wf-p">prijedlog</span> Vraćanje na doradu u stimulacijama i kvartalnim ne postoji (tamo je samo odbijanje, <span class="wf-p">P1</span>).</li><li>Dnevnik prikazuje jednu poruku po primatelju.</li></ul></dd>
+    </dl>
+  </section>
+
+  <div class="wf-tabs" data-wf-tabs="tab">
+    <button type="button" data-wf-tab="pred" class="is-active">Predlošci</button>
+    <button type="button" data-wf-tab="pravila">Pravila slanja</button>
+    <button type="button" data-wf-tab="dnev">Dnevnik poslanih</button>
+  </div>
+
+  <div data-wf-panel="tab:pred">
+  <div class="wf-tabs" data-wf-tabs="pm">
+    <button type="button" data-wf-tab="nag" class="is-active">Godišnje nagrađivanje</button>
+    <button type="button" data-wf-tab="nap">Godišnje napredovanje</button>
+    <button type="button" data-wf-tab="stim">Mjesečne stimulacije</button>
+    <button type="button" data-wf-tab="kvart">Kvartalne nagrade</button>
+  </div>
+    <div data-wf-panel="pm:nag"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Okidač</th><th>Predmet</th><th>Zadnja izmjena</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Otvaranje ciklusa</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Otvoren je unos: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Podsjetnik prije roka</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Podsjetnik: rok za {razdoblje} je {rok}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Slanje na odobrenje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Predan prijedlog: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Odobrenje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Prijedlog je odobren: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Odbijanje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Prijedlog je odbijen i vraćen na doradu</td><td>17. 11. 2026. (Petra Novak)</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Vraćanje na doradu (HR)</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] HR je vratio prijedlog na doradu: {zaposlenik}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Razina učinka 1 ili 2</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Zaposlenik {zaposlenik} nema pravo na nagradu (razina učinka {razina})</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Zaključavanje razdoblja</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Razdoblje je zaključano: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Uspješan izvoz</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Izvoz za obračun je uspio: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Neuspješan izvoz</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Izvoz za obračun nije uspio: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+</tbody>
+</table></div></div>
+    <div data-wf-panel="pm:nap"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Okidač</th><th>Predmet</th><th>Zadnja izmjena</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Otvaranje ciklusa</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Otvoren je unos: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Podsjetnik prije roka</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Podsjetnik: rok za {razdoblje} je {rok}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Slanje na odobrenje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Predan prijedlog: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Odobrenje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Prijedlog je odobren: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Odbijanje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Prijedlog je odbijen i vraćen na doradu</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Vraćanje na doradu (HR)</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] HR je vratio prijedlog na doradu: {zaposlenik}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Zaključavanje razdoblja</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Razdoblje je zaključano: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Uspješan izvoz</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Izvoz za obračun je uspio: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Neuspješan izvoz</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Izvoz za obračun nije uspio: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+</tbody>
+</table></div></div>
+    <div data-wf-panel="pm:stim"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Okidač</th><th>Predmet</th><th>Zadnja izmjena</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Otvaranje ciklusa</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Otvoren je unos: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Podsjetnik prije roka</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Podsjetnik: rok za {razdoblje} je {rok}</td><td>2. 11. 2026. (Sanja Lukić)</td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Slanje na odobrenje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Predan prijedlog: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Odobrenje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Prijedlog je odobren: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Odbijanje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Prijedlog je odbijen i vraćen na doradu</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Zaključavanje razdoblja</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Razdoblje je zaključano: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Uspješan izvoz</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Izvoz za obračun je uspio: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Neuspješan izvoz</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Izvoz za obračun nije uspio: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+</tbody>
+</table></div></div>
+    <div data-wf-panel="pm:kvart"><div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Okidač</th><th>Predmet</th><th>Zadnja izmjena</th><th></th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Otvaranje ciklusa</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Otvoren je unos: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Podsjetnik prije roka</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Podsjetnik: rok za {razdoblje} je {rok}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Slanje na odobrenje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Predan prijedlog: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Odobrenje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Prijedlog je odobren: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Odbijanje</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Prijedlog je odbijen i vraćen na doradu</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Zaključavanje razdoblja</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Razdoblje je zaključano: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Uspješan izvoz</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Izvoz za obračun je uspio: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+<tr><td class="wf-name">Neuspješan izvoz</td><td class="wf-mono text-xs">[D&amp;ST Grow &amp; Reward] Izvoz za obračun nije uspio: {razdoblje}</td><td><span class="wf-muted">zadani tekst</span></td><td><button type="button" class="wf-btn wf-btn-sm" data-wf-open="dlg-pred">Uredi</button></td></tr>
+</tbody>
+</table></div></div>
+    <p class="wf-help mt-2">Predložak se uređuje po modulu i okidaču: predmet i tekst, uz oznake koje sustav popunjava (npr. {zaposlenik}, {razdoblje}, {rok}).</p>
+  </div>
+
+  <div data-wf-panel="tab:pravila">
+    <div class="wf-info">HR administrativne izmjene (ispravci podataka, preraspodjele, zaključavanja koja HR sam provodi) ne šalju obavijesti drugim korisnicima, osim ako je za pojedini modul drugačije dogovoreno.</div>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Okidač</th><th>Modul</th><th>Primatelji (po ulozi)</th><th class="num">Podsjetnik prije roka (dana)</th><th class="text-center">Uključeno</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Otvaranje ciklusa</td><td>svi moduli</td><td style="min-width:240px">rukovoditelji koji predlažu u modulu</td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Podsjetnik prije roka <span class="wf-p">prijedlog</span></td><td>svi moduli</td><td style="min-width:240px">rukovoditelji koji još nisu predali prijedlog; odobravatelji s prijedlozima na čekanju</td><td class="num"><input class="wf-input" style="width:64px;text-align:right" value="3"></td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Slanje na odobrenje</td><td>svi moduli</td><td style="min-width:240px">predlagatelj i odobravatelji u liniji</td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Odobrenje</td><td>svi moduli</td><td style="min-width:240px">predlagatelj i odobravatelji u liniji</td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Odbijanje</td><td>svi moduli</td><td style="min-width:240px">prema tablici „Tko dobiva e-mail kod odbijanja“ <span class="wf-p">P5</span></td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Vraćanje na doradu (HR)</td><td>godišnje nagrađivanje, godišnje napredovanje</td><td style="min-width:240px">prema tablici „Tko dobiva e-mail kod odbijanja“ (redak HR)</td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Razina učinka 1 ili 2</td><td>godišnje nagrađivanje</td><td style="min-width:240px">rukovoditelj (zaposlenik nema pravo na nagradu)</td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Zaključavanje razdoblja <span class="wf-p">prijedlog</span></td><td>svi moduli</td><td style="min-width:240px">HR administratori; rukovoditelji tog razdoblja</td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Uspješan izvoz <span class="wf-p">prijedlog</span></td><td>svi moduli</td><td style="min-width:240px">HR administratori</td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+<tr><td class="wf-name">Neuspješan izvoz <span class="wf-p">prijedlog</span></td><td>svi moduli</td><td style="min-width:240px">HR administratori</td><td class="num">–</td><td class="text-center"><input type="checkbox" checked aria-label="Uključeno" style="width:14px;height:14px;accent-color:#000"></td></tr>
+</tbody>
+</table></div>
+    <div class="wf-actions mt-3"><button type="button" class="wf-btn-primary" data-wf-toast="Pravila slanja su spremljena. Izmjena je zapisana u trag izmjena.">Spremi pravila</button></div>
+
+    <h2 class="wf-section-title">Tko dobiva e-mail kod odbijanja</h2>
+    <p class="wf-help mb-2 mt-0">Kad netko odbije prijedlog i vrati ga na doradu, e-mail dobivaju:</p>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Tko odbija</th><th>Stimulacije i kvartalne nagrade</th><th>Napredovanje i nagrađivanje</th><th>Proizvodnja SET</th></tr></thead>
+<tbody>
+<tr><td class="wf-name">Dodatni odobravatelj</td><td>rukovoditelj</td><td>rukovoditelj</td><td>rukovoditelj</td></tr>
+<tr><td class="wf-name">Dodatni odobravatelj više razine</td><td>–</td><td>–</td><td>rukovoditelj i dodatni odobravatelj</td></tr>
+<tr><td class="wf-name">HR</td><td>–</td><td>rukovoditelj i dodatni odobravatelj</td><td>rukovoditelj, dodatni i dodatni odobravatelj više razine</td></tr>
+<tr><td class="wf-name">Odobravatelj najviše razine</td><td>rukovoditelj i dodatni odobravatelj</td><td>rukovoditelj i HR administratori <span class="wf-p">P5</span></td><td>rukovoditelj, oba dodatna odobravatelja i HR administratori <span class="wf-p">P5</span></td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help mt-2">Tablica je zadana prema Specifikaciji; prikazana je i kao pregled za HR. Mijenja se samo uz dogovor s Naručiteljem <span class="wf-p">P5</span>.</p>
+  </div>
+
+  <div data-wf-panel="tab:dnev">
+    <div class="wf-filters">
+      <div><label class="wf-label" for="dm">Modul</label><select class="wf-select" id="dm"><option selected>Svi moduli</option><option>Godišnje nagrađivanje</option><option>Godišnje napredovanje</option><option>Mjesečne stimulacije</option><option>Kvartalne nagrade</option></select></div>
+      <div><label class="wf-label" for="dok">Okidač</label><select class="wf-select" id="dok"><option selected>Svi okidači</option><option>Otvaranje ciklusa</option><option>Podsjetnik prije roka</option><option>Slanje na odobrenje</option><option>Odbijanje</option><option>Vraćanje na doradu (HR)</option><option>Zaključavanje razdoblja</option><option>Uspješan izvoz</option><option>Neuspješan izvoz</option></select></div>
+      <div><label class="wf-label" for="ds">Status</label><select class="wf-select" id="ds"><option selected>Svi</option><option>Poslano</option><option>Greška slanja</option></select></div>
+      <div><label class="wf-label" for="dp">Primatelj</label><input class="wf-input" id="dp" type="search" placeholder="Ime primatelja"></div>
+    </div>
+<div class="wf-table-wrap"><table class="wf-table">
+<thead><tr><th>Vrijeme</th><th>Modul</th><th>Okidač</th><th>Primatelj</th><th>Predmet</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td class="whitespace-nowrap">19. 11. 2026. u 9:02</td><td>Godišnje nagrađivanje</td><td>Slanje na odobrenje</td><td>Ivana Horvat</td><td>[D&amp;ST Grow &amp; Reward] Predan prijedlog: godišnje nagrađivanje 2026.</td><td>Poslano</td></tr>
+<tr><td class="whitespace-nowrap">18. 11. 2026. u 9:05</td><td>Godišnje nagrađivanje</td><td>Vraćanje na doradu (HR)</td><td>Ivana Horvat</td><td>[D&amp;ST Grow &amp; Reward] HR je vratio prijedlog na doradu: Filip Matić</td><td>Poslano</td></tr>
+<tr><td class="whitespace-nowrap">12. 11. 2026. u 15:10</td><td>Godišnje nagrađivanje</td><td>Razina učinka 1 ili 2</td><td>Ivana Horvat</td><td>[D&amp;ST Grow &amp; Reward] Zaposlenik Dario Vuković nema pravo na nagradu (razina učinka 1)</td><td>Poslano</td></tr>
+<tr><td class="whitespace-nowrap">3. 11. 2026. u 8:31</td><td>Mjesečne stimulacije</td><td>Zaključavanje razdoblja</td><td>Petra Novak</td><td>[D&amp;ST Grow &amp; Reward] Razdoblje je zaključano: rujan 2026.</td><td>Greška slanja <button type="button" class="wf-btn wf-btn-sm ml-2" data-wf-toast="Poruka je ponovno poslana.">Pošalji ponovno</button><span class="wf-at">adresa primatelja nije prihvaćena</span></td></tr>
+<tr><td class="whitespace-nowrap">2. 11. 2026. u 9:15</td><td>Mjesečne stimulacije</td><td>Neuspješan izvoz</td><td>Sanja Lukić</td><td>[D&amp;ST Grow &amp; Reward] Izvoz za obračun nije uspio: listopad 2026.</td><td>Poslano</td></tr>
+<tr><td class="whitespace-nowrap">2. 11. 2026. u 8:00</td><td>Godišnje nagrađivanje</td><td>Otvaranje ciklusa</td><td>Ivana Horvat</td><td>[D&amp;ST Grow &amp; Reward] Otvoren je unos: godišnje nagrađivanje 2026.</td><td>Poslano</td></tr>
+<tr><td class="whitespace-nowrap">30. 10. 2026. u 15:20</td><td>Mjesečne stimulacije</td><td>Odobrenje</td><td>Ivana Horvat</td><td>[D&amp;ST Grow &amp; Reward] Odobren prijedlog: listopad 2026.</td><td>Poslano</td></tr>
+<tr><td class="whitespace-nowrap">28. 10. 2026. u 9:40</td><td>Mjesečne stimulacije</td><td>Slanje na odobrenje</td><td>Marko Kovačević</td><td>[D&amp;ST Grow &amp; Reward] Predan prijedlog: listopad 2026.</td><td>Poslano</td></tr>
+<tr><td class="whitespace-nowrap">28. 10. 2026. u 9:40</td><td>Mjesečne stimulacije</td><td>Slanje na odobrenje</td><td>Ivana Horvat</td><td>[D&amp;ST Grow &amp; Reward] Predan prijedlog: listopad 2026.</td><td>Poslano</td></tr>
+<tr><td class="whitespace-nowrap">12. 10. 2026. u 8:00</td><td>Kvartalne nagrade</td><td>Podsjetnik prije roka</td><td>Ivana Horvat</td><td>[D&amp;ST Grow &amp; Reward] Podsjetnik: rok za Q3 2026. je 15. 10. 2026.</td><td>Poslano</td></tr>
+</tbody>
+</table></div>
+    <p class="wf-help mt-2">Prikazano 10 poruka (uzorak). Dnevnik se ne mijenja; ponovno slanje stvara novi zapis.</p>
+  </div>
+
+  <dialog class="wf-dialog" id="dlg-pred">
+    <div class="wf-dialog-head">Uredi predložak <button type="button" class="wf-btn wf-btn-sm" data-wf-close>Zatvori</button></div>
+    <div class="wf-dialog-body">
+      <dl class="wf-kv mb-3"><dt>Modul</dt><dd><span class="wf-locked">Godišnje nagrađivanje</span></dd><dt>Okidač</dt><dd><span class="wf-locked">Odbijanje</span></dd></dl>
+      <div class="wf-field"><label class="wf-label wf-req">Predmet</label><input class="wf-input" type="text" value="[D&amp;ST Grow &amp; Reward] Prijedlog je odbijen i vraćen na doradu" ></div>
+      <div class="wf-field"><label class="wf-label wf-req">Tekst poruke</label><textarea class="wf-textarea" rows="7">Poštovani/a {ime_primatelja},
+
+prijedlog godišnje nagrade za zaposlenika {zaposlenik} odbio/la je {tko_odbija}.
+Razlog: {razlog}
+
+Prijedlog možete dorediti i ponovno predati u aplikaciji: {poveznica}
+
+D&amp;ST Grow &amp; Reward</textarea><div class="wf-help">Oznake koje sustav popunjava: {ime_primatelja}, {zaposlenik}, {razdoblje}, {rok}, {iznos}, {razlog}, {tko_odbija}, {poveznica} <span class="wf-p">prijedlog</span></div></div>
+    </div>
+    <div class="wf-dialog-foot">
+      <button type="button" class="wf-btn" data-wf-toast="Pregled predloška (probni e-mail nije poslan).">Pregled</button>
+      <button type="button" class="wf-btn" data-wf-close>Odustani</button>
+      <button type="button" class="wf-btn-primary" data-wf-close data-wf-toast="Predložak je spremljen. Izmjena je zapisana u trag izmjena.">Spremi</button>
+    </div>
+  </dialog>
+</main>
+</body>
+</html>
