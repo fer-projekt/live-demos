@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adriatic Distribution Group — Connecting Global Supply with European Demand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    fontFamily: { sans: ['"ADG Arrows"', '"Hanken Grotesk"', 'Helvetica', 'Arial', 'sans-serif'] },
+    colors: {
+      ink: { 950: '#0c0f12', 900: '#12161a', 800: '#1a1f24', 700: '#262c32', 500: '#5c656e', 400: '#8b939b', 300: '#b7bdc3' },
+      paper: { DEFAULT: '#f5f6f7', 200: '#e8eaed' },
+      adg: { DEFAULT: '#2a5cff', 600: '#1d49d8', 300: '#8eaaff' }
+    },
+    keyframes: {
+      draw: { from: { strokeDashoffset: '1' }, to: { strokeDashoffset: '0' } },
+      flow: { to: { strokeDashoffset: '-40' } },
+      ping2: { '0%': { transform: 'scale(1)', opacity: '.7' }, '100%': { transform: 'scale(4)', opacity: '0' } },
+      rise: { from: { opacity: '0', transform: 'translateY(28px)' }, to: { opacity: '1', transform: 'none' } },
+      kenburns: { from: { transform: 'scale(1.08)' }, to: { transform: 'scale(1)' } },
+      pullout: { '0%': { transform: 'scale(2.6)', opacity: '0' }, '15%': { opacity: '1' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+      hfill: { from: { transform: 'scaleX(0)' }, to: { transform: 'scaleX(1)' } },
+      vfill: { from: { transform: 'scaleY(0)' }, to: { transform: 'scaleY(1)' } },
+      comet: { '0%': { strokeDashoffset: '0.14' }, '100%': { strokeDashoffset: '-1' } },
+      ring: { '0%': { transform: 'scale(1)', opacity: '.7' }, '100%': { transform: 'scale(7)', opacity: '0' } },
+      drift: { '0%': { transform: 'translate3d(0,0,0)' }, '100%': { transform: 'translate3d(-2%,1.2%,0)' } }
+    },
+    animation: {
+      draw: 'draw 2.8s cubic-bezier(.6,0,.2,1) both', flow: 'flow 2s linear infinite', ping2: 'ping2 2.6s ease-out infinite',
+      rise: 'rise 1.1s cubic-bezier(.2,.7,.2,1) both', kenburns: 'kenburns 1.8s cubic-bezier(.2,.7,.2,1) both', pullout: 'pullout 4.2s cubic-bezier(.65,0,.15,1) both', comet: 'comet 5.5s cubic-bezier(.45,0,.35,1) infinite', ring: 'ring 3.6s cubic-bezier(.2,.6,.3,1) infinite', drift: 'drift 22s ease-in-out 4.2s infinite alternate'
+    }
+  } }
+}
+</script>
+<script>
+window.adgI18n = {
+  en: { l1: 'Connecting markets.', l2: 'Building partnerships.', l3: 'Delivering growth.', sub: 'International sourcing, trading and distribution connecting global manufacturers with European markets.', cta: 'Explore ADG', inquiry: 'Business inquiry' },
+  hr: { l1: 'Povezujemo tržišta.', l2: 'Gradimo partnerstva.', l3: 'Ostvarujemo rast.', sub: 'Međunarodni sourcing, trgovina i distribucija koji povezuju globalne proizvođače s europskim tržištima.', cta: 'Upoznajte ADG', inquiry: 'Poslovni upit' },
+  fr: { l1: 'Relier les marchés.', l2: 'Bâtir des partenariats.', l3: 'Générer la croissance.', sub: 'Sourcing international, négoce et distribution reliant les fabricants du monde entier aux marchés européens.', cta: 'Découvrir ADG', inquiry: 'Demande commerciale' },
+  cn: { l1: '连接市场。', l2: '建立伙伴关系。', l3: '实现增长。', sub: 'ADG — 您通往欧洲的门户。国际采购、贸易与分销，连接全球制造商与欧洲市场。', cta: '了解 ADG', inquiry: '商务咨询' }
+};
+window.adgCorridors = {
+  all: { n: 'ADG network', r: 'Africa · Asia · Mediterranean → Europe', d: 'Croatia is the strategic link between the Mediterranean and the markets of Central and Southeast Europe.', o: 'Africa · Asia · Mediterranean', m: 'Croatia · EU · wider region' },
+  asia: { n: 'Asia → Europe', r: 'Asia · Adriatic ports · Zagreb', d: 'Maritime supply-chain corridors connecting Asian manufacturers with European buyers through Adriatic ports.', o: 'Asian manufacturers', m: 'Croatia · EU · Southeast Europe' },
+  africa: { n: 'Africa → Europe', r: 'Africa · Adriatic ports · Zagreb', d: 'Connecting producers across Africa, including francophone markets, with buyers in Croatia and the European Union.', o: 'African producers', m: 'Croatia · EU · Southeast Europe' },
+  med: { n: 'Mediterranean → Adriatic → Central & Southeast Europe', r: 'Mediterranean · Adriatic ports · Zagreb', d: 'Access to Adriatic ports and business connectivity from Zagreb open the markets of Central and Southeast Europe.', o: 'Mediterranean producers', m: 'Central & Southeast Europe' }
+};
+document.addEventListener('alpine:init', () => {
+  Alpine.data('reveal', () => ({
+    shown: false,
+    init() { new IntersectionObserver(([e], o) => { if (e.isIntersecting) { this.shown = true; o.disconnect() } }, { threshold: 0.12 }).observe(this.$el) }
+  }))
+})
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+<style>@font-face{font-family:"ADG Arrows";src:local("Helvetica Neue"),local("Helvetica"),local("Arial"),local("Segoe UI Symbol");unicode-range:U+2190-21FF,U+203A}[x-cloak]{display:none!important} html{scroll-behavior:smooth} body{-webkit-font-smoothing:antialiased} a{color:inherit;text-decoration:none} a:hover{color:inherit}</style>
+</head>
+<body class="bg-ink-950 text-paper font-sans font-light overflow-x-hidden"
+  x-data="{ lang: 'en', get t(){ return window.adgI18n[this.lang] }, menu: false, scrolled: false, cookie: true, corridor: 'all' }"
+  x-init="$watch('lang', v => corridor = v === 'cn' ? 'asia' : v === 'fr' ? 'africa' : 'all')"
+  @scroll.window="scrolled = window.scrollY > 40">
+
+<header class="fixed inset-x-0 top-0 z-50 transition-all duration-700"
+  :class="scrolled || menu ? 'bg-ink-950/90 backdrop-blur-md' : 'bg-transparent'">
+  <div class="mx-auto max-w-[1520px] px-6 lg:px-14 h-20 lg:h-24 flex items-center justify-between gap-8 transition-all duration-700" :class="scrolled ? 'lg:h-20' : ''">
+    <a href="#top" class="flex items-center gap-3.5">
+      <span class="grid place-items-center w-9 h-9 border border-white/70 text-[11px] font-semibold tracking-[0.12em]">ADG</span>
+      <span class="hidden sm:block text-[13px] font-medium uppercase tracking-[0.22em]">Adriatic Distribution Group</span>
+    </a>
+    <nav class="hidden xl:flex items-center gap-9 2xl:gap-11 text-[16px] font-normal text-white">
+      <a href="#model" class="relative py-2 text-white hover:text-adg-300 transition-colors">About</a>
+      <a href="#capabilities" class="relative py-2 text-white hover:text-adg-300 transition-colors">What We Do</a>
+      <a href="#process" class="relative py-2 text-white hover:text-adg-300 transition-colors">How We Work</a>
+      <a href="#products" class="relative py-2 text-white hover:text-adg-300 transition-colors">Industries</a>
+      <a href="#reach" class="relative py-2 text-white hover:text-adg-300 transition-colors">Global Reach</a>
+    </nav>
+    <div class="flex items-center gap-6">
+      <a href="#contact" class="hidden sm:inline-flex items-center h-11 px-6 border border-white/40 hover:bg-white hover:text-ink-950 text-[13px] font-medium uppercase tracking-[0.14em] transition-colors" x-text="t.inquiry">Business inquiry</a>
+      <div class="relative hidden md:block" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.window="open = false">
+        <button @click="open = !open" class="flex items-center gap-2 h-11 px-3 text-[15px] font-medium uppercase tracking-[0.08em] text-white hover:text-adg-300 transition-colors" :aria-expanded="open">
+          <span x-text="lang === 'cn' ? '中文' : lang">en</span>
+          <svg viewBox="0 0 10 6" class="w-2.5 h-1.5 transition-transform duration-300" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M1 1l4 4 4-4"></path></svg>
+        </button>
+        <div x-cloak x-show="open" x-transition.origin.top.duration.200ms class="absolute right-0 top-full mt-2 w-48 rounded-[10px] bg-white text-ink-950 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.5)] overflow-hidden py-2">
+          <template x-for="o in [{ k: 'en', n: 'English' }, { k: 'hr', n: 'Hrvatski' }, { k: 'fr', n: 'Français' }, { k: 'cn', n: '中文' }]" :key="o.k">
+            <button @click="lang = o.k; open = false" class="w-full flex items-center justify-between px-5 py-3 text-[15px] text-left transition-colors hover:bg-paper" :class="lang === o.k ? 'text-adg font-medium' : 'text-ink-700'">
+              <span x-text="o.n"></span>
+              <span x-show="lang === o.k" class="w-1.5 h-1.5 rounded-full bg-adg"></span>
+            </button>
+          </template>
+        </div>
+      </div>
+      <button class="xl:hidden w-11 h-11 grid place-items-center" @click="menu = !menu" aria-label="Menu">
+        <span class="flex flex-col gap-1.5"><span class="block w-6 h-px bg-white transition-transform" :class="menu ? 'translate-y-[3.5px] rotate-45' : ''"></span><span class="block w-6 h-px bg-white transition-transform" :class="menu ? '-translate-y-[3.5px] -rotate-45' : ''"></span></span>
+      </button>
+    </div>
+  </div>
+  <div x-cloak x-show="menu" x-transition.opacity.duration.300ms class="xl:hidden bg-ink-950 h-[calc(100svh-5rem)] overflow-auto">
+    <nav class="px-6 pt-6 flex flex-col text-3xl font-light" @click="menu = false">
+      <a href="#model" class="py-4 border-b border-white/10">About</a>
+      <a href="#capabilities" class="py-4 border-b border-white/10">What We Do</a>
+      <a href="#process" class="py-4 border-b border-white/10">How We Work</a>
+      <a href="#products" class="py-4 border-b border-white/10">Industries</a>
+      <a href="#reach" class="py-4 border-b border-white/10">Global Reach</a>
+      <a href="#contact" class="py-4">Contact</a>
+    </nav>
+    <div class="px-6 py-8 flex gap-2 text-sm uppercase tracking-widest">
+      <template x-for="l in ['en','hr','fr','cn']" :key="l">
+        <button @click="lang = l" class="h-11 px-4 border" :class="lang === l ? 'border-white text-white' : 'border-white/15 text-white/50'" x-text="l === 'cn' ? '中文' : l"></button>
+      </template>
+    </div>
+  </div>
+</header>
+
+<!-- HERO: WORLD → CONNECTION -->
+<section id="top" class="relative overflow-hidden bg-[#0a0d10]" x-data="{ mx: 0, my: 0, mob: window.innerWidth < 640 }" @resize.window="mob = window.innerWidth < 640" @mousemove="mx = $event.clientX / window.innerWidth - .5; my = $event.clientY / window.innerHeight - .5" @mouseleave="mx = 0; my = 0">
+  <div class="relative z-10 mx-auto max-w-[1520px] px-6 lg:px-14 pt-32 sm:pt-36 lg:pt-48 flex flex-col items-center text-center">
+    <h1 class="text-[clamp(2.6rem,6.4vw,6.5rem)] leading-[1.02] font-light tracking-[-0.035em]" :key="lang">
+      <span class="block animate-rise [animation-delay:.2s]" x-text="t.l1">Connecting markets.</span>
+      <span class="block animate-rise [animation-delay:.35s]" x-text="t.l2">Building partnerships.</span>
+      <span class="block animate-rise [animation-delay:.5s] text-adg-300" x-text="t.l3">Delivering growth.</span>
+    </h1>
+    <p class="mt-8 max-w-2xl text-lg lg:text-xl leading-relaxed text-white/70 text-pretty animate-rise [animation-delay:.7s]" x-text="t.sub">International sourcing, trading and distribution connecting global manufacturers with European markets.</p>
+    <a href="#model" class="mt-10 inline-flex items-center justify-center gap-3 h-14 px-8 bg-adg hover:bg-adg-600 text-white text-[13px] font-medium uppercase tracking-[0.16em] transition-colors animate-rise [animation-delay:.85s]"><span x-text="t.cta">Explore ADG</span></a>
+  </div>
+  <div class="relative mt-6 sm:-mt-6 lg:-mt-16 overflow-hidden">
+    <div class="animate-pullout origin-[25%_19%] [animation-delay:.3s] will-change-transform">
+      <div class="animate-drift will-change-transform">
+        <div class="relative transition-transform duration-[900ms] ease-out will-change-transform" :style="'transform: translate3d(' + (mx * -28) + 'px,' + (my * -18) + 'px,0)'">
+          <svg viewBox="-20 60 1040 480" x-effect="$el.setAttribute('viewBox', mob ? '-20 70 800 520' : '-20 60 1040 480')" preserveAspectRatio="xMidYMid slice" class="w-full aspect-[800/520] sm:aspect-auto sm:h-[62vw] sm:max-h-[78svh] sm:min-h-[340px] block [will-change:transform]" aria-hidden="true"><defs>
+      <radialGradient id="glow" cx="241" cy="150" r="260" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2a5cff" stop-opacity=".22"></stop><stop offset="1" stop-color="#2a5cff" stop-opacity="0"></stop></radialGradient>
+    </defs><image href="assets/world.svg" x="0" y="0" width="1000" height="717" opacity=".85"></image><rect x="-20" y="0" width="1040" height="717" fill="url(#glow)"></rect><g stroke="#ffffff" stroke-opacity=".05" stroke-width=".5"><line x1="58.8" y1="0" x2="58.8" y2="717"></line><line x1="147.1" y1="0" x2="147.1" y2="717"></line><line x1="235.3" y1="0" x2="235.3" y2="717"></line><line x1="323.5" y1="0" x2="323.5" y2="717"></line><line x1="411.8" y1="0" x2="411.8" y2="717"></line><line x1="500.0" y1="0" x2="500.0" y2="717"></line><line x1="588.2" y1="0" x2="588.2" y2="717"></line><line x1="676.5" y1="0" x2="676.5" y2="717"></line><line x1="764.7" y1="0" x2="764.7" y2="717"></line><line x1="852.9" y1="0" x2="852.9" y2="717"></line><line x1="941.2" y1="0" x2="941.2" y2="717"></line><line x1="-20" y1="54.1" x2="1020" y2="54.1"></line><line x1="-20" y1="155.6" x2="1020" y2="155.6"></line><line x1="-20" y1="257.0" x2="1020" y2="257.0"></line><line x1="-20" y1="358.5" x2="1020" y2="358.5"></line><line x1="-20" y1="460.0" x2="1020" y2="460.0"></line><line x1="-20" y1="561.4" x2="1020" y2="561.4"></line><line x1="-20" y1="662.9" x2="1020" y2="662.9"></line></g></svg>
+          <svg viewBox="-20 60 1040 480" x-effect="$el.setAttribute('viewBox', mob ? '-20 70 800 520' : '-20 60 1040 480')" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full block" aria-hidden="true">
+    
+    
+    
+    <g fill="none" stroke-linecap="round">
+      <g class="transition-opacity duration-700" :class="corridor === 'all' || corridor === 'asia' ? 'opacity-100' : 'opacity-10'">
+        <path pathLength="1" stroke-dasharray="1" d="M861.6,248.7 Q800,380 757.6,450.8 Q690,440 617,419 Q500,395 412,379 Q360,320 338.5,257 Q300,215 257.6,189.4 Q240,170 232,153.3" stroke="#8eaaff" stroke-width="1.2" class="animate-draw [animation-delay:.6s]"></path>
+        <path d="M861.6,248.7 Q800,380 757.6,450.8 Q690,440 617,419 Q500,395 412,379 Q360,320 338.5,257 Q300,215 257.6,189.4 Q240,170 232,153.3" stroke="#ffffff" stroke-width="2" stroke-dasharray="1.5 38" class="animate-flow"></path><path pathLength="1" d="M861.6,248.7 Q800,380 757.6,450.8 Q690,440 617,419 Q500,395 412,379 Q360,320 338.5,257 Q300,215 257.6,189.4 Q240,170 232,153.3" stroke="#2a5cff" stroke-opacity=".45" stroke-width="7" stroke-dasharray="0.14 1" class="animate-comet [animation-delay:3s]" style="stroke-dashoffset:0.14"></path><path pathLength="1" d="M861.6,248.7 Q800,380 757.6,450.8 Q690,440 617,419 Q500,395 412,379 Q360,320 338.5,257 Q300,215 257.6,189.4 Q240,170 232,153.3" stroke="#ffffff" stroke-width="1.8" stroke-dasharray="0.1 1" class="animate-comet [animation-delay:3s]" style="stroke-dashoffset:0.14"></path><g><circle r="7" fill="#2a5cff" fill-opacity=".25"><animateMotion dur="14s" begin="0s" repeatCount="indefinite" path="M861.6,248.7 Q800,380 757.6,450.8 Q690,440 617,419 Q500,395 412,379 Q360,320 338.5,257 Q300,215 257.6,189.4 Q240,170 232,153.3"></animateMotion></circle><circle r="2.4" fill="#ffffff"><animateMotion dur="14s" begin="0s" repeatCount="indefinite" path="M861.6,248.7 Q800,380 757.6,450.8 Q690,440 617,419 Q500,395 412,379 Q360,320 338.5,257 Q300,215 257.6,189.4 Q240,170 232,153.3"></animateMotion></circle></g><g><circle r="7" fill="#2a5cff" fill-opacity=".25"><animateMotion dur="14s" begin="-7.0s" repeatCount="indefinite" path="M861.6,248.7 Q800,380 757.6,450.8 Q690,440 617,419 Q500,395 412,379 Q360,320 338.5,257 Q300,215 257.6,189.4 Q240,170 232,153.3"></animateMotion></circle><circle r="2.4" fill="#ffffff"><animateMotion dur="14s" begin="-7.0s" repeatCount="indefinite" path="M861.6,248.7 Q800,380 757.6,450.8 Q690,440 617,419 Q500,395 412,379 Q360,320 338.5,257 Q300,215 257.6,189.4 Q240,170 232,153.3"></animateMotion></circle></g>
+      </g>
+      <g class="transition-opacity duration-700" :class="corridor === 'all' || corridor === 'africa' ? 'opacity-100' : 'opacity-10'">
+        <path pathLength="1" stroke-dasharray="1" d="M166.9,415.9 Q100,440 44.5,360.6 Q30,280 114.1,216.5 Q180,200 235.3,209.7 Q250,200 257.6,189.4 Q245,170 232,153.3" stroke="#8eaaff" stroke-width="1.2" class="animate-draw [animation-delay:1s]"></path>
+        <path d="M166.9,415.9 Q100,440 44.5,360.6 Q30,280 114.1,216.5 Q180,200 235.3,209.7 Q250,200 257.6,189.4 Q245,170 232,153.3" stroke="#ffffff" stroke-width="2" stroke-dasharray="1.5 38" class="animate-flow"></path><path pathLength="1" d="M166.9,415.9 Q100,440 44.5,360.6 Q30,280 114.1,216.5 Q180,200 235.3,209.7 Q250,200 257.6,189.4 Q245,170 232,153.3" stroke="#2a5cff" stroke-opacity=".45" stroke-width="7" stroke-dasharray="0.14 1" class="animate-comet [animation-delay:3.8s]" style="stroke-dashoffset:0.14"></path><path pathLength="1" d="M166.9,415.9 Q100,440 44.5,360.6 Q30,280 114.1,216.5 Q180,200 235.3,209.7 Q250,200 257.6,189.4 Q245,170 232,153.3" stroke="#ffffff" stroke-width="1.8" stroke-dasharray="0.1 1" class="animate-comet [animation-delay:3.8s]" style="stroke-dashoffset:0.14"></path><g><circle r="7" fill="#2a5cff" fill-opacity=".25"><animateMotion dur="11s" begin="0s" repeatCount="indefinite" path="M166.9,415.9 Q100,440 44.5,360.6 Q30,280 114.1,216.5 Q180,200 235.3,209.7 Q250,200 257.6,189.4 Q245,170 232,153.3"></animateMotion></circle><circle r="2.4" fill="#ffffff"><animateMotion dur="11s" begin="0s" repeatCount="indefinite" path="M166.9,415.9 Q100,440 44.5,360.6 Q30,280 114.1,216.5 Q180,200 235.3,209.7 Q250,200 257.6,189.4 Q245,170 232,153.3"></animateMotion></circle></g><g><circle r="7" fill="#2a5cff" fill-opacity=".25"><animateMotion dur="11s" begin="-5.5s" repeatCount="indefinite" path="M166.9,415.9 Q100,440 44.5,360.6 Q30,280 114.1,216.5 Q180,200 235.3,209.7 Q250,200 257.6,189.4 Q245,170 232,153.3"></animateMotion></circle><circle r="2.4" fill="#ffffff"><animateMotion dur="11s" begin="-5.5s" repeatCount="indefinite" path="M166.9,415.9 Q100,440 44.5,360.6 Q30,280 114.1,216.5 Q180,200 235.3,209.7 Q250,200 257.6,189.4 Q245,170 232,153.3"></animateMotion></circle></g>
+      </g>
+      <g class="transition-opacity duration-700" :class="corridor === 'all' || corridor === 'med' ? 'opacity-100' : 'opacity-10'">
+        <path pathLength="1" stroke-dasharray="1" d="M322.9,248.9 Q290,215 257.6,189.4 Q245,170 232,153.3" stroke="#8eaaff" stroke-width="1.2" class="animate-draw [animation-delay:1.4s]"></path>
+        <path d="M322.9,248.9 Q290,215 257.6,189.4 Q245,170 232,153.3" stroke="#ffffff" stroke-width="2" stroke-dasharray="1.5 38" class="animate-flow"></path><path pathLength="1" d="M322.9,248.9 Q290,215 257.6,189.4 Q245,170 232,153.3" stroke="#2a5cff" stroke-opacity=".45" stroke-width="7" stroke-dasharray="0.14 1" class="animate-comet [animation-delay:4.6s]" style="stroke-dashoffset:0.14"></path><path pathLength="1" d="M322.9,248.9 Q290,215 257.6,189.4 Q245,170 232,153.3" stroke="#ffffff" stroke-width="1.8" stroke-dasharray="0.1 1" class="animate-comet [animation-delay:4.6s]" style="stroke-dashoffset:0.14"></path><g><circle r="7" fill="#2a5cff" fill-opacity=".25"><animateMotion dur="6s" begin="0s" repeatCount="indefinite" path="M322.9,248.9 Q290,215 257.6,189.4 Q245,170 232,153.3"></animateMotion></circle><circle r="2.4" fill="#ffffff"><animateMotion dur="6s" begin="0s" repeatCount="indefinite" path="M322.9,248.9 Q290,215 257.6,189.4 Q245,170 232,153.3"></animateMotion></circle></g><g><circle r="7" fill="#2a5cff" fill-opacity=".25"><animateMotion dur="6s" begin="-3.0s" repeatCount="indefinite" path="M322.9,248.9 Q290,215 257.6,189.4 Q245,170 232,153.3"></animateMotion></circle><circle r="2.4" fill="#ffffff"><animateMotion dur="6s" begin="-3.0s" repeatCount="indefinite" path="M322.9,248.9 Q290,215 257.6,189.4 Q245,170 232,153.3"></animateMotion></circle></g>
+        <path d="M241.1,150.1 L243.4,133.9 M241.1,150.1 L259.1,138.7 M241.1,150.1 L267.4,156.9 M241.1,150.1 L215.2,134.3" stroke="#8eaaff" stroke-width=".8" stroke-opacity=".8"></path><circle r="1.6" fill="#ffffff"><animateMotion dur="2.4s" begin="-0.0s" repeatCount="indefinite" path="M241.1,150.1 L243.4,133.9"></animateMotion></circle><circle r="1.6" fill="#ffffff"><animateMotion dur="2.4s" begin="-0.6s" repeatCount="indefinite" path="M241.1,150.1 L259.1,138.7"></animateMotion></circle><circle r="1.6" fill="#ffffff"><animateMotion dur="2.4s" begin="-1.2s" repeatCount="indefinite" path="M241.1,150.1 L267.4,156.9"></animateMotion></circle><circle r="1.6" fill="#ffffff"><animateMotion dur="2.4s" begin="-1.8s" repeatCount="indefinite" path="M241.1,150.1 L215.2,134.3"></animateMotion></circle>
+      </g>
+    </g>
+    <g fill="none" stroke="#8eaaff" class="pointer-events-none">
+      <circle cx="241.1" cy="150.1" r="16" stroke-opacity=".55" stroke-width=".6"></circle>
+      <circle cx="241.1" cy="150.1" r="42" stroke-opacity=".35" stroke-width=".6" stroke-dasharray="2 4" class="animate-[spin_80s_linear_infinite] origin-center [transform-box:fill-box]"></circle>
+      <circle cx="241.1" cy="150.1" r="86" stroke-opacity=".22" stroke-width=".6" stroke-dasharray="1 5" class="animate-[spin_140s_linear_infinite_reverse] origin-center [transform-box:fill-box]"></circle>
+    </g>
+    <g font-family="Hanken Grotesk, sans-serif" font-size="5.2" letter-spacing="1.4" fill="#8eaaff" font-weight="500" class="pointer-events-none max-sm:hidden">
+      <text x="241.1" y="130" text-anchor="middle" fill-opacity=".8">CROATIA</text>
+      <text x="241.1" y="104" text-anchor="middle" fill-opacity=".6">CENTRAL &amp; SOUTHEAST EUROPE</text>
+      <text x="241.1" y="60" text-anchor="middle" fill-opacity=".45">EUROPEAN UNION</text>
+      <text x="505" y="386" fill="#ffffff" fill-opacity=".55" transform="rotate(8 505 386)">VESSEL</text>
+      <text x="224" y="176" fill="#ffffff" fill-opacity=".55" text-anchor="end">ADRIATIC PORTS</text>
+      <text x="274" y="170" fill="#ffffff" fill-opacity=".55">ROAD TRANSPORT</text>
+    </g>
+    <g class="sm:hidden" font-family="Hanken Grotesk, sans-serif" font-weight="500"><text x="256" y="146" font-size="15" letter-spacing="2" fill="#ffffff">ZAGREB</text><text x="480" y="220" font-size="13" letter-spacing="3" fill="#ffffff" fill-opacity=".45">ASIA</text><text x="230" y="470" font-size="13" letter-spacing="3" fill="#ffffff" fill-opacity=".45">AFRICA</text></g>
+    <g x-show="lang === 'cn'" x-transition.opacity.duration.700ms font-family="Hanken Grotesk, sans-serif">
+      <rect x="818" y="208" width="112" height="26" fill="#0a0d10" fill-opacity=".85" stroke="#2a5cff" stroke-width=".8"></rect>
+      <text x="826" y="219" font-size="7.5" fill="#ffffff">ADG — 通往欧洲的门户</text>
+      <text x="826" y="229" font-size="5.2" letter-spacing="1" fill="#8eaaff">YOUR GATEWAY TO EUROPE</text>
+    </g>
+    <g x-show="lang === 'fr'" x-transition.opacity.duration.700ms font-family="Hanken Grotesk, sans-serif">
+      <rect x="60" y="376" width="120" height="26" fill="#0a0d10" fill-opacity=".85" stroke="#2a5cff" stroke-width=".8"></rect>
+      <text x="68" y="387" font-size="7.5" fill="#ffffff">Afrique francophone</text>
+      <text x="68" y="397" font-size="5.2" letter-spacing="1" fill="#8eaaff">ACCÈS AUX MARCHÉS EUROPÉENS</text>
+    </g>
+    <g fill="#8eaaff">
+      <circle cx="861.6" cy="248.7" r="2.2"></circle><circle cx="757.6" cy="450.8" r="2.2"></circle><circle cx="166.9" cy="415.9" r="2.2"></circle><circle cx="44.5" cy="360.6" r="2.2"></circle><circle cx="322.9" cy="248.9" r="2.2"></circle>
+      <circle cx="243.4" cy="133.9" r="1.5" fill="#fff"></circle><circle cx="259.1" cy="138.7" r="1.5" fill="#fff"></circle><circle cx="267.4" cy="156.9" r="1.5" fill="#fff"></circle><circle cx="215.2" cy="134.3" r="1.5" fill="#fff"></circle>
+      <circle cx="241.1" cy="150.1" r="3.5" fill="#2a5cff" class="animate-ping2 origin-center [transform-box:fill-box]"></circle><circle cx="241.1" cy="150.1" r="3.5" fill="none" stroke="#8eaaff" stroke-width=".6" class="animate-ring origin-center [transform-box:fill-box] [animation-delay:0.0s]"></circle><circle cx="241.1" cy="150.1" r="3.5" fill="none" stroke="#8eaaff" stroke-width=".6" class="animate-ring origin-center [transform-box:fill-box] [animation-delay:1.2s]"></circle><circle cx="241.1" cy="150.1" r="3.5" fill="none" stroke="#8eaaff" stroke-width=".6" class="animate-ring origin-center [transform-box:fill-box] [animation-delay:2.4s]"></circle><circle cx="861.6" cy="248.7" r="2.2" fill="none" stroke="#8eaaff" stroke-width=".6" class="animate-ring origin-center [transform-box:fill-box] [animation-delay:0.3s]"></circle><circle cx="757.6" cy="450.8" r="2.2" fill="none" stroke="#8eaaff" stroke-width=".6" class="animate-ring origin-center [transform-box:fill-box] [animation-delay:1.0s]"></circle><circle cx="166.9" cy="415.9" r="2.2" fill="none" stroke="#8eaaff" stroke-width=".6" class="animate-ring origin-center [transform-box:fill-box] [animation-delay:1.7s]"></circle><circle cx="44.5" cy="360.6" r="2.2" fill="none" stroke="#8eaaff" stroke-width=".6" class="animate-ring origin-center [transform-box:fill-box] [animation-delay:2.4s]"></circle><circle cx="322.9" cy="248.9" r="2.2" fill="none" stroke="#8eaaff" stroke-width=".6" class="animate-ring origin-center [transform-box:fill-box] [animation-delay:3.1s]"></circle>
+      <circle cx="241.1" cy="150.1" r="3.5" fill="#fff"></circle>
+    </g>
+    <g font-family="Hanken Grotesk, sans-serif" font-size="8" letter-spacing="2.4" fill="#ffffff" fill-opacity=".45" font-weight="500" class="max-sm:hidden">
+      <text x="690" y="190">ASIA</text><text x="250" y="440">AFRICA</text><text x="130" y="100">EUROPE</text><text x="150" y="240">MEDITERRANEAN</text>
+      <text x="250" y="152" fill="#ffffff" fill-opacity="1" font-size="8.5" letter-spacing="1.6">ZAGREB</text>
+    </g>
+  </svg>
+        </div>
+      </div>
+    </div>
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-[#0a0d10] to-transparent"></div>
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#0a0d10] to-transparent"></div>
+    <div class="pointer-events-none absolute inset-y-0 left-0 w-[8%] bg-gradient-to-r from-[#0a0d10] to-transparent"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 w-[8%] bg-gradient-to-l from-[#0a0d10] to-transparent"></div>
+    </div>
+  <div class="relative z-20 -mt-6 lg:-mt-8 flex justify-start sm:justify-center px-0 sm:px-4"><div class="max-w-full overflow-x-auto [scrollbar-width:none] sm:rounded-[10px] bg-white border-y sm:border border-ink-950/10 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45)] flex">
+      <template x-for="c in [{id:'all',p:['All corridors']},{id:'asia',p:['Asia','Europe']},{id:'africa',p:['Africa','Europe']},{id:'med',p:['Mediterranean','Adriatic','Central & SE Europe']}]" :key="c.id">
+        <button @click="corridor = c.id" @mouseenter="corridor = c.id" class="relative h-12 sm:h-14 lg:h-16 px-4 sm:px-5 lg:px-6 shrink-0 text-[14px] sm:text-[15px] lg:text-base font-normal transition-colors flex items-center gap-3 border-r border-ink-950/10 last:border-r-0" :class="corridor === c.id ? 'text-ink-950 bg-paper' : 'text-ink-500 hover:text-ink-950'">
+          <span class="relative w-5 h-5 grid place-items-center shrink-0"><span class="absolute inset-0 rounded-full border transition-colors" :class="corridor === c.id ? 'border-adg' : 'border-ink-950/20'"></span><span class="w-1.5 h-1.5 rounded-full transition-colors" :class="corridor === c.id ? 'bg-adg' : 'bg-ink-950/25'"></span></span>
+          <span class="flex items-center whitespace-nowrap"><template x-for="(w, j) in c.p" :key="j"><span class="flex items-center"><span x-show="j > 0"><svg viewBox="0 0 16 10" class="w-4 h-2.5 mx-2.5 text-adg" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"></path></svg></span><span x-text="w"></span></span></template></span>
+          <span class="absolute -left-px -right-px -bottom-px h-[3px] bg-adg transition-transform origin-left duration-500" :class="corridor === c.id ? 'scale-x-100' : 'scale-x-0'"></span>
+        </button>
+      </template>
+    </div></div>
+  <div class="relative z-10 bg-paper text-ink-950 -mt-6 lg:-mt-8"><div class="mx-auto max-w-[1520px] px-6 lg:px-14 pt-16 lg:pt-20 pb-16 lg:pb-20" x-data="{ st: 0 }" x-init="setInterval(() => st = (st + 1) % 5, 1800)">
+    <div class="pt-2">
+      <template x-for="k in ['all','asia','africa','med']" :key="k">
+        <div x-show="corridor === k" class="grid lg:grid-cols-12 gap-x-12 gap-y-8" x-transition:enter="transition duration-700" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+          <div class="lg:col-span-4">
+            <p class="text-[13px] font-medium uppercase tracking-[0.18em] text-adg-600" x-text="window.adgCorridors[k].r"></p>
+            <h3 class="mt-3 text-3xl lg:text-[2.5rem] leading-tight font-light tracking-[-0.02em]" x-text="window.adgCorridors[k].n"></h3>
+          </div>
+          <p class="lg:col-span-4 text-lg lg:text-xl leading-relaxed text-ink-700 text-pretty lg:pt-8" x-text="window.adgCorridors[k].d"></p>
+          <dl class="lg:col-span-4 grid grid-cols-2 gap-8 lg:pt-8">
+            <div><dt class="text-[12px] font-medium uppercase tracking-[0.18em] text-ink-500">Origin</dt><dd class="mt-2 text-lg text-ink-950 leading-snug" x-text="window.adgCorridors[k].o"></dd></div>
+            <div><dt class="text-[12px] font-medium uppercase tracking-[0.18em] text-ink-500">Markets</dt><dd class="mt-2 text-lg text-ink-950 leading-snug" x-text="window.adgCorridors[k].m"></dd></div>
+          </dl>
+        </div>
+      </template>
+    </div>
+    <ol class="mt-12 grid grid-cols-5 gap-2 sm:gap-4">
+      <template x-for="(s, i) in ['Vessel','Port','Warehouse / terminal','Truck','Industrial buyer']" :key="i">
+        <li class="flex flex-col gap-3">
+          <span class="h-[2px] bg-ink-950/10 relative overflow-hidden"><span class="absolute inset-y-0 left-0 bg-adg transition-all duration-[1800ms] ease-linear" :class="st > i ? 'w-full' : (st === i ? 'w-full' : 'w-0 duration-0')"></span></span>
+          <span class="flex items-baseline gap-2">
+            <span class="text-sm sm:text-base lg:text-lg font-normal transition-colors duration-500" :class="st === i ? 'text-ink-950' : (st > i ? 'text-ink-700' : 'text-ink-400')" x-text="s"></span>
+          </span>
+        </li>
+      </template>
+    </ol>
+  </div>
+  </div>
+</section>
+
+<!-- THE ADG MODEL -->
+<section id="model" class="bg-white text-ink-950 pt-20 sm:pt-28 lg:pt-44 pb-0">
+  <div class="mx-auto max-w-[1520px] px-6 lg:px-14">
+    <div x-data="reveal" class="grid lg:grid-cols-12 gap-10 transition-all duration-[1200ms] ease-out" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+      <p class="lg:col-span-3 self-start lg:pt-[0.9em] text-[12px] font-medium uppercase tracking-[0.22em] text-adg">The ADG model</p>
+      <div class="lg:col-span-9">
+        <p class="text-[clamp(1.9rem,3.6vw,3.6rem)] leading-[1.15] font-light text-ink-950 tracking-[-0.02em] text-pretty">More than a trading intermediary. ADG is an international <span class="text-ink-950">sourcing, trading and distribution partner</span> <span class="text-ink-500">— engaged across the entire process, from identifying the manufacturer to developing the market.</span></p>
+      </div>
+    </div>
+    </div>
+  <div x-ref="root" class="relative mt-8 lg:mt-12" x-data="{ x: 0, dist: 0, hgt: 0, p: 0, total: 5,
+      measure() { const t = this.$refs.track; this.dist = Math.max(0, t.offsetWidth - window.innerWidth); this.hgt = window.innerHeight + this.dist; this.onScroll() },
+      onScroll() { const r = this.$refs.root.getBoundingClientRect(); this.p = this.dist ? Math.min(1, Math.max(0, -r.top / this.dist)) : 0; this.x = this.p * this.dist },
+      get idx() { return Math.min(this.total, Math.round(this.p * (this.total - 1)) + 1) },
+      go(d) { const c = this.$refs.track.querySelector('a'); window.scrollBy({ top: d * (c ? c.offsetWidth + 20 : 400), behavior: 'smooth' }) } }"
+    x-init="$nextTick(() => measure()); setTimeout(() => measure(), 500)" @resize.window="measure()" @scroll.window="onScroll()"
+    :style="{ height: hgt ? hgt + 'px' : '100svh' }">
+    <div class="sticky top-0 h-[100svh] overflow-hidden flex flex-col justify-center gap-10">
+      <div x-ref="track" class="flex gap-5 w-max will-change-transform" style="padding-left: max(1.5rem, calc((100vw - 1520px) / 2 + 3.5rem)); padding-right: max(1.5rem, calc((100vw - 1520px) / 2 + 3.5rem));" :style="{ transform: 'translate3d(' + (-x) + 'px,0,0)' }">
+      <template x-for="(s, i) in [
+        { img: 'photo-1513828583688-c52646db42da', t: 'Global Sourcing', d: 'Identifying manufacturers and suppliers across Africa, Asia and the Mediterranean.' },
+        { img: 'photo-1521737604893-d14cc237f11d', t: 'International Trade', d: 'Structuring import, export and commercial terms.' },
+        { img: 'photo-1559297434-fae8a1916a79', t: 'Logistics', d: 'Coordinating maritime, road and multimodal transport via Adriatic ports.' },
+        { img: 'photo-1601584115197-04ecc0da31d7', t: 'Distribution', d: 'Building channels to buyers in Croatia, the EU and the wider region.' },
+        { img: 'photo-1480714378408-67cf0d13bc1b', t: 'Market Development', d: 'Growing long-term volume for manufacturers entering Europe.' }
+      ]" :key="i">
+        <a href="#capabilities" class="group relative block shrink-0 overflow-hidden rounded-[10px] w-[75vw] sm:w-[48vw] lg:w-[min(26vw,400px)] aspect-[3/4] lg:aspect-[4/5] max-h-[68svh] bg-ink-900 !text-white">
+          <img :src="'https://images.unsplash.com/' + s.img + '?auto=format&fit=crop&w=1100&q=75'" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover grayscale-[30%] transition-all duration-[1400ms] ease-out group-hover:scale-105 group-hover:grayscale-0">
+          <span class="absolute inset-0 bg-gradient-to-t from-[#0a0d10]/95 via-[#0a0d10]/30 to-[#0a0d10]/5"></span>
+          <span class="absolute inset-0 bg-[#0a0d10]/0 transition-colors duration-700 group-hover:bg-[#0a0d10]/40"></span>
+          <span class="absolute inset-x-0 bottom-0 p-6 lg:p-8 flex flex-col">
+            <span class="flex items-end justify-between gap-5">
+              <span class="text-2xl xl:text-[2rem] leading-[1.1] font-light tracking-[-0.02em] text-white" x-text="s.t"></span>
+              <span class="w-12 h-12 shrink-0 rounded-full grid place-items-center bg-adg text-white transition-transform duration-500 group-hover:-rotate-45"><svg viewBox="0 0 16 10" class="w-4 h-2.5" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"></path></svg></span>
+            </span>
+            <span class="grid transition-all duration-700 ease-[cubic-bezier(.2,.7,.2,1)] grid-rows-[1fr] opacity-100 lg:grid-rows-[0fr] lg:opacity-0 lg:group-hover:grid-rows-[1fr] lg:group-hover:opacity-100">
+              <span class="overflow-hidden"><span class="block pt-4 text-[16px] leading-relaxed text-white text-pretty max-w-sm" x-text="s.d"></span></span>
+            </span>
+          </span>
+        </a>
+      </template>
+      </div>
+      <div class="w-full mx-auto max-w-[1520px] px-6 lg:px-14 flex items-center gap-5">
+        <button @click="go(-1)" :disabled="p <= 0" class="w-12 h-12 rounded-full grid place-items-center bg-adg/10 text-adg hover:bg-adg hover:text-white disabled:opacity-40 disabled:hover:bg-adg/10 disabled:hover:text-adg transition-colors" aria-label="Previous"><svg viewBox="0 0 16 10" class="w-4 h-2.5 rotate-180" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 5h14M10 1l4 4-4 4"></path></svg></button>
+        <span class="text-[15px] font-medium text-adg tabular-nums w-14 text-center" x-text="idx + ' / ' + total">1 / 5</span>
+        <button @click="go(1)" :disabled="p >= 1" class="w-12 h-12 rounded-full grid place-items-center bg-adg/10 text-adg hover:bg-adg hover:text-white disabled:opacity-40 disabled:hover:bg-adg/10 disabled:hover:text-adg transition-colors" aria-label="Next"><svg viewBox="0 0 16 10" class="w-4 h-2.5" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"></path></svg></button>
+        <span class="flex-1 h-px bg-ink-950/10 relative ml-4 max-w-md"><span class="absolute inset-y-0 left-0 bg-adg" :style="{ width: (p * 100) + '%' }"></span></span>
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" class="relative bg-white text-ink-950 overflow-hidden scroll-mt-20"
+  x-data="{ active: 0, items: [
+    { t: 'International Sourcing & Procurement', d: 'Identifying and selecting manufacturers and suppliers across international markets.', img: 'photo-1513828583688-c52646db42da' },
+    { img: 'photo-1521737604893-d14cc237f11d', t: 'International Trade', d: 'Organising international trade, import and export.', img: 'photo-1517048676732-d65bc937f952' },
+    { img: 'photo-1601584115197-04ecc0da31d7', t: 'Distribution', d: 'Developing and managing distribution channels for Croatia, the EU and regional markets.', img: 'photo-1586528116311-ad8dd3c8310d' },
+    { t: 'Logistics & Supply Chain', d: 'Maritime, road and multimodal transport, warehousing, terminal logistics and delivery coordination.', img: 'photo-1578575437130-527eed3abbec' },
+    { img: 'photo-1480714378408-67cf0d13bc1b', t: 'Market Development', d: 'Building market presence for international manufacturers seeking access to European buyers.', img: 'photo-1480714378408-67cf0d13bc1b' },
+    { t: 'Strategic Partnerships', d: 'Long-term relationships between manufacturers, buyers, logistics partners and ADG.', img: 'photo-1605745341112-85968b19335b' }
+  ], paused: false }"
+  x-init="setInterval(() => { if (!paused) active = (active + 1) % items.length }, 4500)"
+  @mouseenter="paused = true" @mouseleave="paused = false">
+  <div class="grid lg:grid-cols-2 items-stretch lg:h-[calc(100svh-5rem)] lg:min-h-[620px] lg:max-h-[1000px]">
+    <div class="relative px-6 lg:pl-14 lg:pr-16 xl:pr-24 pt-10 pb-16 sm:pt-12 sm:pb-20 lg:py-[4vh] flex flex-col justify-center lg:justify-between min-h-0" style="padding-left: max(1.5rem, calc((100vw - 1520px) / 2 + 3.5rem));">
+      <div><p class="flex items-center gap-4 text-[12px] font-medium uppercase tracking-[0.22em] text-ink-500 lg:-mt-1">What we do</p>
+      <h2 class="mt-6 sm:mt-8 lg:mt-[2.5vh] text-[2.25rem] sm:text-5xl lg:text-[clamp(2.5rem,min(6.6vh,4vw),4.75rem)] !leading-[1.08] font-light tracking-[-0.03em] text-ink-950 text-pretty">Global sourcing.<br>Local market expertise.</h2></div>
+      <ol class="mt-12 lg:mt-[3vh] border-t border-ink-950/10 [&>li:last-of-type]:border-b-0">
+        <template x-for="(it, i) in items" :key="i">
+          <li class="relative border-b border-ink-950/10">
+            <template x-if="active === i"><span class="absolute left-0 right-0 -bottom-px h-px bg-adg origin-left animate-[hfill_4.5s_linear_forwards]" :class="paused ? '[animation-play-state:paused]' : ''"></span></template>
+            <button @mouseenter="active = i" @click="active = i" class="w-full text-left py-4 lg:py-[clamp(0.6rem,1.9vh,1.75rem)] flex items-center gap-4 lg:gap-6 group">
+              <span class="w-7 shrink-0 flex items-center"><span class="block rounded-full transition-all duration-500" :class="active === i ? 'w-2.5 h-2.5 bg-adg' : 'w-1.5 h-1.5 bg-ink-300'"></span></span>
+              <span class="flex-1 text-2xl lg:text-[1.75rem] tracking-tight transition-colors duration-500" :class="active === i ? 'text-ink-950 font-normal' : 'text-ink-500 font-normal group-hover:text-ink-700'" x-text="it.t"></span>
+              <span class="w-9 h-9 shrink-0 rounded-full grid place-items-center transition-all duration-500" :class="active === i ? 'bg-adg text-white' : 'text-ink-400'"><svg viewBox="0 0 16 10" class="w-4 h-2.5" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"></path></svg></span>
+            </button>
+            <div class="grid transition-all duration-500 ease-out" :class="active === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"><p class="overflow-hidden pl-11 lg:pl-[3.25rem] pr-12 text-[16px] leading-relaxed text-ink-600 text-pretty max-w-xl"><span class="block pb-6 lg:pb-[2.2vh]" x-text="it.d"></span></p></div>
+          </li>
+        </template>
+      </ol>
+    </div>
+    <div class="relative min-h-[60svh] lg:min-h-0 lg:py-[4vh]">
+      <div class="relative h-full min-h-[60svh] lg:min-h-0 overflow-hidden lg:rounded-l-[10px] bg-ink-900 mx-6 lg:mx-0 rounded-[10px] lg:rounded-r-none">
+        <template x-for="(it, i) in items" :key="i">
+          <img :src="'https://images.unsplash.com/' + it.img + '?auto=format&fit=crop&w=2000&q=80'" alt="" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1400ms] ease-out" :class="active === i ? 'opacity-100 scale-100' : 'opacity-0 scale-105'">
+        </template>
+        <span class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0d10]/80 to-transparent"></span>
+        <span class="absolute left-6 bottom-6 lg:left-10 lg:bottom-10 text-2xl lg:text-[2rem] font-light tracking-[-0.02em] text-white" x-text="items[active].t"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FROM SOURCE TO MARKET -->
+<section id="process" class="bg-white text-ink-950 py-20 sm:py-28 lg:py-40"
+  x-data="{ step: 0, paused: false, steps: [
+    { k: 'Source', d: 'We identify the right manufacturers and products.', img: 'photo-1581091226825-a6a2a5aee158' },
+    { k: 'Evaluate', d: 'We verify quality, commercial terms, certificates and supplier capability.', img: 'photo-1504917595217-d4dc5ebe6122' },
+    { k: 'Negotiate', d: 'We agree commercial and logistics terms.', img: 'photo-1517048676732-d65bc937f952' },
+    { k: 'Move', d: 'We organise international transport and logistics.', img: 'photo-1578575437130-527eed3abbec' },
+    { k: 'Distribute', d: 'We bring products to buyers and distribution channels.', img: 'photo-1586528116493-a029325540fa' },
+    { k: 'Grow', d: 'Together with partners, we develop the market and long-term volume.', img: 'photo-1480714378408-67cf0d13bc1b' }
+  ] }"
+  x-init="setInterval(() => { if (!paused) step = (step + 1) % steps.length }, 4200)">
+  <div class="mx-auto max-w-[1520px] px-6 lg:px-14">
+    <div x-data="reveal" class="grid lg:grid-cols-12 gap-8 lg:gap-14 items-end transition-all duration-[1200ms]" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+      <div class="lg:col-span-7">
+        <p class="flex items-center gap-4 text-[12px] font-medium uppercase tracking-[0.22em] text-ink-500">How we work</p>
+        <h2 class="mt-6 sm:mt-8 text-[2rem] sm:text-4xl lg:text-[3.5rem] !leading-[1.1] font-light tracking-[-0.03em]">From source to market.</h2>
+      </div>
+      <p class="lg:col-span-5 lg:col-start-8 text-lg leading-relaxed text-ink-600 text-pretty">From finding the manufacturer and negotiating, through procurement and logistics, to distribution and market development.</p>
+    </div>
+
+    <div class="mt-14 lg:mt-20 grid lg:grid-cols-12 gap-8 lg:gap-14" @mouseenter="paused = true" @mouseleave="paused = false">
+      <div class="lg:col-span-7 relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:min-h-[36rem] overflow-hidden bg-ink-900">
+        <template x-for="(s, i) in steps" :key="i">
+          <img :src="'https://images.unsplash.com/' + s.img + '?auto=format&fit=crop&w=1600&q=75'" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover grayscale-[25%] transition-all duration-[1200ms] ease-out" :class="step === i ? 'opacity-100 scale-100' : 'opacity-0 scale-105'">
+        </template>
+        <div class="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent"></div>
+        <div class="absolute left-0 right-0 bottom-0 p-6 sm:p-10 lg:p-12 text-white flex items-end justify-between gap-6">
+          <div>
+            <span class="block text-[clamp(4rem,10vw,9rem)] leading-[0.8] font-light tracking-[-0.05em] text-white" x-text="String(step + 1).padStart(2, '0')">01</span>
+            <span class="block mt-4 text-2xl sm:text-3xl font-light tracking-tight" x-text="steps[step].k">Source</span>
+          </div>
+          <span class="hidden sm:block text-[12px] font-medium uppercase tracking-[0.2em] text-white pb-2" x-text="(step + 1) + ' / ' + steps.length"></span>
+        </div>
+      </div>
+
+      <ol class="lg:col-span-5 border-t border-ink-950/10">
+        <template x-for="(s, i) in steps" :key="i">
+          <li class="relative border-b border-ink-950/10">
+            <span class="absolute left-0 top-0 bottom-0 w-[2px] bg-ink-950/5"></span>
+            <template x-if="step === i"><span class="absolute left-0 top-0 bottom-0 w-[2px] bg-adg origin-top animate-[vfill_4.2s_linear_forwards]" :class="paused ? '[animation-play-state:paused]' : ''"></span></template>
+            <button @click="step = i" class="w-full text-left pl-6 sm:pl-8 pr-2 py-5 lg:py-6 grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-3 group">
+              <span class="text-[13px] font-medium tracking-[0.16em] transition-colors" :class="step === i ? 'text-adg-600' : 'text-ink-400'" x-text="String(i + 1).padStart(2, '0')"></span>
+              <span>
+                <span class="block text-2xl lg:text-[1.75rem] font-normal tracking-tight transition-colors duration-500" :class="step === i ? 'text-ink-950' : 'text-ink-500 group-hover:text-ink-700'" x-text="s.k"></span>
+                <span class="grid transition-all duration-500 ease-out" :class="step === i ? 'grid-rows-[1fr] opacity-100 mt-2' : 'grid-rows-[0fr] opacity-0'"><span class="overflow-hidden text-[16px] leading-relaxed text-ink-600 text-pretty" x-text="s.d"></span></span>
+              </span>
+              <span class="w-9 h-9 rounded-full grid place-items-center transition-all duration-500" :class="step === i ? 'bg-adg text-white' : 'text-ink-300 group-hover:text-ink-700'">
+                <svg viewBox="0 0 16 10" class="w-4 h-2.5" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"></path></svg>
+              </span>
+            </button>
+          </li>
+        </template>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES & PRODUCTS -->
+<section id="products" class="bg-paper text-ink-950 py-20 sm:py-28 lg:py-40">
+  <div class="mx-auto max-w-[1520px] px-6 lg:px-14">
+    <div x-data="reveal" class="grid lg:grid-cols-12 gap-8 lg:gap-14 items-end transition-all duration-[1200ms]" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+      <div class="lg:col-span-7">
+        <p class="flex items-center gap-4 text-[12px] font-medium uppercase tracking-[0.22em] text-ink-500">Industries &amp; products</p>
+        <h2 class="mt-6 sm:mt-8 text-[2rem] sm:text-4xl lg:text-[3.5rem] !leading-[1.1] font-light tracking-[-0.03em] text-pretty">Reliable supply.<br>Long-term partnerships.</h2>
+      </div>
+      <p class="lg:col-span-5 lg:col-start-8 text-lg leading-relaxed text-ink-600 text-pretty">A B2B catalogue of core categories, expanding as ADG develops new business lines.</p>
+    </div>
+    <div class="mt-16 lg:mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <template x-for="(p, i) in [
+        { t: 'Construction Materials', l: 'Cement · Aggregates · Infrastructure materials', img: 'photo-1504307651254-35680f356dfd' },
+        { t: 'Industrial Products', l: 'Industrial products & equipment · Manufacturing supply', img: 'photo-1504917595217-d4dc5ebe6122' },
+        { t: 'Marine & Nautical', l: 'Nautical & maritime equipment · Related solutions', img: 'photo-1567899378494-47b22a2ae96a' },
+        { t: 'Additional Trading Categories', l: 'New product lines as the ADG portfolio develops', img: 'photo-1590496793929-36417d3117de' }
+      ]" :key="i">
+        <a href="#contact" x-data="reveal" class="group !text-white relative block aspect-[4/3] sm:aspect-[3/4] overflow-hidden bg-ink-800 transition-all duration-[1200ms] ease-out" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'" :style="'transition-delay:' + i * 120 + 'ms'">
+          <img :src="'https://images.unsplash.com/' + p.img + '?auto=format&fit=crop&w=900&q=75'" alt="" class="absolute inset-0 w-full h-full object-cover grayscale-[40%] transition-all duration-[1400ms] ease-out group-hover:scale-105 group-hover:grayscale-0">
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-ink-950/10"></div>
+          <div class="absolute inset-x-0 bottom-0 p-7 lg:p-8">
+            <span class="block text-[12px] font-medium tracking-[0.18em] !text-ink-600" x-text="String(i + 1).padStart(2, '0')"></span>
+            <h3 class="mt-3 text-2xl font-normal tracking-tight" x-text="p.t"></h3>
+            <p class="mt-3 text-[15px] leading-relaxed !text-white max-h-24 opacity-100 lg:max-h-0 lg:opacity-0 overflow-hidden transition-all duration-700 lg:group-hover:max-h-24 lg:group-hover:opacity-100" x-text="p.l"></p>
+            <span class="mt-6 flex items-center gap-3 text-[12px] font-medium uppercase tracking-[0.18em]">Enquire <span class="h-px bg-white w-6 transition-all duration-500 group-hover:w-12"></span></span>
+          </div>
+        </a>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- FOR MANUFACTURERS / FOR BUYERS -->
+<section class="bg-paper pb-20 sm:pb-28 lg:pb-40"><div class="mx-auto max-w-[1520px] px-6 lg:px-14 grid lg:grid-cols-2 gap-4">
+  <div class="group relative min-h-[34rem] sm:min-h-[40rem] lg:min-h-[52rem] flex items-end overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=75" alt="" class="absolute inset-0 w-full h-full object-cover grayscale-[40%] transition-transform duration-[2000ms] ease-out group-hover:scale-105">
+    <div class="absolute inset-0 bg-adg/25 mix-blend-multiply"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/75 to-ink-950/20"></div>
+    <div x-data="reveal" class="relative p-6 sm:p-10 lg:p-14 xl:p-20 max-w-2xl transition-all duration-[1200ms]" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+      <p class="flex items-center gap-4 text-[12px] font-medium uppercase tracking-[0.22em] text-white">For manufacturers</p>
+      <h2 class="mt-7 text-4xl lg:text-5xl leading-[1.08] font-light tracking-[-0.03em]">Expand into European markets.</h2>
+      <p class="mt-6 text-lg leading-relaxed text-white text-pretty">For producers in Africa, Asia and the Mediterranean, ADG acts as importer, distributor, commercial representative, market development and logistics partner — your gateway to Croatia, the EU and Southeast Europe.</p>
+      <a href="#contact" @click="$dispatch('adg-inquiry', 'manufacturer')" class="mt-10 inline-flex items-center gap-3 h-14 px-8 bg-adg hover:bg-adg-600 text-white text-[13px] font-medium uppercase tracking-[0.16em] transition-colors">I am a manufacturer <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <div class="group relative min-h-[34rem] sm:min-h-[40rem] lg:min-h-[52rem] flex items-end overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1586528116493-a029325540fa?auto=format&fit=crop&w=1600&q=75" alt="" class="absolute inset-0 w-full h-full object-cover grayscale-[40%] transition-transform duration-[2000ms] ease-out group-hover:scale-105">
+    <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/75 to-ink-950/20"></div>
+    <div x-data="reveal" class="relative p-6 sm:p-10 lg:p-14 xl:p-20 max-w-2xl transition-all duration-[1200ms] delay-150" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+      <p class="flex items-center gap-4 text-[12px] font-medium uppercase tracking-[0.22em] text-white">For buyers</p>
+      <h2 class="mt-7 text-4xl lg:text-5xl leading-[1.08] font-light tracking-[-0.03em]">Access reliable global supply.</h2>
+      <p class="mt-6 text-lg leading-relaxed text-white text-pretty">Industrial and professional B2B buyers in Croatia and Europe gain reliable sources of supply, competitive manufacturers, stable supply, quality products, logistics support and a long-term supplier.</p>
+      <a href="#contact" @click="$dispatch('adg-inquiry', 'buyer')" class="mt-10 inline-flex items-center gap-3 h-14 px-8 bg-white hover:bg-paper-200 text-ink-950 text-[13px] font-medium uppercase tracking-[0.16em] transition-colors">I am a buyer <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</div></section>
+
+<!-- GLOBAL REACH – LOCAL EXPERTISE -->
+<section id="reach" class="bg-paper text-ink-950">
+  <div class="relative h-[70svh] min-h-[480px] overflow-hidden" x-data="reveal">
+    <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=2400&q=75" alt="" class="absolute inset-0 w-full h-full object-cover grayscale-[30%] transition-transform duration-[2400ms] ease-out" :class="shown ? 'scale-100' : 'scale-110'">
+    <div class="absolute inset-0 bg-ink-950/45"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/40 to-transparent"></div>
+    <div class="relative h-full mx-auto max-w-[1520px] px-6 lg:px-14 flex flex-col justify-end pb-14 lg:pb-20 text-white">
+      <p class="flex items-center gap-4 text-[12px] font-medium uppercase tracking-[0.22em] text-white">Global reach — local expertise</p>
+      <h2 class="mt-7 max-w-4xl text-4xl lg:text-[4.25rem] leading-[1.03] font-light tracking-[-0.035em] text-pretty">From global producers to European markets.</h2>
+      <a href="#contact" class="mt-10 inline-flex items-center justify-center gap-3 h-14 px-8 bg-adg hover:bg-adg-600 text-white hover:text-white text-[13px] font-medium uppercase tracking-[0.16em] transition-colors self-start">Start a partnership<svg viewBox="0 0 16 10" class="w-4 h-2.5" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"></path></svg></a>
+    </div>
+  </div>
+  <div class="mx-auto max-w-[1520px] px-6 lg:px-14 py-20 sm:py-28 lg:py-40">
+    <div x-data="reveal" class="grid lg:grid-cols-12 gap-8 lg:gap-14 items-end transition-all duration-[1200ms]" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+      <p class="lg:col-span-7 text-2xl lg:text-[2.25rem] leading-[1.3] font-light tracking-[-0.02em] text-ink-950 text-pretty">Adriatic Distribution Group is a Croatian company connecting international manufacturers with buyers in Croatia, the European Union and the wider region.</p>
+      <p class="lg:col-span-5 lg:col-start-8 text-lg leading-relaxed text-ink-600 text-pretty">We combine international sourcing, commercial experience, logistics and regional market knowledge, built on long-term relationships, transparency, reliability and shared growth.</p>
+    </div>
+    <div class="mt-16 lg:mt-20 grid md:grid-cols-3 gap-4">
+      <template x-for="(r, i) in [
+        { k: 'Zagreb', v: 'EU business and distribution base, connected to Central European markets.', img: 'photo-1730645612711-1613af3182d5' },
+        { k: 'Adriatic ports', v: 'Maritime supply-chain corridors to Africa, Asia and the Mediterranean.', img: 'photo-1605745341112-85968b19335b' },
+        { k: 'Regional expertise', v: 'In-depth knowledge of buyers and channels across Central and Southeast Europe.', img: 'photo-1601584115197-04ecc0da31d7' }
+      ]" :key="i">
+        <div x-data="reveal" class="group relative overflow-hidden rounded-[10px] aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[26rem] bg-ink-900 text-white transition-all duration-[1200ms] ease-out" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'" :style="'transition-delay:' + (i * 120) + 'ms'">
+          <img :src="'https://images.unsplash.com/' + r.img + '?auto=format&fit=crop&w=1000&q=75'" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover grayscale-[35%] transition-all duration-[1400ms] ease-out group-hover:scale-105 group-hover:grayscale-0">
+          <span class="absolute inset-0 bg-gradient-to-t from-[#0a0d10]/95 via-[#0a0d10]/40 to-[#0a0d10]/10"></span>
+          <span class="absolute inset-x-0 bottom-0 p-6 lg:p-8 flex flex-col">
+            <span class="flex items-end justify-between gap-4">
+              <span class="text-2xl xl:text-[1.75rem] leading-tight font-normal tracking-[-0.02em] text-white" x-text="r.k"></span>
+              <span class="w-11 h-11 shrink-0 rounded-full grid place-items-center bg-adg text-white transition-transform duration-500 group-hover:-rotate-45"><svg viewBox="0 0 16 10" class="w-4 h-2.5" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"></path></svg></span>
+            </span>
+            <span class="block pt-4 text-[16px] leading-relaxed text-white text-pretty" x-text="r.v"></span>
+          </span>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- LET'S BUILD BUSINESS TOGETHER -->
+<section id="contact" class="bg-white text-ink-950 py-20 sm:py-28 lg:py-40"
+  x-data="{ type: 'manufacturer', sent: false, types: [
+    { id: 'manufacturer', t: 'I am a manufacturer', s: 'Looking for European market access?', f: 'Products & country of origin' },
+    { id: 'buyer', t: 'I am a buyer', s: 'Looking for products or reliable supply?', f: 'Products & volumes required' },
+    { id: 'partner', t: 'Become a partner', s: 'Logistics, ports, finance or strategic partnership.', f: 'Type of partnership' }
+  ], get cur(){ return this.types.find(x => x.id === this.type) } }"
+  @adg-inquiry.window="type = $event.detail; sent = false">
+  <div class="mx-auto max-w-[1520px] px-6 lg:px-14">
+    <div x-data="reveal" class="transition-all duration-[1200ms]" :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+      <p class="flex items-center gap-4 text-[12px] font-medium uppercase tracking-[0.22em] text-ink-500">Business inquiry</p>
+      <h2 class="mt-8 text-[clamp(2.6rem,6vw,5.75rem)] leading-[1.02] font-light tracking-[-0.035em]">Let’s build business together.</h2>
+    </div>
+    <div class="mt-12 lg:mt-14">
+      <div class="grid md:grid-cols-3 border-b border-ink-950/10" role="tablist">
+        <template x-for="o in types" :key="o.id">
+          <button @click="type = o.id; sent = false" role="tab" :aria-selected="type === o.id" class="relative text-left px-0 md:pr-8 py-5 border-b md:border-b-0 border-ink-950/10 transition-colors group">
+            <span class="absolute left-0 right-0 bottom-0 h-[3px] bg-adg transition-transform origin-left duration-500" :class="type === o.id ? 'scale-x-100' : 'scale-x-0'"></span>
+            <span class="flex items-center gap-3">
+              <span class="relative w-5 h-5 grid place-items-center shrink-0"><span class="absolute inset-0 rounded-full border transition-colors" :class="type === o.id ? 'border-adg' : 'border-ink-950/20'"></span><span class="w-2 h-2 rounded-full transition-colors" :class="type === o.id ? 'bg-adg' : 'bg-transparent'"></span></span>
+              <span class="text-lg lg:text-xl tracking-tight transition-colors" :class="type === o.id ? 'text-ink-950' : 'text-ink-500 group-hover:text-ink-700'" x-text="o.t"></span>
+            </span>
+            <span class="block mt-1 pl-8 text-[14px] transition-colors" :class="type === o.id ? 'text-ink-600' : 'text-ink-400'" x-text="o.s"></span>
+          </button>
+        </template>
+      </div>
+      <form x-show="!sent" @submit.prevent="sent = true" class="pt-8 lg:pt-10">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-5">
+          <label class=" flex flex-col gap-2"><span class="text-[13px] font-medium text-ink-700">Full name <span class="text-adg">*</span></span><input required autocomplete="name" placeholder="Jane Doe" class="w-full h-12 px-0 bg-transparent border-0 border-b border-ink-950/20 hover:border-ink-950/40 focus:border-adg outline-none text-ink-950 text-[16px] placeholder:text-ink-400 transition-all"></label>
+          <label class=" flex flex-col gap-2"><span class="text-[13px] font-medium text-ink-700">Company <span class="text-adg">*</span></span><input required autocomplete="organization" placeholder="Company name" class="w-full h-12 px-0 bg-transparent border-0 border-b border-ink-950/20 hover:border-ink-950/40 focus:border-adg outline-none text-ink-950 text-[16px] placeholder:text-ink-400 transition-all"></label>
+          <label class=" flex flex-col gap-2"><span class="text-[13px] font-medium text-ink-700">Business email <span class="text-adg">*</span></span><input type="email" required autocomplete="email" placeholder="name@company.com" class="w-full h-12 px-0 bg-transparent border-0 border-b border-ink-950/20 hover:border-ink-950/40 focus:border-adg outline-none text-ink-950 text-[16px] placeholder:text-ink-400 transition-all"></label>
+          <label class=" flex flex-col gap-2"><span class="text-[13px] font-medium text-ink-700">Country <span class="text-adg">*</span></span><input required autocomplete="country-name" placeholder="Country" class="w-full h-12 px-0 bg-transparent border-0 border-b border-ink-950/20 hover:border-ink-950/40 focus:border-adg outline-none text-ink-950 text-[16px] placeholder:text-ink-400 transition-all"></label>
+          <label class="md:col-span-2 lg:col-span-4 flex flex-col gap-2"><span class="text-[13px] font-medium text-ink-700">Message</span><textarea rows="3" placeholder="Tell us about your business and what you are looking for" class="w-full min-h-[5rem] px-0 py-3 bg-transparent border-0 border-b border-ink-950/20 hover:border-ink-950/40 focus:border-adg outline-none text-ink-950 text-[16px] placeholder:text-ink-400 transition-all resize-y leading-relaxed"></textarea></label>
+        </div>
+        <div class="mt-8 flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <label class="flex items-start gap-3 text-[14px] text-ink-600 leading-relaxed max-w-xl cursor-pointer"><span class="relative mt-0.5 w-5 h-5 shrink-0"><input type="checkbox" required class="peer appearance-none w-5 h-5 rounded-[5px] border border-ink-950/30 bg-white checked:bg-adg checked:border-adg hover:border-adg focus-visible:ring-4 focus-visible:ring-adg/20 outline-none transition-colors cursor-pointer"><svg viewBox="0 0 12 10" class="pointer-events-none absolute inset-0 m-auto w-3 h-2.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M1 5l3.5 3.5L11 1"></path></svg></span><span>I agree to the processing of my personal data in accordance with the <a href="#" class="underline underline-offset-4 hover:text-ink-950">Privacy Policy</a> (GDPR).</span></label>
+          <button class="inline-flex items-center justify-center gap-3 h-14 px-10 bg-adg hover:bg-adg-600 text-white text-[13px] font-medium uppercase tracking-[0.16em] transition-colors shrink-0">Send inquiry <svg viewBox="0 0 16 10" class="w-4 h-2.5" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"></path></svg></button>
+        </div>
+      </form>
+      <div x-cloak x-show="sent" x-transition.opacity.duration.600ms class="pt-10 lg:pt-12">
+        <h3 class="text-3xl lg:text-4xl font-light tracking-tight">Thank you. Your inquiry has reached our team.</h3>
+        <p class="mt-4 text-lg text-ink-600">Our team will be in touch with you.</p>
+        <button @click="sent = false" class="mt-10 text-[12px] font-medium uppercase tracking-[0.18em] text-adg-600 hover:text-ink-950">New inquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-[#0a0d10] border-t border-white/10">
+  <div class="mx-auto max-w-[1520px] px-6 lg:px-14 pt-20 pb-12 grid md:grid-cols-12 gap-12">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-3.5"><span class="grid place-items-center w-9 h-9 border border-white/70 text-[11px] font-semibold tracking-[0.12em]">ADG</span><span class="text-[13px] font-medium uppercase tracking-[0.22em]">Adriatic Distribution Group</span></div>
+      <p class="mt-10 text-3xl font-light tracking-[-0.02em] leading-snug max-w-md">Connecting global supply with European demand.</p>
+    </div>
+    <div class="md:col-span-2 flex flex-col gap-3 text-[15px] text-white/55">
+      <span class="text-[12px] font-medium uppercase tracking-[0.18em] text-white/35 mb-2">Company</span>
+      <a href="#model" class="hover:text-white">About</a><a href="#capabilities" class="hover:text-white">What We Do</a><a href="#process" class="hover:text-white">How We Work</a><a href="#products" class="hover:text-white">Industries</a>
+    </div>
+    <div class="md:col-span-2 flex flex-col gap-3 text-[15px] text-white/55">
+      <span class="text-[12px] font-medium uppercase tracking-[0.18em] text-white/35 mb-2">Inquiries</span>
+      <a href="#contact" @click="$dispatch('adg-inquiry', 'manufacturer')" class="hover:text-white">Manufacturers</a><a href="#contact" @click="$dispatch('adg-inquiry', 'buyer')" class="hover:text-white">Buyers</a><a href="#contact" @click="$dispatch('adg-inquiry', 'partner')" class="hover:text-white">Partners</a>
+    </div>
+    <div class="md:col-span-3 min-w-0 flex flex-col gap-3 text-[15px] text-white/55">
+      <span class="text-[12px] font-medium uppercase tracking-[0.18em] text-white/35 mb-2">Headquarters</span>
+      <span>Zagreb, Croatia</span>
+      <a href="#contact" class="hover:text-white">Business inquiry →</a>
+    </div>
+  </div>
+  <div class="mx-auto max-w-[1520px] px-6 lg:px-14 py-8 border-t border-white/10 flex flex-col md:flex-row gap-5 md:items-center justify-between text-[13px] text-white/40">
+    <span>© 2026 Adriatic Distribution Group</span>
+    <nav class="flex flex-wrap gap-x-7 gap-y-2"><a href="#" class="hover:text-white">Privacy Policy</a><a href="#" class="hover:text-white">Terms of Use</a><a href="#" class="hover:text-white">Cookie Policy</a><a href="#" class="hover:text-white">GDPR</a><button @click="cookie = true" class="hover:text-white">Cookie settings</button></nav>
+    <div class="flex gap-1 text-[12px] font-medium uppercase tracking-[0.12em]">
+      <template x-for="l in ['en','hr','fr','cn']" :key="l"><button @click="lang = l; window.scrollTo({ top: 0 })" class="px-1.5 py-1" :class="lang === l ? 'text-white' : 'hover:text-white/80'" x-text="l === 'cn' ? '中文' : l"></button></template>
+    </div>
+  </div>
+</footer>
+
+<div x-cloak x-show="cookie" x-transition.opacity.duration.500ms class="fixed z-[60] bottom-5 right-5 left-5 sm:left-auto sm:max-w-sm bg-ink-900/95 backdrop-blur border border-white/10 p-7">
+  <p class="text-[15px] text-white/75 leading-relaxed">We use essential cookies and, with your consent, analytics (GA4). <a href="#" class="underline underline-offset-4 hover:text-white">Cookie Policy</a></p>
+  <div class="mt-6 grid grid-cols-2 gap-2 text-[12px] font-medium uppercase tracking-[0.14em]">
+    <button @click="cookie = false" class="h-11 border border-white/25 hover:border-white/60 transition-colors">Essential only</button>
+    <button @click="cookie = false" class="h-11 bg-white text-ink-950 hover:bg-paper-200 transition-colors">Accept all</button>
+  </div>
+</div>
+
+</body>
+</html>
