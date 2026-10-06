@@ -10,7 +10,12 @@ npm install
 npm run dev            # http://localhost:5173
 npm run build          # production build in dist/
 npm run build:single   # one self-contained HTML (dist-single/index.html) for review
+npm run build:pages    # same single HTML, written to ../index.html (live demo on GitHub Pages)
 ```
+
+Run commands from `adg/source/`. The live demo at
+https://fer-projekt.github.io/live-demos/adg/index.html is the built `adg/index.html`:
+after changes run `npm run build:pages` and commit `adg/index.html` together with the source.
 
 Copy `.env.example` to `.env` and set `VITE_GA4_ID` to enable Google Analytics 4.
 GA4 is only loaded after the visitor accepts analytics cookies.
