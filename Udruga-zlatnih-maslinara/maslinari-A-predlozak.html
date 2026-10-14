@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Udruga zlatnih maslinara Pakoštane | Zlatna maslinova ulja</title>
 <meta name="description" content="Udruga zlatnih maslinara Pakoštane okuplja lokalne maslinare koji redovito osvajaju prestižna svjetska priznanja za vrhunska maslinova ulja.">
+<link rel="icon" type="image/png" sizes="32x32" href="images/logo/web/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/logo/web/favicon-192.png">
+<link rel="apple-touch-icon" href="images/logo/web/apple-touch-icon.png">
 
 <!--
   ============================================================
@@ -112,13 +115,12 @@
 <!-- Zaglavlje s navigacijom -->
 <header x-data="{ open: false }" class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-[#e8ebd9]">
   <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10 py-3 flex items-center justify-between gap-6">
-    <!-- Logo: zamijeniti img-om kad stigne logotip -->
-    <a href="#hero" class="flex items-center gap-3 shrink-0" aria-label="Udruga zlatnih maslinara Pakoštane, početna">
-      <span class="w-11 h-11 sm:w-[52px] sm:h-[52px] rounded-full bg-brand text-white flex items-center justify-center font-display text-lg" aria-hidden="true">ZM</span>
-      <span class="grid leading-tight">
-        <span class="font-display text-[17px] sm:text-[19px] text-deep font-semibold">Udruga zlatnih maslinara</span>
-        <span class="text-[13px] text-muted">Pakoštane</span>
-      </span>
+    <!-- Logo: vodoravni logotip -->
+    <a href="#hero" class="flex items-center shrink-0" aria-label="Udruga zlatnih maslinara Pakoštane, početna">
+      <picture>
+        <source srcset="images/logo/web/logo-vodoravni.webp" type="image/webp">
+        <img src="images/logo/web/logo-vodoravni.png" alt="Udruga zlatnih maslinara" width="604" height="160" class="h-11 sm:h-12 lg:h-16 xl:h-[72px] w-auto">
+      </picture>
     </a>
 
     <nav aria-label="Glavna navigacija" class="hidden md:flex items-center gap-6 lg:gap-[30px] text-base font-medium">
@@ -523,9 +525,12 @@
 <footer id="footer" class="bg-deep text-[#d3dabb] pt-14">
   <div class="mx-auto max-w-content px-5 sm:px-8 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-11">
     <div>
-      <div class="flex items-center gap-3 mb-4">
-        <span class="w-11 h-11 rounded-full bg-gold text-deep flex items-center justify-center font-display text-lg" aria-hidden="true">ZM</span>
-        <span class="font-display text-[18px] text-white">Udruga zlatnih maslinara<br><span class="text-[13px] text-[#d3dabb] font-sans">Pakoštane</span></span>
+      <div class="mb-5">
+        <picture>
+          <source srcset="images/logo/web/logo-okomiti-svijetli.webp" type="image/webp">
+          <img src="images/logo/web/logo-okomiti-svijetli.png" alt="Udruga zlatnih maslinara" width="360" height="301" loading="lazy" class="w-[160px] h-auto">
+        </picture>
+        <!-- <span class="block mt-2 text-[13px] tracking-[0.14em] uppercase text-[#d3dabb]">Pakoštane</span> -->
       </div>
       <p class="text-[15px] leading-[1.7]">Udruga lokalnih maslinara čija ulja redovito osvajaju svjetska priznanja.</p>
     </div>
