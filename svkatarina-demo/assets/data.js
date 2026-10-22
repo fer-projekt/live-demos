@@ -33,12 +33,12 @@ window.KATARINA_DATA = {
     {id:'lab',name:'Laboratorijske pretrage',area:'Laboratorij',description:'Odabir i dogovor laboratorijskih pretraga.',duration:'15 min',icon:'clipboard',keywords:'krv laboratorij nalazi vađenje'}
   ],
   doctors:[
-    {id:'ana',name:'Dr. Ana Horvat',initials:'AH',specialty:'Specijalistica ortopedije',service:'ortho',description:'Ogledni profil · sustav za kretanje',color:'mint'},
-    {id:'marko',name:'Dr. Marko Kovač',initials:'MK',specialty:'Specijalist ortopedije',service:'ortho',description:'Ogledni profil · specijalistički pregledi',color:'sand'},
-    {id:'iva',name:'Dr. Iva Novak',initials:'IN',specialty:'Specijalistica kardiologije',service:'cardio',description:'Ogledni profil · kardiologija',color:'blue'},
-    {id:'petra',name:'Dr. Petra Radić',initials:'PR',specialty:'Specijalistica neurologije',service:'neuro',description:'Ogledni profil · neurologija',color:'lilac'},
-    {id:'tim',name:'Tim za sistematske preglede',initials:'SP',specialty:'Multidisciplinarni tim',service:'system',description:'Ogledni profil · preventivni pregled',color:'mint'},
-    {id:'labtim',name:'Laboratorijski tim',initials:'LT',specialty:'Medicinska biokemija',service:'lab',description:'Ogledni profil · laboratorij',color:'blue'}
+    {id:'ana',name:'Dr. Ana Horvat',initials:'AH',specialty:'Specijalistica ortopedije',service:'ortho',description:'Sustav za kretanje',color:'mint'},
+    {id:'marko',name:'Dr. Marko Kovač',initials:'MK',specialty:'Specijalist ortopedije',service:'ortho',description:'Specijalistički pregledi',color:'sand'},
+    {id:'iva',name:'Dr. Iva Novak',initials:'IN',specialty:'Specijalistica kardiologije',service:'cardio',description:'Kardiologija',color:'blue'},
+    {id:'petra',name:'Dr. Petra Radić',initials:'PR',specialty:'Specijalistica neurologije',service:'neuro',description:'Neurologija',color:'lilac'},
+    {id:'tim',name:'Tim za sistematske preglede',initials:'SP',specialty:'Multidisciplinarni tim',service:'system',description:'Preventivni pregled',color:'mint'},
+    {id:'labtim',name:'Laboratorijski tim',initials:'LT',specialty:'Medicinska biokemija',service:'lab',description:'Laboratorij',color:'blue'}
   ],
   webMessages:[
     {role:'ai',text:'Dobar dan, Majo. Ja sam vaš asistent Sv. Katarina. Kako vam mogu pomoći?'},

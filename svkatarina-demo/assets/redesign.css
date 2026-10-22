@@ -115,3 +115,22 @@ body,button,input,select,textarea{font-family:'Hanken Grotesk',Arial,sans-serif}
 /* Bez serifnog fonta: naglasci u glavnom fontu */
 .cover h1 em,.summary-screen>h2>em,.hero-copy h2 em{font-style:normal;font-weight:inherit;letter-spacing:inherit}
 .internal-message .use-answer{margin-top:8px;width:100%;border:1px solid #cfe3f7;border-radius:6px;background:var(--brand-soft);color:#0b4f8a;font-weight:700}
+/* Tekst u plavim mjehurićima uvijek bijel (web, pogled posjetitelja, CMS) */
+.chat-message.user p,.chat-message.user>p,.patient-preview .chat-message.user p,.cms-messages .chat-message.user p{background:var(--brand);color:#fff}
+.internal-message.user>p{color:#fff}
+
+/* Izvori dolaska */
+.sources-panel{margin-bottom:0}
+.source-rows{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.source-rows>div{display:grid;grid-template-columns:18px minmax(0,1fr) 24px 88px;grid-template-rows:auto 6px;column-gap:8px;row-gap:5px;align-items:center;font-size:11px}
+.source-rows>div>i{color:var(--brand)}
+.source-rows svg{width:14px;height:14px}
+.source-rows b{text-align:right}
+.source-rows small{font-size:10px;color:#1c7a4f;text-align:right}
+.source-rows em{grid-column:2/5;height:6px;background:#eef2f5;border-radius:3px;overflow:hidden}
+.source-rows em strong{display:block;height:100%;background:var(--brand);border-radius:3px}
+.source-note{margin-top:12px;font-size:10px;color:#728b99}
+.source-badge{display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:2px 7px;border-radius:999px;background:var(--brand-soft);color:#0b4f8a;font-style:normal;font-size:10px;font-weight:600;width:max-content}
+.source-badge svg{width:10px;height:10px}
+.source-strong{display:inline-flex;align-items:center;gap:5px;color:#0b4f8a}
+.source-strong svg{width:12px;height:12px}
