@@ -1,0 +1,49 @@
+PROVJERA PREZENTACIJE V2
+22. listopada 2026.
+
+PROVEDENO
+51 automatizirana funkcionalna provjera prošla je bez zabilježenih
+Alpine ili JavaScript runtime pogrešaka.
+
+Provjera je učitala stvarni HTML i lokalni Alpine.js u jsdom DOM okruženju,
+izvodila događaje klikova i obrazaca te kontrolirano pomicala sat scenarija.
+Provedeno je i pokretanje samostalnog POKRENI.html s ugrađenim resursima.
+To je funkcionalna provjera DOM-a; nije vizualni test u pregledniku.
+
+Obuhvaćeno:
+- Vidljivost i redoslijed svih 21 koraka, automatski Play do kraja.
+- Pauza tijekom razgovora, povratak, ponavljanje i tipkovničke strelice.
+- Ponavljanje bez udvostručavanja kontakata i zahtjeva.
+- Odabir vremena, provjera e-maila i obaveznog kontaktiranja za zahtjev.
+- Prijenos odabranog vremena i marketinške privole u CMS.
+- Preuzimanje odabranog razgovora i prikaz odgovora djelatnika posjetitelju.
+- Prekid preostale AI animacije nakon zahtjeva za osobom.
+- Interna bilješka, filtar kanala i engleski prijedlog e-mail odgovora.
+- Odvojena marketinška privola u pripremi komunikacije.
+- Interni asistent s izvorima te uređivanje i spremanje izvora znanja.
+- Promjena teme članka, uređivanje naslova, spremanje i odobrenje.
+- Engleski i njemački ogledni prijevod.
+- Postupni prikaz AI slike te alt, title i vizualnih opisa.
+- Prikaz istog uređenog članka na webu.
+- Dovršen glasovni scenarij stvara povezane zapise.
+- Prekinuti glasovni scenarij ne izmišlja kontakt ili zahtjev.
+- Promjena zahtjeva ažurira postojeći zapis; otkazivanje ažurira razgovor.
+- Slobodan chat i zaustavljanje scenarija pri napuštanju prikaza.
+- Izvještaj sa zapisima priče: 2 razgovora, 2 kontakta, 2 zahtjeva, 1 potvrda.
+- Svi lokalni resursi postoje; fontovi, slika, CSS i skripte ugrađeni su
+  u samostalni HTML. Za pokretanje nisu potrebni CDN ili internetski resursi.
+- JavaScript sintaksa, izrada Tailwind CSS-a i integritet ZIP arhive.
+
+OGRANIČENJE
+Upravljački servis za pregled stranice u ovom radnom okruženju nije bio
+dostupan. Zato izgled, stvarni browser rendering, responzivni raspored,
+preuzimanje CSV-a i cijeli zaslon nisu vizualno provjereni u pregledniku.
+Uključeni su prilagodljivi CSS rasporedi, ali to nije zamjena za browser QA.
+
+Ovo je offline prezentacijska simulacija bez produkcijskih integracija.
+
+DODATNA IZMJENA: LOGO I TEMPO
+Ugrađeni PNG odgovara priloženom originalu bajt za bajt. Logo je na webu,
+u CMS-u i zaglavlju te je ugrađen u samostalni HTML. Brzina scenarija
+i pauza smanjena je na 70 % prethodne brzine; pauza pri 1× iznosi 6 s.
+Postojeće funkcionalne provjere prilagođene su novom trajanju scenarija.

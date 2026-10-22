@@ -1,0 +1,136 @@
+SV. KATARINA × FER PROJEKT
+Novi web + novi CMS + objedinjeni AI
+Interaktivna prezentacija v2 · originalni logo i sporiji tempo · 22. listopada 2026.
+
+POKRETANJE
+1. Raspakirajte ZIP.
+2. Otvorite POKRENI.html u pregledniku na računalu.
+3. Kliknite „Pokreni prezentaciju” za automatski Play ili „Korak po korak”
+   za ručno vođenje. Nije potreban internet, instalacija ni API ključ.
+4. Za prezentiranje preko cijelog zaslona koristite ikonu na vrhu ili F11.
+
+POKRENI.html sadrži sve: dizajn, skripte, fontove i oglednu AI sliku.
+Možete kopirati samo tu datoteku na drugo računalo ili USB.
+index.html je ista aplikacija u odvojenim datotekama za daljnje uređivanje.
+Uz index.html moraju ostati sve datoteke u mapi assets.
+
+KAKO VODITI PREZENTACIJU
+Play stvarno izvodi cijelu priču: mijenja prikaze, ispisuje razgovor,
+ispunjava ogledni obrazac i prikazuje promjene u CMS-u. Nema popup vodiča.
+Automatski prolazak traje približno 3–4 minute pri brzini 1×.
+Za prezentaciju uz komentare računajte 6–10 minuta.
+
+- Donji desni gumb vodi na sljedeći korak.
+- Strelica lijevo vraća korak; kružna strelica ponavlja trenutni korak.
+- Play/Pause pokreće i zaustavlja i same animirane scenarije.
+- Brzine: 1×, 1,5× i 2×.
+- „Prikaži rezultat odmah” dovršava animaciju trenutnog koraka.
+- Gornja poglavlja omogućuju skok na određeni dio priče.
+- „Istraži sustav” otvara slobodno korištenje CMS-a.
+- Strelice na tipkovnici: prethodni/sljedeći korak. Razmak: Play/Pause.
+  Prečaci se ne aktiviraju dok upisujete u polje.
+- Ikona resetiranja na vrhu pokreće novu prezentaciju od početka.
+
+REDOSLIJED: 21 POVEZAN KORAK
+01 Novi web: ulaz u objedinjenu platformu.
+02 Maja razgovara s web asistentom; pojavljuje se usluga i poziv na akciju.
+03 AI pretraga prikazuje povezane usluge, liječnike i sadržaj.
+04 Odabir usluge.
+05 Odabir datuma i vremena.
+06 Odabir liječnika ili tima.
+07 Unos oglednog kontakta; odvojena opcionalna marketinška privola.
+08 Slanje zahtjeva: razgovor + kontakt + zahtjev za termin u CMS-u.
+09 CMS razgovor: cijela povijest, sažetak, izvori, status i odgovorna osoba.
+10 Ana preuzima upit; njezin odgovor vidi se i u prikazu posjetitelja.
+11 Kontaktni centar potvrđuje termin i ažurira povezane zapise.
+12 Luka zove: glasovni scenarij, transkript, sažetak, kontakt i novi zahtjev.
+13 Kontakti i komunikacija: priprema potvrde iz podataka termina.
+14 Interni asistent: pitanje, odgovor, izvori i uređivanje baze znanja.
+15 AI sadržaj: struktura, naslov, tekst, SEO naslov i metaopis.
+16 Prijevod: HR izvor uz konkretan EN ili DE primjer.
+17 Slika: otkrivanje pripremljenog AI vizuala i alt/title/vizualnog opisa.
+18 Uredničko odobrenje i pregled istog članka na novom webu.
+19 Kvaliteta: pitanje bez izvora, nadopuna, odobrenje i ponovni test.
+20 Izvještaji: razgovori, kontakti, zahtjevi, potvrde, kanali i teme.
+21 Završna priča: pacijent dobiva odgovor, tim vrijeme, uprava pregled.
+
+ŠTO MOŽETE KLIKNUTI I PROMIJENITI
+Naručivanje: stvarno odaberite uslugu, dan, vrijeme, liječnika i podatke.
+Obrazac provjerava ime, oblik e-maila i kontaktiranje za zahtjev.
+U vođenom koraku obrazac se automatski ispuni izmišljenim podacima.
+Marketinška privola ostaje neoznačena dok je sami ne odaberete.
+
+Razgovori: tražite po imenu/temi, filtrirajte kanal i status, otvorite
+razgovor, preuzmite ga, pripremite AI prijedlog, uredite odgovor, pošaljite,
+dodajte internu bilješku, označite upit ili ga završite. Odgovor djelatnika
+u Majinom razgovoru dostupan je i posjetitelju. E-mail upit Nine ima
+ogledni prijedlog odgovora na engleskom. Moguć je CSV izvoz razgovora.
+
+Termini: otvorite zahtjev, potvrdite ili otkažite. Potvrda ažurira i kontakt
+te pripadajući razgovor. Termin iz weba i telefona pojavljuje se na popisu.
+
+Glas: pokrenite, pauzirajte ili prekinite tekstualni scenarij. Dovršeni
+poziv stvara kontakt i zahtjev; prekinuti poziv ostaje samo u evidenciji.
+
+Kontakti: pregled izvora, interesa, statusa, vlasnika i povijesti.
+Priprema poruke povlači detalje iz termina; simulirano slanje ulazi u
+povijest kontakta. Marketing je dostupan samo kontaktu s privolom.
+
+Znanje: tri ogledna smjera pitanja za internog asistenta. Iz odgovora
+možete otvoriti izvor, urediti ga i odobriti. Prijedlog odgovora može se
+prenijeti u polje djelatnika u Razgovorima.
+
+Sadržaj: tri konkretne teme, HR/EN/DE primjeri, izmjenjiv naslov i tekst,
+SEO polja, pripremljena AI slika, alt/title i vizualni opis. Članak možete
+spremiti, odobriti i otvoriti na webu. EN/DE prijevodi su pripremljeni za
+te tri teme; slobodne izmjene teksta ne prevode se stvarnim AI modelom.
+
+Izvještaji: prebacite između rezultata ove priče i svih oglednih zapisa.
+Nakon standardnog prolaska prikazuju se 2 razgovora, 2 kontakta,
+2 zahtjeva i 1 potvrđen termin. CSV odražava odabrani opseg.
+
+RAD SA STANJEM PREZENTACIJE
+Naprijed nastavlja rad sa zapisima iz prethodnih koraka. Povratak,
+ponavljanje i skok na poglavlje obnavljaju ogledno stanje za odabrani dio
+priče, kako bi se prezentacija mogla pouzdano ponavljati. Zato se slobodne
+izmjene mogu resetirati pri takvom skoku. U „Istraži sustav” promjene ostaju
+povezane dok koristite aplikaciju. Ponovno otvaranje datoteke počinje od
+početnog zaslona. Ovo nije spremište poslovnih podataka.
+
+ŠTO JE SIMULACIJA
+Svi pacijenti, liječnici, kontakti, termini, izvori i rezultati su ogledni.
+AI odgovori su lokalni scenariji, a pretraga koristi lokalni skup primjera.
+Voice ima animirani transkript i prikaz razgovora, bez zvuka ili mikrofona.
+Nema stvarnih poziva, rezervacija, e-mailova ni objavljivanja sadržaja.
+Slika je AI generirana unaprijed i uključena u datoteku. Gumb u prezentaciji
+simulira nastanak tog vizuala; promjena upute ne pokreće novi model.
+Nema vanjskih fontova, CDN-ova, mrežnih integracija ili analitike.
+Raspored i tekstovi predstavljaju prijedlog novog weba i CMS-a. Logo je priloženi original.
+
+DATOTEKE ZA DALJNJI RAD
+index.html                Svi prikazi, moduli i interaktivne kontrole
+assets/data.js            Redoslijed koraka, primjeri, usluge, izvori
+assets/app.js             Stanje, povezivanje zapisa i simulacije
+assets/icons.js           Lokalne SVG ikone
+assets/styles.css         Osnovni vizualni sustav
+assets/responsive.css     Prilagodbe ekranima i čitljivosti
+assets/tailwind.css       Već generirani Tailwind stilovi
+assets/media/             Uključeni AI vizual
+assets/vendor/            Alpine.js, Motion i Inter fontovi
+src/tailwind.css          Ulazna Tailwind datoteka
+tailwind.config.js        Konfiguracija Tailwinda
+package.json / lock       Zaključane ovisnosti i razvojne naredbe
+tools/build-standalone.py  Izrada samostalnog POKRENI.html
+licenses/                 Licence biblioteka i fonta
+PROVJERA.txt              Provedene provjere i ograničenja
+
+UREĐIVANJE — NIJE POTREBNO ZA PREZENTIRANJE
+Za razvojne promjene: npm ci, zatim npm run build:css.
+Nakon svih izmjena: python3 tools/build-standalone.py
+ili npm run build:standalone (Python 3).
+Ponovno izradite POKRENI.html nakon svake izmjene izvora.
+
+AŽURIRANJE: ORIGINALNI LOGO I TEMPO
+Ugrađen je priloženi logo_hr.png na web, u CMS i zaglavlje prezentacije.
+Brzina izvođenja smanjena je za 30 %: scenariji i pauze sada traju
+približno 43 % dulje. Zadani prikaz 1× označava novi, sporiji tempo.

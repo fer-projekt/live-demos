@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "alpinejs": "3.14.9",
+    "motion": "12.23.24",
+    "tailwindcss": "3.4.17"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter": "5.2.8"
+  },
+  "name": "svkatarina-ai-prezentacija",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Offline interaktivni koncept novog weba i AI CMS-a",
+  "scripts": {
+    "build:css": "tailwindcss -i src/tailwind.css -o assets/tailwind.css --minify",
+    "build:standalone": "python3 tools/build-standalone.py"
+  }
+}
