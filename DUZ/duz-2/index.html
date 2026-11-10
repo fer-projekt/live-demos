@@ -339,6 +339,13 @@
         <div x-show="region === 'dubrovnik'" class="relative w-full" style="container-type:inline-size">
           <img src="assets/map/city-map.png" alt="Ilustrirana karta staroga grada Dubrovnika" class="block w-full h-auto select-none" draggable="false" />
 
+          <img src="assets/map/city-map-walls.png" alt="" aria-hidden="true" draggable="false"
+               class="pointer-events-none absolute inset-0 w-full h-full select-none transition-opacity duration-300"
+               x-bind:class="cityOn === 0 ? 'opacity-100' : 'opacity-0'" />
+          <img src="assets/map/city-map-predzide.png" alt="" aria-hidden="true" draggable="false"
+               class="pointer-events-none absolute inset-0 w-full h-full select-none transition-opacity duration-300"
+               x-bind:class="cityOn === 1 ? 'opacity-100' : 'opacity-0'" />
+
           <template x-for="s in spots" x-bind:key="'hs'+s.i">
             <button type="button" aria-label="lokalitet" class="absolute cursor-pointer"
                     x-bind:style="'left:'+s.l+'%;top:'+s.t+'%;width:'+s.w+'%;height:'+s.h+'%;z-index:'+s.z"
