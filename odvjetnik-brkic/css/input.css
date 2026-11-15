@@ -72,20 +72,24 @@
 
 /* Područja prakse — vodoravni niz panela */
 .pa-row{display:flex;align-items:stretch;border-top:1px solid #E4DED3;border-bottom:1px solid #E4DED3;background:#FBF9F5}
-.pa-track.is-drag{cursor:grabbing}
+/* Tijekom povlačenja snap i glatko klizanje moraju van, inače se tuku
+   s izravnim pisanjem u scrollLeft. */
+.pa-track.is-drag{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto}
 .pa-track.is-drag a{pointer-events:none}
 .pa{position:relative;margin-top:14px}
-.pa-track{flex:1 1 auto;min-width:0;display:flex;overflow-x:auto;scrollbar-width:none;cursor:grab;overscroll-behavior-x:contain}
+.pa-track{flex:1 1 auto;min-width:0;display:flex;overflow-x:auto;scrollbar-width:none;cursor:grab;
+  overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){.pa-track{scroll-behavior:auto}}
 .pa-track::-webkit-scrollbar{display:none}
 .pa-track:focus-visible{outline:2px solid #7E6133;outline-offset:-2px}
-.pa-panel{flex:0 0 auto;width:clamp(250px,24vw,400px);min-height:clamp(430px,46vw,680px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:clamp(40px,4.4vw,80px) clamp(24px,2.4vw,46px) clamp(30px,3vw,48px);border-right:1px solid #E4DED3;text-decoration:none;background:#FBF9F5;transition:background-color .25s}
+.pa-panel{scroll-snap-align:start;flex:0 0 auto;width:clamp(250px,24vw,400px);min-height:clamp(430px,46vw,680px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:clamp(40px,4.4vw,80px) clamp(24px,2.4vw,46px) clamp(30px,3vw,48px);border-right:1px solid #E4DED3;text-decoration:none;background:#FBF9F5;transition:background-color .25s}
 a.pa-panel:hover{background:#fff}
 a.pa-panel:focus-visible{outline:2px solid #7E6133;outline-offset:-4px}
 .pa-intro{flex:0 0 auto;display:flex;flex-direction:column;width:clamp(286px,26vw,520px);padding:clamp(40px,4.4vw,80px) clamp(24px,2.4vw,60px) clamp(60px,14vw,260px) clamp(20px,3.2vw,60px);border-right:1px solid #E4DED3;background:#FBF9F5}
 /* nadnaslov niza — isti zapis kao „Istaknuto područje“, crta je pseudoelement */
-.pa-kicker{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:600;
+.pa-kicker,.steps-kicker{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:600;
   letter-spacing:.2em;text-transform:uppercase;color:#7E6133}
-.pa-kicker::before{content:"";flex:0 0 auto;width:40px;height:1px;background:#B08D57}
+.pa-kicker::before,.steps-kicker::before{content:"";flex:0 0 auto;width:40px;height:1px;background:#B08D57}
 .pa-lead{margin:26px 0 0;max-width:22ch}
 .pa-big{margin-top:34px;font-weight:700;font-size:clamp(30px,3.2vw,46px);letter-spacing:-.025em;color:#0F1B2D}
 .pa-name{margin:0;max-width:15ch;font-weight:600;font-size:clamp(22px,2.05vw,31px);line-height:1.16;letter-spacing:-.015em;color:#0F1B2D}
@@ -123,9 +127,15 @@ a.pa-panel:hover .pa-arrow{transform:translateX(7px)}
 
 
 /* Citat — tamna traka s mjedenim vlasima; okosnica rečenice podignuta u zlatno */
-.quote{background:#0B1422;border-top:1px solid #7E6133;border-bottom:1px solid #7E6133;
+/* Citat stoji na fotografiji ureda. Veo je .80 jer je potpis ispod citata
+   mjed od 12px: na 1024px kadar dovede prozor sa slike u stupac teksta i na .74
+   potpis padne na 4.15:1. Na .80 je najgori slucaj 4.98:1. */
+.quote{position:relative;isolation:isolate;
+  background:#0B1422 url('../images/hero-ured.webp') center 38%/cover no-repeat;
+  border-top:1px solid #7E6133;border-bottom:1px solid #7E6133;
   padding:clamp(86px,10vw,148px) 0}
-.quote-in{max-width:1000px;margin:0 auto;padding:0 20px;text-align:center}
+.quote::before{content:"";position:absolute;inset:0;z-index:1;background:rgba(11,20,34,.80)}
+.quote-in{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:0 20px;text-align:center}
 .quote-text{margin:0;font-family:var(--font-serif);font-style:italic;font-weight:500;
   font-size:clamp(30px,4.3vw,50px);line-height:1.3;letter-spacing:-.012em;color:#FBF9F5;text-wrap:balance}
 .quote-accent{font-style:inherit;font-weight:inherit;color:#C6A774}
@@ -145,7 +155,7 @@ a.pa-panel:hover .pa-arrow{transform:translateX(7px)}
    Inačice: zadana (zlatna), --navy, --outline (svijetla podloga),
    --ghost (tamna podloga), --sm (header), --block (puna širina).
    ------------------------------------------------------------------ */
-.btn-split{--tile:56px;--plus:15px;--pad:clamp(22px,2.4vw,34px);--r:14px;
+.btn-split{--tile:56px;--plus:15px;--pad:clamp(22px,2.4vw,34px);--r:14px;--fill:#0F1B2D;
   display:inline-flex;align-items:stretch;min-height:var(--tile);border-radius:var(--r) 0 var(--r) 0;overflow:hidden;
   text-decoration:none;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
   border:0;padding:0;background:none;cursor:pointer;font-family:inherit;
@@ -157,42 +167,56 @@ a.pa-panel:hover .pa-arrow{transform:translateX(7px)}
   background:currentColor;transition:background-color .25s}
 .btn-split__mark::before{width:var(--plus);height:1.5px;transform:translate(-50%,-50%)}
 .btn-split__mark::after{width:1.5px;height:var(--plus);transform:translate(-50%,-50%)}
-.btn-split__label{flex:1 1 auto;display:flex;align-items:center;justify-content:center;
+.btn-split__label{position:relative;isolation:isolate;
+  flex:1 1 auto;display:flex;align-items:center;justify-content:center;
   padding:0 var(--pad);background:#B08D57;color:#0F1B2D;
-  transition:background-color .25s,color .25s}
-.btn-split:hover .btn-split__label{background:#C6A774}
+  transition:background-color .2s ease,color .12s ease}
+/* Hover: ispuna kreće od pločice i prelije natpis slijeva nadesno.
+   Sloj je ispod teksta (z-index:-1 unutar izoliranog natpisa), pa se ne dira boja slova. */
+.btn-split__label::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--fill);transform:scaleX(0);transform-origin:left center;
+  transition:transform .42s cubic-bezier(.2,.75,.25,1)}
+.btn-split:hover .btn-split__label::before{transform:scaleX(1)}
+/* Boja slova čeka da ispuna prijeđe natpis (.24s od .42s), a sama podloga
+   natpisa preuzme boju ispune tek na kraju putovanja — inače slova na još
+   nepreplavljenom dijelu nakratko budu iste boje kao podloga ispod njih.
+   Na izlazu obrnuto: boja se vraća odmah, prije nego se ispuna povuče. */
+.btn-split:hover .btn-split__label{background:var(--fill);color:#FBF9F5;
+  transition:background-color .01s linear .40s,color .14s ease .24s}
+.btn-split:disabled:hover .btn-split__label::before{transform:scaleX(0)}
+@media (prefers-reduced-motion:reduce){.btn-split__label::before{transition:none}}
 .btn-split:focus-visible{outline:2px solid #C6A774;outline-offset:3px}
 .btn-split:disabled{opacity:.4;cursor:not-allowed}
-.btn-split:disabled:hover .btn-split__label{background:#B08D57}
+.btn-split:disabled:hover .btn-split__label{background:#B08D57;color:#0F1B2D;transition:none}
 
 /* Tamnoplava ispuna — glavni botun na svijetloj podlozi.
    Pločica je mjedena, jer bi se ivory na svijetloj podlozi izgubio. */
 .btn-split--navy .btn-split__mark{background:#B08D57;color:#0F1B2D}
 .btn-split--navy:hover .btn-split__mark{background:#C6A774}
 .btn-split--navy:disabled:hover .btn-split__mark{background:#B08D57}
+.btn-split--navy{--fill:#B08D57}
 .btn-split--navy .btn-split__label{background:#0F1B2D;color:#FBF9F5}
-.btn-split--navy:hover .btn-split__label{background:#1F3352}
-.btn-split--navy:disabled:hover .btn-split__label{background:#0F1B2D}
+.btn-split--navy:hover .btn-split__label{color:#0F1B2D}
+.btn-split--navy:disabled:hover .btn-split__label{background:#0F1B2D;color:#FBF9F5}
 .btn-split--navy:focus-visible{outline-color:#0F1B2D}
 
 /* Obrubljeni na svijetloj podlozi */
-.btn-split--outline{box-shadow:inset 0 0 0 1px #0F1B2D;transition:box-shadow .25s}
+.btn-split--outline{--fill:#0F1B2D;box-shadow:inset 0 0 0 1px #0F1B2D;transition:box-shadow .25s}
 .btn-split--outline .btn-split__mark{background:transparent;color:#0F1B2D;
   box-shadow:inset -1px 0 0 #0F1B2D}
 .btn-split--outline .btn-split__label{background:transparent;color:#0F1B2D}
 .btn-split--outline:hover .btn-split__mark{background:#0F1B2D;color:#FBF9F5;box-shadow:none}
-.btn-split--outline:hover .btn-split__label{background:#0F1B2D;color:#FBF9F5}
+.btn-split--outline:hover .btn-split__label{color:#FBF9F5}
 .btn-split--outline:focus-visible{outline-color:#0F1B2D}
 
 /* Obrubljeni na tamnoj podlozi */
-.btn-split--ghost{box-shadow:inset 0 0 0 1px rgba(251,249,245,.4);transition:box-shadow .25s}
+.btn-split--ghost{--fill:#FBF9F5;box-shadow:inset 0 0 0 1px rgba(251,249,245,.4);transition:box-shadow .25s}
 .btn-split--ghost .btn-split__mark{background:transparent;color:#FBF9F5;
   box-shadow:inset -1px 0 0 rgba(251,249,245,.4)}
 .btn-split--ghost .btn-split__label{background:transparent;color:#FBF9F5}
-/* na hover pločica i natpis postanu ista boja, pa crta mora ostati da ih razdvaja */
-.btn-split--ghost:hover .btn-split__mark{background:#FBF9F5;color:#0F1B2D;
-  box-shadow:inset -1px 0 0 rgba(15,27,45,.22)}
-.btn-split--ghost:hover .btn-split__label{background:#FBF9F5;color:#0F1B2D}
+/* pločica ostaje kakva je: na hover se mijenja samo natpis, pa + ostane jedino
+   što je prije bilo i poslije hovera na istom mjestu i u istoj boji */
+.btn-split--ghost:hover .btn-split__label{color:#0F1B2D}
 
 /* Mali — stane u zaglavlje uz navigaciju */
 .btn-split--sm{--tile:38px;--plus:11px;--pad:16px;--r:9px;font-size:11px;letter-spacing:.1em}
@@ -315,3 +339,37 @@ a.pa-panel:hover .pa-arrow{transform:translateX(7px)}
 
 /* Logotip — serif */
 .wordmark{font-family:var(--font-serif)}
+
+/* Tri koraka — kako se javiti. Nema nijedne crte: korak nosi velika blijeda
+   znamenka koja stoji iza teksta, pa blok ostaje tih uz traku područja iznad. */
+.steps{padding:clamp(44px,4.6vw,72px) 0 clamp(48px,5.4vw,84px)}
+.steps-in{max-width:1200px;margin:0 auto;padding:0 20px}
+@media (min-width:1024px){.steps-in{padding:0 32px}}
+@media (min-width:1536px){.steps-in{max-width:1450px}}
+.steps-heading{margin-top:14px;max-width:24ch}
+.steps-row{margin:clamp(40px,4.6vw,66px) 0 0;padding:0;list-style:none;
+  display:grid;gap:clamp(44px,4.4vw,64px)}
+@media (min-width:860px){.steps-row{grid-template-columns:repeat(3,1fr)}}
+.step{position:relative;isolation:isolate;padding:clamp(26px,2.6vw,38px) 0 0 clamp(14px,1.4vw,22px)}
+/* z-index:-1 unutar izoliranog .step drži znamenku iza teksta, a ne iza sekcije */
+.step-no{position:absolute;top:0;left:0;z-index:-1;
+  font-family:var(--font-display);font-variant-numeric:tabular-nums;font-weight:400;
+  font-size:clamp(84px,8.4vw,136px);line-height:.78;letter-spacing:-.03em;color:rgba(176,141,87,.15)}
+.step-name{margin:0;font-weight:600;font-size:clamp(23px,1.8vw,27px);line-height:1.2;
+  letter-spacing:-.012em;color:#0F1B2D}
+.step-text{margin:12px 0 0;max-width:34ch;font-size:19px;line-height:1.6;color:#3B3A36}
+.step-text a{color:#0F1B2D;text-decoration:none;
+  box-shadow:inset 0 -1px 0 rgba(176,141,87,.55);transition:color .2s,box-shadow .2s}
+.step-text a:hover{color:#7E6133;box-shadow:inset 0 -1px 0 #B08D57}
+
+/* Istaknuto područje stoji na traci pune širine s fotografijom nekretnina.
+   Kadar je spušten na 70% jer tek tu u lijevi rub dolaze ključevi i nacrt,
+   a u desni donji dio pročelja — sredinu slike ionako pokriva ploča.
+   Ploča je 9/12 širine, pa se fotografije vidi upola više nego prije i veo smije biti
+   slabiji (.42 umjesto .50) — tekst je na neprozirnoj ploči pa ne ovisi o podlozi.
+   Ploču od podloge ne drži ton (1.1–1.6:1) nego mjedena vlas po rubu. */
+.feature-band{position:relative;isolation:isolate;padding:clamp(56px,8vw,100px) 0;
+  background:#0B1422 url('../images/nekretnine-zadar.webp') center 70%/cover no-repeat}
+.feature-band::before{content:"";position:absolute;inset:0;z-index:1;background:rgba(11,20,34,.42)}
+.feature-band > *{position:relative;z-index:2}
+.feature-card{box-shadow:inset 0 0 0 1px rgba(176,141,87,.40),0 28px 64px -28px rgba(0,0,0,.75)}
