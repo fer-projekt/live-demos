@@ -1,0 +1,72 @@
+{
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "*.html"
+        ],
+        "createdAt": "2026-11-13T20:47:04.284Z",
+        "reason": "Detektor cita staticki HTML i ne razrjesava Tailwind CDN klase: sve role padnu na 16px. Stvarno: h1 40/56/72px vs body 16px (2.5-4.5x), h2 38px, h3 26-28px."
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-13T20:47:09.488Z",
+        "reason": "Detektor ne razrjesava Tailwind klasu: tekst placeholdera je text-navy-200 (#C3CCD9) na #16263D = ~9.9:1, ne #000000."
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "podrucja-prakse.html"
+        ],
+        "createdAt": "2026-11-13T20:47:09.939Z",
+        "reason": "Detektor ne razrjesava Tailwind klasu: tekst placeholdera je text-navy-200 (#C3CCD9) na #16263D = ~9.9:1, ne #000000."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "odvjetnik-brkic/*.html"
+        ],
+        "createdAt": "2026-11-13T22:42:58.155Z",
+        "reason": "Isti lazni pozitiv kao i ranije, samo s putanjom iz nadredjene mape: detektor cita staticki HTML i ne razrjesava Tailwind CDN klase pa sve role padnu na 16px. Stvarno: h1 clamp(42-86px) odnosno 40/56/72px naspram body 16px."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "*index.html"
+        ],
+        "createdAt": "2026-11-13T23:29:14.401Z",
+        "reason": "Namjerna mreza vlasastih crta po uzoru na altufanulu.com: paneli pune traku do ruba pa diraju njezin gornji i donji rub, a susjedni paneli dijele okomitu crtu. Sam tekst je izmjeren u pregledniku: 46px lijevo, 80px gore, 48px dolje, 47px desno."
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "odvjetnik-brkic/index.html"
+        ],
+        "createdAt": "2026-11-14T02:25:14.607Z",
+        "reason": "Isti lazni pozitiv s putanjom iz nadredjene mape: detektor ne razrjesava Tailwind klase pa pretpostavi crni tekst. Izmjereno u pregledniku: kontakt traka 11.39:1, placeholder 9.4:1, oboje rgb(195,204,217)."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "odvjetnik-brkic/index.html"
+        ],
+        "createdAt": "2026-11-14T02:25:15.026Z",
+        "reason": "Namjerna mreza vlasastih crta; tekst u panelu izmjeren: 46px lijevo, 80px gore, 48px dolje. Isti nalaz kao ranije, samo s prefiksom mape i novim imenima razreda nakon preslagivanja."
+      }
+    ]
+  }
+}

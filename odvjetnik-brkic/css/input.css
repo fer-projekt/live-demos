@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+/* Tailwind v4 sam traži klase; repo ima i druge demoe pa izvore navodimo izrijekom */
+@source "../*.html";
+@source "../js/*.js";
+
+/* Tema ureda — prijevod js/tailwind.config.js u v4 zapis */
+@theme {
+  --color-navy-950: #0B1422;
+  --color-navy-900: #0F1B2D;
+  --color-navy-800: #16263D;
+  --color-navy-700: #1F3352;
+  --color-navy-200: #C3CCD9;
+
+  --color-gold-700: #7E6133;
+  --color-gold-600: #9A7740;
+  --color-gold-500: #B08D57;
+  --color-gold-400: #C6A774;
+  --color-gold-200: #E6D6BA;
+
+  --color-ivory-50: #FBF9F5;
+  --color-ivory-100: #F5F1E9;
+
+  --color-stone-200: #E4DED3;
+  --color-stone-300: #CFC7B8;
+  --color-stone-500: #7D766A;
+
+  --color-ink-700: #3B3A36;
+  --color-ink-900: #1C1B19;
+
+  --color-success-600: #3F6B4E;
+  --color-error-600: #9B3B2E;
+
+  --font-display: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+  /* serif se zadržava na logotipu i citatu */
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+
+  --shadow-card: 0 8px 24px -12px rgba(15, 27, 45, .22);
+  --shadow-overlay: 0 24px 48px -24px rgba(15, 27, 45, .35);
+}
+
+/* ------------------------------------------------------------------
+   Vlastiti CSS (prije css/style.css). Namjerno je izvan cascade layera,
+   pa nadjačava i Tailwind utilityje i nelayerani leaflet.css.
+   ------------------------------------------------------------------ */
+
+/* Alpine.js: sakrij elemente dok se Alpine ne učita */
+[x-cloak]{display:none!important}
+
+/* Hero naslovnice — fotografija u pozadini (privremena, vidi images/ATTRIBUTION.md) */
+.hero{position:relative;isolation:isolate;display:flex;align-items:flex-end;
+  min-height:100vh;min-height:100svh;margin-top:calc(-1 * var(--header-h));
+  background:#0B1422 url('../images/hero-zadar.webp') center 42%/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;
+  /* gornji sloj drži prozirno zaglavlje čitljivim i kad fotografija bude svjetlija */
+  background:linear-gradient(to bottom,rgba(11,20,34,.45) 0,rgba(11,20,34,0) 190px),
+    linear-gradient(100deg,rgba(11,20,34,.84) 0%,rgba(11,20,34,.773) 38%,rgba(11,20,34,.235) 100%)}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;z-index:1;
+  background:linear-gradient(to top,rgba(11,20,34,.75),transparent)}
+.hero__in{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:120px 20px 44px}
+.hero__title{margin:0;max-width:20ch;font-family:var(--font-display);font-weight:400;
+  font-size:clamp(32px,3.6vw,86px);line-height:1.14;letter-spacing:.01em;color:#FBF9F5;
+  text-transform:uppercase;text-wrap:balance}
+.hero__title i{font-style:normal;color:#C6A774}
+.hero__lead{margin:24px 0 0;max-width:54ch;font-size:18px;line-height:1.6;color:#D3DAE4}
+.hero__actions{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px}
+.hero__credit{margin-top:36px;font-size:12px;color:#9FAAB9}
+@media (min-width:1024px){.hero__in{padding:170px 32px 56px}}
+/* iznad 2xl (1536px) kontejner ide na 1450px */
+@media (min-width:1536px){.hero__in{max-width:1450px}}
+
+/* Područja prakse — vodoravni niz panela */
+.pa-row{display:flex;align-items:stretch;border-top:1px solid #E4DED3;border-bottom:1px solid #E4DED3;background:#FBF9F5}
+.pa-track.is-drag{cursor:grabbing}
+.pa-track.is-drag a{pointer-events:none}
+.pa{position:relative;margin-top:14px}
+.pa-track{flex:1 1 auto;min-width:0;display:flex;overflow-x:auto;scrollbar-width:none;cursor:grab;overscroll-behavior-x:contain}
+.pa-track::-webkit-scrollbar{display:none}
+.pa-track:focus-visible{outline:2px solid #7E6133;outline-offset:-2px}
+.pa-panel{flex:0 0 auto;width:clamp(250px,24vw,400px);min-height:clamp(430px,46vw,680px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:clamp(40px,4.4vw,80px) clamp(24px,2.4vw,46px) clamp(30px,3vw,48px);border-right:1px solid #E4DED3;text-decoration:none;background:#FBF9F5;transition:background-color .25s}
+a.pa-panel:hover{background:#fff}
+a.pa-panel:focus-visible{outline:2px solid #7E6133;outline-offset:-4px}
+.pa-intro{flex:0 0 auto;display:flex;flex-direction:column;width:clamp(286px,26vw,520px);padding:clamp(40px,4.4vw,80px) clamp(24px,2.4vw,60px) clamp(60px,14vw,260px) clamp(20px,3.2vw,60px);border-right:1px solid #E4DED3;background:#FBF9F5}
+/* nadnaslov niza — isti zapis kao „Istaknuto područje“, crta je pseudoelement */
+.pa-kicker{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:#7E6133}
+.pa-kicker::before{content:"";flex:0 0 auto;width:40px;height:1px;background:#B08D57}
+.pa-lead{margin:26px 0 0;max-width:22ch}
+.pa-big{margin-top:34px;font-weight:700;font-size:clamp(30px,3.2vw,46px);letter-spacing:-.025em;color:#0F1B2D}
+.pa-name{margin:0;max-width:15ch;font-weight:600;font-size:clamp(22px,2.05vw,31px);line-height:1.16;letter-spacing:-.015em;color:#0F1B2D}
+.pa-foot{display:flex;flex-direction:column;gap:18px}
+.pa-desc{margin:0;font-size:clamp(14px,1.02vw,17px);line-height:1.55;color:#3B3A36}
+.pa-arrow{width:30px;height:21px;flex:0 0 auto;color:#0F1B2D;transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+a.pa-panel:hover .pa-arrow{transform:translateX(7px)}
+.pa-arrow--back{transform:rotate(180deg)}
+.pa-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px clamp(20px,3.2vw,60px) 0}
+.pa-nav{display:flex;align-items:center;gap:0}
+.pa-nav button{display:flex;align-items:center;justify-content:center;width:62px;height:56px;background:none;border:0;border-radius:0;cursor:pointer;color:#0F1B2D;transition:color .2s}
+.pa-nav button:hover{color:#7E6133}
+.pa-nav button + button{border-left:1px solid #E4DED3}
+.pa-nav button:first-child{padding-right:4px}
+.pa-nav button:last-child{padding-left:4px}
+.pa-nav button:focus-visible{outline:2px solid #7E6133;outline-offset:2px}
+.pa-all{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:#7E6133;text-decoration:none}
+.pa-all:hover{color:#0F1B2D}
+
+
+/* Mobitel: naslovni blok ide u prvi red, niz panela u drugi */
+@media (max-width:768px){
+  .pa{margin-top:8px}
+  .pa-row{display:block}
+  .pa-intro{width:auto;border-right:0;border-bottom:1px solid #E4DED3;padding:38px 20px 42px}
+  .pa-lead{margin-top:20px;max-width:24ch}
+  .pa-big{margin-top:24px}
+  .pa-panel{width:min(300px,76vw);min-height:296px;gap:22px;padding:34px 20px 30px}
+  .pa-name{max-width:none;font-size:25px}
+  .pa-desc{font-size:15px}
+  .pa-bar{padding-top:14px}
+  .pa-nav button{width:56px;height:52px}
+}
+
+
+/* Citat — tamna traka s mjedenim vlasima; okosnica rečenice podignuta u zlatno */
+.quote{background:#0B1422;border-top:1px solid #7E6133;border-bottom:1px solid #7E6133;
+  padding:clamp(86px,10vw,148px) 0}
+.quote-in{max-width:1000px;margin:0 auto;padding:0 20px;text-align:center}
+.quote-text{margin:0;font-family:var(--font-serif);font-style:italic;font-weight:500;
+  font-size:clamp(30px,4.3vw,50px);line-height:1.3;letter-spacing:-.012em;color:#FBF9F5;text-wrap:balance}
+.quote-accent{font-style:inherit;font-weight:inherit;color:#C6A774}
+.quote-sig{margin-top:clamp(34px,4vw,54px);display:inline-flex;align-items:center;gap:14px;
+  font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#C6A774}
+.quote-sig::before,.quote-sig::after{content:"";width:clamp(22px,4vw,54px);height:1px;background:#7E6133}
+@media (min-width:1024px){.quote-in{padding:0 32px}}
+@media (max-width:640px){
+  /* potpis se na uskom zaslonu lomi u dva retka — crte idu iznad, ne uz njega */
+  .quote-sig{display:block;position:relative;max-width:30ch;margin-left:auto;margin-right:auto;padding-top:22px}
+  .quote-sig::after{display:none}
+  .quote-sig::before{position:absolute;top:0;left:50%;transform:translateX(-50%);width:40px}
+}
+
+/* ------------------------------------------------------------------
+   Botun s pločicom — kvadrat sa znakom + spojen uz natpis, oštar brid.
+   Inačice: zadana (zlatna), --navy, --outline (svijetla podloga),
+   --ghost (tamna podloga), --sm (header), --block (puna širina).
+   ------------------------------------------------------------------ */
+.btn-split{--tile:56px;--plus:15px;--pad:clamp(22px,2.4vw,34px);--r:14px;
+  display:inline-flex;align-items:stretch;min-height:var(--tile);border-radius:var(--r) 0 var(--r) 0;overflow:hidden;
+  text-decoration:none;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  border:0;padding:0;background:none;cursor:pointer;font-family:inherit;
+  -webkit-tap-highlight-color:transparent}
+.btn-split__mark{position:relative;flex:0 0 auto;width:var(--tile);background:#FBF9F5;color:#0F1B2D;
+  transition:background-color .25s,color .25s,box-shadow .25s}
+/* znak + crtamo iz pseudoelemenata: tanji je i precizniji od tipografskog plusa */
+.btn-split__mark::before,.btn-split__mark::after{content:"";position:absolute;top:50%;left:50%;
+  background:currentColor;transition:background-color .25s}
+.btn-split__mark::before{width:var(--plus);height:1.5px;transform:translate(-50%,-50%)}
+.btn-split__mark::after{width:1.5px;height:var(--plus);transform:translate(-50%,-50%)}
+.btn-split__label{flex:1 1 auto;display:flex;align-items:center;justify-content:center;
+  padding:0 var(--pad);background:#B08D57;color:#0F1B2D;
+  transition:background-color .25s,color .25s}
+.btn-split:hover .btn-split__label{background:#C6A774}
+.btn-split:focus-visible{outline:2px solid #C6A774;outline-offset:3px}
+.btn-split:disabled{opacity:.4;cursor:not-allowed}
+.btn-split:disabled:hover .btn-split__label{background:#B08D57}
+
+/* Tamnoplava ispuna — glavni botun na svijetloj podlozi.
+   Pločica je mjedena, jer bi se ivory na svijetloj podlozi izgubio. */
+.btn-split--navy .btn-split__mark{background:#B08D57;color:#0F1B2D}
+.btn-split--navy:hover .btn-split__mark{background:#C6A774}
+.btn-split--navy:disabled:hover .btn-split__mark{background:#B08D57}
+.btn-split--navy .btn-split__label{background:#0F1B2D;color:#FBF9F5}
+.btn-split--navy:hover .btn-split__label{background:#1F3352}
+.btn-split--navy:disabled:hover .btn-split__label{background:#0F1B2D}
+.btn-split--navy:focus-visible{outline-color:#0F1B2D}
+
+/* Obrubljeni na svijetloj podlozi */
+.btn-split--outline{box-shadow:inset 0 0 0 1px #0F1B2D;transition:box-shadow .25s}
+.btn-split--outline .btn-split__mark{background:transparent;color:#0F1B2D;
+  box-shadow:inset -1px 0 0 #0F1B2D}
+.btn-split--outline .btn-split__label{background:transparent;color:#0F1B2D}
+.btn-split--outline:hover .btn-split__mark{background:#0F1B2D;color:#FBF9F5;box-shadow:none}
+.btn-split--outline:hover .btn-split__label{background:#0F1B2D;color:#FBF9F5}
+.btn-split--outline:focus-visible{outline-color:#0F1B2D}
+
+/* Obrubljeni na tamnoj podlozi */
+.btn-split--ghost{box-shadow:inset 0 0 0 1px rgba(251,249,245,.4);transition:box-shadow .25s}
+.btn-split--ghost .btn-split__mark{background:transparent;color:#FBF9F5;
+  box-shadow:inset -1px 0 0 rgba(251,249,245,.4)}
+.btn-split--ghost .btn-split__label{background:transparent;color:#FBF9F5}
+/* na hover pločica i natpis postanu ista boja, pa crta mora ostati da ih razdvaja */
+.btn-split--ghost:hover .btn-split__mark{background:#FBF9F5;color:#0F1B2D;
+  box-shadow:inset -1px 0 0 rgba(15,27,45,.22)}
+.btn-split--ghost:hover .btn-split__label{background:#FBF9F5;color:#0F1B2D}
+
+/* Mali — stane u zaglavlje uz navigaciju */
+.btn-split--sm{--tile:38px;--plus:11px;--pad:16px;--r:9px;font-size:11px;letter-spacing:.1em}
+
+/* Srednji — uz obrazac, niži od hero botuna */
+.btn-split--md{--tile:46px;--plus:13px;--pad:22px;--r:11px;font-size:12px}
+
+/* Puna širina — mobilni izbornik i uski stupci */
+.btn-split--block{display:flex;width:100%}
+.btn-split--block .btn-split__label{--pad:18px;letter-spacing:.1em}
+
+@media (max-width:520px){
+  /* na uskom zaslonu botuni idu punom širinom, pločica ostaje kvadratna */
+  .btn-split{display:flex;width:100%}
+  .btn-split__label{justify-content:flex-start}
+}
+
+/* Karta iznad podnožja — traka pune širine.
+   z-index:0 drži Leafletove panele ispod ljepljivog zaglavlja. */
+.site-map-band{position:relative;z-index:0;background:#16263D}
+.site-map{height:300px}
+@media (min-width:1024px){.site-map{height:500px}}
+
+/* Naslov podstranice — isti rukopis kao hero: verzal, lakši rez, otvoren razmak.
+   Veličine ostaju kakve su bile (34/44/52), jer naslov stoji u stupcu od 680px. */
+.page-title{margin:0;font-family:var(--font-display);font-weight:400;
+  font-size:34px;line-height:1.14;letter-spacing:.01em;color:#FBF9F5;
+  text-transform:uppercase;text-wrap:balance}
+@media (min-width:768px){.page-title{font-size:44px}}
+@media (min-width:1024px){.page-title{font-size:52px}}
+
+/* ------------------------------------------------------------------
+   Kontakt na naslovnici — podaci lijevo u karticama, obrazac u panelu desno.
+   ------------------------------------------------------------------ */
+.contact{--panel-pad:clamp(28px,3.4vw,56px);padding:clamp(56px,7vw,104px) 0}
+.contact-in{max-width:1200px;margin:0 auto;padding:0 20px;
+  display:grid;gap:clamp(40px,5vw,72px)}
+@media (min-width:1024px){.contact-in{padding:0 32px;grid-template-columns:1fr .85fr;align-items:start}
+  /* lijevi stupac se spušta za padding panela, da naslovi stoje u istoj liniji */
+  .contact-info{padding-top:var(--panel-pad)}}
+@media (min-width:1536px){.contact-in{max-width:1450px}}
+
+/* nadnaslov i naslov, isti u oba stupca */
+.contact-kicker{display:flex;align-items:center;gap:14px;
+  font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#7E6133}
+.contact-kicker-rule{width:40px;height:1px;background:#B08D57}
+.contact-heading{margin:14px 0 0}
+.contact-lead{margin:22px 0 0;font-size:17px;line-height:1.6;color:#3B3A36;max-width:46ch}
+
+/* lijevo — dvije skupine podataka, bez okvira i bez crte */
+.contact-groups{margin-top:clamp(30px,3.2vw,44px);display:grid;gap:clamp(26px,3vw,44px)}
+@media (min-width:560px){.contact-groups{grid-template-columns:1fr 1fr}}
+.contact-group-label{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:#7E6133}
+.contact-group-label svg{width:16px;height:16px;flex:0 0 auto;color:#9A7740}
+.contact-group-value{margin:14px 0 0;font-family:var(--font-display);
+  font-size:clamp(21px,1.9vw,24px);line-height:1.5;color:#0F1B2D}
+.contact-group-value a{display:block;color:#0F1B2D;text-decoration:none;transition:color .2s}
+.contact-group-value a:hover{color:#7E6133}
+
+/* desno — panel s obrascem */
+.contact-panel{padding:var(--panel-pad);border-radius:2px;background:#F5F1E9}
+.contact-form{margin-top:clamp(26px,3vw,38px);display:grid;gap:4px 24px}
+@media (min-width:560px){.contact-form{grid-template-columns:1fr 1fr}}
+.contact-field{min-width:0}
+.contact-field--wide{grid-column:1/-1}
+.contact-field input,.contact-field textarea{width:100%;background:transparent;border:0;
+  border-bottom:1px solid #CFC7B8;border-radius:0;padding:16px 2px;
+  font-family:inherit;font-size:15px;color:#1C1B19;outline:0;transition:border-color .2s}
+.contact-field textarea{resize:vertical;min-height:112px}
+.contact-field input::placeholder,.contact-field textarea::placeholder{color:#7D766A}
+.contact-field input:focus,.contact-field textarea:focus{border-bottom-color:#0F1B2D}
+.contact-field input.is-error,.contact-field textarea.is-error{border-bottom-color:#9B3B2E}
+.contact-error{margin:6px 0 0;font-size:13px;color:#9B3B2E}
+.contact-consent{display:flex;align-items:flex-start;gap:12px;min-height:44px;margin-top:18px;
+  font-size:14px;line-height:1.55;color:#3B3A36;cursor:pointer}
+.contact-consent input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:#0F1B2D}
+.contact-form .btn-split{margin-top:10px}
+
+/* desno — stanje nakon slanja */
+.contact-done{padding:clamp(24px,3vw,40px) 0;text-align:center}
+.contact-done .contact-heading{margin-top:18px}
+.contact-done .contact-lead{margin:12px auto 30px;max-width:34ch}
+.contact-done-mark{width:40px;height:40px;color:#3F6B4E}
+
+/* Naslov sekcije — jedini zapis, isti na cijeloj stranici */
+/* bez margin:0 — Tailwindov preflight već nulira naslove, a ovdje bi gazio
+   pomoćne klase tipa mb-7 i mt-5 jer je ovaj CSS izvan cascade layera */
+.section-heading{font-family:var(--font-display);font-weight:400;
+  font-size:clamp(28px,3vw,38px);line-height:1.15;letter-spacing:.01em;text-transform:uppercase;
+  color:#0F1B2D;text-wrap:balance}
+.section-heading--light{color:#FBF9F5}
+/* u užim stupcima naslov ostaje na 28px */
+.section-heading--sm{font-size:28px}
+
+/* ------------------------------------------------------------------
+   Zaglavlje preko hera — prozirno dok je stranica na vrhu.
+   Visina zaglavlja: mobitel 68px, desktop 40px (gornja traka) + 88px.
+   ------------------------------------------------------------------ */
+/* visina uključuje i donju crtu zaglavlja (1px), inače hero ostane 1px prenisko
+   i kroz prozirno zaglavlje se vidi svijetla pozadina stranice */
+:root{--header-h:69px}
+@media (min-width:1024px){:root{--header-h:129px}}
+
+.site-header__top,.site-header__bar{transition:background-color .3s,border-color .3s}
+
+/* vrh stranice: bez podloge, svijetli tekst. Otvoren izbornik vraća punu podlogu. */
+.site-header--overlay:not(.is-scrolled):not(.is-open) .site-header__top{background:transparent}
+.site-header--overlay:not(.is-scrolled):not(.is-open) .site-header__bar{background:transparent;border-bottom-color:transparent}
+.site-header--overlay:not(.is-scrolled):not(.is-open) .site-header__row
+  :where(a,button,span,svg):not(.btn-split):not(.btn-split *){color:#FBF9F5}
+
+/* Traka područja: ispod 1600px blok je niži, iznad ostaje pun.
+   Granica je namjerno iznad Tailwindovog 2xl (1536px), da obuhvati i ekrane od 1536.
+   Visinu diktira min-height panela, a .pa-intro se na nju rasteže.
+   Donja granica 769px drži mobilni raspored (296px) netaknutim. */
+@media (min-width:769px) and (max-width:1599px){
+  .pa-panel{min-height:clamp(380px,calc(46vw - 150px),630px)}
+}
+
+/* Logotip — serif */
+.wordmark{font-family:var(--font-serif)}
