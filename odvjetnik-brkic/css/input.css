@@ -414,15 +414,17 @@ a.link-arrow--navy:hover{color:#7E6133}
    (Zadar 21%, ured 33%, nekretnine 50% zasicenosti), a mjerenje pokazuje da
    siva ne donosi ni citljivost: znamenka je 5.88:1 ovako i onako. */
 .step-img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;
-  filter:contrast(1.04) brightness(.88)}
+  filter:contrast(1.04)}
 /* Na sve tri slike glavni predmet sjedi u donjoj polovici, pa tekst stoji
-   gore. Veo je zato tezak do 50% visine, popusta preko subjekta i pri dnu se
-   blago vrati. Dodatni kut dolje desno nosi samo znamenku: bez njega padne na
-   1,79:1 na mapi predmeta, jer je ondje osvijetljeno drvo. */
+   gore. Veo je tezak tocno dokle ide tekst, a ispod njega gotovo nestane —
+   .08 umjesto ranijih .30 — da se slika uopce vidi. Tamnjenje slike (.88) je
+   izbaceno iz istog razloga; kadrovi su i sami niskog kljuca.
+   Kut dolje desno nosi samo znamenku. Mora biti sirok (95%, ne 52%): uzi kut
+   ne stigne pod gornji lijevi ugao znamenke i ondje padne na 2,5:1. */
 .step::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(ellipse 52% 52% at 100% 100%,rgba(11,20,34,.50) 0%,rgba(11,20,34,0) 100%),
-    linear-gradient(to bottom,rgba(11,20,34,.94) 0%,rgba(11,20,34,.82) var(--veo),
-      rgba(11,20,34,.30) calc(var(--veo) + 18%),rgba(11,20,34,.52) 100%)}
+  background:radial-gradient(ellipse 95% 95% at 100% 100%,rgba(11,20,34,.88) 0%,rgba(11,20,34,0) 100%),
+    linear-gradient(to bottom,rgba(11,20,34,.92) 0%,rgba(11,20,34,.80) var(--veo),
+      rgba(11,20,34,.08) calc(var(--veo) + 16%),rgba(11,20,34,.14) 100%)}
 /* Na uskoj kartici (tri stupca ispod 1200px kartica padne na 275px) tekst
    ide do 67% visine umjesto do 45%, pa veo mora sici s njim: na 54% bi
    zadnji redak pao na 2,85:1. */
