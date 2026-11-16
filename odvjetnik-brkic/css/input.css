@@ -395,8 +395,9 @@ a.link-arrow--navy:hover{color:#7E6133}
 .steps-row{margin:clamp(40px,4.6vw,66px) 0 0;padding:0;list-style:none;
   display:grid;gap:clamp(20px,2vw,28px)}
 
-.step{position:relative;isolation:isolate;overflow:hidden;border-radius:2px;
-  aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:flex-end;
+.step{--veo:54%;
+  position:relative;isolation:isolate;overflow:hidden;border-radius:2px;
+  aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:flex-start;
   padding:clamp(24px,2.4vw,34px);background:#16263D}
 /* Kvadrat bi u jednom stupcu narastao na punu sirinu (713x713 na 768px),
    pa je ogranicen i centriran. Tri stupca krecu tek na 920px: na 860px je
@@ -408,20 +409,29 @@ a.link-arrow--navy:hover{color:#7E6133}
   .steps-row{grid-template-columns:repeat(3,1fr)}
   .step{max-width:none;margin-inline:0}
 }
-/* Fotografija ide ovdje kad stigne; crno-bijela, da tri kadra iz tri izvora
-   ne počnu šarati jedan uz drugi. */
+/* Tri kadra su iz jednog seta — isti stol, isti prozor, isti ton — pa im
+   siva nije potrebna da se drže zajedno. Ostatak stranice je ionako u boji
+   (Zadar 21%, ured 33%, nekretnine 50% zasicenosti), a mjerenje pokazuje da
+   siva ne donosi ni citljivost: znamenka je 5.88:1 ovako i onako. */
 .step-img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;
-  filter:grayscale(1) contrast(1.04) brightness(.88)}
+  filter:contrast(1.04) brightness(.88)}
+/* Na sve tri slike glavni predmet sjedi u donjoj polovici, pa tekst stoji
+   gore. Veo je zato tezak do 50% visine, popusta preko subjekta i pri dnu se
+   blago vrati. Dodatni kut dolje desno nosi samo znamenku: bez njega padne na
+   1,79:1 na mapi predmeta, jer je ondje osvijetljeno drvo. */
 .step::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(to top,rgba(11,20,34,.93) 0%,rgba(11,20,34,.78) 34%,
-    rgba(11,20,34,.24) 62%,rgba(11,20,34,.50) 100%)}
-/* Prazno mjesto se označava, ne popunjava — ide van čim stignu slike. */
-.step-slot{position:absolute;top:clamp(18px,1.8vw,26px);left:clamp(20px,2vw,30px);z-index:1;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.06em;
-  color:rgba(211,218,228,.6)}
-.step-no{position:absolute;top:clamp(10px,1.2vw,18px);right:clamp(20px,2vw,30px);z-index:1;
+  background:radial-gradient(ellipse 52% 52% at 100% 100%,rgba(11,20,34,.50) 0%,rgba(11,20,34,0) 100%),
+    linear-gradient(to bottom,rgba(11,20,34,.94) 0%,rgba(11,20,34,.82) var(--veo),
+      rgba(11,20,34,.30) calc(var(--veo) + 18%),rgba(11,20,34,.52) 100%)}
+/* Na uskoj kartici (tri stupca ispod 1200px kartica padne na 275px) tekst
+   ide do 67% visine umjesto do 45%, pa veo mora sici s njim: na 54% bi
+   zadnji redak pao na 2,85:1. */
+@media (min-width:920px) and (max-width:1199px){.step{--veo:70%}}
+/* Prozirna mjed radi samo nad tamnim: na dnu slike potamni zajedno s podlogom
+   i zaustavi se oko 3:1 koliko god se veo pojacavao. Zato puna, svijetla mjed. */
+.step-no{position:absolute;bottom:clamp(12px,1.3vw,20px);right:clamp(20px,2vw,30px);z-index:1;
   font-family:var(--font-display);font-variant-numeric:tabular-nums;font-weight:400;
-  font-size:clamp(46px,4.6vw,76px);line-height:1;letter-spacing:-.02em;color:rgba(198,167,116,.82)}
+  font-size:clamp(46px,4.6vw,76px);line-height:1;letter-spacing:-.02em;color:#E6D6BA}
 .step-body{position:relative;z-index:1}
 .step-name{margin:0;font-family:var(--font-display);font-weight:400;text-transform:uppercase;
   font-size:clamp(20px,1.7vw,26px);line-height:1.16;letter-spacing:.01em;color:#FBF9F5;text-wrap:balance}

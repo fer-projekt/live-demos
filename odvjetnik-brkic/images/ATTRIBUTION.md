@@ -20,6 +20,24 @@ Izvorna je samo 1536 px široka, a traka se na širokom ekranu rasteže preko 19
 i više. Pod velom i iza ploče to se ne primjećuje, ali ako slika ikad izađe
 iz pozadine, treba je pregenerirati u većoj rezoluciji.
 
+## korak-poziv.webp, korak-sastanak.webp, korak-predmet.webp — u uporabi, tri koraka na naslovnici (generirane)
+
+Generirano (ChatGPT, 15.–16. 11. 2026.), izvornici 1254×1254 stoje u `AI Images/`:
+`Reaching for the Silent Telephone-2.png`, `Business Handshake by the Window-1.png`,
+`Leather Binder on a Sunlit Desk-3.png`. Izvezeno na 900×900 WebP, oko 35 kB po slici.
+
+**Nisu fotografije ovog ureda.** Nijedna ne prikazuje Široku 14 ni nositelja ureda;
+to je i razlog zašto ni na jednoj nema lica — ruka i rukav ne tvrde čiji su.
+Ako ured dostavi vlastite fotografije sastanka ili prostora, ove tri se mijenjaju.
+
+Tri kadra su iz jednog seta (isti stol, isti prozor, isto svjetlo), pa stoje
+jedan uz drugi bez pretvaranja u sivo. Ostatak stranice je u boji — izmjerena
+zasićenost: Zadar 21,5 %, ured 32,9 %, nekretnine 50,3 %.
+
+**Gornji desni kut mora ostati taman.** Ondje stoji mjedena znamenka 01/02/03
+od `rgba(198,167,116,.82)`. Na ovom izboru najgori je slučaj 5,69:1; nad svijetlim
+kutom pada na 1,88:1. Ako se koja slika zamijeni, taj kut treba premjeriti.
+
 ## hero-zadar.webp — u uporabi, hero naslovnice (Crkva sv. Donata, Zadar)
 
 - **Autor:** Alexander Migl
