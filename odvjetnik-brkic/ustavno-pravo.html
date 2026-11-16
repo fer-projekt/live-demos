@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="css/output.css?v=75">
+<link rel="stylesheet" href="css/output.css?v=81">
 <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
 <body class="bg-ivory-50 font-sans text-ink-700 text-base leading-[1.65] antialiased min-h-screen flex flex-col">
@@ -30,27 +30,30 @@
         <a href="index.html" class="relative py-2 text-[13px] font-semibold uppercase tracking-[.14em] text-navy-900 hover:text-gold-700 transition-colors">Naslovnica</a>
         <div class="relative" @mouseenter="drop=true" @mouseleave="drop=false">
           <button type="button" @click="drop=!drop" :aria-expanded="drop" aria-haspopup="true" class="relative flex items-center gap-2 py-2 text-[13px] font-semibold uppercase tracking-[.14em] text-navy-900 hover:text-gold-700 transition-colors">Područja prakse<svg aria-hidden="true" class="inline-block shrink-0 w-3.5 h-3.5 text-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg><span class="absolute inset-x-0 bottom-0 h-px bg-gold-500"></span></button>
-          <div x-show="drop" x-cloak x-transition.opacity.duration.200ms class="absolute top-full left-1/2 -translate-x-1/2 pt-3.5 w-[620px]">
-            <div class="bg-white border border-stone-200 rounded-xs shadow-overlay px-8 py-7">
-              <div class="grid grid-cols-2 gap-x-8">
-                <a href="kazneno-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Kazneno pravo</a>
-                <a href="prekrsajno-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Prekršajno pravo</a>
-                <a href="ustavno-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Ustavno pravo</a>
-                <a href="gradjansko-i-obiteljsko-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Građansko i obiteljsko pravo</a>
-                <a href="nasljedno-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Nasljedno pravo</a>
-                <a href="radno-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Radno pravo</a>
-                <a href="upravno-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Upravno pravo</a>
-                <a href="zemljisnoknjizno-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Zemljišnoknjižno pravo</a>
-                <a href="ovrsno-pravo.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Ovršno pravo</a>
-                <a href="ugovori.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Ugovori</a>
-                <a href="nekretnine.html" class="block py-2 border-b border-stone-200 text-[15px] text-navy-900 hover:text-gold-700">Pravni aspekti poslovanja s nekretninama</a>
+          <div x-show="drop" x-cloak x-transition.opacity.duration.200ms class="nav-drop absolute top-full left-1/2 -translate-x-1/2 pt-3.5">
+            <div class="nav-drop__panel">
+              <div class="nav-drop__aside">
+                <p class="nav-drop__note">Jedanaest područja u kojima ured vodi predmete.</p>
+                <a href="podrucja-prakse.html" class="link-arrow link-arrow--sm nav-drop__all"><span class="link-arrow__text">Pregled svih područja</span><svg class="link-arrow__mark" viewBox="0 0 30 21" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M.6 10.5h28"/><path d="M20.6 2.6 28.6 10.5 20.6 18.4"/></svg></a>
               </div>
-              <a href="podrucja-prakse.html" class="link-arrow link-arrow--sm mt-5"><span class="link-arrow__text">Pregled svih područja</span><svg class="link-arrow__mark" viewBox="0 0 30 21" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M.6 10.5h28"/><path d="M20.6 2.6 28.6 10.5 20.6 18.4"/></svg></a>
+              <div class="nav-drop__grid">
+                <a class="nav-drop__link" href="kazneno-pravo.html">Kazneno pravo</a>
+                <a class="nav-drop__link" href="prekrsajno-pravo.html">Prekršajno pravo</a>
+                <a class="nav-drop__link" href="ustavno-pravo.html">Ustavno pravo</a>
+                <a class="nav-drop__link" href="gradjansko-i-obiteljsko-pravo.html">Građansko i obiteljsko pravo</a>
+                <a class="nav-drop__link" href="nasljedno-pravo.html">Nasljedno pravo</a>
+                <a class="nav-drop__link" href="radno-pravo.html">Radno pravo</a>
+                <a class="nav-drop__link" href="upravno-pravo.html">Upravno pravo</a>
+                <a class="nav-drop__link" href="zemljisnoknjizno-pravo.html">Zemljišnoknjižno pravo</a>
+                <a class="nav-drop__link" href="ovrsno-pravo.html">Ovršno pravo</a>
+                <a class="nav-drop__link" href="ugovori.html">Ugovori</a>
+                <a class="nav-drop__link" href="nekretnine.html">Pravni aspekti poslovanja s nekretninama</a>
+              </div>
             </div>
           </div>
         </div>
         <a href="kontakt.html" class="relative py-2 text-[13px] font-semibold uppercase tracking-[.14em] text-navy-900 hover:text-gold-700 transition-colors">Kontakt</a>
-        <a href="kontakt.html" class="btn-split btn-split--navy btn-split--sm"><span class="btn-split__mark" aria-hidden="true"></span><span class="btn-split__label">Zatražite savjet</span></a>
+        <a href="kontakt.html" class="btn-split btn-split--navy btn-split--sm"><span class="btn-split__mark" aria-hidden="true"></span><span class="btn-split__label">Zatražite savjet<span class="btn-split__fill" aria-hidden="true">Zatražite savjet</span></span></a>
       </nav>
       <div class="flex lg:hidden items-center gap-0.5 -mr-2.5">
         <a href="tel:+38523250573" aria-label="Nazovite ured" class="flex items-center justify-center w-11 h-11"><svg aria-hidden="true" class="inline-block shrink-0 w-5 h-5 text-navy-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
@@ -74,7 +77,7 @@
         <a href="nekretnine.html" class="flex items-center min-h-[44px] text-base text-ink-700">Pravni aspekti poslovanja s nekretninama</a>
       </div>
       <a href="kontakt.html" class="flex items-center min-h-[52px] border-y border-stone-200 text-[13px] font-semibold uppercase tracking-[.14em] text-navy-900">Kontakt</a>
-      <div class="flex flex-col gap-3 mt-6"><a href="tel:+38523250573" class="btn-split btn-split--navy btn-split--block"><span class="btn-split__mark" aria-hidden="true"></span><span class="btn-split__label">Nazovite +385 (0)23 250 573</span></a><a href="mailto:ivebrkic@yahoo.com" class="btn-split btn-split--outline btn-split--block"><span class="btn-split__mark" aria-hidden="true"></span><span class="btn-split__label">Pošaljite e-mail</span></a></div>
+      <div class="flex flex-col gap-3 mt-6"><a href="tel:+38523250573" class="btn-split btn-split--navy btn-split--block"><span class="btn-split__mark" aria-hidden="true"></span><span class="btn-split__label">Nazovite +385 (0)23 250 573<span class="btn-split__fill" aria-hidden="true">Nazovite +385 (0)23 250 573</span></span></a><a href="mailto:ivebrkic@yahoo.com" class="btn-split btn-split--outline btn-split--block"><span class="btn-split__mark" aria-hidden="true"></span><span class="btn-split__label">Pošaljite e-mail<span class="btn-split__fill" aria-hidden="true">Pošaljite e-mail</span></span></a></div>
     </nav>
   </div>
 </header>
@@ -109,7 +112,7 @@
         <a href="tel:+38523250573" class="flex items-center gap-3.5 min-h-[52px] border-t border-ivory-50/20 text-[17px] text-ivory-50 hover:text-gold-400"><svg aria-hidden="true" class="inline-block shrink-0 w-[18px] h-[18px] text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+385 (0)23 250 573</a>
         <a href="tel:+38598831582" class="flex items-center gap-3.5 min-h-[52px] border-t border-ivory-50/20 text-[17px] text-ivory-50 hover:text-gold-400"><svg aria-hidden="true" class="inline-block shrink-0 w-[18px] h-[18px] text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>+385 (0)98 831 582</a>
         <a href="mailto:ivebrkic@yahoo.com" class="flex items-center gap-3.5 min-h-[52px] border-t border-ivory-50/20 text-[17px] text-ivory-50 hover:text-gold-400 border-b mb-7"><svg aria-hidden="true" class="inline-block shrink-0 w-[18px] h-[18px] text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>ivebrkic@yahoo.com</a>
-        <a href="kontakt.html" class="btn-split btn-split--block"><span class="btn-split__mark" aria-hidden="true"></span><span class="btn-split__label">Pošaljite upit</span></a>
+        <a href="kontakt.html" class="btn-split btn-split--block"><span class="btn-split__mark" aria-hidden="true"></span><span class="btn-split__label">Pošaljite upit<span class="btn-split__fill" aria-hidden="true">Pošaljite upit</span></span></a>
       </aside>
     </div>
   </section>
