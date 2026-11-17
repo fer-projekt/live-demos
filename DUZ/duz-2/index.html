@@ -336,7 +336,8 @@
      </div>
 
       <div class="relative bleed-r">
-        <div x-show="region === 'dubrovnik'" class="relative w-full" style="container-type:inline-size">
+        <div x-show="region === 'dubrovnik'">
+        <div class="relative w-full" style="container-type:inline-size">
           <img src="assets/map/city-map.png" alt="Ilustrirana karta staroga grada Dubrovnika" class="block w-full h-auto select-none" draggable="false" />
 
           <img src="assets/map/city-map-walls.png" alt="" aria-hidden="true" draggable="false"
@@ -397,7 +398,7 @@
 
           <template x-for="e in entrances" x-bind:key="'enm'+e.id">
             <div class="md:hidden absolute grid place-items-center rounded-full text-ink text-[10px] font-semibold border"
-                 x-bind:style="'left:'+e.x+'%;top:'+e.y+'%;width:18px;height:18px;transform:translate(-50%,-50%);z-index:25;border-color:'+e.c+';background:'+(e.i ? '#fff' : e.c)" x-text="e.i"></div>
+                 x-bind:style="'left:'+e.x+'%;top:max(11px,'+e.y+'%);width:18px;height:18px;transform:translate(-50%,-50%);z-index:25;border-color:'+e.c+';background:'+(e.i ? '#fff' : e.c)" x-text="e.i"></div>
           </template>
 
           <template x-for="p in pins" x-bind:key="'md'+p.i">
@@ -406,6 +407,7 @@
                     x-bind:class="cityOn===p.i ? 'bg-gold' : 'bg-mist'"
                     x-on:click="cityOn = cityOn===p.i ? null : p.i" x-bind:aria-label="p.n"></button>
           </template>
+        </div>
 
           <div class="md:hidden flex flex-wrap gap-2 mt-4">
             <template x-for="p in pins" x-bind:key="'mp'+p.i">
