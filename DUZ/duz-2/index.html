@@ -377,24 +377,27 @@
             </div>
           </template>
 
-          <template x-for="e in entrances" x-bind:key="'en'+e.i">
+          <template x-for="e in entrances" x-bind:key="'en'+e.id">
             <div class="hidden md:block absolute z-[35]" x-bind:style="'left:'+e.x+'%;top:'+e.y+'%'">
               <div class="absolute whitespace-nowrap bg-white text-ink flex items-center shadow-[0_10px_30px_rgba(0,0,0,.18)] cursor-default"
-                   x-bind:style="'bottom:0.05em;transform:translateX(-'+e.tail+'%);font-size:clamp(10px,1.08cqw,13px);padding:0.55em 1.2em 0.55em 0.6em;gap:0.7em'">
-                <span class="grid place-items-center shrink-0 rounded-full bg-[#1FD11F] font-semibold" style="width:1.7em;height:1.7em" x-text="e.i"></span>
+                   x-bind:style="(e.side ? 'left:0.75em;top:50%;transform:translateY(-50%);' : 'bottom:0.05em;transform:translateX(-'+e.tail+'%);') + 'font-size:clamp(10px,1.08cqw,13px);padding:0.55em 1.2em 0.55em 0.6em;gap:0.7em'">
+                <span class="grid place-items-center shrink-0 rounded-full font-semibold" x-bind:style="'width:1.7em;height:1.7em;background:'+e.c" x-text="e.i"></span>
                 <span class="block w-px self-stretch bg-ink/15"></span>
                 <span class="block leading-tight">
                   <span class="block uppercase tracking-[.12em] text-ink/50" style="font-size:.78em">Ulaz</span>
                   <span class="block font-semibold" x-text="e.n"></span>
                 </span>
-                <span class="absolute top-full bg-white" x-bind:style="'left:'+e.tail+'%;width:1.15em;height:0.75em;transform:translateX(-50%);clip-path:polygon(0 0,100% 0,50% 100%)'"></span>
+                <span class="absolute bg-white" x-bind:class="e.side ? '' : 'top-full'"
+                      x-bind:style="e.side
+                        ? 'right:100%;top:50%;width:0.75em;height:1.15em;transform:translateY(-50%);clip-path:polygon(100% 0,0 50%,100% 100%)'
+                        : 'left:'+e.tail+'%;width:1.15em;height:0.75em;transform:translateX(-50%);clip-path:polygon(0 0,100% 0,50% 100%)'"></span>
               </div>
             </div>
           </template>
 
-          <template x-for="e in entrances" x-bind:key="'enm'+e.i">
-            <div class="md:hidden absolute grid place-items-center rounded-full bg-white text-ink text-[10px] font-semibold border border-ink/25"
-                 x-bind:style="'left:'+e.x+'%;top:'+e.y+'%;width:18px;height:18px;transform:translate(-50%,-50%);z-index:25'" x-text="e.i"></div>
+          <template x-for="e in entrances" x-bind:key="'enm'+e.id">
+            <div class="md:hidden absolute grid place-items-center rounded-full text-ink text-[10px] font-semibold border"
+                 x-bind:style="'left:'+e.x+'%;top:'+e.y+'%;width:18px;height:18px;transform:translate(-50%,-50%);z-index:25;border-color:'+e.c+';background:'+(e.i ? '#fff' : e.c)" x-text="e.i"></div>
           </template>
 
           <template x-for="p in pins" x-bind:key="'md'+p.i">
@@ -414,10 +417,10 @@
           </div>
 
           <div class="md:hidden mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-            <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Ulazi na zidine</span>
-            <template x-for="e in entrances" x-bind:key="'enl'+e.i">
+            <span class="text-[11px] uppercase tracking-[.16em] text-ink/45">Ulazi</span>
+            <template x-for="e in entrances" x-bind:key="'enl'+e.id">
               <span class="flex items-center gap-1.5 text-[12px] text-ink/70">
-                <span class="grid place-items-center w-4 h-4 rounded-full bg-[#1FD11F] text-ink text-[10px] font-semibold" x-text="e.i"></span>
+                <span class="grid place-items-center w-4 h-4 rounded-full text-ink text-[10px] font-semibold" x-bind:style="'background:'+e.c" x-text="e.i"></span>
                 <span x-text="e.n"></span>
               </span>
             </template>
@@ -766,12 +769,13 @@
       pins: [
       { i:0, n:'Gradske zidine',    k:'Dubrovnik', en:'City Walls',         x:70.5, y:22,   tail:22, img:'assets/map/city-walls.png',     photo:'assets/foto-gradske-zidine.jpg',  d:'Dva kilometra neprekinutog obrambenog prstena oko staroga grada.', dist:'Ulaz Pile · u starom gradu',        href:'lokalitet-gradske-zidine.html' },
       { i:2, n:'Tvrđava Lovrjenac', k:'Dubrovnik', en:'Lovrjenac Fortress', x:6.8,  y:48,   tail:18, img:'assets/map/city-lovrjenac.png', photo:'assets/foto-lovrjenac.jpg',       d:'Tvrđava na 37 metara visokoj litici zapadno od zidina.',           dist:'5 min hoda od vrata Pile',          href:'lokalitet-lovrjenac.html' },
-      { i:1, n:'Zapadno predziđe',  k:'Dubrovnik', en:'Western Outer Wall', sub:'Ulaz', side:true, x:45.5, y:3.3,  tail:100, img:'assets/map/city-predzide.png',  photo:'assets/foto-zapadno-predzide.jpg', d:'Vanjski obrambeni pojas pred vratima od Pila.',      dist:'Uz zapadni ulaz na zidine',         href:'lokalitet-zapadno-predzide.html' }
+      { i:1, n:'Zapadno predziđe',  k:'Dubrovnik', en:'Western Outer Wall', side:true, x:45.5, y:3.3,  tail:100, img:'assets/map/city-predzide.png',  photo:'assets/foto-zapadno-predzide.jpg', d:'Vanjski obrambeni pojas pred vratima od Pila.',      dist:'Uz zapadni ulaz na zidine',         href:'lokalitet-zapadno-predzide.html' }
       ],
       entrances: [
-      { i:1, n:'Sv. Spas', en:'St. Saviour', x:34.9, y:32.3, tail:8 },
-      { i:2, n:'Sv. Luka', en:'St. Luke',    x:78.1, y:34.5, tail:20 },
-      { i:3, n:'Sv. Ivan', en:'St. John',    x:84.2, y:69.3, tail:20 }
+      { id:'spas', i:1,  n:'Sv. Spas',          en:'St. Saviour',       c:'#1FD11F', x:34.9, y:32.3, tail:8 },
+      { id:'luka', i:2,  n:'Sv. Luka',          en:'St. Luke',          c:'#1FD11F', x:78.1, y:34.5, tail:20 },
+      { id:'ivan', i:3,  n:'Sv. Ivan',          en:'St. John',          c:'#1FD11F', x:84.2, y:69.3, tail:20 },
+      { id:'pred', i:'', n:'Zapadno predziđe',  en:'Western Outer Wall', c:'#36C3F2', x:49.4, y:3.1, tail:0, side:true }
       ],
       spots: [
       { i:0, l:28, t:4,  w:64, h:94, z:10 },
