@@ -381,16 +381,20 @@
           <template x-for="e in entrances" x-bind:key="'en'+e.id">
             <div class="hidden md:block absolute z-[35]" x-bind:style="'left:'+e.x+'%;top:'+e.y+'%'">
               <div class="absolute whitespace-nowrap bg-white text-ink flex items-center shadow-[0_10px_30px_rgba(0,0,0,.18)] cursor-default"
-                   x-bind:style="(e.side ? 'left:0.75em;top:50%;transform:translateY(-50%);' : 'bottom:0.05em;transform:translateX(-'+e.tail+'%);') + 'font-size:clamp(10px,1.08cqw,13px);padding:0.55em 1.2em 0.55em 0.6em;gap:0.7em'">
+                   x-bind:style="(e.side ? 'left:0.75em;top:50%;transform:translateY(-50%);'
+                                 : e.down ? 'top:0.75em;transform:translateX(-'+e.tail+'%);'
+                                 : 'bottom:0.05em;transform:translateX(-'+e.tail+'%);') + 'font-size:clamp(10px,1.08cqw,13px);padding:0.55em 1.2em 0.55em 0.6em;gap:0.7em'">
                 <span class="grid place-items-center shrink-0 rounded-full font-semibold" x-bind:style="'width:1.7em;height:1.7em;background:'+e.c" x-text="e.i"></span>
                 <span class="block w-px self-stretch bg-ink/15"></span>
                 <span class="block leading-tight">
                   <span class="block uppercase tracking-[.12em] text-ink/50" style="font-size:.78em">Ulaz</span>
                   <span class="block font-semibold" x-text="e.n"></span>
                 </span>
-                <span class="absolute bg-white" x-bind:class="e.side ? '' : 'top-full'"
+                <span class="absolute bg-white" x-bind:class="(e.side || e.down) ? '' : 'top-full'"
                       x-bind:style="e.side
                         ? 'right:100%;top:50%;width:0.75em;height:1.15em;transform:translateY(-50%);clip-path:polygon(100% 0,0 50%,100% 100%)'
+                        : e.down
+                        ? 'bottom:100%;left:'+e.tail+'%;width:1.15em;height:0.75em;transform:translateX(-50%);clip-path:polygon(50% 0,0 100%,100% 100%)'
                         : 'left:'+e.tail+'%;width:1.15em;height:0.75em;transform:translateX(-50%);clip-path:polygon(0 0,100% 0,50% 100%)'"></span>
               </div>
             </div>
@@ -774,10 +778,10 @@
       { i:1, n:'Zapadno predziđe',  k:'Dubrovnik', en:'Western Outer Wall', side:true, x:45.5, y:3.3,  tail:100, img:'assets/map/city-predzide.png',  photo:'assets/foto-zapadno-predzide.jpg', d:'Vanjski obrambeni pojas pred vratima od Pila.',      dist:'Uz zapadni ulaz na zidine',         href:'lokalitet-zapadno-predzide.html' }
       ],
       entrances: [
-      { id:'spas', i:1,  n:'Sv. Spas',          en:'St. Saviour',       c:'#1FD11F', x:34.9, y:32.3, tail:8 },
+      { id:'spas', i:1,  n:'Sv. Spas',          en:'St. Saviour',       c:'#1FD11F', x:36.3, y:32.3, tail:8 },
       { id:'luka', i:2,  n:'Sv. Luka',          en:'St. Luke',          c:'#1FD11F', x:78.1, y:34.5, tail:20 },
       { id:'ivan', i:3,  n:'Sv. Ivan',          en:'St. John',          c:'#1FD11F', x:84.2, y:69.3, tail:20 },
-      { id:'pred', i:4,  n:'Zapadno predziđe',  en:'Western Outer Wall', c:'#1FD11F', x:49.4, y:3.1, tail:0, side:true }
+      { id:'pred', i:4,  n:'Zapadno predziđe',  en:'Western Outer Wall', c:'#1FD11F', x:47.6, y:6.0, tail:8, down:true }
       ],
       spots: [
       { i:0, l:28, t:4,  w:64, h:94, z:10 },
